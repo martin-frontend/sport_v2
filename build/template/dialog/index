@@ -1,0 +1,12 @@
+import DialogMount from "@/core/global/DialogMount";
+import getProxy from "@/core/global/getProxy";
+import ${className}Proxy from "./proxy/${className}Proxy";
+import ${className} from "./views/${className}.vue";
+
+function show() {
+    DialogMount(${className});
+    const proxy: ${className}Proxy = getProxy(${className}Proxy);
+    proxy.pageData.bShow = true;
+}
+
+export default { show };

@@ -1,0 +1,20 @@
+import Http from "@/core/Http";
+import Utils from "@/core/Utils";
+import net from "./setting";
+import { vo } from "./vo";
+/**
+ * ${description}
+ */
+export default class cmd_${pName} extends puremvc.SimpleCommand {
+    execute(notification: puremvc.INotification) {
+        const body = notification.getBody() || {};
+        const url = Utils.getUrl(net.HttpType.${pName}, body);
+        Http.post(url, body).then(<any>this.response.bind(this));
+    }
+
+    private response(result: vo.ResponseVO) {
+        if (result.status === 0) {
+            this.sendNotification(net.EventType.${pName}, result.data, result.unique);
+        }
+    }
+}

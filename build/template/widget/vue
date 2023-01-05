@@ -1,0 +1,10 @@
+<template src="./${className}.vue.html" lang="html"></template>
+<style src="./${className}.vue.scss" lang="scss" scoped></style>
+
+<script lang="ts">
+import Component from "vue-class-component";
+import ${className} from "./${className}";
+
+@Component
+export default class extends ${className} {}
+</script>

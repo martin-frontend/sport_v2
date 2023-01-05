@@ -1,0 +1,7 @@
+function show() {
+    //@ts-ignore
+    const $router = window["vm"].$router;
+    $router.push("/${moduleName}");
+}
+
+export default { show };

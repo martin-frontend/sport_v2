@@ -1,0 +1,5 @@
+<notifications group="message" class="notify-message" animation-type="velocity" :animation="animation" position="bottom center">
+    <template slot="body" slot-scope="{ item, close }">
+        <v-sheet class="my-1 text-center">{{item.title}}</v-sheet>
+    </template>
+</notifications>

@@ -1,0 +1,20 @@
+import AbstractView from "@/core/abstract/AbstractView";
+import { Watch, Component } from "vue-property-decorator";
+import ${className}Mediator from "../mediator/${className}Mediator";
+import ${className}Proxy from "../proxy/${className}Proxy";
+import LangUtil from "@/core/global/LangUtil";
+
+@Component
+export default class ${className} extends AbstractView {
+    LangUtil = LangUtil;
+    myProxy: ${className}Proxy = this.getProxy(${className}Proxy);
+    pageData = this.myProxy.pageData;
+
+    constructor() {
+        super(${className}Mediator);
+    }
+
+    destroyed() {
+        super.destroyed();
+    }
+}

@@ -1,0 +1,12 @@
+export default class ${className}Proxy extends puremvc.Proxy {
+    static NAME = "${className}Proxy";
+
+    public onRegister(): void {
+        this.pageData.loading = true;
+        // TODO 请求初始数据
+    }
+
+    pageData = {
+        loading: false,
+    };
+}

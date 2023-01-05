@@ -1,0 +1,36 @@
+{
+    "document": "http://18.167.151.206:8090/pages/viewpage.action?pageId=11076347",
+    "list": [
+        ["api/menu/subnav",             "左边菜单"],
+        ["api/menu/nav",                "顶部菜单"],
+        ["api/event/index",             "赛事接口"],
+        ["api/user/placebet",           "投注接口"],
+        ["api/user/info",               "取得用户基本讯息"],
+        ["api/user/orders",             "投注纪录"],
+        ["api/user/lovematch",          "最爱赛事列表"],
+        ["api/user/love",               "添加/删除最爱赛事"],
+        ["api/event/single",            "单项赛事"],
+        ["api/marquee/index",            "跑马灯"],
+        ["api/event/hot",               "热门赛事"],
+        ["api/user/set_user_setting",           "前台客製化選項-设定接口"],
+        ["api/event/sports",                    "前台客製化選項-获取所有有效体育资讯接口"],
+        ["api/event/market_type",               "前台客製化選項-获取所有有效体育盘口资讯接口(弃用)"],
+        ["api/menu/lang",                       "前台客製化選項-获取所有语言"],
+        ["api/event/live_list",             "直播清单接口"],
+        ["api/event/live_url",              "取得直播连结"],
+        ["api/menu/subnav_country",         "二级菜单"],
+        ["api/event/list",                  "赛事接口-新"],
+        ["api/market/list",                 "盘口接口-新"],
+        ["api/event/states",                "赛事进程"],
+        ["api/user/betfix",                 "投注接口(固赔)"],
+        ["api/user/prebet",                 "预投注接口(固赔)"],
+        ["api/user/pending",                "待确认提示结果"],
+        ["api/market/typelist",             "盘口接口(多个盘口玩法信息)"],
+        ["api/config",                      "平台配置相關接口"],
+        ["public/plat_config",              "平台配置相關接口(外部调用)"],
+        ["api/event/result",                "赛事结果接口"],
+        ["api/event/market_type_v2",        "盘口分类v2"],
+
+        ["public/order_detail_data",      "三方获取注单详情"]
+    ]
+}
