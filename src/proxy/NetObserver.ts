@@ -78,6 +78,7 @@ export default class NetObserver extends AbstractMediator {
                 selfProxy.set_user_info(body);
                 //@ts-ignore
                 window["vm"].$mount("#app");
+                GlobalVar.loading = false;
                 break;
             case net.EventType.api_event_sports:
                 PlatConfig.allSprots = body;

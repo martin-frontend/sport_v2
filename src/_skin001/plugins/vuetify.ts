@@ -10,8 +10,14 @@ export function getVuetify(): Vuetify {
         const opts = {
             theme: {
                 themes: {
-                    light: {},
-                    dark: {},
+                    light: {
+                        bgBanner: "#ffffff",
+                        textGray: "#8E8F91",
+                    },
+                    dark: {
+                        bgBanner: "#272828",
+                        textGray: "#8E8F91",
+                    },
                 },
                 dark: false,
             },

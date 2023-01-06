@@ -5,17 +5,17 @@
         </v-main> -->
 
         <v-sheet class="d-flex" color="transparent">
-            <v-sheet class="overflow-y-auto" width="200" height="100vh" color="red">
-                <div v-for="item in 100" :key="item">{{ item }}</div>
+            <v-sheet class="overflow-y-auto" width="222" height="100vh" color="transparent">
+                <Navigation/>
             </v-sheet>
             <v-sheet width="100%">
-                <v-sheet height="50" color="white"></v-sheet>
+                <v-sheet height="56" color="white"></v-sheet>
                 <v-sheet class="d-flex" width="100%">
-                    <v-sheet class="overflow-y-auto rightbox" width="100%" color="green">
-                        <div v-for="item in 100" :key="item">{{ item }}</div>
+                    <v-sheet class="overflow-y-auto rightbox" width="100%" color="transparent">
+                        <router-view />
                     </v-sheet>
-                    <v-sheet class="overflow-y-auto rightbox" width="200" color="yellow">
-                        <div v-for="item in 100" :key="item">{{ item }}</div>
+                    <v-sheet class="overflow-y-auto rightbox" width="325" color="transparent">
+                        <PageMatche/>
                     </v-sheet>
                 </v-sheet>
             </v-sheet>
@@ -33,10 +33,14 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import APP from "./App";
+import Navigation from "./views/navigation/views/Navigation.vue";
+import PageMatche from "./views/page_matche/views/PageMatche.vue";
 import NotifyMessage from "./views/widget/notify_message/NotifyMessage.vue";
 @Component({
     components: {
         NotifyMessage,
+        Navigation,
+        PageMatche
     },
 })
 export default class extends APP {}

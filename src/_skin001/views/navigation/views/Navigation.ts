@@ -17,6 +17,40 @@ export default class Navigation extends AbstractView {
         super(NavigationMediator);
     }
 
+    tagIcon = {
+        inplay: "icon-live",
+        today: "icon-today",
+        future: "icon-future",
+        champion: "mdi-trophy-variant",
+    };
+
+    get loveCount() {
+        let count = 0;
+        for (const comp of this.pageData.lovematch) {
+            count += comp.count;
+        }
+        return count;
+    }
+
+    onTagClick(tag: string) {
+        // this.closeNav();
+        // page_lobby.showByTag(tag);
+    }
+
+    onGetSubMenu(country_code: string) {
+        this.myProxy.api_menu_subnav_country(country_code);
+    }
+
+    onShowCompetition(comp_id: number) {
+        // this.closeNav();
+        // page_lobby.showByCompetition(comp_id);
+    }
+
+    onShowCountry(country_code: string) {
+        // this.closeNav();
+        // page_lobby.showByCountry(country_code);
+    }
+
     destroyed() {
         super.destroyed();
     }

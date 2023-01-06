@@ -38,13 +38,6 @@ module.exports = {
         port: 3001, // 端口
     },
 
-    chainWebpack(config) {
-        config.plugin("define").tap((args) => {
-            args[0]["process.env"].version = `"${js_utils.dateFormat(new Date(), "yyyy-MM-dd hh:mm")}"`;
-            return args;
-        });
-    },
-
     // liveplayer
     configureWebpack: {
         plugins: [
