@@ -1,13 +1,19 @@
-<v-sheet class="textGray--text" color="transparnet">
-    <v-sheet class="d-flex align-center" color="bgBanner" height="48">
-        <svg-icon icon="home"></svg-icon>
+<v-sheet class="textGray--text mx-2" color="transparent">
+    <v-sheet class="d-flex align-center text-14 rounded-lg textGray--text mb-2" color="bgBanner" height="48">
+        <div class="text-20 ml15 mr15"><svg-icon icon="love"></svg-icon></div>
         <div>{{LangUtil('关注赛事')}}</div>
-        <v-spacer/>
-        <div>{{loveCount}}</div>
+        <v-spacer />
+        <div class="mr15">{{loveCount}}</div>
     </v-sheet>
 
+    <v-sheet class="d-flex align-center text-14 rounded-lg textGray--text mb-2" color="bgBanner" height="48" v-for="(item, index) in pageData.menu_subnav.top" :key="item.tag">
+        <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[item.tag]"></svg-icon></div>
+        <div>{{LangUtil(item.name)}}</div>
+        <v-spacer />
+        <div class="mr15">{{item.num}}</div>
+    </v-sheet>
 
-    <v-list nav dense>
+    <!-- <v-list nav dense>
         <v-list-item link @click="onTagClick('love')" :disabled="loveCount==0">
             <v-list-item-icon>
                 <v-icon>mdi-star</v-icon>
@@ -60,5 +66,5 @@
                 </v-list-item-title>
             </v-list-item>
         </v-list-group>
-    </v-list>
+    </v-list> -->
 </v-sheet>

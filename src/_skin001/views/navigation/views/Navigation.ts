@@ -18,10 +18,10 @@ export default class Navigation extends AbstractView {
     }
 
     tagIcon = {
-        inplay: "icon-live",
-        today: "icon-today",
-        future: "icon-future",
-        champion: "mdi-trophy-variant",
+        inplay: "live",
+        today: "today",
+        future: "early",
+        champion: "cup",
     };
 
     get loveCount() {

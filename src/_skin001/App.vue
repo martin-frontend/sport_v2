@@ -4,8 +4,8 @@
             <router-view />
         </v-main> -->
 
-        <v-sheet class="d-flex" color="transparent">
-            <v-sheet class="overflow-y-auto" width="222" height="100vh" color="transparent">
+        <v-sheet class="d-flex pt-3" color="transparent">
+            <v-sheet class="overflow-y-auto" min-width="222" height="100vh" color="transparent">
                 <Navigation/>
             </v-sheet>
             <v-sheet width="100%">
