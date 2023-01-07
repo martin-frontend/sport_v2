@@ -1,3 +1,23 @@
-.v-application{
+.v-application {
     background-color: transparent !important;
+}
+.hand {
+    cursor: pointer;
+}
+
+.theme--light {
+    .v-menu__content {
+        box-shadow: none !important;
+        background-color: #fff;
+        border-radius: 10px;
+        border: solid 1px #e8e8e2;
+    }
+}
+.theme--dark {
+    .v-menu__content {
+        box-shadow: none !important;
+        background-color: #202121;
+        border-radius: 10px;
+        border: solid 1px #333435;
+    }
 }

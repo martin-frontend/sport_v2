@@ -1,0 +1,69 @@
+.px15{
+    padding-left: 15px;
+    padding-right: 15px;
+}
+.btnclass {
+    color: #0f1213;
+    padding: 4px;
+    display: inline-block;
+    position: relative;
+    z-index: 0;
+    cursor: pointer;
+    border-radius: 10px !important;
+}
+.btnclass:before {
+    content: "";
+    position: absolute;
+    z-index: -1;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    padding: 1px;
+    background: linear-gradient(to right, #fcb131, #ffe64d);
+}
+.outlined::before {
+    -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+    -webkit-mask-composite: xor;
+    mask-composite: exclude;
+}
+.rounded-tl:before {
+    border-top-left-radius: 10px;
+}
+.rounded-tr:before {
+    border-top-right-radius: 10px;
+}
+.rounded-br:before {
+    border-bottom-right-radius: 10px;
+}
+.rounded-bl:before {
+    border-bottom-left-radius: 10px;
+}
+.rounded-tl-5:before {
+    border-top-left-radius: 5px;
+}
+.rounded-tr-5:before {
+    border-top-right-radius: 5px;
+}
+.rounded-br-5:before {
+    border-bottom-right-radius: 5px;
+}
+.rounded-bl-5:before {
+    border-bottom-left-radius: 5px;
+}
+.disabled-light {
+    color: #8e8f91;
+    pointer-events: none;
+}
+.disabled-light:before {
+    pointer-events: none;
+    background: linear-gradient(to right, #e8e8e2, #ececeb);
+}
+.disabled-dark {
+    color: #8e8f91;
+    pointer-events: none;
+}
+.disabled-dark:before {
+    pointer-events: none;
+    background: linear-gradient(to right, #333435, #3d3d3d);
+}

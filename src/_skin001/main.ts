@@ -14,11 +14,18 @@ import { EnumDeviceType } from "@/core/enum/EnumDeviceType";
 import AppFacade from "./AppFacade";
 import { isAndroid, isIOS } from "@/core/global/Functions";
 import { js_utils } from "custer-js-utils";
+import "@/_skin001/assets/fonts/fonts.css";
+import BtnYellow from "./views/widget/btn_yellow/BtnYellow.vue";
+import BtnInfo from "./views/widget/btn_info/BtnInfo.vue";
 
 LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
 Vue.use(Notifications, { velocity });
+
+// 注册到全局
+Vue.component("btn-yellow", BtnYellow);
+Vue.component("btn-info", BtnInfo);
 
 if (isAndroid()) {
     GlobalVar.device_type = EnumDeviceType.ANDROID;

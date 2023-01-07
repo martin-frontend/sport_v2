@@ -1,14 +1,54 @@
 <v-sheet class="textGray--text mx-2" color="transparent">
-    <v-sheet class="d-flex align-center text-14 rounded-lg textGray--text mb-2" color="bgBanner" height="48">
+    <v-sheet
+        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand listitem"
+        color="bgBanner"
+        height="48"
+        @click="onTagClick('love')"
+        :disabled="loveCount==0"
+    >
         <div class="text-20 ml15 mr15"><svg-icon icon="love"></svg-icon></div>
         <div>{{LangUtil('关注赛事')}}</div>
         <v-spacer />
         <div class="mr15">{{loveCount}}</div>
     </v-sheet>
 
-    <v-sheet class="d-flex align-center text-14 rounded-lg textGray--text mb-2" color="bgBanner" height="48" v-for="(item, index) in pageData.menu_subnav.top" :key="item.tag">
+    <v-sheet
+        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand listitem"
+        color="bgBanner"
+        height="48"
+        v-for="(item, index) in pageData.menu_subnav.top"
+        :key="item.tag"
+        @click="onTagClick(item.tag)"
+        :disabled="item.num==0"
+    >
         <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[item.tag]"></svg-icon></div>
         <div>{{LangUtil(item.name)}}</div>
+        <v-spacer />
+        <div class="mr15">{{item.num}}</div>
+    </v-sheet>
+
+    <v-sheet
+        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand listitem"
+        color="bgBanner"
+        height="48"
+        @click="onMybet"
+    >
+        <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
+        <div>{{LangUtil('我的投注')}}</div>
+        <v-spacer />
+        <div class="mr15">{{loveCount}}</div>
+    </v-sheet>
+
+    <v-sheet
+        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand country-item"
+        color="bgBanner"
+        height="48"
+        v-for="(item, index) in pageData.menu_subnav.center"
+        :key="item.country_code"
+        @click="onGetSubMenu(item.country_code)"
+    >
+        <v-img :src="item.icon" width="20px" height="20px" max-height="20px" max-width="20px" contain class="ml15 mr15"></v-img>
+        <div>{{LangUtil(item.country_name)}}</div>
         <v-spacer />
         <div class="mr15">{{item.num}}</div>
     </v-sheet>

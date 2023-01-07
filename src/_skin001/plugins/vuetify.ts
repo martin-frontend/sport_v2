@@ -13,10 +13,12 @@ export function getVuetify(): Vuetify {
                     light: {
                         bgBanner: "#ffffff",
                         textGray: "#8E8F91",
+                        btnPlain: "#0F1213",
                     },
                     dark: {
                         bgBanner: "#272828",
                         textGray: "#8E8F91",
+                        btnPlain: "#FFFFFF",
                     },
                 },
                 dark: false,

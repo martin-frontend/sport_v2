@@ -1,0 +1,11 @@
+<v-card
+    class="elevation-0 btninfo rounded10 d-flex align-center justify-center"
+    ripple
+    :width="width"
+    :height="height"
+    :min-Height="minHeight"
+    :min-width="minWidth"
+    :class="{'btninfo-light': !$vuetify.theme.dark, 'btninfo-dark': $vuetify.theme.dark}"
+>
+    <span class="text-no-wrap font-weight-medium"><slot></slot></span>
+</v-card>

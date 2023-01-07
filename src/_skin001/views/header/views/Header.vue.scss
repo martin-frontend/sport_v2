@@ -1,0 +1,33 @@
+.ml10{
+    margin-left: 10px;
+}
+.mr10{
+    margin-right: 10px;
+}
+.arrow-down {
+    transform: rotate(0deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arrow-up {
+    transform: rotate(180deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.menulist{
+    border-radius: 10px;
+}
+.menulist-light{
+    background-color: #FFFFFF;
+    border: solid 2px #e8e8e2;
+}
+.menulist-dark{
+    background-color: #202121;
+    border: solid 2px #333435;
+}
+.menuitem{
+    width:100%;
+    cursor: pointer;
+}
+.menuitem:hover{
+    color: #FFCD43;
+}

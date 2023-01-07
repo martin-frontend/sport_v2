@@ -1,0 +1,11 @@
+<v-card
+    class="elevation-0 text-12 px15 btnclass d-flex align-center justify-center"
+    :class="{'outlined': outlined, 'rounded-tl': rounded_tl, 'rounded-tr':rounded_tr, 'rounded-br':rounded_br, 'rounded-bl':rounded_bl, 'rounded-tl-5': rounded_tl && rounded5, 'rounded-tr-5':rounded_tr && rounded5, 'rounded-br-5':rounded_br && rounded5, 'rounded-bl-5':rounded_bl && rounded5, 'disabled-light':disabled && !$vuetify.theme.dark, 'disabled-dark':disabled && $vuetify.theme.dark, 'white--text': $vuetify.theme.dark && outlined}"
+    color="transparent"
+    :min-width="minWidth"
+    :height="height"
+    :width="width"
+    ripple
+>
+    <span class="text-no-wrap font-weight-medium"><slot></slot></span>
+</v-card>
