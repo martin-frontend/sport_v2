@@ -7,6 +7,7 @@ import NotificationName from "@/core/NotificationName";
 import net from "@/net/setting";
 import BetProxy from "./BetProxy";
 import SelfProxy from "./SelfProxy";
+import SettingProxy from "./SettingProxy";
 
 export default class NetObserver extends AbstractMediator {
     static NAME = "NetObserver";
@@ -23,6 +24,7 @@ export default class NetObserver extends AbstractMediator {
 
             net.EventType.api_market_typelist,
             net.EventType.api_event_states,
+            net.EventType.api_user_set_user_setting,
         ];
     }
 
@@ -30,6 +32,7 @@ export default class NetObserver extends AbstractMediator {
         const body = notification.getBody();
         const type = notification.getType();
         const selfProxy: SelfProxy = this.getProxy(SelfProxy);
+        const settingProxy:SettingProxy = getProxy(SettingProxy);
         switch (notification.getName()) {
             case net.EventType.api_config:
                 PlatConfig.config = body;
@@ -60,7 +63,6 @@ export default class NetObserver extends AbstractMediator {
                 if (!PlatConfig.config.client.MarketType_area) {
                     PlatConfig.config.client.MarketType_area = "0";
                 }
-                GlobalVar.MarketType_area = PlatConfig.config.client.MarketType_area;
 
                 LangConfig.load(GlobalVar.lang);
                 break;
@@ -77,6 +79,7 @@ export default class NetObserver extends AbstractMediator {
                 break;
             case net.EventType.api_user_info:
                 selfProxy.set_user_info(body);
+                settingProxy.resetForm();
                 //@ts-ignore
                 window["vm"].$mount("#app");
                 GlobalVar.loading = false;
@@ -99,6 +102,9 @@ export default class NetObserver extends AbstractMediator {
                     const betProxy: BetProxy = getProxy(BetProxy);
                     betProxy.set_event_states(body);
                 }
+                break;
+            case net.EventType.api_user_set_user_setting:
+                selfProxy.api_user_info();
                 break;
         }
     }

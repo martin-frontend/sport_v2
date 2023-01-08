@@ -27,7 +27,9 @@
 ::v-deep .v-list-group .v-list-group__header .v-list-item__icon.v-list-group__header__append-icon {
     display: none;
 }
-
+.comp-item{
+    box-sizing: border-box;
+}
 .compitem-light {
     border: solid 2px #E8E8E2;
     background-color: #fff;

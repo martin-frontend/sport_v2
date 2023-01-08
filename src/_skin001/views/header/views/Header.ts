@@ -3,7 +3,7 @@ import { Watch, Component } from "vue-property-decorator";
 import HeaderMediator from "../mediator/HeaderMediator";
 import HeaderProxy from "../proxy/HeaderProxy";
 import LangUtil from "@/core/global/LangUtil";
-import SettingProxy from "../../setting/proxy/SettingProxy";
+import SettingProxy from "@/proxy/SettingProxy";
 
 @Component
 export default class Header extends AbstractView {

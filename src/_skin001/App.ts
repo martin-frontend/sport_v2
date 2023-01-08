@@ -26,6 +26,5 @@ export default class APP extends AbstractView {
     onWatchTheme() {
         const html: HTMLElement = <any>document.getElementsByTagName("html")[0];
         html.style.backgroundColor = this.$vuetify.theme.dark ? "#202121" : "#f6f6f4";
-        console.warn(">>>>>>", this.$vuetify.theme.dark)
     }
 }

@@ -1,7 +1,7 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Watch, Component } from "vue-property-decorator";
 import SettingMediator from "../mediator/SettingMediator";
-import SettingProxy from "../proxy/SettingProxy";
+import SettingProxy from "@/proxy/SettingProxy";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
 

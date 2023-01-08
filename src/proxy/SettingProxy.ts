@@ -1,3 +1,4 @@
+import PlatConfig from "@/core/config/PlatConfig";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import LangUtil from "@/core/global/LangUtil";
@@ -9,6 +10,7 @@ export default class SettingProxy extends puremvc.Proxy {
     static NAME = "SettingProxy";
 
     pageData = {
+        isReset: true,
         //如果是列表，使用以下数据，否则删除
         form: <RemarkVO>{
             currency_type: GlobalVar.currency,
@@ -17,7 +19,6 @@ export default class SettingProxy extends puremvc.Proxy {
             sort: "comp", //time->时间 comp->联赛
             MarketType_area: GlobalVar.MarketType_area, //0->欧洲盘  1->香港盘
         },
-        timezoneText: "",
         //时区
         items: [
             {
@@ -178,24 +179,36 @@ export default class SettingProxy extends puremvc.Proxy {
     };
 
     resetForm() {
-        const selfProxy: SelfProxy = getProxy(SelfProxy);
-        const { form } = this.pageData;
-        let json: any;
-        try {
-            json = JSON.parse(selfProxy.userInfo.user_setting.remark);
-        } catch (e: any) {
-            json = {};
-        }
+        if (this.pageData.isReset) {
+            this.pageData.isReset = false;
+            const selfProxy: SelfProxy = getProxy(SelfProxy);
+            const { remark } = selfProxy.userInfo.user_setting;
+            const { form } = this.pageData;
+            let json: any = {};
+            if (remark) {
+                json = JSON.parse(selfProxy.userInfo.user_setting.remark) ?? {};
+            }
 
-        form.fast_choose = json.fast_choose ?? selfProxy.userInfo.fast_choose.split(",");
-        form.timezone = json.timezone ?? GlobalVar.zone;
-        form.sort = json.sort ?? "comp";
-        form.MarketType_area = json.MarketType_area ?? GlobalVar.MarketType_area;
+            form.fast_choose = json.fast_choose ?? selfProxy.userInfo.fast_choose.split(",");
+            form.sort = json.sort ?? "comp";
+            form.MarketType_area = json.MarketType_area ?? PlatConfig.config.client.MarketType_area;
+            form.currency_type = json.currency_type ?? selfProxy.userInfo.currency_type;
+            form.timezone = json.timezone;
+            if (!json.timezone) {
+                const offset = -(new Date().getTimezoneOffset() / 60);
+                form.timezone = offset >= 0 ? `+${offset}` : `${offset}`;
+            }
+
+            GlobalVar.MarketType_area = form.MarketType_area;
+            GlobalVar.currency = form.currency_type; //币别
+            GlobalVar.zone = form.timezone;
+        }
     }
 
     api_user_set_user_setting(isReset: boolean = false) {
+        this.pageData.isReset = isReset;
         if (isReset) {
-            this.sendNotification(net.HttpType.api_user_set_user_setting, { remark: "null" });
+            this.sendNotification(net.HttpType.api_user_set_user_setting, { remark: "" });
         } else {
             const selfProxy: SelfProxy = getProxy(SelfProxy);
             const remark = JSON.stringify(this.pageData.form);

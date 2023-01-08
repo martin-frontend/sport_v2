@@ -1,5 +1,5 @@
 import AbstractMediator from "@/core/abstract/AbstractMediator";
-import SettingProxy from "../proxy/SettingProxy";
+import SettingProxy from "@/proxy/SettingProxy";
 import getProxy from "@/core/global/getProxy";
 
 export default class SettingMediator extends AbstractMediator{
