@@ -1,3 +1,4 @@
+import "@/_skin001/assets/fonts/fonts.css";
 import Vue from "vue";
 import App from "./App.vue";
 import router from "./router";
@@ -14,7 +15,6 @@ import { EnumDeviceType } from "@/core/enum/EnumDeviceType";
 import AppFacade from "./AppFacade";
 import { isAndroid, isIOS } from "@/core/global/Functions";
 import { js_utils } from "custer-js-utils";
-import "@/_skin001/assets/fonts/fonts.css";
 import BtnYellow from "./views/widget/btn_yellow/BtnYellow.vue";
 import BtnInfo from "./views/widget/btn_info/BtnInfo.vue";
 

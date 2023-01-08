@@ -32,6 +32,10 @@ export default class Navigation extends AbstractView {
         return count;
     }
 
+    get betCount(){
+        return 0;
+    }
+
     onTagClick(tag: string) {
         // this.closeNav();
         // page_lobby.showByTag(tag);

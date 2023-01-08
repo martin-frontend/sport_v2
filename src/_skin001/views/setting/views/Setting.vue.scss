@@ -1,3 +1,30 @@
 .item-title{
     min-width: 102px;
 }
+.ml10{
+    margin-left: 10px;
+}
+.arrow {
+    transform: rotate(0deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arrow-show {
+    transform: rotate(180deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.menu-option {
+    max-height: 360px;
+    overflow-y: scroll;
+    width: 250px;
+    max-width: 250px;
+}
+.menu-option-pc {
+    max-height: 360px;
+    overflow-y: scroll;
+    width: 300px;
+    max-width: 300px;
+}
+
+::v-deep .v-sheet--outlined{
+    border-width: 2px;
+}

@@ -1,20 +1,122 @@
-<v-sheet class="textGray--text text-14 pl-5" width="360">
-    <div class="d-flex mt-2">
-        <div class="item-title">{{LangUtil("币种")}}</div>
-        <div>USDT</div>
-    </div>
-    <div class="d-flex mt-5">
-        <div class="item-title">{{LangUtil("排序规则")}}</div>
-        <div class="d-flex">
-            <div>{{LangUtil("时间排序")}}</div>
-            <div>{{LangUtil("赛事排序")}}</div>
-        </div>
-    </div>
-    <div class="d-flex mt-5">
-        <div class="item-title">{{LangUtil("盘口设置")}}</div>
-        <div class="d-flex">
-            <div>{{LangUtil("欧洲盘")}}</div>
-            <div>{{LangUtil("香港盘")}}</div>
-        </div>
+<v-sheet class="text-14 px-5" width="360">
+    <v-sheet class="textGray--text mt-2" color="transparent">
+        <v-row dense>
+            <v-col cols="4">{{LangUtil("币种")}}</v-col>
+            <v-col cols="8" class="btnPlain--text">{{GlobalVar.currency}}</v-col>
+        </v-row>
+    </v-sheet>
+
+    <v-sheet class="textGray--text mt-5" color="transparent">
+        <v-row dense>
+            <v-col cols="4">{{LangUtil("排序规则")}}</v-col>
+            <v-col cols="8" class="btnPlain--text">
+                <v-row dense>
+                    <v-col>
+                        <div class="d-flex align-center hand" @click="pageData.form.sort = 'time'">
+                            <svg-icon :icon=" pageData.form.sort == 'time' ? 'checkbox_selected' : 'checkbox' "></svg-icon>
+                            <div class="ml10">{{LangUtil("时间排序")}}</div>
+                        </div>
+                    </v-col>
+                    <v-col>
+                        <div class="d-flex align-center hand" @click="pageData.form.sort = 'comp'">
+                            <svg-icon :icon=" pageData.form.sort == 'comp' ? 'checkbox_selected' : 'checkbox' "></svg-icon>
+                            <div class="ml10">{{LangUtil("赛事排序")}}</div>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+    </v-sheet>
+
+    <v-sheet class="textGray--text mt-5" color="transparent">
+        <v-row dense>
+            <v-col cols="4">{{LangUtil("盘口设置")}}</v-col>
+            <v-col cols="8" class="btnPlain--text">
+                <v-row dense>
+                    <v-col>
+                        <div class="d-flex align-center hand" @click="pageData.form.MarketType_area = 0">
+                            <svg-icon :icon=" pageData.form.MarketType_area == 0 ? 'checkbox_selected' : 'checkbox' "></svg-icon>
+                            <div class="ml10">{{LangUtil("欧洲盘")}}</div>
+                        </div>
+                    </v-col>
+                    <v-col>
+                        <div class="d-flex align-center hand" @click="pageData.form.MarketType_area = 1">
+                            <svg-icon :icon=" pageData.form.MarketType_area == 1 ? 'checkbox_selected' : 'checkbox' "></svg-icon>
+                            <div class="ml10">{{LangUtil("亚洲盘")}}</div>
+                        </div>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+    </v-sheet>
+
+    <v-sheet class="textGray--text mt-5" color="transparent">
+        <v-row dense>
+            <v-col cols="4">{{LangUtil("快选金额设置")}}</v-col>
+            <v-col cols="8" class="btnPlain--text">
+                <v-row dense>
+                    <v-col cols="6" class="d-flex align-center pr-2 mb-1 setting-input" v-for="n in 6 " :key="n">
+                        <CustomInput
+                            v-model="pageData.form.fast_choose[n-1]"
+                            :isOnlyNumber="true"
+                            :showClear="false"
+                            :height="$vuetify.breakpoint.mobile?27.5:40"
+                            :radius="8"
+                            maxlength="8"
+                            type="tel"
+                            textDirection="center"
+                            :formatNumber="true"
+                        ></CustomInput>
+                    </v-col>
+                </v-row>
+            </v-col>
+        </v-row>
+    </v-sheet>
+
+    <v-sheet class="textGray--text mt-5" color="transparent">
+        <v-row dense>
+            <v-col cols="4" class="pt-3">{{LangUtil("时区设置")}}</v-col>
+            <v-col cols="8">
+                <v-menu offset-y nudge-bottom="4">
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet
+                            class="d-flex align-center px-3 colorText2--text box rounded-lg"
+                            :min-height="$vuetify.breakpoint.mobile ? 25 : 40"
+                            height="16px"
+                            min-width="100"
+                            outlined
+                            v-bind="attrs"
+                            v-on="on"
+                        >
+                            <div class="text-truncate text-gray" style="width: 100%" :class="'text-14'">{{ getSelectName }}</div>
+                            <v-spacer />
+                            <div
+                                v-if="Object.keys(pageData.items).length > 1"
+                                class="icon-box iconfont ml-4 mr-n1 text-14"
+                                :class="attrs['aria-expanded'] == 'true' ? 'arrow-show' : 'arrow'"
+                            >
+                                <svg-icon icon="zoom_out"></svg-icon>
+                            </div>
+                        </v-sheet>
+                    </template>
+                    <div :class="$vuetify.breakpoint.mobile ? 'menu-option' : 'menu-option-pc'">
+                        <v-list>
+                            <v-list-item v-for="(item, index) in pageData.items" :key="index" @click="onTimeZoneItemClick(item.key)">
+                                <div>
+                                    <div>{{ item.value }}</div>
+                                    <v-sheet color="transparent" max-width="200px" class="text-truncate">{{ item.name }}</v-sheet>
+                                </div>
+                            </v-list-item>
+                        </v-list>
+                    </div>
+                </v-menu>
+            </v-col>
+        </v-row>
+    </v-sheet>
+
+    <div class="d-flex align-center textGray--text mt-8 mb-2">
+        <div>{{LangUtil("版本号")}} {{GlobalVar.version}} </div>
+        <v-spacer/>
+        <btn-yellow class="text-14" width="86" height="36" @click.native="onReSetting">{{LangUtil("还原设置")}}</btn-yellow>
     </div>
 </v-sheet>

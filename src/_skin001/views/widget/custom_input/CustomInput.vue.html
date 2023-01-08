@@ -1,0 +1,25 @@
+<div class="input-text d-flex align-center pr-2" :style="{'border-radius': radius + 'px','height':height+'px'}">
+    <v-icon v-if="icon" class="ml-3" color="colorInfo">{{ icon }}</v-icon>
+    <div v-if="$slots.pre">
+        <slot name="pre"></slot>
+    </div>
+    <input
+        class="ml-3 font-size"
+        :class="disabled?'text-disabled':''"
+        :style="{'textAlign':textDirection}"
+        :type="type"
+        :placeholder="placeholder"
+        @on="$listeners"
+        @input="onInput"
+        v-model="inputValue"
+        :maxlength="maxlength"
+        :disabled="disabled"
+        min="0"
+    />
+    <v-btn v-if="inputValue && !disabled && showClear" class="mr-2" icon width="20" height="20" @click="onClear">
+        <v-icon class="mx-3" :size="$vuetify.breakpoint.xsOnly ? 14 :20" color="colorInfo">mdi-close-circle</v-icon>
+    </v-btn>
+    <div v-if="$slots.default" class="mr-2">
+        <slot></slot>
+    </div>
+</div>

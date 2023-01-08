@@ -1,0 +1,18 @@
+@import "@/_skin001/style/input.scss";
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+}
+
+input {
+    height: 100%;
+}
+
+.text-disabled {
+    // color: #4c5d7f !important;
+}
+
+input[type="number"] {
+    -moz-appearance: textfield;
+}

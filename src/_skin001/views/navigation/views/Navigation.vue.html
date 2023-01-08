@@ -1,110 +1,109 @@
 <v-sheet class="textGray--text mx-2" color="transparent">
-    <v-sheet
-        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand listitem"
-        color="bgBanner"
-        height="48"
-        @click="onTagClick('love')"
-        :disabled="loveCount==0"
-    >
-        <div class="text-20 ml15 mr15"><svg-icon icon="love"></svg-icon></div>
-        <div>{{LangUtil('关注赛事')}}</div>
-        <v-spacer />
-        <div class="mr15">{{loveCount}}</div>
-    </v-sheet>
-
-    <v-sheet
-        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand listitem"
-        color="bgBanner"
-        height="48"
-        v-for="(item, index) in pageData.menu_subnav.top"
-        :key="item.tag"
-        @click="onTagClick(item.tag)"
-        :disabled="item.num==0"
-    >
-        <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[item.tag]"></svg-icon></div>
-        <div>{{LangUtil(item.name)}}</div>
-        <v-spacer />
-        <div class="mr15">{{item.num}}</div>
-    </v-sheet>
-
-    <v-sheet
-        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand listitem"
-        color="bgBanner"
-        height="48"
-        @click="onMybet"
-    >
-        <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
-        <div>{{LangUtil('我的投注')}}</div>
-        <v-spacer />
-        <div class="mr15">{{loveCount}}</div>
-    </v-sheet>
-
-    <v-sheet
-        class="d-flex align-center text-14 rounded-lg textGray--text mb-2 hand country-item"
-        color="bgBanner"
-        height="48"
-        v-for="(item, index) in pageData.menu_subnav.center"
-        :key="item.country_code"
-        @click="onGetSubMenu(item.country_code)"
-    >
-        <v-img :src="item.icon" width="20px" height="20px" max-height="20px" max-width="20px" contain class="ml15 mr15"></v-img>
-        <div>{{LangUtil(item.country_name)}}</div>
-        <v-spacer />
-        <div class="mr15">{{item.num}}</div>
-    </v-sheet>
-
-    <!-- <v-list nav dense>
-        <v-list-item link @click="onTagClick('love')" :disabled="loveCount==0">
-            <v-list-item-icon>
-                <v-icon>mdi-star</v-icon>
-            </v-list-item-icon>
-            <v-list-item-title>{{LangUtil('关注赛事')}} ({{loveCount}})</v-list-item-title>
+    <v-list nav dense class="navlist">
+        <v-list-item class="mb-2" link @click="onTagClick('love')" :disabled="loveCount==0">
+            <v-sheet
+                class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                color="bgBanner"
+                height="48"
+                width="100%"
+                max-width="222"
+            >
+                <div class="text-20 ml15 mr15"><svg-icon icon="love"></svg-icon></div>
+                <div>{{LangUtil('关注赛事')}}</div>
+                <v-spacer />
+                <div class="mr15">{{loveCount}}</div>
+            </v-sheet>
         </v-list-item>
-        <v-list-item link v-for="(item, index) in pageData.menu_subnav.top" :key="item.tag" @click="onTagClick(item.tag)" :disabled="item.num==0">
-            <v-list-item-icon>
-                <v-icon v-if="tagIcon[item.tag]" size="20">{{tagIcon[item.tag]}}</v-icon>
-                <img v-else :src="item.icon" width="20" height="20">
-            </v-list-item-icon>
-            <v-list-item-title>{{LangUtil(item.name)}} ({{item.num}})</v-list-item-title>
+
+        <v-list-item
+            class="mb-2"
+            link
+            v-for="(item, index) in pageData.menu_subnav.top"
+            :key="item.tag"
+            @click="onTagClick(item.tag)"
+            :disabled="item.num==0"
+        >
+            <v-sheet
+                class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                color="bgBanner"
+                height="48"
+                width="100%"
+                max-width="222"
+            >
+                <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[item.tag]"></svg-icon></div>
+                <div>{{LangUtil(item.name)}}</div>
+                <v-spacer />
+                <div class="mr15">{{item.num}}</div>
+            </v-sheet>
+        </v-list-item>
+
+        <v-list-item class="mb-2" link @click="onMybet" :disabled="betCount==0">
+            <v-sheet
+                class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                color="bgBanner"
+                height="48"
+                width="100%"
+                max-width="222"
+            >
+                <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
+                <div>{{LangUtil('我的投注')}}</div>
+                <v-spacer />
+                <div class="mr15">{{betCount}}</div>
+            </v-sheet>
         </v-list-item>
 
         <v-list-group
+            class="mb-2"
             v-model="pageData.menu_subnav.centerOpen[index]"
             v-for="(item, index) in pageData.menu_subnav.center"
             :key="item.country_code"
             @click="onGetSubMenu(item.country_code)"
         >
             <template v-slot:activator>
-                <v-list-item-content>
-                    <div class="d-flex">
-                        <v-img :src="item.icon" width="22px" height="22px" max-height="22px" max-width="22px" contain class="mr-2"></v-img>
-                        <v-list-item-title class="d-flex">
-                            <div class="text-truncate mr-1" style="max-width: 130px">{{LangUtil(item.country_name)}}</div>
-                            ({{item.num}})
-                        </v-list-item-title>
-                    </div>
-                </v-list-item-content>
+                <v-sheet
+                    class="d-flex align-center text-14 rounded-lg textGray--text country-item"
+                    color="bgBanner"
+                    height="48"
+                    max-width="222"
+                    width="100%"
+                >
+                    <v-img :src="item.icon" width="20px" height="20px" max-height="20px" max-width="20px" contain class="ml15 mr15"></v-img>
+                    <div class="text-truncate mr-3">{{LangUtil(item.country_name)}}</div>
+                    <v-spacer />
+                    <div class="mr15">{{item.num}}</div>
+                </v-sheet>
             </template>
 
-            <v-list-item link v-for="(item1, index1) in item.competitions" :key="index1" @click="onShowCompetition(item1.competition_id)">
-                <v-list-item-title class="pl-6">
-                    <div class="d-flex align-center">
-                        <v-icon size="12" class="mr-2" color="blackText">mdi-moon-full</v-icon>
-                        <div v-if="item1.name" class="text-truncate">{{item1.name}}</div>
-                        <v-skeleton-loader v-else class="mx-auto" width="100%" type="card-heading"></v-skeleton-loader>
-                    </div>
-                </v-list-item-title>
+            <v-list-item
+                class="mt-2"
+                link
+                v-for="(item1, index1) in item.competitions"
+                :key="index1"
+                @click="onShowCompetition(item1.competition_id)"
+            >
+                <v-sheet
+                    class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
+                    height="48"
+                    width="100%"
+                    max-width="222"
+                    :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
+                >
+                    <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
+                    <div class="text-truncate mr-3">{{item1.name}}</div>
+                </v-sheet>
             </v-list-item>
-            <v-list-item link @click="onShowCountry(item.country_code)">
-                <v-list-item-title class="pl-6">
-                    <div class="d-flex align-center">
-                        <v-icon size="12" class="mr-2" color="blackText">mdi-moon-full</v-icon>
-                        {{LangUtil("更多赛事")}}
-                        <v-spacer />
-                        <v-icon class="mr-1">mdi-chevron-double-right</v-icon>
-                    </div>
-                </v-list-item-title>
+            <v-list-item class="mt-2" link @click="onShowCountry(item.country_code)">
+                <v-sheet
+                    class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
+                    height="48"
+                    width="100%"
+                    max-width="222"
+                    :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
+                >
+                    <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
+                    <div class="text-truncate mr-3">{{LangUtil("更多赛事")}}</div>
+                </v-sheet>
             </v-list-item>
         </v-list-group>
-    </v-list> -->
+    </v-list>
 </v-sheet>

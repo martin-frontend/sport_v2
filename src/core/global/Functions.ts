@@ -84,3 +84,19 @@ export function isIOS() {
     const flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad)/i);
     return flag;
 }
+
+/**
+ * 金额格式化
+ * input 1000 output 1,000
+ * val 进入的数字
+ * decimal 是否要小数点
+ * decimalLang 小数点几位
+ */
+export function amountFormat(val: any, decimal: boolean = false, decimalLang: number = 2) {
+    const intValue = parseFloat(val);
+    const str = intValue.toFixed(decimalLang) + "";
+    const sum = str.substring(0, str.indexOf(".")).replace(/\B(?=(?:\d{3})+$)/g, ","); //取到整数部分
+    const dot = str.substring(str.length, str.indexOf(".")); //取到小数部分搜索
+
+    return decimal ? sum + dot : sum;
+}

@@ -1,0 +1,36 @@
+.theme--light {
+    .input-text {
+        border-radius: 8px;
+        height: 36px;
+        border: solid 2px #E8E8E2;
+        input {
+            vertical-align: middle;
+            height: 36px;
+            width: 100%;
+            color: #0F1213;
+            font-weight: bold;
+            outline: none;
+        }
+    }
+    input::placeholder {
+        color: #979797;
+    }
+}
+.theme--dark {
+    .input-text {
+        border-radius: 8px;
+        height: 36px;
+        border: solid 2px #333435;
+        input {
+            vertical-align: middle;
+            height: 36px;
+            width: 100%;
+            color: #FFFFFF;
+            font-weight: bold;
+            outline: none;
+        }
+    }
+    input::placeholder {
+        color: #979797;
+    }
+}

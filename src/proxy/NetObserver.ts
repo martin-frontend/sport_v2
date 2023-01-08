@@ -14,6 +14,7 @@ export default class NetObserver extends AbstractMediator {
     listNotificationInterests(): string[] {
         return [
             net.EventType.api_config,
+            net.EventType.api_menu_lang,
             NotificationName.LANG_CONFIG,
             net.EventType.api_user_info,
             net.EventType.api_event_sports,
