@@ -1,0 +1,26 @@
+.tabs_box {
+    background-color: transparent;
+    border-bottom: solid 2px #e8e8e2;
+}
+::v-deep .v-tabs-slider {
+    background-image: linear-gradient(90deg, #FCB131 0%, #FFE64D);
+}
+.py10{
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+.ml10{
+    margin-left: 10px;
+}
+.mr10{
+    margin-right: 10px;
+}
+.mt15{
+    margin-top: 15px;
+}
+.mb10{
+    margin-bottom: 10px;
+}
+.rounded10{
+    border-radius: 10px;
+}

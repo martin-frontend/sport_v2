@@ -13,6 +13,8 @@ export default class Navigation extends AbstractView {
     myProxy: NavigationProxy = getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
 
+    window = 0;
+
     constructor() {
         super(NavigationMediator);
     }
@@ -42,6 +44,7 @@ export default class Navigation extends AbstractView {
     }
 
     onMybet() {
+        this.window = 1;
         //TODO
     }
 
