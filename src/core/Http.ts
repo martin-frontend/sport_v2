@@ -1,5 +1,6 @@
 import net from "@/net/setting";
 import axios from "axios";
+import GlobalVar from "./global/GlobalVar";
 
 const facade = puremvc.Facade.getInstance();
 axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
@@ -7,6 +8,11 @@ axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
 // 添加请求拦截器
 axios.interceptors.request.use(
     function (config) {
+        if (GlobalVar.token) config.data.token = GlobalVar.token;
+        config.data.lang = GlobalVar.lang || "en_US";
+        if (GlobalVar.plat_id) config.data.plat_id = GlobalVar.plat_id;
+        if (GlobalVar.device_type) config.data.device_type = GlobalVar.device_type;
+        config.data.timezone = GlobalVar.zone;
         facade.sendNotification(net.EventType.REQUEST_START, config);
         return config;
     },

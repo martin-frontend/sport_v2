@@ -1,0 +1,33 @@
+.mt-37 {
+    margin-top: 52px;
+}
+::v-deep .v-skeleton-loader__heading {
+    margin: 0px !important;
+    width: 100%;
+}
+::v-deep .v-skeleton-loader .v-skeleton-loader__card-heading {
+    background-color: transparent !important;
+}
+
+.mt10{
+    margin-top: 10px;
+}
+.ml10{
+    margin-left: 10px;
+}
+.mr10{
+    margin-right: 10px;
+}
+.pb10{
+    padding-bottom: 10px;
+}
+.roundedb10{
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.btnEnter{
+    margin-top: 58px
+}
+.btn_zoom{
+    border-radius: 10px 10px 0px 0px;
+}

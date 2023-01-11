@@ -1,4 +1,7 @@
 // 全局属性和方法
+
+import GlobalVar from "./GlobalVar";
+
 /** 获取UUID */
 export function generateUUID() {
     let d = new Date().getTime();
@@ -99,4 +102,68 @@ export function amountFormat(val: any, decimal: boolean = false, decimalLang: nu
     const dot = str.substring(str.length, str.indexOf(".")); //取到小数部分搜索
 
     return decimal ? sum + dot : sum;
+}
+
+/**
+ * Check if an element has a class
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ * @returns {boolean}
+ */
+export function hasClass(ele: HTMLElement, cls: string) {
+    return !!ele.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
+}
+
+/**
+ * Add class to element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+export function addClass(ele: HTMLElement, cls: string) {
+    if (!hasClass(ele, cls)) ele.className += " " + cls;
+}
+
+/**
+ * Remove class from element
+ * @param {HTMLElement} elm
+ * @param {string} cls
+ */
+export function removeClass(ele: HTMLElement, cls: string) {
+    if (hasClass(ele, cls)) {
+        const reg = new RegExp("(\\s|^)" + cls + "(\\s|$)");
+        ele.className = ele.className.replace(reg, " ");
+    }
+}
+
+/**
+ * 如果是香港盘赔率要减一
+ * input 1 output input -1
+ * price 欧洲盘的赔率
+ */
+export function TransMarketPrice(price: any) {
+    if (GlobalVar.MarketType_area == "1") {
+        return Math.round((price - 1) * 100) / 100;
+    } else {
+        return price;
+    }
+}
+/**
+ * 格式化賽事時間
+ * @param time 年-月-日 時:分:秒
+ * @returns 月-日 時:分
+ */
+export function formatEventTime(time: string) {
+    return time ? time.substring(5, 16) : time;
+}
+/**
+ * 获取球队图标
+ * @param url
+ * @return host + url
+ */
+export function getResponseIcon(url: string) {
+    if (url && (url.indexOf("png") !== -1 || url.indexOf("jpg") !== -1)) {
+        return url;
+    }
+    // 預設圖片
+    return require(`@/_skin001/assets/team.png`);
 }

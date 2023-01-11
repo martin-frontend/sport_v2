@@ -5,11 +5,14 @@ import NavigationProxy from "../proxy/NavigationProxy";
 import LangUtil from "@/core/global/LangUtil";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
+import page_home from "../../page_home";
+import BetProxy from "@/proxy/BetProxy";
 
 @Component
 export default class Navigation extends AbstractView {
     LangUtil = LangUtil;
     selfProxy: SelfProxy = getProxy(SelfProxy);
+    betProxy:BetProxy = getProxy(BetProxy);
     myProxy: NavigationProxy = getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
 
@@ -34,13 +37,9 @@ export default class Navigation extends AbstractView {
         return count;
     }
 
-    get betCount(){
-        return 0;
-    }
-
     onTagClick(tag: string) {
         // this.closeNav();
-        // page_lobby.showByTag(tag);
+        page_home.showByTag(tag);
     }
 
     onMybet() {
@@ -60,6 +59,15 @@ export default class Navigation extends AbstractView {
     onShowCountry(country_code: string) {
         // this.closeNav();
         // page_lobby.showByCountry(country_code);
+    }
+
+    @Watch("betProxy.pageData.list")
+    onWatchMyBet(){
+        if(this.betProxy.pageData.list.length > 0){
+            this.window = 1;
+        }else{
+            this.window = 0;
+        }
     }
 
     destroyed() {

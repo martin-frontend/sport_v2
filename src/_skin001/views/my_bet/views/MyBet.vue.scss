@@ -1,26 +1,59 @@
 .tabs_box {
     background-color: transparent;
-    border-bottom: solid 2px #e8e8e2;
+}
+.input_left {
+    color: #0f1213;
+    background: linear-gradient(90deg, #fcb131 0%, #ffe64d 100%);
+    border-radius: 10px 0px 0px 10px;
+    font-weight: bold;
+}
+.input_right{
+    border: 2px solid #F2F2F2;
+    border-left: 0px;
+    border-radius: 0px 10px 10px 0px;
+}
+input{
+    width:100px;
+    outline: none;
+}
+.theme--light {
+    .tabs_box {
+        border-bottom: solid 2px #e8e8e2;
+    }
+    .input_right{
+        border-color: #F2F2F2;
+        background-color: #fff;
+    }
+}
+.theme--dark {
+    .tabs_box {
+        border-bottom: solid 2px #272828;
+    }
+    .input_right{
+        border-color: #333435;
+        background-color: #272828;
+    }
 }
 ::v-deep .v-tabs-slider {
-    background-image: linear-gradient(90deg, #FCB131 0%, #FFE64D);
+    background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
 }
-.py10{
+.py10 {
     padding-top: 10px;
     padding-bottom: 10px;
 }
-.ml10{
+.ml10 {
     margin-left: 10px;
 }
-.mr10{
+.mr10 {
     margin-right: 10px;
 }
-.mt15{
+.mt15 {
     margin-top: 15px;
 }
-.mb10{
+.mb10 {
     margin-bottom: 10px;
 }
-.rounded10{
-    border-radius: 10px;
+.fast_choose{
+    margin-left: 6px;
+    margin-right: 6px;
 }

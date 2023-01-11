@@ -1,0 +1,50 @@
+.btn {
+    // padding: 0px;
+    // width:100%;
+    // cursor: pointer;
+    // background-color: #F1F1F1;
+    // min-height: 30px;
+    &.active {
+        // background-image: linear-gradient(#4967D1, #03259C);
+        background-color: #FFCD43 !important;
+        color: #0F1213;
+    }
+}
+.theme--light {
+    .btn {
+        background-color: #FFFFFF;
+        border: solid 2px #F2F2F2;
+    }
+}
+.theme--dark {
+    .btn {
+        background-color: #272828;
+        border: solid 2px #333435;
+    }
+}
+
+.btn-disabled {
+    background-color: #f6f6f6;
+    pointer-events: none;
+}
+
+.opacity-0{
+    opacity: 0;
+}
+
+.animation-translate {
+    animation-name: shake;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+}
+
+@keyframes shake {
+    0%, 100% {
+        transform: translatey(1px);
+    }
+
+    50% {
+        transform: translatey(-1px);
+    }
+}

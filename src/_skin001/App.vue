@@ -1,12 +1,12 @@
 <template>
     <v-app>
         <v-sheet class="d-flex" color="transparent">
-            <v-sheet class="overflow-y-auto mt-3 leftbox" min-width="222" color="transparent" v-if="!$vuetify.breakpoint.mobile">
+            <v-sheet class="overflow-y-auto mt-3 leftbox" min-width="242" max-width="242" color="transparent" v-if="!$vuetify.breakpoint.mobile">
                 <Navigation />
             </v-sheet>
             <v-sheet class="py-0" width="100%" color="transparent">
                 <Header v-if="!$vuetify.breakpoint.mobile" />
-                <v-sheet class="d-flex" width="100%" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
+                <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
                     <v-sheet
                         class="overflow-y-auto"
                         width="100%"

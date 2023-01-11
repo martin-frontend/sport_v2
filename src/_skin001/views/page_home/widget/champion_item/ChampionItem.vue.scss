@@ -1,0 +1,19 @@
+.v-tooltip__content.tip {
+    border-radius: 5px;
+    border: 1px solid #03259c;
+    background: #ffffff;
+    color: #302f2f;
+    max-width: 94%;
+    opacity: 1 !important;
+    margin-left: 30px;
+  //  top: -55px !important;
+}
+.header-tips {
+    min-height: 50px;
+    margin-top: -20px !important;
+
+    @media screen and (max-width: 600px) {
+        min-height: 50px;
+        margin-top: -20px !important;
+    }
+}

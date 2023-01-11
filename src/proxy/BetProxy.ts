@@ -27,6 +27,7 @@ export default class BetProxy extends puremvc.Proxy {
     }
 
     pageData = {
+        activeCount: 0,
         list: <
             {
                 type: string;
@@ -53,6 +54,7 @@ export default class BetProxy extends puremvc.Proxy {
     /**添加一个注单 */
     addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: FixSelectionVO) {
         if (!this.deleteItem(market.market_id, selection.id)) {
+            this.pageData.list = [];
             this.pageData.list.push({
                 type: "fix",
                 comp: comp,
@@ -68,6 +70,7 @@ export default class BetProxy extends puremvc.Proxy {
                 unique: generateUUID(),
                 stake: "",
             });
+            this.pageData.activeCount++;
         }
     }
     /**删除一个注单 */
@@ -75,6 +78,7 @@ export default class BetProxy extends puremvc.Proxy {
         const findIdx = this.pageData.list.findIndex((item) => item.selection.id == selection_id && item.market.market_id == market_id);
         if (findIdx >= 0) {
             this.pageData.list.splice(findIdx, 1);
+            this.pageData.activeCount++;
             return true;
         }
         return false;

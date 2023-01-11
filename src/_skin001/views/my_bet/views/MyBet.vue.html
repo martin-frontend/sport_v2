@@ -1,18 +1,113 @@
 <div>
-    <v-sheet class="tabs_box">
-        <v-tabs color="btnPlain" fixed-tabs background-color="transparent" slider-color="#FCB131">
+    <!-- <v-sheet class="tabs_box">
+        <v-tabs color="btnPlain" fixed-tabs background-color="transparent" slider-color="yellow">
             <v-tab>{{LangUtil("单关")}}</v-tab>
             <v-tab>{{LangUtil("串关")}}</v-tab>
-          </v-tabs>
-    </v-sheet>
-    
-    <v-sheet color="bgBanner" class="rounded10 py10 mt-2 textGray--text">
-        <div class="d-flex align-center ml10 mr10 mb10">
-            <v-sheet class="mr10" color="#FFCD43" width="2" height="16" rounded></v-sheet>
-            <div class="btnPlain--text">英超联赛杯(U21)</div>
-            <v-spacer/>
-            <svg-icon icon="delete"></svg-icon>
+        </v-tabs>
+    </v-sheet> -->
+
+    <v-sheet color="bgBanner" class="rounded10 py10 mt-2 textGray--text text-13" v-for="(item,index) of pageData.list" :key="index">
+        <div class="d-flex align-center ml10 mr-1 mb10">
+            <v-sheet class="mr10" color="yellow" width="2" height="16" rounded></v-sheet>
+            <div class="btnPlain--text text-truncate text-14">{{item.comp.competition_name}}</div>
+            <v-spacer />
+            <v-btn plain fab x-small @click="onDelete(item)"><svg-icon class="text-16 btnPlain--text" icon="delete"></svg-icon></v-btn>
         </div>
-        <v-divider/>
+
+        <v-divider />
+
+        <div class="d-flex mt15 mb10 ml10 mr10">
+            <div v-if="item.matche.c_type == 2">{{item.selection.name}}</div>
+            <div class="font-weight-bold" v-else>
+                {{OrderTitleUtils.getTeamName(item)}}{{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche,
+                false)}}
+            </div>
+            <v-spacer />
+            <div ref="betPrice" id="betPrice" class="pr-1 font-weight-bold">@{{ TransMarketPrice(item.odds) }}</div>
+        </div>
+
+        <div class="d-flex mb10 ml10 mr10" v-if="checkInplay(index)">
+            <span>{{LangUtil("滚球")}} </span>
+            <v-spacer />
+            <span>{{getStats(index)}} </span>
+        </div>
+
+        <div class="d-flex mb10 ml10 mr10">{{item.market.title}}</div>
+
+        <div class="mb10 ml10 mr10" v-if="item.matche.c_type != 2">
+            <span class="mr-1">{{LangUtil("比赛进程")}}:</span>
+            <span v-if="getStates(item.matche.id)">
+                <span v-if="getStates(item.matche.id).phase_minute > 0">{{LangUtil("已开赛")}}</span>
+                <span class="mx-1" :class="getStates(item.matche.id).match_phase=='-'? 'text-red':'text-gray'"
+                    >{{ LangUtil(getStates(item.matche.id) ? getStates(item.matche.id).match_phase : "") }}</span
+                >
+                <span v-if="getStates(item.matche.id).phase_minute > 0"
+                    >{{ getStates(item.matche.id).phase_minute }} {{LangUtil("分钟")}}</span
+                >
+            </span>
+            <span v-else-if="item.matche.sb_time - GlobalVar.server_time > 0">
+                <span>{{ getStartTime(item.matche) }}</span>
+                <span v-if="item.matche.sb_time - GlobalVar.server_time > 86400"
+                    >{{LangUtil("距开赛")}}{{ getDay(item.matche.sb_time - GlobalVar.server_time) }}{{LangUtil("天")}}</span
+                >
+                <!-- 一天内 -->
+                <span class="ml-1" v-else-if="item.matche.sb_time - GlobalVar.server_time > 600">
+                    <span>{{LangUtil("距开赛")}}</span>
+                    <span>{{ getHour(item.matche.sb_time - GlobalVar.server_time) }}{{LangUtil("小时")}}</span>
+                    <span>{{ getMinute(item.matche.sb_time - GlobalVar.server_time) }}{{LangUtil("分")}} </span>
+                </span>
+                <!-- 十分钟内 -->
+                <span v-else class="red--text">{{LangUtil("即将开赛")}}</span>
+            </span>
+        </div>
+
+        <div class="mb10 ml10 mr10">{{item.matche.home_team}}<span class="font-weight-bold"> VS </span>{{item.matche.away_team}}</div>
+
+        <div class="d-flex ml10 mr10 mb10">
+            <v-sheet class="d-flex align-center justify-center input_left" min-width="60" height="36">{{GlobalVar.currency}}</v-sheet>
+            <v-sheet class="d-flex align-center justify-center input_right" width="100%" height="36">
+                <input class="textGray--text" :placeholder="LangUtil(`单注限额 ${item.maxStake}`)" v-model="item.stake" />
+            </v-sheet>
+        </div>
+
+        <v-row class="fast_choose mb10" dense>
+            <v-col cols="6" v-for="i in 6" :key="i">
+                <btn-info width="100%" height="36">
+                    <span class="font-weight-bold">+{{amountFormat(settintProxy.pageData.form.fast_choose[i-1])}}</span>
+                </btn-info>
+            </v-col>
+        </v-row>
+
+        <div class="d-flex ml10 mr10 mb10">
+            <span>{{LangUtil("最高可赢利")}}{{GlobalVar.currency}}</span>
+            <v-spacer />
+            <span class="yellow--text font-weight-bold"
+                >{{amountFormat((item.selection.price.back * item.stake - item.stake).toFixed(3),true,3)}}</span
+            >
+        </div>
+
+        <div class="ml10 mr10 mb10" v-if="!item.oddsChance || item.isMarketClose">
+            <btn-yellow height="36" width="100%" :disabled="item.isMarketClose" @click.native="onBet(item)">
+                <span class="text-13">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+            </btn-yellow>
+        </div>
+
+        <div class="ml10 mr10 mb10" v-else>
+            <btn-yellow
+                height="36"
+                width="100%"
+                @click.native="onBet(item)"
+            >
+                <span class="text-13">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
+            </btn-yellow>
+        </div>
+
+        <div class="d-flex align-center ml10 mr10">
+            {{LangUtil("自动接受更好的赔率")}}
+            <v-spacer />
+            <svg-icon class="text-12" icon="zoom_in"></svg-icon>
+        </div>
     </v-sheet>
+
+    <Nodata v-if="pageData.list.length == 0" height="200" />
 </div>

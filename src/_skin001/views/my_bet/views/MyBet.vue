@@ -3,9 +3,14 @@
 
 <script lang="ts">
 import Component from "vue-class-component";
+import Nodata from "../../widget/nodata/Nodata.vue";
 import MyBet from "./MyBet";
 
-@Component
+@Component({
+    components: {
+        Nodata,
+    },
+})
 export default class extends MyBet {
     mounted() {
         window.scrollTo(0, 0);

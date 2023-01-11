@@ -1,0 +1,10 @@
+<template src="./Nodata.vue.html" lang="html"></template>
+<style src="./Nodata.vue.scss" lang="scss" scoped></style>
+
+<script lang="ts">
+import Component from "vue-class-component";
+import Nodata from "./Nodata";
+
+@Component
+export default class extends Nodata {}
+</script>

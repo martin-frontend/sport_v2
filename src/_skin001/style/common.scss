@@ -5,6 +5,9 @@
 .hand {
     cursor: pointer;
 }
+.rounded10 {
+    border-radius: 10px;
+}
 
 .theme--light {
     .v-menu__content {
@@ -21,4 +24,16 @@
         border-radius: 10px;
         border: solid 1px #333435;
     }
+}
+
+.v-expansion-panel-header {
+    padding: 0px !important;
+    padding-right: 5px !important;
+    min-height: 50px !important;
+    @media screen and (max-width: 600px) {
+        min-height: 35px !important;
+    }
+}
+.v-expansion-panel:not(:first-child)::after {
+    border-top: none !important;
 }

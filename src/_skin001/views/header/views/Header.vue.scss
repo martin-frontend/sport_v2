@@ -12,7 +12,9 @@
     transform: rotate(180deg);
     transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-
+.rounded10 {
+    border-radius: 10px;
+}
 .menulist{
     border-radius: 10px;
 }

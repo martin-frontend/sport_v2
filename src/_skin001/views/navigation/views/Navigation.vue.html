@@ -2,18 +2,18 @@
     <v-window v-model="window" class="elevation-0">
         <v-window-item>
             <v-list nav dense class="navlist">
-                <v-list-item class="mb-2" link @click="onMybet" v-if="!$vuetify.breakpoint.mobile">
+                <v-list-item class="mb-2" link @click="onMybet" v-if="!$vuetify.breakpoint.mobile" :disabled="betProxy.pageData.list.length == 0">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="222"
+                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
                         <div>{{LangUtil('我的投注')}}</div>
                         <v-spacer />
-                        <div class="mr15">{{betCount}}</div>
+                        <div class="mr15">{{betProxy.pageData.list.length}}</div>
                     </v-sheet>
                 </v-list-item>
 
@@ -23,7 +23,7 @@
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="222"
+                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
                         <div>{{LangUtil('未结算注单')}}</div>
@@ -38,7 +38,7 @@
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="222"
+                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon icon="love"></svg-icon></div>
                         <div>{{LangUtil('关注赛事')}}</div>
@@ -60,7 +60,7 @@
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="222"
+                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[item.tag]"></svg-icon></div>
                         <div>{{LangUtil(item.name)}}</div>
@@ -81,7 +81,7 @@
                             class="d-flex align-center text-14 rounded-lg textGray--text country-item"
                             color="bgBanner"
                             height="48"
-                            max-width="222"
+                            max-width="226"
                             width="100%"
                         >
                             <v-img
@@ -110,7 +110,7 @@
                                 class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
                                 height="48"
                                 width="100%"
-                                max-width="222"
+                                max-width="226"
                                 :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
                             >
                                 <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
@@ -135,7 +135,10 @@
         </v-window-item>
         <v-window-item>
             <v-sheet class="d-flex align-center justify-center rounded10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
-                <svg-icon icon="back1" class="text-22 btn-back" @click.native="window=0"></svg-icon>
+                <v-btn plain fab x-small class="btn-back" @click="window=0">
+                    <svg-icon icon="back1" class="text-22"></svg-icon>
+                </v-btn>
+                
                 <div class="text-16 font-weight-bold">{{LangUtil("我的投注")}}</div>
             </v-sheet>
             <MyBet/>
