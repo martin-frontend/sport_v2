@@ -37,6 +37,10 @@ export default class Navigation extends AbstractView {
         return count;
     }
 
+    get unsettledCount(){
+        return 0;
+    }
+
     onTagClick(tag: string) {
         // this.closeNav();
         page_home.showByTag(tag);
@@ -53,12 +57,12 @@ export default class Navigation extends AbstractView {
 
     onShowCompetition(comp_id: number) {
         // this.closeNav();
-        // page_lobby.showByCompetition(comp_id);
+        page_home.showByCompetition(comp_id);
     }
 
     onShowCountry(country_code: string) {
         // this.closeNav();
-        // page_lobby.showByCountry(country_code);
+        page_home.showByCountry(country_code);
     }
 
     @Watch("betProxy.pageData.list")

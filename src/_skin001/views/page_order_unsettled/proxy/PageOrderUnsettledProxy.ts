@@ -1,5 +1,5 @@
-export default class BetSlipSettledProxy extends puremvc.Proxy {
-    static NAME = "BetSlipSettledProxy";
+export default class PageOrderUnsettledProxy extends puremvc.Proxy {
+    static NAME = "PageOrderUnsettledProxy";
 
     public onRegister(): void {
         this.pageData.loading = true;

@@ -1,17 +1,17 @@
 <div class="mr-2">
     <div class="d-flex align-center textGray--text">
-        <div class="font-weight-bold text-18">今日</div>
+        <div class="font-weight-bold text-18">{{getTitleName()}}</div>
         <v-spacer />
         <v-sheet class="d-flex align-center rounded10 textGray--text" color="bgBanner" height="40">
-            <v-btn :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'" plain :ripple="false"
+            <v-btn :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'" plain :ripple="false" @click="onQuerySort('time')"
                 >{{LangUtil("时间")}}</v-btn
             >
             <svg-icon icon="change"></svg-icon>
-            <v-btn :class=" settingProxy.pageData.form.sort == 'comp' ? 'yellow--text' : 'textGray--text'" plain :ripple="false"
+            <v-btn :class=" settingProxy.pageData.form.sort == 'comp' ? 'yellow--text' : 'textGray--text'" plain :ripple="false" @click="onQuerySort('comp')"
                 >{{LangUtil("联赛")}}</v-btn
             >
         </v-sheet>
-        <v-sheet class="d-flex align-center justify-center ml-2 rounded10 hand textGray--text" color="bgBanner" width="40" height="40">
+        <v-sheet class="d-flex align-center justify-center ml-2 rounded10 hand textGray--text" color="bgBanner" width="40" height="40" @click="onRefrush">
             <v-btn class="textGray--text" plain :ripple="false"><svg-icon class="text-22" icon="refrush"></svg-icon></v-btn>
         </v-sheet>
         <v-sheet class="d-flex align-center justify-center mx-2 rounded10 hand textGray--text" color="bgBanner" width="40" height="40">

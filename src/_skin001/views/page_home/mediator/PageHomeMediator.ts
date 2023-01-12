@@ -53,6 +53,7 @@ export default class PageHomeMediator extends AbstractMediator{
             case net.EventType.api_menu_subnav:
                 {
                     myProxy.pageData.menu_subnav.top = body.top;
+                    myProxy.pageData.menu_subnav.center = body.center;
                     if (myProxy.isFirstRequest) {
                         myProxy.isFirstRequest = false;
                         const { top } = myProxy.pageData.menu_subnav;

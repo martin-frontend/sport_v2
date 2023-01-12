@@ -4,7 +4,7 @@ import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
 import { EventStatesVO } from "@/vo/EventStatesVO";
 import { MarketVO } from "@/vo/MarketVO";
-import { MenuSubTopVO } from "@/vo/MenuNavVO";
+import { MenuSubCenterVO, MenuSubTopVO } from "@/vo/MenuNavVO";
 import { objectRemoveNull } from "@/core/global/Functions";
 import PlatConfig from "@/core/config/PlatConfig";
 
@@ -34,6 +34,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
         love_events: <any[]>[],
         menu_subnav: {
             top: <MenuSubTopVO[]>[],
+            center: <MenuSubCenterVO[]>[],
         },
         // 滚动的位置
         scrollOffset: 0,
@@ -146,7 +147,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     /**赛事接口-新*/
     api_event_list() {
         GlobalVar.loading = true;
-        this.pageData.competition_list = [];
+        // this.pageData.competition_list = [];
         this.pageData.market_list = [];
         this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
     }
@@ -172,7 +173,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
     /**关注 */
     api_user_lovematch() {
-        // GlobalVar.loading = true;
+        GlobalVar.loading = true;
         this.sendNotification(net.HttpType.api_user_lovematch);
     }
     api_user_love(event_id: number) {

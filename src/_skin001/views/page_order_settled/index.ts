@@ -1,7 +1,7 @@
 function show() {
     //@ts-ignore
     const $router = window["vm"].$router;
-    $router.push("/bet_slip_settled");
+    $router.push("/page_order_settled");
 }
 
 export default { show };

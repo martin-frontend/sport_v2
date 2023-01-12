@@ -27,7 +27,7 @@
         <!-- 消息 -->
         <NotifyMessage />
         <!-- loading 遮罩 -->
-        <v-overlay :value="GlobalVar.loading"></v-overlay>
+        <v-overlay :value="GlobalVar.loading">loading</v-overlay>
     </v-app>
 </template>
 

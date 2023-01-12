@@ -21,6 +21,33 @@ export default class PageHome extends AbstractView {
         super(PageHomeMediator);
     }
 
+    getTitleName(){
+        const {country, competition_id, tag, keyword} = this.listQueryComp
+        if(country){
+            const findItem = this.pageData.menu_subnav.center.find((item) => item.country_code == country);
+            if(findItem){
+                return findItem.country_name;
+            }
+        }
+        if(competition_id){
+            if(this.pageData.competition_list.length > 0){
+                return this.pageData.competition_list[0].competition_name;
+            }
+        }
+        if(keyword){
+            return LangUtil("搜索: ") + keyword;
+        }
+        if(tag == "love"){
+            return LangUtil("关注");
+        }else{
+            const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
+            if(findItem){
+                return findItem.name;
+            }
+        }
+        return "";
+    }
+
     getTagNum(tag: string) {
         if (tag == "love") {
             return this.pageData.love_count;
@@ -89,6 +116,8 @@ export default class PageHome extends AbstractView {
     }
 
     onQuerySort(sort: string) {
+        this.settingProxy.pageData.form.sort = sort;
+        this.settingProxy.api_user_set_user_setting();
         this.listQueryComp.sort = sort;
         page_home.showEventList();
     }
@@ -100,6 +129,10 @@ export default class PageHome extends AbstractView {
     //搜寻
     onSearch() {
         page_home.showByKeyword(this.listQueryComp.keyword);
+    }
+    //刷新
+    onRefrush(){
+        page_home.showEventList();
     }
 
     destroyed() {

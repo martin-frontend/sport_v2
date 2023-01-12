@@ -8,10 +8,9 @@
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
-                        <div>{{LangUtil('我的投注')}}</div>
+                        <div class="text-truncate">{{LangUtil('我的投注')}}</div>
                         <v-spacer />
                         <div class="mr15">{{betProxy.pageData.list.length}}</div>
                     </v-sheet>
@@ -23,12 +22,11 @@
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
-                        <div>{{LangUtil('未结算注单')}}</div>
+                        <div class="text-truncate">{{LangUtil('未结算注单')}}</div>
                         <v-spacer />
-                        <div class="mr15">{{betCount}}</div>
+                        <div class="mr15">{{unsettledCount}}</div>
                     </v-sheet>
                 </v-list-item>
 
@@ -38,10 +36,9 @@
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon icon="love"></svg-icon></div>
-                        <div>{{LangUtil('关注赛事')}}</div>
+                        <div class="text-truncate">{{LangUtil('关注赛事')}}</div>
                         <v-spacer />
                         <div class="mr15">{{loveCount}}</div>
                     </v-sheet>
@@ -60,10 +57,9 @@
                         color="bgBanner"
                         height="48"
                         width="100%"
-                        max-width="226"
                     >
                         <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[item.tag]"></svg-icon></div>
-                        <div>{{LangUtil(item.name)}}</div>
+                        <div class="text-truncate">{{LangUtil(item.name)}}</div>
                         <v-spacer />
                         <div class="mr15">{{item.num}}</div>
                     </v-sheet>
@@ -81,7 +77,6 @@
                             class="d-flex align-center text-14 rounded-lg textGray--text country-item"
                             color="bgBanner"
                             height="48"
-                            max-width="226"
                             width="100%"
                         >
                             <v-img
@@ -110,7 +105,6 @@
                                 class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
                                 height="48"
                                 width="100%"
-                                max-width="226"
                                 :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
                             >
                                 <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
@@ -122,7 +116,6 @@
                                 class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
                                 height="48"
                                 width="100%"
-                                max-width="222"
                                 :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
                             >
                                 <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>

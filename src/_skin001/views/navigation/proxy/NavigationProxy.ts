@@ -19,6 +19,7 @@ export default class NavigationProxy extends puremvc.Proxy {
             centerOpen: <boolean[]>[],
             centerLoaded: <boolean[]>[],
         },
+        country_code: "", //列表中当前打开的国家
     };
 
     set_menu_subnav(data: any) {
@@ -30,6 +31,11 @@ export default class NavigationProxy extends puremvc.Proxy {
             this.pageData.menu_subnav.centerOpen.push(false);
         }
         Object.assign(this.pageData.menu_subnav, data);
+
+        this.pageData.menu_subnav.centerLoaded = [];
+        if(this.pageData.country_code){
+            this.api_menu_subnav_country(this.pageData.country_code);
+        }
     }
 
     set_menu_subnav_country(data: any, country_code: string) {
@@ -58,6 +64,7 @@ export default class NavigationProxy extends puremvc.Proxy {
     }
     /**获取地区赛事 */
     api_menu_subnav_country(country_code: string) {
+        this.pageData.country_code = country_code;
         const { center, centerLoaded } = this.pageData.menu_subnav;
         const findIndex = center.findIndex((item) => item.country_code == country_code);
         if (!centerLoaded[findIndex]) {

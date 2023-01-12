@@ -73,7 +73,7 @@ export default class BtnFixedBet extends AbstractView {
     @Watch("pageData.activeCount")
     onWatchActive() {
         //@ts-ignore
-        const divBox: HTMLElement = <any>this.$refs.divBox.$el;
+        const divBox: HTMLElement = <any>this.$refs.divBox?.$el;
         const divPrice: HTMLElement = <any>this.$refs.divPrice;
         if (divBox) {
             this.pageData.list.find((item) => item.selection.id == this.selection.id && item.market.market_id == this.market.market_id)
@@ -101,7 +101,7 @@ export default class BtnFixedBet extends AbstractView {
         const divBox: HTMLElement = <any>this.$refs.divBox.$el;
         if (imgOdds) {
             this.cleartimer = setTimeout(() => {
-                this.onWatchActive();
+                // this.onWatchActive();
                 imgOdds.style.opacity = "0";
                 imgOdds.classList.remove("animation-translate");
                 if (
