@@ -1,0 +1,140 @@
+<div ref="divScroll" class="box-scroll" :class="$vuetify.breakpoint.mobile ? '' : 'mx-2 mt-1'">
+
+
+    <v-sheet class="btnPlain--text d-flex justify-space-around align-center" height="40">
+        <v-btn style="border: none;box-shadow: none;" height="30" text depressed plain min-width="100" max-width="100"
+            @click="onResultType(0)" class="font-weight-bold flex-1"
+            :class="pageData.isActive == 0 ? 'active': ''">{{LangUtil('赛况')}}
+        </v-btn>
+        <v-btn text height="30" plain min-width="100" max-width="100" @click="onResultType(1)"
+            class="font-weight-bold flex-1" :class="pageData.isActive == 1 ? 'active': ''">{{LangUtil('盘口')}}</v-btn>
+        <v-btn text height="30" plain min-width="100" max-width="100" @click="onResultType(2)"
+            class="font-weight-bold flex-1" :class="pageData.isActive == 2 ? 'active': ''">
+            {{LangUtil('比分')}}</v-btn>
+    </v-sheet>
+    <v-divider width="100%" />
+    <!-- 赛况 -->
+    <div v-if="pageData.isActive == 0" class="mt-2">
+        <!-- pc -->
+        <v-sheet  class="d-flex align-center" >
+            <div >
+                <v-tabs show-arrows center-active hide-slider>
+                    <v-tab class="px-1 " >
+                        <v-btn text
+                            :class="pageData.animationType == 0 ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
+                            depressed height="36" @click="onAnimationType(0)">
+                            {{ LangUtil('统计') }}
+                        </v-btn>
+                    </v-tab>
+                    <v-tab class="px-1">
+                        <v-btn text
+                            :class="pageData.animationType == 1 ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
+                            depressed height="36" @click="onAnimationType(1)">
+                            {{ LangUtil('阵容') }}
+                        </v-btn>
+                    </v-tab>
+                    <v-tab class="px-1" color="white">
+                        <v-btn text
+                            :class="pageData.animationType == 2 ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
+                            depressed height="36" @click="onAnimationType(2)">
+                            {{ LangUtil('时间线') }}
+                        </v-btn>
+                    </v-tab>
+                </v-tabs>
+            </div>
+        </v-sheet>
+       
+        <!-- 统计 -->
+        <v-sheet v-if="pageData.animationType == 0" class="d-flex align-center justify-center mx-2 mx-md-0"
+            :height="$vuetify.breakpoint.xsOnly? 300: 450">
+            <iframe v-if="matche.animation_id != ''" height="100%" width="100%" frameborder="0"
+                :src="'./statistics/preview.html?anim_id=' + matche.animation_id + '&lang=' + GlobalVar.lang"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                class="mt-n2">
+            </iframe>
+            <Nodata v-else height="100" />
+        </v-sheet>
+        <!-- 阵容 -->
+        <v-sheet v-if="pageData.animationType == 1" class="d-flex align-center justify-center mx-2 mx-md-0"
+            :height="$vuetify.breakpoint.xsOnly? 300: 450">
+            <iframe v-if="matche.animation_id != ''" height="100%" width="100%" frameborder="0"
+                :src="'./lineups/preview.html?anim_id=' + matche.animation_id + '&lang=' + GlobalVar.lang"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                class="mt-n2">
+            </iframe>
+            <Nodata v-else height="100" />
+        </v-sheet>
+        <!-- 时间线 -->
+        <v-sheet v-if="pageData.animationType == 2" class="d-flex align-center justify-center mx-2 mx-md-0"
+            :height="$vuetify.breakpoint.xsOnly? 300: 450">
+            <iframe v-if="matche.animation_id != ''" height="100%" width="100%" frameborder="0"
+                :src="'./timeline/preview.html?anim_id=' + matche.animation_id + '&lang=' + GlobalVar.lang"
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                class="mt-n2">
+            </iframe>
+            <Nodata v-else height="100" />
+        </v-sheet>
+    </div>
+    <!-- 盘口 -->
+    <div v-if="pageData.isActive == 1">
+        <v-sheet class="d-flex align-center mt-2 mx-2 mx-md-0" elevation="0"
+            :class="$vuetify.breakpoint.mobile ? 'rounded': 'rounded-lg'"
+            :height="$vuetify.breakpoint.mobile ? 50 : 50">
+            <v-sheet v-if="$vuetify.breakpoint.mobile" width="100%" class="d-flex align-center px-2">
+                <div class="d-flex filter_bar overflow-x-auto">
+                    <v-btn text depressed v-for="(value, key) in marketTypeOptions" :key="key"
+                        class="text-gray1 mr-2"
+                        :class="myProxy.listQueryMarket.market_type == value.id ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
+                        height="36" @click="onMarketType(value.id)">
+                        <span class="font-weight-bold text-14">{{ value.name }}</span>
+                    </v-btn>
+                </div>
+            </v-sheet>
+            <v-sheet class="d-flex align-center px-n6" width="100%" color="transparent" v-else>
+                <div ref="pctag">
+                    <v-tabs show-arrows center-active hide-slider>
+                        <v-tab v-for="(value, key) in marketTypeOptions" :key="key" color="white" class="px-1">
+                            <v-btn
+                                :class="myProxy.listQueryMarket.market_type == value.id ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
+                                height="36" @click="onMarketType(value.id)" depressed text>
+                                <span class="font-weight-400">{{ value.name }}</span>
+                            </v-btn>
+                        </v-tab>
+                    </v-tabs>
+                </div>
+            </v-sheet>
+        </v-sheet>
+        <div>
+            <div class=" ml-2 mt-2 d-flex" style="float: left;"
+                :class="$vuetify.breakpoint.mobile ? 'text-12' :'text-14'" v-for="(item, key) in pageData.selectedMarketType">
+
+
+                <v-sheet color="grayBackground" :width="$vuetify.breakpoint.mobile ? '150':'168'" class="MarketTypeBox d-flex align-center justify-center">
+                    <div>
+                        <div :class="$vuetify.breakpoint.mobile ? 'text-16':'text-18'" class="btnPlain--text mb-2 MarketTyresult">
+                            {{item.result}}
+                        </div>
+
+                        <div :class="$vuetify.breakpoint.mobile ? 'text-12':'text-14'" class="textGray--text mt-2 MarketTypename">
+                            <span>{{item.name}}</span>
+                        </div>
+                    </div>
+
+                </v-sheet>
+            </div>
+        </div>
+    </div>
+    <!-- 比分 -->
+    <div v-if="pageData.isActive == 2">
+        <div class="my-2 mx-2 mx-md-0 d-flex" :class="$vuetify.breakpoint.mobile ? 'text-14' :'text-16'"
+            v-for="(item, key) in scores">
+            <v-sheet class="d-flex justify-space-between py-2 rounded-lg" width="100%">
+                <div class="d-flex align-center btnPlain--text">
+                    <span :class="$vuetify.breakpoint.mobile ? 'text-12' : 'text-14'">{{item}}</span>
+                </div>
+                <div class="btnPlain--text d-flex align-center mr-2 font-weight-400"
+                    :class="$vuetify.breakpoint.mobile ? 'text-12' : 'text-14'">{{states[key]}}</div>
+            </v-sheet>
+        </div>
+    </div>
+</div>

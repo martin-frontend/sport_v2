@@ -1,0 +1,117 @@
+<v-app v-if="isloadSecLang">
+    <v-sheet height="100%">
+        <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
+            <v-sheet class="d-flex">
+                <span class="text-20  font-weight-bold">{{LangUtil("比赛结果")}}</span>
+            </v-sheet>
+        </v-sheet>
+        <v-divider width="100%" />
+        <v-sheet class="d-flex justify-space-between mt-5 font-weight-400">
+            <span class=" text-18 ml-5">{{LangUtil("足球")}}</span>
+            <v-menu ref="menu" v-model="bShowDateSelect" :close-on-content-click="false"
+                :return-value.sync="myProxy.selectDate" transition="scale-transition" offset-y left min-width="auto">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-sheet v-bind="attrs" v-on="on"
+                        class="datebutton def-border d-flex justify-space-between align-center rounded-lg mr-5">
+                        <span class=" ml-2 textGray--text text-14"> {{myProxy.selectDate}}</span></span>
+                        <svg-icon class="mr-2" icon="date"></svg-icon>
+                    </v-sheet>
+                </template>
+                <v-date-picker v-model="myProxy.selectDate" no-title scrollable
+                    :locale="GlobalVar.lang == 'zh_CN' ? 'zh-cn':''" :max="nowtime">
+                    <v-spacer></v-spacer>
+                    <v-btn text color="primary" @click="bShowDateSelect = false">
+                        {{LangUtil("取消")}}
+                    </v-btn>
+                    <v-btn text color="primary" @click="onSelectDate">
+                        {{LangUtil("确定")}}
+                    </v-btn>
+                </v-date-picker>
+            </v-menu>
+        </v-sheet>
+        <div>
+            <v-expansion-panels flat multiple accordion>
+                <v-expansion-panel v-for="(competition, key) of myProxy.pageData.competition_list" :key="key">
+                    <v-expansion-panel-header style="height: 64px;">
+                        <template v-slot:default="{ open }">
+                            <div class="d-flex align-center">
+                                <hr class="mr-2 "
+                                    style="background-color: #FFCD43; height: 22px; width: 2px;margin-top: 1px; border: none" />
+                                <v-img :src="competition.country_icon_url" contain max-width="24" width="24" height="24"
+                                    class="ml-1 mr-2"></v-img>
+                                <div class="text-16 ml-1 font-weight-bold">{{competition.competition_name}}</div>
+                                <svg-icon style="position: absolute; right: 10px;" class="text-22 mr-3" color="#909193"
+                                    :class="open ? 'arrow-down':'arrow-up'" icon="zoom_all"></svg-icon>
+
+                            </div>
+
+                        </template>
+                    </v-expansion-panel-header>
+                    <v-divider class="mx-3" width="98%" />
+                    <v-expansion-panel-content class="mt-3 " :class="$vuetify.breakpoint.mobile?'mx-n4':''">
+                        <v-expansion-panels accordion class="rounded-lg def-border" width="100%" flat>
+                            <v-expansion-panel v-for="(matche, key2) of competition.matches" :key="key2">
+                                <v-expansion-panel-header class="pa-1" style="height: 66px;" min-height="66px"
+                                    height="66px">
+                                    <template v-slot:default="{ open }">
+                                        <div class="result-match-detail ">
+                                            <span class=" btnPlain--text font-weight-bold"
+                                                :class="$vuetify.breakpoint.mobile?'text-12':'ml-4 text-14'">
+                                                {{transTime(matche.sb_time)}}</span>
+                                            <v-sheet width="90%" color="transparent" class="result-match-center">
+                                                <v-sheet class="match-teams justify-end">
+
+                                                    <span class="textGray--text "
+                                                        :class="$vuetify.breakpoint.mobile?'text-12':'text-14'">
+                                                        {{matche.home_team}}</span>
+                                                    <v-img class="teamimg mx-2 "
+                                                        :src="getResponseIcon(matche.home_team_icon_url)"></v-img>
+                                                    <span class="font-weight-bold  "
+                                                        :class="$vuetify.breakpoint.mobile?'text-14':'text-16'">
+                                                        {{split_goals(matche.goals_ft)[0]}}
+                                                    </span>
+                                                </v-sheet>
+                                                <v-sheet class="textGray--text "
+                                                    :class="$vuetify.breakpoint.mobile?'text-12 mx-1':'text-14 mx-3'">
+                                                    {{LangUtil('全场得分')}}
+                                                </v-sheet>
+                                                <v-sheet class="match-teams justify-left text-left">
+                                                    <span class="font-weight-bold "
+                                                        :class="$vuetify.breakpoint.mobile?'text-14':'text-16'">
+                                                        {{split_goals(matche.goals_ft)[1]}}
+                                                    </span>
+                                                    <v-img class="teamimg mx-2 "
+                                                        :src="getResponseIcon(matche.away_team_icon_url)"></v-img>
+                                                    <span class="textGray--text"
+                                                        :class="$vuetify.breakpoint.mobile?'text-12':'text-14'">
+                                                        {{matche.away_team}}</span>
+                                                </v-sheet>
+                                            </v-sheet>
+                                            <v-sheet color="transparent">
+                                                <svg-icon class="text-10 mr-2 " color="#909193"
+                                                    :class="open ? 'arrow-down':'arrow-up'" icon="zoom_in"></svg-icon>
+
+                                            </v-sheet>
+
+                                        </div>
+
+                                    </template>
+                                </v-expansion-panel-header>
+                                <v-divider v-if="competition.matches.length != (key2+1)" width="100%" />
+                                <v-expansion-panel-content>
+                                    <PageGameResults class="mx-n2" :matche="matche"
+                                        :competition_name="competition.competition_name"></PageGameResults>
+
+                                </v-expansion-panel-content>
+
+                            </v-expansion-panel>
+                        </v-expansion-panels>
+
+                    </v-expansion-panel-content>
+
+                </v-expansion-panel>
+            </v-expansion-panels>
+
+        </div>
+    </v-sheet>
+</v-app>

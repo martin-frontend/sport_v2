@@ -33,7 +33,7 @@ export function dateFormat(d: any, fmt: any): string {
 }
 
 /**按时区获取时间, 默认GMT0 */
-export function getDateByTimeZone(time: number, timezone: number = 0) {
+export function getDateByTimeZone(time: number, timezone: any = 0) {
     const offset_gmt = new Date().getTimezoneOffset();
     const d = new Date(time + offset_gmt * 60 * 1000 + timezone * 60 * 60 * 1000);
     return d;
@@ -55,7 +55,28 @@ export function objectRemoveNull(obj: any, except: any[] = [undefined, null, ""]
     }
     return result;
 }
+/**
+ * 获取URL参数
+ * @param value
+ */
+export function getQueryVariable(value: string): string | null {
+    let after = window.location.search;
 
+    //value存在先通过search取值如果取不到就通过hash来取
+
+    after = after.substring(1) || window.location.hash.split("?")[1];
+
+    if (after) {
+        const reg = new RegExp("(^|&)" + value + "=([^&]*)(&|$)");
+        const r = after.match(reg);
+        if (r != null) {
+            return decodeURIComponent(r[2]);
+        } else {
+            return null;
+        }
+    }
+    return null;
+}
 /**
  * 表单跟原数据对比，提取变化的数据
  * @param obj 表单数据
