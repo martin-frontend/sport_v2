@@ -49,9 +49,21 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
 
     init() {
         clearInterval(this.timer);
-        this.timer = setInterval(this.getMarketAndStates.bind(this), 5000);
+        // this.timer = setInterval(this.getMarketAndStates.bind(this), 5000);
     }
 
+    /**手机下拉刷新 */
+    listRefrush(done: any) {
+        this.pageData.done = done;
+        this.listQuery.page_count = 1;
+        this.api_user_orders();
+    }
+    /**手机上拉加载更多 */
+    listMore(done: any) {
+        this.pageData.done = done;
+        this.listQuery.page_count++;
+        this.api_user_orders();
+    }
 
 
     /**赛事进程*/
@@ -63,7 +75,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         this.sendNotification(net.HttpType.api_event_states, { event_id, unique });
     }
     api_user_orders() {
-        if (this.listQuery.unique != "settleCount") GlobalVar.loading = true;
+        GlobalVar.loading = true;
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
 }
