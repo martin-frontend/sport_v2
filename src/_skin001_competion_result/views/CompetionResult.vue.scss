@@ -1,0 +1,66 @@
+.font-weight-400{
+    font-weight:400;
+    font-family:'GOTHAM_BOOK';
+}
+.datebutton{
+    width: 202px;
+    height: 36px;
+   
+}
+
+
+.arrow-down {
+    transform: rotate(0deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arrow-up {
+    transform: rotate(180deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.def-border{
+    border: 2px solid #E8E8E2;
+}
+.theme--dark .def-border  {
+    border: 2px solid #333435;
+}
+
+.teamImg{
+    margin-inline: auto;
+}
+.result-match-detail {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.result-match-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+.teamimg{
+    width: 36px;
+    height: 36px;
+      max-width: 36px;
+      max-height: 36px;
+  }
+
+  .match-teams {
+    text-align: right;
+    display: flex;
+    width: 40%;
+    align-items: center;
+}
+
+
+.theme--light .v-application {
+
+        background-color: skyblue !important;
+        font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
+}
+.theme--dark .v-application {
+
+        background-color: black !important;
+        font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
+ 
+}
