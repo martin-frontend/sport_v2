@@ -4,12 +4,14 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import MyBet from "../../my_bet/views/MyBet.vue";
+import PageOrderUnsettled from "../../page_order_unsettled/views/PageOrderUnsettled.vue";
 import Navigation from "./Navigation";
 
 @Component({
     components: {
-        MyBet
-    }
+        MyBet,
+        PageOrderUnsettled,
+    },
 })
 export default class extends Navigation {
     mounted() {

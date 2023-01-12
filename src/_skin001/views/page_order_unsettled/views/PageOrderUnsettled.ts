@@ -1,13 +1,13 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Watch, Component } from "vue-property-decorator";
 import PageOrderUnsettledMediator from "../mediator/PageOrderUnsettledMediator";
-import PageOrderUnsettledProxy from "../proxy/PageOrderUnsettledProxy";
 import LangUtil from "@/core/global/LangUtil";
+import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 
 @Component
 export default class PageOrderUnsettled extends AbstractView {
     LangUtil = LangUtil;
-    myProxy: PageOrderUnsettledProxy = this.getProxy(PageOrderUnsettledProxy);
+    myProxy: OrderUnsettledProxy = this.getProxy(OrderUnsettledProxy);
     pageData = this.myProxy.pageData;
 
     constructor() {

@@ -2,7 +2,13 @@
     <v-window v-model="window" class="elevation-0">
         <v-window-item>
             <v-list nav dense class="navlist">
-                <v-list-item class="mb-2" link @click="onMybet" v-if="!$vuetify.breakpoint.mobile" :disabled="betProxy.pageData.list.length == 0">
+                <v-list-item
+                    class="mb-2"
+                    link
+                    @click="window = 1"
+                    v-if="!$vuetify.breakpoint.mobile"
+                    :disabled="betProxy.pageData.list.length == 0"
+                >
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
                         color="bgBanner"
@@ -16,7 +22,7 @@
                     </v-sheet>
                 </v-list-item>
 
-                <v-list-item class="mb-2" link @click="onMybet" v-if="!$vuetify.breakpoint.mobile">
+                <v-list-item class="mb-2" link @click="window = 2" v-if="!$vuetify.breakpoint.mobile">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
                         color="bgBanner"
@@ -126,15 +132,25 @@
                 </v-list-group>
             </v-list>
         </v-window-item>
+
         <v-window-item>
             <v-sheet class="d-flex align-center justify-center rounded10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
                 <v-btn plain fab x-small class="btn-back" @click="window=0">
                     <svg-icon icon="back1" class="text-22"></svg-icon>
                 </v-btn>
-                
                 <div class="text-16 font-weight-bold">{{LangUtil("我的投注")}}</div>
             </v-sheet>
-            <MyBet/>
+            <MyBet />
+        </v-window-item>
+
+        <v-window-item>
+            <v-sheet class="d-flex align-center justify-center rounded10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
+                <v-btn plain fab x-small class="btn-back" @click="window=0">
+                    <svg-icon icon="back1" class="text-22"></svg-icon>
+                </v-btn>
+                <div class="text-16 font-weight-bold">{{LangUtil("未结算注单")}}</div>
+            </v-sheet>
+            <PageOrderUnsettled />
         </v-window-item>
     </v-window>
 </v-sheet>

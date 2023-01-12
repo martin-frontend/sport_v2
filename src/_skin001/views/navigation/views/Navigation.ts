@@ -46,11 +46,6 @@ export default class Navigation extends AbstractView {
         page_home.showByTag(tag);
     }
 
-    onMybet() {
-        this.window = 1;
-        //TODO
-    }
-
     onGetSubMenu(country_code: string) {
         this.myProxy.api_menu_subnav_country(country_code);
     }

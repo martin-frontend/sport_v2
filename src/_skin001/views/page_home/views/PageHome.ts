@@ -38,7 +38,7 @@ export default class PageHome extends AbstractView {
             return LangUtil("搜索: ") + keyword;
         }
         if(tag == "love"){
-            return LangUtil("关注");
+            return LangUtil("关注赛事");
         }else{
             const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
             if(findItem){
