@@ -59,6 +59,8 @@ export default class PageHomeProxy extends puremvc.Proxy {
         market_id: "",
         market_type: "",
         page_size: 1000,
+
+        unique: PageHomeProxy.NAME,
     };
 
     listQueryMarket = {

@@ -9,6 +9,7 @@ import MarketUtils from "@/core/global/MarketUtils";
 import { formatEventTime, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 import PlatConfig from "@/core/config/PlatConfig";
 import GlobalVar from "@/core/global/GlobalVar";
+import live from "@/_skin001/views/live";
 
 @Component
 export default class MatcheItem extends AbstractView {
@@ -61,7 +62,7 @@ export default class MatcheItem extends AbstractView {
     }
 
     get start_time() {
-        return formatEventTime(dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "yyyy-MM-dd hh:mm:ss"));
+        return formatEventTime(dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM-dd hh:mm:ss"));
     }
 
     get start() {
@@ -171,7 +172,8 @@ export default class MatcheItem extends AbstractView {
     }
 
     goMatche() {
-        // page_matche.show(this.matche.id);
+        page_matche.init(this.matche.id);
+        live.show(this.matche.id);
     }
 
     onLove() {

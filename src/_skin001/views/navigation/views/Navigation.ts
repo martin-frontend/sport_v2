@@ -7,12 +7,14 @@ import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
 import page_home from "../../page_home";
 import BetProxy from "@/proxy/BetProxy";
+import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 
 @Component
 export default class Navigation extends AbstractView {
     LangUtil = LangUtil;
     selfProxy: SelfProxy = getProxy(SelfProxy);
     betProxy:BetProxy = getProxy(BetProxy);
+    orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
     myProxy: NavigationProxy = getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
 
@@ -38,7 +40,7 @@ export default class Navigation extends AbstractView {
     }
 
     get unsettledCount(){
-        return 0;
+        return this.orderUnsettledProxy.pageData.stats.total_count;
     }
 
     onTagClick(tag: string) {

@@ -1,0 +1,27 @@
+<v-sheet class="mbox roundedb10 text-14 textGray--text" color="bgBanner">
+    <v-row dense>
+        <v-col class="text-center text-truncate"> {{matche.home_team}} </v-col>
+        <v-col class="text-center"> {{LangUtil("和")}} </v-col>
+        <v-col class="text-center text-truncate">{{matche.away_team}} </v-col>
+    </v-row>
+    <v-row dense>
+        <v-col>
+            <BtnFixedBet class="mb-2" v-for="(item,index) in marketOrder1" :key="index" :matche="matche" :market="market" :selection="item">
+                <div>{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+                <v-spacer />
+            </BtnFixedBet>
+        </v-col>
+        <v-col>
+            <BtnFixedBet class="mb-2" v-for="(item,index) in marketOrder2" :key="index" :matche="matche" :market="market" :selection="item">
+                <div>{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+                <v-spacer />
+            </BtnFixedBet>
+        </v-col>
+        <v-col>
+            <BtnFixedBet class="mb-2" v-for="(item,index) in marketOrder3" :key="index" :matche="matche" :market="market" :selection="item">
+                <div>{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+                <v-spacer />
+            </BtnFixedBet>
+        </v-col>
+    </v-row>
+</v-sheet>

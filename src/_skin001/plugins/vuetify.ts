@@ -20,6 +20,7 @@ export function getVuetify(): Vuetify {
                         bgTips: "#F2F2F2",
                         textGray: "#8E8F91",
                         btnPlain: "#0F1213",
+                        borderGray: "#E8E8E2",
                     },
                     dark: {
                         yellow: "#FFCD43",
@@ -31,6 +32,7 @@ export function getVuetify(): Vuetify {
                         bgTips: "#5A5A5A",
                         textGray: "#8E8F91",
                         btnPlain: "#FFFFFF",
+                        borderGray: "#5A5A5A",
                     },
                 },
                 dark: false,

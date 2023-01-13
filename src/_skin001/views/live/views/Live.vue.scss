@@ -1,0 +1,26 @@
+.rounded10{
+    border-radius: 10px;
+}
+.px10{
+    padding: 0px 10px 0px 10px;
+}
+.mx10{
+    margin: 0px 10px 0px 10px;
+}
+.mt15{
+    margin-top: 15px;
+}
+.theme--light {
+    .downcount{
+        border: solid 2px #E8E8E2;
+    }
+}
+.theme--dark {
+    .downcount{
+        border: solid 2px #333435;
+    }
+}
+.dateitem{
+    min-width: 40px;
+    text-align: center;
+}

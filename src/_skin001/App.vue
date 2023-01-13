@@ -15,7 +15,7 @@
                     >
                         <router-view />
                     </v-sheet>
-                    <v-sheet class="overflow-y-auto rightbox" width="325" color="transparent" v-if="!$vuetify.breakpoint.mobile">
+                    <v-sheet class="overflow-y-auto rightbox mr-2" min-width="325" color="transparent" v-if="!$vuetify.breakpoint.mobile">
                         <PageMatche />
                     </v-sheet>
                 </v-sheet>
@@ -27,7 +27,7 @@
         <!-- 消息 -->
         <NotifyMessage />
         <!-- loading 遮罩 -->
-        <v-overlay :value="GlobalVar.loading">loading</v-overlay>
+        <overlay v-model="GlobalVar.loading"/>
     </v-app>
 </template>
 

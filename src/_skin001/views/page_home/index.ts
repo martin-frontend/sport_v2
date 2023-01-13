@@ -26,7 +26,7 @@ function showByCountry(country: string) {
     const myProxy = getMyProxy();
     myProxy.listQueryComp.country = country;
     myProxy.api_event_list();
-    myProxy.api_menu_subnav();
+    // myProxy.api_menu_subnav();
 }
 /**按联赛查询 */
 function showByCompetition(competition_id: number) {
@@ -34,7 +34,7 @@ function showByCompetition(competition_id: number) {
     const myProxy = getMyProxy();
     myProxy.listQueryComp.competition_id = competition_id.toString();
     myProxy.api_event_list();
-    myProxy.api_menu_subnav();
+    // myProxy.api_menu_subnav();
 }
 /**关键字查询 */
 function showByKeyword(keyword: string) {

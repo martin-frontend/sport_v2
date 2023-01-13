@@ -1,0 +1,55 @@
+.px10 {
+    padding-left: 10px;
+    padding-right: 10px;
+}
+.mx10 {
+    margin-left: 10px;
+    margin-right: 10px;
+}
+.mt15 {
+    margin-top: 15px;
+}
+.my10 {
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
+.mr6 {
+    margin-right: 6px;
+}
+.mr10 {
+    margin-right: 10px;
+}
+
+.btntype {
+    border-width: 2px;
+}
+.btnGroup {
+    overflow-y: auto;
+}
+
+.v-expansion-panels .v-expansion-panel {
+    background-color: transparent;
+}
+::v-deep .v-expansion-panel-header {
+    padding: 0;
+    background-color: white;
+    border-radius: 8px;
+}
+::v-deep .v-expansion-panel-header--active {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+::v-deep .v-expansion-panel-content__wrap {
+    padding: 0px !important;
+}
+::v-deep .v-expansion-panel {
+    border-radius: 8px;
+}
+::v-deep .v-expansion-panel::before {
+    box-shadow: none;
+}
+.titleline {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}

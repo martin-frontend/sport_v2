@@ -1,7 +1,14 @@
+import Vue from "vue";
+import getProxy from "@/core/global/getProxy";
+import PageMatcheProxy from "./proxy/PageMatcheProxy";
+
 function show() {
-    //@ts-ignore
-    const $router = window["vm"].$router;
-    $router.push("/page_matche");
+    Vue.router.push("/page_matche")
 }
 
-export default { show };
+function init(id: number) {
+    const myProxy: PageMatcheProxy = getProxy(PageMatcheProxy);
+    myProxy.init(id);
+}
+
+export default { show, init };

@@ -12,4 +12,5 @@ export interface MatchVO {
     start_time: string; //开赛时间
     sb_time: number; //开赛时间戳
     animation_status: number; //动画数据
+    animation_id: string; //动画ID
 }

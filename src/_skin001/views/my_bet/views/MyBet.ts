@@ -61,7 +61,11 @@ export default class MyBet extends AbstractView {
     checkInplay(index: number) {
         return !!this.pageData.event_states[index] && !!this.pageData.event_states[index].goals_ft;
     }
-
+    //快捷输入
+    onInputFast(stake: any, fastChoose: any) {
+        return ((stake ? parseInt(stake) : 0) + parseInt(fastChoose)).toString();
+    }
+    //删除注单
     onDelete(item: any) {
         this.myProxy.deleteItem(item.market.market_id, item.selection.id);
     }

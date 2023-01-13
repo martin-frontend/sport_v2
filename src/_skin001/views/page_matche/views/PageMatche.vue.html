@@ -1,3 +1,75 @@
-<v-sheet color="yellow">
-    <div v-for="item in 100" :key="item">{{ item }}</div>
-</v-sheet>
+<v-card color="transparent" elevation="0">
+    <Live/>
+
+    <v-sheet class="d-flex align-center" color="transparent" max-height="56px">
+        <v-sheet class="btnGroup d-flex align-center pt-5" color="transparent" max-width="280">
+            <v-btn
+                class="rounded10 btntype mr6"
+                outlined
+                color="borderGray"
+                v-for="(item, index) in myProxy.marketTypeOptions"
+                :key="index"
+                @click="onMarketType(item.id)"
+            >
+                <span class="textGray--text">{{item.name}}</span>
+            </v-btn>
+        </v-sheet>
+        <v-sheet
+            class="d-flex align-center justify-center ml-2 rounded10 hand textGray--text"
+            color="bgBanner"
+            width="36"
+            height="36"
+            @click="onOpenAll"
+        >
+            <v-btn class="textGray--text" plain :ripple="false">
+                <div :class="pageData.isOpenAll ? 'arrow-down' : 'arrow-up'"><svg-icon class="text-22" icon="zoom_all"></svg-icon></div>
+            </v-btn>
+        </v-sheet>
+    </v-sheet>
+
+    <!-- list -->
+    <v-sheet max-width="325" color="transparent">
+        <v-expansion-panels
+            class="mt-2"
+            elevation="0"
+            accordion
+            multiple
+            v-model="pageData.panelIndexs"
+            v-if="pageData.market_list.length>0 && Object.keys(pageData.market_list[0].fix_markets).length>0"
+        >
+            <v-expansion-panel
+                :id="`panel${index}`"
+                v-for="(market, index) of pageData.market_list[0].fix_markets"
+                :key="index"
+                elevation="0"
+                class="mb-2"
+            >
+                <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
+                    <template v-slot:default="{ open }">
+                        <div class="d-flex align-center">
+                            <v-sheet class="mx10" min-width="2" height="16" color="yellow" rounded></v-sheet>
+                            <div class="mr-1 font-weight-bold text-14 btnPlain--text">{{ market.title }}</div>
+                            <v-spacer />
+                            <svg-icon
+                                class="textGray--text text-12 mr-2"
+                                icon="zoom_out"
+                                :class="open ? 'arrow-up' : 'arrow-down'"
+                            ></svg-icon>
+                        </div>
+                        <v-divider v-if="open" class="titleline" />
+                    </template>
+                </v-expansion-panel-header>
+
+                <v-expansion-panel-content elevation="0" color="transparent" class="pt-2">
+                    <MarketM1 v-if="marketTypeKind[1].includes(market.market_type)" :matche="matche" :market="market" />
+                    <MarketM2 v-if="marketTypeKind[2].includes(market.market_type)" :matche="matche" :market="market" />
+                    <MarketM3 v-if="marketTypeKind[3].includes(market.market_type)" :matche="matche" :market="market" />
+                    <MarketM4 v-if="marketTypeKind[4].includes(market.market_type)" :matche="matche" :market="market" />
+                    <MarketM5 v-if="marketTypeKind[5].includes(market.market_type)" :matche="matche" :market="market" />
+                    <MarketM6 v-if="marketTypeKind[6].includes(market.market_type)" :matche="matche" :market="market" />
+                    <MarketM7 v-if="marketTypeKind[7].includes(market.market_type)" :matche="matche" :market="market" />
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
+    </v-sheet>
+</v-card>

@@ -6,6 +6,7 @@ import GlobalVar from "@/core/global/GlobalVar";
 import NotificationName from "@/core/NotificationName";
 import net from "@/net/setting";
 import BetProxy from "./BetProxy";
+import OrderUnsettledProxy from "./OrderUnsettledProxy";
 import SelfProxy from "./SelfProxy";
 import SettingProxy from "./SettingProxy";
 
@@ -32,7 +33,7 @@ export default class NetObserver extends AbstractMediator {
         const body = notification.getBody();
         const type = notification.getType();
         const selfProxy: SelfProxy = this.getProxy(SelfProxy);
-        const settingProxy:SettingProxy = getProxy(SettingProxy);
+        const settingProxy: SettingProxy = getProxy(SettingProxy);
         switch (notification.getName()) {
             case net.EventType.api_config:
                 PlatConfig.config = body;
@@ -71,10 +72,8 @@ export default class NetObserver extends AbstractMediator {
                     this.facade.sendNotification(net.HttpType.api_user_info);
                     this.facade.sendNotification(net.HttpType.api_event_sports);
                     this.facade.sendNotification(net.HttpType.api_event_market_type_v2);
-                    this.facade.sendNotification(net.HttpType.api_user_orders, {
-                        is_settle: 0,
-                        unique: "settleCount",
-                    });
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                    orderUnsettledProxy.api_user_orders();
                 }
                 break;
             case net.EventType.api_user_info:
@@ -102,9 +101,19 @@ export default class NetObserver extends AbstractMediator {
                     const betProxy: BetProxy = getProxy(BetProxy);
                     betProxy.set_event_states(body);
                 }
+                if (type == OrderUnsettledProxy.NAME) {
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                    orderUnsettledProxy.set_event_states(body);
+                }
                 break;
             case net.EventType.api_user_set_user_setting:
                 selfProxy.api_user_info();
+                break;
+            case net.EventType.api_user_orders:
+                if (type == OrderUnsettledProxy.NAME) {
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                    orderUnsettledProxy.set_user_orders(body);
+                }
                 break;
         }
     }

@@ -17,6 +17,7 @@ import { isAndroid, isIOS } from "@/core/global/Functions";
 import { js_utils } from "custer-js-utils";
 import BtnYellow from "./views/widget/btn_yellow/BtnYellow.vue";
 import BtnInfo from "./views/widget/btn_info/BtnInfo.vue";
+import Overlay from "./views/widget/overlay/Overlay.vue";
 
 LogUtil.init();
 Vue.config.productionTip = false;
@@ -26,6 +27,7 @@ Vue.use(Notifications, { velocity });
 // 注册到全局
 Vue.component("btn-yellow", BtnYellow);
 Vue.component("btn-info", BtnInfo);
+Vue.component("overlay", Overlay);
 
 if (isAndroid()) {
     GlobalVar.device_type = EnumDeviceType.ANDROID;

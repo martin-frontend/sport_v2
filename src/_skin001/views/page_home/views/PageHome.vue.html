@@ -48,11 +48,11 @@
             </v-expansion-panel-header>
 
             <v-expansion-panel-content elevation="0" color="transparent" class="pt-2">
-                <MatcheItem v-for="(matche, mkey) of competition.matches" :key="mkey" :matche="matche"></MatcheItem>
-                <!-- <div v-for="(matche, mkey) of competition.matches" :key="mkey">
+                <!-- <MatcheItem v-for="(matche, mkey) of competition.matches" :key="mkey" :matche="matche"></MatcheItem> -->
+                <div v-for="(matche, mkey) of competition.matches" :key="mkey">
                     <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
                     <MatcheItem v-else :matche="matche"></MatcheItem>
-                </div> -->
+                </div>
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>

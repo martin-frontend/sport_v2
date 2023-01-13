@@ -1,29 +1,12 @@
-<!-- <v-col
-    :cols="cols"
-    ref="divBox"
-    class="btn rounded d-flex align-center justify-center"
-    :class="selection && selection.price.back && selection.status === 0 ? 'cursor_pointer' : 'btn-disabled'"
-    @click="onBet"
->
-    <v-icon v-if="!selection.type || !market" color="grayBorder" small>mdi-lock</v-icon>
-    <div v-else class="d-flex justify-center align-center" style="width: 100%">
-        <slot></slot>
-        <v-spacer v-if="$slots.default" />
-        <v-icon v-if="market.status == 2 || selection.status != 0" color="grayBorder" small>mdi-lock</v-icon>
-        <div v-else ref="divPrice" class="ml-1 font-weight-bold text-14">{{TransMarketPrice(getPrice())}}</div>
-    </div>
-    <img v-if="market && (market.status == 2 || selection.status == 0)" ref="imgOdds" class="ml-1 mr-1 opacity-0" :src="iconOdds" width="10" height=12/>
-</v-col> -->
-
 <v-sheet ref="divBox" class="d-flex align-center justify-center rounded10 hand btn" height="36" @click="onBet">
     <svg-icon class="textGray--text" icon="lock" v-if="!selection.type || !market"></svg-icon>
     <div class="d-flex align-center justify-center font-weight-bold" color="transparent" style="width:100%" v-else>
-        <slot></slot>
+        <div class="ml-2"><slot></slot></div>
         <v-spacer v-if="$slots.default" />
         <svg-icon class="textGray--text ml-3" icon="lock" v-if="market.status == 2 || selection.status != 0"></svg-icon>
         <div v-else ref="divPrice" class="ml-3 font-weight-bold text-14">{{TransMarketPrice(getPrice())}}</div>
     </div>
-    <div ref="imgOdds" class="text-8 mx-1 opacity-0" v-if="market && (market.status == 2 || selection.status == 0)">
+    <div ref="imgOdds" class="text-8 mx-1 opacity-0" v-if="market && (market.status == 2 || selection.status == 0) && selection.type">
         <svg-icon :icon="iconOdds"></svg-icon>
     </div>
 </v-sheet>

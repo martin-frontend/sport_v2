@@ -27,10 +27,11 @@
     background-color: transparent;
 }
 ::v-deep .v-expansion-panel-header {
-    // min-height: 50px;
     padding: 0;
     background-color: white;
     border-radius: 8px;
+}
+::v-deep .v-expansion-panel-header--active {
     border-bottom-left-radius: 0px;
     border-bottom-right-radius: 0px;
 }

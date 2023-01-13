@@ -3,18 +3,16 @@
         <template v-for="(item, index) in marketType">
             <v-col v-if="getMarket(item)" :key="index" cols="12">
                 <div class="px-3">
-                    <v-tooltip  top content-class="tip" >
+                    <v-tooltip top content-class="tip">
                         <template v-slot:activator="{ on, attrs }">
-                            <div class="d-inline-flex align-center justify-center font-weight-bold header-tips"
-                                v-bind="attrs" v-on="on">
-                                <div class="font-weight-bold"
-                                    :class="$vuetify.breakpoint.mobile ? 'text-12' : 'text-14'">
+                            <div class="d-inline-flex align-center justify-center font-weight-bold header-tips" v-bind="attrs" v-on="on">
+                                <div class="font-weight-bold" :class="$vuetify.breakpoint.mobile ? 'text-12' : 'text-14'">
                                     {{ getMarket(item).title }}
                                 </div>
-                        
-                                <v-img 
+
+                                <!-- <v-img 
                                     src="@/_skin001/assets/icon/icon_help.png" height="35" width="35"
-                                    max-width="35" max-height="35"></v-img>
+                                    max-width="35" max-height="35"></v-img> -->
                             </div>
                         </template>
                         <span>{{ getMarket(item).hint }} </span>
