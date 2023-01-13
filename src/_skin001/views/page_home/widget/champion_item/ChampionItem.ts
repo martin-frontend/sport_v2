@@ -2,7 +2,7 @@ import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
 import { MatchVO } from "@/vo/MatchVO";
-import PageLobbyProxy from "../../proxy/PageLobbyProxy";
+import PageHomeProxy from "../../proxy/PageHomeProxy";
 import MarketUtils from "@/core/global/MarketUtils";
 import PlatConfig from "@/core/config/PlatConfig";
 
@@ -11,7 +11,7 @@ export default class ChampionItem extends AbstractView {
     LangUtil = LangUtil;
     MarketUtils = MarketUtils;
     @Prop() matche!: MatchVO;
-    myProxy: PageLobbyProxy = this.getProxy(PageLobbyProxy);
+    myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     /**盘口类型 */
     marketType = PlatConfig.config.client.champion_type.split(",");
