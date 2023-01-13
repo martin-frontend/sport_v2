@@ -67,5 +67,11 @@ module.exports = {
             filename: "skin001_competion_result.html",
             title: "result",
         },
+        skin001_historyResult: {
+            entry: "src/_skin001_history_result/main.ts",
+            template: "public/index001_history_result.html",
+            filename: "skin001_history_result.html",
+            title: "history",
+        },
     },
 };

@@ -23,8 +23,6 @@ export default class PageOrderDetail extends AbstractView{
     isloadSecLang = false;
     bShowDateSelect= false;
     nowtime :any;
-    
-    item=<any>[];
     form = {
         lang: getQueryVariable("lang") || "zh_CN",
         order_id: getQueryVariable("order_id"),

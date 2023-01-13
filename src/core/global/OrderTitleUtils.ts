@@ -94,23 +94,23 @@ function getScoreStr(item:any){
     }
     if (cornersMarket_type.indexOf(item.market_type) != -1) {
         if (!state.corners_ft) return "";
-        return " "+LangUtil("角球")+"("+state.corners_ft+")";
+        return {str:" "+LangUtil("角球")+"("+state.corners_ft+")",name:LangUtil("角球"),score:state.corners_ft};
     }else if (addtimeHalfMarket_type.indexOf(item.market_type) != -1) {
         if (!state.goals_otht) return "";
-        return " "+LangUtil("半场加时")+"("+state.goals_otht+")";
+        return {str:" "+LangUtil("半场加时")+"("+state.goals_otht+")",name:LangUtil("半场加时"),score:state.goals_otht};
     }else if (addtimeMarket_type.indexOf(item.market_type) != -1) {
         if (!state.goals_ot) return "";
-        return " "+LangUtil("加时")+"("+state.goals_ot+")";
+        return {str:" "+LangUtil("加时")+"("+state.goals_ot+")",name:LangUtil("加时"),score:state.goals_ot};
     }else if (AFTER_Market_type.indexOf(item.market_type) != -1) {
         if (!state.goals_pk) return "";
-        return " "+LangUtil("点球")+"("+state.goals_pk+")";
+        return {str:" "+LangUtil("点球")+"("+state.goals_pk+")",name:LangUtil("点球"),score:state.goals_pk};
     }else if (firstHalfarr.indexOf(item.market_type) != -1) {
         if (!state.goals_ht) return "";
-        return " "+LangUtil("半场比分")+"("+state.goals_ht+")";
+        return {str:" "+LangUtil("半场比分")+"("+state.goals_ht+")",name:LangUtil("半场比分"),score:state.goals_ht};
     }
     else {
         if (!state.goals_ft) return "";
-        return " "+LangUtil("比分")+"("+state.goals_ft+")";
+        return {str:" "+LangUtil("比分")+"("+state.goals_ft+")",name:LangUtil("比分"),score:state.goals_ft};
     }
 }
 const exportOrder = {
