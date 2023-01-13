@@ -35,7 +35,7 @@ export function getVuetify(): Vuetify {
                         borderGray: "#5A5A5A",
                     },
                 },
-                dark: false,
+                dark: true,
             },
         };
         vuetify = new Vuetify(opts);

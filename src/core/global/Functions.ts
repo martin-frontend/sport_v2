@@ -155,7 +155,33 @@ export function removeClass(ele: HTMLElement, cls: string) {
         ele.className = ele.className.replace(reg, " ");
     }
 }
-
+/**
+ * 获取今日零点时间
+ * @offset 偏移天数
+ * @offsetSecond 偏移秒
+ */
+export function getTodayOffset(offset = 0, offsetSecond = 0): any {
+    const symbal = GlobalVar.zone.substring(0, 1);
+    let timezone = "GMT" + symbal;
+    const arr = GlobalVar.zone.substring(1).split(":");
+    if (arr.length == 1) {
+        if (arr[0].length == 1) {
+            timezone += "0" + arr[0] + "00";
+        } else {
+            timezone += arr[0] + "00";
+        }
+    } else {
+        if (arr[0].length == 1) {
+            timezone += "0" + arr[0] + arr[1];
+        } else {
+            timezone += arr[0] + arr[1];
+        }
+    }
+    const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000*offset, GlobalVar.zone);
+    const formatdate = dateFormat(today, "yyyy-MM-dd")
+    const timestr = (Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
+    return {timestr,formatdate};
+}
 /**
  * 如果是香港盘赔率要减一
  * input 1 output input -1

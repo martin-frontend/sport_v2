@@ -32,13 +32,26 @@ export default class Header extends AbstractView {
         try {
             window.open(
                 link,
-                LangUtil("客服"),
+                LangUtil("赛果"),
                 "height=638, width=972, top=100, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no"
             );
         } catch (e: any) {
             OpenLink(link);
         }
     }
+    openHistoryResult() {
+        const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}`;
+        try {
+            window.open(
+                link,
+                LangUtil("注单历史"),
+                "height=638, width=972, top=100, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no"
+            );
+        } catch (e: any) {
+            OpenLink(link);
+        }
+    }
+
     destroyed() {
         super.destroyed();
     }

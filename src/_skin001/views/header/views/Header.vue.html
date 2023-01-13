@@ -1,5 +1,5 @@
 <v-sheet class="rounded-lg d-flex align-center mt-3 mr-2" height="56" color="bgBanner">
-    <v-btn plain color="btnPlain" :ripple="false">
+    <v-btn plain color="btnPlain" :ripple="false" @click="openHistoryResult">
         <svg-icon class="text-18" icon="history"></svg-icon>
         <div class="text-16 ml-2">{{LangUtil("注单历史")}}</div>
     </v-btn>
