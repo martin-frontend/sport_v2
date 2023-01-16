@@ -4,6 +4,8 @@ import App from "./App.vue";
 import router from "./router";
 import "@/_skin001/icons"; // svg 图标
 import "@/style/fontsize.scss";
+import "@/_skin001/style/space.scss";
+import "@/_skin001/style/rounded.scss";
 import "./style/common.scss";
 import { getVuetify } from "./plugins/vuetify";
 import Notifications from "vue-notification";

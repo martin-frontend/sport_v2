@@ -1,5 +1,5 @@
 import AbstractView from "@/core/abstract/AbstractView";
-import { Watch, Component } from "vue-property-decorator";
+import { Watch, Component, Prop } from "vue-property-decorator";
 import LiveMediator from "../mediator/LiveMediator";
 import LiveProxy from "../proxy/LiveProxy";
 import LangUtil from "@/core/global/LangUtil";
@@ -13,7 +13,13 @@ export default class Live extends AbstractView {
     myProxy: LiveProxy = this.getProxy(LiveProxy);
     pageData = this.myProxy.pageData;
 
-    window = 0;
+    @Prop({ default: 0 }) value!: number;
+    window = this.value;
+
+    @Watch("value")
+    onWatchValue(){
+        this.window = this.value;
+    }
 
     constructor() {
         super(LiveMediator);

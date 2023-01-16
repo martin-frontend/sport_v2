@@ -1,12 +1,20 @@
 <v-card color="transparent" elevation="0">
-    <Live/>
+    <Live />
 
     <v-sheet class="d-flex align-center" color="transparent" max-height="56px">
-        <v-sheet class="btnGroup d-flex align-center pt-5" color="transparent" max-width="280">
+        <v-sheet
+            ref="boxType"
+            class="btnGroup d-flex align-center pt-5"
+            color="transparent"
+            max-width="280"
+            @mousedown="onMouseDown"
+            @mouseup="onMouseUp"
+            @mousemove="onMouseMove"
+        >
             <v-btn
-                class="rounded10 btntype mr6"
+                class="rounded-10 btntype mr6"
                 outlined
-                color="borderGray"
+                :color="myProxy.listQueryMarket.market_type == item.id ? 'yellow' : 'borderGray' "
                 v-for="(item, index) in myProxy.marketTypeOptions"
                 :key="index"
                 @click="onMarketType(item.id)"
@@ -15,15 +23,14 @@
             </v-btn>
         </v-sheet>
         <v-sheet
-            class="d-flex align-center justify-center ml-2 rounded10 hand textGray--text"
+            class="d-flex align-center justify-center ml-2 rounded-10 hand textGray--text"
             color="bgBanner"
             width="36"
             height="36"
+            v-ripple
             @click="onOpenAll"
         >
-            <v-btn class="textGray--text" plain :ripple="false">
-                <div :class="pageData.isOpenAll ? 'arrow-down' : 'arrow-up'"><svg-icon class="text-22" icon="zoom_all"></svg-icon></div>
-            </v-btn>
+            <div :class="pageData.isOpenAll ? 'arrow-down' : 'arrow-up'"><svg-icon class="text-22" icon="zoom_all"></svg-icon></div>
         </v-sheet>
     </v-sheet>
 

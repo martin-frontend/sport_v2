@@ -11,7 +11,7 @@
                     </div>
                     <div v-if="states.phase_minute > 0">{{ states.phase_minute }} {{LangUtil("分钟")}}</div>
                 </div>
-                <div v-else-if="start > 0" class="d-flex align-center ml10">
+                <div v-else-if="start > 0" class="d-flex align-center">
                     <div class="ml10">{{ start_time }}</div>
                     <div class="ml10" v-if="start_in_sec > 86400">{{LangUtil("距开赛")}} {{ day }}{{LangUtil("天")}}</div>
                     <!-- 一天内 -->
@@ -120,13 +120,19 @@
                 </v-sheet>
             </div>
         </v-sheet>
-        <v-btn class="rounded10 btnEnter mr10 elevation-0 textGray--text" min-width="58" height="36" color="bgGray" @click="goMatche"
+        <v-btn class="rounded-10 btnEnter mr10 elevation-0 textGray--text" min-width="58" height="36" color="bgGray" @click="goMatche"
             >{{matche.market_amount}}<svg-icon class="text-10 ml-1" icon="page_right"></svg-icon
         ></v-btn>
     </div>
     <!-- 显示全部按扭 -->
-    <v-sheet class="d-flex justify-center mt-1" color="transparent">
-        <v-btn class="elevation-0 textGray--text text-10 btn_zoom" color="bgGray" width="72" height="12" @click="onShowAll"
+    <v-sheet class="d-flex justify-center mt-1" color="transparent" height="12">
+        <v-btn
+            class="elevation-0 textGray--text text-10 btn_zoom"
+            color="bgGray"
+            width="72"
+            height="12"
+            @click="onShowAll"
+            v-if="fixMarket && getOtherGroup().length>0"
             ><svg-icon :icon="showAll ? 'zoom_in' : 'zoom_out' "></svg-icon
         ></v-btn>
     </v-sheet>

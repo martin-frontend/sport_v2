@@ -16,7 +16,7 @@
                         <router-view />
                     </v-sheet>
                     <v-sheet class="overflow-y-auto rightbox mr-2" min-width="325" color="transparent" v-if="!$vuetify.breakpoint.mobile">
-                        <PageMatche />
+                        <RightPanel />
                     </v-sheet>
                 </v-sheet>
             </v-sheet>
@@ -36,14 +36,14 @@ import Component from "vue-class-component";
 import APP from "./App";
 import Header from "./views/header/views/Header.vue";
 import Navigation from "./views/navigation/views/Navigation.vue";
-import PageMatche from "./views/page_matche/views/PageMatche.vue";
+import RightPanel from "./views/right_panel/views/RightPanel.vue";
 import NotifyMessage from "./views/widget/notify_message/NotifyMessage.vue";
 @Component({
     components: {
         Header,
         NotifyMessage,
         Navigation,
-        PageMatche,
+        RightPanel,
     },
 })
 export default class extends APP {}

@@ -1,20 +1,67 @@
-<v-sheet class="rounded10" color="bgBanner">
-    <v-sheet class="d-flex align-center px10 textGray--text" color="transparent" height="50">
-        <v-sheet class="d-flex align-center btnPlain--text hand" color="transparent" max-width="180" height="230">
-            <v-img width="20" height="20" src="@/_skin001/assets/team.png"></v-img>
-            <div class="text-14 mx10 text-truncate">{{LangUtil("热门赛事")}}</div>
-            <svg-icon class="text-12 textGray--text" icon="zoom_out"></svg-icon>
-        </v-sheet>
-        <v-spacer />
-        <svg-icon class="text-26 hand" :icon="window==0 ? 'score1_' : 'score1'" @click.native="window=0"></svg-icon>
-        <svg-icon class="text-28 hand mx10" :icon="window==1 ? 'live1_' : 'live1'" @click.native="window=1"></svg-icon>
-        <svg-icon class="text-24 hand" :icon="window==2 ? 'animate1_' : 'animate'" @click.native="window=2"></svg-icon>
-    </v-sheet>
-    <v-divider />
+<v-sheet :class="$vuetify.breakpoint.mobile ? 'rounded-10' : 'rounded-b-10'" class="overflow-hidden" color="bgBanner" min-height="180">
     <v-window v-model="window">
         <v-window-item class="textGray--text text-13 pb-4">
             <div v-if="matche">
                 <div class="text-center mt15 text-14">{{getCompName()}}</div>
+
+                <v-row dense class="my-3">
+                    <v-col class="d-flex align-center justify-end">
+                        <v-sheet
+                            v-if="getStates()"
+                            class="d-flex align-center justify-center text-12 cards"
+                            rounded
+                            color="red"
+                            width="18"
+                            height="24"
+                            >{{split_goals(getStates().red_cards_ft)[0]}}</v-sheet
+                        >
+                        <v-sheet
+                            v-if="getStates()"
+                            class="d-flex align-center justify-center text-12 mx-2 cards"
+                            rounded
+                            color="yellow"
+                            width="18"
+                            height="24"
+                            >{{split_goals(getStates().yellow_cards_ft)[0]}}</v-sheet
+                        >
+                        <v-img :src="getHomeIcon()" max-width="36" width="36" height="36"></v-img>
+                    </v-col>
+                    <v-col class="d-flex align-center justify-center">
+                        <div v-if="getStates()" class="d-flex mx-6">
+                            <div v-if="isShowFullScore()">{{goals_ot_Value[0]}}<span v-if="isShowPK()">({{goals_pk_Value[0]}})</span></div>
+                            <div v-else>{{goalsValue[0]}}</div>
+                            <div class="mx-2">-</div>
+                            <div v-if="isShowFullScore()">{{goals_ot_Value[1]}}<span v-if="isShowPK()">({{goals_pk_Value[1]}})</span></div>
+                            <div v-else>{{goalsValue[1]}}</div>
+                        </div>
+                        <div v-else class="text-center mx-6">
+                            <div>{{LangUtil("未开赛")}}</div>
+                            <div>{{start_time}}</div>
+                        </div>
+                    </v-col>
+                    <v-col class="d-flex justify-left align-center">
+                        <v-img :src="getAwayIcon()" max-width="36" width="36" height="36"></v-img>
+                        <v-sheet
+                            v-if="getStates()"
+                            class="d-flex align-center justify-center text-12 mx-2 cards"
+                            rounded
+                            color="red"
+                            width="18"
+                            height="24"
+                            >{{split_goals(getStates().red_cards_ft)[1]}}</v-sheet
+                        >
+                        <v-sheet
+                            v-if="getStates()"
+                            class="d-flex align-center justify-center text-12 cards"
+                            rounded
+                            color="yellow"
+                            width="18"
+                            height="24"
+                            >{{split_goals(getStates().yellow_cards_ft)[1]}}</v-sheet
+                        >
+                    </v-col>
+                </v-row>
+<!-- 
                 <div class="d-flex align-center justify-center my-3">
                     <v-sheet
                         v-if="getStates()"
@@ -27,7 +74,7 @@
                     >
                     <v-sheet
                         v-if="getStates()"
-                        class="d-flex align-center justify-center text-12 mx-1"
+                        class="d-flex align-center justify-center text-12 mx-2"
                         rounded
                         color="yellow"
                         width="18"
@@ -35,21 +82,21 @@
                         >{{split_goals(getStates().yellow_cards_ft)[0]}}</v-sheet
                     >
                     <v-img :src="getHomeIcon()" max-width="36" width="36" height="36"></v-img>
-                    <div v-if="getStates()" class="d-flex mx-2">
+                    <div v-if="getStates()" class="d-flex mx-6">
                         <div v-if="isShowFullScore()">{{goals_ot_Value[0]}}<span v-if="isShowPK()">({{goals_pk_Value[0]}})</span></div>
                         <div v-else>{{goalsValue[0]}}</div>
                         <div class="mx-2">-</div>
                         <div v-if="isShowFullScore()">{{goals_ot_Value[1]}}<span v-if="isShowPK()">({{goals_pk_Value[1]}})</span></div>
                         <div v-else>{{goalsValue[1]}}</div>
                     </div>
-                    <div v-else class="text-center mx-2">
+                    <div v-else class="text-center mx-6">
                         <div>{{LangUtil("未开赛")}}</div>
                         <div>{{start_time}}</div>
                     </div>
                     <v-img :src="getAwayIcon()" max-width="36" width="36" height="36"></v-img>
                     <v-sheet
                         v-if="getStates()"
-                        class="d-flex align-center justify-center text-12 mx-1"
+                        class="d-flex align-center justify-center text-12 mx-2"
                         rounded
                         color="red"
                         width="18"
@@ -65,19 +112,21 @@
                         height="24"
                         >{{split_goals(getStates().yellow_cards_ft)[1]}}</v-sheet
                     >
-                </div>
+                </div> -->
                 <v-row dense class="mt-2">
-                    <v-col class="text-center text-truncate">{{getHomeName()}}</v-col>
-                    <v-col class="text-center d-flex" v-if="getStates() && matche">
+                    <v-col class="text-right text-truncate">{{getHomeName()}}</v-col>
+                    <v-col class="text-center d-flex justify-center" v-if="getStates() && matche">
                         <div v-if="matche && matche.sb_time-GlobalVar.server_time < 600 && matche.sb_time-GlobalVar.server_time > 0">
                             {{LangUtil("即将开赛")}}
                         </div>
                         <template v-else>
                             <div v-if="getStates()">{{LangUtil(getStates().match_phase)}}</div>
-                            <div v-if="getStates()" class="ml-2">{{ getStates().phase_minute }}{{LangUtil("分钟")}}</div>
+                            <div v-if="getStates() && getStates().phase_minute > 0" class="ml-2">
+                                {{ getStates().phase_minute }}{{LangUtil("分钟")}}
+                            </div>
                         </template>
                     </v-col>
-                    <v-col class="text-center text-truncate">{{getAwayName()}}</v-col>
+                    <v-col class="text-left text-truncate">{{getAwayName()}}</v-col>
                 </v-row>
                 <!-- <div class="d-flex justify-center">
                     <div class="text-truncate">{{getHomeName()}}</div>

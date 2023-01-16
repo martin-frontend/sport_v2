@@ -1,26 +1,17 @@
-.rounded10{
-    border-radius: 10px;
-}
-.px10{
-    padding: 0px 10px 0px 10px;
-}
-.mx10{
-    margin: 0px 10px 0px 10px;
-}
-.mt15{
-    margin-top: 15px;
-}
 .theme--light {
-    .downcount{
-        border: solid 2px #E8E8E2;
+    .downcount {
+        border: solid 2px #e8e8e2;
     }
 }
 .theme--dark {
-    .downcount{
+    .downcount {
         border: solid 2px #333435;
     }
 }
-.dateitem{
+.dateitem {
     min-width: 40px;
     text-align: center;
+}
+.cards {
+    color: #0f1213;
 }

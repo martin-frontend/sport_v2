@@ -1,0 +1,17 @@
+<v-sheet class="text-center" width="325" height="136">
+    <div>{{data.competition_name}}</div>
+    <v-row>
+        <v-col class="text-right">
+            <v-img width="36" height="36" max-height="36" contain :src="data.home_team_icon"> </v-img>
+        </v-col>
+        <v-cols class="text-center">{{start_time.substring(6, 11)}}</v-cols>
+        <v-col>
+            <v-img width="36" height="36" max-height="36" contain :src="data.away_team_icon"> </v-img>
+        </v-col>
+    </v-row>
+    <v-row>
+        <v-col class="text-right">{{ data.home_team }}</v-col>
+        <v-col class="text-center">{{LangUtil("未开赛")}}</v-col>
+        <v-col>{{ data.away_team }}</v-col>
+    </v-row>
+</v-sheet>

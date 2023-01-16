@@ -1,14 +1,31 @@
-<v-dialog width="300" v-model="pageData.bShow" :retain-focus="false" persistent>
-    <v-card class="rounded-lg" color="colorPanelBg">
+<v-dialog :width="$vuetify.breakpoint.mobile ? 285 : 350" v-model="pageData.bShow" :retain-focus="false" persistent>
+    <v-card class="rounded-lg" color="colorPanelBg" :min-height="$vuetify.breakpoint.mobile ? 258 : 289">
         <v-card-title>
-            <div class="text-18">{{LangUtil("提示")}}</div>
+            <div class="btnPlain--text" :class="$vuetify.breakpoint.mobile ? 'text-20' : 'text-18'">{{LangUtil("提示")}}</div>
+            <v-spacer />
+            <svg-icon class="textGray--text" icon="close" :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-18'" @click.native="pageData.bShow = false" />
         </v-card-title>
-        <v-card-text class="my-3 d-flex justify-center white--text" style="white-space: pre-line"> {{pageData.data.message}} </v-card-text>
-        <v-card-actions class="justify-center pb-5">
-            <v-btn v-if="pageData.data.bConfirm" class="mx-2" width="100" height="36" color="colorBtnBg" outlined @click="onCancel">
-                {{LangUtil("取消")}}
-            </v-btn>
-            <v-btn class="mx-2" width="100" height="36" color="colorBtnBg" @click="onOK">{{LangUtil("确定")}}</v-btn>
+        <v-divider />
+        <v-card-text class="pa-5 pb-0" style="white-space: pre-line">
+            <v-sheet
+                class="d-flex align-center justify-center btnPlain--text"
+                :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-16'"
+                min-height="120"
+            >
+                {{pageData.data.message}}
+            </v-sheet>
+        </v-card-text>
+        <v-card-actions class="justify-center pa-5">
+            <v-row dense>
+                <v-col v-if="pageData.data.bConfirm" class="mr-1">
+                    <v-btn class="rounded-10" width="100%" height="48" color="bgGray" elevation="0" @click="onCancel">
+                        {{LangUtil("取消")}}
+                    </v-btn>
+                </v-col>
+                <v-col>
+                    <btn-yellow class="text-18" width="100%" height="48" @click.native="onOK">{{LangUtil("确定")}}</btn-yellow>
+                </v-col>
+            </v-row>
         </v-card-actions>
     </v-card>
 </v-dialog>

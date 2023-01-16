@@ -2,20 +2,43 @@
     <div class="d-flex align-center textGray--text">
         <div class="font-weight-bold text-18">{{getTitleName()}}</div>
         <v-spacer />
-        <v-sheet class="d-flex align-center rounded10 textGray--text" color="bgBanner" height="40">
-            <v-btn :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'" plain :ripple="false" @click="onQuerySort('time')"
-                >{{LangUtil("时间")}}</v-btn
+        <v-sheet class="d-flex align-center rounded-10 textGray--text" color="bgBanner" height="40">
+            <v-sheet
+                class="d-flex align-center justify-center mx-3 hand"
+                :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'"
+                color="transparent"
+                @click="onQuerySort('time')"
             >
+                {{LangUtil("时间")}}
+            </v-sheet>
             <svg-icon icon="change"></svg-icon>
-            <v-btn :class=" settingProxy.pageData.form.sort == 'comp' ? 'yellow--text' : 'textGray--text'" plain :ripple="false" @click="onQuerySort('comp')"
-                >{{LangUtil("联赛")}}</v-btn
+            <v-sheet
+                class="d-flex align-center justify-center mx-3 hand"
+                :class=" settingProxy.pageData.form.sort == 'comp' ? 'yellow--text' : 'textGray--text'"
+                color="transparent"
+                @click="onQuerySort('comp')"
             >
+                {{LangUtil("联赛")}}
+            </v-sheet>
         </v-sheet>
-        <v-sheet class="d-flex align-center justify-center ml-2 rounded10 hand textGray--text" color="bgBanner" width="40" height="40" @click="onRefrush">
-            <v-btn class="textGray--text" plain :ripple="false"><svg-icon class="text-22" icon="refrush"></svg-icon></v-btn>
+        <v-sheet
+            class="d-flex align-center justify-center ml-2 rounded-10 hand textGray--text"
+            color="bgBanner"
+            width="40"
+            height="40"
+            v-ripple
+            @click="onRefrush"
+        >
+            <svg-icon class="text-22" icon="refrush"></svg-icon>
         </v-sheet>
-        <v-sheet class="d-flex align-center justify-center mx-2 rounded10 hand textGray--text" color="bgBanner" width="40" height="40">
-            <v-btn class="textGray--text" plain :ripple="false"><svg-icon class="text-22" icon="zoom_all"></svg-icon></v-btn>
+        <v-sheet
+            class="d-flex align-center justify-center mx-2 rounded-10 hand textGray--text"
+            color="bgBanner"
+            v-ripple
+            width="40"
+            height="40"
+        >
+            <svg-icon class="text-22" icon="zoom_all"></svg-icon>
         </v-sheet>
     </div>
 
@@ -50,8 +73,10 @@
             <v-expansion-panel-content elevation="0" color="transparent" class="pt-2">
                 <!-- <MatcheItem v-for="(matche, mkey) of competition.matches" :key="mkey" :matche="matche"></MatcheItem> -->
                 <div v-for="(matche, mkey) of competition.matches" :key="mkey">
-                    <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
-                    <MatcheItem v-else :matche="matche"></MatcheItem>
+                    <v-lazy>
+                        <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
+                        <MatcheItem v-else :matche="matche"></MatcheItem>
+                    </v-lazy>
                 </div>
             </v-expansion-panel-content>
         </v-expansion-panel>

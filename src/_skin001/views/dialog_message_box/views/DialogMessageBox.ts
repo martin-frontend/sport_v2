@@ -12,6 +12,7 @@ export default class DialogMessageBox extends AbstractView {
 
     constructor() {
         super(DialogMessageBoxMediator);
+        this.$vuetify.breakpoint.mobile
     }
 
     onOK() {

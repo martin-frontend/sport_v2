@@ -45,3 +45,6 @@
 .navtitle{
     position: sticky;
 }
+::v-deep.v-btn:before{
+    background-color: transparent;
+}

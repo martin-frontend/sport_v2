@@ -6,7 +6,7 @@
         </v-tabs>
     </v-sheet> -->
 
-    <v-sheet color="bgBanner" class="rounded10 py10 mt-2 textGray--text text-13" v-for="(item,index) of pageData.list" :key="index">
+    <v-sheet color="bgBanner" class="rounded-10 py10 mt-2 textGray--text text-13" v-for="(item,index) of pageData.list" :key="index">
         <div class="d-flex align-center ml10 mr-1 mb10">
             <v-sheet class="mr10" color="yellow" width="2" height="16" rounded></v-sheet>
             <div class="btnPlain--text text-truncate text-14">{{item.comp.competition_name}}</div>
@@ -72,7 +72,11 @@
 
         <v-row class="fast_choose mb10" dense>
             <v-col cols="6" v-for="i in 6" :key="i">
-                <btn-info width="100%" height="36" @click.native="item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])">
+                <btn-info
+                    width="100%"
+                    height="36"
+                    @click.native="item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])"
+                >
                     <span class="font-weight-bold">+{{amountFormat(settintProxy.pageData.form.fast_choose[i-1])}}</span>
                 </btn-info>
             </v-col>
@@ -93,11 +97,7 @@
         </div>
 
         <div class="ml10 mr10 mb10" v-else>
-            <btn-yellow
-                height="36"
-                width="100%"
-                @click.native="onBet(item)"
-            >
+            <btn-yellow height="36" width="100%" @click.native="onBet(item)">
                 <span class="text-13">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
             </btn-yellow>
         </div>

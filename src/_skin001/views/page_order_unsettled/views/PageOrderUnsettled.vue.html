@@ -1,5 +1,5 @@
 <div>
-    <v-sheet class="text-14 pl10 pt15 btnPlain--text rounded10" color="bgBanner" height="80">
+    <v-sheet class="text-14 pl10 pt15 btnPlain--text rounded-10" color="bgBanner" height="80">
         <v-row dense>
             <v-col cols="3" class="textGray--text">{{LangUtil("总计")}}</v-col>
             <v-col cols="9" class="font-weight-bold">{{pageData.stats.total_count}}</v-col>
@@ -10,12 +10,12 @@
         </v-row>
     </v-sheet>
     <v-sheet
-        class="text-13 mt-2 pt17 pb15 pt-0 textGray--text rounded10"
+        class="text-13 mt-2 pt17 pb15 pt-0 textGray--text rounded-10"
         color="bgBanner"
         v-for="(item, index) in pageData.list"
         :key="index"
     >
-        <v-sheet class="d-flex align-center btnPlain--text px10 text-14">
+        <v-sheet class="d-flex align-center btnPlain--text px10 text-14" color="transparent">
             <v-sheet width="2" height="16" color="yellow"></v-sheet>
             <div class="pl10">{{item.cpn}}</div>
         </v-sheet>
@@ -42,7 +42,7 @@
                 >{{getHadResultStr(item)}}</span
             >
         </div>
-        
+
         <div class="px10 mt-2 d-flex" v-if="listQuery.is_settle != 1">
             <div>{{ getStateStr(myProxy.event_states(item)).states_str}}</div>
             <v-spacer />

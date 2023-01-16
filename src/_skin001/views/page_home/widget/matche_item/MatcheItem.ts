@@ -4,12 +4,12 @@ import LangUtil from "@/core/global/LangUtil";
 import { MatchVO } from "@/vo/MatchVO";
 import { getResponseIcon } from "@/core/global/Functions";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
-import page_matche from "@/_skin001/views/page_matche";
 import MarketUtils from "@/core/global/MarketUtils";
 import { formatEventTime, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 import PlatConfig from "@/core/config/PlatConfig";
 import GlobalVar from "@/core/global/GlobalVar";
 import live from "@/_skin001/views/live";
+import matche from "@/_skin001/views/matche";
 
 @Component
 export default class MatcheItem extends AbstractView {
@@ -98,10 +98,12 @@ export default class MatcheItem extends AbstractView {
         } else {
             marketTypes = PlatConfig.config.client.pcMarketType.split(",");
         }
-        if (this.$vuetify.breakpoint.width <= 1430) {
+        if (this.$vuetify.breakpoint.width <= 1450) {
             return marketTypes.slice(0, 3);
-        } else if (this.$vuetify.breakpoint.width <= 1580) {
+        } else if (this.$vuetify.breakpoint.width <= 1610) {
             return marketTypes.slice(0, 4);
+        } else if (this.$vuetify.breakpoint.width <= 1710) {
+            return marketTypes.slice(0, 5);
         }
         return marketTypes;
     }
@@ -172,8 +174,9 @@ export default class MatcheItem extends AbstractView {
     }
 
     goMatche() {
-        page_matche.init(this.matche.id);
-        live.show(this.matche.id);
+        GlobalVar.loading = true;
+        matche.init(this.matche.id);
+        live.init(this.matche.id);
     }
 
     onLove() {

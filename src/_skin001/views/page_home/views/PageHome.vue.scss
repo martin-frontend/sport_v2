@@ -49,3 +49,6 @@
     bottom: 0px;
     width: 100%;
 }
+::v-deep.v-btn:before{
+    background-color: transparent;
+}

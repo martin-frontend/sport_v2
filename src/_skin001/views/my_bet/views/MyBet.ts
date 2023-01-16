@@ -52,8 +52,9 @@ export default class MyBet extends AbstractView {
         if (this.pageData.event_states.length > 0) {
             const item = this.pageData.list[index];
             const market_type = item.market.market_type;
-            item.matche.event_id;
             const state = this.pageData.event_states.find((item1) => item1.event_id == item.matche.id);
+            console.warn("j>>>>>>>>>", state);
+            console.warn(market_type);
             return `${OrderTitleUtils.getScoreStr({ market_type: market_type, state: state })}`;
         }
     }

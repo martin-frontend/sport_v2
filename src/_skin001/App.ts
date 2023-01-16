@@ -2,6 +2,7 @@ import Vue from "vue";
 import AbstractView from "@/core/abstract/AbstractView";
 import { Component, Watch } from "vue-property-decorator";
 import GlobalVar from "@/core/global/GlobalVar";
+import dialog_message_box from "./views/dialog_message_box";
 @Component
 export default class APP extends AbstractView {
     GlobalVar = GlobalVar;
@@ -20,6 +21,8 @@ export default class APP extends AbstractView {
         //     })
         // }, 5000);
         this.onWatchTheme();
+
+        // dialog_message_box.confirm("我是弹窗");
     }
 
     @Watch("$vuetify.theme.dark")

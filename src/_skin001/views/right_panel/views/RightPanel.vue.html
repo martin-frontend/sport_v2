@@ -1,0 +1,38 @@
+<div>
+    <v-sheet
+        class="d-flex align-center px10 textGray--text"
+        :class="pageData.isShowLiveList ? 'rounded-10' : 'rounded-t-10'"
+        color="bgBanner"
+        height="50"
+    >
+        <v-sheet class="d-flex align-center btnPlain--text hand" color="transparent" max-width="180" height="230">
+            <v-img width="20" height="20" src="@/_skin001/assets/team.png"></v-img>
+            <div class="text-14 mx10 text-truncate">{{LangUtil("热门赛事")}}</div>
+            <svg-icon class="text-12 textGray--text" icon="zoom_out"></svg-icon>
+        </v-sheet>
+        <v-spacer />
+        <svg-icon
+            class="text-26 hand"
+            :icon="pageData.liveIndex==0 ? 'score1_' : 'score1'"
+            @click.native="pageData.liveIndex = 0"
+        ></svg-icon>
+        <svg-icon
+            class="text-28 hand mx10"
+            :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
+            @click.native="pageData.liveIndex = 1"
+        ></svg-icon>
+        <svg-icon
+            class="text-24 hand"
+            :icon="pageData.liveIndex==2 ? 'animate1_' : 'animate'"
+            @click.native="pageData.liveIndex = 2"
+        ></svg-icon>
+    </v-sheet>
+    <template v-if="pageData.isShowLiveList">
+        <LiveList />
+    </template>
+    <template v-else>
+        <v-divider />
+        <Live v-model="pageData.liveIndex" />
+        <Matche />
+    </template>
+</div>
