@@ -114,7 +114,8 @@
                                 :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
                             >
                                 <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
-                                <div class="text-truncate mr-3">{{item1.name}}</div>
+                                <div v-if="item1.name" class="text-truncate mr-3">{{item1.name}}</div>
+                                <v-skeleton-loader v-else class="mr-2" width="100%" type="card-heading"></v-skeleton-loader>
                             </v-sheet>
                         </v-list-item>
                         <v-list-item link @click="onShowCountry(item.country_code)">

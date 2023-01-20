@@ -1,0 +1,25 @@
+<v-navigation-drawer v-model="pageData.bShow" height="499" v-if="$vuetify.breakpoint.mobile" overlay-opacity="0.7" fixed floating bottom app temporary>
+    <v-sheet
+        class="d-flex align-center head"
+        height="54"
+        width="100%"
+        color="bgMybet"
+        @click="pageData.bShow=true"
+        v-if="betProxy.pageData.list.length > 0"
+    >
+        <div class="ml-5">{{LangUtil("注单")}}</div>
+        <v-spacer />
+        <div class="d-flex align-center mx10 text-14">
+            <v-sheet class="money rounded-l-10 px10 d-flex align-center" height="40" min-width="136">
+                {{GlobalVar.currency}}<span class="ml-1">{{selfProxy.userInfo.gold}}</span>
+            </v-sheet>
+            <btn-yellow height="40" minWidth="0" width="49" :rounded_tl="false" :rounded_bl="false" @click.native="onTopup">
+                <span class="text-14">{{LangUtil("充值")}}</span>
+            </btn-yellow>
+        </div>
+    </v-sheet>
+    <v-divider />
+    <v-sheet class="pa10" color="bgMybet">
+        <MyBet class="rounded-lg mt-n2" />
+    </v-sheet>
+</v-navigation-drawer>

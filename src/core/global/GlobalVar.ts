@@ -11,6 +11,8 @@ const GlobalVar = {
     lang: "zh_CN",
     /**用户认证token */
     token: "",
+    /**token是否过期 */
+    tokenExpired: false,
     /**API地址 */
     host: "",
     /**服务器时间 */

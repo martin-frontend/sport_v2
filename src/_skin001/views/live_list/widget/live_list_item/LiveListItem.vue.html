@@ -1,17 +1,28 @@
-<v-sheet class="text-center" width="325" height="136">
-    <div>{{data.competition_name}}</div>
-    <v-row>
-        <v-col class="text-right">
-            <v-img width="36" height="36" max-height="36" contain :src="data.home_team_icon"> </v-img>
+<v-sheet class="text-center rounded-10 pt15 hand" color="bgBanner" width="325" height="136">
+    <div class="text-14 textGray--text mb10">{{data.competition_name}}</div>
+    <v-row dense class="text-16 btnPlain--text font-weight-bold mt10 mb-2">
+        <v-col class="d-flex justify-end">
+            <v-img max-width="36" height="36" max-height="36" contain :src="getResponseIcon(data.home_team_icon)"> </v-img>
         </v-col>
-        <v-cols class="text-center">{{start_time.substring(6, 11)}}</v-cols>
+        <v-col class="d-flex align-center justify-center">{{start_time}}</v-col>
         <v-col>
-            <v-img width="36" height="36" max-height="36" contain :src="data.away_team_icon"> </v-img>
+            <v-img width="36" height="36" max-height="36" contain :src="getResponseIcon(data.away_team_icon)"> </v-img>
         </v-col>
     </v-row>
-    <v-row>
-        <v-col class="text-right">{{ data.home_team }}</v-col>
-        <v-col class="text-center">{{LangUtil("未开赛")}}</v-col>
-        <v-col>{{ data.away_team }}</v-col>
+    <v-row dense class="text-13 btnPlain--text">
+        <v-col class="text-right text-truncate">{{ data.home_team }}</v-col>
+        <v-col class="text-center red--text">
+            <div v-if="data.start_time_timestamp-GlobalVar.server_time < 600 && data.start_time_timestamp-GlobalVar.server_time > 0">
+                {{LangUtil("即将开赛")}}
+            </div>
+            <template v-else>
+                <div v-if="states">{{LangUtil(states.match_phase)}}</div>
+                <div v-if="states && states.phase_minute > 0" class="ml-2">
+                    {{ states.phase_minute }}{{LangUtil("分钟")}}
+                </div>
+                <div v-else>{{LangUtil("未开赛")}}</div>
+            </template>
+        </v-col>
+        <v-col class="text-truncate">{{ data.away_team }}</v-col>
     </v-row>
 </v-sheet>

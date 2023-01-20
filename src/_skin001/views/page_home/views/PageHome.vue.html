@@ -1,48 +1,6 @@
-<div class="mr-2">
-    <div class="d-flex align-center textGray--text">
-        <div class="font-weight-bold text-18">{{getTitleName()}}</div>
-        <v-spacer />
-        <v-sheet class="d-flex align-center rounded-10 textGray--text" color="bgBanner" height="40">
-            <v-sheet
-                class="d-flex align-center justify-center mx-3 hand"
-                :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'"
-                color="transparent"
-                @click="onQuerySort('time')"
-            >
-                {{LangUtil("时间")}}
-            </v-sheet>
-            <svg-icon icon="change"></svg-icon>
-            <v-sheet
-                class="d-flex align-center justify-center mx-3 hand"
-                :class=" settingProxy.pageData.form.sort == 'comp' ? 'yellow--text' : 'textGray--text'"
-                color="transparent"
-                @click="onQuerySort('comp')"
-            >
-                {{LangUtil("联赛")}}
-            </v-sheet>
-        </v-sheet>
-        <v-sheet
-            class="d-flex align-center justify-center ml-2 rounded-10 hand textGray--text"
-            color="bgBanner"
-            width="40"
-            height="40"
-            v-ripple
-            @click="onRefrush"
-        >
-            <svg-icon class="text-22" icon="refrush"></svg-icon>
-        </v-sheet>
-        <v-sheet
-            class="d-flex align-center justify-center mx-2 rounded-10 hand textGray--text"
-            color="bgBanner"
-            v-ripple
-            width="40"
-            height="40"
-        >
-            <svg-icon class="text-22" icon="zoom_all"></svg-icon>
-        </v-sheet>
-    </div>
+<div :class="{'mr-2': !$vuetify.breakpoint.mobile}">
+    <HomeHeader v-if="!$vuetify.breakpoint.mobile" />
 
-    <Nodata v-if="pageData.competition_list.length == 0 && !GlobalVar.loading" height="80vh" />
     <v-expansion-panels class="mt-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="!$vuetify.breakpoint.mobile">
         <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
             <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
@@ -70,7 +28,7 @@
                 </template>
             </v-expansion-panel-header>
 
-            <v-expansion-panel-content elevation="0" color="transparent" class="pt-2">
+            <v-expansion-panel-content elevation="0" color="transparent">
                 <!-- <MatcheItem v-for="(matche, mkey) of competition.matches" :key="mkey" :matche="matche"></MatcheItem> -->
                 <div v-for="(matche, mkey) of competition.matches" :key="mkey">
                     <v-lazy>
@@ -81,4 +39,40 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
+
+    <!-- 手机header -->
+    <HomeMobileHeader v-if="$vuetify.breakpoint.mobile" />
+
+    <v-expansion-panels class="mt15 px10" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="$vuetify.breakpoint.mobile">
+        <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
+            <v-expansion-panel-header elevation="0" rounded="lg" height="54" color="bgBanner">
+                <template v-slot:default="{ open }">
+                    <div class="d-flex align-center">
+                        <v-btn
+                            fab
+                            elevation="0"
+                            :ripple="false"
+                            width="24"
+                            height="24"
+                            color="bgPage"
+                            class="ml10 textGray--text"
+                            @click.stop="setAllLove(competition)"
+                        >
+                            <svg-icon :icon="checkAllLove(competition) ? 'love1' : 'love'"></svg-icon>
+                        </v-btn>
+                        <v-img :src="competition.country_icon" contain max-width="24" width="24" height="24" class="mx10"></v-img>
+                        <div class="font-weight-bold text-14">{{competition.competition_name}}</div>
+                    </div>
+                </template>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content celevation="0" color="bgBanner">
+                <div v-for="(matche, mkey) of competition.matches" :key="mkey">
+                    <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
+                    <MatcheItemMobile v-else :matche="matche"></MatcheItemMobile>
+                </div>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+
+    <Nodata v-if="pageData.competition_list.length == 0 && !GlobalVar.loading" height="60vh" />
 </div>

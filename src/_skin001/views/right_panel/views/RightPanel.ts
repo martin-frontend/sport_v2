@@ -14,6 +14,10 @@ export default class RightPanel extends AbstractView {
         super(RightPanelMediator);
     }
 
+    onLiveList(){
+        this.pageData.isShowLiveList = !this.pageData.isShowLiveList;
+    }
+
     destroyed() {
         super.destroyed();
     }

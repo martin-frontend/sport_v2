@@ -34,9 +34,9 @@
                             <div v-if="isShowFullScore()">{{goals_ot_Value[1]}}<span v-if="isShowPK()">({{goals_pk_Value[1]}})</span></div>
                             <div v-else>{{goalsValue[1]}}</div>
                         </div>
-                        <div v-else class="text-center mx-6">
+                        <div v-else class="text-center">
                             <div>{{LangUtil("未开赛")}}</div>
-                            <div>{{start_time}}</div>
+                            <div class="text-no-wrap">{{start_time}}</div>
                         </div>
                     </v-col>
                     <v-col class="d-flex justify-left align-center">
@@ -115,7 +115,7 @@
                 </div> -->
                 <v-row dense class="mt-2">
                     <v-col class="text-right text-truncate">{{getHomeName()}}</v-col>
-                    <v-col class="text-center d-flex justify-center" v-if="getStates() && matche">
+                    <v-col class="text-center d-flex justify-center" >
                         <div v-if="matche && matche.sb_time-GlobalVar.server_time < 600 && matche.sb_time-GlobalVar.server_time > 0">
                             {{LangUtil("即将开赛")}}
                         </div>
@@ -163,9 +163,9 @@
 
                 <div class="d-flex align-center justify-center mt-4" v-if="getStates()">
                     <svg-icon class="text-18 mr-2" icon="corner"></svg-icon>
-                    <div>{{getStates().corners_ft}}</div>
+                    <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
                     <svg-icon class="text-18 ml-4 mr-2" icon="hafe_time"></svg-icon>
-                    <div>{{getStates().goals_ht }}</div>
+                    <div>{{getStates().goals_ht != '' ? getStates().goals_ht : '0-0' }}</div>
                 </div>
             </div>
         </v-window-item>

@@ -14,6 +14,11 @@ const routes: Array<RouteConfig> = [
         name: "page_matche",
         component: () => import(/* webpackChunkName: "skin001_page_matche" */ "@/_skin001/views/page_matche/views/PageMatche.vue"),
     },
+    {
+        path: "/page_live_list",
+        name: "page_live_list",
+        component: () => import(/* webpackChunkName: "skin001_page_live_list" */ "@/_skin001/views/page_live_list/views/PageLiveList.vue"),
+    },
 ];
 
 const router = new VueRouter({ routes });

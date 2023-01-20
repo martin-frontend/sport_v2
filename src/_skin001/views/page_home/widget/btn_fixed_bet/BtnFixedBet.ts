@@ -9,6 +9,7 @@ import getProxy from "@/core/global/getProxy";
 import { TransMarketPrice } from "@/core/global/Functions";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
 import BetProxy from "@/proxy/BetProxy";
+import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
 @Component
 export default class BtnFixedBet extends AbstractView {
     LangUtil = LangUtil;
@@ -128,7 +129,11 @@ export default class BtnFixedBet extends AbstractView {
     onBet() {
         if (this.market && this.market.status != 2 && this.selection && this.selection.status == 0) {
             const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
-            const comp: any = homeProxy.pageData.competition_list.find((item) => item.competition_id == this.matche.competition_id);
+            let comp: any = homeProxy.pageData.competition_list.find((item) => item.competition_id == this.matche.competition_id);
+            if (!comp) {
+                const matcheProxy: MatcheProxy = getProxy(MatcheProxy);
+                comp = matcheProxy.pageData.competition_list[0];
+            }
             // my_bet.showFix(comp, this.matche, this.market, this.selection);
             this.myProxy.addItem(comp, this.matche, this.market, this.selection);
         }

@@ -1,0 +1,48 @@
+.btnGroup {
+    overflow-x: auto;
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+}
+.btnGroup::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+}
+.btnTag {
+    min-height: 36px;
+    display: inline-block;
+    background-color: transparent;
+    &.active {
+        border: solid 1px #ffcd43 !important;
+    }
+}
+.theme--light {
+    .btnTag {
+        border: solid 1px #c8cad0;
+        // &.v-card--disabled{
+        //     background-color: gray;
+        // }
+    }
+    .money {
+        background-color: #ffffff;
+        border: solid 1px #e8e8e2;
+    }
+    
+}
+.theme--dark {
+    .btnTag {
+        border: solid 1px #5a5a5a;
+    }
+    .money {
+        background-color: #272828;
+        border: solid 1px #3e3f41;
+    }
+}
+input {
+    width: 100%;
+    outline: none;
+}
+.header_m {
+    position: sticky;
+    top: 0;
+    z-index: 5;
+}

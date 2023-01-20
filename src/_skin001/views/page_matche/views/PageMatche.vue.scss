@@ -1,55 +1,25 @@
-.px10 {
-    padding-left: 10px;
-    padding-right: 10px;
-}
-.mx10 {
-    margin-left: 10px;
-    margin-right: 10px;
-}
-.mt15 {
-    margin-top: 15px;
-}
-.my10 {
-    margin-top: 10px;
-    margin-bottom: 10px;
-}
-.mr6 {
-    margin-right: 6px;
-}
-.mr10 {
-    margin-right: 10px;
-}
-
-.btntype {
-    border-width: 2px;
-}
-.btnGroup {
-    overflow-y: auto;
-}
-
-.v-expansion-panels .v-expansion-panel {
+.tabs_box {
     background-color: transparent;
 }
-::v-deep .v-expansion-panel-header {
-    padding: 0;
-    background-color: white;
-    border-radius: 8px;
+.theme--light {
+    .tabs_box {
+        border-bottom: solid 2px #e8e8e2;
+    }
 }
-::v-deep .v-expansion-panel-header--active {
-    border-bottom-left-radius: 0px;
-    border-bottom-right-radius: 0px;
+.theme--dark {
+    .tabs_box {
+        border-bottom: solid 2px #272828;
+    }
 }
-::v-deep .v-expansion-panel-content__wrap {
-    padding: 0px !important;
+::v-deep .v-tabs-slider {
+    background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
 }
-::v-deep .v-expansion-panel {
-    border-radius: 8px;
+
+::v-deep .v-menu__content {
+    max-width: 100% !important;
+    box-shadow: 0 3px 3px -2px rgba(255,0,0,1),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12)!important;
 }
-::v-deep .v-expansion-panel::before {
-    box-shadow: none;
-}
-.titleline {
-    position: absolute;
-    bottom: 0px;
-    width: 100%;
+.temadiv {
+    display: grid;
+    justify-items: center;
 }

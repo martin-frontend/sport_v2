@@ -1,4 +1,5 @@
 import { generateUUID } from "@/core/global/Functions";
+import GlobalVar from "@/core/global/GlobalVar";
 import Http from "@/core/Http";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
@@ -138,6 +139,7 @@ export default class BetProxy extends puremvc.Proxy {
     }
     /**投注 */
     api_user_betfix(market_id: any, selection_id: any) {
+        GlobalVar.loading = true;
         const findItem = this.pageData.list.find((item) => item.market.market_id == market_id && item.selection.id == selection_id);
         if (findItem) {
             const { stake, matche, market, selection, odds } = findItem;

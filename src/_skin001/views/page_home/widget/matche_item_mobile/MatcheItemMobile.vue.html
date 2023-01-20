@@ -1,0 +1,140 @@
+<v-sheet class="rounded-lg text-12" min-height="102" color="transparent">
+    <v-divider class="mb-2"/>
+    <div>
+        <v-sheet class="d-flex align-center relative textGray--text" color="transparent" height="30">
+            <!-- <v-sheet class="ml10 mr-1" width="2" height="16" color="yellow"></v-sheet> -->
+            <v-btn
+                fab
+                elevation="0"
+                :ripple="false"
+                width="24"
+                height="24"
+                color="bgPage"
+                class="ml10 mr-1 textGray--text"
+                @click="onLove"
+            >
+                <svg-icon :icon="pageData.love_events.includes(matche.id) ? 'love1' : 'love'"></svg-icon>
+            </v-btn>
+            
+            <template v-if="states">
+                <div :class="states.match_phase=='-'? 'text-red':'text-gray'">{{ LangUtil(states ? states.match_phase : "") }}</div>
+                <div class="text-gray" v-if="states.phase_minute > 0">&nbsp;{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
+                <!-- <v-spacer /> -->
+                <div class="d-flex align-center ml-3" @click.stop="goMatche">
+                    <!-- <img src="@/_skin001/assets/icon/icon_corner_kick.png" width="12" alt="" /> -->
+                    <svg-icon icon="corner"></svg-icon>
+                    <div class="text-gray1">{{ states.corners_ft }}</div>
+                </div>
+            </template>
+            <div class="text-gray" v-else>{{ start_time }}</div>
+            <div v-if="start > 0 && !states" class="d-flex align-center" style="margin-left: -10px">
+                <div class="text-gray scale" style="padding-right: 40px" v-if="start_in_sec > 86400">
+                    {{LangUtil("距开赛")}} {{ day }}{{LangUtil("天")}}
+                </div>
+                <div class="text-gray scale" v-else-if="start_in_sec > 600">
+                    {{LangUtil("距开赛")}} {{ hr }}{{LangUtil("小时")}}{{ min }}{{LangUtil("分")}}
+                </div>
+                <!-- <div class="text-red" v-else>即将开赛</div> -->
+            </div>
+            <v-spacer />
+            <div class="d-flex align-center text-gray mr-2" @click="goMatche">
+                <!-- {{matche.market_amount}}+ <img class="ml-1 mr-2" src="@/_skin001/assets/icon/icon_arrow_right.png" width="6" /> -->
+                {{matche.market_amount}}+<svg-icon class="text-8" icon="page_right"></svg-icon>
+            </div>
+        </v-sheet>
+        
+        <v-sheet class="d-flex pr-1" color="transparent">
+            <v-sheet width="100%" min-width="110" @click="goMatche" color="transparent">
+                <v-sheet class="d-flex align-center mx-2 mt-1" height="36" color="transparent">
+                    <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="20" width="20" height="20"></v-img>
+                    <v-sheet class="ml-1 text-truncate text-gray1 text-14" color="transparent">{{matche.home_team}}</v-sheet>
+                    <!-- <v-spacer/> -->
+                    <v-sheet v-if="states && getValues(states.red_cards_ft)[0] > 0" class="px-1 rounded white--text scale mr-2" color="red"
+                        >{{getValues(states.red_cards_ft)[0] }}</v-sheet
+                    >
+                    <div class="text-gray1 text-16 font-weight-bold ml-auto pl-2" v-if="states">
+                        <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[0]}}</span>
+                        <span v-else>
+                            {{getValues(states.goals_ot)[0]}}
+                            <!-- <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[0]}})</span> -->
+                        </span>
+                    </div>
+                </v-sheet>
+                <v-sheet class="d-flex align-center mx-2 mt-1" height="36" color="transparent">
+                    <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="20" width="20" height="20"></v-img>
+                    <v-sheet class="ml-1 text-truncate text-14 mr-1" color="transparent">{{matche.away_team}}</v-sheet>
+                    <!-- <v-spacer /> -->
+                    <v-sheet v-if="states && getValues(states.red_cards_ft)[1] > 0" class="px-1 rounded white--text scale mr-2" color="red"
+                        >{{getValues(states.red_cards_ft)[1]}}</v-sheet
+                    >
+                    <div class="text-gray1 text-16 font-weight-bold ml-auto pl-2" v-if="states">
+                        <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[1]}}</span>
+                        <span v-else>
+                            {{getValues(states.goals_ot)[1]}}
+                            <!-- <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[1]}})</span> -->
+                        </span>
+                    </div>
+                </v-sheet>
+                <v-sheet v-if="isShowDrow" height="36" style="line-height: 36px" class="ml-7 text-truncate mr-2 text-14 text-gray mt-1">
+                    {{LangUtil("和")}}
+                </v-sheet>
+                <div
+                    class="d-flex justify-space-around flex-column"
+                    v-for="(item, key) in getOtherGroup()"
+                    :key="key"
+                    style="margin-left: 27px"
+                >
+                    <v-sheet v-if="showAll" height="36" color="transparent" style="line-height: 36px" class="text-truncate mr-2 text-14 text-gray mt-1"
+                        >{{matche.home_team}}</v-sheet
+                    >
+                    <v-sheet v-if="showAll" height="36" color="transparent" style="line-height: 36px" class="text-truncate mr-2 text-14 text-gray mt-1"
+                        >{{matche.away_team}}</v-sheet
+                    >
+                </div>
+            </v-sheet>
+            <v-spacer />
+            <!-- 无盘口数据时间显示 -->
+            <v-sheet width="100%" class="mr-2 pt-1" color="transparent" v-if="!fixMarket">
+                <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+                <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+            </v-sheet>
+            <v-sheet width="100%" class="mr-1 pt-1 relative" color="transparent" v-for="(item,index) of marketTypes" :key="item">
+                <div
+                    class="textGray--text text-12"
+                    :class="(marketTypes.length==2 && index==0) ? 'table-column-right' : 'table-column-left' "
+                    width="100%"
+                    color="transparent"
+                >
+                    {{LangUtil(tableColumn[index])}}
+                </div>
+                <div v-if="fixMarket">
+                    <BtnFixedBet
+                        v-for="(sel, skey) of getSelections(item)"
+                        :key="skey"
+                        :selection="sel"
+                        :matche="matche"
+                        :market="getMarket(item)"
+                        class="mb-1 text-12"
+                        :class="(item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && skey == 2 && isShowDrow) ? 'mt-37' : ''"
+                    >
+                        <div v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
+                            {{MarketUtils.getSelectionName(item, sel)}}
+                        </div>
+                    </BtnFixedBet>
+                </div>
+            </v-sheet>
+        </v-sheet>
+    </div>
+    <!-- 显示全部按扭 -->
+    <v-sheet class="d-flex justify-center mt-1" color="transparent" height="12">
+        <v-btn
+            class="elevation-0 textGray--text text-10 rounded-t-10"
+            color="bgGray"
+            width="72"
+            height="12"
+            @click="onShowAll"
+            v-if="fixMarket && getOtherGroup().length>0"
+            ><svg-icon :icon="showAll ? 'zoom_in' : 'zoom_out' "></svg-icon
+        ></v-btn>
+    </v-sheet>
+</v-sheet>

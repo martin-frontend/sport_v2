@@ -1,0 +1,21 @@
+.vue-notification {
+    background: transparent;
+    border-radius: 5px;
+    border: none;
+}
+.vue-notification-group {
+    width: auto !important;
+    min-width: 240px !important;
+    margin-top: 32px !important;
+}
+
+.v-fade-right-enter-active,
+.v-fade-right-leave-active,
+.v-fade-right-move {
+    transition: all 0.5s;
+}
+.v-fade-right-enter,
+.v-fade-right-leave-to {
+    opacity: 0;
+    transform: translateX(500px) scale(0.2);
+}

@@ -5,7 +5,6 @@ import GlobalVar from "@/core/global/GlobalVar";
 import LangUtil from "@/core/global/LangUtil";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
-import { EventStatesVO } from "@/vo/EventStatesVO";
 import { MarketVO } from "@/vo/MarketVO";
 
 export default class MatcheProxy extends puremvc.Proxy {
@@ -21,7 +20,6 @@ export default class MatcheProxy extends puremvc.Proxy {
     onRemove() {
         clearInterval(this.timer);
         this.pageData.market_list = [];
-        this.pageData.event_states = [];
     }
 
     init(id: any) {
@@ -41,22 +39,22 @@ export default class MatcheProxy extends puremvc.Proxy {
         competition_list: <CompetitionVO[]>[],
         /**盘口信息 */
         market_list: <MarketVO[]>[],
-        /**赛事进程 */
-        event_states: <EventStatesVO[]>[],
     };
 
     listQueryComp = {
         sport_id: 1,
         event_id: "",
+        unique: MatcheProxy.NAME,
     };
 
     listQueryMarket = {
         type: "fix",
         event_id: "",
         market_type: 0,
+        unique: MatcheProxy.NAME,
     };
 
-    get marketTypeOptions(){
+    get marketTypeOptions() {
         const arr = [{ id: 0, name: LangUtil("所有") }];
         arr.push(...PlatConfig.market_main_type);
         return arr;
@@ -66,10 +64,8 @@ export default class MatcheProxy extends puremvc.Proxy {
         GlobalVar.loading = false;
         this.pageData.competition_list = data;
         this.api_market_typelist();
-        this.api_event_states();
         this.timer = setInterval(() => {
             this.api_market_typelist();
-            this.api_event_states();
         }, 2000);
     }
     set_market_typelist(data: any) {
@@ -95,16 +91,6 @@ export default class MatcheProxy extends puremvc.Proxy {
             GlobalVar.loading = false;
         }, 100);
     }
-    set_event_states(data: any) {
-        for (const item of data) {
-            const finditem = this.pageData.event_states.find((item1) => item.event_id == item1.event_id);
-            if (finditem) {
-                Object.assign(finditem, item);
-            } else {
-                this.pageData.event_states.push(item);
-            }
-        }
-    }
 
     /**赛事接口-新*/
     api_event_list() {
@@ -129,11 +115,6 @@ export default class MatcheProxy extends puremvc.Proxy {
         const formCopy = JSON.parse(JSON.stringify(this.listQueryMarket));
         formCopy.market_type = market_type;
         this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(formCopy));
-    }
-    /**赛事进程*/
-    api_event_states() {
-        const idsstr = this.listQueryMarket.event_id.toString();
-        this.sendNotification(net.HttpType.api_event_states, { event_id: idsstr, unique:MatcheProxy.NAME });
     }
     /**热门赛事 */
     api_event_hot() {

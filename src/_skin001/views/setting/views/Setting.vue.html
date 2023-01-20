@@ -60,7 +60,7 @@
                             v-model="pageData.form.fast_choose[n-1]"
                             :isOnlyNumber="true"
                             :showClear="false"
-                            :height="$vuetify.breakpoint.mobile?27.5:40"
+                            :height="$vuetify.breakpoint.mobile?36:40"
                             :radius="8"
                             maxlength="8"
                             type="tel"
@@ -81,7 +81,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet
                             class="d-flex align-center px-3 colorText2--text box rounded-lg"
-                            :min-height="$vuetify.breakpoint.mobile ? 25 : 40"
+                            :min-height="$vuetify.breakpoint.mobile ? 36 : 40"
                             height="16px"
                             min-width="100"
                             outlined
@@ -117,6 +117,6 @@
     <div class="d-flex align-center textGray--text mt-8 mb-2">
         <div>{{LangUtil("版本号")}} {{GlobalVar.version}} </div>
         <v-spacer/>
-        <btn-yellow class="text-14" width="86" height="36" @click.native="onReSetting">{{LangUtil("还原设置")}}</btn-yellow>
+        <btn-yellow v-if="!$vuetify.breakpoint.mobile" class="text-14" width="86" height="36" @click.native="onReSetting">{{LangUtil("还原设置")}}</btn-yellow>
     </div>
 </v-sheet>

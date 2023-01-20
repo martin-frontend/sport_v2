@@ -7,13 +7,10 @@ export default class LiveProxy extends puremvc.Proxy {
     static NAME = "LiveProxy";
 
     public onRegister(): void {
-        this.api_event_live_list();
         setInterval(this.api_event_states.bind(this), 5000);
     }
 
     pageData = {
-        /**直播列表 */
-        event_live: <EventLiveVO[]>[],
         /**赛事列表 */
         competition_list: <CompetitionVO[]>[],
         /**赛事进程 */
@@ -23,10 +20,6 @@ export default class LiveProxy extends puremvc.Proxy {
         //动画ID
         animation_id: "",
     };
-
-    set_event_live_list(data: any) {
-        this.pageData.event_live = data.list;
-    }
 
     set_event_live_url(data: any) {
         this.pageData.live_url = data;
@@ -40,11 +33,6 @@ export default class LiveProxy extends puremvc.Proxy {
 
     set_event_states(data: any) {
         this.pageData.event_states = data;
-    }
-
-    /**直播清单接口*/
-    api_event_live_list() {
-        this.sendNotification(net.HttpType.api_event_live_list, { page_count: 1, page_size: 50 });
     }
 
     /**取得直播连结*/

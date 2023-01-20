@@ -37,7 +37,7 @@ export default class LiveListProxy extends puremvc.Proxy {
 
     /**赛事进程*/
     api_event_states() {
-        const event_id = this.pageData.list.map((item) => item.event_id);
+        const event_id = this.pageData.list.map((item) => item.id);
         if (event_id.length > 0) {
             this.sendNotification(net.HttpType.api_event_states, { event_id: event_id.toString(), unique: LiveListProxy.NAME });
         }

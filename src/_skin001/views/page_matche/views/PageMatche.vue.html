@@ -1,82 +1,88 @@
-<v-card color="transparent" elevation="0">
-    <Live />
-
-    <v-sheet class="d-flex align-center" color="transparent" max-height="56px">
-        <v-sheet
-            ref="boxType"
-            class="btnGroup d-flex align-center pt-5"
+<div>
+    <v-sheet color="bgBanner" height="64" class="d-flex align-center header_m">
+        <v-btn icon @click="onBack">
+            <svg-icon class="textGray--text" icon="back2"></svg-icon>
+        </v-btn>
+        <!-- <v-sheet
+            class="d-flex align-center btnPlain--text hand"
             color="transparent"
-            max-width="280"
-            @mousedown="onMouseDown"
-            @mouseup="onMouseUp"
-            @mousemove="onMouseMove"
+            max-width="180"
+            @click="pageData.isShowList = !pageData.isShowList"
         >
-            <v-btn
-                class="rounded-10 btntype mr6"
-                outlined
-                :color="myProxy.listQueryMarket.market_type == item.id ? 'yellow' : 'borderGray' "
-                v-for="(item, index) in myProxy.marketTypeOptions"
-                :key="index"
-                @click="onMarketType(item.id)"
-            >
-                <span class="textGray--text">{{item.name}}</span>
-            </v-btn>
-        </v-sheet>
-        <v-sheet
-            class="d-flex align-center justify-center ml-2 rounded-10 hand textGray--text"
-            color="bgBanner"
-            width="36"
-            height="36"
-            v-ripple
-            @click="onOpenAll"
-        >
-            <div :class="pageData.isOpenAll ? 'arrow-down' : 'arrow-up'"><svg-icon class="text-22" icon="zoom_all"></svg-icon></div>
-        </v-sheet>
-    </v-sheet>
+            <div class="text-16 mr10 text-truncate">{{getCompetitionName()}}</div>
+            <svg-icon class="text-12 textGray--text" icon="zoom_out"></svg-icon>
+        </v-sheet> -->
 
-    <!-- list -->
-    <v-sheet max-width="325" color="transparent">
-        <v-expansion-panels
-            class="mt-2"
-            elevation="0"
-            accordion
-            multiple
-            v-model="pageData.panelIndexs"
-            v-if="pageData.market_list.length>0 && Object.keys(pageData.market_list[0].fix_markets).length>0"
-        >
-            <v-expansion-panel
-                :id="`panel${index}`"
-                v-for="(market, index) of pageData.market_list[0].fix_markets"
-                :key="index"
-                elevation="0"
-                class="mb-2"
-            >
-                <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
-                    <template v-slot:default="{ open }">
-                        <div class="d-flex align-center">
-                            <v-sheet class="mx10" min-width="2" height="16" color="yellow" rounded></v-sheet>
-                            <div class="mr-1 font-weight-bold text-14 btnPlain--text">{{ market.title }}</div>
-                            <v-spacer />
-                            <svg-icon
-                                class="textGray--text text-12 mr-2"
-                                icon="zoom_out"
-                                :class="open ? 'arrow-up' : 'arrow-down'"
-                            ></svg-icon>
-                        </div>
-                        <v-divider v-if="open" class="titleline" />
-                    </template>
-                </v-expansion-panel-header>
+        <v-menu offset-y>
+            <template v-slot:activator="{ on, attrs }">
+                <v-sheet
+                    class="d-flex align-center btnPlain--text hand"
+                    color="transparent"
+                    v-bind="attrs"
+                    v-on="on"
+                    @click="pageData.isShowList = !pageData.isShowList"
+                >
+                    <div class="text-16 mr10 text-truncate">{{getCompetitionName()}}</div>
+                    <div class="text-12 textGray--text" :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'">
+                        <svg-icon icon="zoom_out"></svg-icon>
+                    </div>
+                </v-sheet>
+            </template>
+            <v-card color="bgTips" width="100vw" elevation="3">
+                <v-list>
+                    <v-list-item-group v-model="currIndex">
+                        <template v-for="(matche, index) in matches">
+                            <v-list-item @click="clickitem(matche)" link :key="index">
+                                <v-row>
+                                    <v-col>
+                                        <div class="temadiv my-2">
+                                            <v-img width="50px" height="50px" :src="getResponseIcon(matche.home_team_icon)"></v-img>
+                                            <div class="text-162 d-flex justify-center text-center">{{matche.home_team}}</div>
+                                        </div>
+                                    </v-col>
+                                    <v-col class="d-flex align-center text-16">
+                                        <v-sheet width="100%">
+                                            <div class="d-flex justify-center">{{start_time(matche).day}}</div>
+                                            <div class="d-flex justify-center">{{start_time(matche).min}}</div>
+                                        </v-sheet>
+                                    </v-col>
+                                    <v-col>
+                                        <div class="temadiv my-2">
+                                            <v-img width="50px" height="50px" :src="getResponseIcon(matche.away_team_icon)"></v-img>
+                                            <div class="text-12 d-flex justify-center text-center">{{matche.away_team}}</div>
+                                        </div>
+                                    </v-col>
+                                </v-row>
+                            </v-list-item>
+                            <v-divider></v-divider>
+                        </template>
+                    </v-list-item-group>
+                </v-list>
+            </v-card>
+        </v-menu>
 
-                <v-expansion-panel-content elevation="0" color="transparent" class="pt-2">
-                    <MarketM1 v-if="marketTypeKind[1].includes(market.market_type)" :matche="matche" :market="market" />
-                    <MarketM2 v-if="marketTypeKind[2].includes(market.market_type)" :matche="matche" :market="market" />
-                    <MarketM3 v-if="marketTypeKind[3].includes(market.market_type)" :matche="matche" :market="market" />
-                    <MarketM4 v-if="marketTypeKind[4].includes(market.market_type)" :matche="matche" :market="market" />
-                    <MarketM5 v-if="marketTypeKind[5].includes(market.market_type)" :matche="matche" :market="market" />
-                    <MarketM6 v-if="marketTypeKind[6].includes(market.market_type)" :matche="matche" :market="market" />
-                    <MarketM7 v-if="marketTypeKind[7].includes(market.market_type)" :matche="matche" :market="market" />
-                </v-expansion-panel-content>
-            </v-expansion-panel>
-        </v-expansion-panels>
+        <v-spacer />
+        <v-btn icon>
+            <svg-icon class="text-20 textGray--text" icon="help"></svg-icon>
+        </v-btn>
+        <v-btn icon class="ml-1 mr-3">
+            <svg-icon class="text-20 textGray--text" icon="history"></svg-icon>
+        </v-btn>
     </v-sheet>
-</v-card>
+    <v-divider />
+    <v-sheet class="tabs_box text-24">
+        <v-tabs color="btnPlain" fixed-tabs background-color="transparent" slider-color="yellow" v-model="pageData.liveIndex">
+            <v-tab>
+                <svg-icon class="text-24 mr-1" :icon="pageData.liveIndex == 0 ? 'score1_' : 'score1'"></svg-icon>{{LangUtil("比分")}}
+            </v-tab>
+            <v-tab>
+                <svg-icon class="text-24 mr-1" :icon="pageData.liveIndex == 1 ? 'live1_' : 'live1'"></svg-icon>{{LangUtil("直播")}}
+            </v-tab>
+            <v-tab>
+                <svg-icon class="text-24 mr-1" :icon="pageData.liveIndex == 2 ? 'animate1_' : 'animate1'"></svg-icon>{{LangUtil("动画")}}
+            </v-tab>
+        </v-tabs>
+    </v-sheet>
+    <Live v-model="pageData.liveIndex" class="mx10 mt10" />
+    <Matche class="mx10 mt-1" />
+</div>

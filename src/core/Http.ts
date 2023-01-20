@@ -5,6 +5,9 @@ import GlobalVar from "./global/GlobalVar";
 const facade = puremvc.Facade.getInstance();
 axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
 
+const CancelToken = axios.CancelToken;
+const source = CancelToken.source();
+
 // 添加请求拦截器
 axios.interceptors.request.use(
     function (config) {
@@ -44,7 +47,7 @@ function get(url: string, data?: any) {
 }
 
 function post(url: string, data?: any) {
-    return axios.post(url, data);
+    return axios.post(url, data, { cancelToken: GlobalVar.tokenExpired ? source.token : undefined });
 }
 
 const Http = {

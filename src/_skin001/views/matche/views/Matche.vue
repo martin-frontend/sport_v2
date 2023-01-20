@@ -3,14 +3,14 @@
 
 <script lang="ts">
 import Component from "vue-class-component";
-import MarketM1 from "../../page_matche/widget/market_m1/MarketM1.vue";
-import MarketM2 from "../../page_matche/widget/market_m2/MarketM2.vue";
-import MarketM3 from "../../page_matche/widget/market_m3/MarketM3.vue";
-import MarketM4 from "../../page_matche/widget/market_m4/MarketM4.vue";
-import MarketM5 from "../../page_matche/widget/market_m5/MarketM5.vue";
-import MarketM6 from "../../page_matche/widget/market_m6/MarketM6.vue";
-import MarketM7 from "../../page_matche/widget/market_m7/MarketM7.vue";
 import Nodata from "../../widget/nodata/Nodata.vue";
+import MarketM1 from "../widget/market_m1/MarketM1.vue";
+import MarketM2 from "../widget/market_m2/MarketM2.vue";
+import MarketM3 from "../widget/market_m3/MarketM3.vue";
+import MarketM4 from "../widget/market_m4/MarketM4.vue";
+import MarketM5 from "../widget/market_m5/MarketM5.vue";
+import MarketM6 from "../widget/market_m6/MarketM6.vue";
+import MarketM7 from "../widget/market_m7/MarketM7.vue";
 import Matche from "./Matche";
 
 @Component({

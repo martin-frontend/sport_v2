@@ -1,0 +1,49 @@
+::v-deep .v-skeleton-loader__heading {
+    margin: 0px !important;
+    width: 100%;
+}
+::v-deep .v-skeleton-loader .v-skeleton-loader__card-heading {
+    background-color: transparent !important;
+}
+
+.text-red {
+    color: #ff0000;
+}
+
+.scale {
+    transform: scale(0.7);
+}
+
+.relative {
+    position: relative;
+}
+
+.more-position {
+    position: absolute;
+    top: -34px;
+    left: -28px;
+}
+
+.table-column-left {
+    position: absolute;
+    top: -24px;
+    left: 10px;
+}
+.table-column-right {
+    position: absolute;
+    top: -24px;
+    right: 10px;
+}
+.moreicon{
+    position: absolute;
+    top: -32px;
+    right: -18px;
+}
+.moreicon1{
+    position: absolute;
+    top: -32px;
+    left: -18px;
+}
+.mt-37 {
+    margin-top: 37px;
+}

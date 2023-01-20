@@ -11,7 +11,9 @@
             <v-sheet class="mr10" color="yellow" width="2" height="16" rounded></v-sheet>
             <div class="btnPlain--text text-truncate text-14">{{item.comp.competition_name}}</div>
             <v-spacer />
-            <v-btn plain fab x-small @click="onDelete(item)"><svg-icon class="text-16 btnPlain--text" icon="delete"></svg-icon></v-btn>
+            <v-btn plain fab x-small @click="onDelete(item)" v-if="!$vuetify.breakpoint.mobile">
+                <svg-icon class="text-16 btnPlain--text" icon="delete"></svg-icon>
+            </v-btn>
         </div>
 
         <v-divider />
@@ -26,13 +28,14 @@
             <div ref="betPrice" id="betPrice" class="pr-1 font-weight-bold">@{{ TransMarketPrice(item.odds) }}</div>
         </div>
 
-        <div class="d-flex mb10 ml10 mr10" v-if="checkInplay(index)">
-            <span>{{LangUtil("滚球")}} </span>
-            <v-spacer />
-            <span>{{getStats(index)}} </span>
+        <div class="d-flex mb10 ml10 mr10">
+            <template v-if="checkInplay(index)">
+                <span class="mr-1">{{LangUtil("滚球")}} </span>
+                <span>{{getStats(index)}} </span>
+                <v-spacer />
+            </template>
+            <div>{{item.market.title}}</div>
         </div>
-
-        <div class="d-flex mb10 ml10 mr10">{{item.market.title}}</div>
 
         <div class="mb10 ml10 mr10" v-if="item.matche.c_type != 2">
             <span class="mr-1">{{LangUtil("比赛进程")}}:</span>
@@ -64,49 +67,107 @@
         <div class="mb10 ml10 mr10">{{item.matche.home_team}}<span class="font-weight-bold"> VS </span>{{item.matche.away_team}}</div>
 
         <div class="d-flex ml10 mr10 mb10">
-            <v-sheet class="d-flex align-center justify-center input_left" min-width="60" height="36">{{GlobalVar.currency}}</v-sheet>
-            <v-sheet class="d-flex align-center justify-center input_right" width="100%" height="36">
-                <input class="textGray--text" :placeholder="LangUtil(`单注限额 ${item.maxStake}`)" v-model="item.stake" />
+            <v-sheet class="d-flex align-center justify-center input_left" min-width="60" :height="$vuetify.breakpoint.mobile?40:36"
+                >{{GlobalVar.currency}}</v-sheet
+            >
+            <v-sheet class="d-flex align-center input_right" width="100%" :height="$vuetify.breakpoint.mobile?40:36">
+                <input
+                    class="textGray--text ml-2"
+                    style="width: 100%"
+                    :placeholder="LangUtil(`单注限额 ${item.maxStake}`)"
+                    v-model="item.stake"
+                />
             </v-sheet>
         </div>
 
         <v-row class="fast_choose mb10" dense>
-            <v-col cols="6" v-for="i in 6" :key="i">
-                <btn-info
-                    width="100%"
-                    height="36"
-                    @click.native="item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])"
+            <v-col :cols="$vuetify.breakpoint.mobile?4:6" v-for="i in 6" :key="i">
+                <v-card
+                    class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand"
+                    :height="$vuetify.breakpoint.mobile?40:36"
+                    ripple
+                    @click="item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])"
                 >
                     <span class="font-weight-bold">+{{amountFormat(settintProxy.pageData.form.fast_choose[i-1])}}</span>
-                </btn-info>
+                </v-card>
             </v-col>
+            <template v-if="$vuetify.breakpoint.mobile">
+                <v-col cols="4">
+                    <v-card
+                        class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand"
+                        height="40"
+                        ripple
+                        @click="onMax(item)"
+                    >
+                        <span class="yellow--text">{{LangUtil("最大")}}</span>
+                    </v-card>
+                </v-col>
+                <v-col cols="8">
+                    <v-card
+                        class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand"
+                        height="40"
+                        ripple
+                        @click="item.stake = 0"
+                    >
+                        <span class="red--text">{{LangUtil("清空")}}</span>
+                    </v-card>
+                </v-col>
+            </template>
         </v-row>
 
-        <div class="d-flex ml10 mr10 mb10">
-            <span>{{LangUtil("最高可赢利")}}{{GlobalVar.currency}}</span>
+        <div class="d-flex ml10 mr10 mb-1">
+            <span>{{LangUtil("预计可赢")}}{{GlobalVar.currency}}</span>
             <v-spacer />
             <span class="yellow--text font-weight-bold"
                 >{{amountFormat((item.selection.price.back * item.stake - item.stake).toFixed(3),true,3)}}</span
             >
         </div>
 
-        <div class="ml10 mr10 mb10" v-if="!item.oddsChance || item.isMarketClose">
-            <btn-yellow height="36" width="100%" :disabled="item.isMarketClose" @click.native="onBet(item)">
-                <span class="text-13">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
-            </btn-yellow>
-        </div>
-
-        <div class="ml10 mr10 mb10" v-else>
-            <btn-yellow height="36" width="100%" @click.native="onBet(item)">
-                <span class="text-13">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
-            </btn-yellow>
-        </div>
-
-        <div class="d-flex align-center ml10 mr10">
-            {{LangUtil("自动接受更好的赔率")}}
+        <div class="d-flex ml10 mr10 mb10" v-if="$vuetify.breakpoint.mobile">
+            <span>{{LangUtil("投注限制")}}{{GlobalVar.currency}}</span>
             <v-spacer />
-            <svg-icon class="text-12" icon="zoom_in"></svg-icon>
+            <span class="yellow--text font-weight-bold">{{GlobalVar.currency}} {{item.maxStake}}</span>
         </div>
+
+        <template v-if="!$vuetify.breakpoint.mobile">
+            <div class="ml10 mr10 mb10" v-if="!item.oddsChance || item.isMarketClose">
+                <btn-yellow height="36" width="100%" :disabled="item.isMarketClose" @click.native="onBet(item)">
+                    <span class="text-13">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                </btn-yellow>
+            </div>
+            <div class="ml10 mr10 mb10" v-else>
+                <btn-yellow height="36" width="100%" @click.native="onBet(item)">
+                    <span class="text-13">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
+                </btn-yellow>
+            </div>
+
+            <!-- <div class="d-flex align-center ml10 mr10">
+                {{LangUtil("自动接受更好的赔率")}}
+                <v-spacer />
+                <svg-icon class="text-12" icon="zoom_in"></svg-icon>
+            </div> -->
+        </template>
+        <template v-else>
+            <v-row class="mx10" dense>
+                <v-col cols="4">
+                    <v-btn class="elevation-0 rounded-10" color="bgGray" height="40" width="100%" @click="onDelete(item)">
+                        <svg-icon class="text-16 textGray--text" icon="delete"></svg-icon>
+                    </v-btn>
+                </v-col>
+                <v-col cols="8">
+                    <div v-if="!item.oddsChance || item.isMarketClose">
+                        <btn-yellow height="40" width="100%" :disabled="item.isMarketClose" @click.native="onBet(item)">
+                            <span class="text-13">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                        </btn-yellow>
+                    </div>
+                    <div v-else>
+                        <btn-yellow height="40" width="100%" @click.native="onBet(item)">
+                            <span class="text-13">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
+                        </btn-yellow>
+                    </div>
+                </v-col>
+            </v-row>
+        </template>
     </v-sheet>
 
     <Nodata v-if="pageData.list.length == 0" height="200" />

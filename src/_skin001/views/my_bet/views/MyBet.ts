@@ -94,6 +94,10 @@ export default class MyBet extends AbstractView {
         }
     }
 
+    onMax(item: any) {
+        item.stake = Math.min(parseFloat(this.selfProxy.userInfo.gold) >> 0, item.maxStake).toString();
+    }
+
     destroyed() {
         super.destroyed();
     }

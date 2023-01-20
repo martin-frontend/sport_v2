@@ -1,0 +1,31 @@
+.head {
+    position: absolute;
+    top: -54px;
+}
+::v-deep .v-navigation-drawer__content {
+    border-radius: 10px;
+    overflow: visible !important;
+}
+.v-navigation-drawer--bottom.v-navigation-drawer--is-mobile {
+    max-height: 100% !important;
+    // position: relative;
+}
+.v-navigation-drawer--close {
+    visibility: visible !important;
+}
+.v-navigation-drawer--bottom {
+    overflow: visible !important;
+}
+
+.theme--light {
+    .money {
+        background-color: #ffffff;
+        border: solid 1px #e8e8e2;
+    }
+}
+.theme--dark {
+    .money {
+        background-color: #272828;
+        border: solid 1px #3e3f41;
+    }
+}

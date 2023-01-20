@@ -1,7 +1,7 @@
 export interface MarketVO {
     event_id: number; //赛事ID
     ex_markets: MarketExVO; //交易所
-    fix_markets: MarketFixVO; //固赔
+    fix_markets: any; //固赔
     type: "fix"; //类型  fix / exchange / all
     market_type: "";
 }

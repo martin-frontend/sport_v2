@@ -26,6 +26,8 @@ export default class NetObserver extends AbstractMediator {
             net.EventType.api_market_typelist,
             net.EventType.api_event_states,
             net.EventType.api_user_set_user_setting,
+
+            net.EventType.api_user_betfix,
         ];
     }
 
@@ -113,6 +115,13 @@ export default class NetObserver extends AbstractMediator {
                 if (type == OrderUnsettledProxy.NAME) {
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
                     orderUnsettledProxy.set_user_orders(body);
+                }
+                break;
+            case net.EventType.api_user_betfix:
+                {
+                    GlobalVar.loading = false;
+                    const betProxy: BetProxy = getProxy(BetProxy);
+                    betProxy.deleteItem(body.market_id, body.selection_id);
                 }
                 break;
         }

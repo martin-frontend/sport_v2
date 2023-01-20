@@ -10,7 +10,6 @@ export default class MatcheMediator extends AbstractMediator{
         return [
             net.EventType.api_event_list,
             net.EventType.api_market_typelist,
-            net.EventType.api_event_states,
         ];
     }
 
@@ -31,9 +30,6 @@ export default class MatcheMediator extends AbstractMediator{
                 break;
             case net.EventType.api_market_typelist:
                 if (type == MatcheProxy.NAME) myProxy.set_market_typelist(body);
-                break;
-            case net.EventType.api_event_states:
-                if (type == MatcheProxy.NAME) myProxy.set_event_states(body);
                 break;
         }
     }

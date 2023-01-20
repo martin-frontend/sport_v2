@@ -4,12 +4,13 @@ import LiveMediator from "../mediator/LiveMediator";
 import LiveProxy from "../proxy/LiveProxy";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
-import { formatEventTime, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
+import { formatEventTime, dateFormat, getDateByTimeZone, getResponseIcon } from "@/core/global/Functions";
 
 @Component
 export default class Live extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
+    getResponseIcon = getResponseIcon;
     myProxy: LiveProxy = this.getProxy(LiveProxy);
     pageData = this.myProxy.pageData;
 
@@ -17,7 +18,7 @@ export default class Live extends AbstractView {
     window = this.value;
 
     @Watch("value")
-    onWatchValue(){
+    onWatchValue() {
         this.window = this.value;
     }
 
@@ -43,10 +44,10 @@ export default class Live extends AbstractView {
         return this.pageData.competition_list[0]?.matches[0]?.away_team;
     }
     getHomeIcon() {
-        return this.pageData.competition_list[0]?.matches[0]?.home_team_icon;
+        return this.getResponseIcon(this.pageData.competition_list[0]?.matches[0]?.home_team_icon);
     }
     getAwayIcon() {
-        return this.pageData.competition_list[0]?.matches[0]?.away_team_icon;
+        return this.getResponseIcon(this.pageData.competition_list[0]?.matches[0]?.away_team_icon);
     }
 
     getStates() {
@@ -54,7 +55,7 @@ export default class Live extends AbstractView {
     }
 
     get goalsValue(): number[] {
-        if (this.getStates()) {
+        if (this.getStates()?.goals_ft) {
             return this.getStates()
                 .goals_ft.split("-")
                 .map((item: any) => parseInt(item));
@@ -63,7 +64,7 @@ export default class Live extends AbstractView {
         }
     }
     get goals_ot_Value(): number[] {
-        if (this.getStates()) {
+        if (this.getStates()?.goals_ot) {
             return this.getStates()
                 .goals_ot.split("-")
                 .map((item: any) => parseInt(item));
@@ -72,7 +73,7 @@ export default class Live extends AbstractView {
         }
     }
     get goals_pk_Value(): number[] {
-        if (this.getStates()) {
+        if (this.getStates()?.goals_pk) {
             return this.getStates()
                 .goals_pk.split("-")
                 .map((item: any) => parseInt(item));
@@ -82,7 +83,7 @@ export default class Live extends AbstractView {
     }
     split_goals(goals: string) {
         const goalarr = goals.split("-");
-        return goalarr;
+        return goalarr.length == 2 ? goalarr : [0, 0];
     }
 
     /**是否显示全场比分，or加时比分 */

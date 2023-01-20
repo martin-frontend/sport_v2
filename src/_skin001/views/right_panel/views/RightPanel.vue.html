@@ -5,7 +5,13 @@
         color="bgBanner"
         height="50"
     >
-        <v-sheet class="d-flex align-center btnPlain--text hand" color="transparent" max-width="180" height="230">
+        <v-sheet
+            class="d-flex align-center btnPlain--text hand"
+            color="transparent"
+            max-width="180"
+            height="230"
+            @click="pageData.isShowLiveList = !pageData.isShowLiveList"
+        >
             <v-img width="20" height="20" src="@/_skin001/assets/team.png"></v-img>
             <div class="text-14 mx10 text-truncate">{{LangUtil("热门赛事")}}</div>
             <svg-icon class="text-12 textGray--text" icon="zoom_out"></svg-icon>
@@ -28,7 +34,8 @@
         ></svg-icon>
     </v-sheet>
     <template v-if="pageData.isShowLiveList">
-        <LiveList />
+        <div class="text-18 font-weight-bold my15">{{LangUtil("热门赛事")}}</div>
+        <LiveList @onChange="pageData.isShowLiveList = false" />
     </template>
     <template v-else>
         <v-divider />

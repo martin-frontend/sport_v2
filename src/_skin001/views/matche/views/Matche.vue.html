@@ -1,10 +1,10 @@
-<div>
+<v-sheet color="transparent" :max-width="$vuetify.breakpoint.mobile ? '100%' : '325'">
     <v-sheet class="d-flex align-center" color="transparent" max-height="56px">
         <v-sheet
             ref="boxType"
             class="btnGroup d-flex align-center pt-5"
             color="transparent"
-            max-width="280"
+            max-width="100%"
             @mousedown="onMouseDown"
             @mouseup="onMouseUp"
             @mousemove="onMouseMove"
@@ -23,7 +23,7 @@
         <v-sheet
             class="d-flex align-center justify-center ml-2 rounded-10 hand textGray--text"
             color="bgBanner"
-            width="36"
+            min-width="36"
             height="36"
             v-ripple
             @click="onOpenAll"
@@ -33,7 +33,8 @@
     </v-sheet>
 
     <!-- list -->
-    <v-sheet max-width="325" color="transparent">
+    <v-sheet  color="transparent" v-if="matche">
+        
         <v-expansion-panels
             class="mt-2"
             elevation="0"
@@ -65,7 +66,7 @@
                     </template>
                 </v-expansion-panel-header>
 
-                <v-expansion-panel-content elevation="0" color="transparent" class="pt-2">
+                <v-expansion-panel-content elevation="0" color="transparent">
                     <MarketM1 v-if="marketTypeKind[1].includes(market.market_type)" :matche="matche" :market="market" />
                     <MarketM2 v-if="marketTypeKind[2].includes(market.market_type)" :matche="matche" :market="market" />
                     <MarketM3 v-if="marketTypeKind[3].includes(market.market_type)" :matche="matche" :market="market" />
@@ -76,5 +77,6 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
+        <Nodata v-else height="300"/>
     </v-sheet>
-</div>
+</v-sheet>

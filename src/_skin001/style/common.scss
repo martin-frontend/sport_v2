@@ -20,6 +20,7 @@
         background-color: #fff;
         border-radius: 10px;
         border: solid 1px #e8e8e2;
+        max-width: none;
     }
 }
 .theme--dark {
@@ -28,6 +29,7 @@
         background-color: #202121;
         border-radius: 10px;
         border: solid 1px #333435;
+        max-width: none;
     }
 }
 
@@ -36,9 +38,18 @@
     padding-right: 5px !important;
     min-height: 50px !important;
     @media screen and (max-width: 600px) {
-        min-height: 35px !important;
+        min-height: 44px !important;
     }
 }
 .v-expansion-panel:not(:first-child)::after {
     border-top: none !important;
+}
+.v-dialog{
+    margin: 12px !important;
+    overflow: hidden;
+}
+.header_m {
+    position: sticky;
+    top: 0;
+    z-index: 5;
 }

@@ -1,7 +1,7 @@
+import Vue from "vue";
+
 function show() {
-    //@ts-ignore
-    const $router = window["vm"].$router;
-    $router.push("/${moduleName}");
+    Vue.router.push("/${moduleName}");
 }
 
 export default { show };
