@@ -1,0 +1,270 @@
+<div>
+    <div style="position: sticky">
+        <v-sheet color="bgBanner" height="64" class="d-flex align-center header_m">
+            <v-btn icon @click="onBack">
+                <svg-icon class="textGray--text" icon="back2"></svg-icon>
+            </v-btn>
+            <v-spacer />
+            <div class="mr-10 text-18">{{LangUtil("注单历史")}}</div>
+            <v-spacer />
+        </v-sheet>
+        <v-divider />
+        <v-sheet class="tabs_box">
+            <v-tabs color="btnPlain" height="62" fixed-tabs background-color="transparent" slider-color="yellow">
+                <v-tab @click="onTabClick(0)"><span class="text-16">{{LangUtil("未结算")}}</span></v-tab>
+                <v-tab @click="onTabClick(1)"><span class="text-16">{{LangUtil("已结算")}}</span></v-tab>
+            </v-tabs>
+        </v-sheet>
+
+        <v-sheet color="grayBackground rounded mx-2 mt-1 d-flex" height="30" v-if="listQuery.is_settle == 1">
+            <v-btn
+                text
+                height="30"
+                plain
+                min-width="50"
+                @click="onLimitOrder(0)"
+                class="font-weight-bold flex-1"
+                :class="pageData.isActive == 0 ? 'active': ''"
+                >{{LangUtil('今日')}}
+            </v-btn>
+            <v-btn
+                text
+                height="30"
+                plain
+                min-width="50"
+                @click="onLimitOrder(-1)"
+                class="font-weight-bold flex-1"
+                :class="pageData.isActive == -1 ? 'active': ''"
+                >{{LangUtil('昨天')}}</v-btn
+            >
+            <v-btn
+                text
+                height="30"
+                plain
+                min-width="50"
+                @click="onLimitOrder(7)"
+                class="font-weight-bold flex-1"
+                :class="pageData.isActive == 7 ? 'active': ''"
+            >
+                {{LangUtil('7天')}}</v-btn
+            >
+            <v-btn
+                text
+                height="30"
+                plain
+                min-width="50"
+                @click="onLimitOrder(30)"
+                class="font-weight-bold flex-1"
+                :class="pageData.isActive == 30 ? 'active': ''"
+                >{{LangUtil('近30日')}}</v-btn
+            >
+        </v-sheet>
+        <v-sheet v-if="pageData.list.length != 0" class="d-flex justify-start mx-2 mt-2 text-14">
+            <div class="mr-2 _title">{{LangUtil("投注数量")}} <span class="blackText--text"> {{pageData.stats.total_count}}</span></div>
+            <div class="mr-2 _title">
+                {{LangUtil("投注额度")}}
+                <span class="blackText--text"> {{ amountFormat(pageData.stats.total_stake,true)}}</span>
+            </div>
+            <div v-if="listQuery.is_settle == 1" class="mr-2 _title">
+                {{LangUtil("输赢")}}
+                <span :class="pageData.stats.total_win >= 0 ? 'success--text' : 'error--text'"
+                    >{{pageData.stats.total_win>=0 ? "+" : ""}}{{ amountFormat(pageData.stats.total_win,true,3)}}</span
+                >
+            </div>
+        </v-sheet>
+    </div>
+
+    <div ref="divScroll" class="box-scroll overflow-hidden pb-16">
+        <div v-if="!$vuetify.breakpoint.mobile">
+            <!-- pc -->
+            <v-sheet v-if="pageData.list.length>0">
+                <v-sheet
+                    color="grayBackground"
+                    class="mx-2 mt-3 pt-1 pb-3 text-12 rounded default-color"
+                    v-for="(item, index) in pageData.list"
+                    :key="index"
+                >
+                    <div class="d-flex align-center">
+                        <div class="ml-2 text-14 font-weight-bold">{{item.cpn}}</div>
+                    </div>
+                    <v-sheet class="mx-3 rounded pa-3 order-content">
+                        <div class="d-flex text-14 font-weight-bold top-text">
+                            <div v-if="item.c_type == 2">{{item.content}}</div>
+                            <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}</div>
+                            <v-spacer />
+                            <div class="mr-2">@{{TransMarketPrice(item.odds)}}</div>
+                        </div>
+
+                        <div class="text-14">
+                            <span v-if="item.state && Object.keys(item.state).length > 0">{{LangUtil("滚球")}}</span>
+                            <span class="font-weight-bold" v-if="item.state && Object.keys(item.state).length > 0">
+                                {{OrderTitleUtils.getScoreStr(item)}}
+                            </span>
+                            {{item.market_type_text}}
+                        </div>
+                        <div class="text-14 d-flex flex-wrap">
+                            <span class="mr-1"> {{item.home_name}} <span class="font-weight-bold mx-1">VS</span> {{item.away_name}} </span>
+                            <span
+                                class="font-weight-black mr-2 scoreColor--text"
+                                v-if="listQuery.is_settle == 1 && item.status !== 3 && item.c_type != 2"
+                            >
+                                {{getHadResultStr(item)}}
+                            </span>
+                        </div>
+                        <v-sheet class="text-14" v-if="listQuery.is_settle != 1">
+                            <span>{{ getStateStr(myProxy.event_states(item)).states_str}}</span>
+                            <span class="font-weight-bold"> {{getStateStr(myProxy.event_states(item)).scoreStr}}</span>
+                        </v-sheet>
+                        <div class="my-2 custom-hr"></div>
+
+                        <v-sheet width="100%">
+                            {{LangUtil("订单状态")}}
+                            <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">
+                                {{statusMap[item.status]}}
+                            </span>
+                        </v-sheet>
+                        <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">
+                            {{LangUtil(item.mark)}}
+                        </div>
+
+                        <v-sheet width="100%">
+                            {{LangUtil("投注金额")}}
+                            <span class="font-weight-bold"> {{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
+                        </v-sheet>
+
+                        <v-sheet width="100%" v-if="listQuery.is_settle == 0">
+                            {{getdisplayResultStr(item)}}
+                            <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}"
+                                >{{getDisplayResult(item).str}}
+                            </span>
+                        </v-sheet>
+                        <v-sheet width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{item.order_no}}</span></v-sheet>
+                        <v-sheet width="100%">
+                            {{LangUtil("投注时间")}}
+                            <span class="font-weight-bold">
+                                {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                            </span>
+                        </v-sheet>
+
+                        <v-sheet width="100%" v-if="listQuery.is_settle">
+                            {{LangUtil("结算时间")}}
+                            <span class="font-weight-bold">
+                                {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                            </span>
+                        </v-sheet>
+
+                        <v-sheet width="100%" class="d-flex justify-end" v-if="listQuery.is_settle && item.status == 1">
+                            <span class="mr-1">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
+                            <span class="font-weight-bold" :class="item.win>=0 ? 'success--text' : 'error--text' ">
+                                {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
+                            </span>
+                        </v-sheet>
+
+                        <v-img :src="getWinType(item)" class="win-type" v-if="listQuery.is_settle && item.win_type">
+                            <div>{{getWinTypeStr(item)}}</div>
+                        </v-img>
+                    </v-sheet>
+                </v-sheet>
+            </v-sheet>
+            <Nodata v-if="pageData.list.length == 0" height="400" />
+            <div
+                class="d-flex justify-center mt-2"
+                v-if="pageData.pageInfo.pageCurrent != pageData.pageInfo.pageCount && pageData.list.length != 0"
+            >
+                <v-btn color="primary" small rounded @click="pageLoad">{{LangUtil("加载更多")}}</v-btn>
+            </div>
+        </div>
+        <div v-else>
+            <!-- 手机 -->
+            <load_more @onRefresh="onRefresh" @onLoad="onLoad" :finished="pageData.finished" :listNodata="pageData.list.length == 0">
+                <v-sheet
+                    color="grayBackground"
+                    class="mx-2 mt-3 pt-1 pb-3 text-12 rounded default-color"
+                    v-for="(item, index) in pageData.list"
+                    :key="index"
+                >
+                    <div class="d-flex align-center">
+                        <div class="ml-2 text-14 font-weight-bold">{{item.cpn}}</div>
+                    </div>
+                    <v-sheet class="mx-3 mt-2 rounded pa-3 order-content">
+                        <div class="d-flex text-14 font-weight-bold top-text">
+                            <div v-if="item.c_type == 2">{{item.content}}</div>
+                            <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}</div>
+                            <v-spacer />
+                            <div class="mr-2">@{{TransMarketPrice(item.odds)}}</div>
+                        </div>
+
+                        <div class="text-14">
+                            <span v-if="item.state && Object.keys(item.state).length > 0">{{LangUtil("滚球")}}</span>
+                            <span class="font-weight-bold" v-if="item.state && Object.keys(item.state).length > 0"
+                                >{{OrderTitleUtils.getScoreStr(item)}}</span
+                            >
+                            {{item.market_type_text}}
+                        </div>
+                        <div class="text-14 d-flex flex-wrap">
+                            <span class="mr-1">{{item.home_name}} <span class="font-weight-bold mx-1">VS</span> {{item.away_name}}</span>
+                            <span
+                                class="font-weight-black scoreColor--text"
+                                v-if="listQuery.is_settle == 1 && item.status !== 3 && item.c_type != 2"
+                            >
+                                {{getHadResultStr(item)}}
+                            </span>
+                        </div>
+                        <v-sheet class="text-14" v-if="listQuery.is_settle != 1">
+                            <span>{{ getStateStr(myProxy.event_states(item)).states_str}}</span>
+                            <span class="font-weight-bold"> {{getStateStr(myProxy.event_states(item)).scoreStr}}</span>
+                        </v-sheet>
+                        <div class="my-2 custom-hr"></div>
+
+                        <v-sheet width="100%">
+                            {{LangUtil("订单状态")}}
+                            <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} "
+                                >{{statusMap[item.status]}}</span
+                            >
+                        </v-sheet>
+                        <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">
+                            {{LangUtil(item.mark)}}
+                        </div>
+
+                        <v-sheet width="100%">
+                            {{LangUtil("投注金额")}}
+                            <span class="font-weight-bold">{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
+                        </v-sheet>
+
+                        <v-sheet width="100%" v-if="listQuery.is_settle == 0">
+                            {{getdisplayResultStr(item)}}
+                            <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}"
+                                >{{getDisplayResult(item).str}}
+                            </span>
+                        </v-sheet>
+                        <v-sheet width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{item.order_no}}</span></v-sheet>
+                        <v-sheet width="100%">
+                            {{LangUtil("投注时间")}}
+                            <span class="font-weight-bold">
+                                {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                            </span>
+                        </v-sheet>
+
+                        <v-sheet width="100%" v-if="listQuery.is_settle">
+                            {{LangUtil("结算时间")}}
+                            <span class="font-weight-bold">
+                                {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                            </span>
+                        </v-sheet>
+
+                        <v-sheet width="100%" class="d-flex justify-end" v-if="listQuery.is_settle && item.status == 1">
+                            <span class="mr-1">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
+                            <span class="font-weight-bold" :class="item.win>=0 ? 'success--text' : 'error--text' ">
+                                {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
+                            </span>
+                        </v-sheet>
+
+                        <v-img :src="getWinType(item)" class="win-type" v-if="listQuery.is_settle && item.win_type">
+                            <div>{{getWinTypeStr(item)}}</div>
+                        </v-img>
+                    </v-sheet>
+                </v-sheet>
+            </load_more>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,17 @@
+<vue-loadmore
+    :on-refresh="onRefresh"
+    :on-loadmore="onLoad"
+    :finished="finished"
+    :pulling-text="LangUtil('下拉刷新')"
+    :loosing-text="LangUtil('释放刷新')"
+    :refresh-text="LangUtil('正在刷新')"
+    :loading-text="LangUtil('正在加载')"
+    :success-text="LangUtil('刷新完成')"
+    :finished-text="LangUtil('没有更多了')"
+    :error-text="LangUtil('请求失败，点击重新加载')"
+    :class="_class"
+    load-offset="100"
+>
+    <Nodata v-if="listNodata" :height="300"/>
+    <slot v-else></slot>
+</vue-loadmore>

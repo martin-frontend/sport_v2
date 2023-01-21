@@ -8,6 +8,7 @@ import SettingProxy from "@/proxy/SettingProxy";
 import page_home from "../..";
 import dialog_setting from "@/_skin001/views/dialog_setting";
 import page_live_list from "@/_skin001/views/page_live_list";
+import page_order from "@/_skin001/views/page_order";
 
 @Component
 export default class HomeMobileHeader extends AbstractView {
@@ -44,6 +45,10 @@ export default class HomeMobileHeader extends AbstractView {
 
     onQueryTagType(tag: string) {
         page_home.showByTag(tag);
+    }
+    // 打开注单历史
+    onOrder(){
+        page_order.show();
     }
     // 打开设置页面
     onSetting(){

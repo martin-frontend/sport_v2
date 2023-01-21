@@ -1,9 +1,11 @@
-<v-dialog :width="$vuetify.breakpoint.mobile ? 285 : 350" v-model="pageData.bShow" :retain-focus="false" persistent>
-    <v-card class="rounded-lg" color="colorPanelBg" :min-height="$vuetify.breakpoint.mobile ? 258 : 289">
+<v-dialog :width="$vuetify.breakpoint.mobile ? 320 : 350" v-model="pageData.bShow" :retain-focus="false" persistent>
+    <v-card class="rounded-lg" color="bgBanner" :min-height="$vuetify.breakpoint.mobile ? 258 : 289">
         <v-card-title>
             <div class="btnPlain--text" :class="$vuetify.breakpoint.mobile ? 'text-20' : 'text-18'">{{LangUtil("提示")}}</div>
             <v-spacer />
-            <svg-icon class="textGray--text" icon="close" :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-18'" @click.native="pageData.bShow = false" />
+            <v-btn class="mr-n2" icon @click="pageData.bShow = false">
+                <svg-icon class="textGray--text" icon="close" :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-18'" />
+            </v-btn>
         </v-card-title>
         <v-divider />
         <v-card-text class="pa-5 pb-0" style="white-space: pre-line">
@@ -11,6 +13,7 @@
                 class="d-flex align-center justify-center btnPlain--text"
                 :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-16'"
                 min-height="120"
+                color="transparent"
             >
                 {{pageData.data.message}}
             </v-sheet>

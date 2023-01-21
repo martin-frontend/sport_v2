@@ -7,6 +7,7 @@ import MatcheProxy from "../../matche/proxy/MatcheProxy";
 import { dateFormat, getDateByTimeZone, getResponseIcon } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 import live from "../../live";
+import page_order from "../../page_order";
 
 @Component
 export default class PageMatche extends AbstractView {
@@ -50,6 +51,11 @@ export default class PageMatche extends AbstractView {
 
     get matches(){
         return this.pageData.competition_list[0]?.matches;
+    }
+
+    // 打开注单历史
+    onOrder(){
+        page_order.show();
     }
 
     onBack() {

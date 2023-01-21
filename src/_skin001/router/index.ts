@@ -19,6 +19,11 @@ const routes: Array<RouteConfig> = [
         name: "page_live_list",
         component: () => import(/* webpackChunkName: "skin001_page_live_list" */ "@/_skin001/views/page_live_list/views/PageLiveList.vue"),
     },
+    {
+        path: "/page_order",
+        name: "page_order",
+        component: () => import(/* webpackChunkName: "skin001_page_order" */ "@/_skin001/views/page_order/views/PageOrder.vue"),
+    },
 ];
 
 const router = new VueRouter({ routes });

@@ -20,6 +20,7 @@ import { js_utils } from "custer-js-utils";
 import BtnYellow from "./views/widget/btn_yellow/BtnYellow.vue";
 import BtnInfo from "./views/widget/btn_info/BtnInfo.vue";
 import Overlay from "./views/widget/overlay/Overlay.vue";
+import LoadMore from "./views/widget/loadMore/LoadMore.vue";
 
 LogUtil.init();
 Vue.config.productionTip = false;
@@ -30,6 +31,7 @@ Vue.use(Notifications, { velocity });
 Vue.component("btn-yellow", BtnYellow);
 Vue.component("btn-info", BtnInfo);
 Vue.component("overlay", Overlay);
+Vue.component("load_more", LoadMore);
 
 if (isAndroid()) {
     GlobalVar.device_type = EnumDeviceType.ANDROID;

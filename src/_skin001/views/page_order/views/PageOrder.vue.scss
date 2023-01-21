@@ -1,0 +1,35 @@
+.tabs_box {
+    background-color: transparent;
+}
+.theme--light {
+    .tabs_box {
+        border-bottom: solid 2px #e8e8e2;
+    }
+}
+.theme--dark {
+    .tabs_box {
+        border-bottom: solid 2px #272828;
+    }
+}
+.win-type{
+    position: absolute;
+    bottom: 20px;
+    right: 10px;
+    width: 100px;
+    height: 100px;
+    text-align: center;
+    div{
+        margin-top: 37px;
+        color: white;
+        font-size: 18px;
+        transform: rotate(-17deg);
+    }
+}
+.order-content {
+    position: relative;
+    .order-result-icon {
+        position: absolute;
+        right: 0px;
+        bottom: 0px;
+    }
+}
