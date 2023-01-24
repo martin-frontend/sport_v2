@@ -10,6 +10,7 @@ import PlatConfig from "@/core/config/PlatConfig";
 import GlobalVar from "@/core/global/GlobalVar";
 import live from "@/_skin001/views/live";
 import matche from "@/_skin001/views/matche";
+import right_panel from "@/_skin001/views/right_panel";
 
 @Component
 export default class MatcheItem extends AbstractView {
@@ -27,6 +28,8 @@ export default class MatcheItem extends AbstractView {
     start_in_sec = 0;
 
     @Prop() matche!: MatchVO;
+    @Prop({ default: false }) isFirst!: boolean;
+    @Prop({ default: false }) isLast!: boolean;
     showAll = false;
 
     /**表头 */
@@ -125,7 +128,7 @@ export default class MatcheItem extends AbstractView {
         if (market) {
             const selections = market.selections;
             if (this.showAll || all) {
-                if(selections.length == 0){
+                if (selections.length == 0) {
                     return [{ price: {} }, { price: {} }];
                 }
                 return selections;
@@ -134,7 +137,7 @@ export default class MatcheItem extends AbstractView {
                 if (market_type == "MATCH_ODDS" || market_type == "MATCH_ODDS_HALF_TIME") {
                     len = 3;
                 }
-                if(selections.length == 0){
+                if (selections.length == 0) {
                     return [{ price: {} }, { price: {} }];
                 }
                 return selections.slice(0, len);
@@ -159,12 +162,12 @@ export default class MatcheItem extends AbstractView {
     }
 
     /**是否显示全场比分，or加时比分 */
-    isShowFullScore(match_phase:string):boolean {
+    isShowFullScore(match_phase: string): boolean {
         const arr = ["-", "1H", "HT", "2H", "FT"];
         return arr.includes(match_phase);
     }
     /**是否显示点球比分 */
-    isShowPK(match_phase:string):boolean{
+    isShowPK(match_phase: string): boolean {
         const arr = ["PK", "PK FT"];
         return arr.includes(match_phase);
     }
@@ -177,6 +180,13 @@ export default class MatcheItem extends AbstractView {
         GlobalVar.loading = true;
         matche.init(this.matche.id);
         live.init(this.matche.id);
+    }
+
+    playMatcheAnimation() {
+        if (this.matche.animation_id) {
+            this.goMatche();
+            right_panel.show(2);
+        }
     }
 
     onLove() {

@@ -1,7 +1,9 @@
-function show() {
-    //@ts-ignore
-    const $router = window["vm"].$router;
-    $router.push("/right_panel");
+import getProxy from "@/core/global/getProxy";
+import RightPanelProxy from "./proxy/RightPanelProxy";
+
+function show(index:number) {
+    const myProxy: RightPanelProxy = getProxy(RightPanelProxy);
+    myProxy.pageData.liveIndex = index;
 }
 
 export default { show };

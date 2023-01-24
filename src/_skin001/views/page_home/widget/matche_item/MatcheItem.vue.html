@@ -1,6 +1,6 @@
-<v-sheet class="pt-2 pb10 roundedb10" color="bgBanner">
+<v-sheet class="pt-2 pb10" :class="{'roundedb10': isLast}" color="bgBanner">
     <!-- <v-divider /> -->
-    <div class="d-flex">
+    <div class="d-flex" :class="{'mt-n2': !isFirst}">
         <v-sheet class="text-14" color="transparent" min-width="220">
             <v-sheet class="d-flex align-center btnPlain--text" color="transparent" height="30">
                 <v-sheet class="ml10" width="2" height="16" color="yellow" rounded></v-sheet>
@@ -28,7 +28,7 @@
                     <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="25" height="25">
                         <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="25" width="25" height="25"></v-img>
                     </v-sheet>
-                    
+
                     <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.home_team}}</div>
                     <v-spacer />
                     <v-sheet
@@ -50,7 +50,7 @@
                     <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="25" height="25">
                         <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="25" width="25" height="25"></v-img>
                     </v-sheet>
-                    
+
                     <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.away_team}}</div>
                     <v-spacer />
                     <v-sheet
@@ -68,15 +68,30 @@
                         </span>
                     </v-sheet>
                 </v-sheet>
-                <v-sheet v-if="isShowDrow" class="mt-1 ml-11 d-flex align-center btnPlain--text" height="30" color="transparent"
-                    >{{LangUtil("和")}}</v-sheet
-                >
+                <v-sheet v-if="isShowDrow" class="mt-1 ml-8 d-flex align-center btnPlain--text" height="30" color="transparent">
+                    <div>{{LangUtil("和")}}</div>
+                    <!-- <svg-icon
+                        class="text-18 textGray--text hand mx10"
+                        :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
+                        @click.native="pageData.liveIndex = 1"
+                    ></svg-icon> -->
+                    <svg-icon
+                        class="text-18 textGray--text hand ml-2"
+                        :icon="matche.animation_id ? 'animate1_' : 'animate'"
+                        @click.native="playMatcheAnimation"
+                    ></svg-icon>
+                    <svg-icon
+                        class="text-18 textGray--text hand ml-2"
+                        :icon="pageData.love_events.includes(matche.id) ? 'love1' : 'love'"
+                        @click.native="onLove"
+                    ></svg-icon>
+                </v-sheet>
                 <div v-for="(item, key) in getOtherGroup()" :key="key">
                     <v-sheet
                         v-if="showAll"
                         height="30"
                         max-width="270"
-                        class="d-flex align-center ml-11 mt-1 text-truncate btnPlain--text"
+                        class="d-flex align-center ml-8 mt-1 text-truncate btnPlain--text"
                         color="transparent"
                         >{{matche.home_team}}</v-sheet
                     >
@@ -84,7 +99,7 @@
                         v-if="showAll"
                         height="30"
                         max-width="270"
-                        class="d-flex align-center ml-11 mt-1 text-truncate btnPlain--text"
+                        class="d-flex align-center ml-8 mt-1 text-truncate btnPlain--text"
                         color="transparent"
                         >{{matche.away_team}}</v-sheet
                     >

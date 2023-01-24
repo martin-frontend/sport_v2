@@ -33,7 +33,7 @@
                 <div v-for="(matche, mkey) of competition.matches" :key="mkey">
                     <v-lazy>
                         <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
-                        <MatcheItem v-else :matche="matche"></MatcheItem>
+                        <MatcheItem v-else :matche="matche" :isLast="competition.matches.length == mkey+1" :isFirst="mkey == 0"></MatcheItem>
                     </v-lazy>
                 </div>
             </v-expansion-panel-content>
