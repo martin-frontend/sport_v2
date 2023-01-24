@@ -1,21 +1,21 @@
-<v-sheet class="rounded-lg d-flex align-center mt-3 mr-2" height="56" color="bgBanner">
+<v-sheet class="rounded-lg d-flex align-center mt-3 mr-2" height="46" color="bgBanner">
     <v-btn plain color="btnPlain" :ripple="false" @click="openHistoryResult">
-        <svg-icon class="text-18" icon="history"></svg-icon>
+        <svg-icon class="text-16" icon="history"></svg-icon>
         <div class="text-16 ml-2">{{LangUtil("注单历史")}}</div>
     </v-btn>
     <v-btn plain color="btnPlain" :ripple="false" @click="openCompetionResult">
-        <svg-icon class="text-18" icon="score"></svg-icon>
+        <svg-icon class="text-16" icon="score"></svg-icon>
         <div class="text-16 ml-2">{{LangUtil("赛果&比分")}}</div>
     </v-btn>
     <v-spacer />
 
-    <btn-info class="mr10 text-14" minWidth="86" height="36">{{LangUtil("体育规则")}}</btn-info>
-    <btn-info class="mr10 text-14" minWidth="86" height="36">{{LangUtil("投注教程")}}</btn-info>
+    <btn-info class="mr10 text-12" minWidth="86" height="32">{{LangUtil("体育规则")}}</btn-info>
+    <btn-info class="mr10 text-12" minWidth="86" height="32">{{LangUtil("投注教程")}}</btn-info>
 
     <v-menu offset-y nudge-bottom="4">
         <template v-slot:activator="{ on, attrs }">
             <div class="mr10" v-bind="attrs" v-on="on">
-                <btn-info class="text-14" minWidth="86" height="36">
+                <btn-info class="text-12" minWidth="86" height="32">
                     <div class="d-flex align-center">
                         <div class="mr10">{{LangUtil( settingProxy.pageData.form.MarketType_area == 0 ? "欧州盘" : "亚洲盘")}}</div>
                         <svg-icon
@@ -57,7 +57,7 @@
     <v-menu offset-y nudge-bottom="4" :close-on-content-click="false" @input="onSettingSave">
         <template v-slot:activator="{ on, attrs }">
             <div class="mr10" v-bind="attrs" v-on="on">
-                <btn-info class="text-14" minWidth="86" height="36">
+                <btn-info class="text-12" minWidth="86" height="32">
                     <div class="d-flex align-center">
                         <div class="mr10">{{LangUtil("设置")}}</div>
                         <svg-icon

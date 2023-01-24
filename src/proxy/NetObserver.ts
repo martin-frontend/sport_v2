@@ -122,6 +122,8 @@ export default class NetObserver extends AbstractMediator {
                     GlobalVar.loading = false;
                     const betProxy: BetProxy = getProxy(BetProxy);
                     betProxy.deleteItem(body.market_id, body.selection_id);
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                    orderUnsettledProxy.api_user_orders();
                 }
                 break;
         }

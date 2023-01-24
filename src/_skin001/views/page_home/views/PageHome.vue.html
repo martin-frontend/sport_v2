@@ -1,4 +1,4 @@
-<div :class="{'mr-2': !$vuetify.breakpoint.mobile}">
+<div :class="{'mr-0': !$vuetify.breakpoint.mobile}">
     <HomeHeader v-if="!$vuetify.breakpoint.mobile" />
 
     <v-expansion-panels class="mt-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="!$vuetify.breakpoint.mobile">

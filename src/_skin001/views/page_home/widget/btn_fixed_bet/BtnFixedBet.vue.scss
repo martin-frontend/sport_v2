@@ -9,6 +9,9 @@
         background-color: #ffcd43 !important;
         color: #0f1213;
     }
+    &.disabled {
+        pointer-events: none; 
+    }
 }
 .theme--light {
     .btn {

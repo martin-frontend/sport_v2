@@ -1,9 +1,9 @@
 <div class="d-flex align-center textGray--text">
-    <div class="font-weight-bold text-18 ml-2">{{getTitleName()}}</div>
+    <div class="font-weight-bold text-16 ml-4">{{getTitleName()}}</div>
     <v-spacer />
     <v-sheet class="d-flex align-center rounded-10 textGray--text" color="bgBanner" height="40">
         <v-sheet
-            class="d-flex align-center justify-center mx-3 hand btnbox"
+            class="d-flex align-center justify-center mx-3 hand btnbox text-14"
             :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'"
             color="transparent"
             @click="onQuerySort('time')"
@@ -12,7 +12,7 @@
         </v-sheet>
         <svg-icon icon="change"></svg-icon>
         <v-sheet
-            class="d-flex align-center justify-center mx-3 hand btnbox"
+            class="d-flex align-center justify-center mx-3 hand btnbox text-14"
             :class=" settingProxy.pageData.form.sort == 'comp' ? 'yellow--text' : 'textGray--text'"
             color="transparent"
             @click="onQuerySort('comp')"

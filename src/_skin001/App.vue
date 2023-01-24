@@ -12,7 +12,7 @@
             </v-sheet>
             <v-sheet class="py-0" width="100%" color="transparent">
                 <Header v-if="!$vuetify.breakpoint.mobile" />
-                <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
+                <!-- <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
                     <v-sheet
                         class="overflow-y-auto"
                         width="100%"
@@ -21,10 +21,28 @@
                     >
                         <router-view />
                     </v-sheet>
-                    <v-sheet class="overflow-y-auto rightbox mr-2" min-width="325" color="transparent" v-if="!$vuetify.breakpoint.mobile">
+                    <v-sheet class="overflow-y-auto rightbox mr-2" min-width="420" color="transparent" v-if="!$vuetify.breakpoint.mobile">
                         <RightPanel />
                     </v-sheet>
-                </v-sheet>
+                </v-sheet> -->
+
+                <v-row dense class="mt-1">
+                    <v-col cols="8">
+                        <v-sheet
+                        class="overflow-y-auto"
+                        width="100%"
+                        color="transparent"
+                        :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
+                    >
+                        <router-view />
+                    </v-sheet>
+                    </v-col>
+                    <v-col cols="4">
+                        <v-sheet class="overflow-y-auto rightbox mr-2" min-width="420" color="transparent" v-if="!$vuetify.breakpoint.mobile">
+                        <RightPanel />
+                    </v-sheet>
+                    </v-col>
+                </v-row>
             </v-sheet>
         </v-sheet>
         <!-- 注单抽屉 -->

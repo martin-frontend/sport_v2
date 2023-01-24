@@ -1,8 +1,8 @@
 <v-sheet class="pt-2 pb10 roundedb10" color="bgBanner">
     <!-- <v-divider /> -->
     <div class="d-flex">
-        <v-sheet class="text-14" color="transparent" min-width="250">
-            <v-sheet class="d-flex align-center btnPlain--text" color="transparent" height="36">
+        <v-sheet class="text-14" color="transparent" min-width="220">
+            <v-sheet class="d-flex align-center btnPlain--text" color="transparent" height="30">
                 <v-sheet class="ml10" width="2" height="16" color="yellow" rounded></v-sheet>
                 <div v-if="states" class="d-flex align-center ml10">
                     <div v-if="states.phase_minute > 0">{{LangUtil("已开赛")}}</div>
@@ -24,8 +24,8 @@
                 </div>
             </v-sheet>
             <v-sheet class="ml10" color="transparent">
-                <v-sheet class="d-flex align-center" height="36" color="transparent">
-                    <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="36" width="36" height="36"></v-img>
+                <v-sheet class="d-flex align-center" height="30" color="transparent">
+                    <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="25" width="25" height="25"></v-img>
                     <div class="ml-2 text-truncate btnPlain--text">{{matche.home_team}}</div>
                     <v-spacer />
                     <v-sheet
@@ -43,8 +43,8 @@
                         </span>
                     </v-sheet>
                 </v-sheet>
-                <v-sheet class="d-flex align-center mt-2" height="36" color="transparent">
-                    <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="36" width="36" height="36"></v-img>
+                <v-sheet class="d-flex align-center mt-2" height="30" color="transparent">
+                    <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="25" width="25" height="25"></v-img>
                     <div class="ml-2 text-truncate btnPlain--text">{{matche.away_team}}</div>
                     <v-spacer />
                     <v-sheet
@@ -62,23 +62,23 @@
                         </span>
                     </v-sheet>
                 </v-sheet>
-                <v-sheet v-if="isShowDrow" class="mt-2 ml-11 d-flex align-center btnPlain--text" height="36" color="transparent"
+                <v-sheet v-if="isShowDrow" class="mt-1 ml-11 d-flex align-center btnPlain--text" height="30" color="transparent"
                     >{{LangUtil("和")}}</v-sheet
                 >
                 <div v-for="(item, key) in getOtherGroup()" :key="key">
                     <v-sheet
                         v-if="showAll"
-                        height="36"
+                        height="30"
                         max-width="270"
-                        class="d-flex align-center ml-11 mt-2 text-truncate btnPlain--text"
+                        class="d-flex align-center ml-11 mt-1 text-truncate btnPlain--text"
                         color="transparent"
                         >{{matche.home_team}}</v-sheet
                     >
                     <v-sheet
                         v-if="showAll"
-                        height="36"
+                        height="30"
                         max-width="270"
-                        class="d-flex align-center ml-11 mt-2 text-truncate btnPlain--text"
+                        class="d-flex align-center ml-11 mt-1 text-truncate btnPlain--text"
                         color="transparent"
                         >{{matche.away_team}}</v-sheet
                     >
@@ -86,7 +86,7 @@
             </v-sheet>
         </v-sheet>
         <v-sheet class="mr10" width="100%" color="transparent">
-            <v-sheet class="d-flex align-center" height="36" color="transparent">
+            <v-sheet class="d-flex align-center" height="30" color="transparent">
                 <v-row dense>
                     <v-col v-for="(item, index) of marketTypes" :key="item">
                         <v-sheet class="text-center textGray--text text-14" color="transparent">{{LangUtil(tableColumn[index])}}</v-sheet>
@@ -95,13 +95,13 @@
             </v-sheet>
             <!-- 无盘口数据时间显示 -->
             <v-sheet width="100%" color="transparent" v-if="!fixMarket">
-                <v-skeleton-loader class="mx-auto mt-2" width="100%" height="36" type="card-heading"></v-skeleton-loader>
-                <v-skeleton-loader class="mx-auto mt-2" width="100%" height="36" type="card-heading"></v-skeleton-loader>
-                <v-skeleton-loader class="mx-auto mt-2" width="100%" height="36" type="card-heading"></v-skeleton-loader>
+                <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+                <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+                <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
             </v-sheet>
             <!-- 盘口 -->
             <div v-if="fixMarket" class="d-flex mr10" style="width: 100%">
-                <v-sheet width="100%" class="ml-2" color="transparent" v-for="(item, index) of marketTypes" :key="item">
+                <v-sheet width="100%" class="ml-1" color="transparent" v-for="(item, index) of marketTypes" :key="item">
                     <div>
                         <BtnFixedBet
                             v-for="(sel, skey) of getSelections(item)"
@@ -109,7 +109,7 @@
                             :selection="sel"
                             :matche="matche"
                             :market="getMarket(item)"
-                            class="mb-2"
+                            class="mb-1"
                             :class="(item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && skey == 2 && isShowDrow) ? 'mt-37' : ''"
                         >
                             <div class="text-14" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
@@ -120,7 +120,7 @@
                 </v-sheet>
             </div>
         </v-sheet>
-        <v-btn class="rounded-10 btnEnter mr10 elevation-0 textGray--text" min-width="58" height="36" color="bgGray" @click="goMatche"
+        <v-btn class="rounded-10 btnEnter mr10 elevation-0 textGray--text" min-width="58" height="30" color="bgGray" @click="goMatche"
             >{{matche.market_amount}}<svg-icon class="text-10 ml-1" icon="page_right"></svg-icon
         ></v-btn>
     </div>
