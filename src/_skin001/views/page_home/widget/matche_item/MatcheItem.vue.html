@@ -25,8 +25,11 @@
             </v-sheet>
             <v-sheet class="ml10" color="transparent">
                 <v-sheet class="d-flex align-center" height="30" color="transparent">
-                    <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="25" width="25" height="25"></v-img>
-                    <div class="ml-2 text-truncate btnPlain--text">{{matche.home_team}}</div>
+                    <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="25" height="25">
+                        <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="25" width="25" height="25"></v-img>
+                    </v-sheet>
+                    
+                    <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.home_team}}</div>
                     <v-spacer />
                     <v-sheet
                         v-if="states"
@@ -44,8 +47,11 @@
                     </v-sheet>
                 </v-sheet>
                 <v-sheet class="d-flex align-center mt-2" height="30" color="transparent">
-                    <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="25" width="25" height="25"></v-img>
-                    <div class="ml-2 text-truncate btnPlain--text">{{matche.away_team}}</div>
+                    <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="25" height="25">
+                        <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="25" width="25" height="25"></v-img>
+                    </v-sheet>
+                    
+                    <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.away_team}}</div>
                     <v-spacer />
                     <v-sheet
                         v-if="states"
@@ -112,7 +118,7 @@
                             class="mb-1"
                             :class="(item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && skey == 2 && isShowDrow) ? 'mt-37' : ''"
                         >
-                            <div class="text-14" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
+                            <div class="text-12 textGray--text" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
                                 {{MarketUtils.getSelectionName(item, sel)}}
                             </div>
                         </BtnFixedBet>

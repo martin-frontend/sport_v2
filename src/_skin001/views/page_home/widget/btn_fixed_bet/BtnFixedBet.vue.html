@@ -9,7 +9,7 @@
         <div class="ml-2"><slot></slot></div>
         <v-spacer v-if="$slots.default" />
         <svg-icon class="textGray--text ml-3" icon="lock" v-if="!market || market.status == 2 || selection.status != 0"></svg-icon>
-        <div v-else ref="divPrice" class="ml-3 font-weight-bold" :class="$vuetify.breakpoint.mobile ? 'text-12' : 'text-14'">
+        <div v-else ref="divPrice" class="ml-3 font-weight-bold" :class="$vuetify.breakpoint.mobile ? 'text-12' : 'text-13'">
             {{TransMarketPrice(getPrice())}}
         </div>
     </div>
