@@ -32,6 +32,11 @@ export default class BtnFixedBet extends AbstractView {
         this.onWatchActive();
     }
 
+    @Watch("$vuetify.theme.dark")
+    onWatchDark(){
+        this.clearOddsStatus(0);
+    }
+
     //添加 涨迭样式
     @Watch("selection")
     watchSelection() {
@@ -94,7 +99,7 @@ export default class BtnFixedBet extends AbstractView {
         }
     }
 
-    clearOddsStatus() {
+    clearOddsStatus(delay:number = 5000) {
         clearTimeout(this.cleartimer);
         const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
         const divPrice: HTMLElement = <any>this.$refs.divPrice;
@@ -115,7 +120,7 @@ export default class BtnFixedBet extends AbstractView {
                 }
                 this.isChangeAni = false;
                 this.onWatchActive();
-            }, 5000);
+            }, delay);
         }
     }
 

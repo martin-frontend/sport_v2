@@ -2,7 +2,10 @@
     <v-sheet class="textGray--text mt-2" color="transparent">
         <v-row dense>
             <v-col cols="4">{{LangUtil("币种")}}</v-col>
-            <v-col cols="8" class="btnPlain--text">{{GlobalVar.currency}}</v-col>
+            <v-col cols="4" class="btnPlain--text">{{GlobalVar.currency}}</v-col>
+            <v-col cols="4" class="hand" align="right" @click="$vuetify.theme.dark = !$vuetify.theme.dark">
+                <div>{{$vuetify.theme.dark ? "明" : "暗"}}</div>
+            </v-col>
         </v-row>
     </v-sheet>
 
