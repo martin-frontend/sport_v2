@@ -24,7 +24,7 @@
 
                 <v-list-item class="mb-2" link @click="window = 2" v-if="!$vuetify.breakpoint.mobile" :disabled="unsettledCount==0">
                     <v-sheet
-                        class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                        class="d-flex align-center text-14 rounded-lg unsettled-item"
                         color="bgBanner"
                         height="48"
                         width="100%"
@@ -39,6 +39,7 @@
                 <v-list-item class="mb-2" link @click="onTagClick('love')" :disabled="loveCount==0">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                        :class="{'active': homeProxy.listQueryComp.tag == 'love'}"
                         color="bgBanner"
                         height="48"
                         width="100%"
@@ -60,6 +61,7 @@
                 >
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                        :class="{'active': homeProxy.listQueryComp.tag == item.tag}"
                         color="bgBanner"
                         height="48"
                         width="100%"
@@ -77,10 +79,11 @@
                     v-for="(item, index) in pageData.menu_subnav.center"
                     :key="item.country_code"
                     @click="onGetSubMenu(item.country_code)"
+                    v-ripple="{ class: `textGray--text` }"
                 >
                     <template v-slot:activator>
                         <v-sheet
-                            class="d-flex align-center text-14 rounded-lg textGray--text country-item"
+                            class="d-flex align-center text-14 rounded-lg textGray--text listitem"
                             color="bgBanner"
                             height="48"
                             width="100%"
@@ -109,9 +112,9 @@
                         >
                             <v-sheet
                                 class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
+                                :class="{'active': homeProxy.listQueryComp.competition_id == item1.competition_id}"
                                 height="48"
                                 width="100%"
-                                :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
                             >
                                 <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
                                 <div v-if="item1.name" class="text-truncate mr-3">{{item1.name}}</div>
@@ -121,9 +124,9 @@
                         <v-list-item link @click="onShowCountry(item.country_code)">
                             <v-sheet
                                 class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
+                                :class="{'active': homeProxy.listQueryComp.country == item.country_code}"
                                 height="48"
                                 width="100%"
-                                :class="$vuetify.theme.dark ? 'compitem-dark' : 'compitem-light'"
                             >
                                 <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
                                 <div class="text-truncate mr-3">{{LangUtil("更多赛事")}}</div>

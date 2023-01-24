@@ -11,6 +11,7 @@ export function getVuetify(): Vuetify {
             theme: {
                 themes: {
                     light: {
+                        primary: "#8E8F91",
                         yellow: "#FFCD43",
                         red: "#F64D55",
                         green: "#41A81D",
@@ -24,6 +25,7 @@ export function getVuetify(): Vuetify {
                         borderGray: "#E8E8E2",
                     },
                     dark: {
+                        primary: "#8E8F91",
                         yellow: "#FFCD43",
                         red: "#F64D55",
                         green: "#41A81D",

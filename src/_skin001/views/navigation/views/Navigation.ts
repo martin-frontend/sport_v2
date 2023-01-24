@@ -8,12 +8,14 @@ import getProxy from "@/core/global/getProxy";
 import page_home from "../../page_home";
 import BetProxy from "@/proxy/BetProxy";
 import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
+import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 
 @Component
 export default class Navigation extends AbstractView {
     LangUtil = LangUtil;
     selfProxy: SelfProxy = getProxy(SelfProxy);
     betProxy: BetProxy = getProxy(BetProxy);
+    homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
     myProxy: NavigationProxy = getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;

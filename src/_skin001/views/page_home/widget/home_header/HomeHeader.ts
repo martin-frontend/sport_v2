@@ -8,32 +8,33 @@ import page_home from "../..";
 @Component
 export default class HomeHeader extends AbstractView {
     LangUtil = LangUtil;
-    settingProxy:SettingProxy = this.getProxy(SettingProxy);
+    homeProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
+    settingProxy: SettingProxy = this.getProxy(SettingProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
 
-    getTitleName(){
-        const {country, competition_id, tag, keyword} = this.listQueryComp
-        if(country){
+    getTitleName() {
+        const { country, competition_id, tag, keyword } = this.listQueryComp;
+        if (country) {
             const findItem = this.pageData.menu_subnav.center.find((item) => item.country_code == country);
-            if(findItem){
+            if (findItem) {
                 return findItem.country_name;
             }
         }
-        if(competition_id){
-            if(this.pageData.competition_list.length > 0){
+        if (competition_id) {
+            if (this.pageData.competition_list.length > 0) {
                 return this.pageData.competition_list[0].competition_name;
             }
         }
-        if(keyword){
+        if (keyword) {
             return LangUtil("搜索: ") + keyword;
         }
-        if(tag == "love"){
+        if (tag == "love") {
             return LangUtil("关注赛事");
-        }else{
+        } else {
             const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
-            if(findItem){
+            if (findItem) {
                 return findItem.name;
             }
         }
@@ -51,7 +52,19 @@ export default class HomeHeader extends AbstractView {
         page_home.showByKeyword(this.listQueryComp.keyword);
     }
     //刷新
-    onRefrush(){
+    onRefrush() {
         page_home.showEventList();
+    }
+    //检测所有面板是否关闭
+    checkExpansionPanels(){
+        return this.homeProxy.pageData.openIndexs.length == 0;
+    }
+
+    onTaggleOpen(){
+        if(this.checkExpansionPanels()){
+            this.homeProxy.pageData.openIndexs = [0, 1, 2];
+        }else{
+            this.homeProxy.pageData.openIndexs = [];
+        }
     }
 }

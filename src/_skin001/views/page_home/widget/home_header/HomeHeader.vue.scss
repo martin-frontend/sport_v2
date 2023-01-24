@@ -1,0 +1,10 @@
+.theme--light {
+    .btnbox:hover {
+        filter: brightness(90%);
+    }
+}
+.theme--dark {
+    .btnbox:hover {
+        filter: brightness(120%);
+    }
+}
