@@ -10,10 +10,10 @@
                             <v-img :src="getHomeIcon()" max-width="60" width="60" height="60"></v-img>
                         </v-sheet>
                         <div class="mt-2">{{getHomeName()}}</div>
-                        <div>
+                        <div class="d-flex justify-center mt-1">
                             <v-sheet
-                                v-if="getStates()"
-                                class="d-flex align-center justify-center text-12 cards"
+                                v-if="getStates() && split_goals(getStates().red_cards_ft)[0] > 0"
+                                class="d-flex align-center justify-center text-16 cards"
                                 rounded
                                 color="red"
                                 width="18"
@@ -22,8 +22,8 @@
                                 {{split_goals(getStates().red_cards_ft)[0]}}
                             </v-sheet>
                             <v-sheet
-                                v-if="getStates()"
-                                class="d-flex align-center justify-center text-12 mx-2 cards"
+                                v-if="getStates() && split_goals(getStates().yellow_cards_ft)[0] > 0"
+                                class="d-flex align-center justify-center text-16 ml-1 cards"
                                 rounded
                                 color="yellow"
                                 width="18"
@@ -33,21 +33,26 @@
                             </v-sheet>
                         </div>
                     </v-col>
-                    <v-col class="text-36" align="center" align-self="center">
+                    <v-col class="text-30" align="center" align-self="center">
                         <div class="mt-1 text-14">{{matche.group_match}}</div>
                         <template v-if="getStates()">
-                            <div v-if="isShowFullScore()">
-                                {{goals_ot_Value[0]}}<span class="text-18" v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
+                            <div class="d-flex justify-center">
+                                <div v-if="isShowFullScore()">
+                                    {{goals_ot_Value[0]}}<span class="text-18" v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
+                                </div>
+                                <div v-else>{{goalsValue[0]}}</div>
+                                <!-- <div v-else>{{goalsValue[0]}}<span class="text-18">(0)</span></div> -->
+                                <div class="mx-2">-</div>
+                                <div v-if="isShowFullScore()">
+                                    {{goals_ot_Value[1]}}<span class="text-18" v-if="isShowPK()">({{goals_pk_Value[1]}})</span>
+                                </div>
+                                <div v-else>{{goalsValue[1]}}</div>
+                                <!-- <div v-else>{{goalsValue[1]}}<span class="text-18">(0)</span></div> -->
                             </div>
-                            <div v-else>{{goalsValue[0]}}</div>
-                            <div class="mx-2">-</div>
-                            <div v-if="isShowFullScore()">
-                                {{goals_ot_Value[1]}}<span class="text-18" v-if="isShowPK()">({{goals_pk_Value[1]}})</span>
-                            </div>
-                            <div v-else>{{goalsValue[1]}}</div>
-                            <div class="d-flex">
+
+                            <div class="d-flex justify-center text-14">
                                 <div class="mr-1">{{LangUtil(getStates().match_phase)}}</div>
-                                <div>{{ getStates().phase_minute }}{{LangUtil("分钟")}}</div>
+                                <div v-if="getStates().phase_minute > 0">{{ getStates().phase_minute }}{{LangUtil("分钟")}}</div>
                             </div>
                         </template>
                         <template v-else>
@@ -61,24 +66,24 @@
                             <v-img :src="getAwayIcon()" max-width="60" width="60" height="60"></v-img>
                         </v-sheet>
                         <div class="mt-2">{{getAwayName()}}</div>
-                        <div>
+                        <div class="d-flex justify-center mt-1">
                             <v-sheet
-                                v-if="getStates()"
-                                class="d-flex align-center justify-center text-12 mx-2 cards"
-                                rounded
-                                color="red"
-                                width="18"
-                                height="24"
-                                >{{split_goals(getStates().red_cards_ft)[1]}}</v-sheet
-                            >
-                            <v-sheet
-                                v-if="getStates()"
-                                class="d-flex align-center justify-center text-12 cards"
+                                v-if="getStates() && split_goals(getStates().yellow_cards_ft)[1] > 0"
+                                class="d-flex align-center justify-center text-16 cards"
                                 rounded
                                 color="yellow"
                                 width="18"
                                 height="24"
                                 >{{split_goals(getStates().yellow_cards_ft)[1]}}</v-sheet
+                            >
+                            <v-sheet
+                                v-if="getStates() && split_goals(getStates().red_cards_ft)[1] > 0"
+                                class="d-flex align-center justify-center text-16 ml-1 cards"
+                                rounded
+                                color="red"
+                                width="18"
+                                height="24"
+                                >{{split_goals(getStates().red_cards_ft)[1]}}</v-sheet
                             >
                         </div>
                     </v-col>

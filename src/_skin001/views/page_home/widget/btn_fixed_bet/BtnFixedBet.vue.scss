@@ -5,8 +5,8 @@
     // background-color: #F1F1F1;
     // min-height: 30px;
     &.active {
-        // background-image: linear-gradient(#4967D1, #03259C);
-        background-color: #ffcd43 !important;
+        background: linear-gradient(to right, #fcb131, #ffe64d);
+        // background-color: #ffcd43 !important;
         color: #0f1213;
     }
     &.disabled {
@@ -20,7 +20,8 @@
     }
     .btn:hover {
         // filter: brightness(90%);
-        filter: sepia(40);
+        background-color: #FFFFF0;
+        border-color: #FFEC8E !important;
     }
 }
 .theme--dark {

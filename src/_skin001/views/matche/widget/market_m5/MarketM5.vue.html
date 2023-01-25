@@ -7,19 +7,19 @@
     <v-row dense>
         <v-col>
             <BtnFixedBet class="mb-1" v-for="(item,index) in marketOrder1" :key="index" :matche="matche" :market="market" :selection="item">
-                <div class="text-14 textGray--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+                <div class="text-14 btnPlain--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
                 <v-spacer />
             </BtnFixedBet>
         </v-col>
         <v-col class="mx-n1">
             <BtnFixedBet class="mb-1" v-for="(item,index) in marketOrder2" :key="index" :matche="matche" :market="market" :selection="item">
-                <div class="text-14 textGray--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+                <div class="text-14 btnPlain--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
                 <v-spacer />
             </BtnFixedBet>
         </v-col>
         <v-col>
             <BtnFixedBet class="mb-1" v-for="(item,index) in marketOrder3" :key="index" :matche="matche" :market="market" :selection="item">
-                <div class="text-14 textGray--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+                <div class="text-14 btnPlain--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
                 <v-spacer />
             </BtnFixedBet>
         </v-col>
