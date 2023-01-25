@@ -4,6 +4,10 @@
 
 .btntype {
     border-width: 2px;
+    &:hover {
+        background-color: #FFFFF0;
+        border-color: #FFEC8E !important;
+    }
 }
 .btnGroup {
     overflow-y: auto;

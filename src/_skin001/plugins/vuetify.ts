@@ -23,6 +23,7 @@ export function getVuetify(): Vuetify {
                         textGray: "#8E8F91",
                         btnPlain: "#3E3714",
                         borderGray: "#E8E8E2",
+                        textGray1: "#3E3714",
                     },
                     dark: {
                         primary: "#8E8F91",
@@ -37,6 +38,7 @@ export function getVuetify(): Vuetify {
                         textGray: "#8E8F91",
                         btnPlain: "#FFFFFF",
                         borderGray: "#5A5A5A",
+                        textGray1: "#8E8F91",
                     },
                 },
                 dark: false,

@@ -107,7 +107,7 @@ export default class MatcheItem extends AbstractView {
             return marketTypes.slice(0, 3);
         } else if (this.$vuetify.breakpoint.width <= 1610) {
             return marketTypes.slice(0, 4);
-        } else if (this.$vuetify.breakpoint.width <= 1710) {
+        } else if (this.$vuetify.breakpoint.width <= 1810) {
             return marketTypes.slice(0, 5);
         }
         return marketTypes;

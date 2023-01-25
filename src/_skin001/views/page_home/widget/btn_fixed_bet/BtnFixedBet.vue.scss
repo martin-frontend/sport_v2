@@ -1,28 +1,26 @@
 .btn {
-    // padding: 0px;
-    // width:100%;
-    // cursor: pointer;
-    // background-color: #F1F1F1;
-    // min-height: 30px;
     &.active {
         background: linear-gradient(to right, #fcb131, #ffe64d);
-        // background-color: #ffcd43 !important;
         color: #0f1213;
     }
     &.disabled {
-        pointer-events: none; 
+        pointer-events: none;
     }
 }
 .theme--light {
     .btn {
         background-color: #ffffff;
-        border: solid 1px #DCDCDC;
+        border: solid 1px #dcdcdc;
+        &:hover {
+            background-color: #fffff0;
+            border-color: #ffec8e;
+        }
     }
-    .btn:hover {
-        // filter: brightness(90%);
-        background-color: #FFFFF0;
-        border-color: #FFEC8E !important;
-    }
+    // .btn:hover {
+    //     // filter: brightness(90%);
+    //     background-color: #FFFFF0;
+    //     border-color: #FFEC8E;
+    // }
 }
 .theme--dark {
     .btn {
