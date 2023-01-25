@@ -11,12 +11,14 @@ import GlobalVar from "@/core/global/GlobalVar";
 import live from "@/_skin001/views/live";
 import matche from "@/_skin001/views/matche";
 import right_panel from "@/_skin001/views/right_panel";
+import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
 
 @Component
 export default class MatcheItem extends AbstractView {
     LangUtil = LangUtil;
     getResponseIcon = getResponseIcon;
     MarketUtils = MarketUtils;
+    matcheProxy:MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;

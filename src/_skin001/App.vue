@@ -2,7 +2,7 @@
     <v-app>
         <v-sheet class="d-flex" color="transparent">
             <v-sheet
-                class="overflow-y-auto mt-3 leftbox"
+                class="overflow-y-auto mt-2 leftbox"
                 min-width="242"
                 max-width="242"
                 color="transparent"
@@ -27,7 +27,7 @@
                 </v-sheet> -->
 
                 <v-row dense class="mt-1">
-                    <v-col cols="8">
+                    <v-col :cols="$vuetify.breakpoint.mobile?12:8">
                         <v-sheet
                         class="overflow-y-auto"
                         width="100%"
@@ -38,17 +38,13 @@
                     </v-sheet>
                     </v-col>
                     <v-col cols="4">
-                        <v-sheet class="overflow-y-auto rightbox mr-2" min-width="420" color="transparent" v-if="!$vuetify.breakpoint.mobile">
+                        <v-sheet class="overflow-y-auto rightbox mr-2" color="transparent" v-if="!$vuetify.breakpoint.mobile">
                         <RightPanel />
                     </v-sheet>
                     </v-col>
                 </v-row>
             </v-sheet>
         </v-sheet>
-        <!-- 注单抽屉 -->
-        <!-- <v-navigation-drawer v-model="isShowBet" v-if="$vuetify.breakpoint.mobile" absolute bottom app temporary>
-            <MyBet />
-        </v-navigation-drawer> -->
 
         <!-- dialog的挂载点 -->
         <div id="dialog_container"></div>

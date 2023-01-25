@@ -28,9 +28,7 @@
                     <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="25" height="25">
                         <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="25" width="25" height="25"></v-img>
                     </v-sheet>
-
                     <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.home_team}}</div>
-                    <v-spacer />
                     <v-sheet
                         v-if="states"
                         class="d-flex align-center justify-center mx-1 rounded btnPlain--text font-weight-bold"
@@ -38,7 +36,9 @@
                         color="red"
                         >{{getValues(states.red_cards_ft)[0]}}</v-sheet
                     >
-                    <v-sheet v-if="states" class="ml-1 d-flex align-center font-weight-bold" min-width="15" color="transparent">
+                    <v-spacer />
+                    <v-sheet v-if="states" class="ml-1 d-flex align-center font-weight-bold text-18" min-width="15" color="transparent">
+                        <!-- <div class="text-18">0</div> -->
                         <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[0]}}</span>
                         <span class="d-flex" v-else>
                             {{getValues(states.goals_ot)[0]}}
@@ -50,9 +50,7 @@
                     <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="25" height="25">
                         <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="25" width="25" height="25"></v-img>
                     </v-sheet>
-
                     <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.away_team}}</div>
-                    <v-spacer />
                     <v-sheet
                         v-if="states"
                         class="d-flex align-center mx-1 justify-center rounded btnPlain--text font-weight-bold"
@@ -60,7 +58,8 @@
                         color="red"
                         >{{getValues(states.red_cards_ft)[1]}}</v-sheet
                     >
-                    <v-sheet v-if="states" class="ml-1 d-flex align-center font-weight-bold" min-width="15" color="transparent">
+                    <v-spacer />
+                    <v-sheet v-if="states" class="ml-1 d-flex align-center font-weight-bold text-18" min-width="15" color="transparent">
                         <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[1]}}</span>
                         <span class="d-flex" v-else>
                             {{getValues(states.goals_ot)[1]}}
@@ -141,7 +140,13 @@
                 </v-sheet>
             </div>
         </v-sheet>
-        <v-btn class="rounded-10 btnEnter mr10 elevation-0 textGray--text" min-width="58" height="30" color="bgGray" @click="goMatche"
+        <v-btn
+            class="rounded-10 btnEnter mr10 elevation-0 textGray--text"
+            :class="{'active': matcheProxy.listQueryComp.event_id == matche.id}"
+            min-width="58"
+            height="30"
+            color="bgGray"
+            @click="goMatche"
             >{{matche.market_amount}}<svg-icon class="text-10 ml-1" icon="page_right"></svg-icon
         ></v-btn>
     </div>

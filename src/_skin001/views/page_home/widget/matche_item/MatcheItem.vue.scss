@@ -9,22 +9,14 @@
     background-color: transparent !important;
 }
 
-.mt10{
-    margin-top: 10px;
-}
-.ml10{
-    margin-left: 10px;
-}
-.mr10{
-    margin-right: 10px;
-}
-.pb10{
-    padding-bottom: 10px;
-}
-.roundedb10{
+.roundedb10 {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-.btnEnter{
-    margin-top: 58px
+.btnEnter {
+    margin-top: 58px;
+    &.active {
+        background: linear-gradient(to right, #fcb131, #ffe64d);
+        color: #0F1213 !important;
+    }
 }

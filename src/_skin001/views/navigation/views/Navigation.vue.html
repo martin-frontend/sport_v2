@@ -3,7 +3,7 @@
         <v-window-item>
             <v-list nav dense class="navlist">
                 <v-list-item
-                    class="mb-2"
+                    class="mb-1"
                     link
                     @click="window = 1"
                     v-if="!$vuetify.breakpoint.mobile"
@@ -22,7 +22,7 @@
                     </v-sheet>
                 </v-list-item>
 
-                <v-list-item class="mb-2" link @click="window = 2" v-if="!$vuetify.breakpoint.mobile" :disabled="unsettledCount==0">
+                <v-list-item class="mb-1" link @click="window = 2" v-if="!$vuetify.breakpoint.mobile" :disabled="unsettledCount==0">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg unsettled-item"
                         color="bgBanner"
@@ -36,7 +36,7 @@
                     </v-sheet>
                 </v-list-item>
 
-                <v-list-item class="mb-2" link @click="onTagClick('love')" :disabled="loveCount==0">
+                <v-list-item class="mb-1" link @click="onTagClick('love')" :disabled="loveCount==0">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
                         :class="{'active': homeProxy.listQueryComp.tag == 'love'}"
@@ -52,7 +52,7 @@
                 </v-list-item>
 
                 <v-list-item
-                    class="mb-2"
+                    class="mb-1"
                     link
                     v-for="(item, index) in pageData.menu_subnav.top"
                     :key="item.tag"
@@ -74,7 +74,7 @@
                 </v-list-item>
 
                 <v-list-group
-                    class="mb-2"
+                    class="mb-1"
                     v-model="pageData.menu_subnav.centerOpen[index]"
                     v-for="(item, index) in pageData.menu_subnav.center"
                     :key="item.country_code"
@@ -102,9 +102,9 @@
                             <div class="mr15">{{item.num}}</div>
                         </v-sheet>
                     </template>
-                    <div class="pt-2">
+                    <div>
                         <v-list-item
-                            class="mb-2"
+                            class="mb-1"
                             link
                             v-for="(item1, index1) in item.competitions"
                             :key="index1"

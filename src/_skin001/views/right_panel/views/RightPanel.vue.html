@@ -4,16 +4,18 @@
         :class="pageData.isShowLiveList ? 'rounded-10' : 'rounded-t-10'"
         color="bgBanner"
         height="50"
+        style="position: sticky"
     >
         <v-sheet
-            class="d-flex align-center btnPlain--text hand"
+            class="d-flex align-center btnPlain--text hand mr-2"
             color="transparent"
-            max-width="180"
+            max-width="70%"
             height="230"
             @click="pageData.isShowLiveList = !pageData.isShowLiveList"
+            v-if="competition"
         >
-            <v-img width="20" height="20" src="@/_skin001/assets/team.png"></v-img>
-            <div class="text-14 mx10 text-truncate">{{LangUtil("热门赛事")}}</div>
+            <v-img width="20" height="20" :src="competition.country_icon"></v-img>
+            <div class="text-14 mx10 text-truncate">{{matche.home_team}} VS {{matche.away_team}}</div>
             <svg-icon class="text-12 textGray--text" icon="zoom_out"></svg-icon>
         </v-sheet>
         <v-spacer />

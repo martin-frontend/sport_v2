@@ -17,9 +17,14 @@
 
 ::v-deep .v-menu__content {
     max-width: 100% !important;
-    box-shadow: 0 3px 3px -2px rgba(255,0,0,1),0 3px 4px 0 rgba(0,0,0,.14),0 1px 8px 0 rgba(0,0,0,.12)!important;
+    box-shadow: 0 3px 3px -2px rgba(255, 0, 0, 1), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12) !important;
 }
 .temadiv {
     display: grid;
     justify-items: center;
+}
+.line {
+    position: absolute;
+    bottom: 0;
+    width: 100%;
 }

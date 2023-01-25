@@ -3,15 +3,6 @@
         <v-btn icon @click="onBack">
             <svg-icon class="textGray--text" icon="back2"></svg-icon>
         </v-btn>
-        <!-- <v-sheet
-            class="d-flex align-center btnPlain--text hand"
-            color="transparent"
-            max-width="180"
-            @click="pageData.isShowList = !pageData.isShowList"
-        >
-            <div class="text-16 mr10 text-truncate">{{getCompetitionName()}}</div>
-            <svg-icon class="text-12 textGray--text" icon="zoom_out"></svg-icon>
-        </v-sheet> -->
 
         <v-menu offset-y>
             <template v-slot:activator="{ on, attrs }">
@@ -68,8 +59,9 @@
         <v-btn icon class="ml-1 mr-3" @click="onOrder">
             <svg-icon class="text-20 textGray--text" icon="history"></svg-icon>
         </v-btn>
+        <v-divider class="line"/>
     </v-sheet>
-    <v-divider />
+    
     <v-sheet class="tabs_box text-24">
         <v-tabs color="btnPlain" fixed-tabs background-color="transparent" slider-color="yellow" v-model="pageData.liveIndex">
             <v-tab>

@@ -6,14 +6,14 @@
     </v-row>
     <v-row dense>
         <v-col>
-            <BtnFixedBet class="mb-2" v-for="(item,index) in marketOrder1" :key="index" :matche="matche" :market="market" :selection="item">
-                <div>{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+            <BtnFixedBet class="mb-1" v-for="(item,index) in marketOrder1" :key="index" :matche="matche" :market="market" :selection="item">
+                <div class="text-12 textGray--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
                 <v-spacer />
             </BtnFixedBet>
         </v-col>
-        <v-col>
-            <BtnFixedBet class="mb-2" v-for="(item,index) in marketOrder2" :key="index" :matche="matche" :market="market" :selection="item">
-                <div>{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+        <v-col class="ml-n1">
+            <BtnFixedBet class="mb-1" v-for="(item,index) in marketOrder2" :key="index" :matche="matche" :market="market" :selection="item">
+                <div class="text-12 textGray--text">{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
                 <v-spacer />
             </BtnFixedBet>
         </v-col>

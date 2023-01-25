@@ -1,34 +1,31 @@
 <v-sheet class="menu-option">
-  <v-list>
-
-    <v-list-item-group v-model="currindex">
-      <template v-for="(matche, index) in matches">
-        <v-list-item @click="clickitem(matche)" link :key="index">
-          <v-row>
-            <v-col>
-              <div class="temadiv my-2 ">
-                <v-img width="50px" height="50px" :src="getResponseIcon(matche.home_team_icon)"></v-img>
-                <div class="text-162 d-flex justify-center text-center">{{matche.home_team}}</div>
-              </div>
-            </v-col>
-            <v-col class="d-flex align-center text-16">
-              <v-sheet width="100%">
-                <div class="d-flex justify-center">{{start_time(matche).day}}</div>
-                <div class="d-flex justify-center">{{start_time(matche).min}}</div>
-              </v-sheet>
-            </v-col>
-            <v-col>
-              <div class="temadiv my-2">
-                <v-img width="50px" height="50px" :src="getResponseIcon(matche.away_team_icon)"></v-img>
-                <div class="text-12 d-flex justify-center text-center ">{{matche.away_team}}</div>
-              </div>
-            </v-col>
-          </v-row>
-
-        </v-list-item>
-        <v-divider></v-divider>
-      </template>
-    </v-list-item-group>
-
-  </v-list>
+    <v-list>
+        <v-list-item-group v-model="currindex">
+            <template v-for="(matche, index) in matches">
+                <v-list-item @click="clickitem(matche)" link :key="index">
+                    <v-row>
+                        <v-col>
+                            <div class="temadiv my-2">
+                                <v-img width="50px" height="50px" :src="getResponseIcon(matche.home_team_icon)"></v-img>
+                                <div class="text-162 d-flex justify-center text-center">{{matche.home_team}}</div>
+                            </div>
+                        </v-col>
+                        <v-col class="d-flex align-center text-16">
+                            <v-sheet width="100%">
+                                <div class="d-flex justify-center">{{start_time(matche).day}}</div>
+                                <div class="d-flex justify-center">{{start_time(matche).min}}</div>
+                            </v-sheet>
+                        </v-col>
+                        <v-col>
+                            <div class="temadiv my-2">
+                                <v-img width="50px" height="50px" :src="getResponseIcon(matche.away_team_icon)"></v-img>
+                                <div class="text-12 d-flex justify-center text-center">{{matche.away_team}}</div>
+                            </div>
+                        </v-col>
+                    </v-row>
+                </v-list-item>
+                <v-divider></v-divider>
+            </template>
+        </v-list-item-group>
+    </v-list>
 </v-sheet>
