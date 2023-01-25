@@ -16,10 +16,11 @@
 .theme--light {
     .btn {
         background-color: #ffffff;
-        border: solid 1px #f2f2f2;
+        border: solid 1px #DCDCDC;
     }
     .btn:hover {
-        filter: brightness(90%);
+        // filter: brightness(90%);
+        filter: sepia(40);
     }
 }
 .theme--dark {

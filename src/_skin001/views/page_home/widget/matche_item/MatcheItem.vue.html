@@ -1,7 +1,7 @@
 <v-sheet class="pt-2 pb10" :class="{'roundedb10': isLast}" color="bgBanner">
     <!-- <v-divider /> -->
     <div class="d-flex" :class="{'mt-n2': !isFirst}">
-        <v-sheet class="text-14" color="transparent" min-width="220">
+        <v-sheet class="text-14" color="transparent" min-width="230">
             <v-sheet class="d-flex align-center btnPlain--text" color="transparent" height="30">
                 <v-sheet class="ml10" width="2" height="16" color="yellow" rounded></v-sheet>
                 <div v-if="states" class="d-flex align-center ml10">
@@ -23,7 +23,7 @@
                     <div v-else class="ml10 red--text">{{LangUtil("即将开赛")}}</div>
                 </div>
             </v-sheet>
-            <v-sheet class="ml10" color="transparent">
+            <v-sheet class="ml10 pl-3" color="transparent">
                 <v-sheet class="d-flex align-center" height="30" color="transparent">
                     <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="25" height="25">
                         <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="25" width="25" height="25"></v-img>
@@ -69,20 +69,21 @@
                 </v-sheet>
                 <v-sheet v-if="isShowDrow" class="mt-1 ml-8 d-flex align-center btnPlain--text" height="30" color="transparent">
                     <div>{{LangUtil("和")}}</div>
+                    <svg-icon
+                        class="text-18 textGray--text hand ml-4"
+                        :icon="pageData.love_events.includes(matche.id) ? 'love1' : 'love'"
+                        @click.native="onLove"
+                    ></svg-icon>
                     <!-- <svg-icon
                         class="text-18 textGray--text hand mx10"
                         :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
                         @click.native="pageData.liveIndex = 1"
                     ></svg-icon> -->
                     <svg-icon
-                        class="text-18 textGray--text hand ml-2"
-                        :icon="matche.animation_id ? 'animate1_' : 'animate'"
+                        v-if="matche.animation_id"
+                        class="text-18 textGray--text hand ml-4"
+                        icon="animate1_"
                         @click.native="playMatcheAnimation"
-                    ></svg-icon>
-                    <svg-icon
-                        class="text-18 textGray--text hand ml-2"
-                        :icon="pageData.love_events.includes(matche.id) ? 'love1' : 'love'"
-                        @click.native="onLove"
                     ></svg-icon>
                 </v-sheet>
                 <div v-for="(item, key) in getOtherGroup()" :key="key">
@@ -109,7 +110,7 @@
             <v-sheet class="d-flex align-center" height="30" color="transparent">
                 <v-row dense>
                     <v-col v-for="(item, index) of marketTypes" :key="item">
-                        <v-sheet class="text-center textGray--text text-14" color="transparent">{{LangUtil(tableColumn[index])}}</v-sheet>
+                        <v-sheet class="text-center btnPlain--text text-14" color="transparent">{{LangUtil(tableColumn[index])}}</v-sheet>
                     </v-col>
                 </v-row>
             </v-sheet>
@@ -132,7 +133,7 @@
                             class="mb-1"
                             :class="(item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && skey == 2 && isShowDrow) ? 'mt-37' : ''"
                         >
-                            <div class="text-12 textGray--text" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
+                            <div class="text-14 textGray--text" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
                                 {{MarketUtils.getSelectionName(item, sel)}}
                             </div>
                         </BtnFixedBet>

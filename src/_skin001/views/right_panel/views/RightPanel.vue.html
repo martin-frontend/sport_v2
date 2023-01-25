@@ -1,10 +1,9 @@
 <div>
     <v-sheet
-        class="d-flex align-center px10 textGray--text"
+        class="d-flex align-center px10 textGray--text div-sticky-1"
         :class="pageData.isShowLiveList ? 'rounded-10' : 'rounded-t-10'"
         color="bgBanner"
         height="50"
-        style="position: sticky"
     >
         <v-sheet
             class="d-flex align-center btnPlain--text hand mr-2"
@@ -40,8 +39,8 @@
         <LiveList @onChange="pageData.isShowLiveList = false" />
     </template>
     <template v-else>
-        <v-divider />
-        <Live v-model="pageData.liveIndex" />
+        <v-divider class="div-sticky-2"/>
+        <Live class="div-sticky-3" v-model="pageData.liveIndex" />
         <Matche />
     </template>
 </div>

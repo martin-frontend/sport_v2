@@ -67,7 +67,7 @@ export default class MatcheItem extends AbstractView {
     }
 
     get start_time() {
-        return formatEventTime(dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM-dd hh:mm:ss"));
+        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm");
     }
 
     get start() {

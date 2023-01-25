@@ -92,7 +92,7 @@ export default class BtnFixedBet extends AbstractView {
                         divBox.style.borderColor = "#FFCD43";
                     } else {
                         divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
-                        divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#F2F2F2";
+                        divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
                     }
                 }
             }
@@ -116,7 +116,7 @@ export default class BtnFixedBet extends AbstractView {
                     )
                 ) {
                     if (divPrice) divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
-                    if (divBox) divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#F2F2F2";
+                    if (divBox) divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
                 }
                 this.isChangeAni = false;
                 this.onWatchActive();

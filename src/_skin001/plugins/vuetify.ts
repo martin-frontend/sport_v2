@@ -21,7 +21,7 @@ export function getVuetify(): Vuetify {
                         bgTips: "#F2F2F2",
                         bgMybet: "#F6F6F4",
                         textGray: "#8E8F91",
-                        btnPlain: "#0F1213",
+                        btnPlain: "#3E3714",
                         borderGray: "#E8E8E2",
                     },
                     dark: {
@@ -39,7 +39,7 @@ export function getVuetify(): Vuetify {
                         borderGray: "#5A5A5A",
                     },
                 },
-                dark: true,
+                dark: false,
             },
         };
         vuetify = new Vuetify(opts);
