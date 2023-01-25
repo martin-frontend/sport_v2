@@ -12,7 +12,7 @@ export function getVuetify(): Vuetify {
                 themes: {
                     light: {
                         primary: "#8E8F91",
-                        yellow: "#FCB232",
+                        yellow: "#ea7800",
                         red: "#F64D55",
                         green: "#41A81D",
                         bgPage: "#f6f6f4",
@@ -27,7 +27,7 @@ export function getVuetify(): Vuetify {
                     },
                     dark: {
                         primary: "#8E8F91",
-                        yellow: "#FCB232",
+                        yellow: "#ea7800",
                         red: "#F64D55",
                         green: "#41A81D",
                         bgPage: "#202121",

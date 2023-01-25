@@ -16,19 +16,19 @@
             border-color: #ffec8e;
         }
     }
-    // .btn:hover {
-    //     // filter: brightness(90%);
-    //     background-color: #FFFFF0;
-    //     border-color: #FFEC8E;
-    // }
 }
 .theme--dark {
     .btn {
         background-color: #272828;
         border: solid 1px #333435;
-    }
-    .btn:hover {
-        filter: brightness(120%);
+        &:hover {
+            filter: brightness(120%);
+        }
+        &.active {
+            .divslot {
+                color: #0f1213;
+            }
+        }
     }
 }
 

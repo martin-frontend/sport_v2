@@ -1,14 +1,36 @@
 .mr6 {
     margin-right: 6px;
 }
-
-.btntype {
-    border-width: 2px;
-    &:hover {
-        background-color: #FFFFF0;
-        border-color: #FFEC8E !important;
+.theme--light {
+    .btntype {
+        border-width: 1px;
+        &:hover {
+            background-color: #fffff0;
+            border-color: #ffec8e !important;
+        }
+        &.active {
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            .txt {
+                color: #272828 !important;
+            }
+        }
     }
 }
+.theme--dark {
+    .btntype {
+        border-width: 1px;
+        &:hover {
+            filter: brightness(120%);
+        }
+        &.active {
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            .txt {
+                color: #272828 !important;
+            }
+        }
+    }
+}
+
 .btnGroup {
     overflow-y: auto;
 }

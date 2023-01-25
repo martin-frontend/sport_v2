@@ -11,14 +11,15 @@
         >
             <v-btn
                 class="rounded-10 btntype mr6"
+                :class="{'active': myProxy.listQueryMarket.market_type == item.id}"
                 height="30"
                 outlined
-                :color="myProxy.listQueryMarket.market_type == item.id ? 'yellow' : 'borderGray' "
+                color="borderGray"
                 v-for="(item, index) in myProxy.marketTypeOptions"
                 :key="index"
                 @click="onMarketType(item.id)"
             >
-                <span class="textGray--text text-13">{{item.name}}</span>
+                <span class="textGray--text text-13 txt">{{item.name}}</span>
             </v-btn>
         </v-sheet>
         <v-spacer/>
