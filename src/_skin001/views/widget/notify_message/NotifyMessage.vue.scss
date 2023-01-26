@@ -1,3 +1,10 @@
-.notify-message{
+::v-deep .v-snack__content {
+    text-align: center;
+}
+::v-deep .v-snack__wrapper {
+    min-height: 40px;
+    min-width: 310px;
+}
+.notification {
     bottom: 50% !important;
 }

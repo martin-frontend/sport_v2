@@ -24,7 +24,8 @@
                 <v-sheet color="transparent" v-bind="attrs" v-on="on">
                     <svg-icon
                         class="text-26 hand textGray--text"
-                        :icon="pageData.liveIndex==0 ? 'score1_' : 'score1'"
+                        :class="{'active': pageData.liveIndex==0}"
+                        icon="score1"
                         @click.native="pageData.liveIndex = 0"
                     ></svg-icon>
                 </v-sheet>
@@ -39,7 +40,8 @@
                 <v-sheet color="transparent" v-bind="attrs" v-on="on">
                     <svg-icon
                         class="text-28 hand mx10 textGray--text"
-                        :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
+                        :class="{'active': pageData.liveIndex==1}"
+                        icon="live1"
                         @click.native="pageData.liveIndex = 1"
                     ></svg-icon>
                 </v-sheet>
@@ -54,7 +56,8 @@
                 <v-sheet color="transparent" v-bind="attrs" v-on="on">
                     <svg-icon
                         class="text-24 mr-2 mt-1 hand textGray--text"
-                        :icon="pageData.liveIndex==2 ? 'animate1_' : 'animate'"
+                        :class="{'active': pageData.liveIndex==2}"
+                        icon="animate"
                         @click.native="pageData.liveIndex = 2"
                     ></svg-icon>
                 </v-sheet>

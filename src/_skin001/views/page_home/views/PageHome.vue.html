@@ -8,19 +8,15 @@
                     <div class="d-flex align-center">
                         <v-tooltip top>
                             <template v-slot:activator="{ on, attrs }">
-                                <v-btn
+                                <v-sheet
                                     v-bind="attrs"
                                     v-on="on"
-                                    fab
-                                    :ripple="false"
-                                    width="20"
-                                    height="20"
-                                    color="bgPage"
-                                    class="ml10 textGray--text elevation-0"
+                                    color="transparent"
+                                    class="ml10"
                                     @click.stop="setAllLove(competition)"
                                 >
-                                    <svg-icon :icon="checkAllLove(competition) ? 'love1' : 'love'"></svg-icon>
-                                </v-btn>
+                                    <svg-icon class="text-18" :class="{'active': checkAllLove(competition)}" icon="love"></svg-icon>
+                                </v-sheet>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
                                 <span>{{LangUtil("关注")}}</span>

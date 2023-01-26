@@ -20,6 +20,16 @@ export default class NotifyOrderFinished extends AbstractView {
             height: 0,
         },
     };
+    animation1 = {
+        enter: {
+            opacity: [1, 0],
+            scale: [1, 0.2],
+        },
+        leave: {
+            opacity: 0,
+            height: 0,
+        },
+    };
 
     goPageOrder(props: any) {
         if (props.item.data.status != 0 && props.item.data.status != 1) {

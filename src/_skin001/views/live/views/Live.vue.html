@@ -23,9 +23,9 @@
                             </v-sheet>
                             <v-sheet
                                 v-if="getStates() && split_goals(getStates().yellow_cards_ft)[0] > 0"
-                                class="d-flex align-center justify-center text-16 ml-1 cards"
+                                class="d-flex align-center justify-center text-16 ml-1 cards white--text"
                                 rounded
-                                color="yellow"
+                                color="yellow1"
                                 width="18"
                                 height="24"
                             >
@@ -69,9 +69,9 @@
                         <div class="d-flex justify-center mt-1">
                             <v-sheet
                                 v-if="getStates() && split_goals(getStates().yellow_cards_ft)[1] > 0"
-                                class="d-flex align-center justify-center text-16 cards"
+                                class="d-flex align-center justify-center text-16 cards white--text"
                                 rounded
-                                color="yellow"
+                                color="yellow1"
                                 width="18"
                                 height="24"
                                 >{{split_goals(getStates().yellow_cards_ft)[1]}}</v-sheet

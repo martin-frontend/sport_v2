@@ -1,14 +1,5 @@
-<notifications
-    group="message"
-    class="notify-message"
-    animation-type="velocity"
-    :animation="animation"
-    position="bottom center"
-    :duration="20000"
->
+<notifications group="message" class="notification" :animation="animation" position="bottom center" :duration="20000">
     <template slot="body" slot-scope="{ item, close }">
-        <v-sheet class="d-flex align-center justify-center btnPlain--text rounded-10 px-10 mb-2" color="bgTips" height="56"
-            >{{item.title}}</v-sheet
-        >
+        <v-sheet class="text-center pa-2 my-1 rounded-lg bgColor1 bgColor--text">{{ item.title }}</v-sheet>
     </template>
 </notifications>
