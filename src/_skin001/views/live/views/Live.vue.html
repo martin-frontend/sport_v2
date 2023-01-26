@@ -33,10 +33,10 @@
                             </v-sheet>
                         </div>
                     </v-col>
-                    <v-col class="text-30" align="center" align-self="center">
+                    <v-col class="text-30 btnPlain--text" align="center" align-self="center">
                         <div class="mt-1 text-14">{{matche.group_match}}</div>
                         <template v-if="getStates()">
-                            <div class="d-flex justify-center">
+                            <div class="d-flex justify-center font-weight-bold">
                                 <div v-if="isShowFullScore()">
                                     {{goals_ot_Value[0]}}<span class="text-18" v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
                                 </div>

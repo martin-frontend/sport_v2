@@ -32,7 +32,8 @@
                         <v-spacer />
                         <svg-icon class="mr10 textGray--text text-12" icon="zoom_out" :class="open ? 'arrow-up' : 'arrow-down'"></svg-icon>
                     </div>
-                    <v-divider v-if="open" class="titleline" />
+                    <!-- <v-divider v-if="open" class="titleline line" /> -->
+                    <div v-if="open" class="titleline line"></div>
                 </template>
             </v-expansion-panel-header>
 

@@ -5,26 +5,26 @@
     color: #8E8F91;
 }
 .btninfo-light {
-    border: solid 2px #e8e8e2;
+    border: solid 1px #e8e8e2;
     background-color: #fff;
 }
 .btninfo-dark {
-    border: solid 2px #5a5a5a;
+    border: solid 1px #5a5a5a;
     background-color: #202121;
 }
 .btninfo-light:hover {
     border: none;
     background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
-    padding-left: 17px;
-    padding-right: 17px;
-    color: #0F1213;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #0F1213 !important;
 }
 .btninfo-dark:hover {
     border: none;
     background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
-    padding-left: 17px;
-    padding-right: 17px;
-    color: #0F1213;
+    padding-left: 16px;
+    padding-right: 16px;
+    color: #0F1213 !important;
 }
 .rounded-10{
     border-radius: 10px;

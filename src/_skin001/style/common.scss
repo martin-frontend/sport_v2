@@ -22,6 +22,16 @@
         border: solid 1px #e8e8e2;
         max-width: none;
     }
+    .line{
+        // border-width: 1px;
+        // border-style: dashed;
+        // border-color: #e8e8e8;
+        height: 1px;
+        width: 100%;
+        background: linear-gradient(to left, transparent 0%, transparent 50%, #e8e8e8 50%, #e8e8e8 100%);
+        background-size: 15px 0.5px;
+        background-repeat: repeat-x;
+    }
 }
 .theme--dark {
     .v-menu__content {
@@ -30,6 +40,16 @@
         border-radius: 10px;
         border: solid 1px #333435;
         max-width: none;
+    }
+    .line{
+        // border-width: 1px;
+        // border-style: dashed;
+        // border-color: #202121;
+        height: 1px;
+        width: 100%;
+        background: linear-gradient(to left, transparent 0%, transparent 50%, #3b3b3b 50%, #3b3b3b 100%);
+        background-size: 15px 0.5px;
+        background-repeat: repeat-x;
     }
 }
 
