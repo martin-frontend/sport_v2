@@ -1,4 +1,4 @@
-<v-sheet color="transparent" >
+<v-sheet color="transparent">
     <v-sheet class="d-flex align-center" color="transparent" max-height="40px">
         <v-sheet
             ref="boxType"
@@ -22,7 +22,7 @@
                 <span class="textGray--text text-13 txt">{{item.name}}</span>
             </v-btn>
         </v-sheet>
-        <v-spacer/>
+        <v-spacer />
         <v-sheet
             class="d-flex align-center justify-center ml-2 mt-2 rounded-10 hand textGray--text"
             color="bgBanner"
@@ -36,8 +36,7 @@
     </v-sheet>
 
     <!-- list -->
-    <v-sheet  color="transparent" v-if="matche">
-        
+    <v-sheet color="transparent" v-if="matche">
         <v-expansion-panels
             class="mt-2"
             elevation="0"
@@ -57,7 +56,18 @@
                     <template v-slot:default="{ open }">
                         <div class="d-flex align-center">
                             <v-sheet class="mx10" min-width="2" height="16" color="yellow" rounded></v-sheet>
-                            <div class="mr-1 font-weight-bold text-14 btnPlain--text">{{ market.title }}</div>
+
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <div class="mr-1 font-weight-bold text-14 btnPlain--text" v-bind="attrs" v-on="on">
+                                        {{ market.title }}
+                                    </div>
+                                </template>
+                                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                                    <span>{{market.hint}}</span>
+                                </v-sheet>
+                            </v-tooltip>
+
                             <v-spacer />
                             <svg-icon
                                 class="textGray--text text-12 mr-2"
@@ -65,7 +75,7 @@
                                 :class="open ? 'arrow-up' : 'arrow-down'"
                             ></svg-icon>
                         </div>
-                        <v-divider v-if="open" class="titleline" />
+                        <!-- <v-divider v-if="open" class="titleline" /> -->
                     </template>
                 </v-expansion-panel-header>
 
@@ -80,6 +90,6 @@
                 </v-expansion-panel-content>
             </v-expansion-panel>
         </v-expansion-panels>
-        <Nodata v-else height="300"/>
+        <Nodata v-else height="300" />
     </v-sheet>
 </v-sheet>

@@ -54,3 +54,7 @@ input{
     margin-left: 6px;
     margin-right: 6px;
 }
+
+::v-deep .row--dense>.col, .row--dense>[class*=col-]{
+    padding: 2px;
+}

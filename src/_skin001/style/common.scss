@@ -44,7 +44,7 @@
 .v-expansion-panel:not(:first-child)::after {
     border-top: none !important;
 }
-.v-dialog{
+.v-dialog {
     margin: 12px !important;
     overflow: hidden;
 }
@@ -53,6 +53,18 @@
     top: 0;
     z-index: 5;
 }
-.font-weight-bold{
+.font-weight-bold {
     font-family: "GOTHAM_BOLD";
+}
+.bgtexture {
+    background: url("~@/_skin001/assets/img_texture.png") no-repeat right 50px bottom 0px;
+}
+
+.v-tooltip__content {
+    padding: 1px !important;
+    background: linear-gradient(to left, #ffe54d, #fd935b) !important;
+    box-shadow: 0 3px 3px -2px rgba(0, 0, 0, 0.2), 0 3px 4px 0 rgba(0, 0, 0, 0.14), 0 1px 8px 0 rgba(0, 0, 0, 0.12) !important;
+    &.menuable__content__active {
+        opacity: 1 !important;
+    }
 }

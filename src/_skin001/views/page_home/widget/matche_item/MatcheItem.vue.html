@@ -1,4 +1,4 @@
-<v-sheet class="pt-2 pb10" :class="{'roundedb10': isLast}" color="bgBanner">
+<v-sheet class="pt-2 pb10 bgtexture" :class="{'roundedb10': isLast}" color="bgBanner">
     <!-- <v-divider /> -->
     <div class="d-flex" :class="{'mt-n2': !isFirst}">
         <v-sheet class="text-14" color="transparent" min-width="230">
@@ -24,68 +24,127 @@
                 </div>
             </v-sheet>
             <v-sheet class="ml10 pl-3" color="transparent">
-                <v-sheet class="d-flex align-center" height="30" color="transparent">
-                    <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="20" height="20">
-                        <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="20" width="20" height="20"></v-img>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet class="d-flex align-center" height="30" color="transparent" v-bind="attrs" v-on="on">
+                            <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="20" height="20">
+                                <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="20" width="20" height="20"></v-img>
+                            </v-sheet>
+                            <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.home_team}}</div>
+                            <v-sheet
+                                v-if="states && getValues(states.red_cards_ft)[0] > 0"
+                                class="d-flex align-center justify-center mr-1 rounded white--text font-weight-bold"
+                                min-width="18"
+                                color="red"
+                                >{{getValues(states.red_cards_ft)[0]}}</v-sheet
+                            >
+                            <v-spacer />
+                            <v-sheet
+                                v-if="states"
+                                class="ml-1 d-flex align-center font-weight-bold text-18"
+                                min-width="15"
+                                color="transparent"
+                            >
+                                <!-- <div class="text-18">0</div> -->
+                                <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[0]}}</span>
+                                <span class="d-flex" v-else>
+                                    {{getValues(states.goals_ot)[0]}}
+                                    <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[0]}})</span>
+                                </span>
+                            </v-sheet>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{matche.home_team}}</span>
                     </v-sheet>
-                    <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.home_team}}</div>
-                    <v-sheet
-                        v-if="states && getValues(states.red_cards_ft)[0] > 0"
-                        class="d-flex align-center justify-center mr-1 rounded white--text font-weight-bold"
-                        min-width="18"
-                        color="red"
-                        >{{getValues(states.red_cards_ft)[0]}}</v-sheet
-                    >
-                    <v-spacer />
-                    <v-sheet v-if="states" class="ml-1 d-flex align-center font-weight-bold text-18" min-width="15" color="transparent">
-                        <!-- <div class="text-18">0</div> -->
-                        <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[0]}}</span>
-                        <span class="d-flex" v-else>
-                            {{getValues(states.goals_ot)[0]}}
-                            <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[0]}})</span>
-                        </span>
+                </v-tooltip>
+
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet class="d-flex align-center mt-2" height="30" color="transparent" v-bind="attrs" v-on="on">
+                            <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="20" height="20">
+                                <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="20" width="20" height="20"></v-img>
+                            </v-sheet>
+                            <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.away_team}}</div>
+                            <v-sheet
+                                v-if="states && getValues(states.red_cards_ft)[1]"
+                                class="d-flex align-center mr-1 justify-center rounded white--text font-weight-bold"
+                                min-width="18"
+                                color="red"
+                                >{{getValues(states.red_cards_ft)[1]}}</v-sheet
+                            >
+                            <v-spacer />
+                            <v-sheet
+                                v-if="states"
+                                class="ml-1 d-flex align-center font-weight-bold text-18"
+                                min-width="15"
+                                color="transparent"
+                            >
+                                <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[1]}}</span>
+                                <span class="d-flex" v-else>
+                                    {{getValues(states.goals_ot)[1]}}
+                                    <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[1]}})</span>
+                                </span>
+                            </v-sheet>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{matche.away_team}}</span>
                     </v-sheet>
-                </v-sheet>
-                <v-sheet class="d-flex align-center mt-2" height="30" color="transparent">
-                    <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="20" height="20">
-                        <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="20" width="20" height="20"></v-img>
-                    </v-sheet>
-                    <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.away_team}}</div>
-                    <v-sheet
-                        v-if="states && getValues(states.red_cards_ft)[1]"
-                        class="d-flex align-center mr-1 justify-center rounded white--text font-weight-bold"
-                        min-width="18"
-                        color="red"
-                        >{{getValues(states.red_cards_ft)[1]}}</v-sheet
-                    >
-                    <v-spacer />
-                    <v-sheet v-if="states" class="ml-1 d-flex align-center font-weight-bold text-18" min-width="15" color="transparent">
-                        <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[1]}}</span>
-                        <span class="d-flex" v-else>
-                            {{getValues(states.goals_ot)[1]}}
-                            <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[1]}})</span>
-                        </span>
-                    </v-sheet>
-                </v-sheet>
+                </v-tooltip>
+
                 <v-sheet v-if="isShowDrow" class="mt-1 ml-8 d-flex align-center btnPlain--text" height="30" color="transparent">
                     <div>{{LangUtil("和")}}</div>
-                    <svg-icon
-                        class="text-18 textGray--text hand ml-4"
-                        :icon="pageData.love_events.includes(matche.id) ? 'love1' : 'love'"
-                        @click.native="onLove"
-                    ></svg-icon>
-                    <!-- <svg-icon
-                        class="text-18 textGray--text hand mx10"
-                        :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
-                        @click.native="pageData.liveIndex = 1"
-                    ></svg-icon> -->
-                    <svg-icon
-                        v-if="matche.animation_id"
-                        class="text-18 textGray--text hand ml-4"
-                        icon="animate1_"
-                        @click.native="playMatcheAnimation"
-                    ></svg-icon>
+
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                                <svg-icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    class="text-18 textGray--text hand ml-4"
+                                    :icon="pageData.love_events.includes(matche.id) ? 'love1' : 'love'"
+                                    @click.native="onLove"
+                                ></svg-icon>
+                            </v-sheet>
+                        </template>
+                        <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                            <span>{{LangUtil("关注")}}</span>
+                        </v-sheet>
+                    </v-tooltip>
+
+                    <!-- <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                                <svg-icon
+                                    class="text-18 textGray--text hand mx10"
+                                    :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
+                                    @click.native="pageData.liveIndex = 1"
+                                ></svg-icon>
+                            </v-sheet>
+                        </template>
+                        <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                            <span>{{LangUtil("直播")}}</span>
+                        </v-sheet>
+                    </v-tooltip> -->
+
+                    <v-tooltip top>
+                        <template v-slot:activator="{ on, attrs }">
+                            <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                                <svg-icon
+                                    v-if="matche.animation_id"
+                                    class="text-18 textGray--text hand ml-4"
+                                    icon="animate1_"
+                                    @click.native="playMatcheAnimation"
+                                ></svg-icon>
+                            </v-sheet>
+                        </template>
+                        <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                            <span>{{LangUtil("动画")}}</span>
+                        </v-sheet>
+                    </v-tooltip>
                 </v-sheet>
+
                 <div v-for="(item, key) in getOtherGroup()" :key="key">
                     <v-sheet v-if="showAll" height="30" class="d-flex align-center ml-8 mt-1 btnPlain--text" color="transparent">
                         <div class="text-no-wrap text-truncate">{{matche.home_team}}</div>

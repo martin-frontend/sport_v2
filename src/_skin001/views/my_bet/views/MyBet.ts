@@ -29,6 +29,10 @@ export default class MyBet extends AbstractView {
         super(MyBetMediator);
     }
 
+    onInput(value:any){
+        console.warn("@@@@", value);
+    }
+
     getStates(event_id: number) {
         return this.pageData.event_states.find((item1) => item1.event_id == event_id);
     }
