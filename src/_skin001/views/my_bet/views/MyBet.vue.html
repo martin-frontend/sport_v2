@@ -76,7 +76,7 @@
                     style="width: 100%"
                     :placeholder="LangUtil(`单注限额 ${item.maxStake}`)"
                     v-model="item.stake"
-                    @input="onInput"
+                    @input="onInput(item)"
                 />
             </v-sheet>
         </div>
@@ -118,7 +118,7 @@
             <span>{{LangUtil("预计可赢")}}{{GlobalVar.currency}}</span>
             <v-spacer />
             <span class="yellow--text font-weight-bold"
-                >{{amountFormat((item.selection.price.back * item.stake - item.stake).toFixed(3),true,3)}}</span
+                >{{getPreWin(item)}}</span
             >
         </div>
 

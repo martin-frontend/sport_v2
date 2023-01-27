@@ -29,8 +29,8 @@ export default class MyBet extends AbstractView {
         super(MyBetMediator);
     }
 
-    onInput(value:any){
-        console.warn("@@@@", value);
+    onInput(item: any, event: any) {
+        item.stake = amountFormat(item.stake.replace(/[^\d]/g, ""));
     }
 
     getStates(event_id: number) {
@@ -57,8 +57,6 @@ export default class MyBet extends AbstractView {
             const item = this.pageData.list[index];
             const market_type = item.market.market_type;
             const state = this.pageData.event_states.find((item1) => item1.event_id == item.matche.id);
-            console.warn("j>>>>>>>>>", state);
-            console.warn(market_type);
             return `${OrderTitleUtils.getScoreStr({ market_type: market_type, state: state })}`;
         }
     }
@@ -68,7 +66,8 @@ export default class MyBet extends AbstractView {
     }
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {
-        return ((stake ? parseInt(stake) : 0) + parseInt(fastChoose)).toString();
+        const value = ((stake ? parseInt(stake.replace(/,/g, "")) : 0) + parseInt(fastChoose)).toString();
+        return amountFormat(value.replace(/[^\d]/g, ""));
     }
     //删除注单
     onDelete(item: any) {
@@ -100,6 +99,12 @@ export default class MyBet extends AbstractView {
 
     onMax(item: any) {
         item.stake = Math.min(parseFloat(this.selfProxy.userInfo.gold) >> 0, item.maxStake).toString();
+        item.stake = amountFormat(item.stake.replace(/[^\d]/g, ""));
+    }
+
+    getPreWin(item:any){
+        const value = item.stake.replace(/,/g, "");
+        return amountFormat((item.selection.price.back * value - value).toFixed(3),true,3)
     }
 
     destroyed() {

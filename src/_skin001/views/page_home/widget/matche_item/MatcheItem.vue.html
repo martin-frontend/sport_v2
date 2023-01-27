@@ -5,8 +5,8 @@
             <v-sheet class="d-flex align-center btnPlain--text text-14" color="transparent" height="30">
                 <v-sheet class="ml10" width="2" height="16" color="yellow" rounded></v-sheet>
                 <div v-if="states" class="d-flex align-center ml10">
-                    <div v-if="states.phase_minute > 0">{{LangUtil("已开赛")}}</div>
-                    <div class="font-weight-bold" :class="states.match_phase=='-'? 'yellow--text':'btnPlain--text'">
+                    <!-- <div v-if="states.phase_minute > 0">{{LangUtil("已开赛")}}</div> -->
+                    <div :class="states.match_phase=='-'? 'yellow--text':'btnPlain--text'">
                         {{ LangUtil(states ? states.match_phase : "") }}
                     </div>
                     <div v-if="states.phase_minute > 0">{{ states.phase_minute }} {{LangUtil("分钟")}}</div>
