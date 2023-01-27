@@ -38,13 +38,13 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
             }
         } else if (status === 1112002) {
             // 该赛事不存在或已结束
-            Vue.notify({ title: body.msg });
+            Vue.notify({ title: body.data.msg });
             Vue.router.replace("/page_home");
             window.location.reload();
         } else if (status === 140000001 || status === 140000002 || status === 140000003) {
-            console.warn(body.msg);
+            console.warn(body.data.msg);
         } else if (ERROR_CODE.includes(status)) {
-            Vue.notify({ title: body.msg });
+            Vue.notify({ title: body.data.msg });
             GlobalVar.loading = false;
         }
     }

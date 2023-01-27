@@ -17,3 +17,6 @@
     font-weight: bold;
     font-family: GOTHAM_BOLD;
 }
+::v-deep .v-skeleton-loader__image {
+    height: 208px !important;
+}

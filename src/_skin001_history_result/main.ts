@@ -13,6 +13,7 @@ import GlobalVar from "@/core/global/GlobalVar";
 import BtnYellow from "@/_skin001/views/widget/btn_yellow/BtnYellow.vue";
 import BtnInfo from "@/_skin001/views/widget/btn_info/BtnInfo.vue";
 import AppFacade from "./AppFacade";
+import { getQueryVariable } from "@/core/global/Functions";
 LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
@@ -24,6 +25,10 @@ Vue.component("btn-info", BtnInfo);
 AppFacade.getInstance().startup();
 
 const vuetify = getVuetify();
+
+const dark = getQueryVariable("dark");
+vuetify.framework.theme.dark = dark == "true";
+
 Vue["vuetify"] = vuetify;
 Vue.config.productionTip = false;
 new Vue({

@@ -23,7 +23,8 @@ export default class NotifyOrderFinished extends AbstractView {
     animation1 = {
         enter: {
             opacity: [1, 0],
-            scale: [1, 0.2],
+            // scaleY: [1, 0.2],
+            translateY: [0, -36],
         },
         leave: {
             opacity: 0,

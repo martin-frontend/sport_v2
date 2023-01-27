@@ -28,7 +28,8 @@ export default class Header extends AbstractView {
         }
     }
     openCompetionResult() {
-        const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}`;
+        const dark = this.$vuetify.theme.dark;
+        const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
             window.open(
                 link,
@@ -40,7 +41,8 @@ export default class Header extends AbstractView {
         }
     }
     openHistoryResult() {
-        const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}`;
+        const dark = this.$vuetify.theme.dark;
+        const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
             window.open(
                 link,

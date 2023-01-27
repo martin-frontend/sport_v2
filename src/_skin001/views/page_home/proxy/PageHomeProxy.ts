@@ -38,6 +38,8 @@ export default class PageHomeProxy extends puremvc.Proxy {
         },
         // 滚动的位置
         scrollOffset: 0,
+        //获取关注计数
+        lovematch_order: 0,
     };
 
     listQueryComp = {
@@ -175,10 +177,17 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
     /**关注 */
     api_user_lovematch() {
-        GlobalVar.loading = true;
-        this.sendNotification(net.HttpType.api_user_lovematch);
+        // GlobalVar.loading = true;
+        this.pageData.lovematch_order++;
+        this.sendNotification(net.HttpType.api_user_lovematch, {unique: this.pageData.lovematch_order});
     }
     api_user_love(event_id: number) {
+        const idx = this.pageData.love_events.indexOf(event_id);
+        if(idx != -1){
+            this.pageData.love_events.splice(idx, 1);
+        }else{
+            this.pageData.love_events.push(event_id);
+        }
         this.sendNotification(net.HttpType.api_user_love, { event_id: event_id.toString() });
     }
 

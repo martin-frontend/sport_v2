@@ -47,7 +47,9 @@ export default class PageHomeMediator extends AbstractMediator {
                 }
                 break;
             case net.EventType.api_user_lovematch:
-                myProxy.set_user_lovematch(body);
+                if(type == <any>myProxy.pageData.lovematch_order){
+                    myProxy.set_user_lovematch(body);
+                }
                 break;
             case net.EventType.api_user_love:
                 myProxy.api_user_lovematch();

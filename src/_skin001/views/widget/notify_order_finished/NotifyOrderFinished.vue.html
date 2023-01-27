@@ -1,7 +1,7 @@
 <notifications
     group="order_finished"
-    :width="200"
-    class="mr-4"
+    :width="300"
+    class="mr-4 mt-2"
     animation-type="velocity"
     animation-name="v-fade-right"
     :animation="$vuetify.breakpoint.mobile ? animation : animation1"
@@ -9,29 +9,34 @@
 >
     <template slot="body" slot-scope="props">
         <v-sheet
-            color="bgPage"
-            height="30"
-            class="rounded d-flex align-center pl-2 mt-3"
+            height="36"
+            width="300"
+            class="rounded-lg pl-2 mb-2 divbox overflow-hidden"
             :class="props.item.data.status == 0 || props.item.data.status == 1 ? 'pr-2' : 'pr-0'"
         >
-            <v-sheet width="100%" color="transparent" class="d-flex align-center" @click="goPageOrder(props)">
-                <svg-icon
-                    class="text-24 mr-2"
-                    :icon="props.item.data.status == 0 || props.item.data.status == 1 ? 'scuess' : 'failed'"
-                ></svg-icon>
-                <div class="btnPlain--text">{{ LangUtil("订单") }}: {{ props.item.data.order_no }}</div>
-                <v-spacer />
-                <span class="mr-2 ml-1" :class="props.item.data.status == 0 || props.item.data.status == 1 ? 'green--text' : 'red--text'">
-                    {{ LangUtil(EnumFixOrderStatus[props.item.data.status]) }}
-                </span>
-            </v-sheet>
+            <v-sheet color="bgPage" height="34" width="298" class="d-flex align-center rounded-lg">
+                <v-sheet width="100%" color="transparent" class="d-flex align-center text-14" @click="goPageOrder(props)">
+                    <svg-icon
+                        class="text-24 mx-3"
+                        :icon="props.item.data.status == 0 || props.item.data.status == 1 ? 'scuess' : 'failed'"
+                    ></svg-icon>
+                    <div class="btnPlain--text mr-5">{{ LangUtil("订单") }}: {{ props.item.data.order_no }}</div>
+                    <v-spacer />
+                    <span
+                        class="mr-3 font-weight-bold"
+                        :class="props.item.data.status == 0 || props.item.data.status == 1 ? 'green--text' : 'red--text'"
+                    >
+                        {{ LangUtil(EnumFixOrderStatus[props.item.data.status]) }}
+                    </span>
+                </v-sheet>
 
-            <svg-icon
-                icon="close"
-                class="text-14"
-                @click.native="props.close"
-                v-if="props.item.data.status != 0 && props.item.data.status != 1"
-            ></svg-icon>
+                <svg-icon
+                    icon="close"
+                    class="text-14 mr-3"
+                    @click.native="props.close"
+                    v-if="props.item.data.status != 0 && props.item.data.status != 1"
+                ></svg-icon>
+            </v-sheet>
         </v-sheet>
     </template>
 </notifications>

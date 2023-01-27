@@ -11,6 +11,7 @@ export default class LiveProxy extends puremvc.Proxy {
     }
 
     pageData = {
+        loading: false,
         /**赛事列表 */
         competition_list: <CompetitionVO[]>[],
         /**赛事进程 */
@@ -29,10 +30,15 @@ export default class LiveProxy extends puremvc.Proxy {
         this.pageData.competition_list = data;
         this.pageData.animation_id = this.pageData.competition_list[0]?.matches[0]?.animation_id;
         this.api_event_live_url();
+        this.api_event_states();
     }
 
     set_event_states(data: any) {
-        this.pageData.event_states = data;
+        const event_id = this.pageData.competition_list[0]?.matches[0]?.id;
+        if(!data[0] || data[0]?.event_id == event_id){
+            this.pageData.loading = false;
+            this.pageData.event_states = data;
+        }
     }
 
     /**取得直播连结*/
@@ -53,6 +59,7 @@ export default class LiveProxy extends puremvc.Proxy {
 
     /**赛事接口-新*/
     api_event_list(event_id: string) {
+        this.pageData.loading = true;
         this.pageData.animation_id = "";
         this.pageData.live_url = "";
         this.sendNotification(net.HttpType.api_event_list, { sport_id: 1, type: "fix", event_id, unique: LiveProxy.NAME });
