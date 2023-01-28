@@ -34,6 +34,17 @@
 .btnGroup {
     overflow-y: auto;
 }
+.btnGroup {
+    overflow-x: auto;
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    overflow: -moz-scrollbars-none;
+}
+.btnGroup::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+    width: 0 !important;
+}
 
 .v-expansion-panels .v-expansion-panel {
     background-color: transparent;
@@ -60,4 +71,9 @@
     position: absolute;
     bottom: 0px;
     width: 100%;
+}
+.divbtns {
+    position: sticky;
+    top: 258px;
+    z-index: 5;
 }

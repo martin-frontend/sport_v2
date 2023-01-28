@@ -21,6 +21,7 @@ const GlobalVar = {
     MarketType_area: "0",
     /**是否显示全局loading */
     loading: false,
+    loading1: false, // 显示不可见的loading层
     /**用户名显示 */
     displayname:'',
     /**时区 */

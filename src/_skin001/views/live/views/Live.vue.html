@@ -5,17 +5,18 @@
     height="208"
     min-height="208"
 >
+    <v-divider class="div-sticky-2"/>
     <v-skeleton-loader v-if="pageData.loading" class="mx-auto rounded-0" width="100%" height="208" type="image"></v-skeleton-loader>
     <v-window v-else v-model="window">
-        <v-window-item class="textGray--text text-14 pb-4">
-            <div v-if="matche">
+        <v-window-item class="pb-4">
+            <v-sheet class="textGray--text text-14" color="transparent" height="208" v-if="matche">
                 <div class="text-center mt15 text-14">{{getCompName()}}</div>
 
                 <v-row dense class="mx-2">
                     <v-col align="center">
-                        <v-sheet width="60" height="60" color="btnPlain" class="rounded-pill overflow-hidden">
-                            <v-img :src="getHomeIcon()" max-width="60" width="60" height="60"></v-img>
-                        </v-sheet>
+                        <!-- <v-sheet width="60" height="60" color="btnPlain" class="rounded-pill overflow-hidden"> -->
+                        <v-img :src="getHomeIcon()" max-width="60" width="60" height="60"></v-img>
+                        <!-- </v-sheet> -->
                         <div class="mt-2">{{getHomeName()}}</div>
                         <div class="d-flex justify-center mt-1 mb-n5">
                             <v-sheet
@@ -69,9 +70,9 @@
                         </template>
                     </v-col>
                     <v-col align="center">
-                        <v-sheet width="60" height="60" color="btnPlain" class="rounded-pill overflow-hidden">
-                            <v-img :src="getAwayIcon()" max-width="60" width="60" height="60"></v-img>
-                        </v-sheet>
+                        <!-- <v-sheet width="60" height="60" color="btnPlain" class="rounded-pill overflow-hidden"> -->
+                        <v-img :src="getAwayIcon()" max-width="60" width="60" height="60"></v-img>
+                        <!-- </v-sheet> -->
                         <div class="mt-2">{{getAwayName()}}</div>
                         <div class="d-flex justify-center mt-1 mb-n5">
                             <v-sheet
@@ -256,13 +257,18 @@
                     </div>
                 </template>
 
-                <div class="d-flex align-center justify-center mt-4" v-if="getStates()">
+                <v-sheet
+                    color="transparent"
+                    width="100%"
+                    class="d-flex align-center justify-center mt-4 textGray--text corners_goals"
+                    v-if="getStates()"
+                >
                     <svg-icon class="text-18 mr-2" icon="corner"></svg-icon>
                     <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
                     <svg-icon class="text-18 ml-4 mr-2" icon="hafe_time"></svg-icon>
                     <div>{{getStates().goals_ht != '' ? getStates().goals_ht : '0-0' }}</div>
-                </div>
-            </div>
+                </v-sheet>
+            </v-sheet>
         </v-window-item>
         <v-window-item>
             <LivePlayer v-if="window==1" :videoUrl="pageData.live_url" live autoplay />

@@ -7,6 +7,10 @@
         <svg-icon class="text-15" icon="score"></svg-icon>
         <div class="text-14 ml-1">{{LangUtil("赛果&比分")}}</div>
     </v-btn>
+    <v-sheet class="search_box d-flex align-center rounded-pill px10 textGray--text ml-2" width="221" height="30" color="bgPage">
+        <input class="text-14 ml-2 textGray--text" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="txtSearch" />
+        <svg-icon icon="search" @click.native="onSearch"></svg-icon>
+    </v-sheet>
     <v-spacer />
 
     <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32">{{LangUtil("体育规则")}}</btn-info>
@@ -70,7 +74,7 @@
             </div>
         </template>
         <div class="py-3 menulist textGray--text" :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'">
-            <Setting/>
+            <Setting />
         </div>
     </v-menu>
 </v-sheet>

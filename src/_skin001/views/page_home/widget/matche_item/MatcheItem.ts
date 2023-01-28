@@ -18,7 +18,7 @@ export default class MatcheItem extends AbstractView {
     LangUtil = LangUtil;
     getResponseIcon = getResponseIcon;
     MarketUtils = MarketUtils;
-    matcheProxy:MatcheProxy = this.getProxy(MatcheProxy);
+    matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
@@ -182,6 +182,7 @@ export default class MatcheItem extends AbstractView {
         GlobalVar.loading = true;
         matche.init(this.matche.id);
         live.init(this.matche.id);
+        right_panel.showLiveList(false);
     }
 
     playMatcheAnimation() {

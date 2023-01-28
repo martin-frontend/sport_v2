@@ -103,7 +103,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
 
     set_event_list(data: any) {
-        GlobalVar.loading = false;
+        GlobalVar.loading1 = false;
         this.pageData.competition_list = data;
         this.pageData.openIndexs = [0, 1, 2];
     }
@@ -150,7 +150,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
 
     /**赛事接口-新*/
     api_event_list() {
-        GlobalVar.loading = true;
+        GlobalVar.loading1 = true;
         // this.pageData.competition_list = [];
         this.pageData.market_list = [];
         this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));

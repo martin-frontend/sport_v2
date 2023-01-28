@@ -27,6 +27,7 @@ export function getVuetify(): Vuetify {
                         textGray1: "#3E3714",
                         bgColor: "#F6F6F4",
                         bgColor1: "#0F1213",
+                        textYellow: "#3E3714",
                     },
                     dark: {
                         primary: "#8E8F91",
@@ -45,6 +46,7 @@ export function getVuetify(): Vuetify {
                         textGray1: "#8E8F91",
                         bgColor: "#202121",
                         bgColor1: "#ffffff",
+                        textYellow: "#3E3714",
                     },
                 },
                 dark: false,

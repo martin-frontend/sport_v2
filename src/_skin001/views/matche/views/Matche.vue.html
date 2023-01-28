@@ -1,8 +1,8 @@
 <v-sheet color="transparent">
-    <v-sheet class="d-flex align-center" color="transparent" max-height="40px">
+    <v-sheet class="d-flex align-center divbtns" color="bgPage">
         <v-sheet
             ref="boxType"
-            class="btnGroup d-flex align-center pt-6"
+            class="btnGroup d-flex align-center mt-2 mb-1"
             color="transparent"
             max-width="100%"
             @mousedown="onMouseDown"
@@ -24,7 +24,7 @@
         </v-sheet>
         <v-spacer />
         <v-sheet
-            class="d-flex align-center justify-center ml-2 mt-2 rounded-10 hand textGray--text"
+            class="d-flex align-center justify-center ml-2 rounded-10 hand textGray--text"
             color="bgBanner"
             min-width="32"
             height="32"
@@ -38,7 +38,7 @@
     <!-- list -->
     <v-sheet color="transparent" v-if="matche">
         <v-expansion-panels
-            class="mt-2"
+            class="mt-1"
             elevation="0"
             accordion
             multiple

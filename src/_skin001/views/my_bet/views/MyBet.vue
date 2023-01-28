@@ -4,10 +4,12 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import Nodata from "../../widget/nodata/Nodata.vue";
+import BetItem from "../widget/bet_item/BetItem.vue";
 import MyBet from "./MyBet";
 
 @Component({
     components: {
+        BetItem,
         Nodata,
     },
 })

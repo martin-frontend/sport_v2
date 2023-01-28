@@ -62,6 +62,7 @@ export default class LiveProxy extends puremvc.Proxy {
         this.pageData.loading = true;
         this.pageData.animation_id = "";
         this.pageData.live_url = "";
+        this.pageData.event_states = [];
         this.sendNotification(net.HttpType.api_event_list, { sport_id: 1, type: "fix", event_id, unique: LiveProxy.NAME });
     }
 }

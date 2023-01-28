@@ -58,6 +58,8 @@
         <NotifyOrderFinished />
         <!-- loading 遮罩 -->
         <overlay v-model="GlobalVar.loading" />
+        <!-- loading 遮罩 不可见 -->
+        <v-overlay :value="GlobalVar.loading1" opacity="0"></v-overlay>
     </v-app>
 </template>
 

@@ -42,7 +42,7 @@
     <!-- 搜索 -->
     <div class="d-flex align-center px10">
         <v-sheet class="search_box d-flex align-center rounded-10 px10 textGray--text" width="100%" height="40">
-            <input class="text-14" :placeholder="LangUtil('搜索联赛')" v-model="listQueryComp.keyword" />
+            <input class="text-14" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="listQueryComp.keyword" />
             <svg-icon icon="search" @click.native="onSearch"></svg-icon>
         </v-sheet>
         <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="40">

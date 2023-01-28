@@ -1,21 +1,35 @@
 <div :class="{'mr-0': !$vuetify.breakpoint.mobile}">
     <HomeHeader v-if="!$vuetify.breakpoint.mobile" />
 
-    <v-expansion-panels class="mt-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="!$vuetify.breakpoint.mobile">
+    <v-sheet width="100%" class="mt-2 pa-3" v-if="GlobalVar.loading1">
+        <v-skeleton-loader class="mx-auto" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+    </v-sheet>
+
+    <v-expansion-panels
+        class="mt-2"
+        elevation="0"
+        accordion
+        multiple
+        v-model="pageData.openIndexs"
+        v-if="!$vuetify.breakpoint.mobile && !GlobalVar.loading1"
+    >
         <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
             <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
                 <template v-slot:default="{ open }">
                     <div class="d-flex align-center">
                         <v-tooltip top>
                             <template v-slot:activator="{ on, attrs }">
-                                <v-sheet
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    color="transparent"
-                                    class="ml10"
-                                    @click.stop="setAllLove(competition)"
-                                >
-                                    <svg-icon class="text-18 textGray--text" :class="{'active': checkAllLove(competition)}" icon="love"></svg-icon>
+                                <v-sheet v-bind="attrs" v-on="on" color="transparent" class="ml10" @click.stop="setAllLove(competition)">
+                                    <svg-icon
+                                        class="text-18 textGray--text"
+                                        :class="{'active': checkAllLove(competition)}"
+                                        icon="love"
+                                    ></svg-icon>
                                 </v-sheet>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
@@ -84,5 +98,5 @@
         </v-expansion-panel>
     </v-expansion-panels>
 
-    <Nodata v-if="pageData.competition_list.length == 0 && !GlobalVar.loading" height="60vh" />
+    <Nodata v-if="pageData.competition_list.length == 0 && !GlobalVar.loading1" height="60vh" />
 </div>

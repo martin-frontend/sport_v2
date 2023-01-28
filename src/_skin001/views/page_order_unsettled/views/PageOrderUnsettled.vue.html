@@ -1,25 +1,20 @@
 <div>
-    <v-sheet class="text-14 pl10 pt15 btnPlain--text rounded-10" color="bgBanner" height="80">
+    <v-sheet class="text-14 pl10 py-2 btnPlain--text rounded-10" color="bgBanner">
         <v-row dense>
             <v-col cols="3" class="textGray--text">{{LangUtil("总计")}}</v-col>
             <v-col cols="9" class="font-weight-bold">{{pageData.stats.total_count}}</v-col>
         </v-row>
-        <v-row dense>
+        <v-row dense class="mt-n1">
             <v-col cols="3" class="textGray--text">{{LangUtil("投注额")}}</v-col>
             <v-col cols="9" class="font-weight-bold">{{GlobalVar.currency}}: {{pageData.stats.total_stake}}</v-col>
         </v-row>
     </v-sheet>
-    <v-sheet
-        class="text-13 mt-2 pt17 pb15 pt-0 textGray--text rounded-10"
-        color="bgBanner"
-        v-for="(item, index) in pageData.list"
-        :key="index"
-    >
+    <v-sheet class="text-13 mt-2 pb-2 pt10 textGray--text rounded-10" color="bgBanner" v-for="(item, index) in pageData.list" :key="index">
         <v-sheet class="d-flex align-center btnPlain--text px10 text-14" color="transparent">
             <v-sheet width="2" height="16" color="yellow"></v-sheet>
             <div class="pl10">{{item.cpn}}</div>
         </v-sheet>
-        <v-divider class="my-4" />
+        <v-divider class="my-2" />
 
         <div class="d-flex px10">
             <div v-if="item.c_type == 2">{{item.content}}</div>
@@ -28,36 +23,36 @@
             <div>@{{TransMarketPrice(item.odds)}}</div>
         </div>
 
-        <div class="d-flex px10 mt-2" v-if="item.state && Object.keys(item.state).length > 0">
+        <div class="d-flex px10 mt-1" v-if="item.state && Object.keys(item.state).length > 0">
             <div>{{LangUtil("滚球")}}</div>
             <v-spacer />
-            <div>{{OrderTitleUtils.getScoreStr(item)}}</div>
+            <div class="font-weight-bold">{{OrderTitleUtils.getScoreStr(item)}}</div>
         </div>
 
-        <div class="px10 mt-2">{{item.market_type_text}}</div>
+        <div class="px10 mt-1">{{item.market_type_text}}</div>
 
-        <div class="px10 mt-2 d-flex flex-wrap">
+        <div class="px10 mt-1 d-flex flex-wrap">
             {{item.home_name}} <span class="font-weight-bold mx-1">VS</span> {{item.away_name}}
             <span class="font-weight-black mr-2 scoreColor--text" v-if="listQuery.is_settle == 1 && item.status !== 3 && item.c_type != 2"
                 >{{getHadResultStr(item)}}</span
             >
         </div>
 
-        <div class="px10 mt-2 d-flex" v-if="listQuery.is_settle != 1">
+        <div class="px10 mt-1 d-flex" v-if="listQuery.is_settle != 1">
             <div>{{ getStateStr(myProxy.event_states(item)).states_str}}</div>
             <v-spacer />
             <div>{{getStateStr(myProxy.event_states(item)).scoreStr}}</div>
         </div>
-        <v-divider class="my-4" />
+        <v-divider class="my-2" />
 
         <div class="d-flex px10">
             {{LangUtil("订单状态")}}
             <v-spacer />
-            <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status]}}</span>
+            <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status] || "--"}}</span>
         </div>
         <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">{{LangUtil(item.mark)}}</div>
 
-        <div class="d-flex px10 mt-2">
+        <div class="d-flex px10 mt-1">
             <div>{{LangUtil("投注金额")}}</div>
             <v-spacer />
             <span> {{GlobalVar.currency}} {{amountFormat(item.stake,true) }}</span>
@@ -67,20 +62,22 @@
             >{{getdisplayResultStr(item)}}
             <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}" >{{getDisplayResult(item).str}}</span></v-sheet
         > -->
-        <div class="d-flex px10 mt-1 align-center">
+        <div class="d-flex px10 mt-0 align-center">
             <div>{{LangUtil("订单编号")}}</div>
             <v-spacer />
-            <div>{{item.order_no}}</div>
-            <v-btn fab plain x-small @click="onCopy(item.order_no)"><svg-icon class="text-16 textGray--text" icon="copy"></svg-icon></v-btn>
+            <div>{{item.order_no || "--"}}</div>
+            <v-btn v-if="item.order_no" fab plain x-small @click="onCopy(item.order_no)">
+                <svg-icon class="text-16 textGray--text" icon="copy"></svg-icon>
+            </v-btn>
         </div>
 
-        <div class="d-flex px10 mt-1">
+        <div class="d-flex px10 mt-0">
             <div>{{LangUtil("投注时间")}}</div>
             <v-spacer />
             <div>{{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}</div>
         </div>
 
-        <div class="d-flex px10 mt-2" v-if="listQuery.is_settle">
+        <div class="d-flex px10 mt-1" v-if="listQuery.is_settle">
             <div>{{LangUtil("结算时间")}}</div>
             <v-spacer />
             <div>{{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}</div>

@@ -36,9 +36,11 @@
     /* 隐藏滚动条 */
     scrollbar-width: none; /* firefox */
     -ms-overflow-style: none; /* IE 10+ */
+    overflow: -moz-scrollbars-none;
 }
 .btnGroup::-webkit-scrollbar {
     display: none; /* Chrome Safari */
+    width: 0 !important;
 }
 .btnTag {
     min-height: 36px;
@@ -65,4 +67,13 @@ input {
     position: sticky;
     top: 0;
     z-index: 5;
+}
+
+
+::v-deep .v-skeleton-loader .v-skeleton-loader__card-heading{
+    background-color: transparent;
+}
+::v-deep .v-skeleton-loader__card-heading .v-skeleton-loader__heading{
+    margin:0;
+    width: 100%;
 }

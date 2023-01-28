@@ -53,7 +53,7 @@ export default class BetProxy extends puremvc.Proxy {
     };
 
     /**添加一个注单 */
-    addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: FixSelectionVO) {
+    addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: FixSelectionVO, event_states:EventStatesVO[]) {
         if (!this.deleteItem(market.market_id, selection.id)) {
             this.pageData.list = [];
             this.pageData.list.push({
@@ -72,6 +72,7 @@ export default class BetProxy extends puremvc.Proxy {
                 stake: "",
             });
             this.pageData.activeCount++;
+            this.pageData.event_states = event_states;
         }
     }
     /**删除一个注单 */

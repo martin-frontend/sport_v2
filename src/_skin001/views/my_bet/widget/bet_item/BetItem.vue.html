@@ -1,0 +1,160 @@
+<div>
+    <div class="d-flex align-center ml10 mr-1 mb10">
+        <v-sheet class="mr10" color="yellow" width="2" height="16" rounded></v-sheet>
+        <div class="btnPlain--text text-truncate text-14">{{item.comp.competition_name}}</div>
+        <v-spacer />
+        <v-btn plain fab x-small @click="onDelete(item)" v-if="!$vuetify.breakpoint.mobile">
+            <svg-icon class="text-16 btnPlain--text" icon="delete"></svg-icon>
+        </v-btn>
+    </div>
+
+    <v-divider />
+
+    <div class="d-flex align-center mt-2 mb-0 ml10 mr10">
+        <div v-if="item.matche.c_type == 2">{{item.selection.name}}</div>
+        <div class="font-weight-bold" v-else>
+            {{OrderTitleUtils.getTeamName(item)}}{{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche,
+            false)}}
+        </div>
+        <v-spacer />
+        <div ref="divPrice" id="divPrice" class="pr-1 font-weight-bold text-18">@{{ TransMarketPrice(item.odds) }}</div>
+        <div ref="imgOdds" class="text-8 mr-n1 opacity-0">
+            <svg-icon :icon="iconOdds"></svg-icon>
+        </div>
+    </div>
+
+    <div class="d-flex mb-1 ml10 mr10">
+        <template v-if="checkInplay()">
+            <span class="mr-1">{{LangUtil("滚球")}} </span>
+            <span class="font-weight-bold mr-1">{{getStats()}} </span>
+        </template>
+        <div>{{item.market.title}}</div>
+    </div>
+
+    <div class="mb-1 ml10 mr10" v-if="item.matche.c_type != 2">
+        <!-- <span class="mr-1">{{LangUtil("比赛进程")}}:</span> -->
+        <span v-if="states">
+            <span class="mr-1" v-if="states.phase_minute > 0">{{LangUtil("已开赛")}}</span>
+            <span class="mr-1" :class="states.match_phase=='-'? 'text-red':'text-gray'">
+                {{ LangUtil(states ? states.match_phase : "") }}
+            </span>
+            <span v-if="states.phase_minute > 0">{{ states.phase_minute }} {{LangUtil("分钟")}}</span>
+        </span>
+        <span v-else-if="item.matche.sb_time - GlobalVar.server_time > 0">
+            <span>{{ getStartTime(item.matche) }}</span>
+            <span v-if="item.matche.sb_time - GlobalVar.server_time > 86400" class="mr-1">
+                {{LangUtil("距开赛")}}{{ getDay() }}{{LangUtil("天")}}
+            </span>
+            <!-- 一天内 -->
+            <span class="ml-1 mr-1" v-else-if="item.matche.sb_time - GlobalVar.server_time > 600">
+                <span>{{LangUtil("距开赛")}}</span>
+                <span>{{ getHour() }}{{LangUtil("小时")}}</span>
+                <span>{{ getMinute() }}{{LangUtil("分")}} </span>
+            </span>
+            <!-- 十分钟内 -->
+            <span v-else class="red--text">{{LangUtil("即将开赛")}}</span>
+        </span>
+    </div>
+
+    <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span class="font-weight-bold"> VS </span>{{item.matche.away_team}}</div>
+
+    <div class="d-flex ml10 mr10 mb-2">
+        <v-sheet class="d-flex align-center justify-center input_left" min-width="60" :height="$vuetify.breakpoint.mobile?40:36"
+            >{{GlobalVar.currency}}</v-sheet
+        >
+        <v-sheet class="d-flex align-center input_right" width="100%" :height="$vuetify.breakpoint.mobile?40:36">
+            <input
+                class="btnPlain--text ml-2 font-weight-bold"
+                style="width: 100%"
+                :placeholder="LangUtil(`单注限额 ${item.maxStake}`)"
+                v-model="item.stake"
+                @input="onInput(item)"
+            />
+        </v-sheet>
+    </div>
+
+    <v-row class="fast_choose mb-1" dense>
+        <v-col :cols="$vuetify.breakpoint.mobile?4:6" v-for="i in 6" :key="i">
+            <v-card
+                class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textGray--text"
+                :height="$vuetify.breakpoint.mobile?40:30"
+                ripple
+                @click="item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])"
+            >
+                <span class="font-weight-bold">+{{amountFormat(settintProxy.pageData.form.fast_choose[i-1])}}</span>
+            </v-card>
+        </v-col>
+        <v-col :cols="$vuetify.breakpoint.mobile?4:6">
+            <v-card
+                class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textGray--text"
+                :height="$vuetify.breakpoint.mobile?40:30"
+                ripple
+                @click="onMax"
+            >
+                <span class="font-weight-bold">{{LangUtil("最大")}}</span>
+            </v-card>
+        </v-col>
+        <v-col :cols="$vuetify.breakpoint.mobile?8:6">
+            <v-card
+                class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textGray--text"
+                :height="$vuetify.breakpoint.mobile?40:30"
+                ripple
+                @click="item.stake = ''"
+            >
+                <span class="font-weight-bold">{{LangUtil("清空")}}</span>
+            </v-card>
+        </v-col>
+    </v-row>
+
+    <div class="d-flex ml10 mr10 mt-2 mb-1">
+        <span>{{LangUtil("预计可赢")}}{{GlobalVar.currency}}</span>
+        <v-spacer />
+        <span class="yellow--text font-weight-bold">{{getPreWin()}}</span>
+    </div>
+
+    <div class="d-flex ml10 mr10 mb-1" v-if="$vuetify.breakpoint.mobile">
+        <span>{{LangUtil("投注限制")}}{{GlobalVar.currency}}</span>
+        <v-spacer />
+        <span class="yellow--text font-weight-bold">{{GlobalVar.currency}} {{item.maxStake}}</span>
+    </div>
+
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <div class="ml10 mr10 mb-1" v-if="!item.oddsChance || item.isMarketClose">
+            <btn-yellow height="36" width="100%" :disabled="item.isMarketClose" @click.native="onBet">
+                <span class="text-13">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+            </btn-yellow>
+        </div>
+        <div class="ml10 mr10 mb-1" v-else>
+            <btn-yellow height="36" width="100%" @click.native="onBet">
+                <span class="text-13">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
+            </btn-yellow>
+        </div>
+
+        <!-- <div class="d-flex align-center ml10 mr10">
+            {{LangUtil("自动接受更好的赔率")}}
+            <v-spacer />
+            <svg-icon class="text-12" icon="zoom_in"></svg-icon>
+        </div> -->
+    </template>
+    <template v-else>
+        <v-row class="mx10" dense>
+            <v-col cols="4">
+                <v-btn class="elevation-0 rounded-10" color="bgGray" height="40" width="100%" @click="onDelete">
+                    <svg-icon class="text-16 textGray--text" icon="delete"></svg-icon>
+                </v-btn>
+            </v-col>
+            <v-col cols="8">
+                <div v-if="!item.oddsChance || item.isMarketClose">
+                    <btn-yellow height="40" width="100%" :disabled="item.isMarketClose" @click.native="onBet">
+                        <span class="text-13">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                    </btn-yellow>
+                </div>
+                <div v-else>
+                    <btn-yellow height="40" width="100%" @click.native="onBet">
+                        <span class="text-13">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
+                    </btn-yellow>
+                </div>
+            </v-col>
+        </v-row>
+    </template>
+</div>

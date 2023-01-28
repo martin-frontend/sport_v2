@@ -1,78 +1,90 @@
 <div>
-    <v-sheet
-        class="d-flex align-center px10 textGray--text div-sticky-1"
-        :class="pageData.isShowLiveList ? 'rounded-10' : 'rounded-t-10'"
-        color="bgBanner"
-        height="50"
-    >
+    <v-sheet color="bgPage" class="div-sticky-1">
         <v-sheet
-            class="d-flex align-center btnPlain--text hand mr-2"
-            color="transparent"
-            max-width="70%"
-            height="230"
-            @click="pageData.isShowLiveList = !pageData.isShowLiveList"
-            v-if="competition"
+            class="d-flex align-center px10 textGray--text"
+            :class="pageData.isShowLiveList ? 'rounded-10' : 'rounded-t-10'"
+            color="bgBanner"
+            height="50"
         >
-            <v-img width="20" height="20" :src="competition.country_icon"></v-img>
-            <div class="text-14 mx10 text-truncate">{{matche.home_team}} VS {{matche.away_team}}</div>
-            <svg-icon class="text-12 textGray--text" icon="zoom_out"></svg-icon>
+            <v-sheet
+                class="d-flex align-center btnPlain--text hand mr-2"
+                color="transparent"
+                max-width="70%"
+                height="230"
+                @click="pageData.isShowLiveList = !pageData.isShowLiveList"
+                v-if="competition"
+            >
+                <v-img width="20" height="20" :src="competition.country_icon"></v-img>
+                <div class="text-14 mx10 text-truncate">{{matche.home_team}} VS {{matche.away_team}}</div>
+                <svg-icon
+                    class="text-12 textGray--text"
+                    icon="zoom_out"
+                    :class="!pageData.isShowLiveList ? 'arrow-up' : 'arrow-down'"
+                ></svg-icon>
+            </v-sheet>
+
+            <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                        <svg-icon
+                            class="text-26 hand textGray--text"
+                            :class="{'active': pageData.liveIndex==0}"
+                            icon="score1"
+                            @click.native="pageData.liveIndex = 0"
+                        ></svg-icon>
+                    </v-sheet>
+                </template>
+                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                    <span>{{LangUtil("比分")}}</span>
+                </v-sheet>
+            </v-tooltip>
+
+            <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                        <svg-icon
+                            class="text-28 hand mx10 textGray--text"
+                            :class="{'active': pageData.liveIndex==1}"
+                            icon="live1"
+                            @click.native="pageData.liveIndex = 1"
+                        ></svg-icon>
+                    </v-sheet>
+                </template>
+                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                    <span>{{LangUtil("直播")}}</span>
+                </v-sheet>
+            </v-tooltip>
+
+            <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                        <svg-icon
+                            class="text-24 mr-2 mt-1 hand textGray--text"
+                            :class="{'active': pageData.liveIndex==2}"
+                            icon="animate"
+                            @click.native="pageData.liveIndex = 2"
+                        ></svg-icon>
+                    </v-sheet>
+                </template>
+                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                    <span>{{LangUtil("动画")}}</span>
+                </v-sheet>
+            </v-tooltip>
         </v-sheet>
-        <v-spacer />
-
-        <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
-                <v-sheet color="transparent" v-bind="attrs" v-on="on">
-                    <svg-icon
-                        class="text-26 hand textGray--text"
-                        :class="{'active': pageData.liveIndex==0}"
-                        icon="score1"
-                        @click.native="pageData.liveIndex = 0"
-                    ></svg-icon>
-                </v-sheet>
-            </template>
-            <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                <span>{{LangUtil("比分")}}</span>
-            </v-sheet>
-        </v-tooltip>
-
-        <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
-                <v-sheet color="transparent" v-bind="attrs" v-on="on">
-                    <svg-icon
-                        class="text-28 hand mx10 textGray--text"
-                        :class="{'active': pageData.liveIndex==1}"
-                        icon="live1"
-                        @click.native="pageData.liveIndex = 1"
-                    ></svg-icon>
-                </v-sheet>
-            </template>
-            <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                <span>{{LangUtil("直播")}}</span>
-            </v-sheet>
-        </v-tooltip>
-
-        <v-tooltip top>
-            <template v-slot:activator="{ on, attrs }">
-                <v-sheet color="transparent" v-bind="attrs" v-on="on">
-                    <svg-icon
-                        class="text-24 mr-2 mt-1 hand textGray--text"
-                        :class="{'active': pageData.liveIndex==2}"
-                        icon="animate"
-                        @click.native="pageData.liveIndex = 2"
-                    ></svg-icon>
-                </v-sheet>
-            </template>
-            <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                <span>{{LangUtil("动画")}}</span>
-            </v-sheet>
-        </v-tooltip>
     </v-sheet>
+
     <template v-if="pageData.isShowLiveList">
-        <div class="text-18 font-weight-bold my15">{{LangUtil("热门赛事")}}</div>
-        <LiveList @onChange="pageData.isShowLiveList = false" />
+        <v-sheet color="bgBanner" class="pa10 mt-2 rounded-10">
+            <div class="text-18 font-weight-bold mt-0 mb-2 ml-2">{{LangUtil("热门赛事")}}</div>
+            <LiveList @onChange="pageData.isShowLiveList = false" />
+        </v-sheet>
+        <!-- <v-sheet color="bgPage" height="44" class="d-flex align-center div-sticky-2">
+            <div class="text-18 font-weight-bold my15 ml-2">{{LangUtil("热门赛事")}}</div>
+        </v-sheet> -->
+
+        
     </template>
     <template v-else>
-        <v-divider class="div-sticky-2" />
         <Live class="div-sticky-3" v-model="pageData.liveIndex" />
         <Matche />
     </template>

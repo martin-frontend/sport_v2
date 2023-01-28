@@ -1,3 +1,4 @@
 <div>
     <LiveListItem class="mb-2" v-for="(item, index) in pageData.list" :key="index" :data="item" @click.native="onItemClick(item)"></LiveListItem>
+    <Nodata height="300" v-if="pageData.list.length == 0"/>
 </div>
