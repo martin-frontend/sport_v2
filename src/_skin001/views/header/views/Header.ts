@@ -45,12 +45,12 @@ export default class Header extends AbstractView {
     }
     openHistoryResult() {
         const dark = this.$vuetify.theme.dark;
-        const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&MarketType_area=${GlobalVar.MarketType_area}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
             window.open(
                 link,
                 LangUtil("注单历史"),
-                "height=638, width=972, top=100, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no"
+                "fullscreen=true , top=200, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no"
             );
         } catch (e: any) {
             OpenLink(link);
