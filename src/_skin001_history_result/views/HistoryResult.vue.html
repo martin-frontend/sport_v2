@@ -91,7 +91,7 @@
         </v-row>
 
         <div class="box-scroll px-9 pt-7 " >
-            <v-row  max-height="130px" class="text-14  mb-4 textGray--text def-border rounded-lg d-flex align-center justify-space-around" v-for="(item, index) in pageData.list" :key="index" >
+            <v-row  max-height="130px" class="text-center text-14  mb-4 textGray--text def-border rounded-lg d-flex align-center justify-space-around" v-for="(item, index) in pageData.list" :key="index" >
                 <!-- 订单 -->
                 <v-col cols="2" class="d-grid  align-content-center font-weight-bold">
                     <span>{{item.order_no}}</span>
@@ -107,7 +107,7 @@
                     <span>{{MarketType_area}}</span>
                 </v-col>
                 
-                <v-col cols="2" class="justify-items-center d-grid align-content-center">
+                <v-col cols="2" class=" justify-items-center d-grid align-content-center">
                     <span class="">{{item.cpn}}</span>
                     <span>{{item.home_name}}</span>
                     <span>VS</span>
@@ -115,12 +115,12 @@
                     <span> {{dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}</span>
                 </v-col>
                 <v-col cols="2"   class="d-grid justify-items-center btnPlain--text  top-text">
-                    <div class="d-flex justify-space-around">
-                        <div v-if="item.c_type == 2">{{item.content}}</div>
-                        <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}</div>
-                        <v-spacer />
-                        <div class="mr-2">@{{TransMarketPrice(item.odds)}}</div>
+                    <div id="content" class="d-flex text-center" >
+                        <div v-if="item.c_type == 2">{{item.content}}@{{TransMarketPrice(item.odds)}}</div>
+                        <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}} @{{TransMarketPrice(item.odds)}}</div>
+                        
                     </div>
+                    
                     <div>
                         
                         <span>{{item.market_type_text}}</span>
