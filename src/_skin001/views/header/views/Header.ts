@@ -50,7 +50,7 @@ export default class Header extends AbstractView {
             window.open(
                 link,
                 LangUtil("注单历史"),
-                "fullscreen=true , top=200, left=100, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no"
+                "fullscreen = yes ,height=938, width=1500, top=300, left=200, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no"
             );
         } catch (e: any) {
             OpenLink(link);
