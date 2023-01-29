@@ -60,3 +60,7 @@ span{
 .font-family-GOTHAM{
     font-family: GOTHAM_BOOK;
 }
+::v-deep .col{
+    padding-left: 0px;
+    padding-right: 0px;
+}
