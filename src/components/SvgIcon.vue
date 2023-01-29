@@ -1,7 +1,7 @@
 <template>
     <svg class="svg-icon" :class="iconClass" aria-hidden="true">
         <use :xlink:href="iconName" />
-        <linearGradient id="my-cool-gradient">
+        <linearGradient id="myg" gradientUnits="userSpaceOnUse">
             <stop offset="0%" stop-color="#ffa803" />
             <stop offset="100%" stop-color="#ffc500" />
         </linearGradient>
@@ -19,7 +19,7 @@
     overflow: hidden;
 }
 .active {
-  fill: url(#my-cool-gradient) ;
+    fill: url(#myg);
 }
 </style>
 

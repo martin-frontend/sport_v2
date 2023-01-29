@@ -3,6 +3,7 @@
 
 <script lang="ts">
 import Component from "vue-class-component";
+import BetResult from "../../dialog_bet_result/widget/bet_result/BetResult.vue";
 import MyBet from "../../my_bet/views/MyBet.vue";
 import PageOrderUnsettled from "../../page_order_unsettled/views/PageOrderUnsettled.vue";
 import Navigation from "./Navigation";
@@ -11,6 +12,7 @@ import Navigation from "./Navigation";
     components: {
         MyBet,
         PageOrderUnsettled,
+        BetResult,
     },
 })
 export default class extends Navigation {

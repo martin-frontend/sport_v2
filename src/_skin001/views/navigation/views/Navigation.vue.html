@@ -23,12 +23,7 @@
                 </v-list-item>
 
                 <v-list-item class="mb-1" link @click="window = 2" v-if="!$vuetify.breakpoint.mobile" :disabled="unsettledCount==0">
-                    <v-sheet
-                        class="d-flex align-center text-14 rounded-lg unsettled-item"
-                        color="bgBanner"
-                        height="38"
-                        width="100%"
-                    >
+                    <v-sheet class="d-flex align-center text-14 rounded-lg unsettled-item" color="bgBanner" height="38" width="100%">
                         <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
                         <div class="text-truncate">{{LangUtil('未结算注单')}}</div>
                         <v-spacer />
@@ -36,7 +31,7 @@
                     </v-sheet>
                 </v-list-item>
 
-                <v-list-item class="mb-1" link @click="onTagClick('love')" >
+                <v-list-item class="mb-1" link @click="onTagClick('love')">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
                         :class="{'active': homeProxy.listQueryComp.tag == 'love'}"
@@ -65,7 +60,10 @@
                         height="38"
                         width="100%"
                     >
-                        <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[item.tag]"></svg-icon></div>
+                        <div class="text-20 ml15 mr15">
+                            <svg-icon v-if="tagIcon[item.tag]" :icon="tagIcon[item.tag]"></svg-icon>
+                            <img v-else :src="item.icon" width="20" height="20">
+                        </div>
                         <div class="text-truncate">{{LangUtil(item.name)}}</div>
                         <v-spacer />
                         <div class="mr15">{{item.num}}</div>
@@ -154,6 +152,16 @@
                 <div class="text-16 font-weight-bold">{{LangUtil("未结算注单")}}</div>
             </v-sheet>
             <PageOrderUnsettled />
+        </v-window-item>
+
+        <v-window-item>
+            <v-sheet class="d-flex align-center justify-center rounded-10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
+                <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="window=0">
+                    <svg-icon icon="back1" class="text-22"></svg-icon>
+                </v-btn>
+                <div class="text-16 font-weight-bold">{{LangUtil("订单确认")}}</div>
+            </v-sheet>
+            <BetResult />
         </v-window-item>
     </v-window>
 </v-sheet>

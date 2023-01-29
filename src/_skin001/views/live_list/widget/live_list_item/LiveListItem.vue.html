@@ -3,10 +3,10 @@
         {{data.competition_name}}
     </v-sheet>
 
-    <v-row class="mt10">
+    <v-row class="mt10 mx-2">
         <v-col align="right">
             <v-img max-width="60" height="60" max-height="60" contain :src="getResponseIcon(data.home_team_icon)"> </v-img>
-            <div class="mt-4">{{ data.home_team }}</div>
+            <div class="text-14 mt-4">{{ data.home_team }}</div>
         </v-col>
         <v-col class="d-flex justify-center align-center">
             <div class="text-center">
@@ -25,7 +25,7 @@
         </v-col>
         <v-col align="left">
             <v-img max-width="60" height="60" max-height="60" contain :src="getResponseIcon(data.away_team_icon)"> </v-img>
-            <div class="mt-4">{{ data.away_team }}</div>
+            <div class="text-14 mt-4">{{ data.away_team }}</div>
         </v-col>
     </v-row>
     <!-- 

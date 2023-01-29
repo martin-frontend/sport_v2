@@ -144,7 +144,6 @@ export default class BtnFixedBet extends AbstractView {
                 const liveProxy: LiveProxy = getProxy(LiveProxy);
                 event_states = liveProxy.pageData.event_states;
             }
-            // my_bet.showFix(comp, this.matche, this.market, this.selection);
             this.myProxy.addItem(comp, this.matche, this.market, this.selection, event_states);
         }
     }

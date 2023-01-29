@@ -58,20 +58,22 @@
             <span> {{GlobalVar.currency}} {{amountFormat(item.stake,true) }}</span>
         </div>
 
-        <!-- <v-sheet width="100%" v-if="listQuery.is_settle == 0"
-            >{{getdisplayResultStr(item)}}
-            <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}" >{{getDisplayResult(item).str}}</span></v-sheet
-        > -->
-        <div class="d-flex px10 mt-0 align-center">
+        <div class="d-flex px10 mt-1">
+            <div>{{getdisplayResultStr(item)}}</div>
+            <v-spacer />
+            <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}" >{{getDisplayResult(item).str}}</span>
+        </div>
+
+        <div class="d-flex px10 mt-1 align-center">
             <div>{{LangUtil("订单编号")}}</div>
             <v-spacer />
             <div>{{item.order_no || "--"}}</div>
-            <v-btn v-if="item.order_no" fab plain x-small @click="onCopy(item.order_no)">
+            <v-btn v-if="item.order_no" fab plain x-small max-height="20" @click="onCopy(item.order_no)">
                 <svg-icon class="text-16 textGray--text" icon="copy"></svg-icon>
             </v-btn>
         </div>
 
-        <div class="d-flex px10 mt-0">
+        <div class="d-flex px10 mt-1">
             <div>{{LangUtil("投注时间")}}</div>
             <v-spacer />
             <div>{{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}</div>

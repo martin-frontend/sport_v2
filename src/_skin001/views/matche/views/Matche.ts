@@ -4,11 +4,13 @@ import MatcheMediator from "../mediator/MatcheMediator";
 import MatcheProxy from "../proxy/MatcheProxy";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
+import RightPanelProxy from "../../right_panel/proxy/RightPanelProxy";
 
 @Component
 export default class Matche extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
+    rightProxy:RightPanelProxy = this.getProxy(RightPanelProxy);
     myProxy: MatcheProxy = this.getProxy(MatcheProxy);
     pageData = this.myProxy.pageData;
 
@@ -21,6 +23,14 @@ export default class Matche extends AbstractView {
 
     constructor() {
         super(MatcheMediator);
+    }
+
+    get btnsTop(){
+        switch(this.rightProxy.pageData.liveIndex){
+            case 0: return "258px";
+            case 1: return "258px";
+            case 2: return "360px";
+        }
     }
 
     onMouseDown(event: any) {

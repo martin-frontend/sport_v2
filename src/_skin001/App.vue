@@ -51,7 +51,7 @@
         <!-- 注单抽屉 -->
         <DialogMyBet/>
         <!-- 投注确认框 -->
-        <DialogBetResult/>
+        <DialogBetResult v-if="$vuetify.breakpoint.mobile"/>
         <!-- 消息 -->
         <NotifyMessage />
         <!-- 订单状态返回消息框 -->

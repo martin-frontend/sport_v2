@@ -45,7 +45,7 @@ GlobalVar.host = process.env.VUE_APP_BASE_API;
 GlobalVar.token = js_utils.getQueryVariable("t") ?? "";
 GlobalVar.lang = js_utils.getQueryVariable("lang") ?? "zh_CN";
 GlobalVar.displayname = js_utils.getQueryVariable("displayname") ?? "";
-AppFacade.getInstance().startup();
+
 
 const vuetify = getVuetify();
 Vue["vuetify"] = vuetify;
@@ -56,3 +56,5 @@ window["vm"] = new Vue({
     vuetify,
     render: (h) => h(App),
 });
+
+AppFacade.getInstance().startup();

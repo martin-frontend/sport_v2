@@ -1,0 +1,68 @@
+<v-card class="pb-2 rounded-lg" color="bgBanner">
+    <v-card-title class="py-1">
+        <v-sheet width="3" height="22" color="yellow"></v-sheet>
+        <div class="text-18 ml10 text-truncate" v-if="competition">{{competition.competition_name}}</div>
+        <!-- <v-spacer />
+        <v-btn class="mr-n3" icon @click="onClose">
+            <svg-icon icon="close"></svg-icon>
+        </v-btn> -->
+    </v-card-title>
+    <v-divider />
+    <v-card-text v-if="matche && market && selection">
+        <div class="d-flex mb-1">
+            <div v-if="matche.c_type == 2">{{selection.name}}</div>
+            <div class="font-weight-bold" v-else>
+                <span>{{OrderTitleUtils.getTeamName({market, matche, selection})}}</span>
+                <span>{{MarketUtils.getSelectionName(market.market_type, selection, matche, false)}}</span>
+            </div>
+            <v-spacer />
+            <div class="font-weight-bold">@{{ TransMarketPrice(pageData.odds) }}</div>
+        </div>
+        <div class="d-flex mb-1">
+            <template v-if="pageData.isInPlay">
+                <span class="mr-1">{{LangUtil("滚球")}} </span>
+                <span>({{pageData.goals}})</span>
+                <v-spacer />
+            </template>
+
+            <div>{{market.title}}</div>
+        </div>
+        <div>{{matche.home_team}}<span class="font-weight-bold"> VS </span>{{matche.away_team}}</div>
+    </v-card-text>
+    <v-divider />
+    <v-card-text class="">
+        <div class="d-flex mb-1">
+            <div>{{LangUtil("订单状态")}}</div>
+            <v-spacer />
+            <div :style="{ 'color': statusMapColor[pageData.status]} ">{{statusMap[pageData.status]}}</div>
+        </div>
+        <div class="d-flex mb-1">
+            <div>{{LangUtil("投注金额")}}</div>
+            <v-spacer />
+            <div>{{GlobalVar.currency}} {{pageData.stake}}</div>
+        </div>
+        <div class="d-flex mb-1">
+            <div>{{LangUtil("预计可赢")}}</div>
+            <v-spacer />
+            <div>{{GlobalVar.currency}} {{amountFormat((pageData.odds * pageData.stake - pageData.stake).toFixed(3),true,3)}}</div>
+        </div>
+        <div class="d-flex mb-1">
+            <div>{{LangUtil("订单编号")}}</div>
+            <v-spacer />
+            <div>{{pageData.order_no}}</div>
+        </div>
+        <div class="d-flex mb-1">
+            <div>{{LangUtil("投注时间")}}</div>
+            <v-spacer />
+            <div>{{getCreateTime()}}</div>
+        </div>
+        <div class="d-flex">
+            <div>{{LangUtil("比赛进程")}}</div>
+            <v-spacer />
+            <div>{{pageData.states_str}}</div>
+        </div>
+    </v-card-text>
+    <v-card-actions class="mt-n1">
+        <btn-yellow class="text-18" width="100%" height="48" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
+    </v-card-actions>
+</v-card>

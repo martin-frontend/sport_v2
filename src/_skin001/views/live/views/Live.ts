@@ -26,6 +26,14 @@ export default class Live extends AbstractView {
         super(LiveMediator);
     }
 
+    get height(){
+        switch(this.window){
+            case 0: return 208;
+            case 1: return 208;
+            case 2: return 310;
+        }
+    }
+
     get matche() {
         return this.pageData.competition_list[0]?.matches[0];
     }

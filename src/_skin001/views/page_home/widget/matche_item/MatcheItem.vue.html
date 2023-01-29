@@ -33,7 +33,7 @@
                             <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.home_team}}</div>
                             <v-sheet
                                 v-if="states && getValues(states.red_cards_ft)[0] > 0"
-                                class="d-flex align-center justify-center mr-1 rounded white--text font-weight-bold"
+                                class="d-flex align-center justify-center ml-1 mr-1 rounded white--text font-weight-bold"
                                 min-width="18"
                                 color="red"
                                 >{{getValues(states.red_cards_ft)[0]}}</v-sheet
@@ -68,7 +68,7 @@
                             <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.away_team}}</div>
                             <v-sheet
                                 v-if="states && getValues(states.red_cards_ft)[1]"
-                                class="d-flex align-center mr-1 justify-center rounded white--text font-weight-bold"
+                                class="d-flex align-center ml-1 mr-1 justify-center rounded white--text font-weight-bold"
                                 min-width="18"
                                 color="red"
                                 >{{getValues(states.red_cards_ft)[1]}}</v-sheet

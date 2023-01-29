@@ -21,6 +21,7 @@ export default class Header extends AbstractView {
     }
 
     onMarketTypeArea(value: any) {
+        GlobalVar.MarketType_area = value;
         this.settingProxy.pageData.form.MarketType_area = value;
         this.settingProxy.api_user_set_user_setting();
     }

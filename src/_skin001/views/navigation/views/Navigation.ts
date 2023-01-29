@@ -9,10 +9,12 @@ import page_home from "../../page_home";
 import BetProxy from "@/proxy/BetProxy";
 import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import DialogBetResultProxy from "../../dialog_bet_result/proxy/DialogBetResultProxy";
 
 @Component
 export default class Navigation extends AbstractView {
     LangUtil = LangUtil;
+    betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
     selfProxy: SelfProxy = getProxy(SelfProxy);
     betProxy: BetProxy = getProxy(BetProxy);
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
@@ -70,8 +72,19 @@ export default class Navigation extends AbstractView {
             if (this.betProxy.pageData.list.length > 0) {
                 this.window = 1;
             } else {
-                this.window = 0;
+                if(this.betResultProxy.pageData.bShow){
+                    this.window = 3;
+                }else{
+                    this.window = 0;
+                }
             }
+        }
+    }
+
+    @Watch("betResultProxy.pageData.bShow")
+    onWatchBetResultShow(){
+        if(!this.betResultProxy.pageData.bShow){
+            this.window = 0;
         }
     }
 

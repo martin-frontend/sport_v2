@@ -18,7 +18,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         pageInfo: {
             pageCurrent: 1,
             pageCount: 1,
-            pageSize: 20,
+            pageSize: 100,
             pageTotal: 1,
         },
         stats: {
@@ -42,7 +42,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     listQuery: any = {
         is_settle: 0, //1=已结算 0=未结算
         page_count: 1,
-        page_size: 10,
+        page_size: 100,
         pageInfo: { pageCurrent: 0 },
         "settle_time-{>=}": "",
         "settle_time-{<=}": "",
