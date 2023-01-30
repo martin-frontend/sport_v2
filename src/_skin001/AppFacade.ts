@@ -6,6 +6,7 @@ import RequestStartCMD from "./command/RequestStartCMD";
 import RequestEndCMD from "./command/RequestEndCMD";
 import RequestErrorCMD from "./command/RequestErrorCMD";
 import DialogBetResultMediator from "./views/dialog_bet_result/mediator/DialogBetResultMediator";
+import { EnumPostMessage } from "@/enum/EnumPostMessage";
 
 export default class AppFacade {
     private static inst: AppFacade;
@@ -21,6 +22,20 @@ export default class AppFacade {
         this.initCommand();
         this.initMediator();
         this.facade.sendNotification(net.HttpType.api_config);
+
+        if(window.parent){
+            window.parent.addEventListener("message", (e) => {
+                switch(e.data){
+                    case EnumPostMessage.DARK:
+                        Vue.vuetify.framework.theme.isDark = true;
+                        break;
+                    case EnumPostMessage.LIGHT:
+                        Vue.vuetify.framework.theme.isDark = false;
+                        break;
+                }
+            });
+        }
+       
     }
 
     initCommand() {

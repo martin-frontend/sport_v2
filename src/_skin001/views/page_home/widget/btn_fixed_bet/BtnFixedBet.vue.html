@@ -1,7 +1,7 @@
 <v-sheet
     ref="divBox"
     class="d-flex align-center justify-center rounded-5 hand btn"
-    :class="{'disabled': !market || market.status == 2 || selection.status != 0 || !selection.price.back}"
+    :class="{'disabled': !market || market.status == 2 || !selection.type || selection.status != 0 || !selection.price.back}"
     height="30"
     @click="onBet"
 >
