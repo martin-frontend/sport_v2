@@ -36,6 +36,7 @@ export default class PageOrderDetail extends AbstractView{
         timezone: getQueryVariable("timezone"),
         sign: getQueryVariable("sign"),
         token:getQueryVariable("t") || "",
+        MarketType_area:getQueryVariable("MarketType_area"),
     };
     constructor() {
         super(historyResultMediator);
@@ -58,13 +59,14 @@ export default class PageOrderDetail extends AbstractView{
     mounted() {
         
         
-        const {lang,plat_id,timezone,token} = this.form;
+        const {lang,plat_id,timezone,token,MarketType_area} = this.form;
         
         Http.post(net.HttpType.public_plat_config, {plat_id,timezone,lang}).then((response:any)=>{
             PlatConfig.config = response.data;
             GlobalVar.plat_id = plat_id?.toString() || "";
             GlobalVar.zone = timezone?.toString() || "";
             GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
+            GlobalVar.MarketType_area = MarketType_area?.toString() || "";
             GlobalVar.lang = lang;
             const sTime = GlobalVar.server_time;
             this.nowtime=dateFormat(getDateByTimeZone(sTime * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd');
@@ -98,9 +100,33 @@ export default class PageOrderDetail extends AbstractView{
         this.pageData.isActive = 1000;
         this.myProxy.get_order_selectdata(this.myProxy.selectDate);
     }
+    @Watch("myProxy.selectDate")
+    onWatchselectDate() {
+        console.warn("selectDateselectDate>>"+this.myProxy.selectDate)
+        const sel1 = this.myProxy.selectDate[0];
+        const sel2 = this.myProxy.selectDate[1];
+        if (sel1 && sel2 && Date.parse(sel1) > Date.parse(sel2)) {
+            this.myProxy.selectDate = [sel2,sel1];
+        }
+
+    }
+    onfresh(){
+    
+        this.myProxy.listQuery.page_count = 1;
+        this.pageData.list = [];
+        this.myProxy.api_user_orders();
+        
+    }
     onCopyOrder(order:any){
         navigator.clipboard.writeText(order);
         alert('复制成功')
+    }
+    get MarketType_area(){
+        if (GlobalVar.MarketType_area == "1") {
+            return LangUtil("亚洲盘")
+        }else{
+            return LangUtil("欧洲盘")
+        }
     }
     getResultStr(win:any){
         if (win==0) {

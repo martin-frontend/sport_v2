@@ -10,6 +10,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
     selectDate =['', ''];
     pageData = {
         list: <any>[],
+        nodata:true,
         states: <any>[],//滚球 数据是state
         pageInfo: {
             pageCurrent: 1,
@@ -60,16 +61,16 @@ export default class HistoryResultProxy extends puremvc.Proxy {
                 break;
             // 7天
             case 7:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-7).timestr;
+                this.listQuery["settle_time-{>=}"] = getTodayOffset(-6).timestr;
                 this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
-                this.selectDate[0] = getTodayOffset(-7).formatdate;
+                this.selectDate[0] = getTodayOffset(-6).formatdate;
                 this.selectDate[1] = getTodayOffset().formatdate;
                 break;
             // 30天
             case 30:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-30).timestr;
+                this.listQuery["settle_time-{>=}"] = getTodayOffset(-29).timestr;
                 this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
-                this.selectDate[0] = getTodayOffset(-30).formatdate;
+                this.selectDate[0] = getTodayOffset(-29).formatdate;
                 this.selectDate[1] = getTodayOffset(1,-1).formatdate;
                 break;
 
@@ -102,11 +103,17 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         this.pageData.list = [];
         this.api_user_orders();
     }
+    
     set_user_orders(data: any) {
         GlobalVar.loading = false;
         Object.assign(this.pageData.stats, data.stats);
         Object.assign(this.pageData.pageInfo, data.pageInfo);
         this.pageData.list.push(...data.list);   
+        if (this.pageData.list.length == 0) {
+            this.pageData.nodata = true;
+        }else{
+            this.pageData.nodata = false;
+        }
     }
     /**手机下拉刷新 */
     listRefrush(done: any) {
