@@ -3,26 +3,29 @@ import AbstractView from "@/core/abstract/AbstractView";
 import { Component, Watch } from "vue-property-decorator";
 import GlobalVar from "@/core/global/GlobalVar";
 import dialog_message_box from "./views/dialog_message_box";
+import { EnumPostMessage } from "@/enum/EnumPostMessage";
+import { js_utils } from "custer-js-utils";
 @Component
 export default class APP extends AbstractView {
     GlobalVar = GlobalVar;
 
-    constructor(){
+    constructor() {
         super();
-        this.onWatchTheme();
     }
 
-    mounted(){
-        // setInterval(()=>{
-        //     Vue.notify({
-        //         group: "message",
-        //         title: "hello world",
-        //         data: {msg: "xxxxxxxx"}
-        //     })
-        // }, 5000);
+    mounted() {
+        this.$vuetify.theme.dark = js_utils.getQueryVariable("dark") == 'true' ?? false;
         this.onWatchTheme();
-
-        // dialog_message_box.confirm("我是弹窗");
+        window.addEventListener("message", (e) => {
+            switch (e.data) {
+                case EnumPostMessage.DARK:
+                    this.$vuetify.theme.dark = true;
+                    break;
+                case EnumPostMessage.LIGHT:
+                    this.$vuetify.theme.dark = false;
+                    break;
+            }
+        });
     }
 
     @Watch("$vuetify.theme.dark")
