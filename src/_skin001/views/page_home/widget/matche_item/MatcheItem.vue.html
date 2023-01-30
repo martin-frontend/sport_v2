@@ -104,7 +104,7 @@
                                     v-on="on"
                                     class="text-18 textGray--text hand ml-4"
                                     :class="{'active': pageData.love_events.includes(matche.id)}"
-                                    icon="love"
+                                    :icon="pageData.love_events.includes(matche.id) ? 'love_' : 'love'"
                                     @click.native="onLove"
                                 ></svg-icon>
                             </v-sheet>
@@ -134,8 +134,8 @@
                             <v-sheet color="transparent" v-bind="attrs" v-on="on">
                                 <svg-icon
                                     v-if="matche.animation_id"
-                                    class="text-18 textGray--text hand ml-4 active"
-                                    icon="animate1"
+                                    class="text-18 textGray--text hand ml-4"
+                                    icon="animate1_"
                                     @click.native="playMatcheAnimation"
                                 ></svg-icon>
                             </v-sheet>

@@ -27,8 +27,7 @@
                                 <v-sheet v-bind="attrs" v-on="on" color="transparent" class="ml10" @click.stop="setAllLove(competition)">
                                     <svg-icon
                                         class="text-18 textGray--text"
-                                        :class="{'active': checkAllLove(competition)}"
-                                        icon="love"
+                                        :icon="checkAllLove(competition) ? 'love_' : 'love'"
                                     ></svg-icon>
                                 </v-sheet>
                             </template>
@@ -82,7 +81,7 @@
                             class="ml10 textGray--text"
                             @click.stop="setAllLove(competition)"
                         >
-                            <svg-icon :icon="checkAllLove(competition) ? 'love1' : 'love'"></svg-icon>
+                            <svg-icon :icon="checkAllLove(competition) ? 'love_' : 'love'"></svg-icon>
                         </v-btn>
                         <v-img :src="competition.country_icon" contain max-width="24" width="24" height="24" class="mx10"></v-img>
                         <div class="font-weight-bold text-14">{{competition.competition_name}}</div>
