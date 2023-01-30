@@ -94,8 +94,8 @@
             <v-row  max-height="130px" class="text-center text-14  mb-4 textGray--text def-border rounded-lg d-flex align-center justify-space-around" v-for="(item, index) in pageData.list" :key="index" >
                 <!-- 订单 -->
                 <v-col cols="2" class="d-grid  align-content-center font-weight-bold">
-                    <span>{{item.order_no}}</span>
-                    <button @click="onCopyOrder(item.order_no)">
+                    <span>{{item.order_no || "N/A"}}</span>
+                    <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
                         <svg-icon
                             class="text-16"
                             icon="copy"
@@ -150,9 +150,9 @@
                 </v-col>
 
                 <v-col  class="d-grid justify-items-center">
-                    <div v-if="item.status == 3">
+                    <div :class="item.status == 3 ? 'red--text':'' " v-if="item.status != 1">
                         <span >{{statusMap[item.status]}}</span>
-                         <span>{{LangUtil(item.mark)}}</span>
+                        <span>{{LangUtil(item.mark)}}</span>
                     </div>
                     <div v-else>
                         <v-btn class="white--text" width="30" height="30"  fab depressed :color="item.win==0?'yellow':item.win>0?'green':'red'">{{getResultStr(item.win)}}</v-btn>
