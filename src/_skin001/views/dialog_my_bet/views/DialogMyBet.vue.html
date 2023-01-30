@@ -13,8 +13,8 @@
             <v-sheet class="money rounded-l-10 px10 d-flex align-center" height="40" min-width="136">
                 {{GlobalVar.currency}}<span class="ml-1">{{selfProxy.userInfo.gold}}</span>
             </v-sheet>
-            <btn-yellow height="40" minWidth="0" width="49" :rounded_tl="false" :rounded_bl="false" @click.native="onTopup">
-                <span class="text-14">{{LangUtil("充值")}}</span>
+            <btn-yellow height="40" minWidth="49" :rounded_tl="false" :rounded_bl="false" @click.native="onTopup">
+                <span class="text-14 mx-1">{{LangUtil("充值")}}</span>
             </btn-yellow>
         </div>
     </v-sheet>

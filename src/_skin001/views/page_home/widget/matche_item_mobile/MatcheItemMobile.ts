@@ -29,7 +29,7 @@ export default class MatcheItemMobile extends AbstractView {
     showAll = false;
 
     get start_time() {
-        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, GlobalVar.zone), "MM-dd hh:mm");
+        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, GlobalVar.zone), "MM/dd hh:mm");
     }
 
     get start() {

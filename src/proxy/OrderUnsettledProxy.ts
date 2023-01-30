@@ -42,7 +42,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     listQuery: any = {
         is_settle: 0, //1=已结算 0=未结算
         page_count: 1,
-        page_size: 100,
+        page_size: 20,
         pageInfo: { pageCurrent: 0 },
         "settle_time-{>=}": "",
         "settle_time-{<=}": "",
@@ -107,20 +107,13 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
 
-
-
-
-
-
-
-    event_states(Orderitem:any){
-        const itemState = this.pageData.states.find((item:any)=>Orderitem.event_id == item. event_id);
-         if (itemState) {
-             Orderitem.playingstate = itemState;
-             return Orderitem;
-         }else
-         {
-             return Orderitem;
-         }
-     }
+    event_states(Orderitem: any) {
+        const itemState = this.pageData.states.find((item: any) => Orderitem.event_id == item.event_id);
+        if (itemState) {
+            Orderitem.playingstate = itemState;
+            return Orderitem;
+        } else {
+            return Orderitem;
+        }
+    }
 }

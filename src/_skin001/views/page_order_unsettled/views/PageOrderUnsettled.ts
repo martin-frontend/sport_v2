@@ -59,6 +59,11 @@ export default class PageOrderUnsettled extends AbstractView {
         });
     }
 
+    onMore(){
+        this.listQuery.page_count++;
+        this.myProxy.api_user_orders();
+    }
+
     getStateStr(item: any) {
         if (this.listQuery.is_settle == 1) {
             return "";
