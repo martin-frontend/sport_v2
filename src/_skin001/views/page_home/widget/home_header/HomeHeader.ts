@@ -41,11 +41,15 @@ export default class HomeHeader extends AbstractView {
         return "";
     }
 
+    @Watch("settingProxy.pageData.form.sort")
+    onWatchSort() {
+        this.listQueryComp.sort = this.settingProxy.pageData.form.sort;
+        page_home.showEventList();
+    }
+
     onQuerySort(sort: string) {
         this.settingProxy.pageData.form.sort = sort;
         this.settingProxy.api_user_set_user_setting();
-        this.listQueryComp.sort = sort;
-        page_home.showEventList();
     }
     //搜寻
     onSearch() {
@@ -56,14 +60,14 @@ export default class HomeHeader extends AbstractView {
         page_home.showEventList();
     }
     //检测所有面板是否关闭
-    checkExpansionPanels(){
+    checkExpansionPanels() {
         return this.homeProxy.pageData.openIndexs.length == 0;
     }
 
-    onTaggleOpen(){
-        if(this.checkExpansionPanels()){
+    onTaggleOpen() {
+        if (this.checkExpansionPanels()) {
             this.homeProxy.pageData.openIndexs = [0, 1, 2];
-        }else{
+        } else {
             this.homeProxy.pageData.openIndexs = [];
         }
     }

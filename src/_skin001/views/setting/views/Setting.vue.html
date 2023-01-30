@@ -37,13 +37,13 @@
             <v-col cols="8" class="btnPlain--text">
                 <v-row dense>
                     <v-col>
-                        <div class="d-flex align-center hand" @click="pageData.form.MarketType_area = 0">
+                        <div class="d-flex align-center hand" @click="onMarketTypeArea(0)">
                             <svg-icon :icon=" pageData.form.MarketType_area == 0 ? 'checkbox_selected' : 'checkbox' "></svg-icon>
                             <div class="ml10">{{LangUtil("欧洲盘")}}</div>
                         </div>
                     </v-col>
                     <v-col>
-                        <div class="d-flex align-center hand" @click="pageData.form.MarketType_area = 1">
+                        <div class="d-flex align-center hand" @click="onMarketTypeArea(1)">
                             <svg-icon :icon=" pageData.form.MarketType_area == 1 ? 'checkbox_selected' : 'checkbox' "></svg-icon>
                             <div class="ml10">{{LangUtil("亚洲盘")}}</div>
                         </div>

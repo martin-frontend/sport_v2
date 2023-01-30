@@ -16,7 +16,7 @@ export default class cmd_api_menu_subnav extends puremvc.SimpleCommand {
 
     private response(result: vo.ResponseVO) {
         if (result.status === 0) {
-            if(typeof result.data == "object") result.data.requestData = this.requestData;
+            if(result.data && typeof result.data == "object") result.data.requestData = this.requestData;
             this.sendNotification(net.EventType.api_menu_subnav, result.data, result.unique);
         }
     }
