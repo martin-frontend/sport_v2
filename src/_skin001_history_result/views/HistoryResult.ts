@@ -12,7 +12,7 @@ import LangConfig from "../core/config/LangConfig";
 import { getQueryVariable } from "@/core/global/Functions";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import { getResponseIcon, amountFormat, dateFormat, TransMarketPrice, getDateByTimeZone } from "@/core/global/Functions";
-
+import CopyUtil from "@/core/global/CopyUtil"
 @Component
 export default class PageOrderDetail extends AbstractView{
     LangUtil = LangUtil;
@@ -118,8 +118,8 @@ export default class PageOrderDetail extends AbstractView{
         
     }
     onCopyOrder(order:any){
-        navigator.clipboard.writeText(order);
-        alert('复制成功')
+            CopyUtil(order);
+            alert('复制成功')
     }
     get MarketType_area(){
         if (GlobalVar.MarketType_area == "1") {
