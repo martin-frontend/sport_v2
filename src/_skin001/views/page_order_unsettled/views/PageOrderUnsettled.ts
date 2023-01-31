@@ -96,7 +96,7 @@ export default class PageOrderUnsettled extends AbstractView {
             const min = Math.floor((start_in_sec / 60) % 60);
             if (start_in_sec > 0) {
                 states_str = formatEventTime(
-                    dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000, GlobalVar.zone), "yyyy-MM-dd hh:mm:ss")
+                    dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss")
                 );
                 if (start_in_sec > 86400) {
                     states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");

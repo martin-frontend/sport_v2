@@ -66,3 +66,8 @@
 ::v-deep .v-list-item--link:before {
     background-color: #888;
 }
+
+.page-content{
+    height: calc(100vh - 54px);
+    overflow-y: auto;
+}

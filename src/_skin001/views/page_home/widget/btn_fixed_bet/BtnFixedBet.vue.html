@@ -14,7 +14,7 @@
             {{TransMarketPrice(getPrice())}}
         </div>
     </div>
-    <div ref="imgOdds" class="text-8 mx-1 opacity-0" v-if="!market || market.status == 2 || selection.status == 0 || !selection.price.back">
+    <div ref="imgOdds" class="text-8 mx-1 opacity-0" v-if="!(!market || market.status == 2 || !selection.type || selection.status != 0 || !selection.price.back)">
         <svg-icon :icon="iconOdds"></svg-icon>
     </div>
 </v-sheet>

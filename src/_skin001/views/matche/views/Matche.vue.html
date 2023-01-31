@@ -1,5 +1,5 @@
 <v-sheet color="transparent">
-    <v-sheet class="d-flex align-center divbtns" :style="{'top': btnsTop}" color="bgPage">
+    <v-sheet class="d-flex align-center" :class="{'divbtns': !$vuetify.breakpoint.mobile}" :style="{'top': btnsTop}" color="bgPage">
         <v-sheet
             ref="boxType"
             class="btnGroup d-flex align-center mt-2 mb-1"

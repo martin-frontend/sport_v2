@@ -76,13 +76,13 @@
         <div class="d-flex px10 mt-1">
             <div>{{LangUtil("投注时间")}}</div>
             <v-spacer />
-            <div>{{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}</div>
+            <div>{{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</div>
         </div>
 
         <div class="d-flex px10 mt-1" v-if="listQuery.is_settle">
             <div>{{LangUtil("结算时间")}}</div>
             <v-spacer />
-            <div>{{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}</div>
+            <div>{{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</div>
         </div>
         <!--
         <v-sheet width="100%" class="d-flex justify-end" v-if="listQuery.is_settle && item.status == 1">

@@ -151,7 +151,10 @@
                 </v-btn>
                 <div class="text-16 font-weight-bold">{{LangUtil("未结算注单")}}</div>
             </v-sheet>
-            <PageOrderUnsettled />
+            <div class="page-content">
+                <PageOrderUnsettled />
+            </div>
+            
         </v-window-item>
 
         <v-window-item>
@@ -161,7 +164,9 @@
                 </v-btn>
                 <div class="text-16 font-weight-bold">{{LangUtil("订单确认")}}</div>
             </v-sheet>
-            <BetResult />
+            <div class="page-content">
+                <BetResult />
+            </div>
         </v-window-item>
     </v-window>
 </v-sheet>

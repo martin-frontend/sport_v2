@@ -20,32 +20,33 @@
     </v-sheet>
     <!-- 手机tag标签 -->
     <div class="d-flex btnGroup my15 px10 text-14" width="100%">
-        <v-card
+        <v-btn
             v-for="(item, key) of pageData.menu_subnav.top"
             :key="key"
-            class="btnTag d-flex align-center px-4 rounded-pill elevation-0 mr-2 text-no-wrap"
-            :class="{'active': listQueryComp.tag == item.tag}"
             :disabled="getTagNum(item.tag) == 0"
             @click="onQueryTagType(item.tag)"
+            class="rounded-pill btnTag elevation-0 mr-2"
+            :class="{'active': listQueryComp.tag == item.tag}"
         >
             {{ LangUtil(item.name) }}{{getTagNum(item.tag)}}
-        </v-card>
-        <v-card
-            class="btnTag d-flex align-center px-4 rounded-pill elevation-0 text-no-wrap"
+        </v-btn>
+
+        <v-btn
+            class="rounded-pill btnTag elevation-0 mr-2"
             :class="{'active': listQueryComp.tag == 'love'}"
             @click="onQueryTagType('love')"
             :disabled="getTagNum('love') == 0"
         >
             {{ LangUtil("关注") }}{{getTagNum('love')}}
-        </v-card>
+        </v-btn>
     </div>
     <!-- 搜索 -->
     <div class="d-flex align-center px10">
-        <v-sheet class="search_box d-flex align-center rounded-10 px10 textGray--text" width="100%" height="40">
-            <input class="text-14" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="listQueryComp.keyword" />
+        <v-sheet class="search_box d-flex align-center rounded-10 px10 textGray--text" width="100%" height="36">
+            <input class="text-14 text-truncate" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="listQueryComp.keyword" />
             <svg-icon icon="search" @click.native="onSearch"></svg-icon>
         </v-sheet>
-        <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="40">
+        <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="36">
             <v-sheet
                 class="d-flex align-center justify-center mx-3 hand text-no-wrap text-14"
                 :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'"
@@ -64,7 +65,7 @@
                 {{LangUtil("联赛")}}
             </v-sheet>
         </v-sheet>
-        <btn-yellow minWidth="60" height="40" @click.native="goLiveList"><span class="text-14">{{LangUtil("直播")}}</span></btn-yellow>
+        <btn-yellow minWidth="60" height="36" @click.native="goLiveList"><span class="text-14">{{LangUtil("直播")}}</span></btn-yellow>
     </div>
 
     <!-- 侧边导航 -->
