@@ -73,6 +73,9 @@
     top: 0;
     z-index: 5;
 }
+.header_mbg{
+    background: linear-gradient(to left, #F5B600, #F19900) !important;
+}
 .font-weight-bold {
     font-family: "GOTHAM_BOLD";
 }
@@ -87,4 +90,16 @@
     &.menuable__content__active {
         opacity: 1 !important;
     }
+}
+
+.v-dialog--fullscreen{
+    margin: 0 !important;
+}
+
+.v-btn__content {
+    text-transform: none;
+}
+
+.custom-hr {
+    border-top: 1px dashed #d8d8d8;
 }

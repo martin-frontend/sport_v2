@@ -33,12 +33,14 @@ export default class PageOrder extends AbstractView {
         3: LangUtil("已拒绝"), //拒绝
         4: LangUtil("已取消"), //拒绝
         5: LangUtil("无效"), //无效
+        8: LangUtil("准异常"), //准异常
     };
     statusMapColor = {
         0: "#FF7128", //确认中
         1: "#007E29", //确认成功
         3: "#7E0000", //拒绝
         4: "#FF2828", //取消
+        8: "#FF2828", //准异常
     };
     resultMapColor: any = {
         1: "#138723", //赢

@@ -180,6 +180,7 @@ export default class MatcheItem extends AbstractView {
 
     goMatche() {
         GlobalVar.loading = true;
+        right_panel.show(0);
         matche.init(this.matche.id);
         live.init(this.matche.id);
         right_panel.showLiveList(false);

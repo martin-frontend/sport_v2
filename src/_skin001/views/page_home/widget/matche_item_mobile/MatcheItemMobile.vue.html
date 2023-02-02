@@ -1,23 +1,27 @@
 <v-sheet class="rounded-lg text-12" min-height="102" color="transparent">
-    <v-divider class="mb-2"/>
+    <!-- <v-divider class="mb-2" /> -->
+    <div class="line"></div>
     <div>
         <v-sheet class="d-flex align-center relative textGray--text" color="transparent" height="30">
             <!-- <v-sheet class="ml10 mr-1" width="2" height="16" color="yellow"></v-sheet> -->
 
-                <svg-icon class="text-16 ml-2 mr-1" :icon="pageData.love_events.includes(matche.id) ? 'love_' : 'love'" @click.native="onLove"></svg-icon>
-            
+            <svg-icon
+                class="text-16 ml-2 mr-1"
+                :icon="pageData.love_events.includes(matche.id) ? 'love_' : 'love'"
+                @click.native="onLove"
+            ></svg-icon>
+
             <template v-if="states">
                 <div :class="states.match_phase=='-'? 'text-red':'text-gray'">{{ LangUtil(states ? states.match_phase : "") }}</div>
                 <div class="text-gray" v-if="states.phase_minute > 0">&nbsp;{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
                 <!-- <v-spacer /> -->
                 <div class="d-flex align-center ml-3" @click.stop="goMatche">
-                    <!-- <img src="@/_skin001/assets/icon/icon_corner_kick.png" width="12" alt="" /> -->
                     <svg-icon icon="corner"></svg-icon>
                     <div class="text-gray1">{{ states.corners_ft }}</div>
                 </div>
             </template>
             <div class="text-gray" v-else>{{ start_time }}</div>
-            <div v-if="start > 0 && !states" class="d-flex align-center" style="margin-left: -10px">
+            <div v-if="start > 0 && !states" class="d-flex align-center" style="margin-left: -5px">
                 <div class="text-gray scale" style="padding-right: 40px" v-if="start_in_sec > 86400">
                     {{LangUtil("距开赛")}} {{ day }}{{LangUtil("天")}}
                 </div>
@@ -28,11 +32,10 @@
             </div>
             <v-spacer />
             <div class="d-flex align-center text-gray mr-2" @click="goMatche">
-                <!-- {{matche.market_amount}}+ <img class="ml-1 mr-2" src="@/_skin001/assets/icon/icon_arrow_right.png" width="6" /> -->
                 {{matche.market_amount}}+<svg-icon class="text-8" icon="page_right"></svg-icon>
             </div>
         </v-sheet>
-        
+
         <v-sheet class="d-flex pr-1" color="transparent">
             <v-sheet width="100%" min-width="110" @click="goMatche" color="transparent">
                 <v-sheet class="d-flex align-center mx-2 mt-1" height="30" color="transparent">
@@ -74,10 +77,20 @@
                     :key="key"
                     style="margin-left: 27px"
                 >
-                    <v-sheet v-if="showAll" height="30" color="transparent" style="line-height: 36px" class="text-truncate mr-2 text-14 text-gray mt-1"
+                    <v-sheet
+                        v-if="showAll"
+                        height="30"
+                        color="transparent"
+                        style="line-height: 36px"
+                        class="text-truncate mr-2 text-14 text-gray mt-1"
                         >{{matche.home_team}}</v-sheet
                     >
-                    <v-sheet v-if="showAll" height="30" color="transparent" style="line-height: 36px" class="text-truncate mr-2 text-14 text-gray mt-1"
+                    <v-sheet
+                        v-if="showAll"
+                        height="30"
+                        color="transparent"
+                        style="line-height: 36px"
+                        class="text-truncate mr-2 text-14 text-gray mt-1"
                         >{{matche.away_team}}</v-sheet
                     >
                 </div>
@@ -116,9 +129,9 @@
         </v-sheet>
     </div>
     <!-- 显示全部按扭 -->
-    <v-sheet class="d-flex justify-center mt-1" color="transparent" height="12">
+    <v-sheet class="d-flex justify-center mt-1 mb-1" color="transparent" height="12">
         <v-btn
-            class="elevation-0 textGray--text text-10 rounded-t-10"
+            class="elevation-0 textGray--text text-10 rounded-10"
             color="bgGray"
             width="72"
             height="12"

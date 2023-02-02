@@ -72,20 +72,41 @@ export default class Navigation extends AbstractView {
             if (this.betProxy.pageData.list.length > 0) {
                 this.window = 1;
             } else {
-                if(this.betResultProxy.pageData.bShow){
+                if (this.betResultProxy.pageData.bShow) {
                     this.window = 3;
-                }else{
+                } else {
                     this.window = 0;
                 }
             }
         }
     }
 
+    @Watch("window")
+    onWatchWindow() {
+        if (this.window == 2) {
+            this.orderUnsettledProxy.pageData.loading = true;
+            this.orderUnsettledProxy.init();
+        }
+    }
+
     @Watch("betResultProxy.pageData.bShow")
-    onWatchBetResultShow(){
-        if(!this.betResultProxy.pageData.bShow){
+    onWatchBetResultShow() {
+        if (!this.betResultProxy.pageData.bShow) {
             this.window = 0;
         }
+    }
+
+    @Watch("pageData.update_count")
+    onWatchCountryUpdate(){
+        if(this.$vuetify.breakpoint.mobile){
+            this.$forceUpdate();
+        }
+    }
+
+    onExitOrderUnsettled() {
+        this.window = 0;
+        this.orderUnsettledProxy.pageData.loading = false;
+        this.orderUnsettledProxy.clear();
     }
 
     destroyed() {

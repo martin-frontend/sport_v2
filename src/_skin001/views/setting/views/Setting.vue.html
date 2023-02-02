@@ -1,4 +1,4 @@
-<v-sheet class="text-14 px-5" width="360" color="transparent">
+<v-sheet class="text-14 px-5" width="100%" color="transparent">
     <v-sheet class="textGray--text mt-2" color="transparent">
         <v-row dense>
             <v-col cols="4">{{LangUtil("币种")}}</v-col>
@@ -104,7 +104,7 @@
                             <v-list-item v-for="(item, index) in pageData.items" :key="index" @click="onTimeZoneItemClick(item.key)">
                                 <div>
                                     <div>{{ item.value }}</div>
-                                    <v-sheet color="transparent" max-width="200px" class="text-truncate">{{ item.name }}</v-sheet>
+                                    <v-sheet color="transparent" max-width="280px" class="text-truncate">{{ LangUtil(item.name) }}</v-sheet>
                                 </div>
                             </v-list-item>
                         </v-list>

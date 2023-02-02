@@ -20,6 +20,8 @@ export default class NavigationProxy extends puremvc.Proxy {
             centerLoaded: <boolean[]>[],
         },
         country_code: "", //列表中当前打开的国家
+
+        update_count: 0,
     };
 
     set_menu_subnav(data: any) {
@@ -33,7 +35,7 @@ export default class NavigationProxy extends puremvc.Proxy {
         Object.assign(this.pageData.menu_subnav, data);
 
         this.pageData.menu_subnav.centerLoaded = [];
-        if(this.pageData.country_code){
+        if (this.pageData.country_code) {
             this.api_menu_subnav_country(this.pageData.country_code);
         }
     }
@@ -43,6 +45,7 @@ export default class NavigationProxy extends puremvc.Proxy {
         const findIndex = center.findIndex((item) => item.country_code == country_code);
         if (findIndex >= 0) {
             center[findIndex].competitions = data;
+            this.pageData.update_count++;
         }
     }
 

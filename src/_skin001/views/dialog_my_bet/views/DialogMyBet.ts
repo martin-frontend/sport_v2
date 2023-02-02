@@ -7,6 +7,7 @@ import BetProxy from "@/proxy/BetProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import SelfProxy from "@/proxy/SelfProxy";
 import { EnumPostMessage } from "@/enum/EnumPostMessage";
+import BlurUtil from "@/core/global/BlurUtil";
 
 @Component
 export default class DialogMyBet extends AbstractView {
@@ -44,5 +45,10 @@ export default class DialogMyBet extends AbstractView {
 
     onClose() {
         this.pageData.bShow = false;
+    }
+
+    @Watch("pageData.bShow")
+    onWatchShow(){
+        BlurUtil(this.pageData.bShow);
     }
 }

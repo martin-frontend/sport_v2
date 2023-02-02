@@ -1,6 +1,10 @@
-<svg id="半场" xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24">
-  <g id="组_3602" data-name="组 3602">
-    <path id="路径_2335" data-name="路径 2335" d="M12,2A10,10,0,1,0,22,12,10.011,10.011,0,0,0,12,2m0-2A12,12,0,1,1,0,12,12,12,0,0,1,12,0Z"/>
-    <path id="路径_2334" data-name="路径 2334" d="M-2971,376h0a8.009,8.009,0,0,1-8-8,8.009,8.009,0,0,1,8-8v16Z" transform="translate(2983 -356)"/>
-  </g>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <title>hafe_time</title>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="hafe_time" fill="#CDB370" fill-rule="nonzero">
+            <path d="M12,2 C6.4771525,2 2,6.4771525 2,12 C2,17.5228475 6.4771525,22 12,22 C17.5228475,22 22,17.5228475 22,12 C21.9939376,6.47966557 17.5203344,2.00606237 12,2 M12,0 C18.627417,0 24,5.372583 24,12 C24,18.627417 18.627417,24 12,24 C5.372583,24 0,18.627417 0,12 C0,5.372583 5.372583,0 12,0 L12,0 Z" id="路径_2335"></path>
+            <path d="M12,20 L12,20 C7.58377808,19.9950401 4.00495988,16.4162219 4,12 C4.00495988,7.58377808 7.58377808,4.00495988 12,4 L12,20 Z" id="路径_2334"></path>
+        </g>
+    </g>
 </svg>

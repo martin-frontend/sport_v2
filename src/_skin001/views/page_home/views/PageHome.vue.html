@@ -66,31 +66,14 @@
     <!-- 手机header -->
     <HomeMobileHeader v-if="$vuetify.breakpoint.mobile" />
 
-    <v-expansion-panels class="mt15 px10" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="$vuetify.breakpoint.mobile">
+    <v-expansion-panels class="mt-1 px10" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="$vuetify.breakpoint.mobile">
         <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
             <v-expansion-panel-header elevation="0" rounded="lg" height="54" color="bgBanner">
                 <template v-slot:default="{ open }">
-                    
-
                     <div class="d-flex align-center">
                         <v-sheet color="transparent" class="ml10" @click.stop="setAllLove(competition)">
-                            <svg-icon
-                                class="text-16 textGray--text"
-                                :icon="checkAllLove(competition) ? 'love_' : 'love'"
-                            ></svg-icon>
+                            <svg-icon class="text-16 textGray--text" :icon="checkAllLove(competition) ? 'love_' : 'love'"></svg-icon>
                         </v-sheet>
-                        <!-- <v-btn
-                            fab
-                            elevation="0"
-                            :ripple="false"
-                            width="24"
-                            height="24"
-                            color="bgPage"
-                            class="ml10 textGray--text"
-                            @click.stop="setAllLove(competition)"
-                        >
-                            <svg-icon :icon="checkAllLove(competition) ? 'love_' : 'love'"></svg-icon>
-                        </v-btn> -->
                         <v-img :src="competition.country_icon" contain max-width="20" width="20" height="20" class="mx10"></v-img>
                         <div class="font-weight-bold text-14">{{competition.competition_name}}</div>
                     </div>

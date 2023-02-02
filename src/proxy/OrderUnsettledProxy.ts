@@ -13,6 +13,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     }
 
     pageData = {
+        loading: false,
         list: <any>[],
         states: <any>[], //滚球 数据是state
         pageInfo: {
@@ -52,6 +53,11 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     init() {
         clearInterval(this.timer);
         this.timer = setInterval(this.api_event_states.bind(this), 5000);
+        this.listQuery.page_count = 1;
+        this.api_user_orders();
+    }
+    clear(){
+        clearInterval(this.timer);
     }
 
     /**手机下拉刷新 */
@@ -69,7 +75,8 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
 
     set_user_orders(data: any) {
         this.listQueryMarket.event_id = "";
-        GlobalVar.loading = false;
+        // GlobalVar.loading = false;
+        this.pageData.loading = false;
         Object.assign(this.pageData.stats, data.stats);
         Object.assign(this.pageData.pageInfo, data.pageInfo);
         const vuetify = Vue.vuetify;
@@ -103,7 +110,8 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         }
     }
     api_user_orders() {
-        GlobalVar.loading = true;
+        // GlobalVar.loading = true;
+        this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
 

@@ -28,6 +28,8 @@ const GlobalVar = {
     zone: "",
     /**币种 */
     currency: "",
+    /**手机模式下，是否显示导航 */
+    navDrawer: false,
 };
 
 export default GlobalVar;

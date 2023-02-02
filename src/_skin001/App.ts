@@ -5,6 +5,7 @@ import GlobalVar from "@/core/global/GlobalVar";
 import dialog_message_box from "./views/dialog_message_box";
 import { EnumPostMessage } from "@/enum/EnumPostMessage";
 import { js_utils } from "custer-js-utils";
+import BlurUtil from "@/core/global/BlurUtil";
 @Component
 export default class APP extends AbstractView {
     GlobalVar = GlobalVar;
@@ -14,7 +15,7 @@ export default class APP extends AbstractView {
     }
 
     mounted() {
-        this.$vuetify.theme.dark = js_utils.getQueryVariable("dark") == 'true' ?? false;
+        this.$vuetify.theme.dark = js_utils.getQueryVariable("dark") == "true" ?? false;
         this.onWatchTheme();
         window.addEventListener("message", (e) => {
             switch (e.data) {
@@ -32,5 +33,10 @@ export default class APP extends AbstractView {
     onWatchTheme() {
         const html: HTMLElement = <any>document.getElementsByTagName("html")[0];
         html.style.backgroundColor = this.$vuetify.theme.dark ? "#202121" : "#f6f6f4";
+    }
+
+    @Watch("GlobalVar.navDrawer")
+    onWatchDrawer() {
+        BlurUtil(this.GlobalVar.navDrawer);
     }
 }

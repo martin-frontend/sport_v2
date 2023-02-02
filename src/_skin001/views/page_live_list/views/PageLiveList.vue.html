@@ -1,12 +1,15 @@
 <div>
-    <v-sheet color="bgBanner" height="64" class="d-flex align-center header_m">
-        <v-btn icon @click="onBack">
-            <svg-icon class="textGray--text" icon="back2"></svg-icon>
-        </v-btn>
-        <v-spacer />
-        <div class="mr-10 text-18">{{LangUtil("热门直播")}}</div>
-        <v-spacer />
+    <v-sheet color="bgBanner" class="header_m">
+        <v-sheet color="bgBanner" height="53" class="d-flex align-center">
+            <v-btn icon @click="onBack">
+                <svg-icon class="textGray--text" icon="back2"></svg-icon>
+            </v-btn>
+            <v-spacer />
+            <div class="mr-10 text-18">{{LangUtil("热门直播")}}</div>
+            <v-spacer />
+        </v-sheet>
+        <v-divider />
     </v-sheet>
-    <v-divider />
+
     <LiveList />
 </div>

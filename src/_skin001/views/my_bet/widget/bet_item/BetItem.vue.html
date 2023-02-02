@@ -66,7 +66,7 @@
             <input
                 class="btnPlain--text ml-2 font-weight-bold"
                 style="width: 100%"
-                :placeholder="LangUtil(`单注限额 ${item.maxStake}`)"
+                :placeholder="LangUtil(`单注限额`) + ` ${item.minStake}-${item.maxStake}`"
                 v-model="item.stake"
                 @input="onInput(item)"
             />
@@ -112,7 +112,7 @@
         <span class="yellow--text font-weight-bold">{{getPreWin()}}</span>
     </div>
 
-    <div class="d-flex ml10 mr10 mb-1" v-if="$vuetify.breakpoint.mobile">
+    <div class="d-flex ml10 mr10 mb-2" v-if="$vuetify.breakpoint.mobile">
         <span>{{LangUtil("投注限制")}}{{GlobalVar.currency}}</span>
         <v-spacer />
         <span class="yellow--text font-weight-bold">{{GlobalVar.currency}} {{item.maxStake}}</span>

@@ -1,4 +1,4 @@
-<v-sheet class="textGray--text mx-2" height="100%" color="transparent">
+<v-card class="textGray--text mx-2 elevation-0" height="100%" color="transparent">
     <v-window v-model="window" class="elevation-0">
         <v-window-item>
             <v-list nav dense class="navlist">
@@ -62,7 +62,7 @@
                     >
                         <div class="text-20 ml15 mr15">
                             <svg-icon v-if="tagIcon[item.tag]" :icon="tagIcon[item.tag]"></svg-icon>
-                            <img v-else :src="item.icon" width="20" height="20">
+                            <img v-else :src="item.icon" width="20" height="20" />
                         </div>
                         <div class="text-truncate">{{LangUtil(item.name)}}</div>
                         <v-spacer />
@@ -146,7 +146,7 @@
 
         <v-window-item>
             <v-sheet class="d-flex align-center justify-center rounded-10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
-                <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="window=0">
+                <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="onExitOrderUnsettled">
                     <svg-icon icon="back1" class="text-22"></svg-icon>
                 </v-btn>
                 <div class="text-16 font-weight-bold">{{LangUtil("未结算注单")}}</div>
@@ -154,7 +154,6 @@
             <div class="page-content">
                 <PageOrderUnsettled />
             </div>
-            
         </v-window-item>
 
         <v-window-item>
@@ -169,4 +168,5 @@
             </div>
         </v-window-item>
     </v-window>
-</v-sheet>
+    <overlay v-model="orderUnsettledProxy.pageData.loading"/>
+</v-card>

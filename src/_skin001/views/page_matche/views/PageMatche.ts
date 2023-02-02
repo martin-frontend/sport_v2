@@ -8,6 +8,7 @@ import { dateFormat, getDateByTimeZone, getResponseIcon } from "@/core/global/Fu
 import GlobalVar from "@/core/global/GlobalVar";
 import live from "../../live";
 import page_order from "../../page_order";
+import BlurUtil from "@/core/global/BlurUtil";
 
 @Component
 export default class PageMatche extends AbstractView {
@@ -19,6 +20,11 @@ export default class PageMatche extends AbstractView {
 
     constructor() {
         super(PageMatcheMediator);
+    }
+
+    @Watch("pageData.isShowList")
+    onWatchShowList(){
+        BlurUtil(this.pageData.isShowList, "div_content");
     }
 
     getCompetitionName() {
