@@ -1,5 +1,5 @@
 import AbstractMediator from "@/core/abstract/AbstractMediator";
-import LangConfig from "@/core/config/LangConfig";
+import LangConfig from "@/_skin001_history_result/core/config/LangConfig";
 import PlatConfig from "@/core/config/PlatConfig";
 import GlobalVar from "@/core/global/GlobalVar";
 import NotificationName from "@/core/NotificationName";

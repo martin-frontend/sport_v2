@@ -91,7 +91,7 @@
                 </div>
             </v-sheet>
             <v-sheet class="d-flex align-center px-n6" width="100%" color="transparent" v-else>
-                <div ref="pctag">
+                <div >
                     <v-tabs show-arrows center-active hide-slider>
                         <v-tab v-for="(value, key) in marketTypeOptions" :key="key" color="white" class="px-1">
                             <v-btn
@@ -109,13 +109,13 @@
                 :class="$vuetify.breakpoint.mobile ? 'text-12' :'text-14'" v-for="(item, key) in pageData.selectedMarketType">
 
 
-                <v-sheet color="grayBackground" :width="$vuetify.breakpoint.mobile ? '150':'168'" class="MarketTypeBox d-flex align-center justify-center">
+                <v-sheet color="bgGray" :width="$vuetify.breakpoint.mobile ? '150':'168'" class="MarketTypeBox d-flex align-center justify-center">
                     <div>
-                        <div :class="$vuetify.breakpoint.mobile ? 'text-16':'text-18'" class="btnPlain--text mb-2 MarketTyresult">
+                        <div :class="$vuetify.breakpoint.mobile ? 'text-16':'text-18'" class="text-center px-1 btnPlain--text mb-2 MarketTyresult">
                             {{item.result}}
                         </div>
 
-                        <div :class="$vuetify.breakpoint.mobile ? 'text-12':'text-14'" class="textGray--text mt-2 MarketTypename">
+                        <div :class="$vuetify.breakpoint.mobile ? 'text-12':'text-14'" class="text-center px-2 textGray--text mt-2 MarketTypename">
                             <span>{{item.name}}</span>
                         </div>
                     </div>

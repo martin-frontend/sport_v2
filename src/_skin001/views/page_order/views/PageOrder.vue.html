@@ -164,14 +164,14 @@
                         <v-sheet width="100%">
                             {{LangUtil("投注时间")}}
                             <span class="font-weight-bold">
-                                {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                                {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
                             </span>
                         </v-sheet>
 
                         <v-sheet width="100%" v-if="listQuery.is_settle">
                             {{LangUtil("结算时间")}}
                             <span class="font-weight-bold">
-                                {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                                {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
                             </span>
                         </v-sheet>
 
@@ -264,14 +264,14 @@
                         <v-sheet width="100%">
                             {{LangUtil("投注时间")}}
                             <span class="font-weight-bold">
-                                {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                                {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
                             </span>
                         </v-sheet>
 
                         <v-sheet width="100%" v-if="listQuery.is_settle">
                             {{LangUtil("结算时间")}}
                             <span class="font-weight-bold">
-                                {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd hh:mm:ss')}}
+                                {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
                             </span>
                         </v-sheet>
 

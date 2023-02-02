@@ -1,6 +1,6 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Watch, Component } from "vue-property-decorator";
-import LangUtil from "@/core/global/LangUtil";
+import LangUtil from "@/_skin001_competion_result/core/config/LangUtil";
 import CompetionResultMediator from "../mediator/CompetionResultMediator";
 import CompetionResultProxy from "../proxy/CompetionResultProxy";
 import Http from "@/core/Http";
@@ -46,14 +46,15 @@ export default class PageOrderDetail extends AbstractView{
             GlobalVar.zone = timezone?.toString() || "";
             GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
             GlobalVar.lang = lang;
-            
+            GlobalVar.token = token;
             const sTime = GlobalVar.server_time;
             this.myProxy.selectDate=dateFormat(getDateByTimeZone(sTime * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd');
             this.nowtime = this.myProxy.selectDate
             LangConfig.load(this.form.lang).then(()=>{
                this.isloadSecLang = true;
+               
                this.myProxy.init();
-               GlobalVar.token = token;
+               
              
             })
 
@@ -70,5 +71,11 @@ export default class PageOrderDetail extends AbstractView{
     split_goals(goals: string) {
         const goalarr = goals.split("-");
         return goalarr; //LangUtil('全场得分')
+    }
+    get getSelectDate(){
+        if (!this.myProxy.selectDate) return null
+
+        const [year, month, day] = this.myProxy.selectDate.split('-')
+        return `${year}/${month}/${day}`
     }
 }

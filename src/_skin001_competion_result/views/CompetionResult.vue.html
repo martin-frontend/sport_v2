@@ -13,7 +13,7 @@
                 <template v-slot:activator="{ on, attrs }">
                     <v-sheet v-bind="attrs" v-on="on"
                         class="datebutton def-border d-flex justify-space-between align-center rounded-lg mr-5">
-                        <span class=" ml-2 textGray--text text-14"> {{myProxy.selectDate}}</span></span>
+                        <span class=" ml-2 textGray--text text-14"> {{getSelectDate}}</span></span>
                         <svg-icon class="mr-2" icon="date"></svg-icon>
                     </v-sheet>
                 </template>
@@ -54,7 +54,7 @@
                                 <v-expansion-panel-header class="pa-1" style="height: 66px;" min-height="66px"
                                     height="66px">
                                     <template v-slot:default="{ open }">
-                                        <div class="result-match-detail ">
+                                        <div v-if="!$vuetify.breakpoint.mobile" class="result-match-detail ">
                                             <span class=" btnPlain--text font-weight-bold"
                                                 :class="$vuetify.breakpoint.mobile?'text-12':'ml-4 text-14'">
                                                 {{transTime(matche.sb_time)}}</span>
@@ -73,7 +73,7 @@
                                                 </v-sheet>
                                                 <v-sheet class="textGray--text "
                                                     :class="$vuetify.breakpoint.mobile?'text-12 mx-1':'text-14 mx-3'">
-                                                    {{LangUtil('全场得分')}}
+                                                    {{LangUtil("全场得分")}}
                                                 </v-sheet>
                                                 <v-sheet class="match-teams justify-left text-left">
                                                     <span class="font-weight-bold "
@@ -94,16 +94,56 @@
                                             </v-sheet>
 
                                         </div>
+                                        <div v-else class="result-match-detail text-center">
+                                            <span class=" btnPlain--text font-weight-bold"
+                                                :class="$vuetify.breakpoint.mobile?'text-12':'ml-4 text-14'">
+                                                {{transTime(matche.sb_time)}}</span>
+                                            <v-row color="transparent" class="result-match-center">
+                                                <v-col cols="4" class="match-teams justify-end">
+
+                                                    <v-col  class="textGray--text text-center"
+                                                        :class="$vuetify.breakpoint.mobile?'text-12':'text-14'">
+                                                        {{matche.home_team}}</v-col>
+                                                    <v-img class="teamimg "
+                                                        :src="getResponseIcon(matche.home_team_icon_url)"></v-img>
+                                                    <v-col cols="1" class="font-weight-bold text-14"
+                                                        >
+                                                        {{split_goals(matche.goals_ft)[0]}}
+                                                    </v-col>
+                                                </v-col>
+                                                <v-col cols="2"  class="textGray--text text-12 mx-1"
+                                                  >
+                                                    {{LangUtil("全场得分")}}
+                                                </v-col>
+                                                <v-col cols="5" class="match-teams ">
+                                                    <v-col cols="1" class="font-weight-bold text-14"
+                                                     >
+                                                        {{split_goals(matche.goals_ft)[1]}}
+                                                    </v-col>
+                                                    <v-img class="teamimg "
+                                                        :src="getResponseIcon(matche.away_team_icon_url)"></v-img>
+                                                    <v-col class="textGray--text text-center text-12"
+                                                    >
+                                                        {{matche.away_team}}</v-col>
+                                                </v-col>
+                                            </v-row>
+                                            <v-sheet color="transparent">
+                                                <svg-icon class="text-10 mr-2 " color="#909193"
+                                                    :class="open ? 'arrow-down':'arrow-up'" icon="zoom_in"></svg-icon>
+
+                                            </v-sheet>
+
+                                        </div>
 
                                     </template>
                                 </v-expansion-panel-header>
-                                <v-divider v-if="competition.matches.length != (key2+1)" width="100%" />
+                                
                                 <v-expansion-panel-content>
                                     <PageGameResults class="mx-n2" :matche="matche"
                                         :competition_name="competition.competition_name"></PageGameResults>
 
                                 </v-expansion-panel-content>
-
+                                <v-divider v-if="competition.matches.length != (key2+1)" width="100%" />
                             </v-expansion-panel>
                         </v-expansion-panels>
 
