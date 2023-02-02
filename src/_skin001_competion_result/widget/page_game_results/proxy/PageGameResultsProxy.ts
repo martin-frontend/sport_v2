@@ -1,7 +1,7 @@
 import net from "@/net/setting";
 import { EventStatesVO } from "@/vo/EventStatesVO";
 import PlatConfig from "@/core/config/PlatConfig";
-import LangUtil from "@/core/global/LangUtil";
+import LangUtil from "@/_skin001_competion_result/core/config/LangUtil";
 import { objectRemoveNull } from "@/core/global/Functions";
 import { MarketVO } from "@/vo/MarketVO";
 import GlobalVar from "@/core/global/GlobalVar";

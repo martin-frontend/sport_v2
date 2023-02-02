@@ -2,7 +2,7 @@ import AbstractView from "@/core/abstract/AbstractView";
 import {Prop, Watch, Component } from "vue-property-decorator";
 import PageGameResultsMediator from "../mediator/PageGameResultsMediator";
 import PageGameResultsProxy from "../proxy/PageGameResultsProxy";
-import LangUtil from "@/core/global/LangUtil";
+import LangUtil from "@/_skin001_competion_result/core/config/LangUtil";
 import { getResponseIcon } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 @Component
@@ -31,16 +31,9 @@ export default class PageGameResults extends AbstractView {
         this.pageData.matche = this.matche;
         this.pageData.competitionName = this.competition_name;
         this.myProxy.api_event_states(this.matche.id);
-        this.onWatchWidth();
+     
     }
 
-    @Watch("$vuetify.breakpoint.width")
-    onWatchWidth() {
-        const pctag: HTMLElement = <any>this.$refs.pctag;
-        if (pctag) {
-            pctag.style.width = (document.body.clientWidth - 540) + "px";
-        }
-    }
 
 
     get states(): any {

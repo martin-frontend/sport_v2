@@ -10,7 +10,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         // TODO 请求初始数据
     }
     panel = <any>[];
-    selectDate:any;
+    selectDate = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     init() {
         this.sendNotification(net.HttpType.api_event_sports);
         this.sendNotification(net.HttpType.api_event_market_type_v2);
@@ -45,8 +45,8 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         
 
         const data = {
-            start_time: Date.parse(this.selectDate + " " + timezone) / 1000,
-            end_time: (Date.parse(this.selectDate + " " + timezone)+86400000) / 1000 - 1,
+            start_time: Date.parse(this.selectDate) / 1000,
+            end_time: (Date.parse(this.selectDate)+86400000) / 1000 - 1,
             timezone: GlobalVar.zone,
             page_size: 1000,
 

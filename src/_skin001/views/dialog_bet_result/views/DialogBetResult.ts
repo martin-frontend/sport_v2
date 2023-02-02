@@ -108,7 +108,7 @@ export default class DialogBetResult extends AbstractView {
     }
 
     getCreateTime() {
-        return dateFormat(new Date(this.pageData.create_time * 1000), "yyyy-MM-dd hh:mm:ss");
+        return dateFormat(new Date(this.pageData.create_time * 1000), "yyyy/MM/dd hh:mm:ss");
     }
 
     onClose() {

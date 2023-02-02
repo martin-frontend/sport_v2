@@ -72,7 +72,7 @@ export default class BetItem extends AbstractView {
     }
 
     getStartTime() {
-        return formatEventTime(dateFormat(getDateByTimeZone(this.item.matche.sb_time * 1000, <any>GlobalVar.zone), "yyyy-MM-dd hh:mm:ss"));
+        return formatEventTime(dateFormat(getDateByTimeZone(this.item.matche.sb_time * 1000, <any>GlobalVar.zone), "yyyy/MM/dd hh:mm:ss"));
     }
 
     getDay(): number {
