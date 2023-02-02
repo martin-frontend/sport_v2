@@ -21,7 +21,7 @@ export default class Setting extends AbstractView {
     get getSelectName() {
         const data = this.pageData.items.find((item: any) => item.key == this.pageData.form.timezone);
         if (data) {
-            return data.value + data.name;
+            return data.value + LangUtil(data.name);
         }
         return "";
     }
@@ -33,6 +33,7 @@ export default class Setting extends AbstractView {
 
     onTimeZoneItemClick(value:string){
         this.pageData.form.timezone = value;
+        GlobalVar.zone = value;
     }
 
     onReSetting() {

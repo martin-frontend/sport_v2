@@ -8,31 +8,23 @@
     display: none; /* Chrome Safari */
 }
 .btnTag {
-    min-height: 36px;
+    min-height: 30px;
     display: inline-block;
     background-color: transparent;
     overflow: hidden;
     &.active {
-        border: solid 1px #ffcd43 !important;
+        background: linear-gradient(to right, #fcb131, #ffe64d);
+        color: #272828;
     }
+    padding: 0;
 }
 .theme--light {
-    .btnTag {
-        border: solid 1px #c8cad0;
-        // &.v-card--disabled{
-        //     background-color: gray;
-        // }
-    }
     .money {
         background-color: #ffffff;
         border: solid 1px #e8e8e2;
     }
-    
 }
 .theme--dark {
-    .btnTag {
-        border: solid 1px #5a5a5a;
-    }
     .money {
         background-color: #272828;
         border: solid 1px #3e3f41;

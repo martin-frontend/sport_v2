@@ -60,46 +60,15 @@ export default class BetResult extends AbstractView {
     }
 
     get matche() {
-        for (const comp of this.matcheProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return matche;
-                }
-            }
-        }
-        for (const comp of this.homeProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return matche;
-                }
-            }
-        }
-        return null;
+        return this.pageData.matche;
     }
 
     get market(): any {
-        for (const mar of this.matcheProxy.pageData.market_list) {
-            if (mar.event_id == this.pageData.event_id) {
-                return mar.fix_markets[this.pageData.market_type];
-            }
-        }
-        for (const mar of this.homeProxy.pageData.market_list) {
-            if (mar.event_id == this.pageData.event_id) {
-                return mar.fix_markets[this.pageData.market_type];
-            }
-        }
-        return null;
+        return this.pageData.market;
     }
 
     get selection() {
-        if (this.market) {
-            for (const sel of this.market.selections) {
-                if (sel.id == this.pageData.selection_id) {
-                    return sel;
-                }
-            }
-        }
-        return null;
+        return this.pageData.selection;
     }
 
     getCreateTime() {

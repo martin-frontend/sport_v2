@@ -1,5 +1,5 @@
 <div>
-    <v-sheet color="bgPage" class="div-sticky-1">
+    <v-sheet color="bgPage">
         <v-sheet
             class="d-flex align-center px10 textGray--text"
             :class="pageData.isShowLiveList ? 'rounded-10' : 'rounded-t-10'"
@@ -23,52 +23,55 @@
                 ></svg-icon>
             </v-sheet>
 
-            <v-spacer/>
-
-            <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                    <v-sheet color="transparent" v-bind="attrs" v-on="on">
-                        <svg-icon
-                            class="text-26 hand textGray--text"
-                            :icon="pageData.liveIndex==0 ? 'score1_' : 'score1'"
-                            @click.native="pageData.liveIndex = 0"
-                        ></svg-icon>
+            <v-spacer />
+            <div>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                            <svg-icon
+                                class="text-26 hand textGray--text"
+                                :icon="pageData.liveIndex==0 ? 'score1_' : 'score1'"
+                                @click.native="pageData.liveIndex = 0"
+                            ></svg-icon>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{LangUtil("比分")}}</span>
                     </v-sheet>
-                </template>
-                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                    <span>{{LangUtil("比分")}}</span>
-                </v-sheet>
-            </v-tooltip>
-
-            <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                    <v-sheet color="transparent" v-bind="attrs" v-on="on">
-                        <svg-icon
-                            class="text-28 hand mx10 textGray--text"
-                            :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
-                            @click.native="pageData.liveIndex = 1"
-                        ></svg-icon>
+                </v-tooltip>
+            </div>
+            <div>
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                            <svg-icon
+                                class="text-28 hand mx10 textGray--text"
+                                :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
+                                @click.native="pageData.liveIndex = 1"
+                            ></svg-icon>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{LangUtil("直播")}}</span>
                     </v-sheet>
-                </template>
-                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                    <span>{{LangUtil("直播")}}</span>
-                </v-sheet>
-            </v-tooltip>
-
-            <v-tooltip top>
-                <template v-slot:activator="{ on, attrs }">
-                    <v-sheet color="transparent" v-bind="attrs" v-on="on">
-                        <svg-icon
-                            class="text-24 mr-2 mt-1 hand textGray--text"
-                            :icon="pageData.liveIndex==2 ? 'animate_' : 'animate'"
-                            @click.native="pageData.liveIndex = 2"
-                        ></svg-icon>
+                </v-tooltip>
+            </div>
+            <div v-if="matche && matche.animation_id">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                            <svg-icon
+                                class="text-24 mr-2 mt-1 hand textGray--text"
+                                :icon="pageData.liveIndex==2 ? 'animate_' : 'animate'"
+                                @click.native="pageData.liveIndex = 2"
+                            ></svg-icon>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{LangUtil("动画")}}</span>
                     </v-sheet>
-                </template>
-                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                    <span>{{LangUtil("动画")}}</span>
-                </v-sheet>
-            </v-tooltip>
+                </v-tooltip>
+            </div>
         </v-sheet>
     </v-sheet>
 
@@ -80,11 +83,9 @@
         <!-- <v-sheet color="bgPage" height="44" class="d-flex align-center div-sticky-2">
             <div class="text-18 font-weight-bold my15 ml-2">{{LangUtil("热门赛事")}}</div>
         </v-sheet> -->
-
-        
     </template>
     <template v-else>
-        <Live class="div-sticky-3" v-model="pageData.liveIndex" />
+        <Live v-model="pageData.liveIndex" />
         <Matche />
     </template>
 </div>

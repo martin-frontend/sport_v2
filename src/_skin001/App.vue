@@ -1,6 +1,6 @@
 <template>
     <v-app>
-        <v-sheet class="d-flex" color="transparent">
+        <v-sheet id="page" class="d-flex overflow-x-hidden" color="transparent">
             <v-sheet
                 class="overflow-y-auto mt-2 leftbox"
                 min-width="242"
@@ -10,7 +10,7 @@
             >
                 <Navigation />
             </v-sheet>
-            <v-sheet class="py-0" width="100%" color="transparent">
+            <v-sheet class="py-0 overflow-x-hidden" width="100%" color="transparent">
                 <Header v-if="!$vuetify.breakpoint.mobile" />
                 <!-- <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
                     <v-sheet
@@ -26,21 +26,21 @@
                     </v-sheet>
                 </v-sheet> -->
 
-                <v-row dense class="mt-1">
-                    <v-col :cols="$vuetify.breakpoint.mobile?12:8">
+                <v-row dense :class="{ 'mt-1': !$vuetify.breakpoint.mobile }">
+                    <v-col :cols="$vuetify.breakpoint.mobile ? 12 : 8">
                         <v-sheet
-                        class="overflow-y-auto"
-                        width="100%"
-                        color="transparent"
-                        :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
-                    >
-                        <router-view />
-                    </v-sheet>
+                            class="overflow-y-auto overflow-x-hidden"
+                            width="100%"
+                            color="transparent"
+                            :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
+                        >
+                            <router-view />
+                        </v-sheet>
                     </v-col>
                     <v-col cols="4">
-                        <v-sheet class="overflow-y-auto rightbox mr-2" color="transparent" v-if="!$vuetify.breakpoint.mobile">
-                        <RightPanel />
-                    </v-sheet>
+                        <v-sheet class="rightbox mr-2" color="transparent" v-if="!$vuetify.breakpoint.mobile">
+                            <RightPanel />
+                        </v-sheet>
                     </v-col>
                 </v-row>
             </v-sheet>
@@ -48,10 +48,14 @@
 
         <!-- dialog的挂载点 -->
         <div id="dialog_container"></div>
+        <!-- 侧边导航 -->
+        <v-navigation-drawer v-model="GlobalVar.navDrawer" color="bgPage" app absolute temporary floating style="z-index: 101">
+            <Navigation class="mt-3" @onChange="GlobalVar.navDrawer = false" />
+        </v-navigation-drawer>
         <!-- 注单抽屉 -->
-        <DialogMyBet/>
+        <DialogMyBet v-if="$vuetify.breakpoint.mobile" />
         <!-- 投注确认框 -->
-        <DialogBetResult v-if="$vuetify.breakpoint.mobile"/>
+        <DialogBetResult v-if="$vuetify.breakpoint.mobile" />
         <!-- 消息 -->
         <NotifyMessage />
         <!-- 订单状态返回消息框 -->

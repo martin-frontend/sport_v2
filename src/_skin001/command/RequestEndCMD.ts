@@ -4,6 +4,7 @@ import LangUtil from "@/core/global/LangUtil";
 import { EnumPostMessage } from "@/enum/EnumPostMessage";
 import dialog_message_box from "../views/dialog_message_box";
 import net from "@/net/setting";
+import PlatConfig from "@/core/config/PlatConfig";
 
 export default class RequestEndCMD extends puremvc.SimpleCommand {
     execute(notification: puremvc.INotification) {
@@ -21,7 +22,14 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
             1111002, 1111003, 1111004, 1111005, 1111001, 9999, 1111009, 10126, 10103, 1112003, 1112002, 10108, 1111015, 140000001,
             140000002, 140000003,
         ];
-        if (status === 10126) {
+        if (status == 10124) {
+            //用户被禁用
+            if (PlatConfig.config) {
+                dialog_message_box.alert({ message: body.data.msg });
+            } else {
+                alert(body.data.msg);
+            }
+        } else if (status === 10126) {
             // console.log("登陆已失效，请重新登陆");
             GlobalVar.tokenExpired = true;
             if (body.config.url == net.HttpType.api_config) {
@@ -46,7 +54,7 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
         } else if (ERROR_CODE.includes(status)) {
             Vue.notify({ group: "message", title: body.data.msg });
             GlobalVar.loading = false;
-        }else if(status != 0){
+        } else if (status != 0) {
             Vue.notify({ group: "message", title: body.data.msg });
         }
     }

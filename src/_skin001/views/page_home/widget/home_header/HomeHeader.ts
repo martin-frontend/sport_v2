@@ -4,6 +4,7 @@ import LangUtil from "@/core/global/LangUtil";
 import SettingProxy from "@/proxy/SettingProxy";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
 import page_home from "../..";
+import GlobalVar from "@/core/global/GlobalVar";
 
 @Component
 export default class HomeHeader extends AbstractView {
@@ -57,7 +58,12 @@ export default class HomeHeader extends AbstractView {
     }
     //刷新
     onRefrush() {
-        page_home.showEventList();
+        if (this.listQueryComp.tag == "love") {
+            GlobalVar.loading1 = true;
+            page_home.showByTag("love");
+        } else {
+            page_home.showEventList();
+        }
     }
     //检测所有面板是否关闭
     checkExpansionPanels() {

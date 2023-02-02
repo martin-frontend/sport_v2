@@ -7,6 +7,8 @@ import SettingProxy from "@/proxy/SettingProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import OpenLink from "@/core/global/OpenLink";
 import page_home from "../../page_home";
+import { isAndroid, isIOS } from "@/core/global/Functions";
+import BlurUtil from "@/core/global/BlurUtil";
 @Component
 export default class Header extends AbstractView {
     LangUtil = LangUtil;
@@ -16,8 +18,15 @@ export default class Header extends AbstractView {
 
     txtSearch = "";
 
+    isShowSetting = false;
+
     constructor() {
         super(HeaderMediator);
+    }
+
+    @Watch("isShowSetting")
+    onWatchSetting(){
+        BlurUtil(this.isShowSetting);
     }
 
     onMarketTypeArea(value: any) {

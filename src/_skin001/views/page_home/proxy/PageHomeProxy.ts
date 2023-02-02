@@ -134,7 +134,8 @@ export default class PageHomeProxy extends puremvc.Proxy {
         // TODO 移除已经结束的赛事
     }
     set_user_lovematch(data: any) {
-        // GlobalVar.loading = false;
+        GlobalVar.loading = false;
+        GlobalVar.loading1 = false;
         this.pageData.love_count = data.reduce((previousValue: any, current: any) => previousValue + current.count, 0);
         this.pageData.love_events = [];
         for (const comp of data) {
@@ -173,6 +174,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
                 this.listQueryMarket.market_type = pcMarketType + "," + pcMarketType_extra;
             }
         }
+        console.warn(">>>>>>>", this.listQueryMarket.market_type);
         this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(this.listQueryMarket));
     }
     /**赛事进程*/
@@ -192,6 +194,18 @@ export default class PageHomeProxy extends puremvc.Proxy {
             this.pageData.love_events.splice(idx, 1);
         }else{
             this.pageData.love_events.push(event_id);
+        }
+        //如果在关注页，直接删除该赛事
+        if(this.listQueryComp.tag == "love"){
+            for(const comp of this.pageData.competition_list){
+                const len = comp.matches.length;
+                for(let i=0; i<len; i++){
+                    if(comp.matches[i].id == event_id){
+                        comp.matches.splice(idx, 1);
+                        break;
+                    }
+                }
+            }
         }
         this.sendNotification(net.HttpType.api_user_love, { event_id: event_id.toString() });
     }

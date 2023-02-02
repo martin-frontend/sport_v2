@@ -11,6 +11,7 @@ import PageHomeProxy from "../../proxy/PageHomeProxy";
 import BetProxy from "@/proxy/BetProxy";
 import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
 import LiveProxy from "@/_skin001/views/live/proxy/LiveProxy";
+import DialogBetResultProxy from "@/_skin001/views/dialog_bet_result/proxy/DialogBetResultProxy";
 @Component
 export default class BtnFixedBet extends AbstractView {
     LangUtil = LangUtil;
@@ -34,46 +35,48 @@ export default class BtnFixedBet extends AbstractView {
     }
 
     @Watch("$vuetify.theme.dark")
-    onWatchDark(){
+    onWatchDark() {
         this.clearOddsStatus(0);
     }
 
     //添加 涨迭样式
     @Watch("selection")
     watchSelection() {
-        const divPrice: HTMLElement = <any>this.$refs.divPrice;
-        const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
-        //@ts-ignore
-        const divBox: HTMLElement = <any>this.$refs.divBox.$el;
-        if (this.oldData) {
+        if (this.market && this.market.status != 2 && this.selection.type && this.selection.status == 0 && this.selection.price.back) {
+            const divPrice: HTMLElement = <any>this.$refs.divPrice;
+            const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
             //@ts-ignore
-            const cha = this.selection.price.back - this.oldData.price.back;
-            if (cha > 0) {
-                this.isChangeAni = true;
-                this.clearOddsStatus();
-                this.iconOdds = "arrow_up";
-                if (divPrice) divPrice.style.color = "#F64D55";
-                if (imgOdds) {
-                    imgOdds.style.opacity = "1";
-                    imgOdds.style.color = "#F64D55";
-                    imgOdds.classList.add("animation-translate");
+            const divBox: HTMLElement = <any>this.$refs.divBox.$el;
+            if (this.oldData) {
+                //@ts-ignore
+                const cha = this.selection.price.back - this.oldData.price.back;
+                if (cha > 0) {
+                    this.isChangeAni = true;
+                    this.clearOddsStatus();
+                    this.iconOdds = "arrow_up";
+                    if (divPrice) divPrice.style.color = "#F64D55";
+                    if (imgOdds) {
+                        imgOdds.style.opacity = "1";
+                        imgOdds.style.color = "#F64D55";
+                        imgOdds.classList.add("animation-translate");
+                    }
+                    if (divBox) divBox.style.borderColor = "#F64D55";
+                } else if (cha < 0) {
+                    this.isChangeAni = true;
+                    this.clearOddsStatus();
+                    this.iconOdds = "arrow_down";
+                    if (divPrice) divPrice.style.color = "#41A81D";
+                    if (imgOdds) {
+                        imgOdds.style.opacity = "1";
+                        imgOdds.style.color = "#41A81D";
+                        imgOdds.classList.add("animation-translate");
+                    }
+                    if (divBox) divBox.style.borderColor = "#41A81D";
                 }
-                if (divBox) divBox.style.borderColor = "#F64D55";
-            } else if (cha < 0) {
-                this.isChangeAni = true;
-                this.clearOddsStatus();
-                this.iconOdds = "arrow_down";
-                if (divPrice) divPrice.style.color = "#41A81D";
-                if (imgOdds) {
-                    imgOdds.style.opacity = "1";
-                    imgOdds.style.color = "#41A81D";
-                    imgOdds.classList.add("animation-translate");
-                }
-                if (divBox) divBox.style.borderColor = "#41A81D";
+                this.oldData = JSON.parse(JSON.stringify(this.selection));
+            } else {
+                this.oldData = JSON.parse(JSON.stringify(this.selection));
             }
-            this.oldData = JSON.parse(JSON.stringify(this.selection));
-        } else {
-            this.oldData = JSON.parse(JSON.stringify(this.selection));
         }
     }
 
@@ -100,7 +103,7 @@ export default class BtnFixedBet extends AbstractView {
         }
     }
 
-    clearOddsStatus(delay:number = 5000) {
+    clearOddsStatus(delay: number = 5000) {
         clearTimeout(this.cleartimer);
         const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
         const divPrice: HTMLElement = <any>this.$refs.divPrice;
@@ -145,6 +148,11 @@ export default class BtnFixedBet extends AbstractView {
                 event_states = liveProxy.pageData.event_states;
             }
             this.myProxy.addItem(comp, this.matche, this.market, this.selection, event_states);
+
+            const betResultProxy:DialogBetResultProxy = getProxy(DialogBetResultProxy);
+            betResultProxy.pageData.market = JSON.parse(JSON.stringify(this.market));
+            betResultProxy.pageData.matche = JSON.parse(JSON.stringify(this.matche));
+            betResultProxy.pageData.selection = JSON.parse(JSON.stringify(this.selection));
         }
     }
 }

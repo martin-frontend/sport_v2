@@ -9,34 +9,38 @@
 >
     <template slot="body" slot-scope="props">
         <v-sheet
-            height="36"
+            min-height="36"
             width="300"
             class="rounded-lg pl-2 mb-2 divbox overflow-hidden"
             :class="props.item.data.status == 0 || props.item.data.status == 1 ? 'pr-2' : 'pr-0'"
         >
-            <v-sheet color="bgPage" height="34" width="298" class="d-flex align-center rounded-lg">
-                <v-sheet width="100%" color="transparent" class="d-flex align-center text-14" @click="goPageOrder(props)">
+            <v-sheet color="bgPage" width="298" class="rounded-lg">
+                <v-sheet color="transparent" height="34" class="d-flex align-center pt-1">
+                    <v-sheet width="100%" color="transparent" class="d-flex align-center text-14" @click="goPageOrder(props)">
+                        <svg-icon
+                            class="text-24 mx-3"
+                            :icon="props.item.data.status == 0 || props.item.data.status == 1 ? 'scuess' : 'failed'"
+                        ></svg-icon>
+                        <div class="btnPlain--text mr-5">{{ LangUtil("订单") }}: {{ props.item.data.order_no }}</div>
+                        <v-spacer />
+                        <span
+                            class="mr-3 font-weight-bold"
+                            :class="props.item.data.status == 0 || props.item.data.status == 1 ? 'green--text' : 'red--text'"
+                        >
+                            {{ LangUtil(EnumFixOrderStatus[props.item.data.status]) }}
+                        </span>
+                    </v-sheet>
+    
                     <svg-icon
-                        class="text-24 mx-3"
-                        :icon="props.item.data.status == 0 || props.item.data.status == 1 ? 'scuess' : 'failed'"
+                        icon="close"
+                        class="text-14 mr-3"
+                        @click.native="props.close"
+                        v-if="props.item.data.status != 0 && props.item.data.status != 1"
                     ></svg-icon>
-                    <div class="btnPlain--text mr-5">{{ LangUtil("订单") }}: {{ props.item.data.order_no }}</div>
-                    <v-spacer />
-                    <span
-                        class="mr-3 font-weight-bold"
-                        :class="props.item.data.status == 0 || props.item.data.status == 1 ? 'green--text' : 'red--text'"
-                    >
-                        {{ LangUtil(EnumFixOrderStatus[props.item.data.status]) }}
-                    </span>
                 </v-sheet>
-
-                <svg-icon
-                    icon="close"
-                    class="text-14 mr-3"
-                    @click.native="props.close"
-                    v-if="props.item.data.status != 0 && props.item.data.status != 1"
-                ></svg-icon>
+                <div class="text-14 red--text font-weight-bold pb-1 text-center" v-if="props.item.data.status != 1">{{props.item.data.statusMsg}}</div>
             </v-sheet>
+            
         </v-sheet>
     </template>
 </notifications>

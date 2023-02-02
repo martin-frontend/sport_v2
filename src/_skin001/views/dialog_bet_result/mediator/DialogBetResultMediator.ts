@@ -74,8 +74,10 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 break;
             case net.EventType.api_user_pending:
                 for (const item of body) {
+                    // console.warn(">>>>>>", item);
                     if (item.order_no == myProxy.pageData.order_no) {
                         myProxy.pageData.status = item.status;
+                        myProxy.pageData.statusMsg = item.statusMsg;
                     }
                     Vue.notify(<any>{
                         group: "order_finished",

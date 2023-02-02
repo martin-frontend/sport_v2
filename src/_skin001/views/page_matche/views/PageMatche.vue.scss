@@ -28,3 +28,10 @@
     bottom: 0;
     width: 100%;
 }
+
+::v-deep .v-list{
+    padding: 0;
+}
+::v-deep .v-menu__content{
+    border-radius: 0 !important
+}

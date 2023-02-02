@@ -10,7 +10,7 @@ import RightPanelProxy from "../../right_panel/proxy/RightPanelProxy";
 export default class Matche extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
-    rightProxy:RightPanelProxy = this.getProxy(RightPanelProxy);
+    rightProxy: RightPanelProxy = this.getProxy(RightPanelProxy);
     myProxy: MatcheProxy = this.getProxy(MatcheProxy);
     pageData = this.myProxy.pageData;
 
@@ -21,15 +21,33 @@ export default class Matche extends AbstractView {
         left: 0,
     };
 
+    timer = 0;
+
     constructor() {
         super(MatcheMediator);
     }
 
-    get btnsTop(){
-        switch(this.rightProxy.pageData.liveIndex){
-            case 0: return "258px";
-            case 1: return "258px";
-            case 2: return "360px";
+    mounted() {
+        this.timer = setInterval(this.resizeListHeight.bind(this), 1000);
+    }
+
+    resizeListHeight() {
+        const divlist = this.$refs.divlist;
+        if (divlist) {
+            //@ts-ignore
+            const el: HTMLElement = divlist.$el;
+            el.style.height = document.body.clientHeight - el.getBoundingClientRect().top + "px";
+        }
+    }
+
+    get btnsTop() {
+        switch (this.rightProxy.pageData.liveIndex) {
+            case 0:
+                return "258px";
+            case 1:
+                return "258px";
+            case 2:
+                return "360px";
         }
     }
 
@@ -133,10 +151,10 @@ export default class Matche extends AbstractView {
     }
 
     destroyed() {
+        clearInterval(this.timer);
         super.destroyed();
     }
 }
-
 
 // 0: {id: 231, market_type: 'OVER_UNDER', parent_id: 0, title: '大/小球', title_new: '大/小球'}
 // 1: {id: 74, market_type: 'HANDICAP', parent_id: 0, title: '让球', title_new: '让球'}

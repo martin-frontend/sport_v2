@@ -1,6 +1,6 @@
-.tabs_box {
-    background-color: transparent;
-}
+// .tabs_box {
+//     background-color: transparent;
+// }
 .theme--light {
     .tabs_box {
         border-bottom: solid 2px #e8e8e2;
@@ -31,5 +31,13 @@
         position: absolute;
         right: 0px;
         bottom: 0px;
+    }
+}
+
+.btnType{
+    // background-color: #8E8F91;
+    &.active{
+        background: linear-gradient(to right, #fcb131, #ffe64d);
+        color:#272828;
     }
 }

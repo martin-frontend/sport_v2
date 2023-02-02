@@ -16,6 +16,7 @@ export default class DialogBetResultProxy extends puremvc.Proxy {
           如果为3 頁面彈出顯示"注单编号: 2RMMXXX 下注失敗"的提示
         */
         status: 0,
+        statusMsg: "",
         order_no: "",
         create_time: 0,
         // 投注时的赛事进程
@@ -24,5 +25,10 @@ export default class DialogBetResultProxy extends puremvc.Proxy {
         isInPlay: false,
         //当前比分
         goals: "",
+
+        //赛事相关信息
+        matche: {},
+        market: {},
+        selection: {},
     };
 }

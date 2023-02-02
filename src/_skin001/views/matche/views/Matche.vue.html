@@ -1,5 +1,5 @@
 <v-sheet color="transparent">
-    <v-sheet class="d-flex align-center" :class="{'divbtns': !$vuetify.breakpoint.mobile}" :style="{'top': btnsTop}" color="bgPage">
+    <v-sheet class="d-flex align-center" color="bgPage">
         <v-sheet
             ref="boxType"
             class="btnGroup d-flex align-center mt-2 mb-1"
@@ -35,8 +35,9 @@
         </v-sheet>
     </v-sheet>
 
+    
     <!-- list -->
-    <v-sheet color="transparent" v-if="matche">
+    <v-sheet ref="divlist" :class="{'overflow-y-auto': !$vuetify.breakpoint.mobile}" color="transparent" v-if="matche">
         <v-expansion-panels
             class="mt-1"
             elevation="0"

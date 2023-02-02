@@ -16,21 +16,31 @@ export default class Live extends AbstractView {
 
     @Prop({ default: 0 }) value!: number;
     window = this.value;
+    iframeHeight = 0;
 
     @Watch("value")
     onWatchValue() {
         this.window = this.value;
     }
 
+    @Watch("window")
+    onWatchWindow() {
+        setTimeout(() => {
+            this.onWatchWidth();
+        }, 100);
+    }
+
     constructor() {
         super(LiveMediator);
     }
 
-    get height(){
-        switch(this.window){
-            case 0: return 208;
-            case 1: return 208;
-            case 2: return 310;
+    @Watch("$vuetify.breakpoint.width")
+    onWatchWidth() {
+        const divbox = this.$refs.divbox;
+        const ifr: any = this.$refs.ifr;
+        if (divbox && ifr) {
+            //@ts-ignore
+            this.iframeHeight = divbox.$el.getBoundingClientRect().width *290/400;
         }
     }
 

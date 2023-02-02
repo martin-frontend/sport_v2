@@ -11,6 +11,7 @@ import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import MarketUtils from "@/core/global/MarketUtils";
 import { amountFormat, dateFormat, TransMarketPrice } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
+import BlurUtil from "@/core/global/BlurUtil";
 
 @Component
 export default class DialogBetResult extends AbstractView {
@@ -112,5 +113,10 @@ export default class DialogBetResult extends AbstractView {
 
     onClose() {
         this.pageData.bShow = false;
+    }
+
+    @Watch("pageData.bShow")
+    onWatchShow(){
+        BlurUtil(this.pageData.bShow);
     }
 }
