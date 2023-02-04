@@ -11,13 +11,18 @@ import dialog_setting from "@/_skin001/views/dialog_setting";
 import page_live_list from "@/_skin001/views/page_live_list";
 import page_order from "@/_skin001/views/page_order";
 import BlurUtil from "@/core/global/BlurUtil";
+import { amountFormat } from "@/core/global/Functions";
+import { EnumPostMessage } from "@/enum/EnumPostMessage";
+import PlatConfig from "@/core/config/PlatConfig";
 
 @Component
 export default class HomeMobileHeader extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
-    selfProxy:SelfProxy = this.getProxy(SelfProxy);
-    settingProxy:SettingProxy = this.getProxy(SettingProxy);
+    amountFormat = amountFormat;
+    PlatConfig = PlatConfig;
+    selfProxy: SelfProxy = this.getProxy(SelfProxy);
+    settingProxy: SettingProxy = this.getProxy(SettingProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
@@ -47,16 +52,22 @@ export default class HomeMobileHeader extends AbstractView {
         page_home.showByTag(tag);
     }
     // 打开注单历史
-    onOrder(){
+    onOrder() {
         page_order.show();
     }
     // 打开设置页面
-    onSetting(){
+    onSetting() {
         dialog_setting.show();
     }
     // 打开热门直播页
-    goLiveList(){
+    goLiveList() {
         page_live_list.show();
+    }
+
+    onTopup() {
+        if (window.parent) {
+            window.parent.postMessage(EnumPostMessage.TOPUP, "*");
+        }
     }
     openHelp() {
         const dark = this.$vuetify.theme.dark;

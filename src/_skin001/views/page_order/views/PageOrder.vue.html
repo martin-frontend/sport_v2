@@ -1,107 +1,80 @@
 <div>
     <div class="header_m">
-        <v-sheet color="bgBanner" height="54" class="d-flex align-center">
+        <v-sheet height="54" class="d-flex align-center header_mbg">
             <v-btn icon @click="onBack">
-                <svg-icon class="textGray--text" icon="back2"></svg-icon>
+                <svg-icon class="white--text" icon="back2"></svg-icon>
             </v-btn>
             <v-spacer />
-            <!-- <div class="mr-10 text-18">{{LangUtil("注单历史")}}</div> -->
-            
 
             <v-btn
-                class="mx-1 rounded-pill elevation-0 font-weight-bold px-4 btnType"
-                small
+                class="mr-1 rounded-pill elevation-0 font-weight-bold px-4 btnType"
+                x-small
                 :class="{'active': listQuery.is_settle == 0}"
                 @click="onTabClick(0)"
                 min-width="120"
+                height="36"
             >
                 <span class="text-14"> {{ LangUtil("未结算") }} </span>
             </v-btn>
             <v-btn
                 class="mx-1 rounded-pill elevation-0 font-weight-bold px-4 mr-10 btnType"
-                small
+                x-small
                 :class="{'active': listQuery.is_settle == 1}"
                 @click="onTabClick(1)"
                 min-width="120"
+                height="36"
             >
                 <span class="text-14"> {{ LangUtil("已结算") }} </span>
             </v-btn>
             <v-spacer />
         </v-sheet>
+    </div>
 
-        <!-- <v-sheet class="tabs_box" color="bgPage">
-            <v-divider />
-            <v-tabs color="btnPlain" height="44" fixed-tabs background-color="transparent" slider-color="yellow">
-                <v-tab @click="onTabClick(0)"><span class="text-14">{{LangUtil("未结算")}}</span></v-tab>
-                <v-tab @click="onTabClick(1)"><span class="text-14">{{LangUtil("已结算")}}</span></v-tab>
-            </v-tabs>
-        </v-sheet> -->
+    <v-sheet class="mx-2 mt-2 rounded-lg overflow-hidden font-weight-bold" height="40" color="transparent" v-if="listQuery.is_settle == 1">
+        <v-tabs
+            height="40"
+            slider-color="yellow1"
+            background-color="bgBanner"
+            slider-size="2"
+            grow
+            active-class="tabsActive"
+            v-model="pageData.isActive"
+        >
+            <v-tab @click="onLimitOrder(0)">{{LangUtil('今日')}}</v-tab>
+            <v-tab @click="onLimitOrder(-1)">{{LangUtil('昨天')}}</v-tab>
+            <v-tab @click="onLimitOrder(7)">{{LangUtil('7天')}}</v-tab>
+            <v-tab @click="onLimitOrder(30)">{{LangUtil('近30日')}}</v-tab>
+        </v-tabs>
+    </v-sheet>
 
-        <v-sheet class="rounded d-flex" color="bgPage" height="30" v-if="listQuery.is_settle == 1">
-            <v-btn
-                text
-                height="30"
-                plain
-                min-width="50"
-                @click="onLimitOrder(0)"
-                class="font-weight-bold flex-1"
-                :class="pageData.isActive == 0 ? 'active': ''"
-                >{{LangUtil('今日')}}
-            </v-btn>
-            <v-btn
-                text
-                height="30"
-                plain
-                min-width="50"
-                @click="onLimitOrder(-1)"
-                class="font-weight-bold flex-1"
-                :class="pageData.isActive == -1 ? 'active': ''"
-                >{{LangUtil('昨天')}}</v-btn
-            >
-            <v-btn
-                text
-                height="30"
-                plain
-                min-width="50"
-                @click="onLimitOrder(7)"
-                class="font-weight-bold flex-1"
-                :class="pageData.isActive == 7 ? 'active': ''"
-            >
-                {{LangUtil('7天')}}</v-btn
-            >
-            <v-btn
-                text
-                height="30"
-                plain
-                min-width="50"
-                @click="onLimitOrder(30)"
-                class="font-weight-bold flex-1"
-                :class="pageData.isActive == 30 ? 'active': ''"
-                >{{LangUtil('近30日')}}</v-btn
-            >
-        </v-sheet>
-        <v-sheet v-if="pageData.list.length != 0" color="bgPage" class="d-flex justify-start py-1 px-2 text-12">
-            <div class="mr-2 _title">{{LangUtil("投注数量")}} <span class="blackText--text"> {{pageData.stats.total_count}}</span></div>
-            <div class="mr-2 _title">
+    <v-sheet
+        v-if="pageData.list.length != 0"
+        color="bgBanner"
+        class="d-flex align-center px-2 rounded-lg mt-2 mx-2 py-1 text-12 font-weight-bold"
+    >
+        <v-sheet width="2" height="16" color="yellow" class="mr-2"></v-sheet>
+        <div>
+            <span class="mr-2 _title">{{LangUtil("投注数量")}} <span class="blackText--text"> {{pageData.stats.total_count}}</span></span>
+            <span class="mr-2 _title">
                 {{LangUtil("投注额度")}}
                 <span class="blackText--text"> {{GlobalVar.currency}} {{ amountFormat(pageData.stats.total_stake,true)}}</span>
-            </div>
-            <div v-if="listQuery.is_settle == 1" class="mr-2 _title">
+            </span>
+            <span v-if="listQuery.is_settle == 1" class="mr-2 _title">
                 {{LangUtil("输赢")}}
                 <span :class="pageData.stats.total_win >= 0 ? 'success--text' : 'error--text'"
                     >{{GlobalVar.currency}} {{pageData.stats.total_win>=0 ? "+" : ""}}{{
                     amountFormat(pageData.stats.total_win,true,3)}}</span
                 >
-            </div>
-        </v-sheet>
-    </div>
+            </span>
+        </div>
+    </v-sheet>
 
-    <div ref="divScroll" class="box-scroll overflow-hidden pb-16">
+    <div ref="divScroll" class="overflow-hidden pb-16">
         <div v-if="!$vuetify.breakpoint.mobile">
             <!-- pc -->
             <v-sheet v-if="pageData.list.length>0">
                 <v-sheet
-                    color="grayBackground"
+                    color="bgBanner"
                     class="mx-2 mt-1 pt-1 pb-3 text-12 rounded default-color"
                     v-for="(item, index) in pageData.list"
                     :key="index"
@@ -140,7 +113,7 @@
                         <div class="my-2 custom-hr"></div>
 
                         <v-sheet width="100%">
-                            {{LangUtil("订单状态")}}
+                            <span class="textGray--text">{{LangUtil("订单状态")}}</span>
                             <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">
                                 {{statusMap[item.status]}}
                             </span>
@@ -200,15 +173,16 @@
             <!-- 手机 -->
             <load_more @onRefresh="onRefresh" @onLoad="onLoad" :finished="pageData.finished" :listNodata="pageData.list.length == 0">
                 <v-sheet
-                    color="grayBackground"
-                    class="mx-2 mt-1 pt-1 pb-3 text-12 rounded default-color"
+                    color="bgBanner"
+                    class="mx-2 mt-2 pt-2 pb-3 text-12 rounded default-color"
                     v-for="(item, index) in pageData.list"
                     :key="index"
                 >
                     <div class="d-flex align-center">
-                        <div class="ml-2 text-14 font-weight-bold">{{item.cpn}}</div>
+                        <v-sheet width="2" height="16" color="yellow" class="mx-2"></v-sheet>
+                        <div class="text-16 text-truncate font-weight-bold">{{item.cpn}}</div>
                     </div>
-                    <v-sheet class="mx-3 mt-2 rounded pa-3 order-content">
+                    <v-sheet class="ml-4 mr-2 mt-2 rounded pa-0 order-content" color="transparent">
                         <div class="d-flex text-14 font-weight-bold top-text">
                             <div v-if="item.c_type == 2">{{item.content}}</div>
                             <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}</div>
@@ -232,15 +206,15 @@
                                 {{getHadResultStr(item)}}
                             </span>
                         </div>
-                        <v-sheet class="text-14" v-if="listQuery.is_settle != 1">
+                        <v-sheet class="text-14" v-if="listQuery.is_settle != 1" color="transparent">
                             <span>{{ getStateStr(myProxy.event_states(item)).states_str}}</span>
                             <span class="font-weight-bold"> {{getStateStr(myProxy.event_states(item)).scoreStr}}</span>
                         </v-sheet>
-                        <div class="my-2 custom-hr"></div>
+                        <div class="my-2 mx-n2 line"></div>
                         <!-- <v-divider class="my-2"/> -->
 
-                        <v-sheet width="100%">
-                            {{LangUtil("订单状态")}}
+                        <v-sheet width="100%" color="transparent">
+                            <span class="textGray--text mr-1">{{LangUtil("订单状态")}}</span>
                             <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} "
                                 >{{statusMap[item.status]}}</span
                             >
@@ -249,33 +223,36 @@
                             {{LangUtil(item.mark)}}
                         </div>
 
-                        <v-sheet width="100%">
-                            {{LangUtil("投注金额")}}
+                        <v-sheet width="100%" color="transparent">
+                            <span class="textGray--text mr-1">{{LangUtil("投注金额")}}</span>
                             <span class="font-weight-bold">{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
                         </v-sheet>
 
-                        <v-sheet width="100%" v-if="listQuery.is_settle == 0">
-                            {{getdisplayResultStr(item)}}
+                        <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
+                            <span class="textGray--text mr-1">{{getdisplayResultStr(item)}} </span>
                             <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}"
                                 >{{getDisplayResult(item).str}}
                             </span>
                         </v-sheet>
-                        <v-sheet width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{item.order_no}}</span></v-sheet>
-                        <v-sheet width="100%">
-                            {{LangUtil("投注时间")}}
-                            <span class="font-weight-bold">
-                                {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
+                        <v-sheet width="100%" color="transparent">
+                            <span class="textGray--text mr-1">{{LangUtil("订单编号")}}</span>
+                            <span class="font-weight-bold">{{item.order_no}}</span></v-sheet
+                        >
+                        <v-sheet width="100%" color="transparent">
+                            <span class="textGray--text mr-1">{{LangUtil("投注时间")}}</span>
+                            <span class="font-weight-bold"
+                                >{{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
                             </span>
                         </v-sheet>
 
-                        <v-sheet width="100%" v-if="listQuery.is_settle">
-                            {{LangUtil("结算时间")}}
-                            <span class="font-weight-bold">
-                                {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
+                        <v-sheet width="100%" color="transparent" v-if="listQuery.is_settle">
+                            <span class="textGray--text mr-1">{{LangUtil("结算时间")}}</span>
+                            <span class="font-weight-bold"
+                                >{{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
                             </span>
                         </v-sheet>
 
-                        <v-sheet width="100%" class="d-flex justify-end" v-if="listQuery.is_settle && item.status == 1">
+                        <v-sheet width="100%" color="transparent" class="d-flex justify-end" v-if="listQuery.is_settle && item.status == 1">
                             <span class="mr-1">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
                             <span class="font-weight-bold" :class="item.win>=0 ? 'success--text' : 'error--text' ">
                                 {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}

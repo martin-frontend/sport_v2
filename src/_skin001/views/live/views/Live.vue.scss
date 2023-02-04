@@ -2,10 +2,17 @@
     .downcount {
         border: solid 2px #e8e8e2;
     }
+    .btns{
+        border: solid 1px #E8E8E3 !important;
+        background-color: transparent;
+    }
 }
 .theme--dark {
     .downcount {
         border: solid 2px #333435;
+    }
+    .btns{
+        background-color: #323435 ;
     }
 }
 .dateitem {
@@ -19,4 +26,8 @@
 }
 ::v-deep .v-skeleton-loader__image {
     height: 208px !important;
+}
+
+.live_tex {
+    background: url("~@/_skin001/assets/live_texture.png") no-repeat right 0px bottom 0px;
 }

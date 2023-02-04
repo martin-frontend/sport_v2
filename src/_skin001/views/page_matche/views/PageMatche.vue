@@ -14,5 +14,8 @@ import PageMatche from "./PageMatche";
     }
 })
 export default class extends PageMatche {
+    mounted() {
+        window.scrollTo(0, 0);
+    }
 }
 </script>

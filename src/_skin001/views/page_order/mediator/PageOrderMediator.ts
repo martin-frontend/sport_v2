@@ -4,6 +4,10 @@ import getProxy from "@/core/global/getProxy";
 import net from "@/net/setting";
 
 export default class PageOrderMediator extends AbstractMediator {
+    public onRemove(): void {
+        this.facade.removeProxy(PageOrderProxy.NAME);
+    }
+
     public listNotificationInterests(): string[] {
         return [net.EventType.api_user_orders, net.EventType.api_event_states];
     }

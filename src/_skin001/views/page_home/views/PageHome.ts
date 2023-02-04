@@ -5,13 +5,20 @@ import PageHomeProxy from "../proxy/PageHomeProxy";
 import LangUtil from "@/core/global/LangUtil";
 import { MatchVO } from "@/vo/MatchVO";
 import GlobalVar from "@/core/global/GlobalVar";
+import SettingProxy from "@/proxy/SettingProxy";
+import page_home from "..";
+import page_order from "../../page_order";
+import dialog_setting from "../../dialog_setting";
+import page_live_list from "../../page_live_list";
 
 @Component
 export default class PageHome extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
+    settingProxy: SettingProxy = this.getProxy(SettingProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
+    listQueryComp = this.myProxy.listQueryComp;
 
     constructor() {
         super(PageHomeMediator);
@@ -66,6 +73,47 @@ export default class PageHome extends AbstractView {
             return selections;
         }
         return [];
+    }
+
+
+
+
+
+    getTagNum(tag: string) {
+        if (tag == "love") {
+            return this.pageData.love_count;
+        } else {
+            const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
+            return findItem?.num;
+        }
+    }
+
+    onQuerySort(sort: string) {
+        this.settingProxy.pageData.form.sort = sort;
+        this.settingProxy.api_user_set_user_setting();
+        this.listQueryComp.sort = sort;
+        page_home.showEventList();
+    }
+
+    //搜寻
+    onSearch() {
+        page_home.showByKeyword(this.listQueryComp.keyword);
+    }
+
+    onQueryTagType(tag: string) {
+        page_home.showByTag(tag);
+    }
+    // 打开注单历史
+    onOrder() {
+        page_order.show();
+    }
+    // 打开设置页面
+    onSetting() {
+        dialog_setting.show();
+    }
+    // 打开热门直播页
+    goLiveList() {
+        page_live_list.show();
     }
 
     destroyed() {

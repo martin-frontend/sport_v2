@@ -44,8 +44,12 @@ export default class PageOrderProxy extends puremvc.Proxy {
         "settle_time-{<=}": "",
     };
     onRegister() {
-        
+        this.onReset();
+        this.api_user_orders();
         this.init();
+    }
+    onRemove(): void {
+        clearInterval(this.timer);
     }
     init() {
         clearInterval(this.timer);

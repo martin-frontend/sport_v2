@@ -30,6 +30,7 @@
                     <v-col :cols="$vuetify.breakpoint.mobile ? 12 : 8">
                         <v-sheet
                             class="overflow-y-auto overflow-x-hidden"
+                            v-scroll.self="onScroll"
                             width="100%"
                             color="transparent"
                             :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
@@ -81,6 +82,7 @@ import Navigation from "./views/navigation/views/Navigation.vue";
 import RightPanel from "./views/right_panel/views/RightPanel.vue";
 import NotifyMessage from "./views/widget/notify_message/NotifyMessage.vue";
 import NotifyOrderFinished from "./views/widget/notify_order_finished/NotifyOrderFinished.vue";
+import { removeClass } from "@/core/global/Functions";
 @Component({
     components: {
         Header,
@@ -101,6 +103,13 @@ export default class extends APP {
     @Watch("betProxy.pageData.activeCount")
     onWatchBet() {
         this.isShowBet = this.betProxy.pageData.list.length > 0;
+    }
+
+    onScroll() {
+        const eles: any = document.getElementsByClassName("v-tooltip__content");
+        for (const ele of eles) {
+            removeClass(ele, "menuable__content__active");
+        }
     }
 }
 </script>

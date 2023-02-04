@@ -56,7 +56,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         this.listQuery.page_count = 1;
         this.api_user_orders();
     }
-    clear(){
+    clear() {
         clearInterval(this.timer);
     }
 
@@ -79,18 +79,16 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         this.pageData.loading = false;
         Object.assign(this.pageData.stats, data.stats);
         Object.assign(this.pageData.pageInfo, data.pageInfo);
-        const vuetify = Vue.vuetify;
-        if (vuetify.framework.breakpoint.mobile) {
-            const { pageCount, pageCurrent } = this.pageData.pageInfo;
-            if (pageCurrent == 1) {
-                this.pageData.list = data.list;
-            } else {
-                this.pageData.list.push(...data.list);
-            }
-            this.pageData.finished = pageCurrent == pageCount;
-            this.pageData.done && this.pageData.done();
+        const { pageCount, pageCurrent } = this.pageData.pageInfo;
+        if (pageCurrent == 1) {
+            this.pageData.list = data.list;
         } else {
             this.pageData.list.push(...data.list);
+        }
+        const vuetify = Vue.vuetify;
+        if (vuetify.framework.breakpoint.mobile) {
+            this.pageData.finished = pageCurrent == pageCount;
+            this.pageData.done && this.pageData.done();
         }
 
         this.api_event_states();

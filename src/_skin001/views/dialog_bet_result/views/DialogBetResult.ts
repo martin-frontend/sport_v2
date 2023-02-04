@@ -117,6 +117,12 @@ export default class DialogBetResult extends AbstractView {
 
     @Watch("pageData.bShow")
     onWatchShow(){
-        BlurUtil(this.pageData.bShow);
+        if(this.pageData.bShow){
+            setTimeout(() => {
+                BlurUtil(this.pageData.bShow);
+            }, 200);
+        }else{
+            BlurUtil(this.pageData.bShow);
+        }
     }
 }

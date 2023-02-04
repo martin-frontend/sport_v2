@@ -10,7 +10,6 @@
                 class="d-flex align-center btnPlain--text hand mr-2"
                 color="transparent"
                 max-width="70%"
-                height="230"
                 @click="pageData.isShowLiveList = !pageData.isShowLiveList"
                 v-if="competition"
             >
@@ -29,7 +28,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet color="transparent" v-bind="attrs" v-on="on">
                             <svg-icon
-                                class="text-26 hand textGray--text"
+                                class="text-26 hand mr10 textGray--text"
                                 :icon="pageData.liveIndex==0 ? 'score1_' : 'score1'"
                                 @click.native="pageData.liveIndex = 0"
                             ></svg-icon>
@@ -40,12 +39,12 @@
                     </v-sheet>
                 </v-tooltip>
             </div>
-            <div>
+            <div v-if="matche && matche.live_status == 1">
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet color="transparent" v-bind="attrs" v-on="on">
                             <svg-icon
-                                class="text-28 hand mx10 textGray--text"
+                                class="text-28 hand mr10 textGray--text"
                                 :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
                                 @click.native="pageData.liveIndex = 1"
                             ></svg-icon>
@@ -56,7 +55,7 @@
                     </v-sheet>
                 </v-tooltip>
             </div>
-            <div v-if="matche && matche.animation_id">
+            <div v-if="matche && matche.animation_status == 1">
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet color="transparent" v-bind="attrs" v-on="on">

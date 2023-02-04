@@ -30,6 +30,10 @@ export default class Live extends AbstractView {
         }, 100);
     }
 
+    mounted() {
+        this.onWatchWidth();
+    }
+
     constructor() {
         super(LiveMediator);
     }
@@ -40,7 +44,7 @@ export default class Live extends AbstractView {
         const ifr: any = this.$refs.ifr;
         if (divbox && ifr) {
             //@ts-ignore
-            this.iframeHeight = divbox.$el.getBoundingClientRect().width *290/400;
+            this.iframeHeight = (divbox.$el.getBoundingClientRect().width * 290) / 400;
         }
     }
 
