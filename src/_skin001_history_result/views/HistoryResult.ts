@@ -30,6 +30,8 @@ export default class PageOrderDetail extends AbstractView{
     GlobalVar=GlobalVar;
     isloadSecLang = false;
     bShowDateSelect= false;
+    SelectDate1 = "";
+    SelectDate2 = "";
     nowtime :any;
     form = {
         lang: getQueryVariable("lang") || "zh_CN",
@@ -102,6 +104,7 @@ export default class PageOrderDetail extends AbstractView{
      onLimitOrder(type: any) {
         this.pageData.isActive = type;
         this.myProxy.get_order_by_limit(type);
+        this.onWatchselectDate();
     }
     onSelectDate(){
         this.bShowDateSelect = false;
@@ -116,15 +119,17 @@ export default class PageOrderDetail extends AbstractView{
         if (sel1 && sel2 && Date.parse(sel1) > Date.parse(sel2)) {
             this.myProxy.selectDate = [sel2,sel1];
         }
+        this.SelectDate1 = <any>this.getSelectDate1();
+        this.SelectDate2 = <any>this.getSelectDate2();
 
     }
-    get getSelectDate1(){
+    getSelectDate1(){
         if (!this.myProxy.selectDate[0]) return null
 
         const [year, month, day] = this.myProxy.selectDate[0].split('-')
         return `${year}/${month}/${day}`
     }
-    get getSelectDate2(){
+    getSelectDate2(){
         if (!this.myProxy.selectDate[1]) return null
 
         const [year, month, day] = this.myProxy.selectDate[1].split('-')
