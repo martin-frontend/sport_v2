@@ -1,0 +1,56 @@
+::v-deep .v-expansion-panel:before {
+    box-shadow: unset !important;
+}
+.relative {
+    position: relative;
+}
+.absolute {
+    position: absolute;
+}
+
+::v-deep .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+    box-shadow: none;
+
+}
+::v-deep .v-input__slot{
+    background-color: #ffff;
+}
+
+::v-deep .v-icon.v-icon {
+    font-size: 16px;
+}
+
+.active {
+    border-bottom: 3px solid #1b79f2;
+    color: #1b79f2;
+}
+
+
+.tag-btn-active {
+    border-radius: 25px;
+    border: 2px solid #FFCD43;
+    
+}
+.def-border{
+    border: 2px solid #E8E8E2;
+}
+.theme--dark .def-border  {
+    border: 2px solid #333435;
+}
+.tag-btn-noactive {
+    border-radius: 25px;
+  
+}
+.box-scroll {
+    max-height: calc(100vh - 250px);;
+    overflow-y: scroll;
+}
+.d-grid{
+    display: grid;
+}
+.theme--light .bold_divider  {
+    border: 1px solid #C8CAD0;
+}
+.theme--dark .bold_divider  {
+    border: 1px solid #5A5A5A;
+}

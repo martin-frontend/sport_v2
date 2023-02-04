@@ -1,0 +1,100 @@
+<v-app v-if="isloadSecLang" class="d-flex justify-center">
+    <v-sheet height="100%">
+    <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
+        <v-sheet class="d-flex">
+            <span class="text-20  font-weight-bold">{{LangUtil("帮助中心")}}</span>
+        </v-sheet>
+    </v-sheet>
+    <v-divider width="100%" />
+    <v-sheet class="d-flex textGray--text align-center" >
+        <svg-icon class="ml-6" icon="search"></svg-icon>
+        <v-text-field color="transparent" solo :label="LangUtil('过滤当前页面指定内容')" style="max-height: 36px;" 
+        class="my-3" hide-details dense v-model="pageData.searchTxt"></v-text-field>
+        
+    </v-sheet>
+    
+    <v-divider class="ml-5 bold_divider"  width="97%" />
+    <v-sheet class="d-flex font-weight-medium mt-5 ml-5" style="overflow-x: scroll;">
+
+        <v-btn v-for="(item, index) in myProxy.pageData.type" :key="item.id " text height="36"
+            @click="pageData.tabIndex = item.id" class="text-gray1 " 
+            :class="[ pageData.tabIndex == item.id ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text',$vuetify.breakpoint.mobile ? 'mr-2' : 'mr-5']"><span
+                class="font-weight-bold text-14">{{item.name}}</span>
+        </v-btn>
+    </v-sheet>
+    <div class="box-scroll" ref="divScroll">
+        <v-sheet v-if="pageData.tabIndex == 1 && myProxy.pageData.type[0].list" color="transparent" key="1" >
+            
+            <v-expansion-panels accordion class="px-5 mt-5" flat>
+                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
+                  v-for="(item,i) in myProxy.pageData.type[0].list"
+                  :key="i"
+                >
+                
+                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center "  >
+                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub> 
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <GeneralItem :data="item.content" ></GeneralItem>
+
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+        </v-sheet>
+        <v-sheet v-else-if="pageData.tabIndex == 2 && myProxy.pageData.type[1].list" color="transparent" key="2"  >
+            
+            <v-expansion-panels accordion class="px-5 mt-5" flat>
+                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
+                  v-for="(item,i) in myProxy.pageData.type[1].list"
+                  :key="i"
+                >
+                
+                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
+                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <GeneralItem :data="item.content" ></GeneralItem>
+
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+        </v-sheet>
+        <v-sheet v-else-if="pageData.tabIndex == 3 && myProxy.pageData.type[2].list" color="transparent" key="3" >
+            
+            <v-expansion-panels accordion class="px-5 mt-5" flat >
+                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
+                  v-for="(item,i) in myProxy.pageData.type[2].list"
+                  :key="i"
+                >
+                
+                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
+                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content >
+                    <GeneralItem :data="item.content" ></GeneralItem>
+
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+        </v-sheet>
+        
+        <div v-else-if="pageData.tabIndex == 4" key="4" >
+            <v-expansion-panels accordion class="px-5 mt-5" flat>
+                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
+                  v-for="(item,i) in myProxy.pageData.type[3].list"
+                  :key="i"
+                >
+                
+                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
+                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub>
+                  </v-expansion-panel-header>
+                  <v-expansion-panel-content>
+                    <GeneralItem :data="item.content" ></GeneralItem>
+
+                  </v-expansion-panel-content>
+                </v-expansion-panel>
+              </v-expansion-panels>
+        </div>
+    </div>
+</v-sheet>
+</v-app>

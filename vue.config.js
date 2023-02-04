@@ -73,5 +73,11 @@ module.exports = {
             filename: "skin001_history_result.html",
             title: "history",
         },
+        skin001_help: {
+            entry: "src/_skin001_help/main.ts",
+            template: "public/index001_help.html",
+            filename: "skin001_help.html",
+            title: "help",
+        },
     },
 };

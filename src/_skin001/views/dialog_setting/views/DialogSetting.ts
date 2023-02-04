@@ -20,7 +20,8 @@ export default class DialogSetting extends AbstractView {
     }
 
     openCompetionResult() {
-        const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}`;
+        const dark = this.$vuetify.theme.dark;
+        const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         OpenLink(link);
     }
 
