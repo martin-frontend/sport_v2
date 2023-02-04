@@ -23,9 +23,9 @@ export default class LiveMediator extends AbstractMediator {
                     myProxy.set_event_states(body);
                 }
                 break;
-            case net.EventType.api_event_live_url:
-                myProxy.set_event_live_url(body);
-                break;
+            // case net.EventType.api_event_live_url:
+            //     myProxy.set_event_live_url(body);
+            //     break;
         }
     }
 }

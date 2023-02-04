@@ -6,11 +6,15 @@ import Component from "vue-class-component";
 import Live from "./Live";
 //@ts-ignore
 import LivePlayer from "@liveqing/liveplayer";
+import CardRed from "../../widget/card_red/CardRed.vue";
+import CardYellow from "../../widget/card_yellow/CardYellow.vue";
 
 @Component({
     components: {
-        LivePlayer
-    }
+        LivePlayer,
+        CardRed,
+        CardYellow,
+    },
 })
 export default class extends Live {
     mounted() {

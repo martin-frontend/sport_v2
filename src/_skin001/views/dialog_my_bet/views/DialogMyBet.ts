@@ -8,11 +8,15 @@ import GlobalVar from "@/core/global/GlobalVar";
 import SelfProxy from "@/proxy/SelfProxy";
 import { EnumPostMessage } from "@/enum/EnumPostMessage";
 import BlurUtil from "@/core/global/BlurUtil";
+import { amountFormat } from "@/core/global/Functions";
+import PlatConfig from "@/core/config/PlatConfig";
 
 @Component
 export default class DialogMyBet extends AbstractView {
     LangUtil = LangUtil;
-    GlobalVar = GlobalVar
+    GlobalVar = GlobalVar;
+    amountFormat = amountFormat;
+    PlatConfig = PlatConfig;
     selfProxy: SelfProxy = this.getProxy(SelfProxy);
     betProxy: BetProxy = this.getProxy(BetProxy);
     myProxy: DialogMyBetProxy = this.getProxy(DialogMyBetProxy);
@@ -48,7 +52,7 @@ export default class DialogMyBet extends AbstractView {
     }
 
     @Watch("pageData.bShow")
-    onWatchShow(){
+    onWatchShow() {
         BlurUtil(this.pageData.bShow);
     }
 }

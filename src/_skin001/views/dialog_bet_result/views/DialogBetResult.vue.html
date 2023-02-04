@@ -9,7 +9,7 @@
     <v-card class="pb-2 rounded-lg" color="bgBanner">
         <v-card-title>
             <v-sheet width="3" height="22" color="yellow"></v-sheet>
-            <div class="text-18 ml10" v-if="competition">{{competition.competition_name}}</div>
+            <div class="text-18 ml10 comp text-truncate" v-if="competition">{{competition.competition_name}}</div>
             <v-spacer />
             <v-btn class="mr-n3" icon @click="onClose">
                 <svg-icon icon="close"></svg-icon>

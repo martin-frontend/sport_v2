@@ -32,10 +32,28 @@ export function dateFormat(d: any, fmt: any): string {
     return fmt;
 }
 
+// /**按时区获取时间, 默认GMT0 */
+// export function getDateByTimeZone(time: number, timezone: any = 0) {
+//     const offset_gmt = new Date().getTimezoneOffset();
+//     const d = new Date(time + offset_gmt * 60 * 1000 + timezone * 60 * 60 * 1000);
+//     return d;
+// }
+
+/**时区转换 分钟转小时
+ * input: 9 或9:30 output 9 或9.5
+ */
+function formatTimeZone(zone: any) {
+    if (isNaN(zone - 0)) {
+        const zoneArr = zone.split(":");
+        return zoneArr[0] - 0 + zoneArr[1] / 60 - 0;
+    } else {
+        return zone - 0;
+    }
+}
 /**按时区获取时间, 默认GMT0 */
 export function getDateByTimeZone(time: number, timezone: any = 0) {
     const offset_gmt = new Date().getTimezoneOffset();
-    const d = new Date(time + offset_gmt * 60 * 1000 + timezone * 60 * 60 * 1000);
+    const d = new Date(time + offset_gmt * 60 * 1000 + formatTimeZone(timezone) * 60 * 60 * 1000);
     return d;
 }
 
@@ -178,8 +196,8 @@ export function getTodayOffset(offset = 0, offsetSecond = 0): any {
         }
     }
     const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000*offset, GlobalVar.zone);
-    const formatdate = dateFormat(today, "yyyy-MM-dd")
-    const timestr = (Date.parse(dateFormat(today, "yyyy-MM-dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
+    const formatdate = dateFormat(today, "yyyy/MM/dd")
+    const timestr = (Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
     return {timestr,formatdate};
 }
 /**

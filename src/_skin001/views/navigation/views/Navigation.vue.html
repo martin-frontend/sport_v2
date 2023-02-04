@@ -134,7 +134,7 @@
             </v-list>
         </v-window-item>
 
-        <v-window-item>
+        <v-window-item v-if="!$vuetify.breakpoint.mobile">
             <v-sheet class="d-flex align-center justify-center rounded-10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
                 <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="window=0">
                     <svg-icon icon="back1" class="text-22"></svg-icon>
@@ -144,7 +144,7 @@
             <MyBet />
         </v-window-item>
 
-        <v-window-item>
+        <v-window-item v-if="!$vuetify.breakpoint.mobile">
             <v-sheet class="d-flex align-center justify-center rounded-10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
                 <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="onExitOrderUnsettled">
                     <svg-icon icon="back1" class="text-22"></svg-icon>
@@ -156,7 +156,7 @@
             </div>
         </v-window-item>
 
-        <v-window-item>
+        <v-window-item v-if="!$vuetify.breakpoint.mobile">
             <v-sheet class="d-flex align-center justify-center rounded-10 btnPlain--text mb-2 navtitle" height="48" color="bgBanner">
                 <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="window=0">
                     <svg-icon icon="back1" class="text-22"></svg-icon>

@@ -65,8 +65,66 @@
 
     <!-- 手机header -->
     <HomeMobileHeader v-if="$vuetify.breakpoint.mobile" />
+    <!-- 手机tag标签 -->
+    <v-sheet color="bgBanner" class="mx-2 my-2 rounded-lg d-flex align-center" height="46">
+        <v-sheet class="d-flex btnGroup px-2 mx-2 my-1 text-14" color="bgBanner">
+            <v-btn
+                v-for="(item, key) of pageData.menu_subnav.top"
+                :key="key"
+                :disabled="getTagNum(item.tag) == 0"
+                @click="onQueryTagType(item.tag)"
+                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text"
+                :class="{'active': listQueryComp.tag == item.tag}"
+                max-height="30"
+            >
+                {{ LangUtil(item.name) }}
+                <div class="text-12 mb-2">{{getTagNum(item.tag)}}</div>
+            </v-btn>
+    
+            <v-btn
+                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text"
+                :class="{'active': listQueryComp.tag == 'love'}"
+                @click="onQueryTagType('love')"
+                :disabled="getTagNum('love') == 0"
+                max-height="30"
+            >
+                {{ LangUtil("关注") }}
+                <div class="text-12 mb-2">{{getTagNum('love')}}</div>
+            </v-btn>
+        </v-sheet>
+    </v-sheet>
+    
+    <!-- 搜索 -->
+    <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner">
+        <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" width="100%" height="30">
+            <input class="text-14 text-truncate bgColor1--text" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="listQueryComp.keyword" />
+            <svg-icon icon="search" @click.native="onSearch"></svg-icon>
+        </v-sheet>
+        <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="30">
+            <v-sheet
+                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14"
+                :class=" settingProxy.pageData.form.sort == 'time' ? 'btnPlain--text' : 'textGray--text'"
+                color="transparent"
+                @click="onQuerySort('time')"
+            >
+                {{LangUtil("时间")}}
+            </v-sheet>
+            <svg-icon icon="change"></svg-icon>
+            <v-sheet
+                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14"
+                :class=" settingProxy.pageData.form.sort == 'comp' ? 'btnPlain--text' : 'textGray--text'"
+                color="transparent"
+                @click="onQuerySort('comp')"
+            >
+                {{LangUtil("联赛")}}
+            </v-sheet>
+        </v-sheet>
+        <btn-yellow minWidth="60" height="30" :rounded5="true" @click.native="goLiveList"
+            ><span class="text-14">{{LangUtil("直播")}}</span></btn-yellow
+        >
+    </v-sheet>
 
-    <v-expansion-panels class="mt-1 px10" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="$vuetify.breakpoint.mobile">
+    <v-expansion-panels class="mt-2 px-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="$vuetify.breakpoint.mobile">
         <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
             <v-expansion-panel-header elevation="0" rounded="lg" height="54" color="bgBanner">
                 <template v-slot:default="{ open }">
@@ -76,6 +134,8 @@
                         </v-sheet>
                         <v-img :src="competition.country_icon" contain max-width="20" width="20" height="20" class="mx10"></v-img>
                         <div class="font-weight-bold text-14">{{competition.competition_name}}</div>
+                        <v-spacer/>
+                        <svg-icon class="mr10 textGray--text text-12" icon="zoom_out" :class="open ? 'arrow-up' : 'arrow-down'"></svg-icon>
                     </div>
                 </template>
             </v-expansion-panel-header>

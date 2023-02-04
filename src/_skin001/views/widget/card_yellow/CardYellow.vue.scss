@@ -1,0 +1,14 @@
+.box {
+    background: linear-gradient(to right, #FECD42, #FFAF00);
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    &::before {
+        content: "";
+        background: url("~@/_skin001/assets/card_guang.png") no-repeat left 0px top 0px;
+        background-size: contain;
+        position: absolute;
+        width: 16px;
+        height: 22px;
+    }
+}

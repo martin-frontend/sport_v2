@@ -1,19 +1,19 @@
 <div>
-    <v-sheet color="bgBanner" height="54" class="d-flex align-center header_m">
+    <v-sheet color="bgBanner" height="54" class="d-flex align-center header_m header_mbg">
         <v-btn icon @click="onBack">
-            <svg-icon class="textGray--text" icon="back2"></svg-icon>
+            <svg-icon class="white--text" icon="back2"></svg-icon>
         </v-btn>
 
         <v-menu offset-y nudge-top="-10" v-model="pageData.isShowList">
             <template v-slot:activator="{ on, attrs }">
-                <v-sheet class="d-flex align-center btnPlain--text hand" color="transparent" v-bind="attrs" v-on="on">
-                    <div class="text-16 mr10 text-truncate">{{getCompetitionName()}}</div>
-                    <div class="text-12 textGray--text" :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'">
+                <v-sheet class="d-flex align-center btnPlain--text hand" width="60%" color="transparent" v-bind="attrs" v-on="on">
+                    <div class="text-16 mr10 text-truncate font-weight-bold">{{getCompetitionName()}}</div>
+                    <div class="text-12 white--text" :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'">
                         <svg-icon icon="zoom_out"></svg-icon>
                     </div>
                 </v-sheet>
             </template>
-            <v-card color="bgTips" width="100vw" min-height="60vh" elevation="0">
+            <v-card color="bgTips" width="100vw" min-height="60vh" elevation="0" class="matche_list">
                 <v-list>
                     <v-list-item-group v-model="currIndex">
                         <template v-for="(matche, index) in matches">
@@ -49,17 +49,17 @@
         </v-menu>
 
         <v-spacer />
-        <v-btn icon  @click="openHelp">
-            <svg-icon class="text-20 textGray--text" icon="help"></svg-icon>
+        <v-btn icon @click="openHelp">
+            <svg-icon class="text-20 iconHeaderColor--text" icon="help"></svg-icon>
         </v-btn>
         <v-btn icon class="ml-1 mr-3" @click="onOrder">
-            <svg-icon class="text-20 textGray--text" icon="history"></svg-icon>
+            <svg-icon class="text-20 iconHeaderColor--text" icon="history"></svg-icon>
         </v-btn>
         <v-divider class="line" />
     </v-sheet>
 
     <div id="div_content">
-        <v-sheet class="tabs_box text-24">
+        <!-- <v-sheet class="tabs_box text-24">
             <v-tabs color="btnPlain" fixed-tabs background-color="transparent" slider-color="yellow" v-model="pageData.liveIndex">
                 <v-tab>
                     <svg-icon class="text-24 mr-1" :icon="pageData.liveIndex == 0 ? 'score1_' : 'score1'"></svg-icon>{{LangUtil("比分")}}
@@ -71,7 +71,7 @@
                     <svg-icon class="text-24 mr-1" :icon="pageData.liveIndex == 2 ? 'animate_' : 'animate'"></svg-icon>{{LangUtil("动画")}}
                 </v-tab>
             </v-tabs>
-        </v-sheet>
+        </v-sheet> -->
         <Live v-model="pageData.liveIndex" class="mx10 mt10" />
         <Matche class="mx10 mt-1" />
     </div>

@@ -1,57 +1,88 @@
-<div>
+<div class="header_m">
     <!-- header -->
-    <v-sheet color="bgBanner" height="55" class="header_m header_mbg">
+    <v-sheet  height="55" class="header_mbg">
         <v-sheet class="d-flex align-center text-20 textGray--text" color="transparent" height="54">
-            <svg-icon class="text-22 mx10" icon="menu" @click.native="GlobalVar.navDrawer = true"></svg-icon>
-            <div class="d-flex align-center mr-2 text-14">
-                <v-sheet class="money rounded-l-10 px10 d-flex align-center" height="30" min-width="106">
-                    {{GlobalVar.currency}}<span class="ml-1">{{selfProxy.userInfo.gold}}</span>
-                </v-sheet>
-                <btn-yellow height="30" minWidth="49" :rounded_tl="false" :rounded_bl="false"
-                    ><span class="text-14 mx-1">{{LangUtil("充值")}}</span></btn-yellow
+            <svg-icon class="text-22 mx10 white--text" icon="menu" @click.native="GlobalVar.navDrawer = true"></svg-icon>
+
+            <!-- <v-sheet class="d-flex align-center rounded-pill" height="30" color="textGoldBg">
+                <div class="d-flex align-end ml-3 white--text font-weight-bold">
+                    <span class="text-14">{{GlobalVar.currency}} {{ amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span>
+                    <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]">.{{ selfProxy.userInfo.gold.split('.')[1]}}</span>
+                </div>
+                <v-btn class="rounded-pill ml-2 mr-1 elevation-0 yellow--text" small height="24" @click="onTopup">{{LangUtil("充值")}}</v-btn>
+            </v-sheet> -->
+            <div class="d-flex align-center mr-3 text-14">
+                <v-sheet
+                    class="money px10 d-flex align-center font-weight-bold"
+                    :class="PlatConfig.config.client.isRecharge == '1' ? 'rounded-l-5' : 'rounded-5'"
+                    height="36"
+                    min-width="106"
                 >
+                    <div class="d-flex align-end">
+                        <span class="text-14">{{GlobalVar.currency}} {{ amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span>
+                        <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]"
+                            >.{{ selfProxy.userInfo.gold.split('.')[1]}}</span
+                        >
+                    </div>
+                </v-sheet>
+                <btn-yellow
+                    height="36"
+                    minWidth="49"
+                    :rounded5="true"
+                    :rounded_tl="false"
+                    :rounded_bl="false"
+                    v-if="PlatConfig.config.client.isRecharge == '1'"
+                    @click.native="onTopup"
+                >
+                    <span class="text-14 mx-1">{{LangUtil("充值")}}</span>
+                </btn-yellow>
             </div>
+
             <v-spacer />
-            <svg-icon class="mr-3 text-24" icon="help" @click.native="openHelp"></svg-icon>
-            <svg-icon class="mr-3 text-24" icon="history" @click.native="onOrder"></svg-icon>
-            <svg-icon class="mr-3 text-24" icon="setting" @click.native="onSetting"></svg-icon>
+            <svg-icon class="mr-3 text-24 iconHeaderColor--text" icon="help" @click.native="openHelp"></svg-icon>
+            <svg-icon class="mr-3 text-24 iconHeaderColor--text" icon="history" @click.native="onOrder"></svg-icon>
+            <svg-icon class="mr-3 text-24 iconHeaderColor--text" icon="setting" @click.native="onSetting"></svg-icon>
         </v-sheet>
-        <v-divider />
     </v-sheet>
     <!-- 手机tag标签 -->
-    <v-sheet class="d-flex btnGroup my-1 px10 py-2 text-14" width="100%">
-        <v-btn
-            v-for="(item, key) of pageData.menu_subnav.top"
-            :key="key"
-            :disabled="getTagNum(item.tag) == 0"
-            @click="onQueryTagType(item.tag)"
-            class="rounded-pill btnTag elevation-0 mr-2"
-            :class="{'active': listQueryComp.tag == item.tag}"
-            max-height="30"
-        >
-            {{ LangUtil(item.name) }}<div class="text-12 mb-2">{{getTagNum(item.tag)}}</div>
-        </v-btn>
-
-        <v-btn
-            class="rounded-pill btnTag elevation-0 mr-2"
-            :class="{'active': listQueryComp.tag == 'love'}"
-            @click="onQueryTagType('love')"
-            :disabled="getTagNum('love') == 0"
-            max-height="30"
-        >
-            {{ LangUtil("关注") }}<div class="text-12 mb-2">{{getTagNum('love')}}</div>
-        </v-btn>
-    </v-sheet>
+    <!-- <v-sheet color="bgBanner" class="mx-2 my-2 rounded-lg d-flex align-center" height="46">
+        <v-sheet class="d-flex btnGroup px-2 mx-2 my-1 text-14" color="bgBanner">
+            <v-btn
+                v-for="(item, key) of pageData.menu_subnav.top"
+                :key="key"
+                :disabled="getTagNum(item.tag) == 0"
+                @click="onQueryTagType(item.tag)"
+                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text"
+                :class="{'active': listQueryComp.tag == item.tag}"
+                max-height="30"
+            >
+                {{ LangUtil(item.name) }}
+                <div class="text-12 mb-2">{{getTagNum(item.tag)}}</div>
+            </v-btn>
+    
+            <v-btn
+                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text"
+                :class="{'active': listQueryComp.tag == 'love'}"
+                @click="onQueryTagType('love')"
+                :disabled="getTagNum('love') == 0"
+                max-height="30"
+            >
+                {{ LangUtil("关注") }}
+                <div class="text-12 mb-2">{{getTagNum('love')}}</div>
+            </v-btn>
+        </v-sheet>
+    </v-sheet> -->
+    
     <!-- 搜索 -->
-    <v-sheet class="d-flex align-center px10 py-2">
+    <!-- <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner">
         <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" width="100%" height="30">
-            <input class="text-14 text-truncate" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="listQueryComp.keyword" />
+            <input class="text-14 text-truncate bgColor1--text" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="listQueryComp.keyword" />
             <svg-icon icon="search" @click.native="onSearch"></svg-icon>
         </v-sheet>
         <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="30">
             <v-sheet
                 class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14"
-                :class=" settingProxy.pageData.form.sort == 'time' ? 'yellow--text' : 'textGray--text'"
+                :class=" settingProxy.pageData.form.sort == 'time' ? 'btnPlain--text' : 'textGray--text'"
                 color="transparent"
                 @click="onQuerySort('time')"
             >
@@ -60,13 +91,15 @@
             <svg-icon icon="change"></svg-icon>
             <v-sheet
                 class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14"
-                :class=" settingProxy.pageData.form.sort == 'comp' ? 'yellow--text' : 'textGray--text'"
+                :class=" settingProxy.pageData.form.sort == 'comp' ? 'btnPlain--text' : 'textGray--text'"
                 color="transparent"
                 @click="onQuerySort('comp')"
             >
                 {{LangUtil("联赛")}}
             </v-sheet>
         </v-sheet>
-        <btn-yellow minWidth="60" height="30" @click.native="goLiveList"><span class="text-14">{{LangUtil("直播")}}</span></btn-yellow>
-    </v-sheet>
+        <btn-yellow minWidth="60" height="30" :rounded5="true" @click.native="goLiveList"
+            ><span class="text-14">{{LangUtil("直播")}}</span></btn-yellow
+        >
+    </v-sheet> -->
 </div>

@@ -187,9 +187,18 @@ export default class MatcheItem extends AbstractView {
     }
 
     playMatcheAnimation() {
-        if (this.matche.animation_id) {
+        if (this.matche.animation_status == 1) {
             this.goMatche();
-            right_panel.show(2);
+            setTimeout(() => {
+                right_panel.show(2);
+            }, 1000);
+        }
+    }
+
+    playMatcheLive() {
+        if (this.matche.live_status == 1) {
+            this.goMatche();
+            right_panel.show(1);
         }
     }
 

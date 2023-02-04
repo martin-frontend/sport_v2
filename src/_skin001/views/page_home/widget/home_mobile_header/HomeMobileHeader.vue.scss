@@ -14,20 +14,29 @@
     overflow: hidden;
     &.active {
         background: linear-gradient(to right, #fcb131, #ffe64d);
-        color: #272828;
+        color: #3e3714 !important;
     }
     padding: 0;
 }
 .theme--light {
     .money {
         background-color: #ffffff;
-        border: solid 1px #e8e8e2;
+        // border: solid 1px #e8e8e2;
+    }
+    ::v-deep .v-btn.v-btn--disabled.v-btn--has-bg{
+        background-color: #f1f1f1 !important;
     }
 }
 .theme--dark {
     .money {
         background-color: #272828;
-        border: solid 1px #3e3f41;
+        // border: solid 1px #3e3f41;
+    }
+    ::v-deep .v-btn.v-btn--disabled.v-btn--has-bg{
+        background-color: #303030 !important;
+    }
+    .btnTag{
+        background-color: #303030;
     }
 }
 input {
@@ -39,3 +48,4 @@ input {
     top: 0;
     z-index: 5;
 }
+

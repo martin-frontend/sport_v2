@@ -1,1 +1,8 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 22 22"><defs><style>.a,.b{fill:none;}.b{stroke:#8e8f91;stroke-linecap:round;stroke-width:3px;}</style></defs><rect class="a" width="22" height="22"/><line class="b" x2="15" transform="translate(3 7)"/><line class="b" x2="9" transform="translate(3 15)"/></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <g id="页面-2" stroke="none" stroke-width="1" fill-rule="evenodd">
+        <g id="编组-4">
+            <path d="M2,5 L22,5 C23.1045695,5 24,5.8954305 24,7 C24,8.1045695 23.1045695,9 22,9 L2,9 C0.8954305,9 1.3527075e-16,8.1045695 0,7 C-1.3527075e-16,5.8954305 0.8954305,5 2,5 Z M2,15 L14,15 C15.1045695,15 16,15.8954305 16,17 C16,18.1045695 15.1045695,19 14,19 L2,19 C0.8954305,19 1.3527075e-16,18.1045695 0,17 C-1.3527075e-16,15.8954305 0.8954305,15 2,15 Z" id="形状结合"></path>
+        </g>
+    </g>
+</svg>

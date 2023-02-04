@@ -5,10 +5,16 @@
     .tabs_box {
         border-bottom: solid 2px #e8e8e2;
     }
+    .tabsActive{
+        color: #3E3714;
+    }
 }
 .theme--dark {
     .tabs_box {
         border-bottom: solid 2px #272828;
+    }
+    .tabsActive{
+        color: white;
     }
 }
 .win-type{
@@ -40,4 +46,14 @@
         background: linear-gradient(to right, #fcb131, #ffe64d);
         color:#272828;
     }
+}
+
+::v-deep .v-slide-group__prev{
+    display: none !important;
+}
+::v-deep .v-slide-group__next{
+    display: none !important;
+}
+::v-deep .v-tab{
+    min-width: 0;
 }
