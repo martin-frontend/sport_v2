@@ -4,10 +4,9 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import PageGameResults from "./PageGameResults";
-import Nodata from "@/_skin001/views/widget/nodata/Nodata.vue";
+
 @Component({
     components: {
-        Nodata,
     },
 })
 export default class extends PageGameResults {

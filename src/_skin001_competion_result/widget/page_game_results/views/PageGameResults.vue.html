@@ -52,7 +52,10 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 class="mt-n2">
             </iframe>
-            <Nodata v-else height="100" />
+            <v-sheet v-else style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
+                <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
+                <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
+            </v-sheet>
         </v-sheet>
         <!-- 阵容 -->
         <v-sheet v-if="pageData.animationType == 1" class="d-flex align-center justify-center mx-2 mx-md-0"
@@ -62,7 +65,10 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 class="mt-n2">
             </iframe>
-            <Nodata v-else height="100" />
+            <v-sheet v-else style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
+                <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
+                <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
+            </v-sheet>
         </v-sheet>
         <!-- 时间线 -->
         <v-sheet v-if="pageData.animationType == 2" class="d-flex align-center justify-center mx-2 mx-md-0"
@@ -72,7 +78,10 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 class="mt-n2">
             </iframe>
-            <Nodata v-else height="100" />
+            <v-sheet v-else style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
+                <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
+                <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
+            </v-sheet>
         </v-sheet>
     </div>
     <!-- 盘口 -->
