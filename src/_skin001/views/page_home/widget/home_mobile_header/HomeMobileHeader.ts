@@ -5,6 +5,7 @@ import GlobalVar from "@/core/global/GlobalVar";
 import SelfProxy from "@/proxy/SelfProxy";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
 import SettingProxy from "@/proxy/SettingProxy";
+import OpenLink from "@/core/global/OpenLink";
 import page_home from "../..";
 import dialog_setting from "@/_skin001/views/dialog_setting";
 import page_live_list from "@/_skin001/views/page_live_list";
@@ -57,4 +58,10 @@ export default class HomeMobileHeader extends AbstractView {
     goLiveList(){
         page_live_list.show();
     }
+    openHelp() {
+        const dark = this.$vuetify.theme.dark;
+        const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        OpenLink(link);
+    }
+
 }

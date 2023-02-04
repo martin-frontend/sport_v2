@@ -8,6 +8,7 @@ import { dateFormat, getDateByTimeZone, getResponseIcon } from "@/core/global/Fu
 import GlobalVar from "@/core/global/GlobalVar";
 import live from "../../live";
 import page_order from "../../page_order";
+import OpenLink from "@/core/global/OpenLink";
 import BlurUtil from "@/core/global/BlurUtil";
 
 @Component
@@ -67,7 +68,11 @@ export default class PageMatche extends AbstractView {
     onBack() {
         this.$router.replace("/page_home");
     }
-
+    openHelp() {
+        const dark = this.$vuetify.theme.dark;
+        const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        OpenLink(link);
+    }
     destroyed() {
         super.destroyed();
     }

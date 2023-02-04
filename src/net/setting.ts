@@ -28,6 +28,7 @@ import cmd_public_plat_config from "./cmd_public_plat_config";
 import cmd_api_event_result from "./cmd_api_event_result";
 import cmd_api_event_market_type_v2 from "./cmd_api_event_market_type_v2";
 import cmd_public_order_detail_data from "./cmd_public_order_detail_data";
+import cmd_api_helpcenter_list from "./cmd_api_helpcenter_list";
 /**
  * document: http://18.167.151.206:8090/pages/viewpage.action?pageId=11076347
  */
@@ -93,6 +94,8 @@ const HttpType = {
     api_event_market_type_v2: "api/event/market_type_v2",
     /**三方获取注单详情*/
     public_order_detail_data: "public/order_detail_data",
+    /**帮助中心內容接口*/
+    api_helpcenter_list: "api/helpcenter/list",
 };
 /**事件*/
 const EventType = {
@@ -164,6 +167,8 @@ const EventType = {
     api_event_market_type_v2: "api_event_market_type_v2",
     /**三方获取注单详情*/
     public_order_detail_data: "public_order_detail_data",
+    /**帮助中心內容接口*/
+    api_helpcenter_list: "api_helpcenter_list",
 };
 /**注册协议*/
 function initCommand() {
@@ -198,6 +203,7 @@ function initCommand() {
     facade.registerCommand(HttpType.api_event_result, cmd_api_event_result);
     facade.registerCommand(HttpType.api_event_market_type_v2, cmd_api_event_market_type_v2);
     facade.registerCommand(HttpType.public_order_detail_data, cmd_public_order_detail_data);
+    facade.registerCommand(HttpType.api_helpcenter_list, cmd_api_helpcenter_list);
 }
 const net = { HttpType, EventType, initCommand };
 export default net;
