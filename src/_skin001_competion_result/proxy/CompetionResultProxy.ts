@@ -43,10 +43,12 @@ export default class CompetionResultProxy extends puremvc.Proxy {
             }
         }
         
-
+        const tempdate = this.selectDate.replace(/-/g, '/');
         const data = {
-            start_time: Date.parse(this.selectDate+" " + timezone) / 1000,
-            end_time: (Date.parse(this.selectDate+" " + timezone)+86400000) / 1000 - 1,
+            
+            
+            start_time: Date.parse(tempdate+" " + timezone) / 1000,
+            end_time: (Date.parse(tempdate+" " + timezone)+86400000) / 1000 - 1,
             timezone: GlobalVar.zone,
             page_size: 1000,
 

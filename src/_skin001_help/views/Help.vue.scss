@@ -54,3 +54,6 @@
 .theme--dark .bold_divider  {
     border: 1px solid #5A5A5A;
 }
+.btnclass::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+}

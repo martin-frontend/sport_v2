@@ -1,6 +1,6 @@
 import net from "@/net/setting";
 import GlobalVar from "@/core/global/GlobalVar";
-import { getTodayOffset,objectRemoveNull, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
+import { objectRemoveNull, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 
 export default class HistoryResultProxy extends puremvc.Proxy {
     static NAME = "HistoryResultProxy";
@@ -47,31 +47,31 @@ export default class HistoryResultProxy extends puremvc.Proxy {
             // 今日
             case 0:
            
-                this.listQuery["settle_time-{>=}"] = getTodayOffset().timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
-                this.selectDate[0] = getTodayOffset().formatdate;
-                this.selectDate[1] = getTodayOffset().formatdate;
+                this.listQuery["settle_time-{>=}"] = this.getTodayOffset().timestr;
+                this.listQuery["settle_time-{<=}"] = this.getTodayOffset(1,-1).timestr;
+                this.selectDate[0] = this.getTodayOffset().formatdate;
+                this.selectDate[1] = this.getTodayOffset().formatdate;
                 break;
             // 昨天
             case -1:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-1).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(0,-1).timestr;
-                this.selectDate[0] = getTodayOffset(-1).formatdate;
-                this.selectDate[1] = getTodayOffset(-1).formatdate;
+                this.listQuery["settle_time-{>=}"] = this.getTodayOffset(-1).timestr;
+                this.listQuery["settle_time-{<=}"] = this.getTodayOffset(0,-1).timestr;
+                this.selectDate[0] = this.getTodayOffset(-1).formatdate;
+                this.selectDate[1] = this.getTodayOffset(-1).formatdate;
                 break;
             // 7天
             case 7:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-6).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
-                this.selectDate[0] = getTodayOffset(-6).formatdate;
-                this.selectDate[1] = getTodayOffset().formatdate;
+                this.listQuery["settle_time-{>=}"] = this.getTodayOffset(-6).timestr;
+                this.listQuery["settle_time-{<=}"] = this.getTodayOffset(1,-1).timestr;
+                this.selectDate[0] = this.getTodayOffset(-6).formatdate;
+                this.selectDate[1] = this.getTodayOffset().formatdate;
                 break;
             // 30天
             case 30:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-29).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
-                this.selectDate[0] = getTodayOffset(-29).formatdate;
-                this.selectDate[1] = getTodayOffset(1,-1).formatdate;
+                this.listQuery["settle_time-{>=}"] = this.getTodayOffset(-29).timestr;
+                this.listQuery["settle_time-{<=}"] = this.getTodayOffset(1,-1).timestr;
+                this.selectDate[0] = this.getTodayOffset(-29).formatdate;
+                this.selectDate[1] = this.getTodayOffset(1,-1).formatdate;
                 break;
 
             default:
@@ -130,5 +130,26 @@ export default class HistoryResultProxy extends puremvc.Proxy {
     api_user_orders() {
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
-
+    getTodayOffset(offset = 0, offsetSecond = 0): any {
+        const symbal = GlobalVar.zone.substring(0, 1);
+        let timezone = "GMT" + symbal;
+        const arr = GlobalVar.zone.substring(1).split(":");
+        if (arr.length == 1) {
+            if (arr[0].length == 1) {
+                timezone += "0" + arr[0] + "00";
+            } else {
+                timezone += arr[0] + "00";
+            }
+        } else {
+            if (arr[0].length == 1) {
+                timezone += "0" + arr[0] + arr[1];
+            } else {
+                timezone += arr[0] + arr[1];
+            }
+        }
+        const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000*offset, GlobalVar.zone);
+        const formatdate = dateFormat(today, "yyyy-MM-dd")
+        const timestr = (Date.parse(dateFormat(today, "yyyy-MM-dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
+        return {timestr,formatdate};
+    }
 }

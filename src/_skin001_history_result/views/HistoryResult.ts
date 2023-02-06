@@ -71,7 +71,7 @@ export default class PageOrderDetail extends AbstractView{
             GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
             GlobalVar.lang = lang;
             const sTime = GlobalVar.server_time;
-            this.nowtime=dateFormat(getDateByTimeZone(sTime * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd');
+            this.nowtime=dateFormat(getDateByTimeZone(sTime * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd');
             console.log("this.nowtime>>>",this.nowtime)
             const date1 = this.nowtime;
             const date2 = this.nowtime;
@@ -113,28 +113,29 @@ export default class PageOrderDetail extends AbstractView{
     }
     @Watch("myProxy.selectDate")
     onWatchselectDate() {
-        console.warn("selectDateselectDate>>"+this.myProxy.selectDate)
+        
         const sel1 = this.myProxy.selectDate[0];
         const sel2 = this.myProxy.selectDate[1];
         if (sel1 && sel2 && Date.parse(sel1) > Date.parse(sel2)) {
             this.myProxy.selectDate = [sel2,sel1];
         }
-        this.SelectDate1 = <any>this.getSelectDate1();
-        this.SelectDate2 = <any>this.getSelectDate2();
-
+         this.SelectDate1 = <any>this.formatDate(this.myProxy.selectDate[0]);
+         this.SelectDate2 = <any>this.formatDate(this.myProxy.selectDate[1]);
+        this.myProxy.selectDate[0] = this.myProxy.selectDate[0].replaceAll('/', '-');
+        this.myProxy.selectDate[1] = this.myProxy.selectDate[1].replaceAll('/', '-');
+        console.warn("selectDateselectDate>>"+this.myProxy.selectDate)
     }
-    getSelectDate1(){
-        if (!this.myProxy.selectDate[0]) return null
-
-        const [year, month, day] = this.myProxy.selectDate[0].split('-')
-        return `${year}/${month}/${day}`
-    }
-    getSelectDate2(){
-        if (!this.myProxy.selectDate[1]) return null
-
-        const [year, month, day] = this.myProxy.selectDate[1].split('-')
-        return `${year}/${month}/${day}`
-    }
+    formatDate (date:any) {
+        if (!date) return null
+  
+        const [year, month, day] = date.split('-')
+        if (year && month && day) {
+             return `${year}/${month}/${day}`
+         }else{
+             return date;
+         }
+      }
+ 
     onfresh(){
         
         this.myProxy.listQuery.page_count = 1;

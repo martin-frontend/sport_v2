@@ -45,7 +45,7 @@
                     </v-sheet>
                 </template>
                
-                <v-date-picker range v-model="myProxy.selectDate" no-title scrollable 
+                <v-date-picker format=yyyy/MM/dd range v-model="myProxy.selectDate" no-title scrollable 
                     :locale="GlobalVar.lang == 'zh_CN' ? 'zh-cn':''" :max="nowtime">
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="bShowDateSelect = false">
