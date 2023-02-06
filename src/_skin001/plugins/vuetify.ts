@@ -32,6 +32,7 @@ export function getVuetify(): Vuetify {
                         textTagBtn: "#5C5C5C",
                         textGoldBg: "#F6BF4D",
                         textBet: "#3E3714",
+                        helpColor:"#666666"
                     },
                     dark: {
                         primary: "#8E8F91",
@@ -55,6 +56,7 @@ export function getVuetify(): Vuetify {
                         textTagBtn: "#ffffff",
                         textGoldBg: "#303030",
                         textBet: "#8E8F91",
+                        helpColor: "#ffffff",
                     },
                 },
                 dark: false,

@@ -126,6 +126,21 @@ export default class Help extends AbstractView {
         }
         
     }
+    clickTopbtn(id:any){
+        this.pageData.tabIndex = id;
+        if (id>3) {
+            const el = document.getElementById("btnsheet")
+            if (el) {
+                el.scrollLeft=100
+            }
+      
+        }else if (id==1) {
+            const el = document.getElementById("btnsheet")
+            if (el) {
+                el.scrollLeft=0
+            }
+        }
+    }
     destroyed() {
         super.destroyed();
     }

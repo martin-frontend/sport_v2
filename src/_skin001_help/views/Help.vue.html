@@ -1,4 +1,4 @@
-<v-app v-if="isloadSecLang" class="d-flex justify-center">
+<v-app v-if="isloadSecLang" class="d-flex justify-center overflow-x-hidden">
     <v-sheet height="100%">
     <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
         <v-sheet class="d-flex">
@@ -6,18 +6,20 @@
         </v-sheet>
     </v-sheet>
     <v-divider width="100%" />
-    <v-sheet class="d-flex textGray--text align-center" >
+    <v-sheet class="d-flex helpColor--text align-center" >
         <svg-icon class="ml-6" icon="search"></svg-icon>
         <v-text-field color="transparent" solo :label="LangUtil('过滤当前页面指定内容')" style="max-height: 36px;" 
         class="my-3" hide-details dense v-model="pageData.searchTxt"></v-text-field>
         
     </v-sheet>
+    <div class="d-grid">
+      <v-divider style="justify-self: center;" class="bold_divider"  width="96%" />
+    </div>
     
-    <v-divider class="ml-5 bold_divider"  width="97%" />
-    <v-sheet class="d-flex font-weight-medium mt-5 ml-5" style="overflow-x: scroll;">
+    <v-sheet id="btnsheet" class="d-flex font-weight-medium mt-5 pl-5 btnclass" style="overflow-x: scroll;">
 
         <v-btn v-for="(item, index) in myProxy.pageData.type" :key="item.id " text height="36"
-            @click="pageData.tabIndex = item.id" class="text-gray1 " 
+            @click="clickTopbtn(item.id)" class="text-gray1 " 
             :class="[ pageData.tabIndex == item.id ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text',$vuetify.breakpoint.mobile ? 'mr-2' : 'mr-5']"><span
                 class="font-weight-bold text-14">{{item.name}}</span>
         </v-btn>
@@ -32,7 +34,7 @@
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center "  >
-                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub> 
+                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub> 
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
                     <GeneralItem :data="item.content" ></GeneralItem>
@@ -50,7 +52,7 @@
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub>
+                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub>
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
                     <GeneralItem :data="item.content" ></GeneralItem>
@@ -68,7 +70,7 @@
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub>
+                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub>
                   </v-expansion-panel-header>
                   <v-expansion-panel-content >
                     <GeneralItem :data="item.content" ></GeneralItem>
@@ -86,7 +88,7 @@
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub class="bgColor1--text ml-4 text-14">{{item.title}}</sub>
+                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub>
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
                     <GeneralItem :data="item.content" ></GeneralItem>
