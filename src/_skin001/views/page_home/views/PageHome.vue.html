@@ -1,15 +1,6 @@
 <div :class="{'mr-0': !$vuetify.breakpoint.mobile}">
     <HomeHeader v-if="!$vuetify.breakpoint.mobile" />
 
-    <v-sheet width="100%" class="mt-2 pa-3" v-if="GlobalVar.loading1 && !$vuetify.breakpoint.mobile">
-        <v-skeleton-loader class="mx-auto" width="100%" height="30" type="card-heading"></v-skeleton-loader>
-        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
-        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
-        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
-        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
-        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
-    </v-sheet>
-
     <v-expansion-panels
         class="mt-2"
         elevation="0"
@@ -66,14 +57,14 @@
     <!-- 手机header -->
     <HomeMobileHeader v-if="$vuetify.breakpoint.mobile" />
     <!-- 手机tag标签 -->
-    <v-sheet color="bgBanner" class="mx-2 my-2 rounded-lg d-flex align-center" height="46">
+    <v-sheet color="bgBanner" class="mx-2 my-2 rounded-lg d-flex align-center" height="46" v-if="$vuetify.breakpoint.mobile">
         <v-sheet class="d-flex btnGroup px-2 mx-2 my-1 text-14" color="bgBanner">
             <v-btn
                 v-for="(item, key) of pageData.menu_subnav.top"
                 :key="key"
                 :disabled="getTagNum(item.tag) == 0"
                 @click="onQueryTagType(item.tag)"
-                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text"
+                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text font-weight-bold"
                 :class="{'active': listQueryComp.tag == item.tag}"
                 max-height="30"
             >
@@ -82,7 +73,7 @@
             </v-btn>
     
             <v-btn
-                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text"
+                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text font-weight-bold"
                 :class="{'active': listQueryComp.tag == 'love'}"
                 @click="onQueryTagType('love')"
                 :disabled="getTagNum('love') == 0"
@@ -95,14 +86,14 @@
     </v-sheet>
     
     <!-- 搜索 -->
-    <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner">
+    <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner" v-if="$vuetify.breakpoint.mobile">
         <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" width="100%" height="30">
             <input class="text-14 text-truncate bgColor1--text" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="listQueryComp.keyword" />
             <svg-icon icon="search" @click.native="onSearch"></svg-icon>
         </v-sheet>
         <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="30">
             <v-sheet
-                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14"
+                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14 font-weight-bold"
                 :class=" settingProxy.pageData.form.sort == 'time' ? 'btnPlain--text' : 'textGray--text'"
                 color="transparent"
                 @click="onQuerySort('time')"
@@ -111,7 +102,7 @@
             </v-sheet>
             <svg-icon icon="change"></svg-icon>
             <v-sheet
-                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14"
+                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14 font-weight-bold"
                 :class=" settingProxy.pageData.form.sort == 'comp' ? 'btnPlain--text' : 'textGray--text'"
                 color="transparent"
                 @click="onQuerySort('comp')"
@@ -124,7 +115,7 @@
         >
     </v-sheet>
 
-    <v-expansion-panels class="mt-2 px-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="$vuetify.breakpoint.mobile">
+    <v-expansion-panels class="mt-2 px-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="$vuetify.breakpoint.mobile && !GlobalVar.loading1">
         <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
             <v-expansion-panel-header elevation="0" rounded="lg" height="54" color="bgBanner">
                 <template v-slot:default="{ open }">
@@ -147,6 +138,15 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
+
+    <v-sheet width="100%" class="mt-2 pa-3" v-if="GlobalVar.loading1">
+        <v-skeleton-loader class="mx-auto" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+        <v-skeleton-loader class="mx-auto mt-1" width="100%" height="30" type="card-heading"></v-skeleton-loader>
+    </v-sheet>
 
     <Nodata v-if="pageData.competition_list.length == 0 && !GlobalVar.loading1" height="60vh" />
 </div>

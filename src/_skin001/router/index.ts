@@ -1,5 +1,7 @@
+import getProxy from "@/core/global/getProxy";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import PageHomeProxy from "../views/page_home/proxy/PageHomeProxy";
 
 Vue.use(VueRouter);
 
@@ -28,6 +30,13 @@ const routes: Array<RouteConfig> = [
 
 const router = new VueRouter({ routes });
 router.beforeEach((to: any, from: any, next: any) => {
+    switch (from.path) {
+        case "/page_home":
+            const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
+            const routerBox = document.getElementById("routerBox");
+            if (routerBox) homeProxy.pageData.scrollOffset = routerBox.scrollTop;
+            break;
+    }
     if (to.path == "/") {
         next("/page_home");
     } else {

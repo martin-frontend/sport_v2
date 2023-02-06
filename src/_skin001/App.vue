@@ -29,6 +29,7 @@
                 <v-row dense :class="{ 'mt-1': !$vuetify.breakpoint.mobile }">
                     <v-col :cols="$vuetify.breakpoint.mobile ? 12 : 8">
                         <v-sheet
+                            id="routerBox"
                             class="overflow-y-auto overflow-x-hidden"
                             v-scroll.self="onScroll"
                             width="100%"

@@ -42,11 +42,11 @@
             <div class="d-flex mb10">
                 <div>{{LangUtil("订单状态")}}</div>
                 <v-spacer />
-                <div :style="{ 'color': statusMapColor[pageData.status]} ">{{statusMap[pageData.status]}}</div>
+                <div class="font-weight-bold" :style="{ 'color': statusMapColor[pageData.status]} ">{{statusMap[pageData.status]}}</div>
             </div>
             <div class="d-flex mb10" v-if="pageData.status != 1">
                 <v-spacer />
-                <div class="red--text">{{pageData.statusMsg}}</div>
+                <div class="red--text font-weight-bold">{{pageData.statusMsg}}</div>
             </div>
             <div class="d-flex mb10">
                 <div>{{LangUtil("投注金额")}}</div>
@@ -63,12 +63,12 @@
             <div class="d-flex mb10">
                 <div>{{LangUtil("订单编号")}}</div>
                 <v-spacer />
-                <div>{{pageData.order_no}}</div>
+                <div class="font-weight-bold">{{pageData.order_no}}</div>
             </div>
             <div class="d-flex mb10">
                 <div>{{LangUtil("投注时间")}}</div>
                 <v-spacer />
-                <div>{{getCreateTime()}}</div>
+                <div class="font-weight-bold">{{getCreateTime()}}</div>
             </div>
             <div class="d-flex">
                 <div>{{LangUtil("比赛进程")}}</div>

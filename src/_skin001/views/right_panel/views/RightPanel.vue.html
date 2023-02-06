@@ -44,7 +44,7 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet color="transparent" v-bind="attrs" v-on="on">
                             <svg-icon
-                                class="text-28 hand mr10 textGray--text"
+                                class="text-26 hand mr10 textGray--text"
                                 :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
                                 @click.native="pageData.liveIndex = 1"
                             ></svg-icon>
@@ -60,8 +60,8 @@
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet color="transparent" v-bind="attrs" v-on="on">
                             <svg-icon
-                                class="text-24 mr-2 mt-1 hand textGray--text"
-                                :icon="pageData.liveIndex==2 ? 'animate_' : 'animate'"
+                                class="text-22 mr-2 hand textGray--text"
+                                :icon="pageData.liveIndex==2 ? 'animate1_' : 'animate1'"
                                 @click.native="pageData.liveIndex = 2"
                             ></svg-icon>
                         </v-sheet>

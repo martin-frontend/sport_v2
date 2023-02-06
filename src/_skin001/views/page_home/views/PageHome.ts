@@ -10,6 +10,7 @@ import page_home from "..";
 import page_order from "../../page_order";
 import dialog_setting from "../../dialog_setting";
 import page_live_list from "../../page_live_list";
+import ScrollUtil from "@/core/global/ScrollUtil";
 
 @Component
 export default class PageHome extends AbstractView {
@@ -24,27 +25,34 @@ export default class PageHome extends AbstractView {
         super(PageHomeMediator);
         // GlobalVar.loading1 = true;
     }
+
+    mounted() {
+        const routerBox = document.getElementById("routerBox");
+        this.$nextTick(() => {
+            ScrollUtil(routerBox, this.pageData.scrollOffset, 0);
+        });
+    }
+
     /**关注整个联赛 */
-    setAllLove(competition:any){
+    setAllLove(competition: any) {
         const matches = competition.matches;
-        let lovecount:number = 0;
-        matches.forEach((item:any) => {
-            if (this.pageData.love_events.indexOf(item.id)== -1) {
+        let lovecount: number = 0;
+        matches.forEach((item: any) => {
+            if (this.pageData.love_events.indexOf(item.id) == -1) {
                 lovecount++;
                 this.myProxy.api_user_love(item.id);
             }
-            
         });
-        if (lovecount==0) {
-            matches.forEach((item:any) => {
+        if (lovecount == 0) {
+            matches.forEach((item: any) => {
                 this.myProxy.api_user_love(item.id);
             });
         }
     }
     /**检测是否整个联赛都关注了 */
-    checkAllLove(competition:any){
-        for(const item of competition.matches){
-            if(this.pageData.love_events.indexOf(item.id) == -1){
+    checkAllLove(competition: any) {
+        for (const item of competition.matches) {
+            if (this.pageData.love_events.indexOf(item.id) == -1) {
                 return false;
             }
         }
@@ -74,10 +82,6 @@ export default class PageHome extends AbstractView {
         }
         return [];
     }
-
-
-
-
 
     getTagNum(tag: string) {
         if (tag == "love") {

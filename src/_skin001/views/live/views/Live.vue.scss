@@ -29,5 +29,13 @@
 }
 
 .live_tex {
+    position: relative;
     background: url("~@/_skin001/assets/live_texture.png") no-repeat right 0px bottom 0px;
+}
+
+.btn_close{
+    position:absolute;
+    top: 5px;
+    right: 5px;
+    z-index: 5;
 }

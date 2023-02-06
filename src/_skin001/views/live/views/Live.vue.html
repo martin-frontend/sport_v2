@@ -18,6 +18,7 @@
                                 :value="split_goals(getStates().red_cards_ft)[0]"
                             />
                             <CardYellow
+                                class="ml-1"
                                 v-if="getStates() && split_goals(getStates().yellow_cards_ft)[0] > 0"
                                 :value="split_goals(getStates().yellow_cards_ft)[0]"
                             />
@@ -62,6 +63,7 @@
                                 :value="split_goals(getStates().yellow_cards_ft)[1]"
                             />
                             <CardRed
+                                class="ml-1"
                                 v-if="getStates() && split_goals(getStates().red_cards_ft)[1] > 0"
                                 :value="split_goals(getStates().red_cards_ft)[1]"
                             />
@@ -102,7 +104,7 @@
                         <div class="text-12 ml-1">{{LangUtil("直播")}}</div>
                     </v-btn>
                     <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.animation_status == 1" @click="window=2">
-                        <svg-icon class="text-20" icon="animate_"></svg-icon>
+                        <svg-icon class="text-20" icon="animate1_"></svg-icon>
                         <div class="text-12 ml-1">{{LangUtil("动画")}}</div>
                     </v-btn>
                 </div>
@@ -124,4 +126,7 @@
             ></iframe>
         </v-window-item>
     </v-window>
+    <v-btn class="btn_close" icon v-if="window != 0 && $vuetify.breakpoint.mobile" @click="window=0">
+        <svg-icon class="text-20" icon="close"></svg-icon>
+    </v-btn>
 </v-sheet>

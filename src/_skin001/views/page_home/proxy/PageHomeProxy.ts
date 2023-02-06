@@ -152,11 +152,11 @@ export default class PageHomeProxy extends puremvc.Proxy {
 
     /**赛事接口-新*/
     api_event_list() {
-        if(Vue.vuetify.framework.breakpoint.mobile){
+        // if(Vue.vuetify.framework.breakpoint.mobile){
             GlobalVar.loading = true;
-        }else{
+        // }else{
             GlobalVar.loading1 = true;
-        }
+        // }
         // this.pageData.competition_list = [];
         this.pageData.market_list = [];
         this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
