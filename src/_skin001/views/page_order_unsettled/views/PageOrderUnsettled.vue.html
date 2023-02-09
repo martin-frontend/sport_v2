@@ -9,7 +9,8 @@
             <v-col cols="9" class="font-weight-bold">{{GlobalVar.currency}}: {{pageData.stats.total_stake}}</v-col>
         </v-row>
     </v-sheet>
-    <v-sheet class="text-13 mt-2 pb-2 pt10 textGray--text rounded-10" color="bgBanner" v-for="(item, index) in pageData.list" :key="index">
+    <loader v-if="pageData.loading"/>
+    <v-sheet v-else class="text-13 mt-2 pb-2 pt10 textGray--text rounded-10" color="bgBanner" v-for="(item, index) in pageData.list" :key="index">
         <v-sheet class="d-flex align-center btnPlain--text px10 text-14" color="transparent">
             <v-sheet width="2" height="16" color="yellow"></v-sheet>
             <div class="pl10">{{item.cpn}}</div>
@@ -92,7 +93,7 @@
             </span>
         </v-sheet> -->
     </v-sheet>
-    <v-sheet class="d-flex justify-center my-1" color="transparent">
+    <v-sheet v-if="!pageData.loading" class="d-flex justify-center my-1" color="transparent">
         <v-btn @click="onMore" small plain v-if="pageData.pageInfo.pageCurrent != pageData.pageInfo.pageCount && pageData.list.length != 0">
             {{LangUtil("加载更多")}}
         </v-btn>

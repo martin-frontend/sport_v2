@@ -14,7 +14,6 @@
     <v-spacer />
 
     <btn-info class="mr10 text-12 textGray1--text"  minWidth="76" height="32"><span @click="openHelp">{{LangUtil("帮助中心")}}</span></btn-info>
-    <!-- <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32">{{LangUtil("投注教程")}}</btn-info> -->
 
     <v-menu offset-y nudge-bottom="4">
         <template v-slot:activator="{ on, attrs }">
@@ -58,7 +57,17 @@
         </div>
     </v-menu> -->
 
-    <v-menu offset-y nudge-bottom="4" :close-on-content-click="false" @input="onSettingSave" v-model="isShowSetting">
+    <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32" @click.native="onSetting">
+        <div class="d-flex align-center">
+            <div class="mr10">{{LangUtil("设置")}}</div>
+            <svg-icon
+                class="text-12"
+                icon="zoom_out"
+            ></svg-icon>
+        </div>
+    </btn-info>
+
+    <!-- <v-menu offset-y nudge-bottom="4" :close-on-content-click="false" @input="onSettingSave" v-model="isShowSetting">
         <template v-slot:activator="{ on, attrs }">
             <div class="mr10" v-bind="attrs" v-on="on">
                 <btn-info class="text-12 textGray1--text" minWidth="76" height="32">
@@ -81,5 +90,5 @@
         >
             <Setting />
         </v-sheet>
-    </v-menu>
+    </v-menu> -->
 </v-sheet>

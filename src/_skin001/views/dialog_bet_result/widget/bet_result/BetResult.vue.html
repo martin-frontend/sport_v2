@@ -1,4 +1,4 @@
-<v-card class="pb-2 rounded-lg" color="bgBanner">
+<v-card class="pb-2 rounded-lg elevation-0" color="bgBanner">
     <v-card-title class="py-1 mr-2">
         <v-sheet color="transparent" class="d-flex align-center" width="200">
             <v-sheet width="2" height="16" color="yellow"></v-sheet>
@@ -37,7 +37,7 @@
             <span>{{LangUtil("订单状态")}} </span>
             <span class="font-weight-bold" :style="{ 'color': statusMapColor[pageData.status]} ">{{statusMap[pageData.status]}}</span>
         </div>
-        <div class="d-flex mb-1" v-if="pageData.status != 1">
+        <div class="d-flex mb-1" v-if="pageData.status == 3">
             <v-spacer />
             <div class="red--text font-weight-bold">{{pageData.statusMsg}}</div>
         </div>

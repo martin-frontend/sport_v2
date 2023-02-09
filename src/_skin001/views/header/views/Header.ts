@@ -9,6 +9,7 @@ import OpenLink from "@/core/global/OpenLink";
 import page_home from "../../page_home";
 import { isAndroid, isIOS } from "@/core/global/Functions";
 import BlurUtil from "@/core/global/BlurUtil";
+import dialog_setting from "../../dialog_setting";
 @Component
 export default class Header extends AbstractView {
     LangUtil = LangUtil;
@@ -102,6 +103,10 @@ export default class Header extends AbstractView {
     //搜寻
     onSearch() {
         page_home.showByKeyword(this.txtSearch);
+    }
+
+    onSetting(){
+        dialog_setting.show();
     }
 
     destroyed() {

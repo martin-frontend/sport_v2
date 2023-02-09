@@ -30,22 +30,9 @@
         }
     }
 }
-
-.btnGroup {
-    overflow-y: auto;
+::v-deep .v-expansion-panel-header:before{
+    background-color: transparent;
 }
-.btnGroup {
-    overflow-x: auto;
-    /* 隐藏滚动条 */
-    scrollbar-width: none; /* firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-    overflow: -moz-scrollbars-none;
-}
-.btnGroup::-webkit-scrollbar {
-    display: none; /* Chrome Safari */
-    width: 0 !important;
-}
-
 .v-expansion-panels .v-expansion-panel {
     background-color: transparent;
 }

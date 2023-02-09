@@ -21,6 +21,8 @@ import BtnYellow from "./views/widget/btn_yellow/BtnYellow.vue";
 import BtnInfo from "./views/widget/btn_info/BtnInfo.vue";
 import Overlay from "./views/widget/overlay/Overlay.vue";
 import LoadMore from "./views/widget/loadMore/LoadMore.vue";
+import Loader from "./views/widget/loader/Loader.vue";
+import HorizontalScroll from "./views/widget/horizontal_scroll/HorizontalScroll.vue";
 
 LogUtil.init();
 Vue.config.productionTip = false;
@@ -32,6 +34,8 @@ Vue.component("btn-yellow", BtnYellow);
 Vue.component("btn-info", BtnInfo);
 Vue.component("overlay", Overlay);
 Vue.component("load_more", LoadMore);
+Vue.component("loader", Loader);
+Vue.component("horizontal_scroll", HorizontalScroll);
 
 if (isAndroid()) {
     GlobalVar.device_type = EnumDeviceType.ANDROID;

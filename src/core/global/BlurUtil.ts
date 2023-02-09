@@ -12,5 +12,4 @@ export default function (blur: boolean, page:string = "page") {
             document.body.scroll = "yes";
         }
     }
-    console.warn(">>>>>>>>>>>")
 }

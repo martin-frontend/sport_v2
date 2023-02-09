@@ -14,13 +14,6 @@ export default class Matche extends AbstractView {
     myProxy: MatcheProxy = this.getProxy(MatcheProxy);
     pageData = this.myProxy.pageData;
 
-    //分类按扭列表，拖动参数
-    dragData = {
-        isMoving: false,
-        x: 0,
-        left: 0,
-    };
-
     timer = 0;
 
     constructor() {
@@ -28,7 +21,9 @@ export default class Matche extends AbstractView {
     }
 
     mounted() {
-        this.timer = setInterval(this.resizeListHeight.bind(this), 1000);
+        if (!this.$vuetify.breakpoint.mobile) {
+            this.timer = setInterval(this.resizeListHeight.bind(this), 1000);
+        }
     }
 
     resizeListHeight() {
@@ -36,44 +31,7 @@ export default class Matche extends AbstractView {
         if (divlist) {
             //@ts-ignore
             const el: HTMLElement = divlist.$el;
-            el.style.height = document.body.clientHeight - el.getBoundingClientRect().top + "px";
-        }
-    }
-
-    get btnsTop() {
-        switch (this.rightProxy.pageData.liveIndex) {
-            case 0:
-                return "258px";
-            case 1:
-                return "258px";
-            case 2:
-                return "360px";
-        }
-    }
-
-    onMouseDown(event: any) {
-        this.dragData.isMoving = true;
-        this.dragData.x = event.pageX;
-        //@ts-ignore
-        const boxType: HTMLElement = this.$refs.boxType?.$el;
-        this.dragData.left = boxType.scrollLeft;
-    }
-    onMouseUp(event: any) {
-        var distanceX = event.pageX - this.dragData.x;
-        if (Math.abs(distanceX) > 0) {
-            setTimeout(() => {
-                this.dragData.isMoving = false;
-            }, 100);
-        } else {
-            this.dragData.isMoving = false;
-        }
-    }
-    onMouseMove(event: any) {
-        if (this.dragData.isMoving) {
-            //@ts-ignore
-            const boxType: HTMLElement = this.$refs.boxType?.$el;
-            var distanceX = event.pageX - this.dragData.x;
-            boxType.scrollLeft = this.dragData.left - distanceX;
+            if (el) el.style.height = document.body.clientHeight - el.getBoundingClientRect().top + "px";
         }
     }
 
@@ -112,6 +70,8 @@ export default class Matche extends AbstractView {
             "ASIAN_OVER_UNDER_EXTRA_TIME",
             "ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME",
             "ASIAN_OVER_UNDER_AFTER_PENALTIES",
+            "EITHER_TEAM_TO_SCORE",
+            "EITHER_TEAM_TO_SCORE_HALF_TIME",
         ],
         3: ["DRAW_NO_BET", "DRAW_NO_BET_HALF_TIME"],
         4: ["HALF_TIME_FULL_TIME"],
@@ -129,13 +89,11 @@ export default class Matche extends AbstractView {
     };
 
     onMarketType(market_type: number) {
-        if (!this.dragData.isMoving) {
-            GlobalVar.loading = true;
-            this.pageData.isOpenAll = true;
-            this.pageData.isNeedOpenAll = true;
-            this.myProxy.listQueryMarket.market_type = market_type;
-            this.myProxy.api_market_typelist();
-        }
+        this.pageData.loading = true;
+        this.pageData.isOpenAll = true;
+        this.pageData.isNeedOpenAll = true;
+        this.myProxy.listQueryMarket.market_type = market_type;
+        this.myProxy.api_market_typelist();
     }
 
     /**打开/关闭 所有 */
@@ -148,6 +106,10 @@ export default class Matche extends AbstractView {
         } else {
             this.pageData.panelIndexs = [];
         }
+    }
+
+    onTipsClick(attrs: any) {
+        if (attrs["aria-expanded"] == "true") attrs["aria-expanded"] = "false";
     }
 
     destroyed() {
@@ -190,3 +152,5 @@ export default class Matche extends AbstractView {
 // 31: {id: 260, market_type: 'ASIAN_HANDICAP_AFTER_PENALTIES', parent_id: 74, title: '亚洲让球盘 - 点球对决后', title_new: '亚洲让球盘 - 点球对决后'}
 // 32: {id: 247, market_type: 'ASIAN_OVER_UNDER_AFTER_PENALTIES', parent_id: 231, title: '亚洲大小盘－罚球', title_new: '亚洲大小盘－罚球'}
 // 33: {id: 286, market_type: 'RMM_OUTRIGHTS', parent_id: 0, title: '冠军', title_new: '冠军'}
+// 33: {id: 296, market_type: 'EITHER_TEAM_TO_SCORE', parent_id: 0, title: '任意一队得分', title_new: '任意一队得分'}
+// 33: {id: 297, market_type: 'EITHER_TEAM_TO_SCORE_HALF_TIME', parent_id: 0, title: '半场 - 任意一队得分', title_new: '半场 - 任意一队得分'}

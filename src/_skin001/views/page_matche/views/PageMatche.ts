@@ -10,10 +10,12 @@ import live from "../../live";
 import page_order from "../../page_order";
 import OpenLink from "@/core/global/OpenLink";
 import BlurUtil from "@/core/global/BlurUtil";
+import matche from "../../matche";
 
 @Component
 export default class PageMatche extends AbstractView {
     LangUtil = LangUtil;
+    GlobalVar = GlobalVar;
     getResponseIcon = getResponseIcon;
     matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: PageMatcheProxy = this.getProxy(PageMatcheProxy);
@@ -24,7 +26,7 @@ export default class PageMatche extends AbstractView {
     }
 
     @Watch("pageData.isShowList")
-    onWatchShowList(){
+    onWatchShowList() {
         BlurUtil(this.pageData.isShowList, "div_content");
     }
 
@@ -36,32 +38,32 @@ export default class PageMatche extends AbstractView {
     onWatchMatche() {
         const competition_id = this.matcheProxy.pageData.competition_list[0]?.competition_id;
         if (competition_id) {
-            console.warn("competition_id: ", competition_id)
+            console.warn("competition_id: ", competition_id);
             this.myProxy.api_event_list(competition_id);
         }
     }
 
-    start_time(matche:any) {
+    start_time(matche: any) {
         const timearr = <any>{};
         timearr.day = dateFormat(getDateByTimeZone(matche.sb_time * 1000, GlobalVar.zone), "MM/dd");
         timearr.min = dateFormat(getDateByTimeZone(matche.sb_time * 1000, GlobalVar.zone), "hh:mm");
         return timearr;
     }
-    clickitem(matche:any){
-        live.init(matche.id);
-        matche.init(matche.id);
+    clickitem(m: any) {
+        live.init(m.id);
+        matche.init(m.id);
     }
 
     get currIndex() {
         return this.pageData.competition_list[0]?.matches.findIndex((item) => item.id == <any>this.matcheProxy.listQueryComp.event_id);
     }
 
-    get matches(){
+    get matches() {
         return this.pageData.competition_list[0]?.matches;
     }
 
     // 打开注单历史
-    onOrder(){
+    onOrder() {
         page_order.show();
     }
 
@@ -73,6 +75,7 @@ export default class PageMatche extends AbstractView {
         const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         OpenLink(link);
     }
+
     destroyed() {
         super.destroyed();
     }

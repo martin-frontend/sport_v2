@@ -1,4 +1,10 @@
-<v-sheet ref="divbox" :class="$vuetify.breakpoint.mobile ? 'rounded-10' : 'rounded-b-10'" class="overflow-hidden live_tex" color="bgBanner">
+<v-sheet
+    ref="divbox"
+    :class="$vuetify.breakpoint.mobile ? 'rounded-10' : 'rounded-b-10'"
+    class="overflow-hidden live_tex"
+    color="bgBanner"
+    v-scroll:#routerBox="onScroll"
+>
     <v-divider v-if="!$vuetify.breakpoint.mobile" />
     <v-skeleton-loader v-if="pageData.loading" class="mx-auto rounded-0" width="100%" height="208" type="image"></v-skeleton-loader>
     <v-window v-else v-model="window">
@@ -129,4 +135,36 @@
     <v-btn class="btn_close" icon v-if="window != 0 && $vuetify.breakpoint.mobile" @click="window=0">
         <svg-icon class="text-20" icon="close"></svg-icon>
     </v-btn>
+
+    <!-- 开赛时间 -->
+    <v-sheet color="transparent" width="100%" class="competing-time d-flex justify-center align-center" v-if="matche && bShowTime">
+        <v-sheet class="rounded white--text d-flex align-center justify-center text-12 px-2" height="24px">
+            <img class="mr-2" width="14" src="@/_skin001/assets/icon_daochu.png" />
+            <div class="d-flex">
+                <div v-if="getStates() && Object.keys(getStates()).length > 0" class="d-flex">
+                    <!-- <div v-if="states.phase_minute > 0" class="mr-1">{{LangUtil("已开赛")}}</div> -->
+                    <div :class="getStates().match_phase=='-'? 'text-red':'white--text'" class="mr-1">
+                        {{ LangUtil(getStates() ? getStates().match_phase : "") }}
+                    </div>
+                    <div v-if="getStates().phase_minute > 0">{{ getStates().phase_minute }}{{LangUtil("分钟")}}</div>
+                </div>
+                <div v-else-if="matche.sb_time-GlobalVar.server_time > 0" class="d-flex">
+                    <div class="text-12" v-if="matche.sb_time-GlobalVar.server_time > 86400">
+                        <span class="mr-1"> {{LangUtil("距开赛")}}</span> {{ downTime.day }}{{LangUtil("天")}}
+                    </div>
+                    <!-- 一天内 -->
+
+                    <div class="text-12 d-flex" v-else-if="matche.sb_time-GlobalVar.server_time > 600">
+                        <div class="mr-1">{{LangUtil("距开赛")}}</div>
+                        <div>
+                            <span v-if="downTime.hr"> {{ downTime.hr }}{{LangUtil("小时")}} </span>
+                            {{ downTime.min }}{{LangUtil("分")}}
+                        </div>
+                    </div>
+                    <!-- 十分钟内 -->
+                    <div v-else class="text-red">{{LangUtil("即将开赛")}}</div>
+                </div>
+            </div>
+        </v-sheet>
+    </v-sheet>
 </v-sheet>

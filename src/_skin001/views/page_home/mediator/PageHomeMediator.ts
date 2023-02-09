@@ -4,12 +4,13 @@ import getProxy from "@/core/global/getProxy";
 import SelfProxy from "@/proxy/SelfProxy";
 import net from "@/net/setting";
 import GlobalVar from "@/core/global/GlobalVar";
+import MatcheProxy from "../../matche/proxy/MatcheProxy";
 
 export default class PageHomeMediator extends AbstractMediator {
     onRegister() {
         const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
         if (myProxy.isFirstRequest) {
-            GlobalVar.loading = true;
+            // GlobalVar.loading = true;
             myProxy.api_menu_subnav();
         }
     }
@@ -37,12 +38,14 @@ export default class PageHomeMediator extends AbstractMediator {
                 }
                 break;
             case net.EventType.api_market_typelist:
-                if (type == "lobby") {
+                if (type == PageHomeProxy.NAME) {
                     myProxy.set_market_typelist(body);
+                } else if(type == MatcheProxy.NAME){
+                    myProxy.updateMarketCount(body);
                 }
                 break;
             case net.EventType.api_event_states:
-                if (type == "lobby") {
+                if (type == PageHomeProxy.NAME) {
                     myProxy.set_event_states(body);
                 }
                 break;

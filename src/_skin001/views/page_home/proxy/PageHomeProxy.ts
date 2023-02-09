@@ -21,6 +21,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
 
     pageData = {
+        loading: false,
         /**打开的联赛索引 */
         openIndexs: [0, 1, 2],
         /**联赛列表 */
@@ -73,7 +74,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
         // 对应的盘口类型，以逗号拼接
         market_type: "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME",
         // 记录所在位置
-        unique: "lobby",
+        unique: PageHomeProxy.NAME,
         //暂时不用的
         market_id: "",
     };
@@ -103,8 +104,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
 
     set_event_list(data: any) {
-        GlobalVar.loading = false;
-        GlobalVar.loading1 = false;
+        this.pageData.loading = false;
         this.pageData.competition_list = data;
         this.pageData.openIndexs = [0, 1, 2];
     }
@@ -122,6 +122,19 @@ export default class PageHomeProxy extends puremvc.Proxy {
             }
         }
     }
+    updateMarketCount(data: any) {
+        for (const item of data) {
+            const { event_id, market_amount } = item;
+            for(const comp of this.pageData.competition_list){
+                for(const matche of comp.matches){
+                    if(matche.id == event_id){
+                        matche.market_amount = market_amount;
+                        break;
+                    }
+                }
+            }
+        }
+    }
     set_event_states(data: any) {
         for (const item of data) {
             const finditem = this.pageData.event_states.find((item1) => item.event_id == item1.event_id);
@@ -134,8 +147,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
         // TODO 移除已经结束的赛事
     }
     set_user_lovematch(data: any) {
-        GlobalVar.loading = false;
-        GlobalVar.loading1 = false;
+        this.pageData.loading = false;
         this.pageData.love_count = data.reduce((previousValue: any, current: any) => previousValue + current.count, 0);
         this.pageData.love_events = [];
         for (const comp of data) {
@@ -152,14 +164,13 @@ export default class PageHomeProxy extends puremvc.Proxy {
 
     /**赛事接口-新*/
     api_event_list() {
-        // if(Vue.vuetify.framework.breakpoint.mobile){
-            GlobalVar.loading = true;
-        // }else{
-            GlobalVar.loading1 = true;
-        // }
-        // this.pageData.competition_list = [];
-        this.pageData.market_list = [];
-        this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
+        if (this.listQueryComp.tag != "love") {
+            this.pageData.loading = true;
+            this.pageData.market_list = [];
+            this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
+        }else{
+            this.api_user_lovematch();
+        }
     }
     /**盘口接口-新*/
     api_market_typelist() {
@@ -174,7 +185,6 @@ export default class PageHomeProxy extends puremvc.Proxy {
                 this.listQueryMarket.market_type = pcMarketType + "," + pcMarketType_extra;
             }
         }
-        console.warn(">>>>>>>", this.listQueryMarket.market_type);
         this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(this.listQueryMarket));
     }
     /**赛事进程*/
@@ -184,23 +194,24 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
     /**关注 */
     api_user_lovematch() {
-        // GlobalVar.loading = true;
+        if(this.listQueryComp.tag == "love")
+            this.pageData.loading = true;
         this.pageData.lovematch_order++;
-        this.sendNotification(net.HttpType.api_user_lovematch, {unique: this.pageData.lovematch_order});
+        this.sendNotification(net.HttpType.api_user_lovematch, { unique: this.pageData.lovematch_order });
     }
     api_user_love(event_id: number) {
         const idx = this.pageData.love_events.indexOf(event_id);
-        if(idx != -1){
+        if (idx != -1) {
             this.pageData.love_events.splice(idx, 1);
-        }else{
+        } else {
             this.pageData.love_events.push(event_id);
         }
         //如果在关注页，直接删除该赛事
-        if(this.listQueryComp.tag == "love"){
-            for(const comp of this.pageData.competition_list){
+        if (this.listQueryComp.tag == "love") {
+            for (const comp of this.pageData.competition_list) {
                 const len = comp.matches.length;
-                for(let i=0; i<len; i++){
-                    if(comp.matches[i].id == event_id){
+                for (let i = 0; i < len; i++) {
+                    if (comp.matches[i].id == event_id) {
                         comp.matches.splice(idx, 1);
                         break;
                     }

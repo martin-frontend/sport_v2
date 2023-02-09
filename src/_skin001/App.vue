@@ -54,6 +54,8 @@
         <v-navigation-drawer v-model="GlobalVar.navDrawer" color="bgPage" app absolute temporary floating style="z-index: 101">
             <Navigation class="mt-3" @onChange="GlobalVar.navDrawer = false" />
         </v-navigation-drawer>
+        <!-- 右侧设置页 -->
+        <DialogSetting/>
         <!-- 注单抽屉 -->
         <DialogMyBet v-if="$vuetify.breakpoint.mobile" />
         <!-- 投注确认框 -->
@@ -63,9 +65,9 @@
         <!-- 订单状态返回消息框 -->
         <NotifyOrderFinished />
         <!-- loading 遮罩 -->
-        <overlay v-model="GlobalVar.loading" />
+        <!-- <overlay v-model="GlobalVar.loading" /> -->
         <!-- loading 遮罩 不可见 -->
-        <v-overlay :value="GlobalVar.loading1" opacity="0"></v-overlay>
+        <!-- <v-overlay :value="GlobalVar.loading1 || GlobalVar.loading" opacity="0"></v-overlay> -->
     </v-app>
 </template>
 
@@ -84,6 +86,7 @@ import RightPanel from "./views/right_panel/views/RightPanel.vue";
 import NotifyMessage from "./views/widget/notify_message/NotifyMessage.vue";
 import NotifyOrderFinished from "./views/widget/notify_order_finished/NotifyOrderFinished.vue";
 import { removeClass } from "@/core/global/Functions";
+import DialogSetting from "./views/dialog_setting/views/DialogSetting.vue";
 @Component({
     components: {
         Header,
@@ -94,6 +97,7 @@ import { removeClass } from "@/core/global/Functions";
         DialogMyBet,
         MyBet,
         DialogBetResult,
+        DialogSetting,
     },
 })
 export default class extends APP {

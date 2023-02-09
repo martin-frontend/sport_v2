@@ -38,7 +38,7 @@ export default class PageOrder extends AbstractView {
     statusMapColor = {
         0: "#FF7128", //确认中
         1: "#007E29", //确认成功
-        3: "#7E0000", //拒绝
+        3: "#FF2828", //拒绝
         4: "#FF2828", //取消
         8: "#FF2828", //准异常
     };
@@ -185,14 +185,14 @@ export default class PageOrder extends AbstractView {
             const result_tb = this.advance_result(item, itemState);
             if (result_tb.win_type == 0) {
                 //没找到预算的盘口 按照预计输赢显示
-                return { str: GlobalVar.currency + " " + amountFormat(item.expected_win, true, 3), color: "#0325b4" };
+                return { str: GlobalVar.currency + " " + amountFormat(item.expected_win, true, 3), color: this.$vuetify.theme.dark ? "#1B5FFF" : "#0325b4" };
             }
             return {
                 str: GlobalVar.currency + " " + result_tb.win_num + "(" + this.getWinTypeStr({ win_type: result_tb.win_type }) + ")",
                 color: this.resultMapColor[result_tb.win_type],
             };
         } else {
-            return { str: GlobalVar.currency + " " + amountFormat(item.expected_win, true, 3), color: "#0325b4" };
+            return { str: GlobalVar.currency + " " + amountFormat(item.expected_win, true, 3), color: this.$vuetify.theme.dark ? "#1B5FFF" : "#0325b4" };
         }
     }
     //预算结果逻辑
@@ -617,6 +617,27 @@ export default class PageOrder extends AbstractView {
                 result_tb.win_type = score == 0 ? 3 : score == -0.25 ? 2 : score == 0.25 ? 5 : score <= -0.5 ? 1 : 4;
             }
         }
+        //任意一队得分
+        else if(orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE){
+            const goalsarr = playingState.goals_ft.split("-");
+            const allget = Number(goalsarr[0]) > 0 || Number(goalsarr[1]) > 0;
+            if (orderItem.s_type == "Yes") {
+                result_tb.win_type = allget ? 1 : 4;
+            } else if (orderItem.s_type == "No") {
+                result_tb.win_type = allget ? 4 : 1;
+            }
+        }
+        //半场 - 任意一队得分
+        else if(orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_HALF_TIME){
+            const goalsarr = playingState.goals_ht.split("-");
+            const allget = Number(goalsarr[0]) > 0 || Number(goalsarr[1]) > 0;
+            if (orderItem.s_type == "Yes") {
+                result_tb.win_type = allget ? 1 : 4;
+            } else if (orderItem.s_type == "No") {
+                result_tb.win_type = allget ? 4 : 1;
+            }
+        }
+        
         if (result_tb.win_type == 1) {
             result_tb.win_num = "+" + Number(orderItem.expected_win);
         } else if (result_tb.win_type == 2) {

@@ -113,7 +113,7 @@
                                 height="38"
                                 width="100%"
                             >
-                                <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
+                                <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
                                 <div v-if="item1.name" class="text-truncate mr-3">{{item1.name}}</div>
                                 <v-skeleton-loader v-else class="mr-2" width="100%" type="card-heading"></v-skeleton-loader>
                             </v-sheet>
@@ -125,7 +125,7 @@
                                 height="38"
                                 width="100%"
                             >
-                                <v-sheet class="ml-5 mr10" width="2" height="16" color="#FFCD43"></v-sheet>
+                                <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
                                 <div class="text-truncate mr-3">{{LangUtil("更多赛事")}}</div>
                             </v-sheet>
                         </v-list-item>
@@ -168,5 +168,4 @@
             </div>
         </v-window-item>
     </v-window>
-    <overlay v-model="orderUnsettledProxy.pageData.loading"/>
 </v-card>

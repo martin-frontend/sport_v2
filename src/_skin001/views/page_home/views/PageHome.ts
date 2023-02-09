@@ -23,7 +23,6 @@ export default class PageHome extends AbstractView {
 
     constructor() {
         super(PageHomeMediator);
-        // GlobalVar.loading1 = true;
     }
 
     mounted() {

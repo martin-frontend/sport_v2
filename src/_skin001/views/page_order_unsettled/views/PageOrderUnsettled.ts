@@ -580,6 +580,27 @@ export default class PageOrderUnsettled extends AbstractView {
                 result_tb.win_type = score == 0 ? 3 : score == -0.25 ? 2 : score == 0.25 ? 5 : score <= -0.5 ? 1 : 4;
             }
         }
+        //任意一队得分
+        else if(orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE){
+            const goalsarr = playingState.goals_ft.split("-");
+            const allget = Number(goalsarr[0]) > 0 || Number(goalsarr[1]) > 0;
+            if (orderItem.s_type == "Yes") {
+                result_tb.win_type = allget ? 1 : 4;
+            } else if (orderItem.s_type == "No") {
+                result_tb.win_type = allget ? 4 : 1;
+            }
+        }
+        //半场 - 任意一队得分
+        else if(orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_HALF_TIME){
+            const goalsarr = playingState.goals_ht.split("-");
+            const allget = Number(goalsarr[0]) > 0 || Number(goalsarr[1]) > 0;
+            if (orderItem.s_type == "Yes") {
+                result_tb.win_type = allget ? 1 : 4;
+            } else if (orderItem.s_type == "No") {
+                result_tb.win_type = allget ? 4 : 1;
+            }
+        }
+        
         if (result_tb.win_type == 1) {
             result_tb.win_num = "+" + Number(orderItem.expected_win);
         } else if (result_tb.win_type == 2) {
