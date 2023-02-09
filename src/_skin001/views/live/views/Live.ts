@@ -14,6 +14,7 @@ export default class Live extends AbstractView {
     myProxy: LiveProxy = this.getProxy(LiveProxy);
     pageData = this.myProxy.pageData;
 
+    bShowTime = false; //是否显示倒计时
     @Prop({ default: 0 }) value!: number;
     window = this.value;
     iframeHeight = 0;
@@ -36,6 +37,10 @@ export default class Live extends AbstractView {
 
     constructor() {
         super(LiveMediator);
+    }
+
+    onScroll(e: any) {
+        this.bShowTime = e.target.scrollTop > 160;
     }
 
     @Watch("$vuetify.breakpoint.width")
@@ -136,6 +141,15 @@ export default class Live extends AbstractView {
         if (sec < 10) str += "0";
         str += sec;
         return str.split("");
+    }
+    get downTime(): any {
+        const start_in_sec = this.matche.sb_time - GlobalVar.server_time;
+        const day = Math.floor(start_in_sec / 60 / 60 / 24);
+        const hr = Math.floor(start_in_sec / 60 / 60 - day * 24);
+        const min = Math.floor((start_in_sec / 60) % 60);
+        const sec = Math.floor(start_in_sec % 60);
+
+        return {day, hr, min, sec};
     }
 
     destroyed() {

@@ -26,6 +26,10 @@ export default class BetResult extends AbstractView {
     myProxy: DialogBetResultProxy = this.getProxy(DialogBetResultProxy);
     pageData = this.myProxy.pageData;
 
+    mounted(){
+        this.pageData.statusMsg = "";
+    }
+
     // 注单状态
     statusMap = {
         0: LangUtil("确认中"), //确认中

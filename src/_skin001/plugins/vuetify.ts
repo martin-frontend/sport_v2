@@ -52,7 +52,7 @@ export function getVuetify(): Vuetify {
                         bgColor: "#202121",
                         bgColor1: "#ffffff",
                         textYellow: "#3E3714",
-                        iconHeaderColor: "#FFF9e5",
+                        iconHeaderColor: "#ffffff",
                         textTagBtn: "#ffffff",
                         textGoldBg: "#303030",
                         textBet: "#8E8F91",

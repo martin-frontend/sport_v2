@@ -1,0 +1,16 @@
+.divbox {
+    overflow-x: auto;
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    overflow: -moz-scrollbars-none;
+    button {
+        ::v-deep .v-btn__content {
+            pointer-events: none;
+        }
+    }
+}
+.divbox::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+    width: 0 !important;
+}

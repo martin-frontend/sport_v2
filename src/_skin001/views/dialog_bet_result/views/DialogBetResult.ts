@@ -31,6 +31,10 @@ export default class DialogBetResult extends AbstractView {
         super(DialogBetResultMediator);
     }
 
+    mounted(){
+        this.pageData.statusMsg = "";
+    }
+
     // 注单状态
     statusMap = {
         0: LangUtil("确认中"), //确认中

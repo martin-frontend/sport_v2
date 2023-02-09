@@ -7,7 +7,7 @@
     overflow: visible !important;
 }
 .v-navigation-drawer--bottom.v-navigation-drawer--is-mobile {
-    max-height: 100% !important;
+    max-height: calc(100vh - 54px) !important;
     // position: relative;
 }
 .v-navigation-drawer--close {
@@ -28,4 +28,7 @@
         background-color: #272828;
         // border: solid 1px #3e3f41;
     }
+}
+.divbox{
+    max-height: calc(100vh - 54px) !important;
 }

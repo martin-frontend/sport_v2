@@ -9,6 +9,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
     /**计时器 */
     private timer = 0;
     pageData = {
+        loading: false,
         list: <any>[],
         states: <any>[],//滚球 数据是state
         pageInfo: {
@@ -70,7 +71,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
 
     set_user_orders(data: any) {
         this.listQueryMarket.event_id = '';
-        GlobalVar.loading = false;
+        this.pageData.loading = false;
         Object.assign(this.pageData.stats, data.stats);
         Object.assign(this.pageData.pageInfo, data.pageInfo);
         const vuetify = Vue.vuetify;
@@ -108,7 +109,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
         this.sendNotification(net.HttpType.api_event_states, { event_id, unique });
     }
     api_user_orders() {
-        GlobalVar.loading = true;
+        if(this.listQuery.page_count == 1) this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
 

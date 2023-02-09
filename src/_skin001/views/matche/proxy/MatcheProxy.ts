@@ -1,7 +1,6 @@
 import Vue from "vue";
 import PlatConfig from "@/core/config/PlatConfig";
 import { objectRemoveNull } from "@/core/global/Functions";
-import GlobalVar from "@/core/global/GlobalVar";
 import LangUtil from "@/core/global/LangUtil";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
@@ -61,7 +60,6 @@ export default class MatcheProxy extends puremvc.Proxy {
     }
 
     set_event_list(data: any) {
-        GlobalVar.loading = false;
         this.pageData.competition_list = data;
         this.api_market_typelist();
         this.timer = setInterval(() => {
@@ -88,13 +86,15 @@ export default class MatcheProxy extends puremvc.Proxy {
                 }
                 this.pageData.market_list = [item];
             }
-            GlobalVar.loading = false;
+            // GlobalVar.loading = false;
+            this.pageData.loading = false;
         }, 100);
     }
 
     /**赛事接口-新*/
     api_event_list() {
-        GlobalVar.loading = true;
+        // GlobalVar.loading = true;
+        this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
     }
 

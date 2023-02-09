@@ -1,4 +1,5 @@
 <v-navigation-drawer
+    class="divbox"
     color="bgMybet"
     v-model="pageData.bShow"
     height="455"
@@ -10,18 +11,19 @@
     app
     temporary
 >
-    <v-card
-        class="d-flex align-center head header_mbg elevation-0 rounded-0"
-        height="54"
-        width="100%"
-        color="bgMybet"
-        @click="pageData.bShow=true"
-        v-if="betProxy.pageData.list.length > 0"
-        :disabled="GlobalVar.loading"
-    >
-        <div class="ml-5 text-18 white--text font-weight-bold">{{LangUtil("注单")}}</div>
-        <v-spacer />
-        <!-- <v-sheet class="d-flex align-center rounded-pill mr-3" height="30" color="textGoldBg">
+    <div class="divbox overflow-y-auto">
+        <v-card
+            class="d-flex align-center head header_mbg elevation-0 rounded-0"
+            height="54"
+            width="100%"
+            color="bgMybet"
+            @click="pageData.bShow=true"
+            v-if="betProxy.pageData.list.length > 0"
+            :disabled="GlobalVar.loading"
+        >
+            <div class="ml-5 text-18 white--text font-weight-bold">{{LangUtil("注单")}}</div>
+            <v-spacer />
+            <!-- <v-sheet class="d-flex align-center rounded-pill mr-3" height="30" color="textGoldBg">
             <div class="d-flex align-end ml-3 white--text font-weight-bold">
                 <span class="text-14">{{GlobalVar.currency}} {{ amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span>
                 <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]">.{{ selfProxy.userInfo.gold.split('.')[1]}}</span>
@@ -29,33 +31,36 @@
             <v-btn class="rounded-pill ml-2 mr-1 elevation-0 yellow--text" small height="24" @click="onTopup">{{LangUtil("充值")}}</v-btn>
         </v-sheet> -->
 
-        <div class="d-flex align-center mr-3 text-14">
-            <v-sheet
-                class="money rounded-l-5 px10 d-flex align-center font-weight-bold"
-                :class="PlatConfig.config.client.isRecharge == '1' ? 'rounded-l-5' : 'rounded-5'"
-                height="36"
-                min-width="106"
-            >
-                <div class="d-flex align-end">
-                    <span class="text-14">{{GlobalVar.currency}} {{ amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span>
-                    <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]">.{{ selfProxy.userInfo.gold.split('.')[1]}}</span>
-                </div>
-            </v-sheet>
-            <btn-yellow
-                height="36"
-                minWidth="49"
-                :rounded5="true"
-                :rounded_tl="false"
-                :rounded_bl="false"
-                v-if="PlatConfig.config.client.isRecharge == '1'"
-                @click.native="onTopup"
-            >
-                <span class="text-14 mx-1">{{LangUtil("充值")}}</span>
-            </btn-yellow>
-        </div>
-    </v-card>
-    <v-divider v-if="$vuetify.theme.dark" />
-    <v-sheet class="pa10" color="bgMybet">
-        <MyBet class="rounded-lg mt-n2" />
-    </v-sheet>
+            <div class="d-flex align-center mr-3 text-14">
+                <v-sheet
+                    class="money rounded-l-5 px10 d-flex align-center font-weight-bold"
+                    :class="PlatConfig.config.client.isRecharge == '1' ? 'rounded-l-5' : 'rounded-5'"
+                    height="36"
+                    min-width="106"
+                >
+                    <div class="d-flex align-end">
+                        <span class="text-14">{{GlobalVar.currency}} {{ amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span>
+                        <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]"
+                            >.{{ selfProxy.userInfo.gold.split('.')[1]}}</span
+                        >
+                    </div>
+                </v-sheet>
+                <btn-yellow
+                    height="36"
+                    minWidth="49"
+                    :rounded5="true"
+                    :rounded_tl="false"
+                    :rounded_bl="false"
+                    v-if="PlatConfig.config.client.isRecharge == '1'"
+                    @click.native="onTopup"
+                >
+                    <span class="text-14 mx-1">{{LangUtil("充值")}}</span>
+                </btn-yellow>
+            </div>
+        </v-card>
+        <v-divider v-if="$vuetify.theme.dark" />
+        <v-sheet class="pa10" color="bgMybet">
+            <MyBet class="rounded-lg mt-n2" />
+        </v-sheet>
+    </div>
 </v-navigation-drawer>

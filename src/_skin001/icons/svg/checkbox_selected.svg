@@ -1,1 +1,14 @@
-<svg xmlns="http://www.w3.org/2000/svg" width="16.002" height="16.003" viewBox="0 0 16.002 16.003"><defs><style>.a{fill:#8e8f91;}</style></defs><g transform="translate(0 0.001)"><path class="a" d="M-6242-16316h-8a4,4,0,0,1-4-4v-8a4.005,4.005,0,0,1,4-4h8a4.005,4.005,0,0,1,4,4v8A4,4,0,0,1-6242-16316Zm-8.754-9.3a.866.866,0,0,0-.587.229.848.848,0,0,0-.262.578.819.819,0,0,0,.233.594l3.443,3.558.1.087a.847.847,0,0,0,.512.172.86.86,0,0,0,.615-.254l6.066-6.186.078-.094a.826.826,0,0,0-.1-1.078.863.863,0,0,0-.587-.23.855.855,0,0,0-.61.255l-5.451,5.554-2.836-2.927-.09-.082A.847.847,0,0,0-6250.751-16325.295Z" transform="translate(6253.998 16332.001)"/></g></svg>
+<?xml version="1.0" encoding="UTF-8"?>
+<svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
+    <!-- Generator: Sketch 63.1 (92452) - https://sketch.com -->
+    <title>编组 2</title>
+    <desc>Created with Sketch.</desc>
+    <g id="页面-1" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
+        <g id="编组" transform="translate(-138.000000, -138.000000)">
+            <g id="编组-2" transform="translate(138.000000, 138.000000)">
+                <circle id="椭圆形备份-5" stroke="#E97800" stroke-width="2" cx="12" cy="12" r="11"></circle>
+                <circle id="椭圆形备份-6" fill="#E97800" cx="12" cy="12" r="7.63636364"></circle>
+            </g>
+        </g>
+    </g>
+</svg>

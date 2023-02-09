@@ -21,7 +21,7 @@
                     <!-- 一天内 -->
                     <div class="ml10 d-flex align-center text-12" v-else-if="start_in_sec > 600">
                         <div>{{LangUtil("距开赛")}}</div>
-                        <div>{{ hr }}{{LangUtil("小时")}}{{ min }}{{LangUtil("分")}}</div>
+                        <div class="ml-1">{{ hr }}{{LangUtil("小时")}}{{ min }}{{LangUtil("分")}}</div>
                     </div>
                     <!-- 十分钟内 -->
                     <div v-else class="ml10 font-weight-bold yellow--text">{{LangUtil("即将开赛")}}</div>
@@ -42,7 +42,11 @@
                                 color="red"
                                 >{{getValues(states.red_cards_ft)[0]}}</v-sheet
                             > -->
-                            <CardRed class="mx-1" v-if="states && getValues(states.red_cards_ft)[0] > 0" :value="getValues(states.red_cards_ft)[0]"/>
+                            <CardRed
+                                class="mx-1"
+                                v-if="states && getValues(states.red_cards_ft)[0] > 0"
+                                :value="getValues(states.red_cards_ft)[0]"
+                            />
                             <v-spacer />
                             <v-sheet
                                 v-if="states"
@@ -78,7 +82,11 @@
                                 color="red"
                                 >{{getValues(states.red_cards_ft)[1]}}</v-sheet
                             > -->
-                            <CardRed class="mx-1" v-if="states && getValues(states.red_cards_ft)[1]" :value="getValues(states.red_cards_ft)[1]"/>
+                            <CardRed
+                                class="mx-1"
+                                v-if="states && getValues(states.red_cards_ft)[1]"
+                                :value="getValues(states.red_cards_ft)[1]"
+                            />
                             <v-spacer />
                             <v-sheet
                                 v-if="states"

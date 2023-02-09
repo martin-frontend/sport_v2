@@ -39,3 +39,14 @@
     right: 5px;
     z-index: 5;
 }
+
+
+.competing-time {
+    position: fixed;
+    top: 60px;
+    z-index: 2;
+    pointer-events: none;
+    > div {
+        background: linear-gradient(to right, #F5B600, #F19900) !important;
+    }
+}

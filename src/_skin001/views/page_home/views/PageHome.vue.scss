@@ -42,23 +42,6 @@
     display: none; /* Chrome Safari */
     width: 0 !important;
 }
-// .btnTag {
-//     min-height: 36px;
-//     display: inline-block;
-//     &.active {
-//         border: solid 1px #ffcd43 !important;
-//     }
-// }
-// .theme--light {
-//     .btnTag {
-//         border: solid 1px #c8cad0;
-//     }
-// }
-// .theme--dark {
-//     .btnTag {
-//         border: solid 1px #5a5a5a;
-//     }
-// }
 input {
     width: 100%;
     outline: none;
@@ -69,31 +52,10 @@ input {
     z-index: 5;
 }
 
-
-::v-deep .v-skeleton-loader .v-skeleton-loader__card-heading{
-    background-color: transparent;
-}
-::v-deep .v-skeleton-loader__card-heading .v-skeleton-loader__heading{
-    margin:0;
-    width: 100%;
-}
-::v-deep .v-expansion-panel-content{
+::v-deep .v-expansion-panel-content {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 .btnGroup {
     overflow-x: auto;
@@ -120,7 +82,7 @@ input {
         background-color: #ffffff;
         // border: solid 1px #e8e8e2;
     }
-    ::v-deep .v-btn.v-btn--disabled.v-btn--has-bg{
+    ::v-deep .v-btn.v-btn--disabled.v-btn--has-bg {
         background-color: #f1f1f1 !important;
     }
 }
@@ -129,10 +91,10 @@ input {
         background-color: #272828;
         // border: solid 1px #3e3f41;
     }
-    ::v-deep .v-btn.v-btn--disabled.v-btn--has-bg{
+    ::v-deep .v-btn.v-btn--disabled.v-btn--has-bg {
         background-color: #303030 !important;
     }
-    .btnTag{
+    .btnTag {
         background-color: #303030;
     }
 }

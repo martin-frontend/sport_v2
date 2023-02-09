@@ -10,6 +10,7 @@ export default class SettingProxy extends puremvc.Proxy {
     static NAME = "SettingProxy";
 
     pageData = {
+        bShow: false,
         isReset: true,
         //如果是列表，使用以下数据，否则删除
         form: <RemarkVO>{

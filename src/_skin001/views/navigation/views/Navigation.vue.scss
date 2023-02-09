@@ -24,17 +24,24 @@
 ::v-deep .v-list-group .v-list-group__header .v-list-item__icon.v-list-group__header__append-icon {
     display: none;
 }
+
 .comp-item {
     box-sizing: border-box;
+    .vline {
+        background-color: #ffcd43;
+    }
     &.active {
         background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
         color: #0f1213 !important;
+        .vline {
+            background-color: #0f1213;
+        }
     }
 }
 .theme--light {
     .comp-item {
         border: solid 2px #e8e8e2;
-        background-color: #fff;
+        background-color: #f2f2f2;
     }
 }
 .theme--dark {
@@ -67,7 +74,7 @@
     background-color: #888;
 }
 
-.page-content{
+.page-content {
     height: calc(100vh - 54px);
     overflow-y: auto;
 }

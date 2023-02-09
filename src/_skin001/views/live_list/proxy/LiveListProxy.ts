@@ -17,6 +17,7 @@ export default class LiveListProxy extends puremvc.Proxy {
     }
 
     pageData = {
+        loading: false,
         /**直播列表 */
         list: <EventLiveVO[]>[],
         /**赛事进程 */
@@ -24,6 +25,7 @@ export default class LiveListProxy extends puremvc.Proxy {
     };
 
     set_event_live_list(data: any) {
+        this.pageData.loading = false;
         this.pageData.list = data.list;
     }
     set_event_states(data: any) {
@@ -32,6 +34,7 @@ export default class LiveListProxy extends puremvc.Proxy {
 
     /**直播清单接口*/
     api_event_live_list() {
+        this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_event_live_list, { page_count: 1, page_size: 50 });
     }
 

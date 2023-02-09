@@ -12,7 +12,8 @@ import BlurUtil from "@/core/global/BlurUtil";
 @Component
 export default class DialogSetting extends AbstractView {
     LangUtil = LangUtil;
-    myProxy: DialogSettingProxy = this.getProxy(DialogSettingProxy);
+    GlobalVar = GlobalVar;
+    myProxy: SettingProxy = this.getProxy(SettingProxy);
     pageData = this.myProxy.pageData;
 
     constructor() {
@@ -25,11 +26,6 @@ export default class DialogSetting extends AbstractView {
         OpenLink(link);
     }
 
-    onReSetting() {
-        const settingProxy: SettingProxy = getProxy(SettingProxy);
-        settingProxy.api_user_set_user_setting(true);
-    }
-
     onClose() {
         this.pageData.bShow = false;
         const settingProxy: SettingProxy = getProxy(SettingProxy);
@@ -39,5 +35,27 @@ export default class DialogSetting extends AbstractView {
     @Watch("pageData.bShow")
     onWatchShow(){
         BlurUtil(this.pageData.bShow);
+    }
+
+    get getSelectName() {
+        const data = this.pageData.items.find((item: any) => item.key == this.pageData.form.timezone);
+        if (data) {
+            return data.value + LangUtil(data.name);
+        }
+        return "";
+    }
+
+    onMarketTypeArea(type:string){
+        this.pageData.form.MarketType_area = type;
+        GlobalVar.MarketType_area = type;
+    }
+
+    onTimeZoneItemClick(value:string){
+        this.pageData.form.timezone = value;
+        GlobalVar.zone = value;
+    }
+
+    onReSetting() {
+        this.myProxy.api_user_set_user_setting(true);
     }
 }
