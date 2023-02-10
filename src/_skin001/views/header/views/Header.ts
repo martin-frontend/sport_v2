@@ -7,7 +7,7 @@ import SettingProxy from "@/proxy/SettingProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import OpenLink from "@/core/global/OpenLink";
 import page_home from "../../page_home";
-import { isAndroid, isIOS } from "@/core/global/Functions";
+import { formatURLParam, isAndroid, isIOS } from "@/core/global/Functions";
 import BlurUtil from "@/core/global/BlurUtil";
 import dialog_setting from "../../dialog_setting";
 @Component
@@ -47,7 +47,9 @@ export default class Header extends AbstractView {
         const iTop = (window.screen.availHeight-30-iHeight)/2;
         const iLeft = (window.screen.availWidth-10-iWidth)/2;
         const dark = this.$vuetify.theme.dark;
-        const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const link = "./skin001_competion_result.html?" + params;
+        // const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
             if (isIOS()) {
                 const winHandler: any = window.open("", "_blank");
@@ -69,7 +71,9 @@ export default class Header extends AbstractView {
         const iTop = (window.screen.availHeight-30-iHeight)/2;
         const iLeft = (window.screen.availWidth-10-iWidth)/2;
         const dark = this.$vuetify.theme.dark;
-        const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const link = "./skin001_history_result.html?" + params;
+        // const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
              window.open(
              link,
@@ -87,7 +91,9 @@ export default class Header extends AbstractView {
         const iTop = (window.screen.availHeight-30-iHeight)/2;
         const iLeft = (window.screen.availWidth-10-iWidth)/2;
         const dark = this.$vuetify.theme.dark;
-        const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const link = "./skin001_help.html?" + params;
+        // const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
              window.open(
              link,

@@ -232,3 +232,42 @@ export function getResponseIcon(url: string) {
     // 預設圖片
     return require(`@/_skin001/assets/team.png`);
 }
+/**
+ * 获取URL中的参数
+ * @param updateParam 
+ * @param deleteParam 
+ */
+export function formatURLParam(updateParam?: any, deleteParam?: string[]) {
+    const request = getURLParam();
+    if (updateParam) {
+        const keys = Object.keys(updateParam);
+        for (const key of keys) {
+            request[key] = updateParam[key];
+        }
+    }
+    if (deleteParam) {
+        for (const key of deleteParam) {
+            delete request[key];
+        }
+    }
+    const arr:string[] = [];
+    for (const key of Object.keys(request)) {
+        arr.push(`${key}=${request[key]}`);
+    }
+    return arr.join("&");
+}
+/**
+ * 获取URL中的参数
+ */
+export function getURLParam(){
+    const url = location.search; //获取url中"?"符后的字串
+    let theRequest: any = new Object();
+    if (url.indexOf("?") != -1) {
+        let str = url.substring(1);
+        const strs = str.split("&");
+        for (let i = 0; i < strs.length; i++) {
+            theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+        }
+    }
+    return theRequest;
+}

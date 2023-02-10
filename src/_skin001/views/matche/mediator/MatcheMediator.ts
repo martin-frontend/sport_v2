@@ -29,7 +29,7 @@ export default class MatcheMediator extends AbstractMediator {
                     myProxy.set_event_list(body);
                     if(body.length == 0){
                         dialog_message_box.alert({
-                            message: LangUtil("赛事不存在"),
+                            message: LangUtil("该赛事不存在或已结束"),
                             okFun: () => {
                                 page_home.show();
                                 page_home.showEventList();

@@ -4,7 +4,7 @@ import PageMatcheMediator from "../mediator/PageMatcheMediator";
 import PageMatcheProxy from "../proxy/PageMatcheProxy";
 import LangUtil from "@/core/global/LangUtil";
 import MatcheProxy from "../../matche/proxy/MatcheProxy";
-import { dateFormat, getDateByTimeZone, getResponseIcon } from "@/core/global/Functions";
+import { dateFormat, formatURLParam, getDateByTimeZone, getResponseIcon } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 import live from "../../live";
 import page_order from "../../page_order";
@@ -72,7 +72,9 @@ export default class PageMatche extends AbstractView {
     }
     openHelp() {
         const dark = this.$vuetify.theme.dark;
-        const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const link = "./skin001_help.html?" + params;
+        // const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         OpenLink(link);
     }
 

@@ -1,13 +1,15 @@
 <div>
     <v-sheet class="text-14 pl10 py-2 btnPlain--text rounded-10" color="bgBanner">
-        <v-row dense>
-            <v-col cols="3" class="textGray--text">{{LangUtil("总计")}}</v-col>
-            <v-col cols="9" class="font-weight-bold">{{pageData.stats.total_count}}</v-col>
-        </v-row>
-        <v-row dense class="mt-n1">
-            <v-col cols="3" class="textGray--text">{{LangUtil("投注额")}}</v-col>
-            <v-col cols="9" class="font-weight-bold">{{GlobalVar.currency}}: {{pageData.stats.total_stake}}</v-col>
-        </v-row>
+        <div class="d-flex mr-2">
+            <div class="textGray--text">{{LangUtil("总计")}}</div>
+            <v-spacer/>
+            <div class="font-weight-bold">{{pageData.stats.total_count}}</div>
+        </div>
+        <div class="d-flex mr-2 mt-1">
+            <div class="textGray--text">{{LangUtil("投注额")}}</div>
+            <v-spacer/>
+            <div class="font-weight-bold">{{GlobalVar.currency}}: {{pageData.stats.total_stake}}</div>
+        </div>
     </v-sheet>
     <loader v-if="pageData.loading"/>
     <v-sheet v-else class="text-13 mt-2 pb-2 pt10 textGray--text rounded-10" color="bgBanner" v-for="(item, index) in pageData.list" :key="index">
@@ -33,7 +35,7 @@
         <div class="px10 mt-1">{{item.market_type_text}}</div>
 
         <div class="px10 mt-1 d-flex flex-wrap">
-            {{item.home_name}} <span class="font-weight-bold mx-1">VS</span> {{item.away_name}}
+            {{item.home_name}} <span class="mx-1">VS</span> {{item.away_name}}
             <span class="font-weight-black mr-2 scoreColor--text" v-if="listQuery.is_settle == 1 && item.status !== 3 && item.c_type != 2"
                 >{{getHadResultStr(item)}}</span
             >
