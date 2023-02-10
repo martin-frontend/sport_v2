@@ -95,6 +95,7 @@ export default class MatcheProxy extends puremvc.Proxy {
     api_event_list() {
         // GlobalVar.loading = true;
         this.pageData.loading = true;
+        this.listQueryMarket.market_type = 0;
         this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
     }
 

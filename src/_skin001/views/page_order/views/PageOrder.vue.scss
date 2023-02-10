@@ -8,6 +8,15 @@
     .tabsActive{
         color: #3E3714;
     }
+    .btnType{
+        background-color: white;
+        background: linear-gradient(to right, #fcb131, #ffe64d);
+        color:#272828;
+        &.active{
+            background: none;
+            background-color: white;
+        }
+    }
 }
 .theme--dark {
     .tabs_box {
@@ -15,6 +24,13 @@
     }
     .tabsActive{
         color: white;
+    }
+    .btnType{
+        // background-color: #8E8F91;
+        &.active{
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            color:#272828;
+        }
     }
 }
 .win-type{
@@ -37,14 +53,6 @@
         position: absolute;
         right: 0px;
         bottom: 0px;
-    }
-}
-
-.btnType{
-    // background-color: #8E8F91;
-    &.active{
-        background: linear-gradient(to right, #fcb131, #ffe64d);
-        color:#272828;
     }
 }
 

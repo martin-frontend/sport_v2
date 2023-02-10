@@ -13,10 +13,26 @@
 
     <div class="d-flex align-center mt-2 mb-0 ml10 mr10">
         <div class="text-truncate" v-if="item.matche.c_type == 2">{{item.selection.name}}</div>
-        <div class="font-weight-bold text-truncate" v-else>
-            {{OrderTitleUtils.getTeamName(item)}}{{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche,
+        <!-- <div class="font-weight-bold text-truncate" v-else>
+            {{OrderTitleUtils.getTeamName(item)}} {{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche,
             false)}}
-        </div>
+        </div> -->
+
+        <template v-else>
+            <v-tooltip top>
+                <template v-slot:activator="{ on, attrs }">
+                    <div class="font-weight-bold text-truncate" v-bind="attrs" v-on="on">{{OrderTitleUtils.getTeamName(item)}}</div>
+                </template>
+                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                    <span>{{OrderTitleUtils.getTeamName(item)}}</span>
+                </v-sheet>
+            </v-tooltip>
+
+            <div class="font-weight-bold mx-1">
+                {{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche, false)}}
+            </div>
+        </template>
+
         <v-spacer />
         <div ref="divPrice" id="divPrice" class="pr-1 font-weight-bold text-18">@{{ TransMarketPrice(item.odds) }}</div>
         <div ref="imgOdds" class="text-8 mr-n1 opacity-0">
@@ -57,7 +73,7 @@
         </span>
     </div>
 
-    <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span class="font-weight-bold"> VS </span>{{item.matche.away_team}}</div>
+    <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span> VS </span>{{item.matche.away_team}}</div>
 
     <div class="d-flex ml10 mr10 mb-2">
         <v-sheet class="d-flex align-center justify-center input_left" min-width="60" :height="$vuetify.breakpoint.mobile?40:36"
@@ -136,7 +152,13 @@
             </btn-yellow> -->
         </div>
         <div class="ml10 mr10 mb-1" v-else>
-            <v-btn class="elevation-0 rounded-5 btn_yellow textYellow--text" :loading="GlobalVar.loading" height="40" width="100%" @click="onBet">
+            <v-btn
+                class="elevation-0 rounded-5 btn_yellow textYellow--text"
+                :loading="GlobalVar.loading"
+                height="40"
+                width="100%"
+                @click="onBet"
+            >
                 <span class="text-14 font-weight-bold"
                     >{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span
                 >
@@ -176,7 +198,13 @@
                     </btn-yellow> -->
                 </div>
                 <div v-else>
-                    <v-btn class="elevation-0 rounded-5 btn_yellow textYellow--text" :loading="GlobalVar.loading" height="40" width="100%" @click="onBet">
+                    <v-btn
+                        class="elevation-0 rounded-5 btn_yellow textYellow--text"
+                        :loading="GlobalVar.loading"
+                        height="40"
+                        width="100%"
+                        @click="onBet"
+                    >
                         <span class="text-14 font-weight-bold"
                             >{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span
                         >
