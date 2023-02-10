@@ -91,6 +91,8 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.TEAM_B_WIN_TO_NIL_HALF_TIME:
         case EnumMarketType.BOTH_TEAMS_TO_SCORE:
         case EnumMarketType.BOTH_TEAMS_TO_SCORE_HALF_TIME:
+        case EnumMarketType.EITHER_TEAM_TO_SCORE:
+        case EnumMarketType.EITHER_TEAM_TO_SCORE_HALF_TIME:
             return selection.type == "Yes" ? LangUtil("是") : LangUtil("否");
         case EnumMarketType.DRAW_NO_BET:
         case EnumMarketType.DRAW_NO_BET_HALF_TIME:

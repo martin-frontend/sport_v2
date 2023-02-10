@@ -21,7 +21,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
 
     pageData = {
-        loading: false,
+        loading: true,
         /**打开的联赛索引 */
         openIndexs: [0, 1, 2],
         /**联赛列表 */

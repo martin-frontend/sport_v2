@@ -22,15 +22,10 @@ export default class LiveProxy extends puremvc.Proxy {
         animation_id: "",
     };
 
-    // set_event_live_url(data: any) {
-    //     this.pageData.live_url = data;
-    // }
-
     set_event_list(data: any) {
         this.pageData.competition_list = data;
         this.pageData.animation_id = this.pageData.competition_list[0]?.matches[0]?.animation_id;
         this.pageData.live_url = this.pageData.competition_list[0]?.matches[0]?.live_url;
-        // this.api_event_live_url();
         this.api_event_states();
     }
 
@@ -41,14 +36,6 @@ export default class LiveProxy extends puremvc.Proxy {
             this.pageData.event_states = data;
         }
     }
-
-    /**取得直播连结*/
-    // api_event_live_url() {
-    //     const event_id = this.pageData.competition_list[0]?.matches[0]?.event_id;
-    //     if(event_id){
-    //         this.sendNotification(net.HttpType.api_event_live_url, { event_id: event_id });
-    //     }
-    // }
 
     /**赛事进程*/
     api_event_states() {

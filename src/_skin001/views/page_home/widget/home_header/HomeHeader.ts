@@ -29,7 +29,7 @@ export default class HomeHeader extends AbstractView {
             }
         }
         if (keyword) {
-            return LangUtil("搜索: ") + keyword;
+            return LangUtil("搜索") + ": " + keyword;
         }
         if (tag == "love") {
             return LangUtil("关注赛事");

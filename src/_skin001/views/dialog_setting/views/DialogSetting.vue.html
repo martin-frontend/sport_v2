@@ -34,7 +34,17 @@
     </v-card>
 </v-dialog> -->
 
-<v-navigation-drawer v-model="pageData.bShow" color="bgPage" :width="$vuetify.breakpoint.mobile?275:329" app absolute temporary right floating style="z-index: 101">
+<v-navigation-drawer
+    v-model="pageData.bShow"
+    color="bgPage"
+    :width="$vuetify.breakpoint.mobile?275:329"
+    app
+    absolute
+    temporary
+    right
+    floating
+    style="z-index: 101"
+>
     <v-sheet color="bgBanner" class="d-flex align-center textGray--text py-2">
         <v-sheet class="rounded mx-2" color="yellow" width="3" height="22"></v-sheet>
         <div class="text-14">{{LangUtil("币种")}}</div>
@@ -139,7 +149,13 @@
         </div>
     </v-sheet>
 
-    <v-sheet color="bgBanner" v-ripple class="mt-2 py pr-3 textGray--text d-flex align-center hand" @click="openCompetionResult">
+    <v-sheet
+        color="bgBanner"
+        v-ripple
+        class="mt-2 py pr-3 textGray--text d-flex align-center hand"
+        @click="openCompetionResult"
+        v-if="$vuetify.breakpoint.mobile"
+    >
         <v-sheet class="mx-2" rounded color="yellow" width="3" height="22"></v-sheet>
         <div class="text-14">{{LangUtil("比赛结果")}}</div>
         <v-spacer />
