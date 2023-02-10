@@ -45,6 +45,8 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
         case marketType.TEAM_B_WIN_TO_NIL: //客队零失球获胜
         case marketType.TEAM_A_WIN_TO_NIL_HALF_TIME: //半场 - 主队零失球获胜
         case marketType.TEAM_B_WIN_TO_NIL_HALF_TIME: //半场 - 客队零失球获胜
+        case marketType.EITHER_TEAM_TO_SCORE:
+        case marketType.EITHER_TEAM_TO_SCORE_HALF_TIME:
             return `${s_type == "Yes" ? LangUtil("是") : LangUtil("否")} ${formatAsian(handicap, s_type)}`;
         case marketType.ODD_OR_EVEN_HALF_TIME: //半场 - 单/双
         case marketType.ODD_OR_EVEN: //入球单双

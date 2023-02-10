@@ -8,6 +8,7 @@ import OpenLink from "@/core/global/OpenLink";
 import GlobalVar from "@/core/global/GlobalVar";
 import getProxy from "@/core/global/getProxy";
 import BlurUtil from "@/core/global/BlurUtil";
+import dialog_message_box from "../../dialog_message_box";
 
 @Component
 export default class DialogSetting extends AbstractView {
@@ -33,7 +34,7 @@ export default class DialogSetting extends AbstractView {
     }
 
     @Watch("pageData.bShow")
-    onWatchShow(){
+    onWatchShow() {
         BlurUtil(this.pageData.bShow);
     }
 
@@ -45,17 +46,23 @@ export default class DialogSetting extends AbstractView {
         return "";
     }
 
-    onMarketTypeArea(type:string){
+    onMarketTypeArea(type: string) {
         this.pageData.form.MarketType_area = type;
         GlobalVar.MarketType_area = type;
     }
 
-    onTimeZoneItemClick(value:string){
+    onTimeZoneItemClick(value: string) {
         this.pageData.form.timezone = value;
         GlobalVar.zone = value;
     }
 
     onReSetting() {
-        this.myProxy.api_user_set_user_setting(true);
+        dialog_message_box.confirm({
+            message: LangUtil("确定要重置吗？"),
+            okFun: () => {
+                this.myProxy.api_user_set_user_setting(true);
+            },
+            thisObj: this,
+        });
     }
 }

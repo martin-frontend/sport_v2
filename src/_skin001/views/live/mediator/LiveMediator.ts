@@ -5,7 +5,7 @@ import net from "@/net/setting";
 
 export default class LiveMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_event_list, net.EventType.api_event_states, net.EventType.api_event_live_url];
+        return [net.EventType.api_event_list, net.EventType.api_event_states];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -23,9 +23,6 @@ export default class LiveMediator extends AbstractMediator {
                     myProxy.set_event_states(body);
                 }
                 break;
-            // case net.EventType.api_event_live_url:
-            //     myProxy.set_event_live_url(body);
-            //     break;
         }
     }
 }
