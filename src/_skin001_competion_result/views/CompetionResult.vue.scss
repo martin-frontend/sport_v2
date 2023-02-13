@@ -50,6 +50,7 @@
     display: flex;
     width: 40%;
     align-items: center;
+    background-color: inherit !important;
 }
 
 
@@ -73,3 +74,14 @@
     padding-left: 0px;
     padding-right: 0px;
 }
+.theme--light .bcColor  {
+    background-color: #f5f5f4;
+ 
+}
+.theme--dark .bcColor  {
+    background-color: #1e1e1e;
+}
+.inheritcolor{
+    background-color: inherit !important;
+}
+

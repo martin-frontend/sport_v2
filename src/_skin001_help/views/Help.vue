@@ -4,11 +4,11 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import Help from "./Help";
-import GeneralItem from "../widget/general_item/GeneralItem.vue";
+
 
 @Component({
     components: {
-        GeneralItem,
+        
     },
 })
 export default class extends Help {

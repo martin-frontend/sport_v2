@@ -78,4 +78,10 @@ export default class PageOrderDetail extends AbstractView{
         const [year, month, day] = this.myProxy.selectDate.split('-')
         return `${year}/${month}/${day}`
     }
+    openheard(ref:any,isopen:any){
+        const hearder:HTMLElement = <any>this.$refs[ref]
+        if (isopen) {
+            hearder.style.backgroundColor='#ffff'
+        }
+    }
 }

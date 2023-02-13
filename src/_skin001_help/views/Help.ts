@@ -15,18 +15,20 @@ import { watch } from "vue";
 @Component
 export default class Help extends AbstractView {
     LangUtil = LangUtil;
-   // marked = marked;
+    // marked = marked;
     myProxy: HelpProxy = this.getProxy(HelpProxy);
     pageData = this.myProxy.pageData;
-    isloadSecLang = false;
+    titleRef = new Map();
+    contentRef = new Map();
     showPanel = false;
+
     form = {
         lang: getQueryVariable("lang") || "zh_CN",
         order_id: getQueryVariable("order_id"),
         plat_id: getQueryVariable("plat_id"),
         timezone: getQueryVariable("timezone"),
         sign: getQueryVariable("sign"),
-        token:getQueryVariable("t") || "",
+        token: getQueryVariable("t") || "",
     };
     oldSearchTxt = "";
 
@@ -35,109 +37,209 @@ export default class Help extends AbstractView {
     }
 
     mounted() {
-        
-        const {lang,plat_id,timezone,token} = this.form;
-        
-        Http.post(net.HttpType.public_plat_config, {plat_id,timezone,lang}).then((response:any)=>{
+
+        const { lang, plat_id, timezone, token } = this.form;
+
+        Http.post(net.HttpType.public_plat_config, { plat_id, timezone, lang }).then((response: any) => {
             PlatConfig.config = response.data;
             GlobalVar.plat_id = plat_id?.toString() || "";
             GlobalVar.zone = timezone?.toString() || "";
             GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
             GlobalVar.lang = lang;
             const sTime = GlobalVar.server_time;
-            LangConfig.load(this.form.lang).then(()=>{
-               this.isloadSecLang = true;
-               this.myProxy.api_helpcenter_list();
-               GlobalVar.token = token;
-               this.onWatchHeight();
-             
+            LangConfig.load(this.form.lang).then(() => {
+
+                this.myProxy.api_helpcenter_list();
+                GlobalVar.token = token;
+
+
             })
 
         })
-       
+
+    }
+    @Watch("myProxy.isloadSecLang")
+    onWatchLoadfinish() {
+        if (this.myProxy.isloadSecLang) {
+            const refs = this.$refs
+            for (const key of Object.keys(refs)) {
+
+                if (key.indexOf("tabIndex") != -1) {
+                    this.titleRef.set(key, refs[key]);
+                }
+                if (key.indexOf("tabcontent") != -1) {
+                    this.contentRef.set(key, refs[key]);
+
+                }
+            }
+        }
     }
     @Watch("pageData.searchTxt")
     onWatchSearch() {
-        
-        setTimeout(() => {
-            this.replace("sub");
-          this.oldSearchTxt = this.pageData.searchTxt;
-        }, 50);
+        if (this.pageData.searchTxt == this.oldSearchTxt) {
+            return
+        }
+        let needshowtabIndex = -1;
+        let needshowcontentidx = -1
+        let hasfindTitle = false;
+        for (const item of this.titleRef.entries()) {
+            const key = item[0];
+            const value = item[1]
+            const Text = value[0]?.innerText;
+            const findidx = Text.indexOf(this.pageData.searchTxt)
+            if (findidx != -1 && this.pageData.searchTxt) {
+                const keyarr = <any[]>key.split("-")
+                keyarr[1] = Number(keyarr[1]) //tabIndex第几个页签从0开始
+                keyarr[2] = Number(keyarr[2])//当前页签的第几个item
+                if (needshowtabIndex == -1) {
+                    hasfindTitle = true;
+                    this.pageData.tabIndex = keyarr[1] + 1;
+                    needshowtabIndex = keyarr[1] + 1;
+                }
+
+            }
+            this.replacetitle(value[0])
+        }
+        if (!hasfindTitle) {
+            for (const item of this.contentRef.entries()) {
+                const key = item[0];
+                const value = item[1]
+                const Text = value[0]?.$el.innerText;
+                const findidx = Text.indexOf(this.pageData.searchTxt)
+                if (findidx != -1 && this.pageData.searchTxt) {
+                    const keyarr = <any[]>key.split("-")
+                    keyarr[1] = Number(keyarr[1]) //tabIndex第几个页签从0开始
+                    keyarr[2] = Number(keyarr[2])//当前页签的第几个item
+                    if (needshowtabIndex == -1) {
+
+                        this.pageData.tabIndex = keyarr[1] + 1;
+                        needshowtabIndex = keyarr[1] + 1;
+                        needshowcontentidx = keyarr[2];
+                    }
+                    if (this.oldSearchTxt != this.pageData.searchTxt) {
+                        const panelidx = <any[]>this.myProxy.panelIdxs[(keyarr[1])]
+                        if (panelidx.every((value: any, inex: number) => value != keyarr[2])) {
+                            panelidx.push(keyarr[2])
+                        }
+                    }
+
+
+                }
+                this.replace(value[0].$el)
+            }
+            if (needshowtabIndex == -1 && needshowcontentidx == -1 && this.pageData.searchTxt) {
+                this.pageData.tabIndex = 0;
+            }
+
+        }
+
+
+
+        this.oldSearchTxt = this.pageData.searchTxt;
+
     }
-    
-    replace(tag: string) {
-        
-        const divScroll: HTMLElement = <any>this.$refs.divScroll;
-        const arr = divScroll.querySelectorAll(tag);
-        arr.forEach((item: any) => {
-            if (this.oldSearchTxt) {
-                item.innerHTML = item.innerText.replaceAll(
+    replacetitle(value: any) {
+
+        if (this.oldSearchTxt) {
+            const findidx = value.innerText.indexOf(this.oldSearchTxt)
+
+            if (findidx != -1 && this.oldSearchTxt) {
+                value.innerHTML = value.innerHTML.replaceAll(
                     `<span style="background-color:rgb(27, 121, 242); color:white">${this.oldSearchTxt}</span>`,
                     this.oldSearchTxt
                 );
+
             }
-            if (this.pageData.searchTxt) {
-                item.innerHTML = item.innerText.replaceAll(
+
+        }
+        if (this.pageData.searchTxt) {
+            const findidx = value.innerText.indexOf(this.pageData.searchTxt)
+
+            if (findidx != -1 && this.pageData.searchTxt) {
+                value.innerHTML = value.innerHTML.replaceAll(
                     this.pageData.searchTxt,
                     `<span style="background-color:rgb(27, 121, 242); color:white">${this.pageData.searchTxt}</span>`
+                    
                 );
+
             }
-        });
+
+        }
+
     }
 
-    @Watch("$vuetify.breakpoint.height")
-    onWatchHeight() {
-        this.$nextTick(() => {
-            const divScroll: HTMLElement = <any>this.$refs.divScroll;
-            if (divScroll) {
-                const height = document.body.clientHeight - divScroll.getBoundingClientRect().top;
-                divScroll.style.height = height + "px";
-                divScroll.style.maxHeight = height + "px";
-                
+    replace(value: any) {
+
+        if (this.oldSearchTxt) {
+            const findidx = value.innerText.indexOf(this.oldSearchTxt)
+
+            if (findidx != -1 && this.oldSearchTxt) {
+                value.innerHTML = value.innerHTML.replaceAll(
+                    `<span style="background-color:rgb(27, 121, 242); color:white">${this.oldSearchTxt}</span>`,
+                    this.oldSearchTxt
+                );
+
             }
-        });
+
+        }
+        if (this.pageData.searchTxt) {
+            const string = value.innerHTML;
+            const pattern =  />([^<>\n&]+?)</g;
+            const matches = string.match(pattern);
+            const result = [];
+            if (matches) {
+                for (const match of matches) {
+                    let res = match.replace(pattern, '$1')
+                    const findidx = res.indexOf(this.pageData.searchTxt)
+                    if (findidx != -1 && this.oldSearchTxt) {
+                        const replaceres = res.replaceAll(
+                            this.pageData.searchTxt,
+                            `<span style="background-color:rgb(27, 121, 242); color:white">${this.pageData.searchTxt}</span>`
+                        );
+                        value.innerHTML = value.innerHTML.replaceAll(
+                            res,
+                            replaceres
+                        );
+                    }
+                    
+                }
+               
+            } 
+            // for (let res of result) {
+            //     const replaceres = res.replaceAll(
+            //         this.pageData.searchTxt,
+            //         `<span style="background-color:rgb(27, 121, 242); color:white">${this.pageData.searchTxt}</span>`
+            //     );
+            //     value.innerHTML = value.innerHTML.replaceAll(
+            //         res,
+            //         replaceres
+            //     );
+            // }
+
+        }
+
     }
+
 
     @Watch("pageData.tabIndex")
     onWatchTabIndex() {
-        switch (this.pageData.tabIndex) {
-            case 1:
-              
-                break;
-            case 2:
-         
-                break;
-            case 3:
-            
-                break;
-            case 4:
-          
-                break;
-        }
         setTimeout(() => {
             this.onWatchSearch();
-        }, 500);
+        }, 200);
     }
-    
-    setInsetHTML(id:any,content:any){
-        const element: HTMLElement = <any>this.$refs.type1;
-        if (element) {
-            element.innerHTML=content;
-        }
-        
-    }
-    clickTopbtn(id:any){
+
+    clickTopbtn(id: any) {
         this.pageData.tabIndex = id;
-        if (id>3) {
+        if (id > 3) {
             const el = document.getElementById("btnsheet")
             if (el) {
-                el.scrollLeft=100
+                el.scrollLeft = 100
             }
-      
-        }else if (id==1) {
+
+        } else if (id == 1) {
             const el = document.getElementById("btnsheet")
             if (el) {
-                el.scrollLeft=0
+                el.scrollLeft = 0
             }
         }
     }

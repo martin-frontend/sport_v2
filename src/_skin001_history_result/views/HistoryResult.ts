@@ -163,7 +163,7 @@ getScoreStr(item:any){
     const addtimeHalfMarket_type = [marketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,marketType.ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME];//半场加时
     const addtimeMarket_type = [marketType.ASIAN_HANDICAP_EXTRA_TIME ,marketType.ASIAN_OVER_UNDER_EXTRA_TIME];//全场加时
     const AFTER_Market_type = [marketType.ASIAN_HANDICAP_AFTER_PENALTIES,marketType.ASIAN_OVER_UNDER_AFTER_PENALTIES];//点球
-    const firstHalfarr = [marketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,marketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME, marketType.DOUBLE_CHANCE_HALF_TIME, marketType.MATCH_ODDS_HALF_TIME,marketType.TOTAL_GOALS_HALF_TIME,marketType.ASIAN_OVER_UNDER_HALF_TIME,marketType.ASIAN_HANDICAP_HALF_TIME,marketType.DRAW_NO_BET_HALF_TIME,marketType.BOTH_TEAMS_TO_SCORE_HALF_TIME,marketType.TEAM_A_WIN_TO_NIL_HALF_TIME,marketType.TEAM_B_WIN_TO_NIL_HALF_TIME,marketType.ODD_OR_EVEN_HALF_TIME,marketType.CORRECT_SCORE_HALF_TIME];
+    const firstHalfarr = [marketType.EITHER_TEAM_TO_SCORE_HALF_TIME, marketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,marketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME, marketType.DOUBLE_CHANCE_HALF_TIME, marketType.MATCH_ODDS_HALF_TIME,marketType.TOTAL_GOALS_HALF_TIME,marketType.ASIAN_OVER_UNDER_HALF_TIME,marketType.ASIAN_HANDICAP_HALF_TIME,marketType.DRAW_NO_BET_HALF_TIME,marketType.BOTH_TEAMS_TO_SCORE_HALF_TIME,marketType.TEAM_A_WIN_TO_NIL_HALF_TIME,marketType.TEAM_B_WIN_TO_NIL_HALF_TIME,marketType.ODD_OR_EVEN_HALF_TIME,marketType.CORRECT_SCORE_HALF_TIME];
     const state = Object.keys(item.state || {}).length > 0  ? item.state : item.real_time_state ? item.real_time_state : item.state;
     if (!state) {
         return "";
