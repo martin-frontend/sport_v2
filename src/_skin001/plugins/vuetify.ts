@@ -32,9 +32,11 @@ export function getVuetify(): Vuetify {
                         textTagBtn: "#5C5C5C",
                         textGoldBg: "#F6BF4D",
                         textBet: "#3E3714",
-                        helpColor:"#666666"
+                        helpColor:"#666666",
+                        competBC:"#f5f5f4"
                     },
                     dark: {
+                        competBC:"#1e1e1e",
                         primary: "#8E8F91",
                         yellow: "#ea7800",
                         yellow1: "#FFCD43",

@@ -1,10 +1,10 @@
 <div ref="divScroll" class="box-scroll" :class="$vuetify.breakpoint.mobile ? '' : 'mx-2 mt-1'">
 
 
-    <v-sheet class="btnPlain--text d-flex justify-space-around align-center" height="40">
+    <v-sheet  class="btnPlain--text d-flex justify-space-around align-center" height="40">
         <v-btn style="border: none;box-shadow: none;" height="30" text depressed plain min-width="100" max-width="100"
             @click="onResultType(0)" class="font-weight-bold flex-1"
-            :class="pageData.isActive == 0 ? 'active': ''">{{LangUtil('赛况')}}
+            :class="pageData.isActive == 0 ? 'active': ''">{{LangUtil('赛况')}}s
         </v-btn>
         <v-btn text height="30" plain min-width="100" max-width="100" @click="onResultType(1)"
             class="font-weight-bold flex-1" :class="pageData.isActive == 1 ? 'active': ''">{{LangUtil('盘口')}}</v-btn>
@@ -14,11 +14,11 @@
     </v-sheet>
     <v-divider width="100%" />
     <!-- 赛况 -->
-    <div v-if="pageData.isActive == 0" class="mt-2">
+    <div v-if="pageData.isActive == 0" class="mt-2 graybg pl-3">
         <!-- pc -->
-        <v-sheet  class="d-flex align-center" >
+        <v-sheet  class="d-flex align-center graybg " >
             <div >
-                <v-tabs show-arrows center-active hide-slider>
+                <v-tabs show-arrows center-active hide-slider class="">
                     <v-tab class="px-1 " >
                         <v-btn text
                             :class="pageData.animationType == 0 ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
@@ -52,20 +52,20 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 class="mt-n2">
             </iframe>
-            <v-sheet v-else style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
+            <v-sheet v-else class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
                 <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
                 <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
             </v-sheet>
         </v-sheet>
         <!-- 阵容 -->
-        <v-sheet v-if="pageData.animationType == 1" class="d-flex align-center justify-center mx-2 mx-md-0"
+        <v-sheet v-if="pageData.animationType == 1" class="d-flex align-center justify-center mx-2 mx-md-0 "
             :height="$vuetify.breakpoint.xsOnly? 300: 450">
             <iframe v-if="matche.animation_id != ''" height="100%" width="100%" frameborder="0"
                 :src="'./lineups/preview.html?anim_id=' + matche.animation_id + '&lang=' + GlobalVar.lang"
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 class="mt-n2">
             </iframe>
-            <v-sheet v-else style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
+            <v-sheet v-else class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
                 <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
                 <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
             </v-sheet>
@@ -78,15 +78,15 @@
                 allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
                 class="mt-n2">
             </iframe>
-            <v-sheet v-else style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
+            <v-sheet v-else  class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
                 <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
                 <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
             </v-sheet>
         </v-sheet>
     </div>
     <!-- 盘口 -->
-    <div v-if="pageData.isActive == 1">
-        <v-sheet class="d-flex align-center mt-2 mx-2 mx-md-0" elevation="0"
+    <div v-if="pageData.isActive == 1" class=" pl-3">
+        <v-sheet class="d-flex align-center graybg mt-2 mx-2 mx-md-0" elevation="0"
             :class="$vuetify.breakpoint.mobile ? 'rounded': 'rounded-lg'"
             :height="$vuetify.breakpoint.mobile ? 50 : 50">
             <v-sheet v-if="$vuetify.breakpoint.mobile" width="100%" class="d-flex align-center px-2">
@@ -118,7 +118,7 @@
                 :class="$vuetify.breakpoint.mobile ? 'text-12' :'text-14'" v-for="(item, key) in pageData.selectedMarketType">
 
 
-                <v-sheet color="bgGray" :width="$vuetify.breakpoint.mobile ? '150':'168'" class="MarketTypeBox d-flex align-center justify-center">
+                <v-sheet  :width="$vuetify.breakpoint.mobile ? '150':'168'" class="MarketTypeBox d-flex align-center justify-center">
                     <div>
                         <div :class="$vuetify.breakpoint.mobile ? 'text-16':'text-18'" class="text-center px-1 btnPlain--text mb-2 MarketTyresult">
                             {{item.result}}
@@ -134,10 +134,10 @@
         </div>
     </div>
     <!-- 比分 -->
-    <div v-if="pageData.isActive == 2">
-        <div class="my-2 mx-2 mx-md-0 d-flex" :class="$vuetify.breakpoint.mobile ? 'text-14' :'text-16'"
+    <div v-if="pageData.isActive == 2" class="pl-3">
+        <div class="my-2 mx-2 mx-md-0 d-flex " :class="$vuetify.breakpoint.mobile ? 'text-14' :'text-16'"
             v-for="(item, key) in scores">
-            <v-sheet class="d-flex justify-space-between py-2 rounded-lg" width="100%">
+            <v-sheet class="d-flex justify-space-between py-2 rounded-lg inheritcolor" width="100%">
                 <div class="d-flex align-center btnPlain--text">
                     <span :class="$vuetify.breakpoint.mobile ? 'text-12' : 'text-14'">{{item}}</span>
                 </div>

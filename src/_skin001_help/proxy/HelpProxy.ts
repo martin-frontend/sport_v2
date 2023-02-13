@@ -6,7 +6,8 @@ export default class HelpProxy extends puremvc.Proxy {
     onRegister() {
     
     }
-
+    panelIdxs=[<any>[],<any>[],<any>[],<any>[]];
+    isloadSecLang = false;
     pageData = {
         tabIndex: 1,
         searchTxt: "",
@@ -20,16 +21,29 @@ export default class HelpProxy extends puremvc.Proxy {
     }
     set_helpcenter_list(data:any){
         Object.assign(this.pageData,data)
+        let idx = 0;
         for (let i of this.pageData.list){
             const typetemp = this.pageData.type.find((item:any) => item.id == i.type);
             typetemp.list = typetemp.list || [];
             typetemp.list.push(i);
+            
 
+        }
+        for (let i of this.pageData.type){
+            const idxs = i.list.map((k: any, i: number) => i);
+            this.panelIdxs[idx] = idxs;
+            idx++;
         }
         console.group("set_helpcenter_list>>>> ", "color:#0f0;");
         console.log(JSON.parse(JSON.stringify(this.pageData)));
         console.groupEnd();
-       
+        setTimeout(() => {
+            this.panelIdxs=[[],[],[],[]];
+        }, 1);
+        setTimeout(() => {
+            this.isloadSecLang = true;
+        }, 25);
+        
     }
     insetType1(data:any){
         

@@ -1,4 +1,4 @@
-<v-app v-if="isloadSecLang" class="d-flex justify-center overflow-x-hidden">
+<v-app v-show="myProxy.isloadSecLang" class="d-flex justify-center overflow-x-hidden">
     <v-sheet height="100%">
     <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
         <v-sheet class="d-flex">
@@ -25,73 +25,78 @@
         </v-btn>
     </v-sheet>
     <div class="box-scroll" ref="divScroll">
-        <v-sheet v-if="pageData.tabIndex == 1 && myProxy.pageData.type[0].list" color="transparent" key="1" >
+        <v-sheet v-if="pageData.tabIndex == 0" style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center"  color="transparent">
+            <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
+            <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
+        </v-sheet>
+        <v-sheet v-show="pageData.tabIndex == 1 && myProxy.pageData.type[0].list" color="transparent" key="1" >
             
-            <v-expansion-panels accordion class="px-5 mt-5" flat>
+            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[0]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
                   v-for="(item,i) in myProxy.pageData.type[0].list"
                   :key="i"
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center "  >
-                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub> 
+                    <sub :ref="'tabIndex-0-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub> 
                   </v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <GeneralItem :data="item.content" ></GeneralItem>
-
+                  <v-expansion-panel-content :ref="'tabcontent-0-'+i" >
+                    <!-- <GeneralItem :data="item.content" ></GeneralItem> -->
+                    <div class="text-12" v-html="item.content"></div>
+                    
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
         </v-sheet>
-        <v-sheet v-else-if="pageData.tabIndex == 2 && myProxy.pageData.type[1].list" color="transparent" key="2"  >
+        <v-sheet v-show="pageData.tabIndex == 2 && myProxy.pageData.type[1].list" color="transparent" key="2"  >
             
-            <v-expansion-panels accordion class="px-5 mt-5" flat>
+            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[1]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
                   v-for="(item,i) in myProxy.pageData.type[1].list"
                   :key="i"
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub>
+                    <sub :ref="'tabIndex-1-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub>
                   </v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <GeneralItem :data="item.content" ></GeneralItem>
+                  <v-expansion-panel-content :ref="'tabcontent-1-'+i">
+                    <div class="text-12" v-html="item.content"></div>
 
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
         </v-sheet>
-        <v-sheet v-else-if="pageData.tabIndex == 3 && myProxy.pageData.type[2].list" color="transparent" key="3" >
+        <v-sheet v-show="pageData.tabIndex == 3 && myProxy.pageData.type[2].list" color="transparent" key="3" >
             
-            <v-expansion-panels accordion class="px-5 mt-5" flat >
+            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[2]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
                   v-for="(item,i) in myProxy.pageData.type[2].list"
                   :key="i"
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub>
+                    <sub :ref="'tabIndex-2-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub>
                   </v-expansion-panel-header>
-                  <v-expansion-panel-content >
-                    <GeneralItem :data="item.content" ></GeneralItem>
+                  <v-expansion-panel-content :ref="'tabcontent-2-'+i">
+                    <div class="text-12" v-html="item.content"></div>
 
                   </v-expansion-panel-content>
                 </v-expansion-panel>
               </v-expansion-panels>
         </v-sheet>
         
-        <div v-else-if="pageData.tabIndex == 4" key="4" >
-            <v-expansion-panels accordion class="px-5 mt-5" flat>
+        <div v-show="pageData.tabIndex == 4" key="4" >
+            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[3]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
                   v-for="(item,i) in myProxy.pageData.type[3].list"
                   :key="i"
                 >
                 
                   <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub class="helpColor--text ml-4 text-14">{{item.title}}</sub>
+                    <sub :ref="'tabIndex-3-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub>
                   </v-expansion-panel-header>
-                  <v-expansion-panel-content>
-                    <GeneralItem :data="item.content" ></GeneralItem>
+                  <v-expansion-panel-content :ref="'tabcontent-3-'+i">
+                    <div class="text-12" v-html="item.content"></div>
 
                   </v-expansion-panel-content>
                 </v-expansion-panel>
