@@ -55,9 +55,9 @@
             <v-sheet
                 v-if="pageData.list.length != 0"
                 color="bgBanner"
-                class="d-flex align-center px-2 rounded-lg mt-2 mx-2 py-1 text-12 font-weight-bold"
+                class="d-flex px-2 py-2 rounded-lg mt-2 mx-2 py-1 text-14 font-weight-bold"
             >
-                <v-sheet width="2" height="16" color="yellow" class="mr-2"></v-sheet>
+                <v-sheet width="2" height="16" color="yellow" class="mr-2" style="margin-top: 3px"></v-sheet>
                 <div>
                     <span class="mr-2 _title"
                         >{{LangUtil("投注数量")}} <span class="blackText--text"> {{pageData.stats.total_count}}</span></span
@@ -126,46 +126,36 @@
 
                         <v-sheet width="100%" color="transparent">
                             <span class="textGray--text mr-1">{{LangUtil("订单状态")}}</span>
-                            <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} "
-                                >{{statusMap[item.status]}}</span
-                            >
+                            <span :style="{ 'color': statusMapColor[item.status]} ">{{statusMap[item.status]}}</span>
                         </v-sheet>
-                        <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">
-                            {{LangUtil(item.mark)}}
-                        </div>
+                        <div v-if="item.status==3" :style="{ 'color': statusMapColor[item.status]} ">{{LangUtil(item.mark)}}</div>
 
                         <v-sheet width="100%" color="transparent">
                             <span class="textGray--text mr-1">{{LangUtil("投注金额")}}</span>
-                            <span class="font-weight-bold">{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
+                            <span>{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
                         </v-sheet>
 
                         <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
-                            <span class="textGray--text mr-1">{{getdisplayResultStr(item)}} </span>
-                            <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}"
-                                >{{getDisplayResult(item).str}}
-                            </span>
+                            <span class="textGray--text mr-1">{{getdisplayResultStr(item)}}</span>
+                            <span :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}} </span>
                         </v-sheet>
                         <v-sheet width="100%" color="transparent">
                             <span class="textGray--text mr-1">{{LangUtil("订单编号")}}</span>
-                            <span class="font-weight-bold">{{item.order_no}}</span></v-sheet
+                            <span>{{item.order_no}}</span></v-sheet
                         >
                         <v-sheet width="100%" color="transparent">
                             <span class="textGray--text mr-1">{{LangUtil("投注时间")}}</span>
-                            <span class="font-weight-bold"
-                                >{{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
-                            </span>
+                            <span>{{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                         </v-sheet>
 
                         <v-sheet width="100%" color="transparent" v-if="listQuery.is_settle">
                             <span class="textGray--text mr-1">{{LangUtil("结算时间")}}</span>
-                            <span class="font-weight-bold"
-                                >{{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
-                            </span>
+                            <span>{{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                         </v-sheet>
 
                         <v-sheet width="100%" color="transparent" class="d-flex justify-end" v-if="listQuery.is_settle && item.status == 1">
                             <span class="mr-1">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
-                            <span class="font-weight-bold" :class="item.win>=0 ? 'success--text' : 'error--text' ">
+                            <span :class="item.win>=0 ? 'success--text' : 'error--text' ">
                                 {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
                             </span>
                         </v-sheet>

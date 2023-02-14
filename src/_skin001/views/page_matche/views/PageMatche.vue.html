@@ -1,10 +1,10 @@
 <div>
-    <v-sheet color="bgBanner" height="54" class="d-flex align-center header_m header_mbg">
+    <v-sheet height="54" class="d-flex align-center header_m header_mbg">
         <v-btn icon @click="onBack">
             <svg-icon class="white--text" icon="back2"></svg-icon>
         </v-btn>
 
-        <v-menu offset-y nudge-top="-10" v-model="pageData.isShowList">
+        <v-menu offset-y v-model="pageData.isShowList">
             <template v-slot:activator="{ on, attrs }">
                 <v-sheet class="d-flex align-center white--text hand" width="60%" color="transparent" v-bind="attrs" v-on="on">
                     <div class="text-16 mr10 text-truncate font-weight-bold">{{getCompetitionName()}}</div>
@@ -13,12 +13,12 @@
                     </div>
                 </v-sheet>
             </template>
-            <v-card color="bgTips" width="100vw" min-height="60vh" elevation="0" class="matche_list">
-                <v-list>
+            <v-card color="bgPage" width="100vw" elevation="0" class="pa-2 matche_list">
+                <v-list color="transparent">
                     <v-list-item-group :value="currIndex">
                         <template v-for="(matche, index) in matches">
-                            <v-list-item @click="clickitem(matche)" link :key="index">
-                                <v-sheet height="102" width="100%" class="d-flex">
+                            <v-list-item @click="clickitem(matche)" link :key="index" class="mb-2 rounded-lg overflow-hidden">
+                                <v-sheet height="102" width="100%" class="d-flex rounded-lg px-1">
                                     <v-row class="text-12">
                                         <v-col>
                                             <div class="temadiv my-2">
@@ -41,7 +41,6 @@
                                     </v-row>
                                 </v-sheet>
                             </v-list-item>
-                            <v-divider></v-divider>
                         </template>
                     </v-list-item-group>
                 </v-list>

@@ -15,7 +15,7 @@ export default class APP extends AbstractView {
     }
 
     mounted() {
-        this.$vuetify.theme.dark = js_utils.getQueryVariable("dark") == "true" ?? false;
+        this.$vuetify.theme.dark = js_utils.getQueryVariable("daynight_type") == "2" ?? false;
         this.onWatchTheme();
         window.addEventListener("message", (e) => {
             switch (e.data) {

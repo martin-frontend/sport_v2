@@ -26,7 +26,7 @@ export default class Header extends AbstractView {
     }
 
     @Watch("isShowSetting")
-    onWatchSetting(){
+    onWatchSetting() {
         BlurUtil(this.isShowSetting);
     }
 
@@ -44,22 +44,22 @@ export default class Header extends AbstractView {
     openCompetionResult() {
         const iWidth = 1400;
         const iHeight = 650;
-        const iTop = (window.screen.availHeight-30-iHeight)/2;
-        const iLeft = (window.screen.availWidth-10-iWidth)/2;
+        const iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        const iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
         const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const params = formatURLParam({daynight_type: dark ? 2 : 1, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone, MarketType_area: GlobalVar.MarketType_area});
         const link = "./skin001_competion_result.html?" + params;
         // const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
             if (isIOS()) {
                 const winHandler: any = window.open("", "_blank");
                 winHandler.location.href = link;
-            }else {
-            window.open(
-                link,
-                LangUtil("赛果"),
-                `height=${iHeight}, width=${iWidth}, top=${iTop}, left=${iLeft}, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no`
-            );
+            } else {
+                window.open(
+                    link,
+                    LangUtil("赛果"),
+                    `height=${iHeight}, width=${iWidth}, top=${iTop}, left=${iLeft}, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no`
+                );
             }
         } catch (e: any) {
             OpenLink(link);
@@ -68,19 +68,18 @@ export default class Header extends AbstractView {
     openHistoryResult() {
         const iWidth = 1400;
         const iHeight = 650;
-        const iTop = (window.screen.availHeight-30-iHeight)/2;
-        const iLeft = (window.screen.availWidth-10-iWidth)/2;
+        const iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        const iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
         const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const params = formatURLParam({daynight_type: dark ? 2 : 1, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone, MarketType_area: GlobalVar.MarketType_area});
         const link = "./skin001_history_result.html?" + params;
         // const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
-             window.open(
-             link,
-             LangUtil("注单历史"),
-             `height=${iHeight}, width=${iWidth}, top=${iTop}, left=${iLeft}, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no`
+            window.open(
+                link,
+                LangUtil("注单历史"),
+                `height=${iHeight}, width=${iWidth}, top=${iTop}, left=${iLeft}, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no`
             );
-            
         } catch (e: any) {
             OpenLink(link);
         }
@@ -88,19 +87,18 @@ export default class Header extends AbstractView {
     openHelp() {
         const iWidth = 1400;
         const iHeight = 650;
-        const iTop = (window.screen.availHeight-30-iHeight)/2;
-        const iLeft = (window.screen.availWidth-10-iWidth)/2;
+        const iTop = (window.screen.availHeight - 30 - iHeight) / 2;
+        const iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
         const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const params = formatURLParam({ daynight_type: dark ? 2 : 1, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone });
         const link = "./skin001_help.html?" + params;
         // const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
-             window.open(
-             link,
-             LangUtil("帮助中心"),
-             `height=${iHeight}, width=${iWidth}, top=${iTop}, left=${iLeft}, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no`
+            window.open(
+                link,
+                LangUtil("帮助中心"),
+                `height=${iHeight}, width=${iWidth}, top=${iTop}, left=${iLeft}, toolbar=no, menubar=no, scrollbars=yes, resizable=no,location=no, status=no`
             );
-            
         } catch (e: any) {
             OpenLink(link);
         }
@@ -111,7 +109,7 @@ export default class Header extends AbstractView {
         page_home.showByKeyword(this.txtSearch);
     }
 
-    onSetting(){
+    onSetting() {
         dialog_setting.show();
     }
 

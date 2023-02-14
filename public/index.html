@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="htmlhidden">
     <head>
         <meta charset="utf-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
@@ -13,6 +13,9 @@
         <script src="libs/puremvc/puremvc.min.js"></script>
         <script src="<%= BASE_URL %>js/liveplayer-lib.min.js"></script>
         <style>
+            .htmlhidden{
+                overflow: hidden !important;
+            }
             ::-webkit-scrollbar {
                 width: 0px;
             }
@@ -21,6 +24,7 @@
                 margin: 0;
                 padding: 0;
                 font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei";
+                overflow: hidden !important;
             }
             .out_side_loading {
                 display: flex;
@@ -60,7 +64,7 @@
             document.getElementById("subdiv").innerHTML =
                 '<img src="img/' + logores + '.png" alt="no image" style="margin: auto; width: 200px" />';
 
-            var dark = getQueryVariable("dark") == "true";
+            var dark = getQueryVariable("daynight_type") == "2";
             document.getElementById("subdiv").style.backgroundColor = dark ? "#202121" : "#f6f6f4";
         </script>
     </body>

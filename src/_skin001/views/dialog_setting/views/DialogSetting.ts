@@ -9,6 +9,7 @@ import GlobalVar from "@/core/global/GlobalVar";
 import getProxy from "@/core/global/getProxy";
 import BlurUtil from "@/core/global/BlurUtil";
 import dialog_message_box from "../../dialog_message_box";
+import { formatURLParam } from "@/core/global/Functions";
 
 @Component
 export default class DialogSetting extends AbstractView {
@@ -22,8 +23,11 @@ export default class DialogSetting extends AbstractView {
     }
 
     openCompetionResult() {
+        // const dark = this.$vuetify.theme.dark;
+        // const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         const dark = this.$vuetify.theme.dark;
-        const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone, MarketType_area: GlobalVar.MarketType_area});
+        const link = "./skin001_competion_result.html?" + params;
         OpenLink(link);
     }
 
