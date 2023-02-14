@@ -5,14 +5,14 @@
     .tabs_box {
         border-bottom: solid 2px #e8e8e2;
     }
-    .tabsActive{
-        color: #3E3714;
+    .tabsActive {
+        color: #3e3714;
     }
-    .btnType{
+    .btnType {
         background-color: white;
         background: linear-gradient(to right, #fcb131, #ffe64d);
-        color:#272828;
-        &.active{
+        color: #272828;
+        &.active {
             background: none;
             background-color: white;
         }
@@ -22,25 +22,25 @@
     .tabs_box {
         border-bottom: solid 2px #272828;
     }
-    .tabsActive{
+    .tabsActive {
         color: white;
     }
-    .btnType{
+    .btnType {
         // background-color: #8E8F91;
-        &.active{
+        &.active {
             background: linear-gradient(to right, #fcb131, #ffe64d);
-            color:#272828;
+            color: #272828;
         }
     }
 }
-.win-type{
+.win-type {
     position: absolute;
     bottom: 20px;
     right: 10px;
     width: 100px;
     height: 100px;
     text-align: center;
-    div{
+    div {
         margin-top: 37px;
         color: white;
         font-size: 18px;
@@ -56,12 +56,16 @@
     }
 }
 
-::v-deep .v-slide-group__prev{
+::v-deep .v-slide-group__prev {
     display: none !important;
 }
-::v-deep .v-slide-group__next{
+::v-deep .v-slide-group__next {
     display: none !important;
 }
-::v-deep .v-tab{
+::v-deep .v-tab {
     min-width: 0;
+}
+
+._title {
+    display: inline-block;
 }

@@ -26,8 +26,10 @@ AppFacade.getInstance().startup();
 
 const vuetify = getVuetify();
 
-const dark = getQueryVariable("dark");
-vuetify.framework.theme.dark = dark == "true";
+const daynight_type = getQueryVariable("daynight_type");
+vuetify.framework.theme.dark = daynight_type == "2";
+
+GlobalVar.MarketType_area = getQueryVariable("MarketType_area") || "0";
 
 Vue["vuetify"] = vuetify;
 Vue.config.productionTip = false;

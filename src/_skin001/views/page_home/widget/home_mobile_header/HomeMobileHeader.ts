@@ -11,7 +11,7 @@ import dialog_setting from "@/_skin001/views/dialog_setting";
 import page_live_list from "@/_skin001/views/page_live_list";
 import page_order from "@/_skin001/views/page_order";
 import BlurUtil from "@/core/global/BlurUtil";
-import { amountFormat } from "@/core/global/Functions";
+import { amountFormat, formatURLParam } from "@/core/global/Functions";
 import { EnumPostMessage } from "@/enum/EnumPostMessage";
 import PlatConfig from "@/core/config/PlatConfig";
 
@@ -70,8 +70,12 @@ export default class HomeMobileHeader extends AbstractView {
         }
     }
     openHelp() {
+        // const dark = this.$vuetify.theme.dark;
+        // const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+
         const dark = this.$vuetify.theme.dark;
-        const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
+        const params = formatURLParam({ daynight_type: dark ? 2 : 1, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone });
+        const link = "./skin001_help.html?" + params;
         OpenLink(link);
     }
 

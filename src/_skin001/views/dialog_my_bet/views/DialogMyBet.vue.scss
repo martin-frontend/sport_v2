@@ -7,7 +7,8 @@
     overflow: visible !important;
 }
 .v-navigation-drawer--bottom.v-navigation-drawer--is-mobile {
-    max-height: calc(100vh - 54px) !important;
+    max-height: calc(100% - 54px) !important;
+    // max-height: 100% !important;
     // position: relative;
 }
 .v-navigation-drawer--close {
@@ -30,5 +31,5 @@
     }
 }
 .divbox{
-    max-height: calc(100vh - 54px) !important;
+    max-height: calc(100% - 0px) !important;
 }
