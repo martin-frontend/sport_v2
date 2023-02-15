@@ -46,7 +46,7 @@ export function getVuetify(): Vuetify {
                         bgBanner: "#272828",
                         bgGray: "#333435",
                         bgTips: "#5A5A5A",
-                        bgMybet: "#1B1C1C",
+                        bgMybet: "#1e1e1e",
                         textGray: "#8E8F91",
                         btnPlain: "#FFFFFF",
                         borderGray: "#5A5A5A",
