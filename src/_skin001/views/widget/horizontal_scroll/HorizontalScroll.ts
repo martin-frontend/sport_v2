@@ -8,6 +8,8 @@ import gsap, { Linear } from "gsap";
 export default class HorizontalScroll extends AbstractView {
     LangUtil = LangUtil;
 
+    @Prop({default: 0}) offsetx!:number;
+
     //拖动参数
     dragData = {
         isMoving: false,
@@ -37,13 +39,13 @@ export default class HorizontalScroll extends AbstractView {
             if (divbox.scrollLeft > offsetLeft) {
                 gsap.to(divbox, {
                     duration: 0.2,
-                    scrollLeft: offsetLeft,
+                    scrollLeft: offsetLeft - this.offsetx,
                     ease: Linear.easeNone,
                 });
             } else if (divbox.scrollLeft + divbox.offsetWidth - targetWidth < offsetLeft) {
                 gsap.to(divbox, {
                     duration: 0.2,
-                    scrollLeft: offsetLeft - divbox.offsetWidth + targetWidth,
+                    scrollLeft: offsetLeft - divbox.offsetWidth + targetWidth - this.offsetx,
                     ease: Linear.easeNone,
                 });
             }

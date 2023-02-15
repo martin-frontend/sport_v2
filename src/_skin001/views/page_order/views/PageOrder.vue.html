@@ -98,7 +98,7 @@
                             <div v-if="item.c_type == 2">{{item.content}}</div>
                             <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}</div>
                             <v-spacer />
-                            <div class="mr-2">@{{TransMarketPrice(item.odds)}}</div>
+                            <div class="mr-2 text-16">@{{TransMarketPrice(item.odds)}}</div>
                         </div>
 
                         <div class="text-14">
@@ -153,8 +153,8 @@
                             <span>{{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                         </v-sheet>
 
-                        <v-sheet width="100%" color="transparent" class="d-flex justify-end" v-if="listQuery.is_settle && item.status == 1">
-                            <span class="mr-1">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
+                        <v-sheet width="100%" color="transparent" class="d-flex justify-end font-weight-bold text-14" v-if="listQuery.is_settle && item.status == 1">
+                            <span class="mr-1 btnPlain--text">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
                             <span :class="item.win>=0 ? 'success--text' : 'error--text' ">
                                 {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
                             </span>
