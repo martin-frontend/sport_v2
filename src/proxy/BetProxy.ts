@@ -28,6 +28,7 @@ export default class BetProxy extends puremvc.Proxy {
     }
 
     pageData = {
+        loading: false,
         activeCount: 0,
         list: <
             {
@@ -77,6 +78,7 @@ export default class BetProxy extends puremvc.Proxy {
     }
     /**删除一个注单 */
     deleteItem(market_id: any, selection_id: any): boolean {
+        this.pageData.loading = false;
         const findIdx = this.pageData.list.findIndex((item) => item.selection.id == selection_id && item.market.market_id == market_id);
         if (findIdx >= 0) {
             this.pageData.list.splice(findIdx, 1);
@@ -140,7 +142,8 @@ export default class BetProxy extends puremvc.Proxy {
     }
     /**投注 */
     api_user_betfix(market_id: any, selection_id: any) {
-        GlobalVar.loading = true;
+        // GlobalVar.loading = true;
+        this.pageData.loading = true;
         const findItem = this.pageData.list.find((item) => item.market.market_id == market_id && item.selection.id == selection_id);
         if (findItem) {
             const { stake, matche, market, selection, odds } = findItem;

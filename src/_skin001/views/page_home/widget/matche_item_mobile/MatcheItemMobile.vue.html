@@ -131,13 +131,13 @@
     <!-- 显示全部按扭 -->
     <v-sheet class="d-flex justify-center mt-1 mb-1" color="transparent" height="12">
         <v-btn
-            class="elevation-0 textGray--text text-10 rounded-10"
+            class="elevation-0 textGray--text rounded-t-10"
             color="bgGray"
             width="72"
             height="12"
             @click="onShowAll"
             v-if="fixMarket && getOtherGroup().length>0"
-            ><svg-icon :icon="showAll ? 'zoom_in' : 'zoom_out' "></svg-icon
+            ><svg-icon class="text-10" :icon="showAll ? 'zoom_in' : 'zoom_out' "></svg-icon
         ></v-btn>
     </v-sheet>
 </v-sheet>
