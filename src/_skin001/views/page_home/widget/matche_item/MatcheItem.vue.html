@@ -113,14 +113,16 @@
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
                             <v-sheet color="transparent" v-bind="attrs" v-on="on">
-                                <svg-icon
-                                    v-bind="attrs"
-                                    v-on="on"
-                                    class="text-18 textGray--text hand ml-4"
-                                    :class="{'active': pageData.love_events.includes(matche.id)}"
-                                    :icon="pageData.love_events.includes(matche.id) ? 'love_' : 'love'"
-                                    @click.native="onLove"
-                                ></svg-icon>
+                                <v-hover v-slot="{ hover }">
+                                    <svg-icon
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        class="text-18 textGray--text hand ml-4"
+                                        :class="{'active': pageData.love_events.includes(matche.id)}"
+                                        :icon="hover ? 'love' : (pageData.love_events.includes(matche.id) ? 'love_' : 'love1')"
+                                        @click.native="onLove"
+                                    ></svg-icon>
+                                </v-hover>
                             </v-sheet>
                         </template>
                         <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
