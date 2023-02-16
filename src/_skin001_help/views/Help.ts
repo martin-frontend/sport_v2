@@ -21,6 +21,7 @@ export default class Help extends AbstractView {
     titleRef = new Map();
     contentRef = new Map();
     showPanel = false;
+    regexp = new RegExp(/>([^<>\n&]+?)</g);
 
     form = {
         lang: getQueryVariable("lang") || "zh_CN",
@@ -184,37 +185,45 @@ export default class Help extends AbstractView {
         }
         if (this.pageData.searchTxt) {
             const string = value.innerHTML;
-            const pattern =  />([^<>\n&]+?)</g;
-            const matches = string.match(pattern);
-            const result = [];
-            if (matches) {
-                for (const match of matches) {
-                    let res = match.replace(pattern, '$1')
-                    const findidx = res.indexOf(this.pageData.searchTxt)
+            // const pattern =  />([^<>\n&]+?)</g;
+            // const matches = string.match(pattern);
+            // const result = [];
+            let match;
+
+            while ((match = this.regexp.exec(string)) !== null) {
+            
+              const findidx = match[1].indexOf(this.pageData.searchTxt)
                     if (findidx != -1 && this.oldSearchTxt) {
-                        const replaceres = res.replaceAll(
+                        const replaceres = match[1].replaceAll(
                             this.pageData.searchTxt,
                             `<span style="background-color:rgb(27, 121, 242); color:white">${this.pageData.searchTxt}</span>`
                         );
                         value.innerHTML = value.innerHTML.replaceAll(
-                            res,
+                            match[1],
                             replaceres
                         );
                     }
+            }
+      
+            // if (matches) {
+            //     for (const match of matches) {
+            //         let res = match.replace(pattern, '$1')
+            //         const findidx = res.indexOf(this.pageData.searchTxt)
+            //         if (findidx != -1 && this.oldSearchTxt) {
+            //             const replaceres = res.replaceAll(
+            //                 this.pageData.searchTxt,
+            //                 `<span style="background-color:rgb(27, 121, 242); color:white">${this.pageData.searchTxt}</span>`
+            //             );
+            //             value.innerHTML = value.innerHTML.replaceAll(
+            //                 res,
+            //                 replaceres
+            //             );
+            //         }
                     
-                }
+            //     }
                
-            } 
-            // for (let res of result) {
-            //     const replaceres = res.replaceAll(
-            //         this.pageData.searchTxt,
-            //         `<span style="background-color:rgb(27, 121, 242); color:white">${this.pageData.searchTxt}</span>`
-            //     );
-            //     value.innerHTML = value.innerHTML.replaceAll(
-            //         res,
-            //         replaceres
-            //     );
-            // }
+            // } 
+          
 
         }
 
