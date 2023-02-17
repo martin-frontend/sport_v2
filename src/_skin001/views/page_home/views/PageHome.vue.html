@@ -121,12 +121,14 @@
     <!-- 搜索 -->
     <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner" v-if="$vuetify.breakpoint.mobile">
         <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" width="100%" height="30">
-            <input
-                class="text-14 text-truncate bgColor1--text"
-                :placeholder="LangUtil('搜索联赛或球队名称')"
-                v-model="listQueryComp.keyword"
-            />
-            <svg-icon icon="search" @click.native="onSearch"></svg-icon>
+            <v-form @submit.prevent="onSearch" class="d-flex align-center">
+                <input
+                    class="text-14 text-truncate bgColor1--text"
+                    :placeholder="LangUtil('搜索联赛或球队名称')"
+                    v-model="listQueryComp.keyword"
+                />
+                <svg-icon icon="search" @click.native="onSearch"></svg-icon>
+            </v-form>
         </v-sheet>
         <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="30">
             <v-sheet
