@@ -4,7 +4,7 @@
     <v-sheet  class="btnPlain--text d-flex justify-space-around align-center" height="40">
         <v-btn style="border: none;box-shadow: none;" height="30" text depressed plain min-width="100" max-width="100"
             @click="onResultType(0)" class="font-weight-bold flex-1"
-            :class="pageData.isActive == 0 ? 'active': ''">{{LangUtil('赛况')}}s
+            :class="pageData.isActive == 0 ? 'active': ''">{{LangUtil('赛况')}}
         </v-btn>
         <v-btn text height="30" plain min-width="100" max-width="100" @click="onResultType(1)"
             class="font-weight-bold flex-1" :class="pageData.isActive == 1 ? 'active': ''">{{LangUtil('盘口')}}</v-btn>
@@ -120,13 +120,14 @@
 
                 <v-sheet  :width="$vuetify.breakpoint.mobile ? '150':'168'" class="MarketTypeBox d-flex align-center justify-center">
                     <div>
-                        <div :class="$vuetify.breakpoint.mobile ? 'text-16':'text-18'" class="text-center px-1 btnPlain--text mb-2 MarketTyresult">
+                        <div :class="$vuetify.breakpoint.mobile ? 'text-12':'text-14'" class="font-weight-bold text-center px-2 btnPlain--text mb-2 MarketTypename">
+                            <span>{{item.name}}</span>
+                        </div>
+                        <div :class="$vuetify.breakpoint.mobile ? 'text-16':'text-18'" class="text-center px-1 btnPlain--text  mt-2  MarketTyresult">
                             {{item.result}}
                         </div>
 
-                        <div :class="$vuetify.breakpoint.mobile ? 'text-12':'text-14'" class="text-center px-2 textGray--text mt-2 MarketTypename">
-                            <span>{{item.name}}</span>
-                        </div>
+                        
                     </div>
 
                 </v-sheet>
