@@ -9,6 +9,7 @@
             border-color: #ffec8e !important;
         }
         &.active {
+            border-width: 0;
             background: linear-gradient(to right, #fcb131, #ffe64d);
             .txt {
                 color: #272828 !important;
@@ -23,6 +24,7 @@
             filter: brightness(120%);
         }
         &.active {
+            border-width: 0;
             background: linear-gradient(to right, #fcb131, #ffe64d);
             .txt {
                 color: #272828 !important;

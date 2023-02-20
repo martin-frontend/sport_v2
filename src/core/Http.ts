@@ -27,6 +27,7 @@ axios.interceptors.request.use(
 // 添加响应拦截器
 axios.interceptors.response.use(
     function (response: any) {
+        // console.warn("@@@", response);
         facade.sendNotification(net.EventType.REQUEST_END, response);
         return response.data;
     },

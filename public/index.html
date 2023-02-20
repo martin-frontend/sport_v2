@@ -5,7 +5,7 @@
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta http-equiv="Pragma" content="no-cache" />
         <meta http-equiv="Expires" content="0" />
-        <meta http-equiv="Cache-control" content="no-cache, no-store, must-revalidate" />
+        <meta http-equiv="Cache-control" content="no-cache" />
         <meta http-equiv="Cache" content="no-cache" />
         <meta
             name="viewport"
@@ -18,7 +18,7 @@
         <script src="libs/puremvc/puremvc.min.js"></script>
         <script src="<%= BASE_URL %>js/liveplayer-lib.min.js"></script>
         <style>
-            .htmlhidden{
+            .htmlhidden {
                 overflow: hidden !important;
             }
             ::-webkit-scrollbar {
@@ -71,6 +71,29 @@
 
             var dark = getQueryVariable("daynight_type") == "2";
             document.getElementById("subdiv").style.backgroundColor = dark ? "#202121" : "#f6f6f4";
+
+            window.onload = function () {
+                document.addEventListener("touchstart", function (event) {
+                    if (event.touches.length > 1) {
+                        event.preventDefault();
+                    }
+                });
+                var lastTouchEnd = 0;
+                document.addEventListener(
+                    "touchend",
+                    function (event) {
+                        var now = new Date().getTime();
+                        if (now - lastTouchEnd <= 300) {
+                            event.preventDefault();
+                        }
+                        lastTouchEnd = now;
+                    },
+                    false
+                );
+                document.addEventListener("gesturestart", function (event) {
+                    event.preventDefault();
+                });
+            };
         </script>
     </body>
 </html>
