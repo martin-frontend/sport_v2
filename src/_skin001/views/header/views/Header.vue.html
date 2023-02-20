@@ -8,7 +8,7 @@
         <div class="text-14 ml-1">{{LangUtil("赛果&比分")}}</div>
     </v-btn>
     <v-sheet class="search_box d-flex align-center rounded-pill px10 textGray--text ml-2" width="321" height="30" color="bgPage">
-        <input class="text-14 ml-2 textGray--text text-truncate" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="txtSearch" />
+        <input class="text-14 ml-2 textGray--text text-truncate" :placeholder="LangUtil('搜索联赛或球队名称')" v-model="txtSearch" @keyup.enter="onSearch"/>
         <svg-icon icon="search" @click.native="onSearch"></svg-icon>
     </v-sheet>
     <v-spacer />

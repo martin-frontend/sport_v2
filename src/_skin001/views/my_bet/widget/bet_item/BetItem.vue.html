@@ -1,4 +1,4 @@
-<div class="textBet--text">
+<div class="textBet--text" :class="{'div-disabled': pageData.loading}">
     <div class="d-flex align-center ml10 mr-1 mb10">
         <v-sheet class="mr10" color="yellow" width="2" height="16" rounded></v-sheet>
         <div class="btnPlain--text text-truncate text-14 font-weight-bold">{{item.comp.competition_name}}</div>
@@ -139,7 +139,7 @@
         <div class="ml10 mr10 mb-1" v-if="!item.oddsChance || item.isMarketClose">
             <v-btn
                 class="elevation-0 rounded-5 btn_yellow textYellow--text"
-                :loading="GlobalVar.loading"
+                :loading="pageData.loading"
                 height="40"
                 width="100%"
                 :disabled="item.isMarketClose"
@@ -154,7 +154,7 @@
         <div class="ml10 mr10 mb-1" v-else>
             <v-btn
                 class="elevation-0 rounded-5 btn_yellow textYellow--text"
-                :loading="GlobalVar.loading"
+                :loading="pageData.loading"
                 height="40"
                 width="100%"
                 @click="onBet"
@@ -185,7 +185,7 @@
                 <div v-if="!item.oddsChance || item.isMarketClose">
                     <v-btn
                         class="elevation-0 rounded-5 btn_yellow textYellow--text"
-                        :loading="GlobalVar.loading"
+                        :loading="pageData.loading"
                         height="40"
                         width="100%"
                         :disabled="item.isMarketClose"
@@ -200,7 +200,7 @@
                 <div v-else>
                     <v-btn
                         class="elevation-0 rounded-5 btn_yellow textYellow--text"
-                        :loading="GlobalVar.loading"
+                        :loading="pageData.loading"
                         height="40"
                         width="100%"
                         @click="onBet"
