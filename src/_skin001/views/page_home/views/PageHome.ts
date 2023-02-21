@@ -35,18 +35,23 @@ export default class PageHome extends AbstractView {
     /**关注整个联赛 */
     setAllLove(competition: any) {
         const matches = competition.matches;
-        let lovecount: number = 0;
-        matches.forEach((item: any) => {
-            if (this.pageData.love_events.indexOf(item.id) == -1) {
-                lovecount++;
-                this.myProxy.api_user_love(item.id);
-            }
-        });
-        if (lovecount == 0) {
-            matches.forEach((item: any) => {
-                this.myProxy.api_user_love(item.id);
-            });
+        const len = matches.length;
+        for(let i=len-1; i>=0; i--){
+            this.myProxy.api_user_love(matches[i].id);
         }
+        // let lovecount: number = 0;
+        // matches.forEach((item: any) => {
+            // this.myProxy.api_user_love(item.id);
+            // if (this.pageData.love_events.indexOf(item.id) == -1) {
+            //     lovecount++;
+            //     this.myProxy.api_user_love(item.id);
+            // }
+        // });
+        // if (lovecount == 0) {
+        //     matches.forEach((item: any) => {
+        //         this.myProxy.api_user_love(item.id);
+        //     });
+        // }
     }
     /**检测是否整个联赛都关注了 */
     checkAllLove(competition: any) {

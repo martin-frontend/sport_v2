@@ -39,41 +39,34 @@
         </v-card-text>
         <v-divider />
         <v-card-text class="mt15">
-            <div class="d-flex mb10">
-                <div>{{LangUtil("订单状态")}}</div>
-                <v-spacer />
-                <div class="font-weight-bold" :style="{ 'color': statusMapColor[pageData.status]} ">{{statusMap[pageData.status]}}</div>
+            <div class="mb10">
+                <span class="mr-1">{{LangUtil("订单状态")}}</span>
+                <span class="font-weight-bold" :style="{ 'color': statusMapColor[pageData.status]} ">{{statusMap[pageData.status]}}</span>
             </div>
-            <div class="d-flex mb10" v-if="pageData.status != 1">
-                <v-spacer />
-                <div class="red--text font-weight-bold">{{pageData.statusMsg}}</div>
+            <div class="mb10" v-if="pageData.status != 1">
+                <span class="red--text font-weight-bold">{{pageData.statusMsg}}</span>
             </div>
-            <div class="d-flex mb10">
-                <div>{{LangUtil("投注金额")}}</div>
-                <v-spacer />
-                <div class="font-weight-bold">{{GlobalVar.currency}} {{pageData.stake}}</div>
+            <div class="mb10">
+                <span class="mr-1">{{LangUtil("投注金额")}}</span>
+                <span class="font-weight-bold">{{GlobalVar.currency}} {{pageData.stake}}</span>
             </div>
-            <div class="d-flex mb10">
-                <div>{{LangUtil("预计可赢")}}</div>
-                <v-spacer />
-                <div class="font-weight-bold">
+            <div class="mb10">
+                <span class="mr-1">{{LangUtil("预计可赢")}}</span>
+                <span class="font-weight-bold">
                     {{GlobalVar.currency}} {{amountFormat((pageData.odds * pageData.stake - pageData.stake).toFixed(3),true,3)}}
-                </div>
+                </span>
             </div>
-            <div class="d-flex mb10">
-                <div>{{LangUtil("订单编号")}}</div>
-                <v-spacer />
-                <div class="font-weight-bold">{{pageData.order_no}}</div>
+            <div class="mb10">
+                <span class="mr-1">{{LangUtil("订单编号")}}</span>
+                <span class="font-weight-bold">{{pageData.order_no}}</span>
             </div>
-            <div class="d-flex mb10">
-                <div>{{LangUtil("投注时间")}}</div>
-                <v-spacer />
-                <div class="font-weight-bold">{{getCreateTime()}}</div>
+            <div class="mb10">
+                <span class="mr-1">{{LangUtil("投注时间")}}</span>
+                <span class="font-weight-bold">{{getCreateTime()}}</span>
             </div>
-            <div class="d-flex">
-                <div>{{LangUtil("比赛进程")}}</div>
-                <v-spacer />
-                <div class="font-weight-bold">{{pageData.states_str}}</div>
+            <div>
+                <span class="mr-1">{{LangUtil("比赛进程")}}</span>
+                <span class="font-weight-bold">{{pageData.states_str}}</span>
             </div>
         </v-card-text>
         <v-card-actions class="mt-n1">
