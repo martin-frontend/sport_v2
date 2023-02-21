@@ -96,28 +96,33 @@
 
                                         </div>
                                         <div v-else class="result-match-detail text-center">
-                                            <span class=" btnPlain--text font-weight-bold"
-                                                :class="$vuetify.breakpoint.mobile?'text-12':'ml-4 text-14'">
-                                                {{transTime(matche.sb_time)}}</span>
-                                            <v-row color="transparent" class="result-match-center ">
-                                                <v-col cols="4" class="match-teams justify-end ">
+                                            
+                                            <v-row no-gutters color="transparent" class="result-match-center ">
+                                                <v-col cols="5" class="match-teams justify-end text-center">
 
                                                     <v-col  class="textGray--text text-center " color="transparent"
                                                         :class="$vuetify.breakpoint.mobile?'text-12':'text-14'">
                                                         {{matche.home_team}}</v-col>
                                                     <v-img class="teamimg "
                                                         :src="getResponseIcon(matche.home_team_icon_url)"></v-img>
-                                                    <v-col cols="1" class="font-weight-bold text-14"
+                                                    <v-col cols="2" class="font-weight-bold text-14"
                                                         >
                                                         {{split_goals(matche.goals_ft)[0]}}
                                                     </v-col>
                                                 </v-col>
-                                                <v-col cols="2"  class="textGray--text text-12 mx-1"
+                                                <v-col cols="2"  class="textGray--text text-12 mx-1 "
                                                   >
+                                                  
+                                                  <div class=" btnPlain--text font-weight-bold text-12 mb-2"
+                                                    >
+                                                   {{transTime(matche.sb_time)}}</div>
+                                                   <div>
                                                     {{LangUtil("全场得分")}}
+                                                   </div>
+                                                    
                                                 </v-col>
-                                                <v-col cols="5" class="match-teams ">
-                                                    <v-col cols="1" class="font-weight-bold text-14 text-left"
+                                                <v-col cols="4" class="match-teams text-center">
+                                                    <v-col cols="2" class="font-weight-bold text-14 text-center"
                                                      >
                                                         {{split_goals(matche.goals_ft)[1]}}
                                                     </v-col>
