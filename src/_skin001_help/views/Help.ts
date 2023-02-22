@@ -9,8 +9,6 @@ import Http from "@/core/Http";
 import net from "@/net/setting";
 import PlatConfig from "@/core/config/PlatConfig";
 import LangConfig from "../core/config/LangConfig";
-import { watch } from "vue";
-//import { marked } from "marked";
 
 @Component
 export default class Help extends AbstractView {

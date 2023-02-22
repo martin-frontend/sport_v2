@@ -135,7 +135,7 @@ export default class PageGameResultsProxy extends puremvc.Proxy {
         // 半场 - 主客和, 平局退款, 双重机会/双胜彩, 
         if (data.goals_ht.split("-")[0] > data.goals_ht.split("-")[1]) {
             this.marketTypeKind[8].result = this.marketTypeKind[16].result = this.marketTypeKind[19].result = this.pageData.matche.home_team;
-        } else if (data.goals_ft.split("-")[0] == data.goals_ft.split("-")[1]) {
+        } else if (data.goals_ht.split("-")[0] == data.goals_ht.split("-")[1]) {
             this.marketTypeKind[8].result = this.marketTypeKind[16].result = this.marketTypeKind[19].result = LangUtil("和");
         } else {
             this.marketTypeKind[8].result = this.marketTypeKind[16].result = this.marketTypeKind[19].result = this.pageData.matche.away_team;
