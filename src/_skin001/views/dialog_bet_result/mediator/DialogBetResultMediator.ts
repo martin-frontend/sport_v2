@@ -24,6 +24,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 myProxy.pageData.bShow = true;
                 myProxy.pageData.status = body.status;
                 myProxy.pageData.order_no = body.order_no;
+                myProxy.pageData.partner_order = body.partner_order;
                 Object.assign(myProxy.pageData, body.requestData);
                 myProxy.pageData.create_time = GlobalVar.server_time;
                 myProxy.pageData.isInPlay = false;
@@ -75,9 +76,10 @@ export default class DialogBetResultMediator extends AbstractMediator {
             case net.EventType.api_user_pending:
                 for (const item of body) {
                     // console.warn(">>>>>>", item);
-                    if (item.order_no == myProxy.pageData.order_no) {
+                    if (item.partner_order == myProxy.pageData.partner_order) {
                         myProxy.pageData.status = item.status;
                         myProxy.pageData.statusMsg = item.statusMsg;
+                        myProxy.pageData.order_no = item.order_no;
                     }
                     Vue.notify(<any>{
                         group: "order_finished",

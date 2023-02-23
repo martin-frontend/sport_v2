@@ -18,6 +18,7 @@ export default class DialogBetResultProxy extends puremvc.Proxy {
         status: 0,
         statusMsg: "",
         order_no: "",
+        partner_order: "", //平台订单号
         create_time: 0,
         // 投注时的赛事进程
         states_str: "",
