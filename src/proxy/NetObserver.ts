@@ -15,6 +15,7 @@ export default class NetObserver extends AbstractMediator {
 
     listNotificationInterests(): string[] {
         return [
+            net.EventType.REQUEST_END,
             net.EventType.api_config,
             net.EventType.api_menu_lang,
             NotificationName.LANG_CONFIG,
@@ -124,6 +125,16 @@ export default class NetObserver extends AbstractMediator {
                     betProxy.deleteItem(body.market_id, body.selection_id);
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
                     orderUnsettledProxy.api_user_orders();
+                }
+                break;
+            case net.EventType.REQUEST_END:
+                {
+                    switch(body.config.url){
+                        case net.HttpType.api_user_betfix:
+                            const betProxy: BetProxy = getProxy(BetProxy);
+                            betProxy.pageData.loading = false;
+                            break;
+                    }
                 }
                 break;
         }
