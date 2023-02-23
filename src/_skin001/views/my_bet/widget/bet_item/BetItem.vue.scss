@@ -1,3 +1,8 @@
+.input-box{
+    background: linear-gradient(90deg, #fcb131 0%, #ffe64d 100%);
+    padding: 1px;
+    border-radius: 5px;
+}
 .input_left {
     color: #0f1213;
     background: linear-gradient(90deg, #fcb131 0%, #ffe64d 100%);
@@ -5,7 +10,7 @@
     font-weight: bold;
 }
 .input_right {
-    border: 1px solid #e8e8e2;
+    // border: 1px solid #e8e8e2;
     border-left: 0px;
     border-radius: 0px 5px 5px 0px;
 }
@@ -18,7 +23,7 @@ input {
         border-bottom: solid 2px #e8e8e2;
     }
     .input_right {
-        border-color: #e8e8e2;
+        border-color: #8d8e90;
         background-color: #fff;
     }
     .btns {
@@ -32,7 +37,7 @@ input {
         border-bottom: solid 2px #272828;
     }
     .input_right {
-        border-color: #333435;
+        border-color: #868789;
         background-color: #272828;
     }
     .btns {
