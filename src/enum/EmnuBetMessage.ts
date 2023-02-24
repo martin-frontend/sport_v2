@@ -6,4 +6,5 @@ export const EmnuBetMessage: { [status: number]: string } = {
     3: LangUtil("已拒绝"),
     4: LangUtil("已取消"),
     5: LangUtil("无效"),
+    8: LangUtil("准异常"), //准异常
 };

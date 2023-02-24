@@ -37,6 +37,7 @@ export default class BetResult extends AbstractView {
         3: LangUtil("已拒绝"), //拒绝
         4: LangUtil("已取消"), //拒绝
         5: LangUtil("无效"), //无效
+        8: LangUtil("准异常"), //无效
     };
     statusMapColor = {
         0: "#FF7128", //确认中
