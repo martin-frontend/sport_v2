@@ -11,18 +11,26 @@ import page_order from "../../page_order";
 import OpenLink from "@/core/global/OpenLink";
 import BlurUtil from "@/core/global/BlurUtil";
 import matche from "../../matche";
+import LiveProxy from "../../live/proxy/LiveProxy";
 
 @Component
 export default class PageMatche extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
     getResponseIcon = getResponseIcon;
+    liveProxy: LiveProxy = this.getProxy(LiveProxy);
     matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: PageMatcheProxy = this.getProxy(PageMatcheProxy);
     pageData = this.myProxy.pageData;
 
+    scrollTop = 0;
+
     constructor() {
         super(PageMatcheMediator);
+    }
+
+    onScroll(e:any){
+        this.scrollTop = e.target.scrollTop;
     }
 
     @Watch("pageData.isShowList")
@@ -60,6 +68,56 @@ export default class PageMatche extends AbstractView {
 
     get matches() {
         return this.pageData.competition_list[0]?.matches;
+    }
+
+    getCurrMatche() {
+        return this.matcheProxy.pageData.competition_list[0]?.matches[0];
+    }
+    getHomeName() {
+        return this.matcheProxy.pageData.competition_list[0]?.matches[0]?.home_team;
+    }
+    getAwayName() {
+        return this.matcheProxy.pageData.competition_list[0]?.matches[0]?.away_team;
+    }
+    getStates() {
+        return this.liveProxy.pageData.event_states[0];
+    }
+    get goalsValue(): number[] {
+        if (this.getStates()?.goals_ft) {
+            return this.getStates()
+                .goals_ft.split("-")
+                .map((item: any) => parseInt(item));
+        } else {
+            return [0, 0];
+        }
+    }
+    get goals_ot_Value(): number[] {
+        if (this.getStates()?.goals_ot) {
+            return this.getStates()
+                .goals_ot.split("-")
+                .map((item: any) => parseInt(item));
+        } else {
+            return [0, 0];
+        }
+    }
+    get goals_pk_Value(): number[] {
+        if (this.getStates()?.goals_pk) {
+            return this.getStates()
+                .goals_pk.split("-")
+                .map((item: any) => parseInt(item));
+        } else {
+            return [0, 0];
+        }
+    }
+    /**是否显示全场比分，or加时比分 */
+    isShowFullScore(): boolean {
+        const arr = ["-", "1H", "HT", "2H", "FT"];
+        return !arr.includes(this.getStates().match_phase);
+    }
+    /**是否显示点球比分 */
+    isShowPK(): boolean {
+        const arr = ["PK", "PK FT"];
+        return arr.includes(this.getStates().match_phase);
     }
 
     // 打开注单历史
