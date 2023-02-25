@@ -1,59 +1,99 @@
-<div>
+<div v-scroll:#routerBox="onScroll">
     <v-sheet height="54" class="d-flex align-center header_m header_mbg">
         <v-btn icon @click="onBack">
             <svg-icon class="white--text" icon="back2"></svg-icon>
         </v-btn>
 
-        <v-menu offset-y v-model="pageData.isShowList">
-            <template v-slot:activator="{ on, attrs }">
-                <v-sheet class="d-flex align-center white--text hand" width="60%" color="transparent" v-bind="attrs" v-on="on">
-                    <div class="text-16 mr10 text-truncate font-weight-bold">{{getCompetitionName()}}</div>
-                    <div class="text-12 white--text" :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'">
-                        <svg-icon icon="zoom_out"></svg-icon>
-                    </div>
-                </v-sheet>
-            </template>
-            <v-card color="bgPage" width="100vw" elevation="0" class="px-2 pt-2 matche_list">
-                <v-list color="transparent">
-                    <v-list-item-group :value="currIndex">
-                        <template v-for="(matche, index) in matches">
-                            <v-list-item @click="clickitem(matche)" link :key="index" class="mb-2 rounded-lg overflow-hidden">
-                                <v-sheet width="100%" color="bgBanner" class="d-flex rounded-lg px-1">
-                                    <v-row class="text-12">
-                                        <v-col>
-                                            <div class="temadiv my-2">
-                                                <v-img width="50px" height="50px" :src="getResponseIcon(matche.home_team_icon)"></v-img>
-                                                <div class="text-162 d-flex justify-center text-center">{{matche.home_team}}</div>
-                                            </div>
-                                        </v-col>
-                                        <v-col class="d-flex align-center text-16">
-                                            <v-sheet width="100%" color="transparent">
-                                                <div class="d-flex justify-center">{{start_time(matche).day}}</div>
-                                                <div class="d-flex justify-center">{{start_time(matche).min}}</div>
-                                            </v-sheet>
-                                        </v-col>
-                                        <v-col>
-                                            <div class="temadiv my-2">
-                                                <v-img width="50px" height="50px" :src="getResponseIcon(matche.away_team_icon)"></v-img>
-                                                <div class="text-12 d-flex justify-center text-center">{{matche.away_team}}</div>
-                                            </div>
-                                        </v-col>
-                                    </v-row>
-                                </v-sheet>
-                            </v-list-item>
-                        </template>
-                    </v-list-item-group>
-                </v-list>
-            </v-card>
-        </v-menu>
+        <template v-if="scrollTop > 160">
+            <v-row dense class="white--text font-weight-bold">
+                <v-col cols="4" class="text-truncate text-center">{{getHomeName()}}</v-col>
+                <v-col cols="3" class="d-flex align-center justify-center">
+                    <template v-if="getCurrMatche() && getStates()">
+                        <div v-if="isShowFullScore()">
+                            {{goals_ot_Value[0]}}<span class="text-14" v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
+                        </div>
+                        <div v-else>{{goalsValue[0]}}</div>
+                    </template>
+                    
+                    <div class="mx-2">VS</div>
 
-        <v-spacer />
-        <v-btn icon @click="openHelp">
-            <svg-icon class="text-20 iconHeaderColor--text" icon="help"></svg-icon>
-        </v-btn>
-        <v-btn icon class="ml-1 mr-3" @click="onOrder">
-            <svg-icon class="text-20 iconHeaderColor--text" icon="history"></svg-icon>
-        </v-btn>
+                    <template v-if="getCurrMatche() && getStates()">
+                        <div v-if="isShowFullScore()">
+                            {{goals_ot_Value[1]}}<span class="text-14" v-if="isShowPK()">({{goals_pk_Value[1]}})</span>
+                        </div>
+                        <div v-else>{{goalsValue[1]}}</div>
+                    </template>
+                    
+                </v-col>
+                <v-col cols="4" class="text-truncate text-center">{{getAwayName()}}</v-col>
+            </v-row>
+
+            <!-- <div>{{getHomeName()}}</div>
+            <div v-if="isShowFullScore()">
+                {{goals_ot_Value[0]}}<span class="text-16" v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
+            </div>
+            <div v-else>{{goalsValue[0]}}</div>
+            <div class="mx-2">vs</div>
+            <div v-if="isShowFullScore()">
+                {{goals_ot_Value[1]}}<span class="text-16" v-if="isShowPK()">({{goals_pk_Value[1]}})</span>
+            </div>
+            <div v-else>{{goalsValue[1]}}</div>
+            <div>{{getAwayName()}}</div> -->
+        </template>
+
+        <template v-else>
+            <v-menu offset-y v-model="pageData.isShowList">
+                <template v-slot:activator="{ on, attrs }">
+                    <v-sheet class="d-flex align-center white--text hand" width="60%" color="transparent" v-bind="attrs" v-on="on">
+                        <div class="text-16 mr10 text-truncate font-weight-bold">{{getCompetitionName()}}</div>
+                        <div class="text-12 white--text" :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'">
+                            <svg-icon icon="zoom_out"></svg-icon>
+                        </div>
+                    </v-sheet>
+                </template>
+                <v-card color="bgPage" width="100vw" elevation="0" class="px-2 pt-2 matche_list">
+                    <v-list color="transparent">
+                        <v-list-item-group :value="currIndex">
+                            <template v-for="(matche, index) in matches">
+                                <v-list-item @click="clickitem(matche)" link :key="index" class="mb-2 rounded-lg overflow-hidden">
+                                    <v-sheet width="100%" color="bgBanner" class="d-flex rounded-lg px-1">
+                                        <v-row class="text-12">
+                                            <v-col>
+                                                <div class="temadiv my-2">
+                                                    <v-img width="50px" height="50px" :src="getResponseIcon(matche.home_team_icon)"></v-img>
+                                                    <div class="text-162 d-flex justify-center text-center">{{matche.home_team}}</div>
+                                                </div>
+                                            </v-col>
+                                            <v-col class="d-flex align-center text-16">
+                                                <v-sheet width="100%" color="transparent">
+                                                    <div class="d-flex justify-center">{{start_time(matche).day}}</div>
+                                                    <div class="d-flex justify-center">{{start_time(matche).min}}</div>
+                                                </v-sheet>
+                                            </v-col>
+                                            <v-col>
+                                                <div class="temadiv my-2">
+                                                    <v-img width="50px" height="50px" :src="getResponseIcon(matche.away_team_icon)"></v-img>
+                                                    <div class="text-12 d-flex justify-center text-center">{{matche.away_team}}</div>
+                                                </div>
+                                            </v-col>
+                                        </v-row>
+                                    </v-sheet>
+                                </v-list-item>
+                            </template>
+                        </v-list-item-group>
+                    </v-list>
+                </v-card>
+            </v-menu>
+    
+            <v-spacer />
+            <v-btn icon @click="openHelp">
+                <svg-icon class="text-20 iconHeaderColor--text" icon="help"></svg-icon>
+            </v-btn>
+            <v-btn icon class="ml-1 mr-3" @click="onOrder">
+                <svg-icon class="text-20 iconHeaderColor--text" icon="history"></svg-icon>
+            </v-btn>
+        </template>
+        
     </v-sheet>
 
     <div id="div_content">
