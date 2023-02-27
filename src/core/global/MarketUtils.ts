@@ -41,6 +41,25 @@ const EnumMarketType = {
     ASIAN_OVER_UNDER_AFTER_PENALTIES: "ASIAN_OVER_UNDER_AFTER_PENALTIES",
     EITHER_TEAM_TO_SCORE: "EITHER_TEAM_TO_SCORE",
     EITHER_TEAM_TO_SCORE_HALF_TIME: "EITHER_TEAM_TO_SCORE_HALF_TIME",
+
+    EITHER_TEAM_TO_SCORE_TWICE_OR_MORE: "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE",
+    EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME: "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+    TEAM_A_TO_SCORE: "TEAM_A_TO_SCORE",
+    TEAM_A_TO_SCORE_HALF_TIME: "TEAM_A_TO_SCORE_HALF_TIME",
+    TEAM_B_TO_SCORE: "TEAM_B_TO_SCORE",
+    TEAM_B_TO_SCORE_HALF_TIME: "TEAM_B_TO_SCORE_HALF_TIME",
+
+    TEAM_A_TO_SCORE_TWICE_OR_MORE: "TEAM_A_TO_SCORE_TWICE_OR_MORE",
+    TEAM_A_TO_SCORE_TWICE_OR_MORE_HALF_TIME: "TEAM_A_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+    TEAM_B_TO_SCORE_TWICE_OR_MORE: "TEAM_B_TO_SCORE_TWICE_OR_MORE",
+    TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME: "TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+    BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE: "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE",
+    BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME: "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+
+    TEAM_A_GOALS_ODD_OR_EVEN: "TEAM_A_GOALS_ODD_OR_EVEN",
+    TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME: "TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME",
+    TEAM_B_GOALS_ODD_OR_EVEN: "TEAM_B_GOALS_ODD_OR_EVEN",
+    TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME: "TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME",
 };
 
 function formatAsian(handicap: string, type: string): string {
@@ -75,15 +94,27 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.ASIAN_OVER_UNDER_EXTRA_TIME:
         case EnumMarketType.ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME:
         case EnumMarketType.ASIAN_OVER_UNDER_AFTER_PENALTIES:
-            return (selection.type == "Overs" ? LangUtil("大") : LangUtil("小")) + " " + formatAsian(selection.handicap, selection.type).substring(1);
+            return (
+                (selection.type == "Overs" ? LangUtil("大") : LangUtil("小")) +
+                " " +
+                formatAsian(selection.handicap, selection.type).substring(1)
+            );
         case EnumMarketType.MATCH_ODDS:
         case EnumMarketType.MATCH_ODDS_HALF_TIME:
             return "";
         case EnumMarketType.TOTAL_GOALS:
         case EnumMarketType.TOTAL_GOALS_HALF_TIME:
-            return (selection.type == "Overs" ? LangUtil("大") : LangUtil("小")) + " " + formatAsian(selection.handicap, selection.type).substring(1);
+            return (
+                (selection.type == "Overs" ? LangUtil("大") : LangUtil("小")) +
+                " " +
+                formatAsian(selection.handicap, selection.type).substring(1)
+            );
         case EnumMarketType.ODD_OR_EVEN_HALF_TIME:
         case EnumMarketType.ODD_OR_EVEN:
+        case EnumMarketType.TEAM_A_GOALS_ODD_OR_EVEN:
+        case EnumMarketType.TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME:
+        case EnumMarketType.TEAM_B_GOALS_ODD_OR_EVEN:
+        case EnumMarketType.TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME:
             return selection.type == "Odd" ? LangUtil("单") : LangUtil("双");
         case EnumMarketType.TEAM_A_WIN_TO_NIL:
         case EnumMarketType.TEAM_B_WIN_TO_NIL:
@@ -93,6 +124,18 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.BOTH_TEAMS_TO_SCORE_HALF_TIME:
         case EnumMarketType.EITHER_TEAM_TO_SCORE:
         case EnumMarketType.EITHER_TEAM_TO_SCORE_HALF_TIME:
+        case EnumMarketType.EITHER_TEAM_TO_SCORE_TWICE_OR_MORE:
+        case EnumMarketType.EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
+        case EnumMarketType.TEAM_A_TO_SCORE:
+        case EnumMarketType.TEAM_A_TO_SCORE_HALF_TIME:
+        case EnumMarketType.TEAM_B_TO_SCORE:
+        case EnumMarketType.TEAM_B_TO_SCORE_HALF_TIME:
+        case EnumMarketType.TEAM_A_TO_SCORE_TWICE_OR_MORE:
+        case EnumMarketType.TEAM_A_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
+        case EnumMarketType.TEAM_B_TO_SCORE_TWICE_OR_MORE:
+        case EnumMarketType.TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
+        case EnumMarketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE:
+        case EnumMarketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
             return selection.type == "Yes" ? LangUtil("是") : LangUtil("否");
         case EnumMarketType.DRAW_NO_BET:
         case EnumMarketType.DRAW_NO_BET_HALF_TIME:

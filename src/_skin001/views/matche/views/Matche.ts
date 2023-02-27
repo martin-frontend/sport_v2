@@ -72,6 +72,26 @@ export default class Matche extends AbstractView {
             "ASIAN_OVER_UNDER_AFTER_PENALTIES",
             "EITHER_TEAM_TO_SCORE",
             "EITHER_TEAM_TO_SCORE_HALF_TIME",
+
+            "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE",
+            "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+            "TEAM_A_TO_SCORE",
+            "TEAM_A_TO_SCORE_HALF_TIME",
+            "TEAM_B_TO_SCORE",
+            "TEAM_B_TO_SCORE_HALF_TIME",
+
+            "TEAM_A_TO_SCORE_TWICE_OR_MORE",
+            "TEAM_A_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+            "TEAM_B_TO_SCORE_TWICE_OR_MORE",
+            "TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+            "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE",
+            "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIM",
+
+            "TEAM_A_GOALS_ODD_OR_EVEN",
+            "TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME",
+            "TEAM_B_GOALS_ODD_OR_EVEN",
+            "TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME",
+
         ],
         3: ["DRAW_NO_BET", "DRAW_NO_BET_HALF_TIME"],
         4: ["HALF_TIME_FULL_TIME"],
@@ -154,3 +174,153 @@ export default class Matche extends AbstractView {
 // 33: {id: 286, market_type: 'RMM_OUTRIGHTS', parent_id: 0, title: '冠军', title_new: '冠军'}
 // 33: {id: 296, market_type: 'EITHER_TEAM_TO_SCORE', parent_id: 0, title: '任意一队得分', title_new: '任意一队得分'}
 // 33: {id: 297, market_type: 'EITHER_TEAM_TO_SCORE_HALF_TIME', parent_id: 0, title: '半场 - 任意一队得分', title_new: '半场 - 任意一队得分'}
+// 38: {id: 297, market_type: 'EITHER_TEAM_TO_SCORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 任意一队得分', …}
+// 39: {id: 299, market_type: 'EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 任意一队得分两次或以上', …}
+
+// 0
+// : 
+// {id: 1, market_type: 'MATCH_ODDS', parent_id: 0, main_type: '17,23,32', title: '主客和', …}
+// 1
+// : 
+// {id: 3, market_type: 'ASIAN_HANDICAP', parent_id: 74, main_type: '17,20,23', title: '亚洲让球盘', …}
+// 2
+// : 
+// {id: 258, market_type: 'ASIAN_OVER_UNDER', parent_id: 231, main_type: '17,21,23', title: '亚洲大小盘', …}
+// 3
+// : 
+// {id: 13, market_type: 'DRAW_NO_BET', parent_id: 1, main_type: '23,32', title: '平局退款', …}
+// 4
+// : 
+// {id: 230, market_type: 'TOTAL_GOALS', parent_id: 231, main_type: '21,23', title: '总入球', …}
+// 5
+// : 
+// {id: 273, market_type: 'CR_ASIAN_HANDICAP', parent_id: 0, main_type: '23,25', title: '亚洲让球盘 - 角球', …}
+// 6
+// : 
+// {id: 274, market_type: 'CR_ASIAN_OVER_UNDER', parent_id: 0, main_type: '23,25', title: '亚洲大小盘 - 角球', …}
+// 7
+// : 
+// {id: 21, market_type: 'CORRECT_SCORE', parent_id: 1, main_type: '22,23', title: '波胆', …}
+// 8
+// : 
+// {id: 22, market_type: 'HALF_TIME_FULL_TIME', parent_id: 1, main_type: '23,32', title: '半场/全场', …}
+// 9
+// : 
+// {id: 14, market_type: 'DOUBLE_CHANCE', parent_id: 0, main_type: '23,32', title: '双重机会/双胜彩', …}
+// 10
+// : 
+// {id: 28, market_type: 'TEAM_A_WIN_TO_NIL', parent_id: 0, main_type: '23,29', title: '主队零失球获胜', …}
+// 11
+// : 
+// {id: 26, market_type: 'TEAM_B_WIN_TO_NIL', parent_id: 0, main_type: '23,29', title: '客队零失球获胜', …}
+// 12
+// : 
+// {id: 300, market_type: 'TEAM_A_TO_SCORE', parent_id: 0, main_type: '23,32', title: '主队得分', …}
+// 13
+// : 
+// {id: 302, market_type: 'TEAM_B_TO_SCORE', parent_id: 0, main_type: '23,32', title: '客队得分', …}
+// 14
+// : 
+// {id: 308, market_type: 'TEAM_A_TO_SCORE_TWICE_OR_MORE', parent_id: 0, main_type: '23,32', title: '主队得分两次或以上', …}
+// 15
+// : 
+// {id: 310, market_type: 'TEAM_B_TO_SCORE_TWICE_OR_MORE', parent_id: 0, main_type: '23,32', title: '客队得分两次或以上', …}
+// 16
+// : 
+// {id: 4, market_type: 'BOTH_TEAMS_TO_SCORE', parent_id: 0, main_type: '23,32', title: '两队都得分', …}
+// 17
+// : 
+// {id: 312, market_type: 'BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE', parent_id: 0, main_type: '23,32', title: '两队都得分兩次或以上', …}
+// 18
+// : 
+// {id: 296, market_type: 'EITHER_TEAM_TO_SCORE', parent_id: 0, main_type: '23,32', title: '任意一队得分', …}
+// 19
+// : 
+// {id: 298, market_type: 'EITHER_TEAM_TO_SCORE_TWICE_OR_MORE', parent_id: 0, main_type: '23,32', title: '任意一队得两分或以上', …}
+// 20
+// : 
+// {id: 27, market_type: 'ODD_OR_EVEN', parent_id: 231, main_type: '21,23', title: '入球单双', …}
+// 21
+// : 
+// {id: 304, market_type: 'TEAM_A_GOALS_ODD_OR_EVEN', parent_id: 0, main_type: '21,23', title: '主队得分单/双', …}
+// 22
+// : 
+// {id: 306, market_type: 'TEAM_B_GOALS_ODD_OR_EVEN', parent_id: 0, main_type: '21,23', title: '客队得分单/双', …}
+// 23
+// : 
+// {id: 251, market_type: 'MATCH_ODDS_HALF_TIME', parent_id: 1, main_type: '24,32', title: '半场 - 主客和', …}
+// 24
+// : 
+// {id: 246, market_type: 'ASIAN_HANDICAP_HALF_TIME', parent_id: 74, main_type: '20,24', title: '半场 - 亚洲让球盘', …}
+// 25
+// : 
+// {id: 248, market_type: 'ASIAN_OVER_UNDER_HALF_TIME', parent_id: 231, main_type: '21,24', title: '半场 - 亚洲大小盘', …}
+// 26
+// : 
+// {id: 257, market_type: 'DRAW_NO_BET_HALF_TIME', parent_id: 1, main_type: '24,32', title: '半场-平局退款', …}
+// 27
+// : 
+// {id: 259, market_type: 'TOTAL_GOALS_HALF_TIME', parent_id: 231, main_type: '21,24', title: '半场 - 总入球', …}
+// 28
+// : 
+// {id: 254, market_type: 'CORRECT_SCORE_HALF_TIME', parent_id: 1, main_type: '22,24', title: '半场 - 波胆', …}
+// 29
+// : 
+// {id: 256, market_type: 'DOUBLE_CHANCE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 双重机会/双胜彩', …}
+// 30
+// : 
+// {id: 252, market_type: 'TEAM_A_WIN_TO_NIL_HALF_TIME', parent_id: 0, main_type: '24,29', title: '半场 - 主队零失球获胜', …}
+// 31
+// : 
+// {id: 255, market_type: 'TEAM_B_WIN_TO_NIL_HALF_TIME', parent_id: 0, main_type: '24,29', title: '半场 - 客队零失球获胜', …}
+// 32
+// : 
+// {id: 301, market_type: 'TEAM_A_TO_SCORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 主队得分', …}
+// 33
+// : 
+// {id: 303, market_type: 'TEAM_B_TO_SCORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 客队得分', …}
+// 34
+// : 
+// {id: 309, market_type: 'TEAM_A_TO_SCORE_TWICE_OR_MORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 主队得分两次或以上', …}
+// 35
+// : 
+// {id: 311, market_type: 'TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 客队得分两次或以上', …}
+// 36
+// : 
+// {id: 253, market_type: 'BOTH_TEAMS_TO_SCORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 两队都得分', …}
+// 37
+// : 
+// {id: 313, market_type: 'BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 两队都得分两次或以上', …}
+// 38
+// : 
+// {id: 297, market_type: 'EITHER_TEAM_TO_SCORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 任意一队得分', …}
+// 39
+// : 
+// {id: 299, market_type: 'EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME', parent_id: 0, main_type: '24,32', title: '半场 - 任意一队得分两次或以上', …}
+// 40
+// : 
+// {id: 250, market_type: 'ODD_OR_EVEN_HALF_TIME', parent_id: 231, main_type: '21,24', title: '半场 - 单/双 ', …}
+// 41
+// : 
+// {id: 261, market_type: 'ASIAN_HANDICAP_EXTRA_TIME', parent_id: 74, main_type: '20', title: '亚洲让球盘 超时', …}
+// 42
+// : 
+// {id: 262, market_type: 'ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME', parent_id: 0, main_type: '20', title: '半场-亚洲让球盘 超时 ', …}
+// 43
+// : 
+// {id: 263, market_type: 'ASIAN_OVER_UNDER_EXTRA_TIME', parent_id: 231, main_type: '21', title: '亚洲大小球 超時', …}
+// 44
+// : 
+// {id: 305, market_type: 'TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME', parent_id: 0, main_type: '21,24', title: '半场 - 主队得分单/双', …}
+// 45
+// : 
+// {id: 307, market_type: 'TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME', parent_id: 0, main_type: '21,24', title: '半场 - 客队得分单/双', …}
+// 46
+// : 
+// {id: 247, market_type: 'ASIAN_OVER_UNDER_AFTER_PENALTIES', parent_id: 231, main_type: '21', title: '亚洲大小盘－罚球点球', …}
+// 47
+// : 
+// {id: 249, market_type: 'ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME', parent_id: 231, main_type: '21', title: '半场-亚洲大小盘 超时', …}
+// 48
+// : 
+// {id: 260, market_type: 'ASIAN_HANDICAP_AFTER_PENALTIES', parent_id: 74, main_type: '20', title: '亚洲让球盘-点球对决后', …}
