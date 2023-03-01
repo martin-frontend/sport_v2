@@ -19,16 +19,16 @@
         </div> -->
 
         <template v-else>
-            <v-tooltip top>
+            <v-tooltip top v-if="OrderTitleUtils.getTeamName(item)">
                 <template v-slot:activator="{ on, attrs }">
-                    <div class="font-weight-bold text-truncate" v-bind="attrs" v-on="on">{{OrderTitleUtils.getTeamName(item)}}</div>
+                    <div class="font-weight-bold text-truncate mr-1" v-bind="attrs" v-on="on">{{OrderTitleUtils.getTeamName(item)}}</div>
                 </template>
                 <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
                     <span>{{OrderTitleUtils.getTeamName(item)}}</span>
                 </v-sheet>
             </v-tooltip>
 
-            <div class="font-weight-bold mx-1">
+            <div class="font-weight-bold mr-1">
                 {{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche, false)}}
             </div>
         </template>

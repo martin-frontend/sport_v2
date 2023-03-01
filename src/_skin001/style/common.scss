@@ -114,3 +114,14 @@
 .div-disabled {
     pointer-events: none;
 }
+
+.scroll-div {
+    /* 隐藏滚动条 */
+    scrollbar-width: none; /* firefox */
+    -ms-overflow-style: none; /* IE 10+ */
+    overflow: -moz-scrollbars-none;
+}
+.scroll-div::-webkit-scrollbar {
+    display: none; /* Chrome Safari */
+    width: 0 !important;
+}
