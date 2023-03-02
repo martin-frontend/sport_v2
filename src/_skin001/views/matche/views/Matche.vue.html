@@ -31,7 +31,7 @@
     </v-card>
 
     <!-- list -->
-    <v-sheet ref="divlist" :class="{'overflow-y-auto': !$vuetify.breakpoint.mobile}" color="transparent" v-if="matche && !pageData.loading">
+    <v-sheet ref="divlist" :class="{'overflow-y-auto': !$vuetify.breakpoint.mobile}" class="scroll-div" color="transparent" v-if="matche && !pageData.loading">
         <v-expansion-panels
             class="mt-1"
             elevation="0"

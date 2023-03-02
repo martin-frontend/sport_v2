@@ -31,17 +31,6 @@
 ::v-deep.v-btn:before {
     background-color: transparent;
 }
-.btnGroup {
-    overflow-x: auto;
-    /* 隐藏滚动条 */
-    scrollbar-width: none; /* firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-    overflow: -moz-scrollbars-none;
-}
-.btnGroup::-webkit-scrollbar {
-    display: none; /* Chrome Safari */
-    width: 0 !important;
-}
 input {
     width: 100%;
     outline: none;
@@ -57,15 +46,6 @@ input {
     border-bottom-left-radius: 10px;
 }
 
-.btnGroup {
-    overflow-x: auto;
-    /* 隐藏滚动条 */
-    scrollbar-width: none; /* firefox */
-    -ms-overflow-style: none; /* IE 10+ */
-}
-.btnGroup::-webkit-scrollbar {
-    display: none; /* Chrome Safari */
-}
 .btnTag {
     min-height: 30px;
     display: inline-block;

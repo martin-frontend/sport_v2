@@ -2,7 +2,7 @@
     <v-app>
         <v-sheet id="page" class="d-flex overflow-x-hidden" color="transparent">
             <v-sheet
-                class="overflow-y-auto mt-2 leftbox"
+                class="overflow-y-auto mt-2 leftbox scroll-div"
                 min-width="242"
                 max-width="242"
                 color="transparent"
@@ -30,7 +30,7 @@
                     <v-col :cols="$vuetify.breakpoint.mobile ? 12 : 8">
                         <v-sheet
                             id="routerBox"
-                            class="overflow-y-auto overflow-x-hidden"
+                            class="overflow-y-auto overflow-x-hidden scroll-div"
                             v-scroll.self="onScroll"
                             width="100%"
                             color="transparent"
