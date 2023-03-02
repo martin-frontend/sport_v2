@@ -13,7 +13,7 @@ export default class SelfProxy extends puremvc.Proxy {
 
     onRegister() {
         setInterval(() => {
-            if (this.timerCount % 5 == 0) {
+            if (this.timerCount % 5 == 0 && GlobalVar.pageType == "skin001") {
                 this.api_user_info();
             }
             GlobalVar.server_time++;

@@ -10,7 +10,7 @@
             >
                 <Navigation />
             </v-sheet>
-            <v-sheet class="py-0 overflow-x-hidden" width="100%" color="transparent">
+            <v-sheet class="py-0 overflow-hidden" width="100%" color="transparent">
                 <Header v-if="!$vuetify.breakpoint.mobile" />
                 <!-- <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
                     <v-sheet

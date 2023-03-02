@@ -3,12 +3,24 @@ import GlobalVar from "@/core/global/GlobalVar";
 import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 import { getQueryVariable } from "@/core/global/Functions";
 import PlatConfig from "@/core/config/PlatConfig";
+import LangConfig from "@/core/config/LangConfig";
 export default class CompetionResultProxy extends puremvc.Proxy {
     static NAME = "CompetionResultProxy";
     public onRegister(): void {
         this.pageData.loading = false;
         // TODO 请求初始数据
     }
+    form = {
+        lang: getQueryVariable("lang") || "zh_CN",
+        order_id: getQueryVariable("order_id"),
+        plat_id: getQueryVariable("plat_id"),
+        timezone: getQueryVariable("timezone"),
+        sign: getQueryVariable("sign"),
+        token: getQueryVariable("t") || "",
+    };
+    isloadSecLang = true;
+    
+    nowtime:any;
     panel = <any>[];
     selectDate = (new Date(Date.now() - (new Date()).getTimezoneOffset() * 60000)).toISOString().substr(0, 10);
     init() {
@@ -65,11 +77,30 @@ export default class CompetionResultProxy extends puremvc.Proxy {
 
         this.panel = this.pageData.competition_list.map((k: any, i: number) => i);
     }
-    set_public_plat_config(data: any){
-            // PlatConfig.config = data.data;
-            // GlobalVar.plat_id = this.form.plat_id?.toString() || "";
-            // GlobalVar.zone = this.form.timezone?.toString() || "";
-            // GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
-            // GlobalVar.lang = this.form.lang;
+    api_public_plat_config() {
+        const { lang, plat_id, timezone, token } = this.form;
+        this.sendNotification(net.HttpType.public_plat_config, {
+            lang,
+            plat_id,
+            timezone,
+            token,
+        });
     }
+    set_public_plat_config(data: any) {
+        PlatConfig.config = data;
+        const { lang, plat_id, timezone, token } = this.form;
+        GlobalVar.plat_id = plat_id?.toString() || "";
+        GlobalVar.zone = timezone?.toString() || "";
+        GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
+        GlobalVar.lang = lang;
+        GlobalVar.token = token;
+        const sTime = GlobalVar.server_time;
+        this.selectDate=dateFormat(getDateByTimeZone(sTime * 1000 ,GlobalVar.zone) ,'yyyy-MM-dd');
+        LangConfig.load(this.form.lang, true).then(() => {
+            this.isloadSecLang = true;
+               
+               this.init();
+        });
+    }
+
 }

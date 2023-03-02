@@ -2,7 +2,7 @@ import AbstractView from "@/core/abstract/AbstractView";
 import {Prop, Watch, Component } from "vue-property-decorator";
 import PageGameResultsMediator from "../mediator/PageGameResultsMediator";
 import PageGameResultsProxy from "../proxy/PageGameResultsProxy";
-import LangUtil from "@/_skin001_competion_result/core/config/LangUtil";
+import LangUtil from "@/core/global/LangUtil";
 import { getResponseIcon } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 @Component

@@ -6,14 +6,12 @@ import net from "@/net/setting";
 import GlobalVar from "@/core/global/GlobalVar";
 export default class CompetionResultMediator extends AbstractMediator {
     public onRemove(): void {
-         this.facade.removeProxy(CompetionResultProxy.NAME);
+        this.facade.removeProxy(CompetionResultProxy.NAME);
     }
     public listNotificationInterests(): string[] {
         return [
             net.EventType.api_event_result,
-            net.HttpType.public_plat_config,
-            net.HttpType.api_user_info,
-            
+            net.EventType.public_plat_config
         ];
     }
 
@@ -24,15 +22,9 @@ export default class CompetionResultMediator extends AbstractMediator {
             case net.EventType.api_event_result:
                 myProxy.set_envent_result(body);
                 break;
-            case net.HttpType.public_plat_config:
+            case net.EventType.public_plat_config:
                 myProxy.set_public_plat_config(body);
-
                 break;
-            case net.HttpType.api_user_info:
-          
-                
-                break;
-
         }
     }
 }

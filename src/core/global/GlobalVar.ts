@@ -30,6 +30,7 @@ const GlobalVar = {
     currency: "",
     /**手机模式下，是否显示导航 */
     navDrawer: false,
+    pageType:"skin001"
 };
 
 export default GlobalVar;

@@ -24,12 +24,12 @@
                 class="font-weight-bold text-14">{{item.name}}</span>
         </v-btn>
     </v-sheet>
-    <div class="box-scroll" ref="divScroll">
+    <div class="box-scroll mt-4" ref="divScroll">
         <v-sheet v-if="pageData.tabIndex == 0" style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center"  color="transparent">
             <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
             <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
         </v-sheet>
-        <v-sheet v-show="pageData.tabIndex == 1 && myProxy.pageData.type[0].list" color="transparent" key="1" >
+        <v-sheet class="mt-n4" v-show="pageData.tabIndex == 1 && myProxy.pageData.type[0].list" color="transparent" key="1" >
             
             <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[0]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
@@ -48,7 +48,7 @@
                 </v-expansion-panel>
               </v-expansion-panels>
         </v-sheet>
-        <v-sheet v-show="pageData.tabIndex == 2 && myProxy.pageData.type[1].list" color="transparent" key="2"  >
+        <v-sheet class="mt-n4"  v-show="pageData.tabIndex == 2 && myProxy.pageData.type[1].list" color="transparent" key="2"  >
             
             <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[1]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
@@ -66,7 +66,7 @@
                 </v-expansion-panel>
               </v-expansion-panels>
         </v-sheet>
-        <v-sheet v-show="pageData.tabIndex == 3 && myProxy.pageData.type[2].list" color="transparent" key="3" >
+        <v-sheet class="mt-n4"  v-show="pageData.tabIndex == 3 && myProxy.pageData.type[2].list" color="transparent" key="3" >
             
             <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[2]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
@@ -85,7 +85,7 @@
               </v-expansion-panels>
         </v-sheet>
         
-        <div v-show="pageData.tabIndex == 4" key="4" >
+        <div class="mt-n4"  v-show="pageData.tabIndex == 4" key="4" >
             <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[3]">
                 <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
                   v-for="(item,i) in myProxy.pageData.type[3].list"

@@ -1,4 +1,4 @@
-<v-app v-if="isloadSecLang">
+<v-app v-if="myProxy.isloadSecLang">
     <v-sheet height="100%">
         <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
             <v-sheet class="d-flex">
@@ -46,7 +46,7 @@
                 </template>
                
                 <v-date-picker format=yyyy/MM/dd range v-model="myProxy.selectDate" no-title scrollable 
-                    :locale="GlobalVar.lang == 'zh_CN' ? 'zh-cn':''" :max="nowtime">
+                    :locale="GlobalVar.lang == 'zh_CN' ? 'zh-cn':''" :max="myProxy.nowtime">
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="bShowDateSelect = false">
                         {{LangUtil("取消")}}
@@ -120,7 +120,7 @@
                     </div>
                     <div class="d-flex" v-if="item.state && Object.keys(item.state).length > 0">
                         <span >{{LangUtil("滚球")}}&nbsp;</span>
-                        <span >{{getScoreStr(item)}}</span>
+                        <span >{{OrderTitleUtils.getScoreStr(item)}}</span>
                     </div>
                 </v-col>
                 <v-col class="d-grid btnPlain--text ">
@@ -154,7 +154,7 @@
                 </v-col>
                 
             </v-row>
-            <v-sheet v-if="pageData.nodata" style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" :height="height" color="transparent">
+            <v-sheet v-if="pageData.nodata" style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" color="transparent">
                 <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
                 <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
             </v-sheet>

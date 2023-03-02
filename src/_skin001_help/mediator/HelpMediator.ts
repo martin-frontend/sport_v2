@@ -10,7 +10,7 @@ export default class HelpMediator extends AbstractMediator {
     }
 
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_helpcenter_list];
+        return [net.EventType.api_helpcenter_list, net.EventType.public_plat_config];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -20,6 +20,10 @@ export default class HelpMediator extends AbstractMediator {
             case net.EventType.api_helpcenter_list:
                 GlobalVar.loading = false;
                 myProxy.set_helpcenter_list(body);
+                break;
+            case net.EventType.public_plat_config:
+              
+                myProxy.set_public_plat_config(body);
                 break;
         }
     }
