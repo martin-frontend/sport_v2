@@ -1,5 +1,5 @@
 import net from "@/net/setting";
-import NetObserver from "../_skin001_help/proxy/NetObserver";
+import NetObserver from "@/proxy/NetObserver";
 import GlobalVar from "@/core/global/GlobalVar";
 import RequestStartCMD from "../_skin001/command/RequestStartCMD";
 import RequestEndCMD from "../_skin001/command/RequestEndCMD";

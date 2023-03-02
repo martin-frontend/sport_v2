@@ -18,6 +18,8 @@ LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
 Vue.use(Notifications, { velocity });
+GlobalVar.pageType = "skin001_help"
+
 
 // 注册到全局
 Vue.component("btn-yellow", BtnYellow);
@@ -31,7 +33,8 @@ vuetify.framework.theme.dark = daynight_type == "2";
 
 Vue["vuetify"] = vuetify;
 Vue.config.productionTip = false;
-new Vue({
+//@ts-ignore
+window["vm"] = new Vue({
     vuetify,
     render: (h) => h(App),
 }).$mount("#app");
