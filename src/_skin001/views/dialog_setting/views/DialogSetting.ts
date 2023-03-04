@@ -23,23 +23,19 @@ export default class DialogSetting extends AbstractView {
     }
 
     openCompetionResult() {
-        // const dark = this.$vuetify.theme.dark;
-        // const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         const dark = this.$vuetify.theme.dark;
         const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone, MarketType_area: GlobalVar.MarketType_area});
         const link = "./skin001_competion_result.html?" + params;
         OpenLink(link);
     }
 
-    onClose() {
-        this.pageData.bShow = false;
-        const settingProxy: SettingProxy = getProxy(SettingProxy);
-        settingProxy.api_user_set_user_setting();
-    }
-
     @Watch("pageData.bShow")
     onWatchShow() {
         BlurUtil(this.pageData.bShow);
+        if(!this.pageData.bShow){
+            const settingProxy: SettingProxy = getProxy(SettingProxy);
+        settingProxy.api_user_set_user_setting();
+        }
     }
 
     get getSelectName() {
