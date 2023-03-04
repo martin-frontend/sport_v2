@@ -88,8 +88,13 @@ export default class PageOrderDetail extends AbstractView{
         }
          this.SelectDate1 = <any>this.formatDate(this.myProxy.selectDate[0]);
          this.SelectDate2 = <any>this.formatDate(this.myProxy.selectDate[1]);
-        this.myProxy.selectDate[0] = this.myProxy.selectDate[0].replaceAll('/', '-');
-        this.myProxy.selectDate[1] = this.myProxy.selectDate[1].replaceAll('/', '-');
+        if (this.myProxy.selectDate[0]) {
+            this.myProxy.selectDate[0] = this.myProxy.selectDate[0].replaceAll('/', '-');
+        }
+        if (this.myProxy.selectDate[1]) {
+            this.myProxy.selectDate[1] = this.myProxy.selectDate[1].replaceAll('/', '-');
+        }
+        
         console.warn("selectDateselectDate>>"+this.myProxy.selectDate)
     }
     formatDate (date:any) {
