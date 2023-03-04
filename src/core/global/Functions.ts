@@ -197,8 +197,9 @@ export function getTodayOffset(offset = 0, offsetSecond = 0): any {
     }
     const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000*offset, GlobalVar.zone);
     const formatdate = dateFormat(today, "yyyy/MM/dd")
+    const formatdate2 = dateFormat(today, "yyyy-MM-dd")
     const timestr = (Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
-    return {timestr,formatdate};
+    return {timestr,formatdate,formatdate2};
 }
 /**
  * 如果是香港盘赔率要减一
