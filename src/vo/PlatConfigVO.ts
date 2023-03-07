@@ -10,5 +10,4 @@ export interface PlatConfigVO {
         MarketType_area: string;
         champion_type: string;
     };
-    odds_type: number;
 }

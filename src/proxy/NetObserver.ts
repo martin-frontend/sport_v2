@@ -40,10 +40,7 @@ export default class NetObserver extends AbstractMediator {
         switch (notification.getName()) {
             // 平台配置信息
             case net.EventType.api_config:
-                PlatConfig.config = body;
-                if(!body || !body.client){
-                    alert("config error");
-                }
+                if (body) PlatConfig.config = body;
                 GlobalVar.plat_id = PlatConfig.config.client.plat_id;
                 GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
                 // 如果没有配置，给默认值
