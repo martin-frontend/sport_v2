@@ -1,10 +1,7 @@
-import PlatConfig from "@/core/config/PlatConfig";
-import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import net from "@/net/setting";
-import { RemarkVO } from "@/vo/RemarkVO";
 import { UserInfoVO } from "@/vo/UserInfoVO";
-import SettingProxy from "@/proxy/SettingProxy";
+import Vue from "vue";
 
 export default class SelfProxy extends puremvc.Proxy {
     static NAME = "SelfProxy";
@@ -45,6 +42,9 @@ export default class SelfProxy extends puremvc.Proxy {
     }
 
     api_user_info() {
-        this.sendNotification(net.HttpType.api_user_info);
+        //@ts-ignore
+        if (Vue._isMounted) {
+            this.sendNotification(net.HttpType.api_user_info);
+        }
     }
 }

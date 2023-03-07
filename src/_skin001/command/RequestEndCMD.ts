@@ -22,7 +22,14 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
             1111002, 1111003, 1111004, 1111005, 1111001, 9999, 1111009, 10126, 10103, 1112003, 1112002, 10108, 1111015, 140000001,
             140000002, 140000003,
         ];
-        if (status == 10124) {
+        if (status == 9999) {
+            //@ts-ignore
+            if (Vue._isMounted) {
+                dialog_message_box.alert({ message: body.data.msg });
+            } else {
+                alert(body.data.msg);
+            }
+        } else if (status == 10124) {
             //用户被禁用
             if (PlatConfig.config) {
                 dialog_message_box.alert({ message: body.data.msg });
