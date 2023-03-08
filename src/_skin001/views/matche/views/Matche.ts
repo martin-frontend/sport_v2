@@ -85,7 +85,7 @@ export default class Matche extends AbstractView {
             "TEAM_B_TO_SCORE_TWICE_OR_MORE",
             "TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
             "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE",
-            "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIM",
+            "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
 
             "TEAM_A_GOALS_ODD_OR_EVEN",
             "TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME",
