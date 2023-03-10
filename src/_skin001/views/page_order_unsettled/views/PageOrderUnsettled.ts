@@ -142,7 +142,16 @@ export default class PageOrderUnsettled extends AbstractView {
             return {str:GlobalVar.currency+" "+amountFormat(item.expected_win,true,3),color:"#ea7800"};
         }
     }
-
+    transTitle(title:any){
+        const matches = this.pageData.list[0];
+        const homestr = LangUtil("主队").trim();
+        const awaystr = LangUtil("客队").trim();
+        const { home_name, away_name } = matches;
+        title = title
+            .replace(new RegExp(homestr, "ig"), home_name)
+            .replace(new RegExp(awaystr, "ig"), away_name);
+        return title;
+      }
     getWinTypeStr(item: any) {
         switch (item.win_type) {
             case 1:

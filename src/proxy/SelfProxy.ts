@@ -38,6 +38,7 @@ export default class SelfProxy extends puremvc.Proxy {
 
     /**写入 用户信息 */
     set_user_info(data: any) {
+        GlobalVar.currency = data.currency_type;
         Object.assign(this.userInfo, data);
     }
 

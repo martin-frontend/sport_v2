@@ -68,7 +68,16 @@ export default class DialogBetResult extends AbstractView {
         }
         return null;
     }
-
+    transTitle(title:any){
+        const matches = this.matcheProxy.pageData.competition_list[0]?.matches[0];
+        const homestr = LangUtil("主队").trim();
+        const awaystr = LangUtil("客队").trim();
+        const { home_team, away_team } = matches;
+        title = title
+            .replace(new RegExp(homestr, "ig"), home_team)
+            .replace(new RegExp(awaystr, "ig"), away_team);
+        return title;
+      }
     get matche() {
         for (const comp of this.matcheProxy.pageData.competition_list) {
             for (const matche of comp.matches) {
