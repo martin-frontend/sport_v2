@@ -41,14 +41,16 @@ export default class PageOrderDetail extends AbstractView{
         super(historyResultMediator);
     }
     // 注单状态
-    statusMap = {
-        0: LangUtil("确认中"), //确认中
-        1: LangUtil("确认成功"), //确认成功
-        3: LangUtil("已拒绝"), //拒绝
-        4: LangUtil("已取消"), //拒绝
-        5: LangUtil("无效"), //无效
-        8: LangUtil("准异常"), //准异常
-    };
+    get statusMap(){
+        return {
+            0: LangUtil("确认中"), //确认中
+            1: LangUtil("确认成功"), //确认成功
+            3: LangUtil("已拒绝"), //拒绝
+            4: LangUtil("已取消"), //拒绝
+            5: LangUtil("无效"), //无效
+            8: LangUtil("准异常"), //准异常
+        };
+    }
     //根据盘口展示已结算的赛果角球还是比分等
     getHadResultStr(item: any){
         const copyitem = JSON.parse(JSON.stringify(item));
@@ -60,6 +62,16 @@ export default class PageOrderDetail extends AbstractView{
         this.myProxy.api_public_plat_config();
 
     }
+    transTitle(title:any,idx:any){
+        const matches = this.pageData.list[idx];
+        const homestr = LangUtil("主队").trim();
+        const awaystr = LangUtil("客队").trim();
+        const { home_name, away_name } = matches;
+        title = title
+            .replace(new RegExp(homestr, "ig"), home_name)
+            .replace(new RegExp(awaystr, "ig"), away_name);
+        return title;
+      }
     pageLoad() {
         this.listQuery.page_count++;
         this.myProxy.api_user_orders();

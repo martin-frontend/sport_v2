@@ -42,7 +42,8 @@
         >
             <v-expansion-panel
                 :id="`panel${index}`"
-                v-for="(market, index) of pageData.market_list[0].fix_markets"
+                
+                v-for="(market, index) of marketSort"
                 :key="index"
                 elevation="0"
                 class="mb-2"
@@ -56,7 +57,7 @@
                                 <v-tooltip top>
                                     <template v-slot:activator="{ on, attrs }">
                                         <div class="mr-1 font-weight-bold text-14 btnPlain--text" v-bind="attrs" v-on="on">
-                                            <span>{{ market.title }}</span>
+                                            <span>{{transTitle(market.title)}}</span>
                                             <svg-icon icon="help1" class="yellow--text ml-1"></svg-icon>
                                         </div>
                                     </template>

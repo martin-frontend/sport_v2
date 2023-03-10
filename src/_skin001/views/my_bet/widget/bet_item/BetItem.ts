@@ -66,7 +66,15 @@ export default class BetItem extends AbstractView {
     onInput() {
         this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
     }
-
+    transTitle(title:any){
+        const homestr = LangUtil("主队").trim();
+        const awaystr = LangUtil("客队").trim();
+        const { home_team, away_team } = this.item.matche;
+        title = title
+            .replace(new RegExp(homestr, "ig"), home_team)
+            .replace(new RegExp(awaystr, "ig"), away_team);
+        return title;
+      }
     get states() {
         return this.pageData.event_states.find((item1) => item1.event_id == this.item.matche.id);
     }

@@ -180,6 +180,16 @@ export default class PageOrder extends AbstractView {
             return LangUtil("预计可赢");
         }
     }
+    transTitle(title:any,idx:any){
+        const matches = this.pageData.list[idx];
+        const homestr = LangUtil("主队").trim();
+        const awaystr = LangUtil("客队").trim();
+        const { home_name, away_name } = matches;
+        title = title
+            .replace(new RegExp(homestr, "ig"), home_name)
+            .replace(new RegExp(awaystr, "ig"), away_name);
+        return title;
+      }
     getDisplayResult(item: any) {
         const itemState = this.pageData.states.find((tempitem: any) => item.event_id == tempitem.event_id);
         if (itemState) {

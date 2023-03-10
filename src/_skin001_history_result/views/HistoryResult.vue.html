@@ -114,9 +114,8 @@
                         
                     </div>
                     
-                    <div>
-                        
-                        <span>{{item.market_type_text}}</span>
+                    <div> 
+                        {{transTitle(item.market_type_text,index)}}
                     </div>
                     <div class="d-flex" v-if="item.state && Object.keys(item.state).length > 0">
                         <span >{{LangUtil("滚球")}}&nbsp;</span>

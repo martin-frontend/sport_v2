@@ -106,7 +106,8 @@
                             <span class="font-weight-bold" v-if="item.state && Object.keys(item.state).length > 0"
                                 >{{OrderTitleUtils.getScoreStr(item)}}</span
                             >
-                            {{item.market_type_text}}
+                            <span>{{transTitle(item.market_type_text,index)}}</span>
+             
                         </div>
                         <div class="text-14 d-flex flex-wrap">
                             <span class="mr-1">{{item.home_name}} <span class="mx-1">VS</span> {{item.away_name}}</span>
