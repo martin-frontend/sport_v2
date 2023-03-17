@@ -23,158 +23,148 @@ export default class SettingProxy extends puremvc.Proxy {
         //时区
         items: [
             {
-                key: "-9",
-                value: `GMT-9`,
-                name: `${LangUtil("美國 (阿拉斯加）")}`,
-            },
-            {
                 key: "-8",
-                value: "GMT-8",
-                name: `${LangUtil("北美 (太平洋）")}`,
+                value: `GMT-8`,
+                name: `${LangUtil("GMT-8_desc")}`,
             },
             {
                 key: "-7",
-                value: "GMT-7 ",
-                name: LangUtil("北美 (山地）"),
+                value: "GMT-7",
+                name: `${LangUtil("GMT-7_desc")}`,
             },
             {
                 key: "-6",
                 value: "GMT-6 ",
-                name: LangUtil("北美 (中部）"),
+                name: LangUtil("GMT-6_desc"),
             },
             {
                 key: "-5",
                 value: "GMT-5 ",
-                name: LangUtil("北美 (東部) /古巴/ 哥倫比亞"),
+                name: LangUtil("GMT-5_desc"),
             },
             {
                 key: "-4",
                 value: "GMT-4 ",
-                name: LangUtil("加拿大 (大西洋) / 波多黎各"),
+                name: LangUtil("GMT-4_desc"),
             },
-
             {
                 key: "-3",
                 value: "GMT-3 ",
-                name: LangUtil("格陵蘭 / 阿根廷 / 烏拉圭 / 智利"),
-            },
-            {
-                key: "-2",
-                value: "GMT-2 ",
-                name: LangUtil("南喬治亞群島"),
+                name: LangUtil("GMT-3_desc"),
             },
 
             {
-                key: "-1",
-                value: "GMT-1 ",
-                name: LangUtil("佛得角"),
+                key: "-2",
+                value: "GMT-2 ",
+                name: LangUtil("GMT-2_desc"),
             },
             {
+                key: "-1",
+                value: "GMT-1 ",
+                name: LangUtil("GMT-1_desc"),
+            },
+
+            {
                 key: "+0",
-                value: "GMT+0 ",
-                name: LangUtil("英國 / 葡萄牙"),
+                value: "GMT+0",
+                name: LangUtil("GMT+0_desc"),
             },
             {
                 key: "+1",
                 value: "GMT+1 ",
-                name: LangUtil("西班牙 / 德國 / 法國 / 意大利"),
+                name: LangUtil("GMT+1_desc"),
             },
             {
                 key: "+2",
                 value: "GMT+2 ",
-                name: LangUtil("俄羅斯/南非"),
+                name: LangUtil("GMT+2_desc"),
             },
             {
                 key: "+3",
                 value: "GMT+3 ",
-                name: LangUtil("俄羅斯/沙特阿拉伯"),
+                name: LangUtil("GMT+3_desc"),
             },
             {
                 key: "+3:30",
                 value: "GMT+3:30 ",
-                name: LangUtil("伊朗"),
+                name: LangUtil("GMT+3-30_desc"),
             },
             {
                 key: "+4",
                 value: "GMT+4 ",
-                name: LangUtil("阿塞拜疆/阿聯酋"),
+                name: LangUtil("GMT+4_desc"),
             },
             {
                 key: "+4:30",
-                value: "GMT+4:30 ",
-                name: LangUtil("阿富汗"),
+                value: "GMT+4:30",
+                name: LangUtil("GMT+4-30_desc"),
             },
             {
                 key: "+5",
                 value: "GMT+5 ",
-                name: LangUtil("哈薩克斯坦 / 巴基斯坦"),
+                name: LangUtil("GMT+5_desc"),
             },
             {
                 key: "+5:30",
-                value: "GMT+5:30 ",
-                name: LangUtil("斯里蘭卡 / 印度"),
+                value: "GMT+5:30",
+                name: LangUtil("GMT+5-30_desc"),
             },
             {
                 key: "+5:45",
-                value: "GMT+5:45 ",
-                name: LangUtil("尼泊爾"),
+                value: "GMT+5:45",
+                name: LangUtil("GMT+5-45_desc"),
             },
             {
                 key: "+6",
                 value: "GMT+6 ",
-                name: LangUtil("不丹"),
+                name: LangUtil("GMT+6_desc"),
             },
             {
                 key: "+6:30",
                 value: "GMT+6:30 ",
-                name: LangUtil("緬甸"),
+                name: LangUtil("GMT+6-30_desc"),
             },
             {
                 key: "+7",
                 value: "GMT+7 ",
-                name: LangUtil("柬埔寨/印度尼西亞/越南"),
+                name: LangUtil("GMT+7_desc"),
             },
             {
                 key: "+8",
                 value: "GMT+8 ",
-                name: LangUtil("中國/香港/西澳洲"),
+                name: LangUtil("GMT+8_desc"),
             },
 
             {
                 key: "+9",
                 value: "GMT+9 ",
-                name: LangUtil("韓國/日本"),
+                name: LangUtil("GMT+9_desc"),
             },
             {
                 key: "+10",
                 value: "GMT+10 ",
-                name: LangUtil("關島"),
-            },
-            {
-                key: "+10:30",
-                value: "GMT+10:30 ",
-                name: LangUtil("中澳洲"),
+                name: LangUtil("GMT+10_desc"),
             },
             {
                 key: "+11",
                 value: "GMT+11 ",
-                name: LangUtil("東澳洲"),
+                name: LangUtil("GMT+11_desc"),
             },
             {
                 key: "+12",
                 value: "GMT+12 ",
-                name: LangUtil("斐濟"),
+                name: LangUtil("GMT+12_desc"),
             },
 
             {
                 key: "+13",
                 value: "GMT+13 ",
-                name: LangUtil("新西蘭/薩摩亞/湯加"),
+                name: LangUtil("GMT+13_desc"),
             },
             {
                 key: "+14",
                 value: "GMT+14 ",
-                name: LangUtil("基里巴斯"),
+                name: LangUtil("GMT+14_desc"),
             },
         ],
     };
