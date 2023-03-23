@@ -32,7 +32,7 @@
             </div>
             <v-spacer />
             <div class="d-flex align-center text-gray mr-2" @click="goMatche">
-                {{matche.market_amount}}+<svg-icon class="text-8" icon="page_right"></svg-icon>
+                {{marketAmount}}+<svg-icon class="text-8" icon="page_right"></svg-icon>
             </div>
         </v-sheet>
 
@@ -41,11 +41,16 @@
                 <v-sheet class="d-flex align-center mx-2 mt-1" height="30" color="transparent">
                     <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="20" width="20" height="20"></v-img>
                     <v-sheet class="ml-1 text-truncate text-gray1 text-14" color="transparent">{{matche.home_team}}</v-sheet>
-                    <v-spacer/>
+                    <v-spacer />
                     <v-sheet v-if="states && getValues(states.red_cards_ft)[0] > 0" class="px-1 rounded white--text mr-1" color="red"
                         >{{getValues(states.red_cards_ft)[0] }}</v-sheet
                     >
-                    <v-sheet color="transparent" class="text-gray1 text-16 font-weight-bold d-flex justify-center" min-width="10" v-if="states">
+                    <v-sheet
+                        color="transparent"
+                        class="text-gray1 text-16 font-weight-bold d-flex justify-center"
+                        min-width="10"
+                        v-if="states"
+                    >
                         <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[0]}}</span>
                         <span v-else>
                             {{getValues(states.goals_ot)[0]}}
@@ -60,7 +65,12 @@
                     <v-sheet v-if="states && getValues(states.red_cards_ft)[1] > 0" class="px-1 rounded white--text mr-1" color="red"
                         >{{getValues(states.red_cards_ft)[1]}}</v-sheet
                     >
-                    <v-sheet color="transparent" class="text-gray1 text-16 font-weight-bold d-flex justify-center" min-width="10" v-if="states">
+                    <v-sheet
+                        color="transparent"
+                        class="text-gray1 text-16 font-weight-bold d-flex justify-center"
+                        min-width="10"
+                        v-if="states"
+                    >
                         <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[1]}}</span>
                         <span v-else>
                             {{getValues(states.goals_ot)[1]}}
