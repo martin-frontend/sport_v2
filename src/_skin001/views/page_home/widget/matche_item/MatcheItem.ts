@@ -78,6 +78,11 @@ export default class MatcheItem extends AbstractView {
         return this.start_in_sec > 0 ? true : false;
     }
 
+    get marketAmount() {
+        const data = this.pageData.market_list.find((item) => item.event_id == this.matche.id);
+        return data?.market_amount;
+    }
+
     get fixMarket() {
         const data = this.pageData.market_list.find((item) => item.event_id == this.matche.id);
         return data?.fix_markets;

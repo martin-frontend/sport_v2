@@ -4,6 +4,7 @@ export interface MarketVO {
     fix_markets: any; //固赔
     type: "fix"; //类型  fix / exchange / all
     market_type: "";
+    market_amount: number;
 }
 
 export interface MarketFixVO {
