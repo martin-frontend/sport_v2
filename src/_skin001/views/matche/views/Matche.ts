@@ -64,7 +64,7 @@ export default class Matche extends AbstractView {
 
     get marketSort() {
         const markets = this.pageData.market_list[0].fix_markets;
-        let keys = Object.keys(markets).sort();
+        let keys = Object.keys(markets).sort((a, b) => markets[a].sort - markets[b].sort);
         const arr = [];
         for (const key of keys) {
             arr.push(markets[key]);
