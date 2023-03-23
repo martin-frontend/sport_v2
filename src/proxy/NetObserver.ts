@@ -73,13 +73,7 @@ export default class NetObserver extends AbstractMediator {
                 break;
             //语言包
             case NotificationName.LANG_CONFIG:
-                if (GlobalVar.token) {
-                    this.facade.sendNotification(net.HttpType.api_user_info);
-                    this.facade.sendNotification(net.HttpType.api_event_sports);
-                    this.facade.sendNotification(net.HttpType.api_event_market_type_v2);
-                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
-                    orderUnsettledProxy.api_user_orders();
-                }
+                this.facade.sendNotification(net.HttpType.api_event_market_type_v2);
                 break;
             //用户信息
             case net.EventType.api_user_info:
@@ -97,6 +91,12 @@ export default class NetObserver extends AbstractMediator {
             case net.EventType.api_event_market_type_v2:
                 PlatConfig.allMarketType = body.market_type;
                 PlatConfig.market_main_type = body.market_main_type;
+                if (GlobalVar.token) {
+                    this.facade.sendNotification(net.HttpType.api_user_info);
+                    this.facade.sendNotification(net.HttpType.api_event_sports);
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                    orderUnsettledProxy.api_user_orders();
+                }
                 break;
             //盘口
             case net.EventType.api_market_typelist:

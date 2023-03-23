@@ -1,6 +1,8 @@
 import getProxy from "@/core/global/getProxy";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
+import live from "../views/live";
+import matche from "../views/matche";
 import PageHomeProxy from "../views/page_home/proxy/PageHomeProxy";
 
 Vue.use(VueRouter);
@@ -39,7 +41,13 @@ router.beforeEach((to: any, from: any, next: any) => {
     }
     if (to.path == "/") {
         next("/page_home");
-    } else {
+    } else if(to.path=="/page_matche" && Vue.vuetify.framework.breakpoint.mobile){
+        next("/page_home");
+        const { id } = Vue.router.currentRoute.query;
+        matche.init(id);
+        live.init(id);
+    }
+    else {
         next();
     }
 });
