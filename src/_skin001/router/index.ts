@@ -41,13 +41,14 @@ router.beforeEach((to: any, from: any, next: any) => {
     }
     if (to.path == "/") {
         next("/page_home");
-    } else if(to.path=="/page_matche" && Vue.vuetify.framework.breakpoint.mobile){
+    } else if (to.path == "/page_matche" && document.body.clientWidth > 960) {
         next("/page_home");
         const { id } = Vue.router.currentRoute.query;
-        matche.init(id);
-        live.init(id);
-    }
-    else {
+        if (id) {
+            matche.init(id);
+            live.init(id);
+        }
+    } else {
         next();
     }
 });
