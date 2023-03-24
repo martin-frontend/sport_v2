@@ -15,7 +15,7 @@ import LogUtil from "@/core/global/LogUtil";
 import GlobalVar from "@/core/global/GlobalVar";
 import { EnumDeviceType } from "@/core/enum/EnumDeviceType";
 import AppFacade from "./AppFacade";
-import { isAndroid, isIOS } from "@/core/global/Functions";
+import { getUrlHashParam, isAndroid, isIOS } from "@/core/global/Functions";
 import { js_utils } from "custer-js-utils";
 import BtnYellow from "./views/widget/btn_yellow/BtnYellow.vue";
 import BtnInfo from "./views/widget/btn_info/BtnInfo.vue";
@@ -49,7 +49,7 @@ GlobalVar.host = process.env.VUE_APP_BASE_API;
 GlobalVar.token = js_utils.getQueryVariable("t") ?? "";
 GlobalVar.lang = js_utils.getQueryVariable("lang") ?? "zh_CN";
 GlobalVar.displayname = js_utils.getQueryVariable("displayname") ?? "";
-
+GlobalVar.pre_event_id = parseInt(getUrlHashParam("id"));
 
 const vuetify = getVuetify();
 Vue["vuetify"] = vuetify;

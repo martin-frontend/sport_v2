@@ -95,6 +95,7 @@ export function getQueryVariable(value: string): string | null {
     }
     return null;
 }
+
 /**
  * 表单跟原数据对比，提取变化的数据
  * @param obj 表单数据
@@ -195,11 +196,11 @@ export function getTodayOffset(offset = 0, offsetSecond = 0): any {
             timezone += arr[0] + arr[1];
         }
     }
-    const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000*offset, GlobalVar.zone);
-    const formatdate = dateFormat(today, "yyyy/MM/dd")
-    const formatdate2 = dateFormat(today, "yyyy-MM-dd")
+    const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000 * offset, GlobalVar.zone);
+    const formatdate = dateFormat(today, "yyyy/MM/dd");
+    const formatdate2 = dateFormat(today, "yyyy-MM-dd");
     const timestr = (Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
-    return {timestr,formatdate,formatdate2};
+    return { timestr, formatdate, formatdate2 };
 }
 /**
  * 如果是香港盘赔率要减一
@@ -235,8 +236,8 @@ export function getResponseIcon(url: string) {
 }
 /**
  * 获取URL中的参数
- * @param updateParam 
- * @param deleteParam 
+ * @param updateParam
+ * @param deleteParam
  */
 export function formatURLParam(updateParam?: any, deleteParam?: string[]) {
     const request = getURLParam();
@@ -251,7 +252,7 @@ export function formatURLParam(updateParam?: any, deleteParam?: string[]) {
             delete request[key];
         }
     }
-    const arr:string[] = [];
+    const arr: string[] = [];
     for (const key of Object.keys(request)) {
         arr.push(`${key}=${request[key]}`);
     }
@@ -260,7 +261,7 @@ export function formatURLParam(updateParam?: any, deleteParam?: string[]) {
 /**
  * 获取URL中的参数
  */
-export function getURLParam(){
+export function getURLParam() {
     const url = location.search; //获取url中"?"符后的字串
     let theRequest: any = new Object();
     if (url.indexOf("?") != -1) {
@@ -271,4 +272,16 @@ export function getURLParam(){
         }
     }
     return theRequest;
+}
+/**获取URL中hash参数 */
+export function getUrlHashParam(key: string): string {
+    const arr = location.hash.split("?");
+    const arr1 = arr[1].split("&");
+    for (const item of arr1) {
+        const arr2 = item.split("=");
+        if (arr2[0] == key) {
+            return arr2[1];
+        }
+    }
+    return "";
 }

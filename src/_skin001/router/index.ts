@@ -1,8 +1,6 @@
 import getProxy from "@/core/global/getProxy";
 import Vue from "vue";
 import VueRouter, { RouteConfig } from "vue-router";
-import live from "../views/live";
-import matche from "../views/matche";
 import PageHomeProxy from "../views/page_home/proxy/PageHomeProxy";
 
 Vue.use(VueRouter);
@@ -43,13 +41,9 @@ router.beforeEach((to: any, from: any, next: any) => {
         next("/page_home");
     } else if (to.path == "/page_matche" && document.body.clientWidth > 960) {
         next("/page_home");
-        const { id } = Vue.router.currentRoute.query;
-        if (id) {
-            matche.init(id);
-            live.init(id);
-        }
     } else {
         next();
     }
 });
+
 export default router;

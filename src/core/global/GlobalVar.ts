@@ -23,14 +23,16 @@ const GlobalVar = {
     loading: false,
     loading1: false, // 显示不可见的loading层
     /**用户名显示 */
-    displayname:'',
+    displayname: "",
     /**时区 */
     zone: "",
     /**币种 */
     currency: "",
     /**手机模式下，是否显示导航 */
     navDrawer: false,
-    pageType:"skin001"
+    pageType: "skin001",
+    /**预设置的赛事 */
+    pre_event_id: 0,
 };
 
 export default GlobalVar;
