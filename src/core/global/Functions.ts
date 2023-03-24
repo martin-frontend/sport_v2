@@ -276,12 +276,15 @@ export function getURLParam() {
 /**获取URL中hash参数 */
 export function getUrlHashParam(key: string): string {
     const arr = location.hash.split("?");
-    const arr1 = arr[1].split("&");
-    for (const item of arr1) {
-        const arr2 = item.split("=");
-        if (arr2[0] == key) {
-            return arr2[1];
+    if (arr[1]) {
+        const arr1 = arr[1].split("&");
+        for (const item of arr1) {
+            const arr2 = item.split("=");
+            if (arr2[0] == key) {
+                return arr2[1];
+            }
         }
     }
+
     return "";
 }
