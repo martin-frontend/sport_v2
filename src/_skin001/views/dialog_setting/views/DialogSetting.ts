@@ -24,7 +24,12 @@ export default class DialogSetting extends AbstractView {
 
     openCompetionResult() {
         const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone, MarketType_area: GlobalVar.MarketType_area});
+        const params = formatURLParam({
+            dark,
+            plat_id: GlobalVar.plat_id,
+            timezone: GlobalVar.zone,
+            MarketType_area: GlobalVar.MarketType_area,
+        });
         const link = "./skin001_competion_result.html?" + params;
         OpenLink(link);
     }
@@ -32,9 +37,9 @@ export default class DialogSetting extends AbstractView {
     @Watch("pageData.bShow")
     onWatchShow() {
         BlurUtil(this.pageData.bShow);
-        if(!this.pageData.bShow){
+        if (!this.pageData.bShow) {
             const settingProxy: SettingProxy = getProxy(SettingProxy);
-        settingProxy.api_user_set_user_setting();
+            settingProxy.api_user_set_user_setting();
         }
     }
 
@@ -60,7 +65,10 @@ export default class DialogSetting extends AbstractView {
         dialog_message_box.confirm({
             message: LangUtil("确定要重置吗？"),
             okFun: () => {
-                this.myProxy.api_user_set_user_setting(true);
+                setTimeout(() => {
+                    this.myProxy.api_user_set_user_setting(true);
+                    this.myProxy.resetForm();
+                }, 1000);
             },
             thisObj: this,
         });

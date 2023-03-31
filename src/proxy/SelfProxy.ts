@@ -44,7 +44,7 @@ export default class SelfProxy extends puremvc.Proxy {
 
     api_user_info() {
         //@ts-ignore
-        if (Vue._isMounted) {
+        if (window["vm"] && window["vm"]._isMounted) {
             this.sendNotification(net.HttpType.api_user_info);
         }
     }

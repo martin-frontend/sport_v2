@@ -198,10 +198,11 @@ export default class SettingProxy extends puremvc.Proxy {
 
     api_user_set_user_setting(isReset: boolean = false) {
         this.pageData.isReset = isReset;
+        const selfProxy: SelfProxy = getProxy(SelfProxy);
         if (isReset) {
+            selfProxy.userInfo.user_setting.remark = "";
             this.sendNotification(net.HttpType.api_user_set_user_setting, { remark: "" });
         } else {
-            const selfProxy: SelfProxy = getProxy(SelfProxy);
             const remark = JSON.stringify(this.pageData.form);
             if (remark != selfProxy.userInfo.user_setting.remark) {
                 this.sendNotification(net.HttpType.api_user_set_user_setting, { remark });
