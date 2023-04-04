@@ -79,5 +79,11 @@ module.exports = {
             filename: "skin001_help.html",
             title: "help",
         },
+        skin001_order_detail: {
+            entry: "src/_skin001_order_detail/main.ts",
+            template: "public/index001_order_detail.html",
+            filename: "index001_order_detail.html",
+            title: "detail",
+        },
     },
 };
