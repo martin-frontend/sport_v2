@@ -4,13 +4,8 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import PageOrderDetail from "./PageOrderDetail";
-import Overlay from "@/views/widget/overlay/Overlay.vue";
 
-@Component({
-    components: {
-        Overlay,
-    },
-})
+@Component
 export default class extends PageOrderDetail {
     mounted() {
         window.scrollTo(0, 0);
