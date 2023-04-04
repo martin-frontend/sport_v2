@@ -18,7 +18,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         sign: getQueryVariable("sign"),
         token: getQueryVariable("t") || "",
     };
-    isloadSecLang = true;
+    isloadSecLang = false;
     
     nowtime:any;
     panel = <any>[];
