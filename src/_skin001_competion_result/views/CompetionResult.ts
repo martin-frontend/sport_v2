@@ -22,7 +22,6 @@ export default class PageOrderDetail extends AbstractView {
     getResponseIcon = getResponseIcon;
     myProxy: CompetionResultProxy = getProxy(CompetionResultProxy);
     GlobalVar = GlobalVar;
-    isloadSecLang = this.myProxy.isloadSecLang;
     bShowDateSelect = false;
     nowtime = this.myProxy.nowtime;
     form = {
