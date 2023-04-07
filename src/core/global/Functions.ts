@@ -135,14 +135,24 @@ export function isIOS() {
  * decimal 是否要小数点
  * decimalLang 小数点几位
  */
-export function amountFormat(val: any, decimal: boolean = false, decimalLang: number = 2) {
-    const intValue = parseFloat(val);
-    const str = intValue.toFixed(decimalLang) + "";
-    const sum = str.substring(0, str.indexOf(".")).replace(/\B(?=(?:\d{3})+$)/g, ","); //取到整数部分
-    const dot = str.substring(str.length, str.indexOf(".")); //取到小数部分搜索
-
-    return decimal ? sum + dot : sum;
-}
+export function amountFormat(val: any,decimal: boolean = false,decimalLang: number = 2,prefix: string = ''): string {
+    let numericAmount = 0;
+  
+    if (typeof val === 'string') {
+      // 使用正则表达式提取数字部分（包括小数点）
+      const numericString = val.replace(/[^0-9.]/g, '');
+      numericAmount = parseFloat(numericString);
+    } else {
+      numericAmount = val;
+    }
+  
+    const formattedAmount = numericAmount.toLocaleString('en-US', {
+      minimumFractionDigits: decimal ? decimalLang : 0,
+      maximumFractionDigits: decimalLang
+    });
+  
+    return prefix + formattedAmount;
+  }
 
 /**
  * Check if an element has a class
