@@ -8,7 +8,7 @@
         <div class="d-flex mr-2 mt-1">
             <div class="textGray--text">{{LangUtil("投注额")}}</div>
             <v-spacer/>
-            <div class="font-weight-bold">{{GlobalVar.currency}}: {{pageData.stats.total_stake}}</div>
+            <div class="font-weight-bold">{{GlobalVar.currency}}: {{amountFormat(pageData.stats.total_stake)}}</div>
         </div>
     </v-sheet>
     <loader v-if="pageData.loading"/>
