@@ -129,7 +129,10 @@ export default class PageOrderDetail extends AbstractView{
     }
     onCopyOrder(order:any){
             CopyUtil(order);
-            alert(LangUtil("复制成功"))
+            this.$notify({
+                group: "message",
+                title: LangUtil("复制成功"),
+            });
     }
     getResultStr(win:any){
         if (win==0) {
