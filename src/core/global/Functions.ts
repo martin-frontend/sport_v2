@@ -138,7 +138,7 @@ export function isIOS() {
 export function amountFormat(val: any,decimal: boolean = false,decimalLang: number = 2,prefix: string = ''): string {
     let numericAmount = 0;
   
-    if (typeof val === 'string') {
+    if (val && (typeof val === 'string') ) {
       // 使用正则表达式提取数字部分（包括小数点）
       const numericString = val.replace(/[^0-9.]/g, '');
       numericAmount = parseFloat(numericString);
