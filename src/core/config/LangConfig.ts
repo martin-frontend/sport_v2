@@ -7,7 +7,7 @@ export default class LangConfig {
     //语言包
     static config: any;
 
-    static load(lang: string,notsendEnd?:boolean) {
+    static load(lang: string, notsendEnd?: boolean) {
         const file_name = MD5.createInstance().hex_md5(`plat-${GlobalVar.plat_id}-${GlobalVar.lang}-1`);
         const url = `${GlobalVar.cdnUrl}/language_web/${file_name}.json?` + getFileVersion();
         return axios
@@ -18,10 +18,9 @@ export default class LangConfig {
                 if (!notsendEnd) {
                     puremvc.Facade.getInstance().sendNotification(NotificationName.LANG_CONFIG);
                 }
-                
             })
             .catch(() => {
-                alert("语言包获取失败");
+                alert("Failed to get language pack");
                 // window.location.reload();
             });
     }
