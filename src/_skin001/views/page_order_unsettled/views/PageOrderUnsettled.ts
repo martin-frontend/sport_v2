@@ -5,7 +5,13 @@ import LangUtil from "@/core/global/LangUtil";
 import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
-import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
+import {
+    amountFormat,
+    dateFormat,
+    formatEventTime,
+    getDateByTimeZone,
+    TransMarketPrice,
+} from "@/core/global/Functions";
 import CopyUtil from "@/core/global/CopyUtil";
 import EnumMarketType from "@/core/global/MarketUtils";
 const marketType = EnumMarketType.EnumMarketType;
@@ -59,7 +65,7 @@ export default class PageOrderUnsettled extends AbstractView {
         });
     }
 
-    onMore(){
+    onMore() {
         this.listQuery.page_count++;
         this.myProxy.api_user_orders();
     }
@@ -75,7 +81,11 @@ export default class PageOrderUnsettled extends AbstractView {
             const market_type = item.market_type;
             const copyitem = JSON.parse(JSON.stringify(item));
             copyitem.state = state;
-            if (OrderTitleUtils.IsOnlyFirstHalf(market_type) && state.match_phase != "1H" && state.match_phase != "-") {
+            if (
+                OrderTitleUtils.IsOnlyFirstHalf(market_type) &&
+                state.match_phase != "1H" &&
+                state.match_phase != "-"
+            ) {
                 //
                 //上半场已经结束
                 result_tb.states_str = LangUtil("上半场已结束");
@@ -90,18 +100,33 @@ export default class PageOrderUnsettled extends AbstractView {
             }
             result_tb.scoreStr = OrderTitleUtils.getScoreStr(copyitem);
         } else {
-            const start_in_sec = item.event_time_timestamp - GlobalVar.server_time;
+            const start_in_sec =
+                item.event_time_timestamp - GlobalVar.server_time;
             const day = Math.floor(start_in_sec / 60 / 60 / 24);
             const hr = Math.floor(start_in_sec / 60 / 60);
             const min = Math.floor((start_in_sec / 60) % 60);
             if (start_in_sec > 0) {
                 states_str = formatEventTime(
-                    dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss")
+                    dateFormat(
+                        getDateByTimeZone(
+                            item.event_time_timestamp * 1000,
+                            GlobalVar.zone
+                        ),
+                        "yyyy/MM/dd hh:mm:ss"
+                    )
                 );
                 if (start_in_sec > 86400) {
-                    states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
+                    states_str +=
+                        " " + LangUtil("距开赛") + " " + day + LangUtil("天");
                 } else if (start_in_sec > 600) {
-                    states_str += " " + LangUtil("距开赛") + " " + hr + LangUtil("小时") + min + LangUtil("分");
+                    states_str +=
+                        " " +
+                        LangUtil("距开赛") +
+                        " " +
+                        hr +
+                        LangUtil("小时") +
+                        min +
+                        LangUtil("分");
                 }
             } else {
                 states_str = "";
@@ -122,27 +147,57 @@ export default class PageOrderUnsettled extends AbstractView {
 
     //获取预算文字
     getdisplayResultStr(item: any) {
-        const itemState = this.pageData.states.find((tempitem: any) => item.event_id == tempitem.event_id);
+        const itemState = this.pageData.states.find(
+            (tempitem: any) => item.event_id == tempitem.event_id
+        );
         if (itemState) {
             return LangUtil("预计结果");
         } else {
             return LangUtil("预计可赢");
         }
     }
-    getDisplayResult(item:any){
-        const itemState = this.pageData.states.find((tempitem:any)=>item.event_id == tempitem. event_id);
+    getDisplayResult(item: any) {
+        const itemState = this.pageData.states.find(
+            (tempitem: any) => item.event_id == tempitem.event_id
+        );
         if (itemState) {
-             const result_tb = OrderTitleUtils.advance_result(item,itemState)
+            const result_tb = OrderTitleUtils.advance_result(item, itemState);
             if (result_tb.win_type == 0) {
                 //没找到预算的盘口 按照预计输赢显示
-                return {str:GlobalVar.currency+" "+amountFormat(item.expected_win,true,3),color:"#ea7800"};
+                return {
+                    str:
+                        GlobalVar.currency +
+                        " " +
+                        amountFormat(item.expected_win, true, 2),
+                    color: "#ea7800",
+                };
             }
-            return {str:GlobalVar.currency+" "+result_tb.win_num+"("+ this.getWinTypeStr({win_type:result_tb.win_type})+")",color:this.resultMapColor[result_tb.win_type]};
-        }else{
-            return {str:GlobalVar.currency+" "+amountFormat(item.expected_win,true,3),color:"#ea7800"};
+            return {
+                str:
+                    GlobalVar.currency +
+                    " " +
+                    amountFormat(
+                        result_tb.win_num,
+                        true,
+                        2,
+                        result_tb.heardstr
+                    ) +
+                    "(" +
+                    this.getWinTypeStr({ win_type: result_tb.win_type }) +
+                    ")",
+                color: this.resultMapColor[result_tb.win_type],
+            };
+        } else {
+            return {
+                str:
+                    GlobalVar.currency +
+                    " " +
+                    amountFormat(item.expected_win, true, 2),
+                color: "#ea7800",
+            };
         }
     }
-    transTitle(title:any){
+    transTitle(title: any) {
         const matches = this.pageData.list[0];
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
@@ -151,7 +206,7 @@ export default class PageOrderUnsettled extends AbstractView {
             .replace(new RegExp(homestr, "ig"), home_name)
             .replace(new RegExp(awaystr, "ig"), away_name);
         return title;
-      }
+    }
     getWinTypeStr(item: any) {
         switch (item.win_type) {
             case 1:
@@ -167,7 +222,6 @@ export default class PageOrderUnsettled extends AbstractView {
         }
     }
 
-    
     destroyed() {
         super.destroyed();
     }

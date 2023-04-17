@@ -5,11 +5,14 @@ import GlobalVar from "./GlobalVar";
 /** 获取UUID */
 export function generateUUID() {
     let d = new Date().getTime();
-    const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(/[xy]/g, function (c) {
-        const r = (d + Math.random() * 16) % 16 | 0;
-        d = Math.floor(d / 16);
-        return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
-    });
+    const uuid = "xxxxxxxx-xxxx-4xxx-yxxx-xxxxxxxxxxxx".replace(
+        /[xy]/g,
+        function (c) {
+            const r = (d + Math.random() * 16) % 16 | 0;
+            d = Math.floor(d / 16);
+            return (c == "x" ? r : (r & 0x3) | 0x8).toString(16);
+        }
+    );
     return uuid;
 }
 
@@ -24,11 +27,20 @@ export function dateFormat(d: any, fmt: any): string {
         "q+": Math.floor((d.getMonth() + 3) / 3), //季度
         S: d.getMilliseconds(), //毫秒
     };
-    if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (d.getFullYear() + "").substr(4 - RegExp.$1.length));
+    if (/(y+)/.test(fmt))
+        fmt = fmt.replace(
+            RegExp.$1,
+            (d.getFullYear() + "").substr(4 - RegExp.$1.length)
+        );
 
     for (const k in o)
         if (new RegExp("(" + k + ")").test(fmt))
-            fmt = fmt.replace(RegExp.$1, RegExp.$1.length == 1 ? o[k] : ("00" + o[k]).substr(("" + o[k]).length));
+            fmt = fmt.replace(
+                RegExp.$1,
+                RegExp.$1.length == 1
+                    ? o[k]
+                    : ("00" + o[k]).substr(("" + o[k]).length)
+            );
     return fmt;
 }
 
@@ -53,7 +65,11 @@ function formatTimeZone(zone: any) {
 /**按时区获取时间, 默认GMT0 */
 export function getDateByTimeZone(time: number, timezone: any = 0) {
     const offset_gmt = new Date().getTimezoneOffset();
-    const d = new Date(time + offset_gmt * 60 * 1000 + formatTimeZone(timezone) * 60 * 60 * 1000);
+    const d = new Date(
+        time +
+            offset_gmt * 60 * 1000 +
+            formatTimeZone(timezone) * 60 * 60 * 1000
+    );
     return d;
 }
 
@@ -64,7 +80,10 @@ export function getFileVersion(): string {
 }
 
 /** 去掉空属性/空符串，并返回一个新对象 */
-export function objectRemoveNull(obj: any, except: any[] = [undefined, null, ""]): any {
+export function objectRemoveNull(
+    obj: any,
+    except: any[] = [undefined, null, ""]
+): any {
     const result: any = {};
     for (const c of Object.keys(obj)) {
         if (!except.includes(obj[c])) {
@@ -101,12 +120,19 @@ export function getQueryVariable(value: string): string | null {
  * @param obj 表单数据
  * @param source 源数据
  */
-export function formCompared(obj: any, source: any, except: string[] = []): any {
+export function formCompared(
+    obj: any,
+    source: any,
+    except: string[] = []
+): any {
     const result: any = {};
 
     for (const c of Object.keys(obj)) {
         if (obj[c] && typeof obj[c] == "object") {
-            if (except.includes(c) || JSON.stringify(obj[c]) != JSON.stringify(source[c])) {
+            if (
+                except.includes(c) ||
+                JSON.stringify(obj[c]) != JSON.stringify(source[c])
+            ) {
                 result[c] = JSON.stringify(obj[c]);
             }
         } else if (except.includes(c) || obj[c] != source[c]) {
@@ -124,7 +150,9 @@ export function isAndroid() {
 
 /**是否IOS */
 export function isIOS() {
-    const flag = navigator.userAgent.match(/(phone|pad|pod|iPhone|iPod|ios|iPad)/i);
+    const flag = navigator.userAgent.match(
+        /(phone|pad|pod|iPhone|iPod|ios|iPad)/i
+    );
     return flag;
 }
 
@@ -135,24 +163,32 @@ export function isIOS() {
  * decimal 是否要小数点
  * decimalLang 小数点几位
  */
-export function amountFormat(val: any,decimal: boolean = false,decimalLang: number = 2,prefix: string = ''): string {
+export function amountFormat(
+    val: any,
+    decimal: boolean = false,
+    decimalLang: number = 2,
+    prefix: string = ""
+): string {
     let numericAmount = 0;
-  
-    if (val && (typeof val === 'string') ) {
-      // 使用正则表达式提取数字部分（包括小数点）
-      const numericString = val.replace(/[^0-9.]/g, '');
-      numericAmount = parseFloat(numericString);
+
+    if (val && typeof val === "string") {
+        // 使用正则表达式提取数字部分（包括小数点）
+        const numericString = val.replace(/[^0-9.]/g, "");
+        numericAmount = parseFloat(numericString);
     } else {
-      numericAmount = val;
+        numericAmount = val;
     }
-  
-    const formattedAmount = numericAmount.toLocaleString('en-US', {
-      minimumFractionDigits: decimal ? decimalLang : 0,
-      maximumFractionDigits: decimalLang
-    });
-  
+
+    const formattedAmount = numericAmount.toLocaleString(
+        GlobalVar.lang.substring(0, 2),
+        {
+            minimumFractionDigits: decimal ? decimalLang : 0,
+            maximumFractionDigits: decimalLang,
+        }
+    );
+
     return prefix + formattedAmount;
-  }
+}
 
 /**
  * Check if an element has a class
@@ -206,10 +242,17 @@ export function getTodayOffset(offset = 0, offsetSecond = 0): any {
             timezone += arr[0] + arr[1];
         }
     }
-    const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000 * offset, GlobalVar.zone);
+    const today = getDateByTimeZone(
+        GlobalVar.server_time * 1000 + 86400000 * offset,
+        GlobalVar.zone
+    );
     const formatdate = dateFormat(today, "yyyy/MM/dd");
     const formatdate2 = dateFormat(today, "yyyy-MM-dd");
-    const timestr = (Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
+    const timestr = (
+        Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) /
+            1000 +
+        offsetSecond
+    ).toString();
     return { timestr, formatdate, formatdate2 };
 }
 /**
@@ -278,7 +321,9 @@ export function getURLParam() {
         let str = url.substring(1);
         const strs = str.split("&");
         for (let i = 0; i < strs.length; i++) {
-            theRequest[strs[i].split("=")[0]] = decodeURI(strs[i].split("=")[1]);
+            theRequest[strs[i].split("=")[0]] = decodeURI(
+                strs[i].split("=")[1]
+            );
         }
     }
     return theRequest;
