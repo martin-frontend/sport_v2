@@ -1,6 +1,21 @@
 import net from "@/net/setting";
 import axios from "axios";
 import GlobalVar from "./global/GlobalVar";
+import axiosRetry from "axios-retry";
+
+// 配置 axios-retry 插件
+axiosRetry(axios, {
+    retries: 3, // 重试次数
+    retryDelay: (retryCount) => {
+        // 指数退避算法
+        // return retryCount * 1000;
+        return 1000;
+    },
+    retryCondition: (error) => {
+        // 仅在出现网络错误或 5xx 响应时重试
+        return axiosRetry.isNetworkError(error) || axiosRetry.isRetryableError(error);
+    },
+});
 
 const facade = puremvc.Facade.getInstance();
 axios.defaults.baseURL = process.env.VUE_APP_BASE_API;
