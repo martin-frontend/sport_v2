@@ -21,7 +21,7 @@ export default class LangConfig {
             })
             .catch(() => {
                 alert("Failed to get language pack");
-                // window.location.reload();
+                window.location.reload();
             });
     }
 }
