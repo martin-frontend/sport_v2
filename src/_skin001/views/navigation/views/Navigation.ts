@@ -87,6 +87,10 @@ export default class Navigation extends AbstractView {
             this.orderUnsettledProxy.pageData.loading = true;
             this.orderUnsettledProxy.init();
         }
+        if (!this.$vuetify.breakpoint.mobile) {
+            const betProxy: BetProxy = getProxy(BetProxy);
+            betProxy.pageData.isShowResultPanel = this.window == 3;
+        }
     }
 
     @Watch("betResultProxy.pageData.bShow")
@@ -97,8 +101,8 @@ export default class Navigation extends AbstractView {
     }
 
     @Watch("pageData.update_count")
-    onWatchCountryUpdate(){
-        if(this.$vuetify.breakpoint.mobile){
+    onWatchCountryUpdate() {
+        if (this.$vuetify.breakpoint.mobile) {
             this.$forceUpdate();
         }
     }

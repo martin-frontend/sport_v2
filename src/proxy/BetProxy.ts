@@ -18,10 +18,15 @@ export default class BetProxy extends puremvc.Proxy {
                 this.api_event_states();
             }
             if (this.timeCount % 2 == 0) {
-                this.api_user_pending();
+                if (!this.pageData.isShowResultPanel) {
+                    this.api_user_pending();
+                }
                 for (const item of this.pageData.list) {
                     this.api_user_prebet(item.market.market_id, item.selection.id);
                 }
+            }
+            if (this.pageData.isShowResultPanel) {
+                this.api_user_pending();
             }
             this.timeCount++;
         }, 1000);
@@ -29,6 +34,7 @@ export default class BetProxy extends puremvc.Proxy {
 
     pageData = {
         loading: false,
+        isShowResultPanel: false, // 投注结果页是否处于打开状态
         activeCount: 0,
         list: <
             {
