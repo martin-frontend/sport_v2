@@ -1,7 +1,13 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
-import { amountFormat, TransMarketPrice, formatEventTime, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
+import {
+    amountFormat,
+    TransMarketPrice,
+    formatEventTime,
+    dateFormat,
+    getDateByTimeZone,
+} from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import MarketUtils from "@/core/global/MarketUtils";
@@ -50,15 +56,17 @@ export default class BetItem extends AbstractView {
         }
     }
 
-    clearOddsStatus(){
+    clearOddsStatus() {
         clearTimeout(this.cleartimer);
         const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
         const divPrice: HTMLElement = <any>this.$refs.divPrice;
-        if(imgOdds && divPrice){
+        if (imgOdds && divPrice) {
             this.cleartimer = setTimeout(() => {
                 imgOdds.style.opacity = "0";
                 imgOdds.classList.remove("animation-translate");
-                divPrice.style.color = this.$vuetify.theme.dark ? "#8E8F91" : "#8E8F91";
+                divPrice.style.color = this.$vuetify.theme.dark
+                    ? "#8E8F91"
+                    : "#8E8F91";
             }, 5000);
         }
     }
@@ -66,7 +74,7 @@ export default class BetItem extends AbstractView {
     onInput() {
         this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
     }
-    transTitle(title:any){
+    transTitle(title: any) {
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
         const { home_team, away_team } = this.item.matche;
@@ -74,13 +82,23 @@ export default class BetItem extends AbstractView {
             .replace(new RegExp(homestr, "ig"), home_team)
             .replace(new RegExp(awaystr, "ig"), away_team);
         return title;
-      }
+    }
     get states() {
-        return this.pageData.event_states.find((item1) => item1.event_id == this.item.matche.id);
+        return this.pageData.event_states.find(
+            (item1) => item1.event_id == this.item.matche.id
+        );
     }
 
     getStartTime() {
-        return formatEventTime(dateFormat(getDateByTimeZone(this.item.matche.sb_time * 1000, <any>GlobalVar.zone), "yyyy/MM/dd hh:mm:ss"));
+        return formatEventTime(
+            dateFormat(
+                getDateByTimeZone(
+                    this.item.matche.sb_time * 1000,
+                    <any>GlobalVar.zone
+                ),
+                "yyyy/MM/dd hh:mm:ss"
+            )
+        );
     }
 
     getDay(): number {
@@ -99,7 +117,10 @@ export default class BetItem extends AbstractView {
     //赛事进程
     getStats() {
         const market_type = this.item.market.market_type;
-        return `${OrderTitleUtils.getScoreStr({ market_type: market_type, state: this.states })}`;
+        return `${OrderTitleUtils.getScoreStr({
+            market_type: market_type,
+            state: this.states,
+        })}`;
     }
     //检测是否为滚球
     checkInplay() {
@@ -107,12 +128,18 @@ export default class BetItem extends AbstractView {
     }
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {
-        const value = ((stake ? parseInt(stake.replace(/,/g, "")) : 0) + parseInt(fastChoose)).toString();
+        const value = (
+            (stake ? parseInt(stake.replace(/,/g, "")) : 0) +
+            parseInt(fastChoose)
+        ).toString();
         return amountFormat(value.replace(/[^\d]/g, ""));
     }
     //删除注单
     onDelete() {
-        this.myProxy.deleteItem(this.item.market.market_id, this.item.selection.id);
+        this.myProxy.deleteItem(
+            this.item.market.market_id,
+            this.item.selection.id
+        );
     }
     /**投注 */
     onBet() {
@@ -120,7 +147,10 @@ export default class BetItem extends AbstractView {
         console.warn(">>>>>>>>gold: ", gold);
         const { selection, market } = this.item;
         const stakeValue = parseFloat(this.item.stake.replace(/,/g, ""));
-        if (stakeValue < <any>this.item.minStake || stakeValue > <any>this.item.maxStake) {
+        if (
+            stakeValue < <any>this.item.minStake ||
+            stakeValue > <any>this.item.maxStake
+        ) {
             this.$notify({
                 group: "message",
                 title: LangUtil("请确认投注限额"),
@@ -141,12 +171,19 @@ export default class BetItem extends AbstractView {
     }
 
     onMax() {
-        this.item.stake = Math.min(parseFloat(this.selfProxy.userInfo.gold) >> 0, this.item.maxStake).toString();
+        this.item.stake = Math.min(
+            parseFloat(this.selfProxy.userInfo.gold) >> 0,
+            this.item.maxStake
+        ).toString();
         this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
     }
 
     getPreWin() {
         const value = this.item.stake.replace(/,/g, "");
-        return amountFormat((this.item.selection.price.back * value - value).toFixed(3), true, 3);
+        return amountFormat(
+            (this.item.selection.price.back * value - value).toFixed(3),
+            true,
+            2
+        );
     }
 }

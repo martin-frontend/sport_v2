@@ -2,7 +2,9 @@
     <v-card-title class="py-1 mr-2">
         <v-sheet color="transparent" class="d-flex align-center" width="200">
             <v-sheet width="2" height="16" color="yellow"></v-sheet>
-            <div class="text-14 ml10 text-truncate" v-if="competition">{{competition.competition_name}}</div>
+            <div class="text-14 ml10 text-truncate" v-if="competition">
+                {{competition.competition_name}}
+            </div>
         </v-sheet>
 
         <!-- <v-spacer />
@@ -13,13 +15,23 @@
     <v-divider />
     <v-card-text v-if="matche && market && selection">
         <div class="d-flex mb-1">
-            <div class="text-truncate" v-if="matche.c_type == 2">{{selection.name}}</div>
+            <div class="text-truncate" v-if="matche.c_type == 2">
+                {{selection.name}}
+            </div>
             <div class="font-weight-bold text-truncate" v-else>
-                <span>{{OrderTitleUtils.getTeamName({market, matche, selection})}}</span>
-                <span>{{MarketUtils.getSelectionName(market.market_type, selection, matche, false)}}</span>
+                <span
+                    >{{OrderTitleUtils.getTeamName({market, matche,
+                    selection})}}</span
+                >
+                <span
+                    >{{MarketUtils.getSelectionName(market.market_type,
+                    selection, matche, false)}}</span
+                >
             </div>
             <v-spacer />
-            <div class="font-weight-bold">@{{ TransMarketPrice(pageData.odds) }}</div>
+            <div class="font-weight-bold">
+                @{{ TransMarketPrice(pageData.odds) }}
+            </div>
         </div>
         <div class="mb-1">
             <template v-if="pageData.isInPlay">
@@ -35,7 +47,11 @@
     <v-card-text class="">
         <div class="mb-1">
             <span>{{LangUtil("订单状态")}} </span>
-            <span class="font-weight-bold" :style="{ 'color': statusMapColor[pageData.status]} ">{{statusMap[pageData.status]}}</span>
+            <span
+                class="font-weight-bold"
+                :style="{ 'color': statusMapColor[pageData.status]} "
+                >{{statusMap[pageData.status]}}</span
+            >
         </div>
         <div class="d-flex mb-1" v-if="pageData.status == 3">
             <v-spacer />
@@ -43,11 +59,16 @@
         </div>
         <div class="mb-1">
             <span>{{LangUtil("投注金额")}} </span>
-            <span class="font-weight-bold">{{GlobalVar.currency}} {{amountFormat(pageData.stake)}}</span>
+            <span class="font-weight-bold"
+                >{{GlobalVar.currency}} {{amountFormat(pageData.stake)}}</span
+            >
         </div>
         <div class="mb-1">
             <span>{{LangUtil("预计可赢")}} </span>
-            <span class="font-weight-bold">{{GlobalVar.currency}} {{amountFormat((pageData.odds * pageData.stake - pageData.stake).toFixed(3),true,3)}}</span>
+            <span class="font-weight-bold"
+                >{{GlobalVar.currency}} {{amountFormat((pageData.odds *
+                pageData.stake - pageData.stake).toFixed(3),true,2)}}</span
+            >
         </div>
         <div class="mb-1">
             <span>{{LangUtil("订单编号")}} </span>
@@ -63,6 +84,12 @@
         </div>
     </v-card-text>
     <v-card-actions class="mt-n1">
-        <btn-yellow class="text-13" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
+        <btn-yellow
+            class="text-13"
+            width="100%"
+            height="36"
+            @click.native="onClose"
+            >{{LangUtil("关闭")}}</btn-yellow
+        >
     </v-card-actions>
 </v-card>

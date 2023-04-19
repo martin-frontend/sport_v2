@@ -52,7 +52,7 @@
 
             <div width="100%" v-if="item.is_settle == 0">{{LangUtil("预计可赢")}}
                 <span class="font-weight-bold" style="color: #0325b4">{{item.currency+"
-                    "+amountFormat(item.expected_win,true,3)}}</span>
+                    "+amountFormat(item.expected_win,true,2)}}</span>
             </div>
             <div width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{item.partner_order}}</span></div>
             <div width="100%">{{LangUtil("投注时间")}}
@@ -68,7 +68,7 @@
             <div style="margin-right: 10px;" class="winlostdiv" v-if="item.win && item.is_settle == 1"> 
                 <span style="margin-right: 4px;">{{LangUtil("输赢")}} {{item.currency}}</span>
                 <span class="font-weight-bold" :class="item.win>=0 ? 'success--text' : 'error--text' ">
-                    {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
+                    {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}
                 </span>
             </div>
             <div class="win-type">

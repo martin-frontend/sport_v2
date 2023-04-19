@@ -137,7 +137,7 @@
                     <span> {{amountFormat(item.stake,true) }}</span>
                 </v-col>
                 <v-col  >
-                    <span :class="item.win==0?'yellow--text':item.win>0?'green--text':'red--text'" v-if="item.status == 1">{{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}</span>
+                    <span :class="item.win==0?'yellow--text':item.win>0?'green--text':'red--text'" v-if="item.status == 1">{{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}</span>
                     <span v-else>-</span>
                 </v-col>
 
@@ -172,7 +172,7 @@
             <div  class="ml-9 d-flex">
                 {{LangUtil("输赢")}}&nbsp;
                 <span :class="pageData.stats.total_win >= 0 ? 'success--text' : 'error--text'"
-                    >{{pageData.stats.total_win>=0 ? "+" : ""}}{{ amountFormat(pageData.stats.total_win,true,3)}}</span
+                    >{{pageData.stats.total_win>=0 ? "+" : ""}}{{ amountFormat(pageData.stats.total_win,true,2)}}</span
                 >
             </div>
         </v-sheet>
