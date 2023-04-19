@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <svg width="24px" height="24px" viewBox="0 0 24 24" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>编组 3</title>
     <g id="问题4-悬浮样式" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
         <g id="编组" transform="translate(0.000000, 3.000000)">
             <circle id="椭圆形" fill="#00C22B" cx="10.4157384" cy="9.42376327" r="9.42376327"></circle>
@@ -10,4 +9,5 @@
             <polygon id="星形备份" fill="#00C22B" transform="translate(23.158515, 5.723470) rotate(21.000000) translate(-23.158515, -5.723470) " points="23.1585153 6.1840296 22.5071853 6.37479974 22.6979554 5.72346974 22.5071853 5.07213974 23.1585153 5.26290988 23.8098453 5.07213974 23.6190751 5.72346974 23.8098453 6.37479974"></polygon>
         </g>
     </g>
+
 </svg>
