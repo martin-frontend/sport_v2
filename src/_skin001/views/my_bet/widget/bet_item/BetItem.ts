@@ -128,11 +128,21 @@ export default class BetItem extends AbstractView {
     }
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {
-        const value = (
-            (stake ? parseInt(stake.replace(/,/g, "")) : 0) +
-            parseInt(fastChoose)
-        ).toString();
+        stake = this.parseLocaleNumber(stake || "0");
+        const value = (stake + parseInt(fastChoose)).toString();
         return amountFormat(value.replace(/[^\d]/g, ""));
+    }
+    parseLocaleNumber(stringNumber: any) {
+        const format = new Intl.NumberFormat(GlobalVar.lang.substring(0, 2));
+
+        const groupSeparator = format.format(1000).charAt(1);
+        const decimalSeparator = format.format(0.1).charAt(1);
+
+        const sanitizedNumber = stringNumber
+            .replace(new RegExp(`\\${groupSeparator}`, "g"), "")
+            .replace(decimalSeparator, ".");
+
+        return parseFloat(sanitizedNumber);
     }
     //删除注单
     onDelete() {
@@ -171,6 +181,7 @@ export default class BetItem extends AbstractView {
     }
 
     onMax() {
+        this.selfProxy.userInfo.gold = "1245.23";
         this.item.stake = Math.min(
             parseFloat(this.selfProxy.userInfo.gold) >> 0,
             this.item.maxStake
