@@ -43,6 +43,10 @@ export default class NetObserver extends AbstractMediator {
                 if (body) PlatConfig.config = body;
                 GlobalVar.plat_id = PlatConfig.config.client.plat_id;
                 GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
+                if (PlatConfig.config.client.OddsColorType == 1) {
+                    GlobalVar.color_up = "#41A81D";
+                    GlobalVar.color_down = "#F64D55";
+                }
                 // 如果没有配置，给默认值
                 if (!PlatConfig.config.client.pcMarketType) {
                     PlatConfig.config.client.pcMarketType =
