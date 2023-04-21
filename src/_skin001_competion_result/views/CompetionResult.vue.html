@@ -2,6 +2,14 @@
     <v-sheet height="100%" class="overflow-x-hidden">
         <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
             <v-sheet class="d-flex">
+                <v-btn
+                    style="position: absolute; left: 1%"
+                    v-if="$vuetify.breakpoint.mobile"
+                    icon
+                    @click="onBack"
+                >
+                    <svg-icon class="white--text" icon="back2"></svg-icon>
+                </v-btn>
                 <span class="text-20  font-weight-bold">{{LangUtil("比赛结果")}}</span>
             </v-sheet>
         </v-sheet>

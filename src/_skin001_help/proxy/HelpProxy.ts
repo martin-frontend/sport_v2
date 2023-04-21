@@ -8,12 +8,10 @@ export default class HelpProxy extends puremvc.Proxy {
 
     onRegister() {}
     form = {
-        lang: getQueryVariable("lang") || "zh_CN",
-        order_id: getQueryVariable("order_id"),
-        plat_id: getQueryVariable("plat_id"),
-        timezone: getQueryVariable("timezone"),
-        sign: getQueryVariable("sign"),
-        token: getQueryVariable("t") || "",
+        lang: getQueryVariable("lang") || GlobalVar.lang || "zh_CN",
+        plat_id: getQueryVariable("plat_id") || GlobalVar.plat_id,
+        timezone: getQueryVariable("timezone") || GlobalVar.zone,
+        token: getQueryVariable("t") || GlobalVar.token || "",
     };
     panelIdxs = [<any>[], <any>[], <any>[], <any>[]];
     isloadSecLang = false;
@@ -71,7 +69,7 @@ export default class HelpProxy extends puremvc.Proxy {
         }, 1);
         setTimeout(() => {
             this.isloadSecLang = true;
-        }, 25);
+        }, 500);
     }
     insetType1(data: any) {}
 }
