@@ -1,8 +1,16 @@
 <div class="header_m">
     <!-- header -->
-    <v-sheet  height="55" class="header_mbg">
-        <v-sheet class="d-flex align-center text-20 textGray--text" color="transparent" height="54">
-            <svg-icon class="text-22 mx10 white--text" icon="menu" @click.native="GlobalVar.navDrawer = true"></svg-icon>
+    <v-sheet height="55" class="header_mbg">
+        <v-sheet
+            class="d-flex align-center text-20 textGray--text"
+            color="transparent"
+            height="54"
+        >
+            <svg-icon
+                class="text-22 mx10 white--text"
+                icon="menu"
+                @click.native="GlobalVar.navDrawer = true"
+            ></svg-icon>
 
             <!-- <v-sheet class="d-flex align-center rounded-pill" height="30" color="textGoldBg">
                 <div class="d-flex align-end ml-3 white--text font-weight-bold">
@@ -19,9 +27,15 @@
                     min-width="106"
                 >
                     <div class="d-flex align-end">
-                        <span class="text-14">{{GlobalVar.currency}} {{ amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span>
-                        <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]"
-                            >.{{ truncateToFirstTwo(selfProxy.userInfo.gold.split('.')[1])}}</span
+                        <span class="text-14"
+                            >{{GlobalVar.currency}} {{
+                            amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span
+                        >
+                        <span
+                            class="text-12"
+                            v-if="selfProxy.userInfo.gold.split('.')[1]"
+                            >.{{
+                            truncateToFirstTwo(selfProxy.userInfo.gold.split('.')[1])}}</span
                         >
                     </div>
                 </v-sheet>
@@ -39,9 +53,21 @@
             </div>
 
             <v-spacer />
-            <svg-icon class="mr-3 text-24 iconHeaderColor--text" icon="help" @click.native="openHelp"></svg-icon>
-            <svg-icon class="mr-3 text-24 iconHeaderColor--text" icon="history" @click.native="onOrder"></svg-icon>
-            <svg-icon class="mr-3 text-24 iconHeaderColor--text" icon="setting" @click.native="onSetting"></svg-icon>
+            <svg-icon
+                class="mr-3 text-20 iconHeaderColor--text"
+                icon="help"
+                @click.native="openHelp"
+            ></svg-icon>
+            <svg-icon
+                class="mr-3 text-20 iconHeaderColor--text"
+                icon="history"
+                @click.native="onOrder"
+            ></svg-icon>
+            <svg-icon
+                class="mr-3 text-20 iconHeaderColor--text"
+                icon="setting"
+                @click.native="onSetting"
+            ></svg-icon>
         </v-sheet>
     </v-sheet>
     <!-- 手机tag标签 -->
@@ -72,7 +98,7 @@
             </v-btn>
         </v-sheet>
     </v-sheet> -->
-    
+
     <!-- 搜索 -->
     <!-- <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner">
         <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" width="100%" height="30">
