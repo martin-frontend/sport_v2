@@ -12,6 +12,7 @@ import BetProxy from "@/proxy/BetProxy";
 import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
 import LiveProxy from "@/_skin001/views/live/proxy/LiveProxy";
 import DialogBetResultProxy from "@/_skin001/views/dialog_bet_result/proxy/DialogBetResultProxy";
+import GlobalVar from "@/core/global/GlobalVar";
 @Component
 export default class BtnFixedBet extends AbstractView {
     LangUtil = LangUtil;
@@ -54,24 +55,24 @@ export default class BtnFixedBet extends AbstractView {
                     this.isChangeAni = true;
                     this.clearOddsStatus();
                     this.iconOdds = "arrow_up";
-                    if (divPrice) divPrice.style.color = "#F64D55";
+                    if (divPrice) divPrice.style.color = GlobalVar.color_up;
                     if (imgOdds) {
                         imgOdds.style.opacity = "1";
-                        imgOdds.style.color = "#F64D55";
+                        imgOdds.style.color = GlobalVar.color_up;
                         imgOdds.classList.add("animation-translate");
                     }
-                    if (divBox) divBox.style.borderColor = "#F64D55";
+                    if (divBox) divBox.style.borderColor = GlobalVar.color_up;
                 } else if (cha < 0) {
                     this.isChangeAni = true;
                     this.clearOddsStatus();
                     this.iconOdds = "arrow_down";
-                    if (divPrice) divPrice.style.color = "#41A81D";
+                    if (divPrice) divPrice.style.color = GlobalVar.color_down;
                     if (imgOdds) {
                         imgOdds.style.opacity = "1";
-                        imgOdds.style.color = "#41A81D";
+                        imgOdds.style.color = GlobalVar.color_down;
                         imgOdds.classList.add("animation-translate");
                     }
-                    if (divBox) divBox.style.borderColor = "#41A81D";
+                    if (divBox) divBox.style.borderColor = GlobalVar.color_down;
                 }
                 this.oldData = JSON.parse(JSON.stringify(this.selection));
             } else {
@@ -149,7 +150,7 @@ export default class BtnFixedBet extends AbstractView {
             }
             this.myProxy.addItem(comp, this.matche, this.market, this.selection, event_states);
 
-            const betResultProxy:DialogBetResultProxy = getProxy(DialogBetResultProxy);
+            const betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
             betResultProxy.pageData.market = JSON.parse(JSON.stringify(this.market));
             betResultProxy.pageData.matche = JSON.parse(JSON.stringify(this.matche));
             betResultProxy.pageData.selection = JSON.parse(JSON.stringify(this.selection));

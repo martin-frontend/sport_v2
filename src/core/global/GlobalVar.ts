@@ -33,6 +33,9 @@ const GlobalVar = {
     pageType: "skin001",
     /**预设置的赛事 */
     pre_event_id: 0,
+
+    color_up: "#F64D55",
+    color_down: "#41A81D",
 };
 
 export default GlobalVar;

@@ -25,6 +25,7 @@ export default class PlatConfig extends puremvc.Proxy {
             champion_type: "RMM_OUTRIGHTS",
             isRecharge: "0",
             MarketType_area: "0",
+            OddsColorType: 0,
         },
     };
 }
