@@ -31,7 +31,9 @@ export default class HomeMobileHeader extends AbstractView {
         if (tag == "love") {
             return this.pageData.love_count;
         } else {
-            const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
+            const findItem = this.pageData.menu_subnav.top.find(
+                (item) => item.tag == tag
+            );
             return findItem?.num;
         }
     }
@@ -72,25 +74,31 @@ export default class HomeMobileHeader extends AbstractView {
     openHelp() {
         // const dark = this.$vuetify.theme.dark;
         // const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
-
-        const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({ daynight_type: dark ? 2 : 1, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone });
-        const link = "./skin001_help.html?" + params;
-        OpenLink(link);
+        if (this.$vuetify.breakpoint.mobile) {
+            this.$router.push("/page_help");
+        } else {
+            const dark = this.$vuetify.theme.dark;
+            const params = formatURLParam({
+                daynight_type: dark ? 2 : 1,
+                plat_id: GlobalVar.plat_id,
+                timezone: GlobalVar.zone,
+            });
+            const link = "./skin001_help.html?" + params;
+            OpenLink(link);
+        }
     }
     truncateToFirstTwo(value: string): string {
-        let cleanedValue = value.replace(/[^0-9]/g, ''); // 移除所有非数字字符
-        let result = '';
-    
+        let cleanedValue = value.replace(/[^0-9]/g, ""); // 移除所有非数字字符
+        let result = "";
+
         if (cleanedValue.length >= 2) {
             result = cleanedValue.substring(0, 2);
         } else if (cleanedValue.length === 1) {
-            result = cleanedValue + '0';
+            result = cleanedValue + "0";
         } else {
-            result = '00';
+            result = "00";
         }
-    
+
         return result;
     }
-
 }

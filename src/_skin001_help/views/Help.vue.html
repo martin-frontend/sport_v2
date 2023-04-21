@@ -1,107 +1,237 @@
-<v-app v-show="myProxy.isloadSecLang" class="d-flex justify-center overflow-x-hidden">
-    <v-sheet height="100%">
-    <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
-        <v-sheet class="d-flex">
-            <span class="text-20  font-weight-bold">{{LangUtil("帮助中心")}}</span>
+<v-app class="d-flex justify-center overflow-x-hidden">
+    <template v-show="myProxy.isloadSecLang">
+        <v-sheet height="100%" v-show="myProxy.isloadSecLang">
+            <v-sheet
+                class="d-flex align-center justify-center"
+                width="100%"
+                min-height="50"
+            >
+                <v-btn
+                    style="position: absolute; left: 3%"
+                    v-if="$vuetify.breakpoint.mobile"
+                    icon
+                    @click="onBack"
+                >
+                    <svg-icon class="white--text" icon="back2"></svg-icon>
+                </v-btn>
+                <v-sheet class="d-flex">
+                    <span class="text-20 font-weight-bold"
+                        >{{LangUtil("帮助中心")}}</span
+                    >
+                </v-sheet>
+            </v-sheet>
+            <v-divider width="100%" />
+            <v-sheet class="d-flex helpColor--text align-center">
+                <svg-icon class="ml-6" icon="search"></svg-icon>
+                <v-text-field
+                    color="transparent"
+                    solo
+                    :label="LangUtil('过滤当前页面指定内容')"
+                    style="max-height: 36px"
+                    class="my-3"
+                    hide-details
+                    dense
+                    v-model="pageData.searchTxt"
+                ></v-text-field>
+            </v-sheet>
+            <div class="d-grid">
+                <v-divider
+                    style="justify-self: center"
+                    class="bold_divider"
+                    width="96%"
+                />
+            </div>
+
+            <HorizontalScroll
+                id="btnsheet"
+                class="d-flex font-weight-medium mt-5 pl-5 btnclass"
+                style="overflow-x: scroll; width: 100%"
+            >
+                <v-btn
+                    v-for="(item, index) in myProxy.pageData.type"
+                    :key="item.id "
+                    text
+                    height="36"
+                    @click="clickTopbtn(item.id)"
+                    class="text-gray1"
+                    :class="[ pageData.tabIndex == item.id ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text',$vuetify.breakpoint.mobile ? 'mr-2' : 'mr-5']"
+                    ><span class="font-weight-bold text-14">{{item.name}}</span>
+                </v-btn>
+            </HorizontalScroll>
+            <div class="box-scroll mt-4" ref="divScroll">
+                <v-sheet
+                    v-if="pageData.tabIndex == 0"
+                    style="height: calc(100vh - 300px)"
+                    class="d-flex flex-column justify-center align-center"
+                    color="transparent"
+                >
+                    <img
+                        src="@/_skin001/assets/nodata.png"
+                        width="120"
+                        height="120"
+                    />
+                    <div class="textGray--text text-14">
+                        {{LangUtil("暂无数据")}}
+                    </div>
+                </v-sheet>
+                <v-sheet
+                    class="mt-n4"
+                    v-show="pageData.tabIndex == 1 && myProxy.pageData.type[0].list"
+                    color="transparent"
+                    key="1"
+                >
+                    <v-expansion-panels
+                        multiple
+                        accordion
+                        class="px-5 mt-5"
+                        flat
+                        v-model="myProxy.panelIdxs[0]"
+                    >
+                        <v-expansion-panel
+                            @click="onWatchSearch"
+                            class="mb-2 def-border rounded-lg"
+                            v-for="(item,i) in myProxy.pageData.type[0].list"
+                            :key="i"
+                        >
+                            <v-expansion-panel-header
+                                style="height: 50px"
+                                class="d-grid align-content-center"
+                            >
+                                <sub
+                                    :ref="'tabIndex-0-'+i"
+                                    class="helpColor--text ml-4 text-14"
+                                    >{{item.title}}</sub
+                                >
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content :ref="'tabcontent-0-'+i">
+                                <!-- <GeneralItem :data="item.content" ></GeneralItem> -->
+                                <div
+                                    class="text-12"
+                                    v-html="item.content"
+                                ></div>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-sheet>
+                <v-sheet
+                    class="mt-n4"
+                    v-show="pageData.tabIndex == 2 && myProxy.pageData.type[1].list"
+                    color="transparent"
+                    key="2"
+                >
+                    <v-expansion-panels
+                        multiple
+                        accordion
+                        class="px-5 mt-5"
+                        flat
+                        v-model="myProxy.panelIdxs[1]"
+                    >
+                        <v-expansion-panel
+                            @click="onWatchSearch"
+                            class="mb-2 def-border rounded-lg"
+                            v-for="(item,i) in myProxy.pageData.type[1].list"
+                            :key="i"
+                        >
+                            <v-expansion-panel-header
+                                style="height: 50px"
+                                class="d-grid align-content-center"
+                            >
+                                <sub
+                                    :ref="'tabIndex-1-'+i"
+                                    class="helpColor--text ml-4 text-14"
+                                    >{{item.title}}</sub
+                                >
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content :ref="'tabcontent-1-'+i">
+                                <div
+                                    class="text-12"
+                                    v-html="item.content"
+                                ></div>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-sheet>
+                <v-sheet
+                    class="mt-n4"
+                    v-show="pageData.tabIndex == 3 && myProxy.pageData.type[2].list"
+                    color="transparent"
+                    key="3"
+                >
+                    <v-expansion-panels
+                        multiple
+                        accordion
+                        class="px-5 mt-5"
+                        flat
+                        v-model="myProxy.panelIdxs[2]"
+                    >
+                        <v-expansion-panel
+                            @click="onWatchSearch"
+                            class="mb-2 def-border rounded-lg"
+                            v-for="(item,i) in myProxy.pageData.type[2].list"
+                            :key="i"
+                        >
+                            <v-expansion-panel-header
+                                style="height: 50px"
+                                class="d-grid align-content-center"
+                            >
+                                <sub
+                                    :ref="'tabIndex-2-'+i"
+                                    class="helpColor--text ml-4 text-14"
+                                    >{{item.title}}</sub
+                                >
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content :ref="'tabcontent-2-'+i">
+                                <div
+                                    class="text-12"
+                                    v-html="item.content"
+                                ></div>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </v-sheet>
+
+                <div class="mt-n4" v-show="pageData.tabIndex == 4" key="4">
+                    <v-expansion-panels
+                        multiple
+                        accordion
+                        class="px-5 mt-5"
+                        flat
+                        v-model="myProxy.panelIdxs[3]"
+                    >
+                        <v-expansion-panel
+                            @click="onWatchSearch"
+                            class="mb-2 def-border rounded-lg"
+                            v-for="(item,i) in myProxy.pageData.type[3].list"
+                            :key="i"
+                        >
+                            <v-expansion-panel-header
+                                style="height: 50px"
+                                class="d-grid align-content-center"
+                            >
+                                <sub
+                                    :ref="'tabIndex-3-'+i"
+                                    class="helpColor--text ml-4 text-14"
+                                    >{{item.title}}</sub
+                                >
+                            </v-expansion-panel-header>
+                            <v-expansion-panel-content :ref="'tabcontent-3-'+i">
+                                <div
+                                    class="text-12"
+                                    v-html="item.content"
+                                ></div>
+                            </v-expansion-panel-content>
+                        </v-expansion-panel>
+                    </v-expansion-panels>
+                </div>
+            </div>
         </v-sheet>
+    </template>
+    <v-sheet height="100%" v-if="!myProxy.isloadSecLang" width="100%">
+        <v-skeleton-loader
+            class="px-3 my-2 custom-loader"
+            width="100%"
+            height="410"
+            type="text@3"
+        ></v-skeleton-loader>
     </v-sheet>
-    <v-divider width="100%" />
-    <v-sheet class="d-flex helpColor--text align-center" >
-        <svg-icon class="ml-6" icon="search"></svg-icon>
-        <v-text-field color="transparent" solo :label="LangUtil('过滤当前页面指定内容')" style="max-height: 36px;" 
-        class="my-3" hide-details dense v-model="pageData.searchTxt"></v-text-field>
-        
-    </v-sheet>
-    <div class="d-grid">
-      <v-divider style="justify-self: center;" class="bold_divider"  width="96%" />
-    </div>
-    
-    <v-sheet id="btnsheet" class="d-flex font-weight-medium mt-5 pl-5 btnclass" style="overflow-x: scroll;">
-
-        <v-btn v-for="(item, index) in myProxy.pageData.type" :key="item.id " text height="36"
-            @click="clickTopbtn(item.id)" class="text-gray1 " 
-            :class="[ pageData.tabIndex == item.id ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text',$vuetify.breakpoint.mobile ? 'mr-2' : 'mr-5']"><span
-                class="font-weight-bold text-14">{{item.name}}</span>
-        </v-btn>
-    </v-sheet>
-    <div class="box-scroll mt-4" ref="divScroll">
-        <v-sheet v-if="pageData.tabIndex == 0" style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center"  color="transparent">
-            <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
-            <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
-        </v-sheet>
-        <v-sheet class="mt-n4" v-show="pageData.tabIndex == 1 && myProxy.pageData.type[0].list" color="transparent" key="1" >
-            
-            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[0]">
-                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
-                  v-for="(item,i) in myProxy.pageData.type[0].list"
-                  :key="i"
-                >
-                
-                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center "  >
-                    <sub :ref="'tabIndex-0-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub> 
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content :ref="'tabcontent-0-'+i" >
-                    <!-- <GeneralItem :data="item.content" ></GeneralItem> -->
-                    <div class="text-12" v-html="item.content"></div>
-                    
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-        </v-sheet>
-        <v-sheet class="mt-n4"  v-show="pageData.tabIndex == 2 && myProxy.pageData.type[1].list" color="transparent" key="2"  >
-            
-            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[1]">
-                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
-                  v-for="(item,i) in myProxy.pageData.type[1].list"
-                  :key="i"
-                >
-                
-                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub :ref="'tabIndex-1-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub>
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content :ref="'tabcontent-1-'+i">
-                    <div class="text-12" v-html="item.content"></div>
-
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-        </v-sheet>
-        <v-sheet class="mt-n4"  v-show="pageData.tabIndex == 3 && myProxy.pageData.type[2].list" color="transparent" key="3" >
-            
-            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[2]">
-                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
-                  v-for="(item,i) in myProxy.pageData.type[2].list"
-                  :key="i"
-                >
-                
-                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub :ref="'tabIndex-2-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub>
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content :ref="'tabcontent-2-'+i">
-                    <div class="text-12" v-html="item.content"></div>
-
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-        </v-sheet>
-        
-        <div class="mt-n4"  v-show="pageData.tabIndex == 4" key="4" >
-            <v-expansion-panels multiple accordion class="px-5 mt-5" flat v-model="myProxy.panelIdxs[3]">
-                <v-expansion-panel @click="onWatchSearch" class="mb-2 def-border rounded-lg "
-                  v-for="(item,i) in myProxy.pageData.type[3].list"
-                  :key="i"
-                >
-                
-                  <v-expansion-panel-header style="height: 50px;" class="d-grid align-content-center ">
-                    <sub :ref="'tabIndex-3-'+i" class="helpColor--text ml-4 text-14">{{item.title}}</sub>
-                  </v-expansion-panel-header>
-                  <v-expansion-panel-content :ref="'tabcontent-3-'+i">
-                    <div class="text-12" v-html="item.content"></div>
-
-                  </v-expansion-panel-content>
-                </v-expansion-panel>
-              </v-expansion-panels>
-        </div>
-    </div>
-</v-sheet>
 </v-app>

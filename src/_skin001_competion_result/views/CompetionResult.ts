@@ -25,25 +25,31 @@ export default class PageOrderDetail extends AbstractView {
     bShowDateSelect = false;
     nowtime = this.myProxy.nowtime;
     form = {
-        lang: getQueryVariable("lang") || "zh_CN",
-        order_id: getQueryVariable("order_id"),
-        plat_id: getQueryVariable("plat_id"),
-        timezone: getQueryVariable("timezone"),
+        lang: getQueryVariable("lang") || GlobalVar.lang || "zh_CN",
+        plat_id: getQueryVariable("plat_id") || GlobalVar.plat_id,
+        timezone: getQueryVariable("timezone") || GlobalVar.zone,
         sign: getQueryVariable("sign"),
-        token: getQueryVariable("t") || "",
+        token: getQueryVariable("t") || GlobalVar.token || "",
     };
     constructor() {
         super(CompetionResultMediator);
     }
 
     mounted() {
-        this.myProxy.api_public_plat_config();
+        if (this.$vuetify.breakpoint.mobile) {
+            this.myProxy.init();
+        } else {
+            this.myProxy.api_public_plat_config();
+        }
     }
     transTime(_t: any) {
         return dateFormat(
             getDateByTimeZone(_t * 1000, GlobalVar.zone),
             "hh:mm:ss"
         );
+    }
+    onBack() {
+        this.$router.back();
     }
     onSelectDate() {
         const menu: any = this.$refs.menu;

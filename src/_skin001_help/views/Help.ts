@@ -19,8 +19,17 @@ export default class Help extends AbstractView {
     }
 
     mounted() {
-        this.myProxy.api_public_plat_config();
+        if (this.$vuetify.breakpoint.mobile) {
+            this.myProxy.api_helpcenter_list();
+        } else {
+            this.myProxy.api_public_plat_config();
+        }
     }
+
+    onBack() {
+        this.$router.back();
+    }
+
     @Watch("myProxy.isloadSecLang")
     onWatchLoadfinish() {
         if (this.myProxy.isloadSecLang) {

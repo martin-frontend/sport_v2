@@ -23,15 +23,19 @@ export default class DialogSetting extends AbstractView {
     }
 
     openCompetionResult() {
-        const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({
-            dark,
-            plat_id: GlobalVar.plat_id,
-            timezone: GlobalVar.zone,
-            MarketType_area: GlobalVar.MarketType_area,
-        });
-        const link = "./skin001_competion_result.html?" + params;
-        OpenLink(link);
+        if (this.$vuetify.breakpoint.mobile) {
+            this.$router.push("/competion_result");
+        } else {
+            const dark = this.$vuetify.theme.dark;
+            const params = formatURLParam({
+                dark,
+                plat_id: GlobalVar.plat_id,
+                timezone: GlobalVar.zone,
+                MarketType_area: GlobalVar.MarketType_area,
+            });
+            const link = "./skin001_competion_result.html?" + params;
+            OpenLink(link);
+        }
     }
 
     @Watch("pageData.bShow")
@@ -44,7 +48,9 @@ export default class DialogSetting extends AbstractView {
     }
 
     get getSelectName() {
-        const data = this.pageData.items.find((item: any) => item.key == this.pageData.form.timezone);
+        const data = this.pageData.items.find(
+            (item: any) => item.key == this.pageData.form.timezone
+        );
         if (data) {
             return data.value + LangUtil(data.name);
         }
