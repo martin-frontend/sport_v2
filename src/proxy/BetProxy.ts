@@ -1,4 +1,4 @@
-import { generateUUID } from "@/core/global/Functions";
+import { generateUUID, parseLocaleNumber } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 import Http from "@/core/Http";
 import net from "@/net/setting";
@@ -155,7 +155,7 @@ export default class BetProxy extends puremvc.Proxy {
             const { stake, matche, market, selection, odds } = findItem;
             const form: any = {};
             form.event_id = matche.id.toString();
-            form.stake = stake.replace(/,/g, "");
+            form.stake = parseLocaleNumber(stake).toString();
             form.side = "Back";
             form.market_id = market.market_id;
             form.market_type = market.market_type;

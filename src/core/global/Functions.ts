@@ -150,10 +150,20 @@ export function amountFormat(val: any, decimal: boolean = false, decimalLang: nu
         minimumFractionDigits: decimal ? decimalLang : 0,
         maximumFractionDigits: decimalLang,
     });
-
+    console.log("amountFormat>>>>", formattedAmount);
     return prefix + formattedAmount;
 }
+//解析数字格式
+export function parseLocaleNumber(stringNumber: any) {
+    const format = new Intl.NumberFormat(GlobalVar.lang.substring(0, 2));
 
+    const groupSeparator = format.format(1000).charAt(1);
+    const decimalSeparator = format.format(0.1).charAt(1);
+
+    const sanitizedNumber = stringNumber.replace(new RegExp(`\\${groupSeparator}`, "g"), "").replace(decimalSeparator, ".");
+
+    return parseFloat(sanitizedNumber) || 0;
+}
 /**
  * Check if an element has a class
  * @param {HTMLElement} elm
