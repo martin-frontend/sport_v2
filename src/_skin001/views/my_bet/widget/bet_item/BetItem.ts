@@ -1,7 +1,7 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
-import { amountFormat, TransMarketPrice, formatEventTime, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
+import { amountFormat, TransMarketPrice, formatEventTime, dateFormat, getDateByTimeZone, parseLocaleNumber } from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import MarketUtils from "@/core/global/MarketUtils";
@@ -108,19 +108,9 @@ export default class BetItem extends AbstractView {
     }
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {
-        stake = this.parseLocaleNumber(stake || "0");
+        stake = parseLocaleNumber(stake || "0");
         const value = (stake + parseInt(fastChoose)).toString();
         return amountFormat(value.replace(/[^\d]/g, ""));
-    }
-    parseLocaleNumber(stringNumber: any) {
-        const format = new Intl.NumberFormat(GlobalVar.lang.substring(0, 2));
-
-        const groupSeparator = format.format(1000).charAt(1);
-        const decimalSeparator = format.format(0.1).charAt(1);
-
-        const sanitizedNumber = stringNumber.replace(new RegExp(`\\${groupSeparator}`, "g"), "").replace(decimalSeparator, ".");
-
-        return parseFloat(sanitizedNumber);
     }
     //删除注单
     onDelete() {
@@ -128,10 +118,10 @@ export default class BetItem extends AbstractView {
     }
     /**投注 */
     onBet() {
+        const stakeValue = parseLocaleNumber(this.item.stake.toString());
         const { gold } = this.selfProxy.userInfo;
         console.warn(">>>>>>>>gold: ", gold);
         const { selection, market } = this.item;
-        const stakeValue = parseFloat(this.item.stake.replace(/,/g, ""));
         if (stakeValue < <any>this.item.minStake || stakeValue > <any>this.item.maxStake) {
             this.$notify({
                 group: "message",
@@ -158,7 +148,7 @@ export default class BetItem extends AbstractView {
     }
 
     getPreWin() {
-        const value = this.item.stake.replace(/,/g, "");
+        const value = parseLocaleNumber(this.item.stake);
         return amountFormat((this.item.selection.price.back * value - value).toFixed(3), true, 2);
     }
 }
