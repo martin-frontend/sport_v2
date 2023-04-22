@@ -1,8 +1,12 @@
-<v-sheet ref="divbox" :class="$vuetify.breakpoint.mobile ? 'rounded-10' : 'rounded-b-10'"
-    class="overflow-hidden live_tex" color="bgBanner" v-scroll:#routerBox="onScroll">
+<v-sheet
+    ref="divbox"
+    :class="$vuetify.breakpoint.mobile ? 'rounded-10' : 'rounded-b-10'"
+    class="overflow-hidden live_tex"
+    color="bgBanner"
+    v-scroll:#routerBox="onScroll"
+>
     <v-divider v-if="!$vuetify.breakpoint.mobile" />
-    <v-skeleton-loader v-if="pageData.loading" class="mx-auto rounded-0" width="100%" height="208"
-        type="image"></v-skeleton-loader>
+    <v-skeleton-loader v-if="pageData.loading" class="mx-auto rounded-0" width="100%" height="208" type="image"></v-skeleton-loader>
     <v-window v-else v-model="window">
         <v-window-item class="pb-4">
             <v-sheet class="textGray--text text-14" color="transparent" v-if="matche">
@@ -13,14 +17,17 @@
                         <!-- <v-sheet width="60" height="60" color="btnPlain" class="rounded-pill overflow-hidden"> -->
                         <v-img :src="getHomeIcon()" max-width="60" width="60" height="60"></v-img>
                         <!-- </v-sheet> -->
-                        <v-sheet height="42" color="transparent"
-                            class="mt-2 textGray--text overflow-hidden">{{getHomeName()}}</v-sheet>
+                        <v-sheet height="42" color="transparent" class="mt-2 textGray--text overflow-hidden">{{getHomeName()}}</v-sheet>
                         <div class="d-flex justify-center mt-1 mb-n5">
-                            <CardRed v-if="getStates() && split_goals(getStates().red_cards_ft)[0] > 0"
-                                :value="split_goals(getStates().red_cards_ft)[0]" />
-                            <CardYellow class="ml-1"
+                            <CardRed
+                                v-if="getStates() && split_goals(getStates().red_cards_ft)[0] > 0"
+                                :value="split_goals(getStates().red_cards_ft)[0]"
+                            />
+                            <CardYellow
+                                class="ml-1"
                                 v-if="getStates() && split_goals(getStates().yellow_cards_ft)[0] > 0"
-                                :value="split_goals(getStates().yellow_cards_ft)[0]" />
+                                :value="split_goals(getStates().yellow_cards_ft)[0]"
+                            />
                         </div>
                     </v-col>
                     <v-col class="text-30 btnPlain--text" align="center" align-self="center">
@@ -28,15 +35,13 @@
                         <template v-if="getStates()">
                             <div class="d-flex justify-center font-weight-bold">
                                 <div v-if="isShowFullScore()">
-                                    {{goals_ot_Value[0]}}<span class="text-18"
-                                        v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
+                                    {{goals_ot_Value[0]}}<span class="text-18" v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
                                 </div>
                                 <div v-else>{{goalsValue[0]}}</div>
                                 <!-- <div v-else>{{goalsValue[0]}}<span class="text-18">(0)</span></div> -->
                                 <div class="mx-2">-</div>
                                 <div v-if="isShowFullScore()">
-                                    {{goals_ot_Value[1]}}<span class="text-18"
-                                        v-if="isShowPK()">({{goals_pk_Value[1]}})</span>
+                                    {{goals_ot_Value[1]}}<span class="text-18" v-if="isShowPK()">({{goals_pk_Value[1]}})</span>
                                 </div>
                                 <div v-else>{{goalsValue[1]}}</div>
                                 <!-- <div v-else>{{goalsValue[1]}}<span class="text-18">(0)</span></div> -->
@@ -44,8 +49,7 @@
 
                             <div class="d-flex justify-center text-14">
                                 <div class="mr-1">{{LangUtil(getStates().match_phase)}}</div>
-                                <div v-if="getStates().phase_minute > 0">{{ getStates().phase_minute
-                                    }}{{LangUtil("分钟")}}</div>
+                                <div v-if="getStates().phase_minute > 0">{{ getStates().phase_minute }}{{LangUtil("分钟")}}</div>
                             </div>
                         </template>
                         <template v-else>
@@ -58,13 +62,17 @@
                         <!-- <v-sheet width="60" height="60" color="btnPlain" class="rounded-pill overflow-hidden"> -->
                         <v-img :src="getAwayIcon()" max-width="60" width="60" height="60"></v-img>
                         <!-- </v-sheet> -->
-                        <v-sheet height="42" color="transparent"
-                            class="mt-2 textGray--text overflow-hidden">{{getAwayName()}}</v-sheet>
+                        <v-sheet height="42" color="transparent" class="mt-2 textGray--text overflow-hidden">{{getAwayName()}}</v-sheet>
                         <div class="d-flex justify-center mt-1 mb-n5">
-                            <CardYellow v-if="getStates() && split_goals(getStates().yellow_cards_ft)[1] > 0"
-                                :value="split_goals(getStates().yellow_cards_ft)[1]" />
-                            <CardRed class="ml-1" v-if="getStates() && split_goals(getStates().red_cards_ft)[1] > 0"
-                                :value="split_goals(getStates().red_cards_ft)[1]" />
+                            <CardYellow
+                                v-if="getStates() && split_goals(getStates().yellow_cards_ft)[1] > 0"
+                                :value="split_goals(getStates().yellow_cards_ft)[1]"
+                            />
+                            <CardRed
+                                class="ml-1"
+                                v-if="getStates() && split_goals(getStates().red_cards_ft)[1] > 0"
+                                :value="split_goals(getStates().red_cards_ft)[1]"
+                            />
                         </div>
                     </v-col>
                 </v-row>
@@ -72,8 +80,12 @@
                 <template v-if="!getStates() && matche && matche.sb_time-GlobalVar.server_time >= 600">
                     <div class="d-flex justify-center mt-4">
                         <div class="d-flex align-center" v-for="(item, index) in getDowncount()" :key="index">
-                            <v-sheet class="d-flex align-center justify-center rounded font-weight-bold mr-1 downcount"
-                                width="16" height="26">{{item}}</v-sheet>
+                            <v-sheet
+                                class="d-flex align-center justify-center rounded font-weight-bold mr-1 downcount"
+                                width="16"
+                                height="26"
+                                >{{item}}</v-sheet
+                            >
                             <div v-if="[1,3,5].includes(index)" class="mr-1 font-weight-bold">:</div>
                         </div>
                     </div>
@@ -85,8 +97,7 @@
                     </div>
                 </template>
 
-                <v-sheet color="transparent" width="100%" class="d-flex align-center justify-center mt-4 textGray--text"
-                    v-if="getStates()">
+                <v-sheet color="transparent" width="100%" class="d-flex align-center justify-center mt-4 textGray--text" v-if="getStates()">
                     <svg-icon class="text-18 mr-2" icon="corner"></svg-icon>
                     <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
                     <svg-icon class="text-18 ml-4 mr-2" icon="hafe_time"></svg-icon>
@@ -94,13 +105,11 @@
                 </v-sheet>
 
                 <div class="d-flex justify-center mt-2" v-if="$vuetify.breakpoint.mobile">
-                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.live_status == 1"
-                        @click="window = 1">
+                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.live_status == 1" @click="window = 1">
                         <svg-icon class="text-20" icon="live1_"></svg-icon>
                         <div class="text-12 ml-1">{{LangUtil("直播")}}</div>
                     </v-btn>
-                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.animation_status == 1"
-                        @click="window=2">
+                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.animation_status == 1" @click="window=2">
                         <svg-icon class="text-20" icon="animate1_"></svg-icon>
                         <div class="text-12 ml-1">{{LangUtil("动画")}}</div>
                     </v-btn>
@@ -111,21 +120,25 @@
             <LivePlayer v-if="window==1" :videoUrl="pageData.live_url" live autoplay />
         </v-window-item>
         <v-window-item>
-            <iframe v-if="window==2" ref="ifr" class="mt-1" width="100%" :height="iframeHeight" frameborder="0"
+            <iframe
+                v-if="window==2"
+                ref="ifr"
+                class="mt-1"
+                width="100%"
+                :height="iframeHeight"
+                frameborder="0"
                 :src="'./animation/preview.html?anim_id=' + pageData.animation_id + '&lang=' + GlobalVar.lang"
-                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"></iframe>
+                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+            ></iframe>
         </v-window-item>
     </v-window>
-    <v-btn class="btn_close" style="z-index: 2;" icon v-if="window != 0 && $vuetify.breakpoint.mobile"
-        @click="window=0">
+    <v-btn class="btn_close" style="z-index: 2" icon v-if="window != 0 && $vuetify.breakpoint.mobile" @click="window=0">
         <svg-icon class="text-20" icon="close"></svg-icon>
     </v-btn>
 
     <!-- 开赛时间 -->
-    <v-sheet color="transparent" width="100%" class="competing-time d-flex justify-center align-center"
-        v-if="matche && bShowTime">
-        <v-sheet class="rounded white--text d-flex align-center justify-center text-12 px-2 font-weight-bold"
-            height="24px">
+    <v-sheet color="transparent" width="100%" class="competing-time d-flex justify-center align-center" v-if="matche && bShowTime">
+        <v-sheet class="rounded white--text d-flex align-center justify-center text-12 px-2 font-weight-bold" height="24px">
             <img class="mr-2" width="14" src="@/_skin001/assets/icon_daochu.png" />
             <div class="d-flex">
                 <div v-if="getStates() && Object.keys(getStates()).length > 0" class="d-flex">

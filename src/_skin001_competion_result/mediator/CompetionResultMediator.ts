@@ -9,10 +9,7 @@ export default class CompetionResultMediator extends AbstractMediator {
         this.facade.removeProxy(CompetionResultProxy.NAME);
     }
     public listNotificationInterests(): string[] {
-        return [
-            net.EventType.api_event_result,
-            net.EventType.public_plat_config
-        ];
+        return [net.EventType.api_event_result, net.EventType.public_plat_config];
     }
 
     public handleNotification(notification: puremvc.INotification): void {

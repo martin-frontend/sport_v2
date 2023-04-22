@@ -3,5 +3,5 @@ export interface RemarkVO {
     timezone: string;
     fast_choose: string[];
     currency_type: string;
-    MarketType_area:string;
+    MarketType_area: string;
 }

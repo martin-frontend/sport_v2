@@ -22,9 +22,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
 
     nowtime: any;
     panel = <any>[];
-    selectDate = new Date(Date.now() - new Date().getTimezoneOffset() * 60000)
-        .toISOString()
-        .substr(0, 10);
+    selectDate = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10);
     init() {
         this.sendNotification(net.HttpType.api_event_sports);
         this.sendNotification(net.HttpType.api_event_market_type_v2);
@@ -60,8 +58,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         const tempdate = this.selectDate.replace(/-/g, "/");
         const data = {
             start_time: Date.parse(tempdate + " " + timezone) / 1000,
-            end_time:
-                (Date.parse(tempdate + " " + timezone) + 86400000) / 1000 - 1,
+            end_time: (Date.parse(tempdate + " " + timezone) + 86400000) / 1000 - 1,
             timezone: GlobalVar.zone,
             page_size: 1000,
         };
@@ -76,9 +73,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         this.pageData.competition_list = data;
         this.pageData.length = data.length;
 
-        this.panel = this.pageData.competition_list.map(
-            (k: any, i: number) => i
-        );
+        this.panel = this.pageData.competition_list.map((k: any, i: number) => i);
     }
     api_public_plat_config() {
         const { lang, plat_id, timezone, token } = this.form;
@@ -98,10 +93,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         GlobalVar.lang = lang;
         GlobalVar.token = token;
         const sTime = GlobalVar.server_time;
-        this.selectDate = dateFormat(
-            getDateByTimeZone(sTime * 1000, GlobalVar.zone),
-            "yyyy-MM-dd"
-        );
+        this.selectDate = dateFormat(getDateByTimeZone(sTime * 1000, GlobalVar.zone), "yyyy-MM-dd");
         LangConfig.load(this.form.lang, true).then(() => {
             this.isloadSecLang = true;
 

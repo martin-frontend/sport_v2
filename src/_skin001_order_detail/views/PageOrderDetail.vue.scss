@@ -94,13 +94,13 @@
     color: #302f2f !important;
     box-shadow: 0px 2px 4px 0px #9f9f9f !important;
 }
-.d-flex{
+.d-flex {
     display: flex !important;
 }
-.align-center{
+.align-center {
     align-content: center;
 }
-.font-weight-bold{
+.font-weight-bold {
     font-weight: bold;
 }
 .order-content {
@@ -111,26 +111,26 @@
         bottom: 0px;
     }
 }
-.winlostdiv{
+.winlostdiv {
     display: flex;
     justify-content: flex-end;
     font-size: 12px;
     align-items: center;
 }
-.success--text{
-    color: #007E29;
+.success--text {
+    color: #007e29;
 }
-.error--text{
-    color: #FF2828;
+.error--text {
+    color: #ff2828;
 }
-.win-type{
+.win-type {
     position: absolute;
     bottom: 20px;
     right: 10px;
     width: 100px;
     height: 100px;
     text-align: center;
-    p{
+    p {
         margin-top: -66px;
         color: white;
         font-size: 18px;

@@ -11,17 +11,16 @@
         <v-col class="d-flex justify-center align-center">
             <div class="text-center">
                 <div v-if="data.group_match">{{data.group_match}}</div>
-            <div>{{start_time}}</div>
-            <div v-if="data.start_time_timestamp-GlobalVar.server_time < 600 && data.start_time_timestamp-GlobalVar.server_time > 0">
-                {{LangUtil("即将开赛")}}
+                <div>{{start_time}}</div>
+                <div v-if="data.start_time_timestamp-GlobalVar.server_time < 600 && data.start_time_timestamp-GlobalVar.server_time > 0">
+                    {{LangUtil("即将开赛")}}
+                </div>
+                <template v-else>
+                    <div v-if="states">{{LangUtil(states.match_phase)}}</div>
+                    <div v-if="states && states.phase_minute > 0" class="ml-2">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
+                    <div v-else>{{LangUtil("未开赛")}}</div>
+                </template>
             </div>
-            <template v-else>
-                <div v-if="states">{{LangUtil(states.match_phase)}}</div>
-                <div v-if="states && states.phase_minute > 0" class="ml-2">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
-                <div v-else>{{LangUtil("未开赛")}}</div>
-            </template>
-            </div>
-            
         </v-col>
         <v-col align="left">
             <v-img max-width="60" height="60" max-height="60" contain :src="getResponseIcon(data.away_team_icon)"> </v-img>

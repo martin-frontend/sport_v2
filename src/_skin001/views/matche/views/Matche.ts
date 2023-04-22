@@ -31,11 +31,7 @@ export default class Matche extends AbstractView {
         if (divlist) {
             //@ts-ignore
             const el: HTMLElement = divlist.$el;
-            if (el)
-                el.style.height =
-                    document.body.clientHeight -
-                    el.getBoundingClientRect().top +
-                    "px";
+            if (el) el.style.height = document.body.clientHeight - el.getBoundingClientRect().top + "px";
         }
     }
 
@@ -56,9 +52,7 @@ export default class Matche extends AbstractView {
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
         const { home_team, away_team } = this.matche;
-        title = title
-            .replace(new RegExp(homestr, "ig"), home_team)
-            .replace(new RegExp(awaystr, "ig"), away_team);
+        title = title.replace(new RegExp(homestr, "ig"), home_team).replace(new RegExp(awaystr, "ig"), away_team);
         return title;
     }
 
@@ -143,8 +137,7 @@ export default class Matche extends AbstractView {
         this.pageData.isOpenAll = !this.pageData.isOpenAll;
         if (this.pageData.isOpenAll) {
             this.pageData.panelIndexs = [
-                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17,
-                18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
+                0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23, 24, 25, 26, 27, 28, 29, 30, 31, 32,
             ];
         } else {
             this.pageData.panelIndexs = [];

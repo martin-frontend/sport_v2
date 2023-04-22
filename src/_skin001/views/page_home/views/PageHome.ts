@@ -36,16 +36,16 @@ export default class PageHome extends AbstractView {
     setAllLove(competition: any) {
         const matches = competition.matches;
         const len = matches.length;
-        for(let i=len-1; i>=0; i--){
+        for (let i = len - 1; i >= 0; i--) {
             this.myProxy.api_user_love(matches[i].id);
         }
         // let lovecount: number = 0;
         // matches.forEach((item: any) => {
-            // this.myProxy.api_user_love(item.id);
-            // if (this.pageData.love_events.indexOf(item.id) == -1) {
-            //     lovecount++;
-            //     this.myProxy.api_user_love(item.id);
-            // }
+        // this.myProxy.api_user_love(item.id);
+        // if (this.pageData.love_events.indexOf(item.id) == -1) {
+        //     lovecount++;
+        //     this.myProxy.api_user_love(item.id);
+        // }
         // });
         // if (lovecount == 0) {
         //     matches.forEach((item: any) => {

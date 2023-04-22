@@ -8,7 +8,7 @@ import CompetionResult from "./CompetionResult";
 import PageGameResults from "../widget/page_game_results/views/PageGameResults.vue";
 @Component({
     components: {
-        PageGameResults
+        PageGameResults,
     },
 })
 export default class extends CompetionResult {

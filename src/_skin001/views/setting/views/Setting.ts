@@ -26,12 +26,12 @@ export default class Setting extends AbstractView {
         return "";
     }
 
-    onMarketTypeArea(type:string){
+    onMarketTypeArea(type: string) {
         this.pageData.form.MarketType_area = type;
         GlobalVar.MarketType_area = type;
     }
 
-    onTimeZoneItemClick(value:string){
+    onTimeZoneItemClick(value: string) {
         this.pageData.form.timezone = value;
         GlobalVar.zone = value;
     }

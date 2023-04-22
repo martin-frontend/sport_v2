@@ -7,9 +7,9 @@ import Setting from "../../setting/views/Setting.vue";
 import Header from "./Header";
 
 @Component({
-    components:{
-        Setting
-    }
+    components: {
+        Setting,
+    },
 })
 export default class extends Header {
     mounted() {

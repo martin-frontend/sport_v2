@@ -5,7 +5,6 @@ import { EventStatesVO } from "@/vo/EventStatesVO";
 export default class LiveListProxy extends puremvc.Proxy {
     static NAME = "LiveListProxy";
 
-
     private timer = 0;
     public onRegister(): void {
         this.api_event_live_list();

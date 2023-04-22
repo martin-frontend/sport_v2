@@ -1,4 +1,4 @@
-export default function (blur: boolean, page:string = "page") {
+export default function (blur: boolean, page: string = "page") {
     const pageDiv = document.getElementById(page);
     if (pageDiv) {
         pageDiv.style.filter = blur ? "blur(4px)" : "none";

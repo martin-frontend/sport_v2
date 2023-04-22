@@ -13,8 +13,8 @@ export interface MatchVO {
     sb_time: number; //开赛时间戳
     animation_status: number; //动画数据
     animation_id: string; //动画ID
-    group_match:string; //赛事分组 副标题
+    group_match: string; //赛事分组 副标题
 
-    live_status:number;//直播数据 1:已配置 2:未配置
-    live_url:string;//直播地址
+    live_status: number; //直播数据 1:已配置 2:未配置
+    live_url: string; //直播地址
 }

@@ -7,9 +7,9 @@ import Component from "vue-class-component";
 import MarketM4 from "./MarketM4";
 
 @Component({
-    components:{
-        BtnFixedBet
-    }
+    components: {
+        BtnFixedBet,
+    },
 })
 export default class extends MarketM4 {}
 </script>

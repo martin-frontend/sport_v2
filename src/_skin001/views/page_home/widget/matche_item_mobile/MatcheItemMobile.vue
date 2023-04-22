@@ -7,9 +7,9 @@ import BtnFixedBet from "../btn_fixed_bet/BtnFixedBet.vue";
 import MatcheItemMobile from "./MatcheItemMobile";
 
 @Component({
-    components:{
-        BtnFixedBet
-    }
+    components: {
+        BtnFixedBet,
+    },
 })
 export default class extends MatcheItemMobile {}
 </script>

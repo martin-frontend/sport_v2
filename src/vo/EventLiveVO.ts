@@ -1,6 +1,6 @@
 import { MatchVO } from "./MatchVO";
 
-export interface EventLiveVO extends MatchVO{
+export interface EventLiveVO extends MatchVO {
     away_score: number; //客队比分
     competition_name: string; //联赛名
     home_score: number; //主队比分

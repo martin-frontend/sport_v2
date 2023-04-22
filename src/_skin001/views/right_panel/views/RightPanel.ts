@@ -8,7 +8,7 @@ import MatcheProxy from "../../matche/proxy/MatcheProxy";
 @Component
 export default class RightPanel extends AbstractView {
     LangUtil = LangUtil;
-    matcheProxy:MatcheProxy = this.getProxy(MatcheProxy);
+    matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: RightPanelProxy = this.getProxy(RightPanelProxy);
     pageData = this.myProxy.pageData;
 
@@ -16,14 +16,14 @@ export default class RightPanel extends AbstractView {
         super(RightPanelMediator);
     }
 
-    get competition(){
+    get competition() {
         return this.matcheProxy.pageData.competition_list[0];
     }
-    get matche(){
+    get matche() {
         return this.competition?.matches[0];
     }
 
-    onLiveList(){
+    onLiveList() {
         this.pageData.isShowLiveList = !this.pageData.isShowLiveList;
     }
 

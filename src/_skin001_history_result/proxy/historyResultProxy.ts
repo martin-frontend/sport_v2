@@ -1,11 +1,7 @@
 import net from "@/net/setting";
 import GlobalVar from "@/core/global/GlobalVar";
-import {
-    objectRemoveNull,
-    dateFormat,
-    getDateByTimeZone,
-} from "@/core/global/Functions";
-import { getQueryVariable,getTodayOffset } from "@/core/global/Functions";
+import { objectRemoveNull, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
+import { getQueryVariable, getTodayOffset } from "@/core/global/Functions";
 import LangConfig from "@/core/config/LangConfig";
 import PlatConfig from "@/core/config/PlatConfig";
 export default class HistoryResultProxy extends puremvc.Proxy {
@@ -22,7 +18,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         token: getQueryVariable("t") || "",
     };
     isloadSecLang = false;
-    nowtime:any;
+    nowtime: any;
     selectDate = ["", ""];
     pageData = {
         list: <any>[],
@@ -62,47 +58,31 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         switch (type) {
             // 今日
             case 0:
-                this.listQuery["settle_time-{>=}"] =
-                    getTodayOffset().timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(
-                    1,
-                    -1
-                ).timestr;
+                this.listQuery["settle_time-{>=}"] = getTodayOffset().timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
                 this.selectDate[0] = getTodayOffset().formatdate2;
                 this.selectDate[1] = getTodayOffset().formatdate2;
                 break;
             // 昨天
             case -1:
-                this.listQuery["settle_time-{>=}"] =
-                    getTodayOffset(-1).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(
-                    0,
-                    -1
-                ).timestr;
+                this.listQuery["settle_time-{>=}"] = getTodayOffset(-1).timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(0, -1).timestr;
                 this.selectDate[0] = getTodayOffset(-1).formatdate2;
                 this.selectDate[1] = getTodayOffset(-1).formatdate2;
                 break;
             // 7天
             case 7:
-                this.listQuery["settle_time-{>=}"] =
-                    getTodayOffset(-6).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(
-                    1,
-                    -1
-                ).timestr;
+                this.listQuery["settle_time-{>=}"] = getTodayOffset(-6).timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
                 this.selectDate[0] = getTodayOffset(-6).formatdate2;
                 this.selectDate[1] = getTodayOffset().formatdate2;
                 break;
             // 30天
             case 30:
-                this.listQuery["settle_time-{>=}"] =
-                    getTodayOffset(-29).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(
-                    1,
-                    -1
-                ).timestr;
+                this.listQuery["settle_time-{>=}"] = getTodayOffset(-29).timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
                 this.selectDate[0] = getTodayOffset(-29).formatdate2;
-                this.selectDate[1] =getTodayOffset(1, -1).formatdate2;
+                this.selectDate[1] = getTodayOffset(1, -1).formatdate2;
                 break;
 
             default:
@@ -129,10 +109,8 @@ export default class HistoryResultProxy extends puremvc.Proxy {
             }
         }
         this.listQuery.page_count = 1;
-        this.listQuery["settle_time-{>=}"] =
-            Date.parse(selectDate[0] + " " + timezone) / 1000;
-        this.listQuery["settle_time-{<=}"] =
-            (Date.parse(selectDate[1] + " " + timezone) + 86400000) / 1000 - 1;
+        this.listQuery["settle_time-{>=}"] = Date.parse(selectDate[0] + " " + timezone) / 1000;
+        this.listQuery["settle_time-{<=}"] = (Date.parse(selectDate[1] + " " + timezone) + 86400000) / 1000 - 1;
         this.pageData.list = [];
         this.api_user_orders();
     }
@@ -161,10 +139,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         this.api_user_orders();
     }
     api_user_orders() {
-        this.sendNotification(
-            net.HttpType.api_user_orders,
-            objectRemoveNull(this.listQuery)
-        );
+        this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
 
     set_public_plat_config(data: any) {
@@ -175,10 +150,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
         GlobalVar.lang = lang;
         const sTime = GlobalVar.server_time;
-        this.nowtime = dateFormat(
-            getDateByTimeZone(sTime * 1000, GlobalVar.zone),
-            "yyyy/MM/dd"
-        );
+        this.nowtime = dateFormat(getDateByTimeZone(sTime * 1000, GlobalVar.zone), "yyyy/MM/dd");
         console.log("this.nowtime>>>", this.nowtime);
         const date1 = this.nowtime;
         const date2 = this.nowtime;

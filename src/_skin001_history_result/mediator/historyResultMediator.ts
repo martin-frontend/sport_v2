@@ -9,10 +9,7 @@ export default class HistoryResultMediator extends AbstractMediator {
         this.facade.removeProxy(historyResultProxy.NAME);
     }
     public listNotificationInterests(): string[] {
-        return [
-            net.EventType.api_user_orders,
-            net.EventType.public_plat_config,
-        ];
+        return [net.EventType.api_user_orders, net.EventType.public_plat_config];
     }
 
     public handleNotification(notification: puremvc.INotification): void {

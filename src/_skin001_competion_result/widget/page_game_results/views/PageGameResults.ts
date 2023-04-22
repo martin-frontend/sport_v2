@@ -1,5 +1,5 @@
 import AbstractView from "@/core/abstract/AbstractView";
-import {Prop, Watch, Component } from "vue-property-decorator";
+import { Prop, Watch, Component } from "vue-property-decorator";
 import PageGameResultsMediator from "../mediator/PageGameResultsMediator";
 import PageGameResultsProxy from "../proxy/PageGameResultsProxy";
 import LangUtil from "@/core/global/LangUtil";
@@ -9,18 +9,18 @@ import GlobalVar from "@/core/global/GlobalVar";
 export default class PageGameResults extends AbstractView {
     LangUtil = LangUtil;
     getResponseIcon = getResponseIcon;
-    @Prop() matche!:any;
+    @Prop() matche!: any;
     @Prop() competition_name!: any;
     GlobalVar = GlobalVar;
     myProxy!: PageGameResultsProxy;
-    
-    pageData!:any;
-    
+
+    pageData!: any;
+
     offsetTop = 0;
-    
+
     constructor() {
         super();
-        puremvc.Facade.getInstance().registerProxy(new PageGameResultsProxy(this.matche.id))
+        puremvc.Facade.getInstance().registerProxy(new PageGameResultsProxy(this.matche.id));
         puremvc.Facade.getInstance().registerMediator(new PageGameResultsMediator(this.matche.id));
         this.myProxy = <any>puremvc.Facade.getInstance().retrieveProxy(this.matche.id);
         this.pageData = this.myProxy.pageData;
@@ -31,10 +31,7 @@ export default class PageGameResults extends AbstractView {
         this.pageData.matche = this.matche;
         this.pageData.competitionName = this.competition_name;
         this.myProxy.api_event_states(this.matche.id);
-     
     }
-
-
 
     get states(): any {
         return this.pageData.event_states[0];
@@ -76,12 +73,9 @@ export default class PageGameResults extends AbstractView {
         this.$router.replace("/page_matchResults");
     }
 
-
     onScroll(e: any) {
         this.offsetTop = e.target.scrollTop;
     }
-
-
 
     //赛况 盘口 比分
     onResultType(type: any) {
@@ -95,25 +89,23 @@ export default class PageGameResults extends AbstractView {
 
     onMarketType(market_type: number) {
         this.myProxy.listQueryMarket.market_type = market_type;
-        this.pageData.selectedMarketType = this.pageData.marketType.filter((el: { category: number[]; }) => el.category.includes(market_type))
-        console.warn("onMarketType>>",this.pageData.marketType,market_type)
+        this.pageData.selectedMarketType = this.pageData.marketType.filter((el: { category: number[] }) =>
+            el.category.includes(market_type)
+        );
+        console.warn("onMarketType>>", this.pageData.marketType, market_type);
     }
 
     get scores(): any {
         if (this.states) {
             if (["1H", "HT"].includes(this.states.match_phase)) {
                 return this.htScores;
-            }
-            else if (["2H", "FT"].includes(this.states.match_phase)) {
+            } else if (["2H", "FT"].includes(this.states.match_phase)) {
                 return this.ftScores;
-            }
-            else if (["1H OT", "OT HT"].includes(this.states.match_phase)) {
+            } else if (["1H OT", "OT HT"].includes(this.states.match_phase)) {
                 return this.othtScores;
-            }
-            else if (["2H OT", "OT FT"].includes(this.states.match_phase)) {
+            } else if (["2H OT", "OT FT"].includes(this.states.match_phase)) {
                 return this.otScores;
-            }
-            else if (["PK", "PK FT"].includes(this.states.match_phase)) {
+            } else if (["PK", "PK FT"].includes(this.states.match_phase)) {
                 return this.allScores;
             }
         }
@@ -122,14 +114,14 @@ export default class PageGameResults extends AbstractView {
     htScores = {
         goals_ht: LangUtil("上半场比分"),
         corners_ht: LangUtil("上半场角球"),
-    }
+    };
 
     ftScores = {
         goals_ht: LangUtil("上半场比分"),
         corners_ht: LangUtil("上半场角球"),
         goals_ft: LangUtil("全场比分"),
         corners_ft: LangUtil("全场角球"),
-    }
+    };
 
     othtScores = {
         goals_ht: LangUtil("上半场比分"),
@@ -138,7 +130,7 @@ export default class PageGameResults extends AbstractView {
         corners_ft: LangUtil("全场角球"),
         goals_otht: LangUtil("加时-上半场比分"),
         corners_otht: LangUtil("加时-上半场角球"),
-    }
+    };
 
     otScores = {
         goals_ht: LangUtil("上半场比分"),
@@ -149,7 +141,7 @@ export default class PageGameResults extends AbstractView {
         corners_otht: LangUtil("加时-上半场角球"),
         goals_ot: LangUtil("加时-全场比分"),
         corners_ot: LangUtil("加时-全场角球"),
-    }
+    };
 
     allScores = {
         goals_ht: LangUtil("上半场比分"),
@@ -161,7 +153,7 @@ export default class PageGameResults extends AbstractView {
         goals_ot: LangUtil("加时-全场比分"),
         corners_ot: LangUtil("加时-全场角球"),
         goals_pk: LangUtil("点球比分"),
-    }
+    };
 
     destroyed() {
         super.destroyed();

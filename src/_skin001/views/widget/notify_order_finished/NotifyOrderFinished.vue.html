@@ -30,7 +30,7 @@
                             {{ LangUtil(EnumFixOrderStatus[props.item.data.status]) }}
                         </span>
                     </v-sheet>
-    
+
                     <svg-icon
                         icon="close"
                         class="text-14 mr-3"
@@ -38,9 +38,10 @@
                         v-if="props.item.data.status != 0 && props.item.data.status != 1"
                     ></svg-icon>
                 </v-sheet>
-                <div class="text-14 red--text font-weight-bold pb-1 text-center" v-if="props.item.data.status != 1">{{props.item.data.statusMsg}}</div>
+                <div class="text-14 red--text font-weight-bold pb-1 text-center" v-if="props.item.data.status != 1">
+                    {{props.item.data.statusMsg}}
+                </div>
             </v-sheet>
-            
         </v-sheet>
     </template>
 </notifications>

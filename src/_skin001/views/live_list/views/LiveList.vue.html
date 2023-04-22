@@ -1,5 +1,11 @@
 <div class="overflow-y-auto divbox">
-    <LiveListItem class="mb-2" v-for="(item, index) in pageData.list" :key="index" :data="item" @click.native="onItemClick(item)"></LiveListItem>
-    <Nodata height="300" v-if="pageData.list.length == 0 && !pageData.loading"/>
-    <loader v-if="pageData.loading"/>
+    <LiveListItem
+        class="mb-2"
+        v-for="(item, index) in pageData.list"
+        :key="index"
+        :data="item"
+        @click.native="onItemClick(item)"
+    ></LiveListItem>
+    <Nodata height="300" v-if="pageData.list.length == 0 && !pageData.loading" />
+    <loader v-if="pageData.loading" />
 </div>

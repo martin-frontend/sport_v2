@@ -30,7 +30,7 @@ const daynight_type = getQueryVariable("daynight_type");
 vuetify.framework.theme.dark = daynight_type == "2";
 
 GlobalVar.MarketType_area = getQueryVariable("MarketType_area") || "0";
-GlobalVar.pageType ="skin001_history"
+GlobalVar.pageType = "skin001_history";
 Vue["vuetify"] = vuetify;
 Vue.config.productionTip = false;
 //@ts-ignore

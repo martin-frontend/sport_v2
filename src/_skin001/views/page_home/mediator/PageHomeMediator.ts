@@ -40,7 +40,7 @@ export default class PageHomeMediator extends AbstractMediator {
             case net.EventType.api_market_typelist:
                 if (type == PageHomeProxy.NAME) {
                     myProxy.set_market_typelist(body);
-                } else if(type == MatcheProxy.NAME){
+                } else if (type == MatcheProxy.NAME) {
                     myProxy.updateMarketCount(body);
                 }
                 break;
@@ -50,7 +50,7 @@ export default class PageHomeMediator extends AbstractMediator {
                 }
                 break;
             case net.EventType.api_user_lovematch:
-                if(type == <any>myProxy.pageData.lovematch_order){
+                if (type == <any>myProxy.pageData.lovematch_order) {
                     myProxy.set_user_lovematch(body);
                 }
                 break;

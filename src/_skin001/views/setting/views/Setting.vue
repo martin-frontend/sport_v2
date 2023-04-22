@@ -7,9 +7,9 @@ import CustomInput from "../../widget/custom_input/CustomInput.vue";
 import Setting from "./Setting";
 
 @Component({
-    components:{
-        CustomInput
-    }
+    components: {
+        CustomInput,
+    },
 })
 export default class extends Setting {
     mounted() {

@@ -125,9 +125,9 @@ export default class PageHomeProxy extends puremvc.Proxy {
     updateMarketCount(data: any) {
         for (const item of data) {
             const { event_id, market_amount } = item;
-            for(const comp of this.pageData.competition_list){
-                for(const matche of comp.matches){
-                    if(matche.id == event_id){
+            for (const comp of this.pageData.competition_list) {
+                for (const matche of comp.matches) {
+                    if (matche.id == event_id) {
                         matche.market_amount = market_amount;
                         break;
                     }
@@ -168,7 +168,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
             this.pageData.loading = true;
             this.pageData.market_list = [];
             this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
-        }else{
+        } else {
             this.api_user_lovematch();
         }
     }
@@ -194,8 +194,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
     /**关注 */
     api_user_lovematch() {
-        if(this.listQueryComp.tag == "love")
-            this.pageData.loading = true;
+        if (this.listQueryComp.tag == "love") this.pageData.loading = true;
         this.pageData.lovematch_order++;
         this.sendNotification(net.HttpType.api_user_lovematch, { unique: this.pageData.lovematch_order });
     }

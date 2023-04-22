@@ -31,7 +31,7 @@ export default class LiveProxy extends puremvc.Proxy {
 
     set_event_states(data: any) {
         const event_id = this.pageData.competition_list[0]?.matches[0]?.id;
-        if(!data[0] || data[0]?.event_id == event_id){
+        if (!data[0] || data[0]?.event_id == event_id) {
             this.pageData.loading = false;
             this.pageData.event_states = data;
         }
@@ -40,7 +40,7 @@ export default class LiveProxy extends puremvc.Proxy {
     /**赛事进程*/
     api_event_states() {
         const event_id = this.pageData.competition_list[0]?.matches[0]?.id;
-        if(event_id){
+        if (event_id) {
             this.sendNotification(net.HttpType.api_event_states, { event_id: event_id.toString(), unique: LiveProxy.NAME });
         }
     }

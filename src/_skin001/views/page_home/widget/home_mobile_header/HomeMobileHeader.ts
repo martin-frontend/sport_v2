@@ -31,9 +31,7 @@ export default class HomeMobileHeader extends AbstractView {
         if (tag == "love") {
             return this.pageData.love_count;
         } else {
-            const findItem = this.pageData.menu_subnav.top.find(
-                (item) => item.tag == tag
-            );
+            const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
             return findItem?.num;
         }
     }

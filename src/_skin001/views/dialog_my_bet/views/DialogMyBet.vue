@@ -8,8 +8,8 @@ import DialogMyBet from "./DialogMyBet";
 
 @Component({
     components: {
-        MyBet
-    }
+        MyBet,
+    },
 })
 export default class extends DialogMyBet {}
 </script>

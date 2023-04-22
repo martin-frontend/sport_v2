@@ -7,7 +7,7 @@
     </v-sheet> -->
 
     <v-sheet color="bgBanner" class="rounded-10 py10 mt-2 textGray--text text-13" v-for="(item,index) of pageData.list" :key="index">
-        <BetItem :item="item"/>
+        <BetItem :item="item" />
     </v-sheet>
 
     <!-- <Nodata v-if="pageData.list.length == 0" height="200" /> -->

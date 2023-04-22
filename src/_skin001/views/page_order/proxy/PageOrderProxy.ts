@@ -11,7 +11,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
     pageData = {
         loading: false,
         list: <any>[],
-        states: <any>[],//滚球 数据是state
+        states: <any>[], //滚球 数据是state
         pageInfo: {
             pageCurrent: 1,
             pageCount: 1,
@@ -34,7 +34,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
         // 多个指定赛事id，以逗号拼接
         event_id: "",
         // 记录所在位置
-        unique: PageOrderProxy.NAME
+        unique: PageOrderProxy.NAME,
     };
     listQuery: any = {
         is_settle: 0, //1=已结算 0=未结算
@@ -62,7 +62,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
         this.pageData.isActive = 0;
         if (this.listQuery.is_settle == 1) {
             this.listQuery["settle_time-{>=}"] = getTodayOffset().timestr;
-            this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
+            this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
         } else {
             this.listQuery["settle_time-{>=}"] = "";
             this.listQuery["settle_time-{<=}"] = "";
@@ -70,7 +70,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
     }
 
     set_user_orders(data: any) {
-        this.listQueryMarket.event_id = '';
+        this.listQueryMarket.event_id = "";
         this.pageData.loading = false;
         Object.assign(this.pageData.stats, data.stats);
         Object.assign(this.pageData.pageInfo, data.pageInfo);
@@ -91,25 +91,22 @@ export default class PageOrderProxy extends puremvc.Proxy {
         if (this.listQuery.is_settle == 0) {
             data.list.forEach((item: any, idx: any) => {
                 event_id.push(item.event_id);
-           
-           });
-           this.listQueryMarket.event_id = event_id.toString();
-           this.api_event_states();
+            });
+            this.listQueryMarket.event_id = event_id.toString();
+            this.api_event_states();
         }
-       
-        
     }
     /**赛事进程*/
     api_event_states() {
         if (this.listQuery.is_settle != 0 || !this.listQueryMarket.event_id) {
-            return
+            return;
         }
-        
+
         const { event_id, unique } = this.listQueryMarket;
         this.sendNotification(net.HttpType.api_event_states, { event_id, unique });
     }
     api_user_orders() {
-        if(this.listQuery.page_count == 1) this.pageData.loading = true;
+        if (this.listQuery.page_count == 1) this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
 
@@ -131,24 +128,23 @@ export default class PageOrderProxy extends puremvc.Proxy {
         switch (type) {
             // 今日
             case 0:
-                
                 this.listQuery["settle_time-{>=}"] = getTodayOffset().timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
                 break;
             // 昨天
             case -1:
                 this.listQuery["settle_time-{>=}"] = getTodayOffset(-1).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(0,-1).timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(0, -1).timestr;
                 break;
             // 7天
             case 7:
                 this.listQuery["settle_time-{>=}"] = getTodayOffset(-7).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
                 break;
             // 30天
             case 30:
                 this.listQuery["settle_time-{>=}"] = getTodayOffset(-30).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1,-1).timestr;
+                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
                 break;
 
             default:
@@ -157,36 +153,34 @@ export default class PageOrderProxy extends puremvc.Proxy {
         this.pageData.list = [];
         this.api_user_orders();
     }
-    set_event_states(data:any){
-        
-        this.pageData.states =data;//"www":data[0]
+    set_event_states(data: any) {
+        this.pageData.states = data; //"www":data[0]
 
         // data.forEach((state:any,index:any) => {
         //     this.pageData.playing_list[state.event_id] = state;
         // });
     }
-    event_states(Orderitem:any){
-       const itemState = this.pageData.states.find((item:any)=>Orderitem.event_id == item. event_id);
+    event_states(Orderitem: any) {
+        const itemState = this.pageData.states.find((item: any) => Orderitem.event_id == item.event_id);
         if (itemState) {
             Orderitem.playingstate = itemState;
             return Orderitem;
-        }else
-        {
+        } else {
             return Orderitem;
         }
     }
     getMarketAndStates() {
         //@ts-ignore
         if (this.listQuery.is_settle != 0) {
-            return
+            return;
         }
-            const event_id: number[] = [];
-            for (const item of this.pageData.list) {
-                event_id.push(item.event_id);
-            }
-            this.listQueryMarket.event_id = event_id.toString();
-            if (this.listQueryMarket.event_id) {
-                this.api_event_states();
-            }
+        const event_id: number[] = [];
+        for (const item of this.pageData.list) {
+            event_id.push(item.event_id);
+        }
+        this.listQueryMarket.event_id = event_id.toString();
+        if (this.listQueryMarket.event_id) {
+            this.api_event_states();
+        }
     }
 }

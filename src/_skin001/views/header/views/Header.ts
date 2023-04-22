@@ -47,7 +47,12 @@ export default class Header extends AbstractView {
         const iTop = (window.screen.availHeight - 30 - iHeight) / 2;
         const iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
         const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({daynight_type: dark ? 2 : 1, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone, MarketType_area: GlobalVar.MarketType_area});
+        const params = formatURLParam({
+            daynight_type: dark ? 2 : 1,
+            plat_id: GlobalVar.plat_id,
+            timezone: GlobalVar.zone,
+            MarketType_area: GlobalVar.MarketType_area,
+        });
         const link = "./skin001_competion_result.html?" + params;
         // const link = `./skin001_competion_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {
@@ -71,7 +76,12 @@ export default class Header extends AbstractView {
         const iTop = (window.screen.availHeight - 30 - iHeight) / 2;
         const iLeft = (window.screen.availWidth - 10 - iWidth) / 2;
         const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({daynight_type: dark ? 2 : 1, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone, MarketType_area: GlobalVar.MarketType_area});
+        const params = formatURLParam({
+            daynight_type: dark ? 2 : 1,
+            plat_id: GlobalVar.plat_id,
+            timezone: GlobalVar.zone,
+            MarketType_area: GlobalVar.MarketType_area,
+        });
         const link = "./skin001_history_result.html?" + params;
         // const link = `./skin001_history_result.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         try {

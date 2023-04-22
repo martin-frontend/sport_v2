@@ -1,5 +1,5 @@
-.font-weight-400{
-    font-weight:400;
+.font-weight-400 {
+    font-weight: 400;
 }
 .arrow-down {
     transform: rotate(0deg);
@@ -9,67 +9,59 @@
     transform: rotate(180deg);
     transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
-.def-border{
-    border: 2px solid #E8E8E2;
+.def-border {
+    border: 2px solid #e8e8e2;
 }
-.theme--dark .def-border  {
+.theme--dark .def-border {
     border: 2px solid #333435;
 }
 
-
 .theme--light .v-application {
-
-        background-color: skyblue !important;
-        font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
+    background-color: skyblue !important;
+    font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
 }
 .theme--dark .v-application {
-
-        background-color: black !important;
-        font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
- 
+    background-color: black !important;
+    font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
 }
 .tag-btn-active {
     border-radius: 25px;
-    border: 2px solid #FFCD43;
-    
+    border: 2px solid #ffcd43;
 }
 
 .tag-btn-noactive {
     border-radius: 25px;
-  
 }
-.datebutton{
+.datebutton {
     width: 202px;
     height: 36px;
-   
 }
-.d-grid{
-    display:grid;
+.d-grid {
+    display: grid;
 }
-.justify-items-center{
+.justify-items-center {
     justify-items: center;
 }
 .box-scroll {
-    max-height: calc(100vh - 250px);;
+    max-height: calc(100vh - 250px);
     overflow-y: scroll;
 }
-span{
+span {
     display: flex;
     justify-content: center;
 }
-.font-family-GOTHAM{
+.font-family-GOTHAM {
     font-family: GOTHAM_BOOK;
 }
-::v-deep .col{
+::v-deep .col {
     padding-left: 0px;
     padding-right: 0px;
 }
-.resultbtn_zh{
+.resultbtn_zh {
     width: 30px;
     height: 30px;
-
 }
-.resultbtn_en{
+.resultbtn_en {
     width: 40px;
     height: 40px;
     font-size: 11px;

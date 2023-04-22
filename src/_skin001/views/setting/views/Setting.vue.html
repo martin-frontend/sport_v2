@@ -115,8 +115,10 @@
     </v-sheet>
 
     <div class="d-flex align-center textGray--text mt-8 mb-2">
-        <div>{{LangUtil("版本号")}} {{GlobalVar.version}} </div>
-        <v-spacer/>
-        <btn-yellow v-if="!$vuetify.breakpoint.mobile" class="text-14" width="86" height="36" @click.native="onReSetting">{{LangUtil("还原设置")}}</btn-yellow>
+        <div>{{LangUtil("版本号")}} {{GlobalVar.version}}</div>
+        <v-spacer />
+        <btn-yellow v-if="!$vuetify.breakpoint.mobile" class="text-14" width="86" height="36" @click.native="onReSetting"
+            >{{LangUtil("还原设置")}}</btn-yellow
+        >
     </div>
 </v-sheet>

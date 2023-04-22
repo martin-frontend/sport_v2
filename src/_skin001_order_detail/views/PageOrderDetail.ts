@@ -17,9 +17,9 @@ export default class PageOrderDetail extends AbstractView {
     amountFormat = amountFormat;
     TransMarketPrice = TransMarketPrice;
     isloadSecLang = false;
-    GlobalVar=GlobalVar;
+    GlobalVar = GlobalVar;
     OrderTitleUtils = OrderTitleUtils;
-    item=<any>[];
+    item = <any>[];
     form = {
         lang: getQueryVariable("lang") || "zh_CN",
         order_id: getQueryVariable("order_id"),
@@ -29,24 +29,23 @@ export default class PageOrderDetail extends AbstractView {
     };
 
     mounted() {
-        const {lang,order_id,plat_id,timezone} = this.form;
-        Http.post(net.HttpType.public_plat_config, {plat_id,timezone,order_id,lang}).then((response:any)=>{
+        const { lang, order_id, plat_id, timezone } = this.form;
+        Http.post(net.HttpType.public_plat_config, { plat_id, timezone, order_id, lang }).then((response: any) => {
             PlatConfig.config = response.data;
             GlobalVar.plat_id = <any>plat_id;
             GlobalVar.zone = <any>timezone;
             GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
             GlobalVar.lang = lang;
-            LangConfig.load(this.form.lang).then(()=>{
-                Http.post(net.HttpType.public_order_detail_data, this.form).then((response:any)=>{
+            LangConfig.load(this.form.lang).then(() => {
+                Http.post(net.HttpType.public_order_detail_data, this.form).then((response: any) => {
                     this.init();
-                    this.isloadSecLang = true
+                    this.isloadSecLang = true;
                     this.item = response.data;
-                })
-            })
-
-        })
+                });
+            });
+        });
     }
-    init(){
+    init() {
         this.statusMap = {
             0: LangUtil("确认中"), //确认中
             1: LangUtil("确认成功"), //确认成功
@@ -56,9 +55,9 @@ export default class PageOrderDetail extends AbstractView {
         };
     }
     //根据盘口展示已结算的赛果角球还是比分等
-    getHadResultStr(){
+    getHadResultStr() {
         if (!this.item.real_time_state) {
-            return
+            return;
         }
         const copyitem = JSON.parse(JSON.stringify(this.item));
         copyitem.state = copyitem.real_time_state;

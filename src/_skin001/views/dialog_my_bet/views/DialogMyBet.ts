@@ -56,17 +56,17 @@ export default class DialogMyBet extends AbstractView {
         BlurUtil(this.pageData.bShow);
     }
     truncateToFirstTwo(value: string): string {
-        let cleanedValue = value.replace(/[^0-9]/g, ''); // 移除所有非数字字符
-        let result = '';
-    
+        let cleanedValue = value.replace(/[^0-9]/g, ""); // 移除所有非数字字符
+        let result = "";
+
         if (cleanedValue.length >= 2) {
             result = cleanedValue.substring(0, 2);
         } else if (cleanedValue.length === 1) {
-            result = cleanedValue + '0';
+            result = cleanedValue + "0";
         } else {
-            result = '00';
+            result = "00";
         }
-    
+
         return result;
     }
 }

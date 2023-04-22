@@ -8,10 +8,8 @@ import PageLiveList from "./PageLiveList";
 
 @Component({
     components: {
-        LiveList
-    }
+        LiveList,
+    },
 })
-export default class extends PageLiveList {
-
-}
+export default class extends PageLiveList {}
 </script>

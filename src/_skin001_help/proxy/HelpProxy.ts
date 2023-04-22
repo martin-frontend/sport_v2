@@ -50,9 +50,7 @@ export default class HelpProxy extends puremvc.Proxy {
         Object.assign(this.pageData, data);
         let idx = 0;
         for (let i of this.pageData.list) {
-            const typetemp = this.pageData.type.find(
-                (item: any) => item.id == i.type
-            );
+            const typetemp = this.pageData.type.find((item: any) => item.id == i.type);
             typetemp.list = typetemp.list || [];
             typetemp.list.push(i);
         }

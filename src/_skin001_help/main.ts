@@ -18,8 +18,7 @@ LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
 Vue.use(Notifications, { velocity });
-GlobalVar.pageType = "skin001_help"
-
+GlobalVar.pageType = "skin001_help";
 
 // 注册到全局
 Vue.component("btn-yellow", BtnYellow);

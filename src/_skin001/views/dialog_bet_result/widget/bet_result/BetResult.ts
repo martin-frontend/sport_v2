@@ -26,7 +26,7 @@ export default class BetResult extends AbstractView {
     myProxy: DialogBetResultProxy = this.getProxy(DialogBetResultProxy);
     pageData = this.myProxy.pageData;
 
-    mounted(){
+    mounted() {
         this.pageData.statusMsg = "";
     }
 
@@ -63,7 +63,7 @@ export default class BetResult extends AbstractView {
         }
         return null;
     }
-    transTitle(title:any){
+    transTitle(title: any) {
         const matches = this.matches;
         if (!matches) {
             return title;
@@ -71,12 +71,10 @@ export default class BetResult extends AbstractView {
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
         const { home_team, away_team } = matches;
-        title = title
-            .replace(new RegExp(homestr, "ig"), home_team)
-            .replace(new RegExp(awaystr, "ig"), away_team);
+        title = title.replace(new RegExp(homestr, "ig"), home_team).replace(new RegExp(awaystr, "ig"), away_team);
         return title;
-      }
-      get matches() {
+    }
+    get matches() {
         for (const comp of this.matcheProxy.pageData.competition_list) {
             for (const matche of comp.matches) {
                 if (matche.id == this.pageData.event_id) {

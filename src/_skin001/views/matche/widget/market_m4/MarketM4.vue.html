@@ -2,7 +2,7 @@
     <v-row dense v-for="(item,index) in market.selections" :key="index">
         <v-col cols="12" :class="{'mb-n1': index < market.selections.length-1}">
             <BtnFixedBet :matche="matche" :market="market" :selection="item">
-                <div >{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
+                <div>{{MarketUtils.getSelectionName(market.market_type, item)}}</div>
                 <v-spacer />
             </BtnFixedBet>
         </v-col>

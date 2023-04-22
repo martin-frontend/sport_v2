@@ -14,7 +14,7 @@
                         </div>
                         <div v-else>{{goalsValue[0]}}</div>
                     </template>
-                    
+
                     <div class="mx-2">VS</div>
 
                     <template v-if="getCurrMatche() && getStates()">
@@ -23,7 +23,6 @@
                         </div>
                         <div v-else>{{goalsValue[1]}}</div>
                     </template>
-                    
                 </v-col>
                 <v-col cols="4" class="text-truncate text-center">{{getAwayName()}}</v-col>
             </v-row>
@@ -84,7 +83,7 @@
                     </v-list>
                 </v-card>
             </v-menu>
-    
+
             <v-spacer />
             <v-btn icon @click="openHelp">
                 <svg-icon class="text-20 iconHeaderColor--text" icon="help"></svg-icon>
@@ -93,11 +92,10 @@
                 <svg-icon class="text-20 iconHeaderColor--text" icon="history"></svg-icon>
             </v-btn>
         </template>
-        
     </v-sheet>
 
     <div id="div_content">
-        <Live v-model="pageData.liveIndex" class="mx10 mt10"/>
+        <Live v-model="pageData.liveIndex" class="mx10 mt10" />
         <Matche class="mx10 mt-1" />
     </div>
 </div>

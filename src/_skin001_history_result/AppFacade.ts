@@ -18,7 +18,7 @@ export default class AppFacade {
         net.initCommand();
         this.initCommand();
         this.initMediator();
-      //  this.facade.sendNotification(net.HttpType.api_config);
+        //  this.facade.sendNotification(net.HttpType.api_config);
     }
 
     initCommand() {

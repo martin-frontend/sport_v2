@@ -13,7 +13,7 @@ export default class DialogMessageBox extends AbstractView {
 
     constructor() {
         super(DialogMessageBoxMediator);
-        this.$vuetify.breakpoint.mobile
+        this.$vuetify.breakpoint.mobile;
     }
 
     onOK() {
@@ -25,7 +25,7 @@ export default class DialogMessageBox extends AbstractView {
     }
 
     @Watch("pageData.bShow")
-    onWatchShow(){
+    onWatchShow() {
         BlurUtil(this.pageData.bShow);
     }
 }

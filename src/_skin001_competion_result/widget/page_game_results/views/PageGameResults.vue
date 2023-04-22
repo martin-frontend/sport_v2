@@ -6,8 +6,7 @@ import Component from "vue-class-component";
 import PageGameResults from "./PageGameResults";
 
 @Component({
-    components: {
-    },
+    components: {},
 })
 export default class extends PageGameResults {
     mounted() {

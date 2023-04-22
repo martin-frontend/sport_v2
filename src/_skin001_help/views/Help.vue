@@ -4,11 +4,11 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import Help from "./Help";
-import HorizontalScroll from "@/_skin001/views/widget/horizontal_scroll/HorizontalScroll.vue"//"./views/widget/horizontal_scroll/HorizontalScroll.vue";
+import HorizontalScroll from "@/_skin001/views/widget/horizontal_scroll/HorizontalScroll.vue"; //"./views/widget/horizontal_scroll/HorizontalScroll.vue";
 
 @Component({
     components: {
-        HorizontalScroll
+        HorizontalScroll,
     },
 })
 export default class extends Help {

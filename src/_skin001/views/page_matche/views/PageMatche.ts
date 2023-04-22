@@ -29,7 +29,7 @@ export default class PageMatche extends AbstractView {
         super(PageMatcheMediator);
     }
 
-    onScroll(e:any){
+    onScroll(e: any) {
         this.scrollTop = e.target.scrollTop;
     }
 
@@ -130,7 +130,7 @@ export default class PageMatche extends AbstractView {
     }
     openHelp() {
         const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone});
+        const params = formatURLParam({ dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone });
         const link = "./skin001_help.html?" + params;
         // const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
         OpenLink(link);

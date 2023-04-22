@@ -17,7 +17,7 @@ export default class LiveList extends AbstractView {
         super(LiveListMediator);
     }
 
-    onItemClick(item:EventLiveVO){
+    onItemClick(item: EventLiveVO) {
         live.init(item.id);
         matche.init(item.id);
         this.$emit("onChange", item);

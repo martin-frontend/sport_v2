@@ -32,7 +32,9 @@
             >
                 <div class="d-flex align-end">
                     <span class="text-14">{{GlobalVar.currency}} {{ amountFormat(selfProxy.userInfo.gold.split('.')[0])}}</span>
-                    <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]">.{{ truncateToFirstTwo(selfProxy.userInfo.gold.split('.')[1])}}</span>
+                    <span class="text-12" v-if="selfProxy.userInfo.gold.split('.')[1]"
+                        >.{{ truncateToFirstTwo(selfProxy.userInfo.gold.split('.')[1])}}</span
+                    >
                 </div>
             </v-sheet>
             <btn-yellow

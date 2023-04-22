@@ -10,8 +10,8 @@ import DialogSetting from "./DialogSetting";
 @Component({
     components: {
         Setting,
-        CustomInput
-    }
+        CustomInput,
+    },
 })
 export default class extends DialogSetting {}
 </script>

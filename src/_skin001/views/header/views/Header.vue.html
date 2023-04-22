@@ -1,8 +1,4 @@
-<v-sheet
-    class="rounded-lg d-flex align-center mt-2 mr-2"
-    height="46"
-    color="bgBanner"
->
+<v-sheet class="rounded-lg d-flex align-center mt-2 mr-2" height="46" color="bgBanner">
     <v-btn plain color="btnPlain" :ripple="false" @click="openHistoryResult">
         <svg-icon color="primary" class="text-15" icon="history"></svg-icon>
         <div class="text-14 ml-1">{{LangUtil("注单历史")}}</div>
@@ -11,12 +7,7 @@
         <svg-icon class="text-15" icon="score"></svg-icon>
         <div class="text-14 ml-1">{{LangUtil("赛果&比分")}}</div>
     </v-btn>
-    <v-sheet
-        class="search_box d-flex align-center rounded-pill px10 textGray--text ml-2"
-        width="321"
-        height="30"
-        color="bgPage"
-    >
+    <v-sheet class="search_box d-flex align-center rounded-pill px10 textGray--text ml-2" width="321" height="30" color="bgPage">
         <input
             class="text-14 ml-2 textGray--text text-truncate"
             :placeholder="LangUtil('搜索联赛或球队名称')"
@@ -34,17 +25,9 @@
     <v-menu offset-y nudge-bottom="4">
         <template v-slot:activator="{ on, attrs }">
             <div class="mr10" v-bind="attrs" v-on="on">
-                <btn-info
-                    class="text-12 textGray1--text"
-                    minWidth="76"
-                    height="32"
-                >
+                <btn-info class="text-12 textGray1--text" minWidth="76" height="32">
                     <div class="d-flex align-center">
-                        <div class="mr10">
-                            {{LangUtil(
-                            settingProxy.pageData.form.MarketType_area == 0 ?
-                            "欧洲盘" : "亚洲盘")}}
-                        </div>
+                        <div class="mr10">{{LangUtil( settingProxy.pageData.form.MarketType_area == 0 ? "欧洲盘" : "亚洲盘")}}</div>
                         <svg-icon
                             class="text-12"
                             icon="zoom_out"
@@ -54,16 +37,9 @@
                 </btn-info>
             </div>
         </template>
-        <div
-            class="py-3 menulist textGray1--text text-12"
-            :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'"
-        >
-            <div class="pl-4 menuitem" @click="onMarketTypeArea(0)">
-                {{LangUtil("欧洲盘")}}
-            </div>
-            <div class="pl-4 menuitem mt-2" @click="onMarketTypeArea(1)">
-                {{LangUtil("亚洲盘")}}
-            </div>
+        <div class="py-3 menulist textGray1--text text-12" :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'">
+            <div class="pl-4 menuitem" @click="onMarketTypeArea(0)">{{LangUtil("欧洲盘")}}</div>
+            <div class="pl-4 menuitem mt-2" @click="onMarketTypeArea(1)">{{LangUtil("亚洲盘")}}</div>
         </div>
     </v-menu>
 
@@ -88,12 +64,7 @@
         </div>
     </v-menu> -->
 
-    <btn-info
-        class="mr10 text-12 textGray1--text"
-        minWidth="76"
-        height="32"
-        @click.native="onSetting"
-    >
+    <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32" @click.native="onSetting">
         <div class="d-flex align-center">
             <div class="mr10">{{LangUtil("设置")}}</div>
             <svg-icon class="text-12" icon="zoom_out"></svg-icon>

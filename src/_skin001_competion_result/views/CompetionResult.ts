@@ -6,13 +6,7 @@ import CompetionResultProxy from "../proxy/CompetionResultProxy";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import { getQueryVariable } from "@/core/global/Functions";
-import {
-    getResponseIcon,
-    amountFormat,
-    dateFormat,
-    formatEventTime,
-    getDateByTimeZone,
-} from "@/core/global/Functions";
+import { getResponseIcon, amountFormat, dateFormat, formatEventTime, getDateByTimeZone } from "@/core/global/Functions";
 
 @Component
 export default class PageOrderDetail extends AbstractView {
@@ -43,10 +37,7 @@ export default class PageOrderDetail extends AbstractView {
         }
     }
     transTime(_t: any) {
-        return dateFormat(
-            getDateByTimeZone(_t * 1000, GlobalVar.zone),
-            "hh:mm:ss"
-        );
+        return dateFormat(getDateByTimeZone(_t * 1000, GlobalVar.zone), "hh:mm:ss");
     }
     onBack() {
         this.$router.back();

@@ -24,8 +24,8 @@
         &:hover {
             filter: brightness(120%);
         }
-        .divslot{
-            color:#b0b0b0;
+        .divslot {
+            color: #b0b0b0;
         }
         &.active {
             .divslot {
@@ -61,11 +61,11 @@
         transform: translatey(-1px);
     }
 }
-.onlyphoneItem{
+.onlyphoneItem {
     color: #8e8f91;
     .theme--dark {
-        color:#b0b0b0;
+        color: #b0b0b0;
     }
     font-weight: 600;
-    font-family:  "PingFang SC" !important;//, "Microsoft YaHei";
+    font-family: "PingFang SC" !important; //, "Microsoft YaHei";
 }

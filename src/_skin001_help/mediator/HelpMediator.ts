@@ -22,7 +22,6 @@ export default class HelpMediator extends AbstractMediator {
                 myProxy.set_helpcenter_list(body);
                 break;
             case net.EventType.public_plat_config:
-              
                 myProxy.set_public_plat_config(body);
                 break;
         }

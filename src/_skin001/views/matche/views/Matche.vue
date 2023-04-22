@@ -23,7 +23,7 @@ import Matche from "./Matche";
         MarketM5,
         MarketM6,
         MarketM7,
-    }
+    },
 })
 export default class extends Matche {
     mounted() {

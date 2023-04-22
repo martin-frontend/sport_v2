@@ -8,7 +8,7 @@ import gsap, { Linear } from "gsap";
 export default class HorizontalScroll extends AbstractView {
     LangUtil = LangUtil;
 
-    @Prop({default: 0}) offsetx!:number;
+    @Prop({ default: 0 }) offsetx!: number;
 
     //拖动参数
     dragData = {

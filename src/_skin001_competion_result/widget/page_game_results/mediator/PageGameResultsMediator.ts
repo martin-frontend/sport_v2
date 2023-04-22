@@ -10,20 +10,17 @@ export default class PageGameResultsMediator extends AbstractMediator {
     }
 
     public listNotificationInterests(): string[] {
-        return [
-            net.EventType.api_event_states,
-        ];
+        return [net.EventType.api_event_states];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
         const body = notification.getBody();
         const myProxy: PageGameResultsProxy = <any>puremvc.Facade.getInstance().retrieveProxy(this.mediatorName);
-        
+
         const type = notification.getType();
         switch (notification.getName()) {
             case net.EventType.api_event_states:
                 if (type == "result" && body[0].event_id == this.mediatorName) {
-
                     GlobalVar.loading = false;
                     myProxy.set_api_event_states(body);
                 }

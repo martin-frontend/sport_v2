@@ -7,7 +7,7 @@ import HistoryResult from "./HistoryResult";
 import NotifyMessage from "@/_skin001/views/widget/notify_message/NotifyMessage.vue";
 @Component({
     components: {
-        NotifyMessage
+        NotifyMessage,
     },
 })
 export default class extends HistoryResult {

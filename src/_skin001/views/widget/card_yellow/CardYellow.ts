@@ -5,5 +5,5 @@ import LangUtil from "@/core/global/LangUtil";
 @Component
 export default class CardYellow extends AbstractView {
     LangUtil = LangUtil;
-    @Prop({default: 0}) value!:any;
+    @Prop({ default: 0 }) value!: any;
 }

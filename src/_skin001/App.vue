@@ -55,7 +55,7 @@
             <Navigation class="mt-3" @onChange="GlobalVar.navDrawer = false" />
         </v-navigation-drawer>
         <!-- 右侧设置页 -->
-        <DialogSetting/>
+        <DialogSetting />
         <!-- 注单抽屉 -->
         <DialogMyBet v-if="$vuetify.breakpoint.mobile" />
         <!-- 投注确认框 -->

@@ -48,9 +48,7 @@ export default class DialogSetting extends AbstractView {
     }
 
     get getSelectName() {
-        const data = this.pageData.items.find(
-            (item: any) => item.key == this.pageData.form.timezone
-        );
+        const data = this.pageData.items.find((item: any) => item.key == this.pageData.form.timezone);
         if (data) {
             return data.value + LangUtil(data.name);
         }

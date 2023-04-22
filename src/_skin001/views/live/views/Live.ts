@@ -149,7 +149,7 @@ export default class Live extends AbstractView {
         const min = Math.floor((start_in_sec / 60) % 60);
         const sec = Math.floor(start_in_sec % 60);
 
-        return {day, hr, min, sec};
+        return { day, hr, min, sec };
     }
 
     destroyed() {

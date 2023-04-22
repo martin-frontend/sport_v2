@@ -15,7 +15,7 @@ export default class PageLiveList extends AbstractView {
         super(PageLiveListMediator);
     }
 
-    onChange(item:any){
+    onChange(item: any) {
         page_matche.show(item.id);
     }
 

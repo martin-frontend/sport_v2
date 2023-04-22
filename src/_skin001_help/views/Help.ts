@@ -86,25 +86,15 @@ export default class Help extends AbstractView {
                         needshowcontentidx = keyarr[2];
                     }
                     if (this.oldSearchTxt != this.pageData.searchTxt) {
-                        const panelidx = <any[]>(
-                            this.myProxy.panelIdxs[keyarr[1]]
-                        );
-                        if (
-                            panelidx.every(
-                                (value: any, inex: number) => value != keyarr[2]
-                            )
-                        ) {
+                        const panelidx = <any[]>this.myProxy.panelIdxs[keyarr[1]];
+                        if (panelidx.every((value: any, inex: number) => value != keyarr[2])) {
                             panelidx.push(keyarr[2]);
                         }
                     }
                 }
                 this.replace(value[0].$el);
             }
-            if (
-                needshowtabIndex == -1 &&
-                needshowcontentidx == -1 &&
-                this.pageData.searchTxt
-            ) {
+            if (needshowtabIndex == -1 && needshowcontentidx == -1 && this.pageData.searchTxt) {
                 this.pageData.tabIndex = 0;
             }
         }
@@ -159,10 +149,7 @@ export default class Help extends AbstractView {
                         this.pageData.searchTxt,
                         `<span style="background-color:rgb(27, 121, 242); color:white">${this.pageData.searchTxt}</span>`
                     );
-                    value.innerHTML = value.innerHTML.replaceAll(
-                        match[1],
-                        replaceres
-                    );
+                    value.innerHTML = value.innerHTML.replaceAll(match[1], replaceres);
                 }
             }
         }

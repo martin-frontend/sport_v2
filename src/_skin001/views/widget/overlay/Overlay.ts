@@ -5,5 +5,5 @@ import LangUtil from "@/core/global/LangUtil";
 @Component
 export default class Overlay extends AbstractView {
     LangUtil = LangUtil;
-    @Prop({default: false}) value!:boolean;
+    @Prop({ default: false }) value!: boolean;
 }

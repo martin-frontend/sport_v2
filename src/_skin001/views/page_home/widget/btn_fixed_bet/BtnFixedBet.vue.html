@@ -9,12 +9,20 @@
     <div v-else class="d-flex align-center justify-center pl-2" color="transparent" style="width: 100%">
         <div :class="$vuetify.breakpoint.mobile?'onlyphoneItem  text-13':'text-14'" class="divslot"><slot></slot></div>
         <v-spacer v-if="$slots.default" />
-        <svg-icon class="textGray--text mr-1" icon="lock" v-if="!market || market.status == 2 || selection.status != 0 || !selection.price.back"></svg-icon>
+        <svg-icon
+            class="textGray--text mr-1"
+            icon="lock"
+            v-if="!market || market.status == 2 || selection.status != 0 || !selection.price.back"
+        ></svg-icon>
         <div v-else ref="divPrice" class="font-weight-bold" :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-14'">
             {{TransMarketPrice(getPrice())}}
         </div>
     </div>
-    <div ref="imgOdds" class="text-8 mx-1 opacity-0" v-if="!(!market || market.status == 2 || !selection.type || selection.status != 0 || !selection.price.back)">
+    <div
+        ref="imgOdds"
+        class="text-8 mx-1 opacity-0"
+        v-if="!(!market || market.status == 2 || !selection.type || selection.status != 0 || !selection.price.back)"
+    >
         <svg-icon :icon="iconOdds"></svg-icon>
     </div>
 </v-sheet>

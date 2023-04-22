@@ -7,9 +7,9 @@ import BtnFixedBet from "../btn_fixed_bet/BtnFixedBet.vue";
 import ChampionItem from "./ChampionItem";
 
 @Component({
-    components:{
-        BtnFixedBet
-    }
+    components: {
+        BtnFixedBet,
+    },
 })
 export default class extends ChampionItem {}
 </script>

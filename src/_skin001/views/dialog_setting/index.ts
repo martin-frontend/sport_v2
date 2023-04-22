@@ -8,7 +8,7 @@ function show() {
     // DialogMount(DialogSetting);
     // const proxy: DialogSettingProxy = getProxy(DialogSettingProxy);
     // proxy.pageData.bShow = true;
-    const proxy:SettingProxy = getProxy(SettingProxy);
+    const proxy: SettingProxy = getProxy(SettingProxy);
     proxy.pageData.bShow = true;
 }
 

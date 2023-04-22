@@ -2,8 +2,8 @@
     .downcount {
         border: solid 2px #e8e8e2;
     }
-    .btns{
-        border: solid 1px #E8E8E3 !important;
+    .btns {
+        border: solid 1px #e8e8e3 !important;
         background-color: transparent;
     }
 }
@@ -11,8 +11,8 @@
     .downcount {
         border: solid 2px #333435;
     }
-    .btns{
-        background-color: #323435 ;
+    .btns {
+        background-color: #323435;
     }
 }
 .dateitem {
@@ -33,13 +33,12 @@
     background: url("~@/_skin001/assets/live_texture.png") no-repeat right 0px bottom 0px;
 }
 
-.btn_close{
-    position:absolute;
+.btn_close {
+    position: absolute;
     top: 5px;
     right: 5px;
     z-index: 5;
 }
-
 
 .competing-time {
     position: fixed;
@@ -47,6 +46,6 @@
     z-index: 2;
     pointer-events: none;
     > div {
-        background: linear-gradient(to right, #F5B600, #F19900) !important;
+        background: linear-gradient(to right, #f5b600, #f19900) !important;
     }
 }

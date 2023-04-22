@@ -1,4 +1,4 @@
-.input-box{
+.input-box {
     background: linear-gradient(90deg, #fcb131 0%, #ffe64d 100%);
     padding: 1px;
     border-radius: 5px;
@@ -52,7 +52,7 @@ input {
 ::v-deep .v-tabs-slider {
     background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
 }
-.btn_yellow{
+.btn_yellow {
     background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
 }
 .fast_choose {
@@ -82,11 +82,10 @@ input {
     }
 }
 
-
 .opacity-0 {
     opacity: 0;
 }
 
-::v-deep .v-card--link:before{
+::v-deep .v-card--link:before {
     background-color: transparent;
 }

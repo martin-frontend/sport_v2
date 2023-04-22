@@ -8,10 +8,7 @@
     position: absolute;
 }
 
-::v-deep
-    .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat)
-    > .v-input__control
-    > .v-input__slot {
+::v-deep .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
     box-shadow: none;
 }
 ::v-deep .v-input__slot {
