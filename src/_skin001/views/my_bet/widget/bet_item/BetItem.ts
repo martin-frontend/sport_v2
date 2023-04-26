@@ -22,7 +22,8 @@ export default class BetItem extends AbstractView {
     settintProxy: SettingProxy = getProxy(SettingProxy);
     myProxy: BetProxy = this.getProxy(BetProxy);
     pageData = this.myProxy.pageData;
-
+    bshowkeybord = false;
+    keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "000"];
     @Prop() item!: any;
 
     iconOdds = "arrow_up";
@@ -49,7 +50,9 @@ export default class BetItem extends AbstractView {
             this.clearOddsStatus();
         }
     }
-
+    handleInputClick() {
+        this.bshowkeybord = true;
+    }
     clearOddsStatus() {
         clearTimeout(this.cleartimer);
         const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
@@ -63,9 +66,6 @@ export default class BetItem extends AbstractView {
         }
     }
 
-    onInput() {
-        this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
-    }
     transTitle(title: any) {
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
@@ -105,6 +105,18 @@ export default class BetItem extends AbstractView {
     //检测是否为滚球
     checkInplay() {
         return !!this.states && !!this.states.goals_ft;
+    }
+
+    onInput() {
+        this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
+    }
+    onInput_mobile(num: string) {
+        this.item.stake = amountFormat(this.item.stake + num);
+    }
+    onDeleteKeybord() {
+        const stake = Math.floor(Number(parseLocaleNumber(this.item.stake || "0")) / 10);
+        this.item.stake = amountFormat(stake);
+        this.item.stake = this.item.stake == "0" ? "" : this.item.stake;
     }
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {

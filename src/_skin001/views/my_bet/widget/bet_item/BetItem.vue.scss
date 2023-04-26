@@ -31,6 +31,9 @@ input {
         border: solid 1px #e8e8e2;
         border-radius: 5px;
     }
+    .keybordright {
+        background-color: #f7f7f7;
+    }
 }
 .theme--dark {
     .tabs_box {
@@ -44,6 +47,9 @@ input {
         background-color: #272828;
         border: solid 1px #333435;
         border-radius: 5px;
+    }
+    .keybordright {
+        background-color: #2d2f2f;
     }
 }
 ::v-deep .v-card--link:before {
@@ -81,11 +87,33 @@ input {
         transform: translatey(-1px);
     }
 }
-
+::v-deep .v-btn .v-ripple__container {
+    color: transparent !important;
+}
 .opacity-0 {
     opacity: 0;
 }
 
 ::v-deep .v-card--link:before {
     background-color: transparent;
+}
+.keybordright {
+    min-height: 40px;
+    margin: 4px 2px;
+    border-radius: 8px;
+    box-shadow: none !important;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+.expand-enter-active,
+.expand-leave-active {
+    transition: all 0.3s ease;
+}
+
+.expand-enter,
+.expand-leave-to {
+    height: 0;
+    opacity: 0;
+    overflow: hidden;
 }
