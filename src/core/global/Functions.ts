@@ -150,7 +150,6 @@ export function amountFormat(val: any, decimal: boolean = false, decimalLang: nu
         minimumFractionDigits: decimal ? decimalLang : 0,
         maximumFractionDigits: decimalLang,
     });
-    console.log("amountFormat>>>>", formattedAmount);
     return prefix + formattedAmount;
 }
 //解析数字格式
