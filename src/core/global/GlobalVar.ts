@@ -34,6 +34,8 @@ const GlobalVar = {
     /**预设置的赛事 */
     pre_event_id: 0,
 
+    /**是否由父级界面控制时区 */
+    timezone_change: "0",
     color_up: "#F64D55",
     color_down: "#41A81D",
 };

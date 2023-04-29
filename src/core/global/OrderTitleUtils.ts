@@ -18,6 +18,22 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
     switch (market_type) {
         case marketType.MATCH_ODDS: //主客和
         case marketType.MATCH_ODDS_HALF_TIME: //半场 - 主客和
+        case marketType.WAY_HANDICAP_MINUS_4:
+        case marketType.WAY_HANDICAP_MINUS_3:
+        case marketType.WAY_HANDICAP_MINUS_2:
+        case marketType.WAY_HANDICAP_MINUS_1:
+        case marketType.WAY_HANDICAP_PLUS_1:
+        case marketType.WAY_HANDICAP_PLUS_2:
+        case marketType.WAY_HANDICAP_PLUS_3:
+        case marketType.WAY_HANDICAP_PLUS_4:
+        case marketType.WAY_HANDICAP_MINUS_4_HALF_TIME:
+        case marketType.WAY_HANDICAP_MINUS_3_HALF_TIME:
+        case marketType.WAY_HANDICAP_MINUS_2_HALF_TIME:
+        case marketType.WAY_HANDICAP_MINUS_1_HALF_TIME:
+        case marketType.WAY_HANDICAP_PLUS_1_HALF_TIME:
+        case marketType.WAY_HANDICAP_PLUS_2_HALF_TIME:
+        case marketType.WAY_HANDICAP_PLUS_3_HALF_TIME:
+        case marketType.WAY_HANDICAP_PLUS_4_HALF_TIME:
             return s_type == "Home" ? home_name : s_type == "Away" ? away_name : LangUtil("Draw");
         case marketType.TOTAL_GOALS: //总入球
         case marketType.TOTAL_GOALS_HALF_TIME: //半场 - 总入球
@@ -173,6 +189,25 @@ function getScoreStr(item: any) {
         return " " + LangUtil("比分") + "(" + state.goals_ft + ")";
     }
 }
+
+const Way_Handicap: string | string[] = [
+    marketType.WAY_HANDICAP_MINUS_4,
+    marketType.WAY_HANDICAP_MINUS_3,
+    marketType.WAY_HANDICAP_MINUS_2,
+    marketType.WAY_HANDICAP_MINUS_1,
+    marketType.WAY_HANDICAP_PLUS_1,
+    marketType.WAY_HANDICAP_PLUS_2,
+    marketType.WAY_HANDICAP_PLUS_3,
+    marketType.WAY_HANDICAP_PLUS_4,
+    marketType.WAY_HANDICAP_MINUS_4_HALF_TIME,
+    marketType.WAY_HANDICAP_MINUS_3_HALF_TIME,
+    marketType.WAY_HANDICAP_MINUS_2_HALF_TIME,
+    marketType.WAY_HANDICAP_MINUS_1_HALF_TIME,
+    marketType.WAY_HANDICAP_PLUS_1_HALF_TIME,
+    marketType.WAY_HANDICAP_PLUS_2_HALF_TIME,
+    marketType.WAY_HANDICAP_PLUS_3_HALF_TIME,
+    marketType.WAY_HANDICAP_PLUS_4_HALF_TIME,
+];
 //预算结果逻辑
 function advance_result(orderItem: any, playingState: any) {
     //1赢 2半赢 3平 4输 5输一半
@@ -182,6 +217,7 @@ function advance_result(orderItem: any, playingState: any) {
 
     //是否是滚球
     const isPlaying = Object.keys(orderItem.state).length > 0;
+    const findWay_HandicapIdx = Way_Handicap.indexOf(orderItem.market_type);
     //主客和
     if (orderItem.market_type == marketType.MATCH_ODDS) {
         const goalsarr = playingState.goals_ft.split("-");
@@ -192,6 +228,24 @@ function advance_result(orderItem: any, playingState: any) {
             result_tb.win_type = differ == 0 ? 1 : 4;
         } else if (orderItem.s_type == "Away") {
             result_tb.win_type = differ < 0 ? 1 : 4;
+        }
+    } else if (findWay_HandicapIdx != -1) {
+        const numarr = [4, 3, 2, 1, -1, -2, -3, -4, 4, 3, 2, 1, -1, -2, -3, -4];
+        let Way_handicap = numarr[findWay_HandicapIdx];
+        let goalsarr = playingState.goals_ft.split("-"); //事实的比分
+        if (findWay_HandicapIdx > 7) {
+            //半场
+            goalsarr = playingState.goals_ht.split("-"); //事实的比分
+        }
+        goalsarr[0] = Number(goalsarr[0]);
+        goalsarr[1] = Number(goalsarr[1]);
+        const score = goalsarr[0] + Way_handicap - goalsarr[1];
+        if (orderItem.s_type == "Home") {
+            result_tb.win_type = score > 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Draw") {
+            result_tb.win_type = score == 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Away") {
+            result_tb.win_type = score < 0 ? 1 : 4;
         }
     }
     //半场-主客和
