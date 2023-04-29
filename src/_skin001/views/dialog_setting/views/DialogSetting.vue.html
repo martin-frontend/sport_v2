@@ -92,7 +92,7 @@
         </v-row>
     </v-sheet>
 
-    <v-sheet color="bgBanner" class="mt-2 py textGray--text text-14">
+    <v-sheet v-if="GlobalVar.timezone_change=='1'" color="bgBanner" class="mt-2 py textGray--text text-14">
         <div class="d-flex align-center">
             <v-sheet class="mx-2" rounded color="yellow" width="3" height="22"></v-sheet>
             <div>{{LangUtil("时区设置")}}</div>

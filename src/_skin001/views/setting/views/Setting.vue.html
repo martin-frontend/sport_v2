@@ -73,7 +73,7 @@
         </v-row>
     </v-sheet>
 
-    <v-sheet class="textGray--text mt-5" color="transparent">
+    <v-sheet v-if="GlobalVar.timezone_change=='1'" class="textGray--text mt-5" color="transparent">
         <v-row dense>
             <v-col cols="4" class="pt-3">{{LangUtil("时区设置")}}</v-col>
             <v-col cols="8">

@@ -50,6 +50,7 @@ GlobalVar.token = js_utils.getQueryVariable("t") ?? "";
 GlobalVar.lang = js_utils.getQueryVariable("lang") ?? "zh_CN";
 GlobalVar.displayname = js_utils.getQueryVariable("displayname") ?? "";
 GlobalVar.pre_event_id = parseInt(getUrlHashParam("id"));
+GlobalVar.timezone_change = js_utils.getQueryVariable("timezone_change") ?? "0";
 
 const vuetify = getVuetify();
 Vue["vuetify"] = vuetify;

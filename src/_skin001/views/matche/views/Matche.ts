@@ -68,7 +68,26 @@ export default class Matche extends AbstractView {
 
     //模板分类
     marketTypeKind = {
-        1: ["MATCH_ODDS", "MATCH_ODDS_HALF_TIME"],
+        1: [
+            "MATCH_ODDS",
+            "MATCH_ODDS_HALF_TIME",
+            "3_WAY_HANDICAP_MINUS_4",
+            "3_WAY_HANDICAP_MINUS_3",
+            "3_WAY_HANDICAP_MINUS_2",
+            "3_WAY_HANDICAP_MINUS_1",
+            "3_WAY_HANDICAP_PLUS_1",
+            "3_WAY_HANDICAP_PLUS_2",
+            "3_WAY_HANDICAP_PLUS_3",
+            "3_WAY_HANDICAP_PLUS_4",
+            "3_WAY_HANDICAP_MINUS_4_HALF_TIME",
+            "3_WAY_HANDICAP_MINUS_3_HALF_TIME",
+            "3_WAY_HANDICAP_MINUS_2_HALF_TIME",
+            "3_WAY_HANDICAP_MINUS_1_HALF_TIME",
+            "3_WAY_HANDICAP_PLUS_1_HALF_TIME",
+            "3_WAY_HANDICAP_PLUS_2_HALF_TIME",
+            "3_WAY_HANDICAP_PLUS_3_HALF_TIME",
+            "3_WAY_HANDICAP_PLUS_4_HALF_TIME",
+        ],
         2: [
             "TOTAL_GOALS",
             "ASIAN_OVER_UNDER",
