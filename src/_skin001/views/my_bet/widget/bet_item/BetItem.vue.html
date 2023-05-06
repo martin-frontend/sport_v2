@@ -97,16 +97,22 @@
                 v-model="item.stake"
                 @input="onInput(item)"
             />
+            <v-btn v-if="item.stake" class="mr-2" icon width="20" height="20" @click="item.stake = ''">
+                <!-- <v-icon class="mx-3" :size="$vuetify.breakpoint.xsOnly ? 14 :20" color="colorInfo">mdi-close-circle</v-icon> -->
+                <svg-icon icon="cancel-circle"></svg-icon>
+            </v-btn>
         </v-sheet>
     </div>
     <transition name="expand">
         <v-sheet color="transparent" v-if="bshowkeybord && $vuetify.breakpoint.mobile" class="d-flex keybord" width="100%">
             <v-row class="ml-2 mr-0" dense>
-                <v-col cols="4" v-for="(num, index) in keybordarr">
+                <v-col cols="4" v-for="(num, index) in keybordarr" :key="index">
                     <v-card
                         class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 textBet--text"
                         height="40"
-                        @click="onInput_mobile(num)"
+                        @click="!$vuetify.breakpoint.mobile && onInput_mobile(num)"
+                        @touchstart="$vuetify.breakpoint.mobile && onInput_mobile(num)"
+                        @touchend="onTouchEnd"
                         :key="index"
                     >
                         {{num}}
@@ -114,13 +120,32 @@
                 </v-col>
             </v-row>
             <div style="display: grid" class="mr-2 mt-n1">
-                <button @click="onDeleteKeybord" :width="$vuetify.breakpoint.mobile?70:60" class="keybordright">
+                <button
+                    @click="onDeleteKeybord"
+                    @touchstart="onDeleteKeybord"
+                    :width="$vuetify.breakpoint.mobile?70:60"
+                    class="keybordright"
+                    v-ripple
+                >
                     <svg-icon class="text-25" icon="keyborddel"></svg-icon>
                 </button>
-                <v-card @click="onMax" class="keybordright text-18" :width="$vuetify.breakpoint.mobile?70:60" style="height: 88px">
+                <v-card
+                    @click="onMax"
+                    @touchstart="onMax"
+                    @touchend="onTouchEnd"
+                    class="keybordright text-18"
+                    :width="$vuetify.breakpoint.mobile?70:60"
+                    style="height: 88px"
+                >
                     MAX
                 </v-card>
-                <v-card @click="bshowkeybord=false" :width="$vuetify.breakpoint.mobile?70:60" class="keybordright">
+                <v-card
+                    @click="!$vuetify.breakpoint.mobile && (bshowkeybord=false)"
+                    @touchstart="$vuetify.breakpoint.mobile && (bshowkeybord=false)"
+                    @touchend="onTouchEnd"
+                    :width="$vuetify.breakpoint.mobile?70:60"
+                    class="keybordright"
+                >
                     <svg-icon class="text-30" icon="keybord"></svg-icon>
                 </v-card>
             </div>
@@ -132,8 +157,9 @@
                 <v-card
                     class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
                     :height="$vuetify.breakpoint.mobile?40:30"
-                    ripple
-                    @click="item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])"
+                    @click="!$vuetify.breakpoint.mobile && (item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1]))"
+                    @touchstart="$vuetify.breakpoint.mobile && (item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1]))"
+                    @touchend="onTouchEnd"
                 >
                     <span class="font-weight-bold">+{{amountFormat(settintProxy.pageData.form.fast_choose[i-1])}}</span>
                 </v-card>
@@ -142,8 +168,9 @@
                 <v-card
                     class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
                     :height="$vuetify.breakpoint.mobile?40:30"
-                    ripple
                     @click="onMax"
+                    @touchstart="onMax"
+                    @touchend="onTouchEnd"
                 >
                     <span class="font-weight-bold">{{LangUtil("最大")}}</span>
                 </v-card>
@@ -152,8 +179,9 @@
                 <v-card
                     class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
                     :height="$vuetify.breakpoint.mobile?40:30"
-                    ripple
                     @click="item.stake = ''"
+                    @touchstart="item.stake = ''"
+                    @touchend="onTouchEnd"
                 >
                     <span class="font-weight-bold">{{LangUtil("清空")}}</span>
                 </v-card>
@@ -180,7 +208,7 @@
                 :loading="pageData.loading"
                 height="40"
                 width="100%"
-                :disabled="item.isMarketClose"
+                :disabled="item.isMarketClose || !isAllowBet"
                 @click="onBet"
             >
                 <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
@@ -196,6 +224,7 @@
                 height="40"
                 width="100%"
                 @click="onBet"
+                :disabled="item.isMarketClose || !isAllowBet"
             >
                 <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
             </v-btn>
@@ -224,7 +253,7 @@
                         :loading="pageData.loading"
                         height="40"
                         width="100%"
-                        :disabled="item.isMarketClose"
+                        :disabled="item.isMarketClose || !isAllowBet"
                         @click="onBet"
                     >
                         <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
@@ -240,6 +269,7 @@
                         height="40"
                         width="100%"
                         @click="onBet"
+                        :disabled="item.isMarketClose || !isAllowBet"
                     >
                         <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
                     </v-btn>

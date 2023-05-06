@@ -9,6 +9,8 @@ import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import SelfProxy from "@/proxy/SelfProxy";
 import SettingProxy from "@/proxy/SettingProxy";
 import BetProxy from "@/proxy/BetProxy";
+import ScrollUtil from "@/core/global/ScrollUtil";
+import Vue from "vue";
 
 @Component
 export default class BetItem extends AbstractView {
@@ -28,6 +30,17 @@ export default class BetItem extends AbstractView {
 
     iconOdds = "arrow_up";
     cleartimer = 0;
+
+    @Watch("bshowkeybord")
+    onWatchShowKeyboard() {
+        // 键盘打开后，向上滚动，露出投注按扭
+        if (this.bshowkeybord) {
+            const divboxMyBet = document.getElementById("divboxMyBet");
+            if (divboxMyBet) {
+                ScrollUtil(divboxMyBet, 1000);
+            }
+        }
+    }
 
     @Watch("item.odds")
     onWatchOdds() {
@@ -113,10 +126,13 @@ export default class BetItem extends AbstractView {
     onInput_mobile(num: string) {
         this.item.stake = amountFormat(this.item.stake + num);
     }
-    onDeleteKeybord() {
-        const stake = Math.floor(Number(parseLocaleNumber(this.item.stake || "0")) / 10);
-        this.item.stake = amountFormat(stake);
-        this.item.stake = this.item.stake == "0" ? "" : this.item.stake;
+    onDeleteKeybord(e: any) {
+        const mobile = this.$vuetify.breakpoint.mobile;
+        if ((mobile && e.type == "touchstart") || (!mobile && e.type == "click")) {
+            const stake = Math.floor(Number(parseLocaleNumber(this.item.stake || "0")) / 10);
+            this.item.stake = amountFormat(stake);
+            this.item.stake = this.item.stake == "0" ? "" : this.item.stake;
+        }
     }
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {
@@ -127,6 +143,12 @@ export default class BetItem extends AbstractView {
     //删除注单
     onDelete() {
         this.myProxy.deleteItem(this.item.market.market_id, this.item.selection.id);
+    }
+    get isAllowBet() {
+        const stakeValue = parseLocaleNumber(this.item.stake.toString());
+        const { gold } = this.selfProxy.userInfo;
+        const { selection, market } = this.item;
+        return this.item.stake && stakeValue >= this.item.minStake && stakeValue <= this.item.maxStake && stakeValue <= parseFloat(gold);
     }
     /**投注 */
     onBet() {
@@ -154,13 +176,35 @@ export default class BetItem extends AbstractView {
         }
     }
 
-    onMax() {
-        this.item.stake = Math.min(parseFloat(this.selfProxy.userInfo.gold) >> 0, this.item.maxStake).toString();
-        this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
+    onMax(e: any) {
+        const mobile = this.$vuetify.breakpoint.mobile;
+        if ((mobile && e.type == "touchstart") || (!mobile && e.type == "click")) {
+            this.item.stake = Math.min(parseFloat(this.selfProxy.userInfo.gold) >> 0, this.item.maxStake).toString();
+            this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
+        }
     }
 
     getPreWin() {
         const value = parseLocaleNumber(this.item.stake);
         return amountFormat((this.item.selection.price.back * value - value).toFixed(3), true, 2);
+    }
+    /**解决键盘点击太快留下残影的bug */
+    timer_remove_ripple = 0;
+    onTouchEnd(e: any) {
+        const element: any = e.currentTarget as HTMLElement | null;
+        if (!element || !element._ripple) return;
+
+        window.clearTimeout(element._ripple.showTimer);
+
+        clearTimeout(this.timer_remove_ripple);
+        const eles: HTMLElement[] = <any>document.getElementsByClassName("v-ripple__container");
+        this.timer_remove_ripple = setTimeout(() => {
+            for (let i = 0; i < eles.length; i++) {
+                const ele = eles[i];
+                if (ele && ele.parentNode) {
+                    ele.parentNode.removeChild(ele);
+                }
+            }
+        }, 200);
     }
 }

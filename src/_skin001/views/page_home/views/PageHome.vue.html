@@ -127,8 +127,9 @@
                     :placeholder="LangUtil('搜索联赛或球队名称')"
                     v-model="listQueryComp.keyword"
                 />
-                <svg-icon icon="search" @click.native="onSearch"></svg-icon>
             </v-form>
+            <v-spacer />
+            <svg-icon icon="search" @click.native="onSearch"></svg-icon>
         </v-sheet>
         <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="30">
             <v-sheet
