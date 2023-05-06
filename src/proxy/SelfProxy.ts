@@ -40,6 +40,11 @@ export default class SelfProxy extends puremvc.Proxy {
     set_user_info(data: any) {
         GlobalVar.currency = data.currency_type;
         Object.assign(this.userInfo, data);
+        // 服务端有时候会传number类型过来。此时转换一下
+        if (typeof this.userInfo.gold == "number") {
+            // @ts-ignore
+            this.userInfo.gold = this.userInfo.gold.toString();
+        }
     }
 
     api_user_info() {
