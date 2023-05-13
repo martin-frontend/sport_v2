@@ -147,7 +147,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
         // TODO 移除已经结束的赛事
     }
     set_user_lovematch(data: any) {
-        this.pageData.loading = false;
+        if (this.listQueryComp.tag == "love") this.pageData.loading = false;
         this.pageData.love_count = data.reduce((previousValue: any, current: any) => previousValue + current.count, 0);
         this.pageData.love_events = [];
         for (const comp of data) {
