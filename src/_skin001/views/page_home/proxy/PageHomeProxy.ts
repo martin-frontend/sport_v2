@@ -107,6 +107,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
         this.pageData.loading = false;
         this.pageData.competition_list = data;
         this.pageData.openIndexs = [0, 1, 2];
+        this.getMarketAndStates();
     }
     set_market_typelist(data: any) {
         for (const item of data) {
