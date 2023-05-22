@@ -75,6 +75,8 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
         case marketType.TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
         case marketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE:
         case marketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
+        case marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE:
+        case marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME:
             return `${s_type == "Yes" ? LangUtil("是") : LangUtil("否")} ${formatAsian(handicap, s_type)}`;
         case marketType.ODD_OR_EVEN_HALF_TIME: //半场 - 单/双
         case marketType.ODD_OR_EVEN: //入球单双
@@ -83,6 +85,47 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
         case marketType.TEAM_B_GOALS_ODD_OR_EVEN:
         case marketType.TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME:
             return `${s_type == "Odd" ? LangUtil("单") : LangUtil("双")} ${formatAsian(handicap, s_type)}`;
+        case marketType.WINNING_MARGIN:
+        case marketType.WINNING_MARGIN_HALF_TIME:
+        case marketType.TOTAL_GOALS_RANGE:
+        case marketType.TOTAL_GOALS_RANGE_HALF_TIME:
+        case marketType.TEAM_A_EXACT_GOALS:
+        case marketType.TEAM_A_EXACT_GOALS_HALF_TIME:
+        case marketType.TEAM_B_EXACT_GOALS:
+        case marketType.TEAM_B_EXACT_GOALS_HALF_TIME:
+            switch (s_type) {
+                case "No Winner":
+                    return LangUtil("比分平局");
+                case "Exactly One":
+                    return LangUtil("输赢比数1球");
+                case "Exactly Two":
+                    return LangUtil("输赢比数2球");
+                case "Exactly Three":
+                    return LangUtil("输赢比数3球");
+                case "Four Or More":
+                    return LangUtil("输赢比数4球或更多");
+
+                case "One Or Less":
+                    return LangUtil("无进球或1球");
+                case "Two Or Three":
+                    return LangUtil("2球或3球");
+                case "Four Or Five":
+                    return LangUtil("4球或5球");
+                case "Six Or More":
+                    return LangUtil("6球或更多");
+
+                case "Zero":
+                    return LangUtil("无进球");
+                case "One":
+                    return LangUtil("总入球1球");
+                case "Two":
+                    return LangUtil("总入球2球");
+                case "Three":
+                    return LangUtil("总入球3球");
+                case "Four Or More":
+                    return LangUtil("总入球4球或更多");
+            }
+            return s_type;
         case marketType.CORRECT_SCORE: //'波胆'
         case marketType.CORRECT_SCORE_HALF_TIME: //半场 - 波胆
             return s_type == "" ? LangUtil("其它") : s_type;
@@ -834,6 +877,88 @@ function advance_result(orderItem: any, playingState: any) {
             result_tb.win_type = allget ? 1 : 4;
         } else if (orderItem.s_type == "No") {
             result_tb.win_type = allget ? 4 : 1;
+        }
+    }
+    //	输赢比数 包括半场
+    else if (orderItem.market_type == marketType.WINNING_MARGIN || orderItem.market_type == marketType.WINNING_MARGIN_HALF_TIME) {
+        let goalsarr = playingState.goals_ft.split("-");
+        if (orderItem.market_type == marketType.WINNING_MARGIN_HALF_TIME) {
+            goalsarr = playingState.goals_ht.split("-");
+        }
+
+        const result = Number(goalsarr[0]) - Number(goalsarr[1]);
+        if (orderItem.s_type == "No Winner") {
+            result_tb.win_type = result == 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Exactly One") {
+            result_tb.win_type = result == 1 ? 1 : 4;
+        } else if (orderItem.s_type == "Exactly Two") {
+            result_tb.win_type = result == 2 ? 1 : 4;
+        } else if (orderItem.s_type == "Exactly Three") {
+            result_tb.win_type = result == 3 ? 1 : 4;
+        } else if (orderItem.s_type == "Four Or More") {
+            result_tb.win_type = result > 3 ? 1 : 4;
+        }
+    }
+    //	总入球范围  包括半场
+    else if (orderItem.market_type == marketType.TOTAL_GOALS_RANGE || orderItem.market_type == marketType.TOTAL_GOALS_RANGE_HALF_TIME) {
+        let goalsarr = playingState.goals_ft.split("-");
+        if (orderItem.market_type == marketType.TOTAL_GOALS_RANGE_HALF_TIME) {
+            goalsarr = playingState.goals_ht.split("-");
+        }
+        const result = Number(goalsarr[0]) + Number(goalsarr[1]);
+        if (orderItem.s_type == "One Or Less") {
+            result_tb.win_type = result <= 1 ? 1 : 4;
+        } else if (orderItem.s_type == "Two Or Three") {
+            result_tb.win_type = result >= 2 && result <= 3 ? 1 : 4;
+        } else if (orderItem.s_type == "Four Or Five") {
+            result_tb.win_type = result >= 4 && result <= 5 ? 1 : 4;
+        } else if (orderItem.s_type == "Six Or More") {
+            result_tb.win_type = result > 5 ? 1 : 4;
+        }
+    }
+    //	主队总入球 客队总入球  包括半场
+    else if (
+        orderItem.market_type == marketType.TEAM_A_EXACT_GOALS ||
+        orderItem.market_type == marketType.TEAM_A_EXACT_GOALS_HALF_TIME ||
+        marketType.TEAM_B_EXACT_GOALS ||
+        orderItem.market_type == marketType.TEAM_B_EXACT_GOALS_HALF_TIME
+    ) {
+        let goalsarr = playingState.goals_ft.split("-");
+        let result = Number(goalsarr[0]);
+        if (
+            orderItem.market_type == marketType.TEAM_A_EXACT_GOALS_HALF_TIME ||
+            orderItem.market_type == marketType.TEAM_B_EXACT_GOALS_HALF_TIME
+        ) {
+            goalsarr = playingState.goals_ht.split("-");
+            result = Number(goalsarr[1]);
+        }
+
+        if (orderItem.s_type == "Zero") {
+            result_tb.win_type = result == 0 ? 1 : 4;
+        } else if (orderItem.s_type == "One") {
+            result_tb.win_type = result == 1 ? 1 : 4;
+        } else if (orderItem.s_type == "Two") {
+            result_tb.win_type = result == 2 ? 1 : 4;
+        } else if (orderItem.s_type == "Three") {
+            result_tb.win_type = result == 3 ? 1 : 4;
+        } else if (orderItem.s_type == "Four Or More") {
+            result_tb.win_type = result > 3 ? 1 : 4;
+        }
+        //	任意一队得三分或以上 包括半场
+        else if (
+            orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE ||
+            marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME
+        ) {
+            let goalsarr = playingState.goals_ft.split("-");
+            if (orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME) {
+                goalsarr = playingState.goals_ht.split("-");
+            }
+            const allget = Number(goalsarr[0]) > 2 || Number(goalsarr[1]) > 2;
+            if (orderItem.s_type == "Yes") {
+                result_tb.win_type = allget ? 1 : 4;
+            } else if (orderItem.s_type == "No") {
+                result_tb.win_type = allget ? 4 : 1;
+            }
         }
     }
     result_tb.heardstr = "";

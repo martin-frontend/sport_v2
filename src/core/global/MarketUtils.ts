@@ -39,11 +39,13 @@ const EnumMarketType = {
     ASIAN_OVER_UNDER_EXTRA_TIME: "ASIAN_OVER_UNDER_EXTRA_TIME",
     ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME: "ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME",
     ASIAN_OVER_UNDER_AFTER_PENALTIES: "ASIAN_OVER_UNDER_AFTER_PENALTIES",
+
     EITHER_TEAM_TO_SCORE: "EITHER_TEAM_TO_SCORE",
     EITHER_TEAM_TO_SCORE_HALF_TIME: "EITHER_TEAM_TO_SCORE_HALF_TIME",
 
     EITHER_TEAM_TO_SCORE_TWICE_OR_MORE: "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE",
     EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME: "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+
     TEAM_A_TO_SCORE: "TEAM_A_TO_SCORE",
     TEAM_A_TO_SCORE_HALF_TIME: "TEAM_A_TO_SCORE_HALF_TIME",
     TEAM_B_TO_SCORE: "TEAM_B_TO_SCORE",
@@ -76,6 +78,16 @@ const EnumMarketType = {
     WAY_HANDICAP_PLUS_2_HALF_TIME: "3_WAY_HANDICAP_PLUS_2_HALF_TIME",
     WAY_HANDICAP_PLUS_3_HALF_TIME: "3_WAY_HANDICAP_PLUS_3_HALF_TIME",
     WAY_HANDICAP_PLUS_4_HALF_TIME: "3_WAY_HANDICAP_PLUS_4_HALF_TIME",
+    WINNING_MARGIN: "WINNING_MARGIN",
+    WINNING_MARGIN_HALF_TIME: "WINNING_MARGIN_HALF_TIME",
+    TOTAL_GOALS_RANGE: "TOTAL_GOALS_RANGE",
+    TOTAL_GOALS_RANGE_HALF_TIME: "TOTAL_GOALS_RANGE_HALF_TIME",
+    TEAM_A_EXACT_GOALS: "TEAM_A_EXACT_GOALS",
+    TEAM_A_EXACT_GOALS_HALF_TIME: "TEAM_A_EXACT_GOALS_HALF_TIME",
+    TEAM_B_EXACT_GOALS: "TEAM_B_EXACT_GOALS",
+    TEAM_B_EXACT_GOALS_HALF_TIME: "TEAM_B_EXACT_GOALS_HALF_TIME",
+    EITHER_TEAM_TO_SCORE_THREE_OR_MORE: "EITHER_TEAM_TO_SCORE_THREE_OR_MORE",
+    EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME: "EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME",
 };
 
 function formatAsian(handicap: string, type: string): string {
@@ -152,11 +164,54 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
         case EnumMarketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE:
         case EnumMarketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
+        case EnumMarketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE:
+        case EnumMarketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME:
             return selection.type == "Yes" ? LangUtil("是") : LangUtil("否");
         case EnumMarketType.DRAW_NO_BET:
         case EnumMarketType.DRAW_NO_BET_HALF_TIME:
             //@ts-ignore
             return selection.type == "Home" ? matche.home_team : matche.away_team;
+        case EnumMarketType.WINNING_MARGIN:
+        case EnumMarketType.WINNING_MARGIN_HALF_TIME:
+        case EnumMarketType.TOTAL_GOALS_RANGE:
+        case EnumMarketType.TOTAL_GOALS_RANGE_HALF_TIME:
+        case EnumMarketType.TEAM_A_EXACT_GOALS:
+        case EnumMarketType.TEAM_A_EXACT_GOALS_HALF_TIME:
+        case EnumMarketType.TEAM_B_EXACT_GOALS:
+        case EnumMarketType.TEAM_B_EXACT_GOALS_HALF_TIME:
+            switch (selection.type) {
+                case "No Winner":
+                    return LangUtil("比分平局");
+                case "Exactly One":
+                    return LangUtil("输赢比数1球");
+                case "Exactly Two":
+                    return LangUtil("输赢比数2球");
+                case "Exactly Three":
+                    return LangUtil("输赢比数3球");
+                case "Four Or More":
+                    return LangUtil("输赢比数4球或更多");
+
+                case "One Or Less":
+                    return LangUtil("无进球或1球");
+                case "Two Or Three":
+                    return LangUtil("2球或3球");
+                case "Four Or Five":
+                    return LangUtil("4球或5球");
+                case "Six Or More":
+                    return LangUtil("6球或更多");
+
+                case "Zero":
+                    return LangUtil("无进球");
+                case "One":
+                    return LangUtil("总入球1球");
+                case "Two":
+                    return LangUtil("总入球2球");
+                case "Three":
+                    return LangUtil("总入球3球");
+                case "Four Or More":
+                    return LangUtil("总入球4球或更多");
+            }
+            return selection.type;
         case EnumMarketType.CORRECT_SCORE:
         case EnumMarketType.CORRECT_SCORE_HALF_TIME:
             return selection.type == "" ? LangUtil("其它") : selection.type;
