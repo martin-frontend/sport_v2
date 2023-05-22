@@ -20,7 +20,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
     };
     isloadSecLang = false;
 
-    nowtime: any;
+    nowtime = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10);
     panel = <any>[];
     selectDate = new Date(Date.now() - new Date().getTimezoneOffset() * 60000).toISOString().substr(0, 10);
     init() {

@@ -25,7 +25,17 @@ export default class PageGameResults extends AbstractView {
         this.myProxy = <any>puremvc.Facade.getInstance().retrieveProxy(this.matche.id);
         this.pageData = this.myProxy.pageData;
     }
-
+    transTitle(title: any) {
+        const matches = this.matche;
+        if (!matches) {
+            return title;
+        }
+        const homestr = LangUtil("主队").trim();
+        const awaystr = LangUtil("客队").trim();
+        const { home_team, away_team } = matches;
+        title = title.replace(new RegExp(homestr, "ig"), home_team).replace(new RegExp(awaystr, "ig"), away_team);
+        return title;
+    }
     mounted() {
         // this.onWatchMarketMaintype();
         this.pageData.matche = this.matche;
