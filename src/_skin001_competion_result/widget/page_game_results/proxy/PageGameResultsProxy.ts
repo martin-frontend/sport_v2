@@ -237,11 +237,13 @@ export default class PageGameResultsProxy extends puremvc.Proxy {
         arr.push(...PlatConfig.market_main_type);
         for (const item of this.marketTypeKind) {
             const type = PlatConfig.allMarketType.filter((el) => el.market_type == item.market_type);
-            item.category.push(
-                ...type[0].main_type.split(",").map(function (x) {
-                    return parseInt(x);
-                })
-            );
+            if (type.length > 0) {
+                item.category.push(
+                    ...type[0].main_type.split(",").map(function (x) {
+                        return parseInt(x);
+                    })
+                );
+            }
         }
         this.marketTypeOptions = arr;
     }
