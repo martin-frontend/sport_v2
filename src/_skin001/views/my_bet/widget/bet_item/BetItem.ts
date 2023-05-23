@@ -31,6 +31,8 @@ export default class BetItem extends AbstractView {
     iconOdds = "arrow_up";
     cleartimer = 0;
 
+    oddStr = [LangUtil("不接收更好的赔率"), LangUtil("自动接收更好的赔率")];
+    able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
     @Watch("bshowkeybord")
     onWatchShowKeyboard() {
         // 键盘打开后，向上滚动，露出投注按扭
@@ -42,6 +44,10 @@ export default class BetItem extends AbstractView {
         }
     }
 
+    clickOdditem(_odds: number) {
+        window.localStorage.setItem("better_odds", _odds.toString());
+        this.selfProxy.userInfo.better_odds = _odds;
+    }
     @Watch("item.odds")
     onWatchOdds() {
         const divPrice: HTMLElement = <any>this.$refs.divPrice;
@@ -172,7 +178,7 @@ export default class BetItem extends AbstractView {
                 title: LangUtil("确认投注额"),
             });
         } else {
-            this.myProxy.api_user_betfix(market.market_id, selection.id);
+            this.myProxy.api_user_betfix(market.market_id, selection.id, this.selfProxy.userInfo.better_odds);
         }
     }
 

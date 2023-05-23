@@ -228,16 +228,44 @@
             >
                 <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
             </v-btn>
-            <!-- <btn-yellow height="36" width="100%" :rounded5="true" @click.native="onBet">
-                <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
-            </btn-yellow> -->
         </div>
+        <v-sheet v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
+            <v-menu offset-y nudge-bottom="2">
+                <template v-slot:activator="{ on, attrs }">
+                    <button class="seletbtn" v-bind="attrs" v-on="on" text>
+                        <span>{{oddStr[selfProxy.userInfo.better_odds]}}</span>
 
-        <!-- <div class="d-flex align-center ml10 mr10">
-            {{LangUtil("自动接受更好的赔率")}}
-            <v-spacer />
-            <svg-icon class="text-12" icon="zoom_in"></svg-icon>
-        </div> -->
+                        <svg-icon
+                            class="textGray--text text-16 mr-2"
+                            icon="zoom_out"
+                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                        ></svg-icon>
+                    </button>
+                </template>
+                <v-sheet class="oddmenu pa-1" color="bgGray">
+                    <v-btn
+                        width="100%"
+                        @click="clickOdditem(0)"
+                        height="30"
+                        class="seletbtn mb-1"
+                        text
+                        :class="selfProxy.userInfo.better_odds==0?'actItem':'disactItem'"
+                    >
+                        <span>{{oddStr[0]}}</span>
+                    </v-btn>
+                    <v-btn
+                        width="100%"
+                        @click="clickOdditem(1)"
+                        height="30"
+                        class="seletbtn"
+                        text
+                        :class="selfProxy.userInfo.better_odds==1?'actItem':'disactItem'"
+                    >
+                        <span>{{oddStr[1]}}</span>
+                    </v-btn>
+                </v-sheet>
+            </v-menu>
+        </v-sheet>
     </template>
     <template v-else>
         <v-row class="mx10" dense>
@@ -277,6 +305,43 @@
                         <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>
                     </btn-yellow> -->
                 </div>
+            </v-col>
+            <v-col v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
+                <v-menu offset-y nudge-top="110">
+                    <template v-slot:activator="{ on, attrs }">
+                        <button style="width: 100%" class="seletbtn" v-bind="attrs" v-on="on" text>
+                            <span>{{oddStr[selfProxy.userInfo.better_odds]}}</span>
+
+                            <svg-icon
+                                class="textGray--text text-16 mr-2"
+                                icon="zoom_out"
+                                :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                            ></svg-icon>
+                        </button>
+                    </template>
+                    <v-sheet class="oddmenu pa-1" color="bgGray">
+                        <v-btn
+                            width="100%"
+                            @click="clickOdditem(0)"
+                            height="30"
+                            class="seletbtn mb-1"
+                            text
+                            :class="selfProxy.userInfo.better_odds==0?'actItem':'disactItem'"
+                        >
+                            <span>{{oddStr[0]}}</span>
+                        </v-btn>
+                        <v-btn
+                            width="100%"
+                            @click="clickOdditem(1)"
+                            height="30"
+                            class="seletbtn"
+                            text
+                            :class="selfProxy.userInfo.better_odds==1?'actItem':'disactItem'"
+                        >
+                            <span>{{oddStr[1]}}</span>
+                        </v-btn>
+                    </v-sheet>
+                </v-menu>
             </v-col>
         </v-row>
     </template>

@@ -19,6 +19,9 @@ input {
     outline: none;
 }
 .theme--light {
+    .v-menu__content {
+        background-color: #f2f2f2 !important;
+    }
     .tabs_box {
         border-bottom: solid 2px #e8e8e2;
     }
@@ -34,7 +37,23 @@ input {
     .keybordright {
         background-color: #f7f7f7;
     }
+    .seletbtn {
+        span {
+            color: #837e69;
+        }
+        background-color: #f2f2f2;
+    }
+    .actItem {
+        border: solid 1px #f8de99;
+    }
+    .disactItem {
+        border: solid 1px #e8ebef;
+    }
 }
+.v-menu__content {
+    width: 203px;
+}
+
 .theme--dark {
     .tabs_box {
         border-bottom: solid 2px #272828;
@@ -51,7 +70,37 @@ input {
     .keybordright {
         background-color: #2d2f2f;
     }
+    .seletbtn {
+        span {
+            color: #606363;
+        }
+        background-color: #272828;
+        border: solid 1px #2d3132;
+    }
+    .actItem {
+        border: solid 1px #af8718;
+    }
+    .disactItem {
+        border: solid 1px #393a3c;
+    }
 }
+
+.oddmenu {
+    border-radius: 10px;
+    width: 100%;
+}
+.seletbtn {
+    border-radius: 10px;
+    height: 30px;
+    width: 90%;
+    position: relative;
+    .svg-icon {
+        position: absolute;
+        right: 0px;
+        top: 7px;
+    }
+}
+
 ::v-deep .v-card--link:before {
     border-radius: 9px;
 }
