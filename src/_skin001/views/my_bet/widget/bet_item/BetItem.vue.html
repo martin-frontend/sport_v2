@@ -229,7 +229,7 @@
                 <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
             </v-btn>
         </div>
-        <v-sheet v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
+        <!-- <v-sheet v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
             <v-menu offset-y nudge-bottom="2">
                 <template v-slot:activator="{ on, attrs }">
                     <button class="seletbtn" v-bind="attrs" v-on="on" text>
@@ -265,7 +265,7 @@
                     </v-btn>
                 </v-sheet>
             </v-menu>
-        </v-sheet>
+        </v-sheet> -->
     </template>
     <template v-else>
         <v-row class="mx10" dense>
@@ -306,7 +306,7 @@
                     </btn-yellow> -->
                 </div>
             </v-col>
-            <v-col v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
+            <!-- <v-col v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
                 <v-menu offset-y nudge-top="110">
                     <template v-slot:activator="{ on, attrs }">
                         <button style="width: 100%" class="seletbtn" v-bind="attrs" v-on="on" text>
@@ -342,7 +342,7 @@
                         </v-btn>
                     </v-sheet>
                 </v-menu>
-            </v-col>
+            </v-col> -->
         </v-row>
     </template>
 </div>
