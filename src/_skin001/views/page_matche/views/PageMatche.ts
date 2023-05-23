@@ -4,7 +4,7 @@ import PageMatcheMediator from "../mediator/PageMatcheMediator";
 import PageMatcheProxy from "../proxy/PageMatcheProxy";
 import LangUtil from "@/core/global/LangUtil";
 import MatcheProxy from "../../matche/proxy/MatcheProxy";
-import { dateFormat, formatURLParam, getDateByTimeZone, getResponseIcon } from "@/core/global/Functions";
+import { dateFormat, formatURLParam, getDateByTimeZone, getResponseIcon, logEnterTips } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 import live from "../../live";
 import page_order from "../../page_order";
@@ -12,6 +12,8 @@ import OpenLink from "@/core/global/OpenLink";
 import BlurUtil from "@/core/global/BlurUtil";
 import matche from "../../matche";
 import LiveProxy from "../../live/proxy/LiveProxy";
+import SelfProxy from "@/proxy/SelfProxy";
+import getProxy from "@/core/global/getProxy";
 
 @Component
 export default class PageMatche extends AbstractView {
@@ -22,11 +24,14 @@ export default class PageMatche extends AbstractView {
     matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: PageMatcheProxy = this.getProxy(PageMatcheProxy);
     pageData = this.myProxy.pageData;
-
+    selfProxy: SelfProxy = getProxy(SelfProxy);
     scrollTop = 0;
+    user_type: number;
 
     constructor() {
         super(PageMatcheMediator);
+        const { user_type } = this.selfProxy.userInfo;
+        this.user_type = user_type;
     }
 
     onScroll(e: any) {
@@ -122,6 +127,10 @@ export default class PageMatche extends AbstractView {
 
     // 打开注单历史
     onOrder() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
         page_order.show();
     }
 
@@ -129,13 +138,19 @@ export default class PageMatche extends AbstractView {
         this.$router.replace("/page_home");
     }
     openHelp() {
-        const dark = this.$vuetify.theme.dark;
-        const params = formatURLParam({ dark, plat_id: GlobalVar.plat_id, timezone: GlobalVar.zone });
-        const link = "./skin001_help.html?" + params;
-        // const link = `./skin001_help.html${window.location.search}&plat_id=${GlobalVar.plat_id}&timezone=${GlobalVar.zone}&dark=${dark}`;
-        OpenLink(link);
+        if (this.$vuetify.breakpoint.mobile) {
+            this.$router.push("/page_help");
+        } else {
+            const dark = this.$vuetify.theme.dark;
+            const params = formatURLParam({
+                daynight_type: dark ? 2 : 1,
+                plat_id: GlobalVar.plat_id,
+                timezone: GlobalVar.zone,
+            });
+            const link = "./skin001_help.html?" + params;
+            OpenLink(link);
+        }
     }
-
     destroyed() {
         super.destroyed();
     }

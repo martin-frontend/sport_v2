@@ -1,21 +1,27 @@
 import Vue from "vue";
 import GlobalVar from "@/core/global/GlobalVar";
+import AbstractView from "@/core/abstract/AbstractView";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
 import { EventStatesVO } from "@/vo/EventStatesVO";
 import { MarketVO } from "@/vo/MarketVO";
 import { MenuSubCenterVO, MenuSubTopVO } from "@/vo/MenuNavVO";
-import { objectRemoveNull } from "@/core/global/Functions";
+import { objectRemoveNull, logEnterTips } from "@/core/global/Functions";
 import PlatConfig from "@/core/config/PlatConfig";
-
+import getProxy from "@/core/global/getProxy";
+import SelfProxy from "@/proxy/SelfProxy";
+import LangUtil from "@/core/global/LangUtil";
 export default class PageHomeProxy extends puremvc.Proxy {
     static NAME = "PageHomeProxy";
     /**是否第一次进入首页 */
     isFirstRequest = true;
     /**计时器 */
     private timer = 0;
-
+    selfProxy: SelfProxy = getProxy(SelfProxy);
+    user_type = 2;
     public onRegister(): void {
+        const { user_type } = this.selfProxy.userInfo;
+        this.user_type = user_type;
         this.api_user_lovematch();
         this.init();
     }
@@ -200,6 +206,10 @@ export default class PageHomeProxy extends puremvc.Proxy {
         this.sendNotification(net.HttpType.api_user_lovematch, { unique: this.pageData.lovematch_order });
     }
     api_user_love(event_id: number) {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
         const idx = this.pageData.love_events.indexOf(event_id);
         if (idx != -1) {
             this.pageData.love_events.splice(idx, 1);

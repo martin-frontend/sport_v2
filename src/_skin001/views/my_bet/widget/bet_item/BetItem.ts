@@ -1,7 +1,15 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
-import { amountFormat, TransMarketPrice, formatEventTime, dateFormat, getDateByTimeZone, parseLocaleNumber } from "@/core/global/Functions";
+import {
+    amountFormat,
+    TransMarketPrice,
+    formatEventTime,
+    dateFormat,
+    getDateByTimeZone,
+    parseLocaleNumber,
+    logEnterTips,
+} from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import MarketUtils from "@/core/global/MarketUtils";
@@ -159,10 +167,13 @@ export default class BetItem extends AbstractView {
     /**投注 */
     onBet() {
         const stakeValue = parseLocaleNumber(this.item.stake.toString());
-        const { gold } = this.selfProxy.userInfo;
+        const { gold, user_type } = this.selfProxy.userInfo;
         console.warn(">>>>>>>>gold: ", gold);
         const { selection, market } = this.item;
-        if (stakeValue < <any>this.item.minStake || stakeValue > <any>this.item.maxStake) {
+        if (user_type == 2) {
+            logEnterTips();
+            return;
+        } else if (stakeValue < <any>this.item.minStake || stakeValue > <any>this.item.maxStake) {
             this.$notify({
                 group: "message",
                 title: LangUtil("请确认投注限额"),

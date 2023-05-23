@@ -2,7 +2,7 @@ import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
 import { MatchVO } from "@/vo/MatchVO";
-import { getResponseIcon } from "@/core/global/Functions";
+import { getResponseIcon, logEnterTips } from "@/core/global/Functions";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
 import MarketUtils from "@/core/global/MarketUtils";
 import { formatEventTime, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
@@ -12,6 +12,8 @@ import live from "@/_skin001/views/live";
 import matche from "@/_skin001/views/matche";
 import right_panel from "@/_skin001/views/right_panel";
 import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
+import SelfProxy from "@/proxy/SelfProxy";
+import getProxy from "@/core/global/getProxy";
 
 @Component
 export default class MatcheItem extends AbstractView {
@@ -20,6 +22,7 @@ export default class MatcheItem extends AbstractView {
     MarketUtils = MarketUtils;
     matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
+    selfProxy: SelfProxy = getProxy(SelfProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
     GlobalVar = GlobalVar;
@@ -28,6 +31,7 @@ export default class MatcheItem extends AbstractView {
     hr: any = "00";
     min: any = "00";
     start_in_sec = 0;
+    user_type: number = this.selfProxy.userInfo.user_type;
 
     @Prop() matche!: MatchVO;
     @Prop({ default: false }) isFirst!: boolean;
@@ -192,6 +196,10 @@ export default class MatcheItem extends AbstractView {
     }
 
     playMatcheAnimation() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
         if (this.matche.animation_status == 1) {
             this.goMatche();
             setTimeout(() => {
@@ -201,6 +209,10 @@ export default class MatcheItem extends AbstractView {
     }
 
     playMatcheLive() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
         if (this.matche.live_status == 1) {
             this.goMatche();
             right_panel.show(1);

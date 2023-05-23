@@ -26,6 +26,7 @@ export default class SelfProxy extends puremvc.Proxy {
         fast_choose: "10,20,30,40,50,60",
         gold: "0.00",
         username: "",
+        user_type: 2,
         wallet_type: 1,
         plat_min_stake: 0,
         plat_max_stake: 0,

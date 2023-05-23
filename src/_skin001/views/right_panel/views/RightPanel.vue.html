@@ -46,7 +46,7 @@
                             <svg-icon
                                 class="text-26 hand mr10 textGray--text"
                                 :icon="pageData.liveIndex==1 ? 'live1_' : 'live1'"
-                                @click.native="pageData.liveIndex = 1"
+                                @click.native="clicklive"
                             ></svg-icon>
                         </v-sheet>
                     </template>
@@ -62,7 +62,7 @@
                             <svg-icon
                                 class="text-22 mr-2 hand textGray--text"
                                 :icon="pageData.liveIndex==2 ? 'animate1_' : 'animate1'"
-                                @click.native="pageData.liveIndex = 2"
+                                @click.native="clickAnim"
                             ></svg-icon>
                         </v-sheet>
                     </template>
