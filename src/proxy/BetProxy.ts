@@ -147,7 +147,7 @@ export default class BetProxy extends puremvc.Proxy {
         }
     }
     /**投注 */
-    api_user_betfix(market_id: any, selection_id: any) {
+    api_user_betfix(market_id: any, selection_id: any, better_odds: number) {
         // GlobalVar.loading = true;
         this.pageData.loading = true;
         const findItem = this.pageData.list.find((item) => item.market.market_id == market_id && item.selection.id == selection_id);
@@ -161,6 +161,7 @@ export default class BetProxy extends puremvc.Proxy {
             form.market_type = market.market_type;
             form.selection_id = selection.id.toString();
             form.odds = odds;
+            form.better_odds = better_odds;
             this.sendNotification(net.HttpType.api_user_betfix, form);
         }
     }

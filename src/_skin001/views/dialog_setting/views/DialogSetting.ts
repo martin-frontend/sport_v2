@@ -10,6 +10,7 @@ import getProxy from "@/core/global/getProxy";
 import BlurUtil from "@/core/global/BlurUtil";
 import dialog_message_box from "../../dialog_message_box";
 import { formatURLParam } from "@/core/global/Functions";
+import SelfProxy from "@/proxy/SelfProxy";
 
 @Component
 export default class DialogSetting extends AbstractView {
@@ -17,7 +18,9 @@ export default class DialogSetting extends AbstractView {
     GlobalVar = GlobalVar;
     myProxy: SettingProxy = this.getProxy(SettingProxy);
     pageData = this.myProxy.pageData;
-
+    selfProxy: SelfProxy = getProxy(SelfProxy);
+    oddStr = [LangUtil("不接收更好的赔率"), LangUtil("自动接收更好的赔率")];
+    able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
     constructor() {
         super(DialogSettingMediator);
     }
@@ -46,7 +49,10 @@ export default class DialogSetting extends AbstractView {
             settingProxy.api_user_set_user_setting();
         }
     }
-
+    clickOdditem(_odds: number) {
+        window.localStorage.setItem("better_odds", _odds.toString());
+        this.selfProxy.userInfo.better_odds = _odds;
+    }
     get getSelectName() {
         const data = this.pageData.items.find((item: any) => item.key == this.pageData.form.timezone);
         if (data) {

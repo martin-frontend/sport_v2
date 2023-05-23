@@ -2,6 +2,8 @@ import { RemarkVO } from "./RemarkVO";
 
 export interface UserInfoVO {
     fast_choose: string; //快捷投注选项
+    able_to_choose_betterodds: number; //  是否显示更好賠率 0 否 / 1 是
+    better_odds: number; //是否接受更好賠率的勾選 0 否 / 1 是
     gold: string; //金币
     currency_type: string;
     plat_min_stake: 0;

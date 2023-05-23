@@ -20,6 +20,8 @@ export default class SelfProxy extends puremvc.Proxy {
 
     /**用户信息 */
     userInfo: UserInfoVO = {
+        better_odds: parseInt(window.localStorage.getItem("better_odds") || "0"),
+        able_to_choose_betterodds: 1,
         currency_type: "",
         fast_choose: "10,20,30,40,50,60",
         gold: "0.00",
