@@ -2,7 +2,7 @@ import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
 import { FixSelectionVO, MarketFixVO } from "@/vo/MarketVO";
-import { addClass, hasClass, removeClass } from "@/core/global/Functions";
+import { addClass, hasClass, logEnterTips, removeClass } from "@/core/global/Functions";
 import { MatchVO } from "@/vo/MatchVO";
 import my_bet from "@/_skin001/views/my_bet";
 import getProxy from "@/core/global/getProxy";
@@ -13,6 +13,7 @@ import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
 import LiveProxy from "@/_skin001/views/live/proxy/LiveProxy";
 import DialogBetResultProxy from "@/_skin001/views/dialog_bet_result/proxy/DialogBetResultProxy";
 import GlobalVar from "@/core/global/GlobalVar";
+import SelfProxy from "@/proxy/SelfProxy";
 @Component
 export default class BtnFixedBet extends AbstractView {
     LangUtil = LangUtil;
@@ -23,7 +24,8 @@ export default class BtnFixedBet extends AbstractView {
     @Prop() market!: MarketFixVO;
     @Prop() selection!: FixSelectionVO;
     @Prop({ default: 12 }) cols!: number;
-
+    selfProxy: SelfProxy = getProxy(SelfProxy);
+    user_type!: number;
     oldData!: any; //保存数据'
     iconOdds = "arrow_up";
     cleartimer = 0;
@@ -33,6 +35,8 @@ export default class BtnFixedBet extends AbstractView {
         this.watchSelection();
         this.clearOddsStatus();
         this.onWatchActive();
+        const { user_type } = this.selfProxy.userInfo;
+        this.user_type = user_type;
     }
 
     @Watch("$vuetify.theme.dark")
@@ -137,6 +141,10 @@ export default class BtnFixedBet extends AbstractView {
     }
 
     onBet() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
         if (this.market && this.market.status != 2 && this.selection && this.selection.status == 0) {
             const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
             let comp: any = homeProxy.pageData.competition_list.find((item) => item.competition_id == this.matche.competition_id);

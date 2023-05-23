@@ -105,11 +105,11 @@
                 </v-sheet>
 
                 <div class="d-flex justify-center mt-2" v-if="$vuetify.breakpoint.mobile">
-                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.live_status == 1" @click="window = 1">
+                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.live_status == 1" @click="clicklive">
                         <svg-icon class="text-20" icon="live1_"></svg-icon>
                         <div class="text-12 ml-1">{{LangUtil("直播")}}</div>
                     </v-btn>
-                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.animation_status == 1" @click="window=2">
+                    <v-btn class="btns elevation-0 rounded-pill mx-2" height="30" v-if="matche.animation_status == 1" @click="clickAnim">
                         <svg-icon class="text-20" icon="animate1_"></svg-icon>
                         <div class="text-12 ml-1">{{LangUtil("动画")}}</div>
                     </v-btn>

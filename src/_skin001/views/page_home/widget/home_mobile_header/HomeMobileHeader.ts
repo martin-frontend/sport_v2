@@ -11,7 +11,7 @@ import dialog_setting from "@/_skin001/views/dialog_setting";
 import page_live_list from "@/_skin001/views/page_live_list";
 import page_order from "@/_skin001/views/page_order";
 import BlurUtil from "@/core/global/BlurUtil";
-import { amountFormat, formatURLParam } from "@/core/global/Functions";
+import { amountFormat, formatURLParam, logEnterTips } from "@/core/global/Functions";
 import { EnumPostMessage } from "@/enum/EnumPostMessage";
 import PlatConfig from "@/core/config/PlatConfig";
 
@@ -53,6 +53,12 @@ export default class HomeMobileHeader extends AbstractView {
     }
     // 打开注单历史
     onOrder() {
+        const { user_type } = this.selfProxy.userInfo;
+
+        if (user_type == 2) {
+            logEnterTips();
+            return;
+        }
         page_order.show();
     }
     // 打开设置页面

@@ -7,22 +7,27 @@ import SettingProxy from "@/proxy/SettingProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import OpenLink from "@/core/global/OpenLink";
 import page_home from "../../page_home";
-import { formatURLParam, isAndroid, isIOS } from "@/core/global/Functions";
+import { formatURLParam, isAndroid, isIOS, logEnterTips } from "@/core/global/Functions";
 import BlurUtil from "@/core/global/BlurUtil";
 import dialog_setting from "../../dialog_setting";
+import SelfProxy from "@/proxy/SelfProxy";
+import getProxy from "@/core/global/getProxy";
 @Component
 export default class Header extends AbstractView {
     LangUtil = LangUtil;
     settingProxy: SettingProxy = this.getProxy(SettingProxy);
     myProxy: HeaderProxy = this.getProxy(HeaderProxy);
     pageData = this.myProxy.pageData;
-
+    selfProxy: SelfProxy = getProxy(SelfProxy);
     txtSearch = "";
 
     isShowSetting = false;
+    user_type: any;
 
     constructor() {
         super(HeaderMediator);
+        const { user_type } = this.selfProxy.userInfo;
+        this.user_type = user_type;
     }
 
     @Watch("isShowSetting")
@@ -42,6 +47,10 @@ export default class Header extends AbstractView {
         }
     }
     openCompetionResult() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
         const iWidth = 1400;
         const iHeight = 650;
         const iTop = (window.screen.availHeight - 30 - iHeight) / 2;
@@ -71,6 +80,11 @@ export default class Header extends AbstractView {
         }
     }
     openHistoryResult() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
+
         const iWidth = 1400;
         const iHeight = 650;
         const iTop = (window.screen.availHeight - 30 - iHeight) / 2;

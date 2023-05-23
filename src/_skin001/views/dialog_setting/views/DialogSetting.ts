@@ -9,7 +9,7 @@ import GlobalVar from "@/core/global/GlobalVar";
 import getProxy from "@/core/global/getProxy";
 import BlurUtil from "@/core/global/BlurUtil";
 import dialog_message_box from "../../dialog_message_box";
-import { formatURLParam } from "@/core/global/Functions";
+import { formatURLParam, logEnterTips } from "@/core/global/Functions";
 import SelfProxy from "@/proxy/SelfProxy";
 
 @Component
@@ -19,13 +19,21 @@ export default class DialogSetting extends AbstractView {
     myProxy: SettingProxy = this.getProxy(SettingProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
+    user_type: number;
+
     oddStr = [LangUtil("不接收更好的赔率"), LangUtil("自动接收更好的赔率")];
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
     constructor() {
         super(DialogSettingMediator);
+        const { user_type } = this.selfProxy.userInfo;
+        this.user_type = user_type;
     }
 
     openCompetionResult() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
         if (this.$vuetify.breakpoint.mobile) {
             this.$router.push("/competion_result");
         } else {

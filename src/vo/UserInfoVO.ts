@@ -17,4 +17,5 @@ export interface UserInfoVO {
     };
     username: string; //用户名
     wallet_type: number; //錢包類型 1=單一錢包,2=多錢包
+    user_type: number;
 }

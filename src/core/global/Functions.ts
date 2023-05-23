@@ -1,7 +1,9 @@
 // 全局属性和方法
 
+import AbstractView from "../abstract/AbstractView";
 import GlobalVar from "./GlobalVar";
-
+import { EnumPostMessage } from "@/enum/EnumPostMessage";
+import LangUtil from "./LangUtil";
 /** 获取UUID */
 export function generateUUID() {
     let d = new Date().getTime();
@@ -172,7 +174,15 @@ export function parseLocaleNumber(stringNumber: any) {
 export function hasClass(ele: HTMLElement, cls: string) {
     return !!ele.className.match(new RegExp("(\\s|^)" + cls + "(\\s|$)"));
 }
-
+export function logEnterTips() {
+    if (window.parent) {
+        window.parent.postMessage({ action: "unlogin" }, "*");
+    }
+    AbstractView.notify({
+        group: "message",
+        title: LangUtil("您是游客用户,请先登录后再操作"),
+    });
+}
 /**
  * Add class to element
  * @param {HTMLElement} elm

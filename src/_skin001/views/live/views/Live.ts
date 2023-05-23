@@ -4,7 +4,9 @@ import LiveMediator from "../mediator/LiveMediator";
 import LiveProxy from "../proxy/LiveProxy";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
-import { formatEventTime, dateFormat, getDateByTimeZone, getResponseIcon } from "@/core/global/Functions";
+import { formatEventTime, dateFormat, getDateByTimeZone, getResponseIcon, logEnterTips } from "@/core/global/Functions";
+import SelfProxy from "@/proxy/SelfProxy";
+import getProxy from "@/core/global/getProxy";
 
 @Component
 export default class Live extends AbstractView {
@@ -13,12 +15,12 @@ export default class Live extends AbstractView {
     getResponseIcon = getResponseIcon;
     myProxy: LiveProxy = this.getProxy(LiveProxy);
     pageData = this.myProxy.pageData;
-
+    selfProxy: SelfProxy = getProxy(SelfProxy);
     bShowTime = false; //是否显示倒计时
     @Prop({ default: 0 }) value!: number;
     window = this.value;
     iframeHeight = 0;
-
+    user_type: number = this.selfProxy.userInfo.user_type;
     @Watch("value")
     onWatchValue() {
         this.window = this.value;
@@ -151,7 +153,20 @@ export default class Live extends AbstractView {
 
         return { day, hr, min, sec };
     }
-
+    clicklive() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
+        this.window = 1;
+    }
+    clickAnim() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
+        this.window = 2;
+    }
     destroyed() {
         super.destroyed();
     }
