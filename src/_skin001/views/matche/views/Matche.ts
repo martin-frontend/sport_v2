@@ -129,6 +129,8 @@ export default class Matche extends AbstractView {
             "TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME",
             "EITHER_TEAM_TO_SCORE_THREE_OR_MORE",
             "EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME",
+            "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE",
+            "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
         ],
         3: ["DRAW_NO_BET", "DRAW_NO_BET_HALF_TIME"],
         4: [
@@ -141,6 +143,14 @@ export default class Matche extends AbstractView {
             "TEAM_A_EXACT_GOALS_HALF_TIME",
             "TEAM_B_EXACT_GOALS",
             "TEAM_B_EXACT_GOALS_HALF_TIME",
+            "MATCH_ODDS_AND_OVER_UNDER_2.5",
+            "MATCH_ODDS_AND_OVER_UNDER_2.5_HALF_TIME",
+            "ODD_OR_EVEN_AND_OVER_UNDER_2.5",
+            "ODD_OR_EVEN_AND_OVER_UNDER_2.5_HALF_TIME",
+            "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE",
+            "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME",
+            "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5",
+            "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5_HALF_TIME",
         ],
         5: ["CORRECT_SCORE", "CORRECT_SCORE_HALF_TIME"],
         6: [

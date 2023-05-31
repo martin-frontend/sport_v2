@@ -36,6 +36,20 @@ export default class PageGameResults extends AbstractView {
         title = title.replace(new RegExp(homestr, "ig"), home_team).replace(new RegExp(awaystr, "ig"), away_team);
         return title;
     }
+    transRs(title: any) {
+        const matches = this.matche;
+        if (!matches || !title) {
+            return title;
+        }
+        const homestr = LangUtil("主").trim() + "-";
+        const awaystr = LangUtil("客").trim() + "-";
+        const { home_team, away_team } = matches;
+        title = title
+            .toString()
+            .replace(new RegExp(homestr, "ig"), home_team + "-")
+            .replace(new RegExp(awaystr, "ig"), away_team + "-");
+        return title;
+    }
     mounted() {
         // this.onWatchMarketMaintype();
         this.pageData.matche = this.matche;

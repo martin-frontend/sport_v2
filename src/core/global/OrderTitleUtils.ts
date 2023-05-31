@@ -13,6 +13,28 @@ function getNameByeSelectionType(s_type: string, home_name: string, away_name: s
     if (s_type == "Draw-Home") return `${LangUtil("和")}-${LangUtil(`${home_name}`)}`;
     if (s_type == "Draw-Draw") return `${LangUtil("和")}-${LangUtil("和")}`;
     if (s_type == "Draw-Away") return `${LangUtil("和")}-${LangUtil(`${away_name}`)}`;
+
+    if (s_type == "Home And Over") return `${LangUtil("主")}-${LangUtil("大大")}`;
+    if (s_type == "Home And Under") return `${LangUtil("主")}-${LangUtil("小小")}`;
+    if (s_type == "Away And Over") return `${LangUtil("客")}-${LangUtil("大大")}`;
+    if (s_type == "Away And Under") return `${LangUtil("客")}-${LangUtil("小小")}`;
+    if (s_type == "Draw And Over") return `${LangUtil("和")}-${LangUtil("大大")}`;
+    if (s_type == "Draw And Under") return `${LangUtil("和")}-${LangUtil("小小")}`;
+    if (s_type == "Odd And Over") return `${LangUtil("单")}-${LangUtil("大大")}`;
+    if (s_type == "Odd And Under") return `${LangUtil("单")}-${LangUtil("小小")}`;
+    if (s_type == "Even And Over") return `${LangUtil("双")}-${LangUtil("大大")}`;
+    if (s_type == "Even And Under") return `${LangUtil("双")}-${LangUtil("小小")}`;
+
+    if (s_type == "Home And Yes") return `${LangUtil("主")}-${LangUtil("是")}`;
+    if (s_type == "Home And No") return `${LangUtil("主")}-${LangUtil("否")}`;
+    if (s_type == "Away And Yes") return `${LangUtil("客")}-${LangUtil("是")}`;
+    if (s_type == "Away And No") return `${LangUtil("主")}-${LangUtil("否")}`;
+    if (s_type == "Draw And Yes") return `${LangUtil("和")}-${LangUtil("是")}`;
+    if (s_type == "Draw And No") return `${LangUtil("和")}-${LangUtil("否")}`;
+    if (s_type == "Yes And Over") return `${LangUtil("是")}-${LangUtil("大大")}`;
+    if (s_type == "Yes And Under") return `${LangUtil("是")}-${LangUtil("小小")}`;
+    if (s_type == "No And Over") return `${LangUtil("否")}-${LangUtil("大大")}`;
+    if (s_type == "No And Under") return `${LangUtil("否")}-${LangUtil("小小")}`;
 }
 function getOrderTitle({ market_type, s_type, home_name, away_name, content, side, handicap }: any, onOrder: boolean = false) {
     switch (market_type) {
@@ -77,6 +99,8 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
         case marketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
         case marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE:
         case marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME:
+        case marketType.BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE:
+        case marketType.BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
             return `${s_type == "Yes" ? LangUtil("是") : LangUtil("否")} ${formatAsian(handicap, s_type)}`;
         case marketType.ODD_OR_EVEN_HALF_TIME: //半场 - 单/双
         case marketType.ODD_OR_EVEN: //入球单双
@@ -944,21 +968,179 @@ function advance_result(orderItem: any, playingState: any) {
         } else if (orderItem.s_type == "Four Or More") {
             result_tb.win_type = result > 3 ? 1 : 4;
         }
-        //	任意一队得三分或以上 包括半场
-        else if (
-            orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE ||
-            marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME
-        ) {
-            let goalsarr = playingState.goals_ft.split("-");
-            if (orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME) {
-                goalsarr = playingState.goals_ht.split("-");
-            }
-            const allget = Number(goalsarr[0]) > 2 || Number(goalsarr[1]) > 2;
-            if (orderItem.s_type == "Yes") {
-                result_tb.win_type = allget ? 1 : 4;
-            } else if (orderItem.s_type == "No") {
-                result_tb.win_type = allget ? 4 : 1;
-            }
+    }
+    //	任意一队得三分或以上 包括半场
+    else if (
+        orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE ||
+        marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME
+    ) {
+        let goalsarr = playingState.goals_ft.split("-");
+        if (orderItem.market_type == marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME) {
+            goalsarr = playingState.goals_ht.split("-");
+        }
+        const allget = Number(goalsarr[0]) > 2 || Number(goalsarr[1]) > 2;
+        if (orderItem.s_type == "Yes") {
+            result_tb.win_type = allget ? 1 : 4;
+        } else if (orderItem.s_type == "No") {
+            result_tb.win_type = allget ? 4 : 1;
+        }
+    }
+    //主客和 & 2.5球大/小
+    else if (orderItem.market_type == marketType.MATCH_ODDS_AND_OVER_UNDER_2_5) {
+        const goalsarr = playingState.goals_ft.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Home And Over") {
+            result_tb.win_type = goals0 > goals1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Home And Under") {
+            result_tb.win_type = goals0 > goals1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Away And Over") {
+            result_tb.win_type = goals0 < goals1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Away And Under") {
+            result_tb.win_type = goals0 < goals1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And Over") {
+            result_tb.win_type = goals0 == goals1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And Under") {
+            result_tb.win_type = goals0 == goals1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        }
+    }
+    //主客和 & 2.5球大/小 半场
+    else if (orderItem.market_type == marketType.MATCH_ODDS_AND_OVER_UNDER_2_5_HALF_TIME) {
+        const goalsarr = playingState.goals_ht.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Home And Over") {
+            result_tb.win_type = goals0 > goals1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Home And Under") {
+            result_tb.win_type = goals0 > goals1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Away And Over") {
+            result_tb.win_type = goals0 < goals1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Away And Under") {
+            result_tb.win_type = goals0 < goals1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And Over") {
+            result_tb.win_type = goals0 == goals1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And Under") {
+            result_tb.win_type = goals0 == goals1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        }
+    }
+    //入球单双 & 2.5球大/小
+    else if (orderItem.market_type == marketType.ODD_OR_EVEN_AND_OVER_UNDER_2_5) {
+        const goalsarr = playingState.goals_ft.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Odd And Over") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Odd And Under") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Even And Over") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 0 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Even And Under") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 0 && goals0 + goals1 < 2.5 ? 1 : 4;
+        }
+    }
+    //入球单双 & 2.5球大/小 半场
+    else if (orderItem.market_type == marketType.ODD_OR_EVEN_AND_OVER_UNDER_2_5_HALF_TIME) {
+        const goalsarr = playingState.goals_ht.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Odd And Over") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 1 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Odd And Under") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 1 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Even And Over") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 0 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Even And Under") {
+            result_tb.win_type = (goals0 + goals1) % 2 == 0 && goals0 + goals1 < 2.5 ? 1 : 4;
+        }
+    }
+    //主客和 & 两队都得分
+    else if (orderItem.market_type == marketType.MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE) {
+        const goalsarr = playingState.goals_ft.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Home And Yes") {
+            result_tb.win_type = goals0 > goals1 && goals0 > 0 && goals1 > 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Home And No") {
+            result_tb.win_type = goals0 > goals1 && !(goals0 > 0 && goals1 > 0) ? 1 : 4;
+        } else if (orderItem.s_type == "Away And Yes") {
+            result_tb.win_type = goals0 < goals1 && goals0 > 0 && goals1 > 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Away And No") {
+            result_tb.win_type = goals0 < goals1 && !(goals0 > 0 && goals1 > 0) ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And Yes") {
+            result_tb.win_type = goals0 == goals1 && goals0 > 0 && goals1 > 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And No") {
+            result_tb.win_type = goals0 == goals1 && !(goals0 > 0 && goals1 > 0) ? 1 : 4;
+        }
+    }
+    //主客和 & 两队都得分 半场
+    else if (orderItem.market_type == marketType.MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME) {
+        const goalsarr = playingState.goals_ht.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Home And Yes") {
+            result_tb.win_type = goals0 > goals1 && goals0 > 0 && goals1 > 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Home And No") {
+            result_tb.win_type = goals0 > goals1 && !(goals0 > 0 && goals1 > 0) ? 1 : 4;
+        } else if (orderItem.s_type == "Away And Yes") {
+            result_tb.win_type = goals0 < goals1 && goals0 > 0 && goals1 > 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Away And No") {
+            result_tb.win_type = goals0 < goals1 && !(goals0 > 0 && goals1 > 0) ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And Yes") {
+            result_tb.win_type = goals0 == goals1 && goals0 > 0 && goals1 > 0 ? 1 : 4;
+        } else if (orderItem.s_type == "Draw And No") {
+            result_tb.win_type = goals0 == goals1 && !(goals0 > 0 && goals1 > 0) ? 1 : 4;
+        }
+    }
+    //两队都得分 & 2.5球大/小
+    else if (orderItem.market_type == marketType.BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5) {
+        const goalsarr = playingState.goals_ft.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Yes And Over") {
+            result_tb.win_type = goals0 > 0 && goals1 > 0 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Yes And Under") {
+            result_tb.win_type = goals0 > 0 && goals1 > 0 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "No And Over") {
+            result_tb.win_type = !(goals0 > 0 && goals1 > 0) && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "No And Under") {
+            result_tb.win_type = !(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5 ? 1 : 4;
+        }
+    }
+    //两队都得分 & 2.5球大/小 半场
+    else if (orderItem.market_type == marketType.BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5_HALF_TIME) {
+        const goalsarr = playingState.goals_ht.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Yes And Over") {
+            result_tb.win_type = goals0 > 0 && goals1 > 0 && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Yes And Under") {
+            result_tb.win_type = goals0 > 0 && goals1 > 0 && goals0 + goals1 < 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "No And Over") {
+            result_tb.win_type = !(goals0 > 0 && goals1 > 0) && goals0 + goals1 > 2.5 ? 1 : 4;
+        } else if (orderItem.s_type == "No And Under") {
+            result_tb.win_type = !(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5 ? 1 : 4;
+        }
+    }
+    //两队都得分 & 任意一队得两分或以上
+    else if (orderItem.market_type == marketType.BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5) {
+        const goalsarr = playingState.goals_ft.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Yes") {
+            result_tb.win_type = goals0 > 0 && goals1 > 0 && (goals0 > 1 || goals1 > 1) ? 1 : 4;
+        } else if (orderItem.s_type == "No") {
+            result_tb.win_type = !(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5 ? 1 : 4;
+        }
+    }
+    //两队都得分 & 任意一队得两分或以上 半场
+    else if (orderItem.market_type == marketType.BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5) {
+        const goalsarr = playingState.goals_ht.split("-");
+        const goals0 = Number(goalsarr[0]);
+        const goals1 = Number(goalsarr[1]);
+        if (orderItem.s_type == "Yes") {
+            result_tb.win_type = goals0 > 0 && goals1 > 0 && (goals0 > 1 || goals1 > 1) ? 1 : 4;
+        } else if (orderItem.s_type == "No") {
+            result_tb.win_type = !(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5 ? 1 : 4;
         }
     }
     result_tb.heardstr = "";

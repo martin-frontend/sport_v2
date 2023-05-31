@@ -228,6 +228,59 @@ export default class PageGameResultsProxy extends puremvc.Proxy {
         { market_type: "TEAM_A_EXACT_GOALS_HALF_TIME", name: LangUtil("半场 - 主队总入球"), type: "FT", category: [0], result: "" },
         { market_type: "TEAM_B_EXACT_GOALS", name: LangUtil("客队总入球"), type: "FT", category: [0], result: "" },
         { market_type: "TEAM_B_EXACT_GOALS_HALF_TIME", name: LangUtil("半场 - 客队总入球"), type: "FT", category: [0], result: "" },
+
+        { market_type: "MATCH_ODDS_AND_OVER_UNDER_2.5", name: LangUtil("主客和 & 2.5球大/小"), type: "FT", category: [0], result: "" },
+        {
+            market_type: "MATCH_ODDS_AND_OVER_UNDER_2.5_HALF_TIME",
+            name: LangUtil("半场 - 主客和 & 2.5球大/小"),
+            type: "FT",
+            category: [0],
+            result: "",
+        },
+        { market_type: "ODD_OR_EVEN_AND_OVER_UNDER_2.5", name: LangUtil("入球单双 & 2.5球大/小"), type: "FT", category: [0], result: "" },
+        {
+            market_type: "ODD_OR_EVEN_AND_OVER_UNDER_2.5_HALF_TIME",
+            name: LangUtil("半场 - 入球单双 & 2.5球大/小"),
+            type: "FT",
+            category: [0],
+            result: "",
+        },
+        { market_type: "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE", name: LangUtil("主客和 & 两队都得分"), type: "FT", category: [0], result: "" },
+        {
+            market_type: "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME",
+            name: LangUtil("半场 - 主客和 & 两队都得分"),
+            type: "FT",
+            category: [0],
+            result: "",
+        },
+        {
+            market_type: "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5",
+            name: LangUtil("两队都得分 & 2.5球大/小"),
+            type: "FT",
+            category: [0],
+            result: "",
+        },
+        {
+            market_type: "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5_HALF_TIME",
+            name: LangUtil("半场 - 两队都得分 & 2.5球大/小"),
+            type: "FT",
+            category: [0],
+            result: "",
+        },
+        {
+            market_type: "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE",
+            name: LangUtil("两队都得分 & 任意一队得两分或以上"),
+            type: "FT",
+            category: [0],
+            result: "",
+        },
+        {
+            market_type: "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+            name: LangUtil("半场 - 两队都得分 & 任意一队得两分或以上"),
+            type: "FT",
+            category: [0],
+            result: "",
+        },
     ];
 
     marketTypeOptions: any[] = [];
@@ -510,6 +563,144 @@ export default class PageGameResultsProxy extends puremvc.Proxy {
             str = LangUtil("总入球4球或更多");
         }
         this.marketTypeKind[74].result = str;
+        //主客和 & 2.5球大/小
+        let goals0 = homeScore;
+        let goals1 = awayScore;
+        if (goals0 > goals1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("主")}-${LangUtil("大大")}`;
+        } else if (goals0 > goals1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("主")}-${LangUtil("小小")}`;
+        } else if (goals0 < goals1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("客")}-${LangUtil("大大")}`;
+        } else if (goals0 < goals1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("客")}-${LangUtil("小小")}`;
+        } else if (goals0 == goals1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("和")}-${LangUtil("大大")}`;
+        } else if (goals0 == goals1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("和")}-${LangUtil("小小")}`;
+        }
+        this.marketTypeKind[75].result = str;
+        //主客和 & 2.5球大/小 半场
+        goals0 = homeScoreHF;
+        goals1 = awayScoreHF;
+        if (goals0 > goals1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("主")}-${LangUtil("大大")}`;
+        } else if (goals0 > goals1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("主")}-${LangUtil("小小")}`;
+        } else if (goals0 < goals1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("客")}-${LangUtil("大大")}`;
+        } else if (goals0 < goals1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("客")}-${LangUtil("小小")}`;
+        } else if (goals0 == goals1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("和")}-${LangUtil("大大")}`;
+        } else if (goals0 == goals1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("和")}-${LangUtil("小小")}`;
+        }
+        this.marketTypeKind[76].result = str;
+        //入球单双 & 2.5球大/小
+        goals0 = homeScore;
+        goals1 = awayScore;
+        if ((goals0 + goals1) % 2 == 1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("单")}-${LangUtil("大大")}`;
+        } else if ((goals0 + goals1) % 2 == 1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("单")}-${LangUtil("小小")}`;
+        } else if ((goals0 + goals1) % 2 == 0 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("双")}-${LangUtil("大大")}`;
+        } else if ((goals0 + goals1) % 2 == 0 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("双")}-${LangUtil("小小")}`;
+        }
+        this.marketTypeKind[77].result = str;
+        //入球单双 & 2.5球大/小 半场
+        goals0 = homeScoreHF;
+        goals1 = awayScoreHF;
+        if ((goals0 + goals1) % 2 == 1 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("单")}-${LangUtil("大大")}`;
+        } else if ((goals0 + goals1) % 2 == 1 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("单")}-${LangUtil("小小")}`;
+        } else if ((goals0 + goals1) % 2 == 0 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("双")}-${LangUtil("大大")}`;
+        } else if ((goals0 + goals1) % 2 == 0 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("双")}-${LangUtil("小小")}`;
+        }
+        this.marketTypeKind[78].result = str;
+        //主客和 & 两队都得分
+        goals0 = homeScore;
+        goals1 = awayScore;
+        if (goals0 > goals1 && goals0 > 0 && goals1 > 0) {
+            str = `${LangUtil("主")}-${LangUtil("是")}`;
+        } else if (goals0 > goals1 && !(goals0 > 0 && goals1 > 0)) {
+            str = `${LangUtil("主")}-${LangUtil("否")}`;
+        } else if (goals0 < goals1 && goals0 > 0 && goals1 > 0) {
+            str = `${LangUtil("客")}-${LangUtil("是")}`;
+        } else if (goals0 < goals1 && !(goals0 > 0 && goals1 > 0)) {
+            str = `${LangUtil("主")}-${LangUtil("否")}`;
+        } else if (goals0 == goals1 && goals0 > 0 && goals1 > 0) {
+            str = `${LangUtil("和")}-${LangUtil("是")}`;
+        } else if (goals0 == goals1 && !(goals0 > 0 && goals1 > 0)) {
+            str = `${LangUtil("和")}-${LangUtil("否")}`;
+        }
+        this.marketTypeKind[79].result = str;
+        //主客和 & 两队都得分 半场
+        goals0 = homeScoreHF;
+        goals1 = awayScoreHF;
+        if (goals0 > goals1 && goals0 > 0 && goals1 > 0) {
+            str = `${LangUtil("主")}-${LangUtil("是")}`;
+        } else if (goals0 > goals1 && !(goals0 > 0 && goals1 > 0)) {
+            str = `${LangUtil("主")}-${LangUtil("否")}`;
+        } else if (goals0 < goals1 && goals0 > 0 && goals1 > 0) {
+            str = `${LangUtil("客")}-${LangUtil("是")}`;
+        } else if (goals0 < goals1 && !(goals0 > 0 && goals1 > 0)) {
+            str = `${LangUtil("客")}-${LangUtil("否")}`;
+        } else if (goals0 == goals1 && goals0 > 0 && goals1 > 0) {
+            str = `${LangUtil("和")}-${LangUtil("是")}`;
+        } else if (goals0 == goals1 && !(goals0 > 0 && goals1 > 0)) {
+            str = `${LangUtil("和")}-${LangUtil("否")}`;
+        }
+        this.marketTypeKind[80].result = str;
+        //两队都得分 & 2.5球大/小
+        goals0 = homeScore;
+        goals1 = awayScore;
+        if (goals0 > 0 && goals1 > 0 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("是")}-${LangUtil("大大")}`;
+        } else if (goals0 > 0 && goals1 > 0 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("是")}-${LangUtil("小小")}`;
+        } else if (!(goals0 > 0 && goals1 > 0) && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("否")}-${LangUtil("大大")}`;
+        } else if (!(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("否")}-${LangUtil("小小")}`;
+        }
+        this.marketTypeKind[81].result = str;
+        //两队都得分 & 2.5球大/小 半场
+        goals0 = homeScoreHF;
+        goals1 = awayScoreHF;
+        if (goals0 > 0 && goals1 > 0 && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("是")}-${LangUtil("大大")}`;
+        } else if (goals0 > 0 && goals1 > 0 && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("是")}-${LangUtil("小小")}`;
+        } else if (!(goals0 > 0 && goals1 > 0) && goals0 + goals1 > 2.5) {
+            str = `${LangUtil("否")}-${LangUtil("大大")}`;
+        } else if (!(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5) {
+            str = `${LangUtil("否")}-${LangUtil("小小")}`;
+        }
+        this.marketTypeKind[82].result = str;
+        //两队都得分 & 任意一队得两分或以上
+        goals0 = homeScore;
+        goals1 = awayScore;
+        if (goals0 > 0 && goals1 > 0 && (goals0 > 1 || goals1 > 1)) {
+            str = LangUtil("是");
+        } else if (!(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5) {
+            str = LangUtil("否");
+        }
+        this.marketTypeKind[83].result = str;
+        //两队都得分 & 任意一队得两分或以上 半场
+        goals0 = homeScoreHF;
+        goals1 = awayScoreHF;
+        if (goals0 > 0 && goals1 > 0 && (goals0 > 1 || goals1 > 1)) {
+            str = LangUtil("是");
+        } else if (!(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5) {
+            str = LangUtil("否");
+        }
+        this.marketTypeKind[84].result = str;
     }
 
     api_event_states(id: any) {

@@ -88,6 +88,17 @@ const EnumMarketType = {
     TEAM_B_EXACT_GOALS_HALF_TIME: "TEAM_B_EXACT_GOALS_HALF_TIME",
     EITHER_TEAM_TO_SCORE_THREE_OR_MORE: "EITHER_TEAM_TO_SCORE_THREE_OR_MORE",
     EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME: "EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME",
+
+    MATCH_ODDS_AND_OVER_UNDER_2_5: "MATCH_ODDS_AND_OVER_UNDER_2.5",
+    MATCH_ODDS_AND_OVER_UNDER_2_5_HALF_TIME: "MATCH_ODDS_AND_OVER_UNDER_2.5_HALF_TIME",
+    ODD_OR_EVEN_AND_OVER_UNDER_2_5: "ODD_OR_EVEN_AND_OVER_UNDER_2.5",
+    ODD_OR_EVEN_AND_OVER_UNDER_2_5_HALF_TIME: "ODD_OR_EVEN_AND_OVER_UNDER_2.5_HALF_TIME",
+    MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE: "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE",
+    MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME: "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME",
+    BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5: "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5",
+    BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5_HALF_TIME: "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5_HALF_TIME",
+    BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE: "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE",
+    BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME: "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
 };
 
 function formatAsian(handicap: string, type: string): string {
@@ -166,6 +177,8 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
         case EnumMarketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE:
         case EnumMarketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME:
+        case EnumMarketType.BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE:
+        case EnumMarketType.BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME:
             return selection.type == "Yes" ? LangUtil("是") : LangUtil("否");
         case EnumMarketType.DRAW_NO_BET:
         case EnumMarketType.DRAW_NO_BET_HALF_TIME:
@@ -225,6 +238,29 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
     if (selection.type == "Draw-Home" && noBet) return `${LangUtil("和")}-${LangUtil("主")}`;
     if (selection.type == "Draw-Draw" && noBet) return `${LangUtil("和")}-${LangUtil("和")}`;
     if (selection.type == "Draw-Away" && noBet) return `${LangUtil("和")}-${LangUtil("客")}`;
+
+    if (selection.type == "Home And Over" && noBet) return `${LangUtil("主")}-${LangUtil("大大")}`;
+    if (selection.type == "Home And Under" && noBet) return `${LangUtil("主")}-${LangUtil("小小")}`;
+    if (selection.type == "Away And Over" && noBet) return `${LangUtil("客")}-${LangUtil("大大")}`;
+    if (selection.type == "Away And Under" && noBet) return `${LangUtil("客")}-${LangUtil("小小")}`;
+    if (selection.type == "Draw And Over" && noBet) return `${LangUtil("和")}-${LangUtil("大大")}`;
+    if (selection.type == "Draw And Under" && noBet) return `${LangUtil("和")}-${LangUtil("小小")}`;
+    if (selection.type == "Odd And Over" && noBet) return `${LangUtil("单")}-${LangUtil("大大")}`;
+    if (selection.type == "Odd And Under" && noBet) return `${LangUtil("单")}-${LangUtil("小小")}`;
+    if (selection.type == "Even And Over" && noBet) return `${LangUtil("双")}-${LangUtil("大大")}`;
+    if (selection.type == "Even And Under" && noBet) return `${LangUtil("双")}-${LangUtil("小小")}`;
+
+    if (selection.type == "Home And Yes" && noBet) return `${LangUtil("主")}-${LangUtil("是")}`;
+    if (selection.type == "Home And No" && noBet) return `${LangUtil("主")}-${LangUtil("否")}`;
+    if (selection.type == "Away And Yes" && noBet) return `${LangUtil("客")}-${LangUtil("是")}`;
+    if (selection.type == "Away And No" && noBet) return `${LangUtil("客")}-${LangUtil("否")}`;
+    if (selection.type == "Draw And Yes" && noBet) return `${LangUtil("和")}-${LangUtil("是")}`;
+    if (selection.type == "Draw And No" && noBet) return `${LangUtil("和")}-${LangUtil("否")}`;
+    if (selection.type == "Yes And Over" && noBet) return `${LangUtil("是")}-${LangUtil("大大")}`;
+    if (selection.type == "Yes And Under" && noBet) return `${LangUtil("是")}-${LangUtil("小小")}`;
+    if (selection.type == "No And Over" && noBet) return `${LangUtil("否")}-${LangUtil("大大")}`;
+    if (selection.type == "No And Under" && noBet) return `${LangUtil("否")}-${LangUtil("小小")}`;
+
     return noBet == true ? selection.type : "";
 }
 
