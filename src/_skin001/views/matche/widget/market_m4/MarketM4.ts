@@ -28,4 +28,12 @@ export default class MarketM4 extends AbstractView {
     get marketOrder3() {
         return this.market.selections.filter((item: any) => ((item.order - 1) / 3) >> 0 == 2);
     }
+    transTitle(market_type: any, item: any) {
+        let rs = MarketUtils.getSelectionName(market_type, item);
+        const homestr = LangUtil("主").trim();
+        const awaystr = LangUtil("客").trim();
+        const { home_team, away_team } = this.matche;
+        rs = rs.replace(new RegExp(homestr, "ig"), home_team).replace(new RegExp(awaystr, "ig"), away_team);
+        return rs;
+    }
 }
