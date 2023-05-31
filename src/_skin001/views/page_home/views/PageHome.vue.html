@@ -131,7 +131,34 @@
             <v-spacer />
             <svg-icon icon="search" @click.native="onSearch"></svg-icon>
         </v-sheet>
-        <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="transparent" height="30">
+        <div class="mx-2">
+            <v-menu nudge-bottom="4" offset-y>
+                <template v-slot:activator="{ on, attrs }">
+                    <v-sheet
+                        v-bind="attrs"
+                        v-on="on"
+                        class="d-flex align-center rounded-10 px10 textGray--text"
+                        color="bgPage"
+                        width="100%"
+                        height="30"
+                    >
+                        <svg-icon class="text-14 yellow1--text" style="transform: rotate(90deg)" icon="change"></svg-icon>
+                        <span style="white-space: nowrap" class="bgColor1--text text-14 mx-2">{{sortname()}}</span>
+                        <svg-icon
+                            class="textGray--text text-12"
+                            icon="zoom_out"
+                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                        ></svg-icon>
+                    </v-sheet>
+                </template>
+                <v-list class="text-14">
+                    <v-list-item @click="onQuerySort('time')"> {{LangUtil("时间")}} </v-list-item>
+                    <v-list-item @click="onQuerySort('comp')"> {{LangUtil("联赛")}} </v-list-item>
+                </v-list>
+            </v-menu>
+        </div>
+
+        <!-- <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="bgPage" height="30">
             <v-sheet
                 class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14 font-weight-bold"
                 :class=" settingProxy.pageData.form.sort == 'time' ? 'btnPlain--text' : 'textGray--text'"
@@ -149,10 +176,8 @@
             >
                 {{LangUtil("联赛")}}
             </v-sheet>
-        </v-sheet>
-        <btn-yellow minWidth="60" height="30" :rounded5="true" @click.native="goLiveList"
-            ><span class="text-14">{{LangUtil("直播")}}</span></btn-yellow
-        >
+        </v-sheet> -->
+        <svg-icon @click.native="goLiveList" class="text-20" icon="live1_"></svg-icon>
     </v-sheet>
 
     <v-expansion-panels

@@ -20,7 +20,6 @@ export default class PageHome extends AbstractView {
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
-
     constructor() {
         super(PageHomeMediator);
     }
@@ -101,6 +100,13 @@ export default class PageHome extends AbstractView {
         this.settingProxy.api_user_set_user_setting();
         this.listQueryComp.sort = sort;
         page_home.showEventList();
+    }
+    sortname() {
+        if (this.settingProxy.pageData.form.sort == "time") {
+            return LangUtil("时间");
+        } else {
+            return LangUtil("联赛");
+        }
     }
 
     //搜寻
