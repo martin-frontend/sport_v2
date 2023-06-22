@@ -1,0 +1,25 @@
+.mt-37 {
+    margin-top: 52px;
+}
+::v-deep .v-skeleton-loader__heading {
+    margin: 0px !important;
+    width: 100%;
+}
+::v-deep .v-skeleton-loader .v-skeleton-loader__card-heading {
+    background-color: transparent !important;
+}
+
+.roundedb10 {
+    border-bottom-right-radius: 10px;
+    border-bottom-left-radius: 10px;
+}
+.btnEnter {
+    margin-top: 38px;
+    &.active {
+        background: linear-gradient(to right, #fcb131, #ffe64d);
+        color: #0f1213 !important;
+    }
+}
+.bgtexture {
+    background: url("~@/_skin001/assets/img_texture.png") no-repeat right 50px bottom 12px;
+}
