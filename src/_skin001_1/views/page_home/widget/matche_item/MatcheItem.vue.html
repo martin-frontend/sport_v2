@@ -1,0 +1,190 @@
+<v-sheet class="pt-2 pb10 bgtexture" :class="{'roundedb10': isLast}" color="bgBanner">
+    <!-- <v-divider /> -->
+    <div class="d-flex" :class="{'mt-n2': !isFirst}">
+        <v-sheet class="text-14" color="transparent" min-width="350">
+            <v-sheet class="d-flex align-center btnPlain--text text-14" color="transparent" height="30">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                            <v-hover v-slot="{ hover }">
+                                <svg-icon
+                                    v-bind="attrs"
+                                    v-on="on"
+                                    class="text-18 textGray--text hand ml10 mt-1"
+                                    :class="{'active': pageData.love_events.includes(matche.id)}"
+                                    :icon="hover ? 'love' : (pageData.love_events.includes(matche.id) ? 'love_' : 'love1')"
+                                    @click.native="onLove"
+                                ></svg-icon>
+                            </v-hover>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{LangUtil("关注")}}</span>
+                    </v-sheet>
+                </v-tooltip>
+                <v-sheet class="ml10" width="2" height="16" color="yellow" rounded></v-sheet>
+                <div v-if="states" class="d-flex align-center ml10">
+                    <div :class="states.match_phase=='-'? 'yellow--text':'btnPlain--text'">
+                        {{ LangUtil(states ? states.match_phase : "") }}
+                    </div>
+                    <div class="ml-1" v-if="states.phase_minute > 0">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
+                    <div class="d-flex align-center ml-3">
+                        <svg-icon icon="corner"></svg-icon>
+                        <div class="text-gray1">{{ states.corners_ft }}</div>
+                    </div>
+                </div>
+                <div v-else-if="start > 0" class="d-flex align-center">
+                    <div class="ml10">{{ start_time }}</div>
+                    <div class="ml10 text-12" v-if="start_in_sec > 86400">{{LangUtil("距开赛")}} {{ day }}{{LangUtil("天")}}</div>
+                    <!-- 一天内 -->
+                    <div class="ml10 d-flex align-center text-12" v-else-if="start_in_sec > 600">
+                        <div>{{LangUtil("距开赛")}}</div>
+                        <div class="ml-1">{{ hr }}{{LangUtil("小时")}}{{ min }}{{LangUtil("分")}}</div>
+                    </div>
+                    <!-- 十分钟内 -->
+                    <div v-else class="ml10 font-weight-bold yellow--text">{{LangUtil("即将开赛")}}</div>
+                </div>
+
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                            <svg-icon
+                                v-if="matche.live_status == 1"
+                                class="text-20 textGray--text hand ml-4"
+                                icon="live1_"
+                                @click.native="playMatcheLive"
+                            ></svg-icon>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{LangUtil("直播")}}</span>
+                    </v-sheet>
+                </v-tooltip>
+
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet color="transparent" v-bind="attrs" v-on="on">
+                            <svg-icon
+                                v-if="matche.animation_status == 1"
+                                class="text-18 textGray--text hand ml-4"
+                                icon="animate1_"
+                                @click.native="playMatcheAnimation"
+                            ></svg-icon>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{LangUtil("动画")}}</span>
+                    </v-sheet>
+                </v-tooltip>
+            </v-sheet>
+            <v-sheet class="ml10 pl-10" color="transparent">
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet class="d-flex align-center" height="30" color="transparent" v-bind="attrs" v-on="on">
+                            <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="20" height="20">
+                                <v-img :src="getResponseIcon(matche.home_team_icon)" contain max-width="20" width="20" height="20"></v-img>
+                            </v-sheet>
+                            <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.home_team}}</div>
+                            <CardRed
+                                class="mx-1"
+                                v-if="states && getValues(states.red_cards_ft)[0] > 0"
+                                :value="getValues(states.red_cards_ft)[0]"
+                            />
+                            <v-spacer />
+                            <v-sheet
+                                v-if="states"
+                                class="ml-1 d-flex align-center font-weight-bold text-18"
+                                min-width="15"
+                                color="transparent"
+                            >
+                                <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[0]}}</span>
+                                <span class="d-flex" v-else>
+                                    {{getValues(states.goals_ot)[0]}}
+                                    <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[0]}})</span>
+                                </span>
+                            </v-sheet>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{matche.home_team}}</span>
+                    </v-sheet>
+                </v-tooltip>
+
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet class="d-flex align-center mt-2" height="30" color="transparent" v-bind="attrs" v-on="on">
+                            <v-sheet color="bgPage" class="rounded-circle overflow-hidden" width="20" height="20">
+                                <v-img :src="getResponseIcon(matche.away_team_icon)" contain max-width="20" width="20" height="20"></v-img>
+                            </v-sheet>
+                            <div class="ml-2 text-truncate btnPlain--text font-weight-bold">{{matche.away_team}}</div>
+                            <CardRed
+                                class="mx-1"
+                                v-if="states && getValues(states.red_cards_ft)[1]"
+                                :value="getValues(states.red_cards_ft)[1]"
+                            />
+                            <v-spacer />
+                            <v-sheet
+                                v-if="states"
+                                class="ml-1 d-flex align-center font-weight-bold text-18"
+                                min-width="15"
+                                color="transparent"
+                            >
+                                <span v-if="isShowFullScore(states.match_phase)">{{getValues(states.goals_ft)[1]}}</span>
+                                <span class="d-flex" v-else>
+                                    {{getValues(states.goals_ot)[1]}}
+                                    <span v-if="isShowPK(states.match_phase)">({{getValues(states.goals_pk)[1]}})</span>
+                                </span>
+                            </v-sheet>
+                        </v-sheet>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{matche.away_team}}</span>
+                    </v-sheet>
+                </v-tooltip>
+            </v-sheet>
+        </v-sheet>
+        <v-sheet class="mr10" width="100%" color="transparent">
+            <v-sheet class="d-flex align-center" height="30" color="transparent">
+                <v-row dense>
+                    <v-col v-for="(item, index) of tableColumn" :key="index">
+                        <v-sheet class="text-center textGray1--text text-14" color="transparent">{{item}}</v-sheet>
+                    </v-col>
+                </v-row>
+            </v-sheet>
+            <!-- 无盘口数据时间显示 -->
+            <v-sheet width="100%" color="transparent" v-if="!fixMarket">
+                <v-skeleton-loader class="mx-auto mt-1" width="100%" height="65" type="card-heading"></v-skeleton-loader>
+            </v-sheet>
+            <!-- 盘口 -->
+            <div v-if="fixMarket" class="d-flex mr10" style="width: 100%">
+                <v-sheet class="d-flex" color="transparent" width="100%">
+                    <template v-for="(item, index) of marketTypes">
+                        <BtnFixedBet
+                            v-for="(sel, skey) of getSelections(item)"
+                            :key="index + '-' + skey"
+                            :selection="sel"
+                            :matche="matche"
+                            :market="getMarket(item)"
+                            class="mb-1 ml-2"
+                            :class="(item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && skey == 2 && isShowDrow) ? 'mt-37' : ''"
+                            style="width: 100%; height: 65px"
+                        >
+                            <div class="text-14" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
+                                {{MarketUtils.getSelectionName(item, sel)}}
+                            </div>
+                        </BtnFixedBet>
+                    </template>
+                </v-sheet>
+            </div>
+        </v-sheet>
+        <v-btn
+            class="rounded-10 btnEnter mr10 elevation-0 textGray--text"
+            :class="{'active': matcheProxy.listQueryComp.event_id == matche.id}"
+            min-width="58"
+            height="30"
+            color="bgGray"
+            @click="goMatche"
+            >{{marketAmount}}<svg-icon class="text-10 ml-1" icon="page_right"></svg-icon
+        ></v-btn>
+    </div>
+</v-sheet>

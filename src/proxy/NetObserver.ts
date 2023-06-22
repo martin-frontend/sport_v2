@@ -9,6 +9,7 @@ import BetProxy from "./BetProxy";
 import OrderUnsettledProxy from "./OrderUnsettledProxy";
 import SelfProxy from "./SelfProxy";
 import SettingProxy from "./SettingProxy";
+import SkinVariable from "@/core/SkinVariable";
 
 export default class NetObserver extends AbstractMediator {
     static NAME = "NetObserver";
@@ -47,21 +48,31 @@ export default class NetObserver extends AbstractMediator {
                     GlobalVar.color_up = "#41A81D";
                     GlobalVar.color_down = "#F64D55";
                 }
-                // 如果没有配置，给默认值
-                if (!PlatConfig.config.client.pcMarketType) {
-                    PlatConfig.config.client.pcMarketType =
-                        "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME";
+
+                if (SkinVariable.home_market_type == 2) {
+                    //直接写死
+                    PlatConfig.config.client.pcMarketType = "MATCH_ODDS,ASIAN_OVER_UNDER";
+                    PlatConfig.config.client.h5MarketType = "MATCH_ODDS";
+                    PlatConfig.config.client.pcMarketType_extra = "";
+                    PlatConfig.config.client.h5MarketType_extra = "";
+                } else {
+                    // 如果没有配置，给默认值
+                    if (!PlatConfig.config.client.pcMarketType) {
+                        PlatConfig.config.client.pcMarketType =
+                            "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME";
+                    }
+                    if (!PlatConfig.config.client.h5MarketType) {
+                        PlatConfig.config.client.h5MarketType = "ASIAN_OVER_UNDER,ASIAN_HANDICAP";
+                    }
+                    if (!PlatConfig.config.client.pcMarketType_extra) {
+                        PlatConfig.config.client.pcMarketType_extra =
+                            "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES";
+                    }
+                    if (!PlatConfig.config.client.h5MarketType_extra) {
+                        PlatConfig.config.client.h5MarketType_extra = "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME";
+                    }
                 }
-                if (!PlatConfig.config.client.h5MarketType) {
-                    PlatConfig.config.client.h5MarketType = "ASIAN_OVER_UNDER,ASIAN_HANDICAP";
-                }
-                if (!PlatConfig.config.client.pcMarketType_extra) {
-                    PlatConfig.config.client.pcMarketType_extra =
-                        "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES";
-                }
-                if (!PlatConfig.config.client.h5MarketType_extra) {
-                    PlatConfig.config.client.h5MarketType_extra = "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME";
-                }
+
                 if (!PlatConfig.config.client.champion_type) {
                     PlatConfig.config.client.champion_type = "RMM_OUTRIGHTS";
                 }

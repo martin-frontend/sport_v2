@@ -6,9 +6,7 @@
     @click="onBet"
 >
     <svg-icon class="textGray--text" icon="lock" v-if="!selection.type || !market"></svg-icon>
-    <div v-else class="d-flex align-center justify-center pl-3" color="transparent" style="width: 100%">
-        <div :class="$vuetify.breakpoint.mobile?'onlyphoneItem  text-13':'text-14'" class="divslot"><slot></slot></div>
-        <v-spacer v-if="$slots.default" />
+    <div v-else class="pl-3" color="transparent" style="width: 100%; text-align: center">
         <svg-icon
             class="textGray--text mr-1"
             icon="lock"
@@ -17,6 +15,7 @@
         <div v-else ref="divPrice" class="font-weight-bold" :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-14'">
             {{TransMarketPrice(getPrice())}}
         </div>
+        <div :class="$vuetify.breakpoint.mobile?'onlyphoneItem  text-13':'text-14'" class="divslot"><slot></slot></div>
     </div>
     <div
         ref="imgOdds"

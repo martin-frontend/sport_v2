@@ -1,30 +1,33 @@
 import "@/_skin001/assets/fonts/fonts.css";
 import Vue from "vue";
-import App from "./App.vue";
-import router from "./router";
+import App from "@/_skin001/App.vue";
+import router from "@/_skin001/router";
 import "@/_skin001/icons"; // svg 图标
 import "@/style/fontsize.scss";
 import "@/_skin001/style/space.scss";
 import "@/_skin001/style/rounded.scss";
-import "./style/common.scss";
-import { getVuetify } from "./plugins/vuetify";
+import "@/_skin001/style/common.scss";
+import { getVuetify } from "@/_skin001/plugins/vuetify";
 import Notifications from "vue-notification";
 import velocity from "velocity-animate";
 import VueLoadmore from "vuejs-loadmore";
 import LogUtil from "@/core/global/LogUtil";
 import GlobalVar from "@/core/global/GlobalVar";
 import { EnumDeviceType } from "@/core/enum/EnumDeviceType";
-import AppFacade from "./AppFacade";
+import AppFacade from "@/_skin001/AppFacade";
 import { getUrlHashParam, isAndroid, isIOS } from "@/core/global/Functions";
 import { js_utils } from "custer-js-utils";
-import BtnYellow from "./views/widget/btn_yellow/BtnYellow.vue";
-import BtnInfo from "./views/widget/btn_info/BtnInfo.vue";
-import Overlay from "./views/widget/overlay/Overlay.vue";
-import LoadMore from "./views/widget/loadMore/LoadMore.vue";
-import Loader from "./views/widget/loader/Loader.vue";
-import HorizontalScroll from "./views/widget/horizontal_scroll/HorizontalScroll.vue";
-import MatcheItem from "@/_skin001/views/page_home/widget/matche_item/MatcheItem.vue";
-import MatcheItemMobile from "@/_skin001/views/page_home/widget/matche_item_mobile/MatcheItemMobile.vue";
+import BtnYellow from "@/_skin001/views/widget/btn_yellow/BtnYellow.vue";
+import BtnInfo from "@/_skin001/views/widget/btn_info/BtnInfo.vue";
+import Overlay from "@/_skin001/views/widget/overlay/Overlay.vue";
+import LoadMore from "@/_skin001/views/widget/loadMore/LoadMore.vue";
+import Loader from "@/_skin001/views/widget/loader/Loader.vue";
+import HorizontalScroll from "@/_skin001/views/widget/horizontal_scroll/HorizontalScroll.vue";
+import MatcheItem from "@/_skin001_1/views/page_home/widget/matche_item/MatcheItem.vue";
+import MatcheItemMobile from "@/_skin001_1/views/page_home/widget/matche_item_mobile/MatcheItemMobile.vue";
+import SkinVariable from "@/core/SkinVariable";
+
+SkinVariable.home_market_type = 2;
 
 LogUtil.init();
 Vue.config.productionTip = false;

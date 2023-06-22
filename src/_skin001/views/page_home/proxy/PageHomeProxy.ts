@@ -187,9 +187,11 @@ export default class PageHomeProxy extends puremvc.Proxy {
         } else {
             const { h5MarketType, pcMarketType, h5MarketType_extra, pcMarketType_extra } = PlatConfig.config.client;
             if (vuetify.framework.breakpoint.mobile) {
-                this.listQueryMarket.market_type = h5MarketType + "," + h5MarketType_extra;
+                this.listQueryMarket.market_type = h5MarketType;
+                if (h5MarketType_extra) this.listQueryMarket.market_type += "," + h5MarketType_extra;
             } else {
-                this.listQueryMarket.market_type = pcMarketType + "," + pcMarketType_extra;
+                this.listQueryMarket.market_type = pcMarketType;
+                if (pcMarketType_extra) this.listQueryMarket.market_type += "," + pcMarketType_extra;
             }
         }
         this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(this.listQueryMarket));
