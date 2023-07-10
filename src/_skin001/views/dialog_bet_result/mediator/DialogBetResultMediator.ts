@@ -26,6 +26,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 myProxy.pageData.order_no = body.order_no;
                 myProxy.pageData.partner_order = body.partner_order;
                 Object.assign(myProxy.pageData, body.requestData);
+                myProxy.pageData.odds = body.odds;
                 myProxy.pageData.create_time = GlobalVar.server_time;
                 myProxy.pageData.isInPlay = false;
                 myProxy.pageData.goals = "";
@@ -80,6 +81,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                         myProxy.pageData.status = item.status;
                         myProxy.pageData.statusMsg = item.statusMsg;
                         myProxy.pageData.order_no = item.order_no;
+                        myProxy.pageData.odds = item.odds;
                     }
                     Vue.notify(<any>{
                         group: "order_finished",

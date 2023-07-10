@@ -19,16 +19,21 @@ export default class DialogSetting extends AbstractView {
     myProxy: SettingProxy = this.getProxy(SettingProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
-    user_type: number;
 
-    oddStr = [LangUtil("不接收更好的赔率"), LangUtil("自动接收更好的赔率")];
+    user_type: number;
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
+    expanded = false;
     constructor() {
         super(DialogSettingMediator);
         const { user_type } = this.selfProxy.userInfo;
         this.user_type = user_type;
     }
-
+    get bBetter() {
+        return this.selfProxy.userInfo.better_odds == 1;
+    }
+    set bBetter(better: boolean) {
+        better ? (this.selfProxy.userInfo.better_odds = 1) : (this.selfProxy.userInfo.better_odds = 0);
+    }
     openCompetionResult() {
         if (this.user_type == 2) {
             logEnterTips();
@@ -57,9 +62,10 @@ export default class DialogSetting extends AbstractView {
             settingProxy.api_user_set_user_setting();
         }
     }
-    clickOdditem(_odds: number) {
-        window.localStorage.setItem("better_odds", _odds.toString());
-        this.selfProxy.userInfo.better_odds = _odds;
+    clickOdditem() {
+        const idx = this.bBetter ? 1 : 0;
+        window.localStorage.setItem("better_odds", idx.toString());
+        this.selfProxy.userInfo.better_odds = idx;
     }
     get getSelectName() {
         const data = this.pageData.items.find((item: any) => item.key == this.pageData.form.timezone);

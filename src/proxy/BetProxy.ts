@@ -160,6 +160,7 @@ export default class BetProxy extends puremvc.Proxy {
             form.market_id = market.market_id;
             form.market_type = market.market_type;
             form.selection_id = selection.id.toString();
+            form.priceIndex = selection.priceIndex;
             form.odds = odds;
             form.better_odds = better_odds;
             this.sendNotification(net.HttpType.api_user_betfix, form);

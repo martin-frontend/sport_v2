@@ -75,6 +75,24 @@
 
     <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span> VS </span>{{item.matche.away_team}}</div>
 
+    <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center px-2 mb-2" style="max-width: 100%">
+        <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
+            {{LangUtil('是否自动接受更好赔率')}}
+        </div>
+
+        <v-spacer />
+
+        <LeeSwitch
+            class="mt-n1 ml-2"
+            @change="clickOdditem()"
+            color="#3caa1f"
+            v-model="bBetter"
+            :startText="LangUtil('开')"
+            :endText="LangUtil('关')"
+        >
+        </LeeSwitch>
+    </div>
+
     <div class="d-flex ml10 mr10 mb-3 input-box">
         <v-sheet class="d-flex align-center justify-center input_left" min-width="60" :height="$vuetify.breakpoint.mobile?40:36"
             >{{GlobalVar.currency}}</v-sheet
@@ -202,6 +220,13 @@
     </div>
 
     <template v-if="!$vuetify.breakpoint.mobile">
+        <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-2 px-2 mb-2">
+            <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
+                {{LangUtil('是否自动接受更好赔率')}}
+            </div>
+
+            <LeeSwitch class="mt-n1 ml-2" @change="clickOdditem()" color="#3caa1f" v-model="bBetter"> </LeeSwitch>
+        </div>
         <div class="ml10 mr10 mb-1" v-if="!item.oddsChance || item.isMarketClose">
             <v-btn
                 class="elevation-0 rounded-5 btn_yellow textYellow--text"
@@ -217,6 +242,7 @@
                 <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
             </btn-yellow> -->
         </div>
+
         <div class="ml10 mr10 mb-1" v-else>
             <v-btn
                 class="elevation-0 rounded-5 btn_yellow textYellow--text"
@@ -229,43 +255,6 @@
                 <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
             </v-btn>
         </div>
-        <!-- <v-sheet v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
-            <v-menu offset-y nudge-bottom="2">
-                <template v-slot:activator="{ on, attrs }">
-                    <button class="seletbtn" v-bind="attrs" v-on="on" text>
-                        <span>{{oddStr[selfProxy.userInfo.better_odds]}}</span>
-
-                        <svg-icon
-                            class="textGray--text text-16 mr-2"
-                            icon="zoom_out"
-                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
-                        ></svg-icon>
-                    </button>
-                </template>
-                <v-sheet class="oddmenu pa-1" color="bgGray">
-                    <v-btn
-                        width="100%"
-                        @click="clickOdditem(0)"
-                        height="30"
-                        class="seletbtn mb-1"
-                        text
-                        :class="selfProxy.userInfo.better_odds==0?'actItem':'disactItem'"
-                    >
-                        <span>{{oddStr[0]}}</span>
-                    </v-btn>
-                    <v-btn
-                        width="100%"
-                        @click="clickOdditem(1)"
-                        height="30"
-                        class="seletbtn"
-                        text
-                        :class="selfProxy.userInfo.better_odds==1?'actItem':'disactItem'"
-                    >
-                        <span>{{oddStr[1]}}</span>
-                    </v-btn>
-                </v-sheet>
-            </v-menu>
-        </v-sheet> -->
     </template>
     <template v-else>
         <v-row class="mx10" dense>
@@ -306,43 +295,14 @@
                     </btn-yellow> -->
                 </div>
             </v-col>
-            <!-- <v-col v-if="able_to_choose_betterodds" class="d-flex justify-center mt-2" width="100%">
-                <v-menu offset-y nudge-top="110">
-                    <template v-slot:activator="{ on, attrs }">
-                        <button style="width: 100%" class="seletbtn" v-bind="attrs" v-on="on" text>
-                            <span>{{oddStr[selfProxy.userInfo.better_odds]}}</span>
-
-                            <svg-icon
-                                class="textGray--text text-16 mr-2"
-                                icon="zoom_out"
-                                :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
-                            ></svg-icon>
-                        </button>
-                    </template>
-                    <v-sheet class="oddmenu pa-1" color="bgGray">
-                        <v-btn
-                            width="100%"
-                            @click="clickOdditem(0)"
-                            height="30"
-                            class="seletbtn mb-1"
-                            text
-                            :class="selfProxy.userInfo.better_odds==0?'actItem':'disactItem'"
-                        >
-                            <span>{{oddStr[0]}}</span>
-                        </v-btn>
-                        <v-btn
-                            width="100%"
-                            @click="clickOdditem(1)"
-                            height="30"
-                            class="seletbtn"
-                            text
-                            :class="selfProxy.userInfo.better_odds==1?'actItem':'disactItem'"
-                        >
-                            <span>{{oddStr[1]}}</span>
-                        </v-btn>
-                    </v-sheet>
-                </v-menu>
-            </v-col> -->
         </v-row>
+        <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-6 px-2">
+            <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
+                {{LangUtil('是否自动接受更好赔率')}}
+            </div>
+
+            <LeeSwitch class=" ml-2" @change="clickOdditem()" color="#3caa1f" v-model="bBetter"> </LeeSwitch>
+            </v-switch>
+        </div>
     </template>
 </div>
