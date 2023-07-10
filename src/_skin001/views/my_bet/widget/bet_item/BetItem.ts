@@ -33,14 +33,15 @@ export default class BetItem extends AbstractView {
     myProxy: BetProxy = this.getProxy(BetProxy);
     pageData = this.myProxy.pageData;
     bshowkeybord = false;
+
     keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "000"];
     @Prop() item!: any;
 
     iconOdds = "arrow_up";
     cleartimer = 0;
-
-    oddStr = [LangUtil("不接收更好的赔率"), LangUtil("自动接收更好的赔率")];
+    // bBetter = this.selfProxy.userInfo.better_odds == 1;
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
+    expanded = false;
     @Watch("bshowkeybord")
     onWatchShowKeyboard() {
         // 键盘打开后，向上滚动，露出投注按扭
@@ -51,10 +52,16 @@ export default class BetItem extends AbstractView {
             }
         }
     }
-
-    clickOdditem(_odds: number) {
-        window.localStorage.setItem("better_odds", _odds.toString());
-        this.selfProxy.userInfo.better_odds = _odds;
+    get bBetter() {
+        return this.selfProxy.userInfo.better_odds == 1;
+    }
+    set bBetter(better: boolean) {
+        better ? (this.selfProxy.userInfo.better_odds = 1) : (this.selfProxy.userInfo.better_odds = 0);
+    }
+    clickOdditem() {
+        const idx = this.bBetter ? 1 : 0;
+        window.localStorage.setItem("better_odds", idx.toString());
+        this.selfProxy.userInfo.better_odds = idx;
     }
     @Watch("item.odds")
     onWatchOdds() {

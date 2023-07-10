@@ -166,3 +166,11 @@ input {
     opacity: 0;
     overflow: hidden;
 }
+.text-content {
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+.one-line-ellipsis {
+    white-space: nowrap;
+}

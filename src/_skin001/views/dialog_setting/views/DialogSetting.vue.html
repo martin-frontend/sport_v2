@@ -162,51 +162,28 @@
         <svg-icon icon="page_right"></svg-icon>
     </v-sheet>
 
-    <!-- <v-sheet color="bgBanner" class="mt-2 py textGray--text text-14" v-if="able_to_choose_betterodds">
+    <v-sheet color="bgBanner" class="mt-2 py textGray--text text-14" v-if="able_to_choose_betterodds">
         <div class="d-flex align-center">
             <v-sheet class="mx-2" rounded color="yellow" width="3" height="22"></v-sheet>
             <div>{{LangUtil("投注规则")}}</div>
         </div>
 
-        <v-menu :max-width="$vuetify.breakpoint.mobile?'259':'313'" nudge-right="4" class="ml-1" offset-y nudge-bottom="2">
-            <template v-slot:activator="{ on, attrs }">
-                <v-sheet width="100%" class="px-2">
-                    <button class="seletbtn mt-2" v-bind="attrs" v-on="on" text>
-                        <span>{{oddStr[selfProxy.userInfo.better_odds]}}</span>
+        <div class="d-flex justify-start align-center mt-3 px-2 btnPlain--text">
+            <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
+                {{LangUtil('是否自动接受更好赔率')}}
+            </div>
 
-                        <svg-icon
-                            class="textGray--text text-16 mr-2"
-                            icon="zoom_out"
-                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
-                        ></svg-icon>
-                    </button>
-                </v-sheet>
-            </template>
-
-            <v-sheet class="oddmenu pa-1" color="bgGray">
-                <v-btn
-                    width="100%"
-                    @click="clickOdditem(0)"
-                    height="30"
-                    class="seletbtn mb-1"
-                    text
-                    :class="selfProxy.userInfo.better_odds==0?'actItem':'disactItem'"
-                >
-                    <span>{{oddStr[0]}}</span>
-                </v-btn>
-                <v-btn
-                    width="100%"
-                    @click="clickOdditem(1)"
-                    height="30"
-                    class="seletbtn"
-                    text
-                    :class="selfProxy.userInfo.better_odds==1?'actItem':'disactItem'"
-                >
-                    <span>{{oddStr[1]}}</span>
-                </v-btn>
-            </v-sheet>
-        </v-menu>
-    </v-sheet> -->
+            <LeeSwitch
+                class="ml-2"
+                @change="clickOdditem()"
+                color="#3caa1f"
+                v-model="bBetter"
+                :startText="LangUtil('开')"
+                :endText="LangUtil('关')"
+            >
+            </LeeSwitch>
+        </div>
+    </v-sheet>
 
     <div class="mt-2 text-right textGray--text text-14 mr-3 mt-6">{{LangUtil("版本号")}} {{GlobalVar.version}}</div>
 </v-navigation-drawer>

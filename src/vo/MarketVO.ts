@@ -29,6 +29,7 @@ export interface FixSelectionVO {
     name: string;
     order: number;
     price: { back: string; lay: string; maxStake: string; minStake: string };
+    priceIndex: number;
     probability: string;
     status: 0;
     statusName: string;
