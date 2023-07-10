@@ -220,13 +220,13 @@
     </div>
 
     <template v-if="!$vuetify.breakpoint.mobile">
-        <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-2 px-2 mb-2">
+        <!-- <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-2 px-2 mb-2">
             <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
                 {{LangUtil('是否自动接受更好赔率')}}
             </div>
 
             <LeeSwitch class="mt-n1 ml-2" @change="clickOdditem()" color="#3caa1f" v-model="bBetter"> </LeeSwitch>
-        </div>
+        </div> -->
         <div class="ml10 mr10 mb-1" v-if="!item.oddsChance || item.isMarketClose">
             <v-btn
                 class="elevation-0 rounded-5 btn_yellow textYellow--text"
@@ -296,13 +296,13 @@
                 </div>
             </v-col>
         </v-row>
-        <!-- <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-6 px-2">
+        <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-2 px-2">
             <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
                 {{LangUtil('是否自动接受更好赔率')}}
             </div>
 
             <LeeSwitch class=" ml-2" @change="clickOdditem()" color="#3caa1f" v-model="bBetter"> </LeeSwitch>
             </v-switch>
-        </div> -->
+        </div>
     </template>
 </div>
