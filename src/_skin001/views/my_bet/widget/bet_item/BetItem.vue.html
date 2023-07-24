@@ -94,7 +94,7 @@
     </div>
 
     <div class="d-flex ml10 mr10 mb-3 input-box">
-        <v-sheet class="d-flex align-center justify-center input_left" min-width="60" :height="$vuetify.breakpoint.mobile?40:36"
+        <v-sheet v-if="!isVisitor" class="d-flex align-center justify-center input_left" min-width="60" :height="$vuetify.breakpoint.mobile?40:36"
             >{{GlobalVar.currency}}</v-sheet
         >
         <v-sheet class="d-flex align-center input_right" width="100%" :height="$vuetify.breakpoint.mobile?40:36">
@@ -103,7 +103,7 @@
                 readonly
                 class="btnPlain--text ml-2 font-weight-bold"
                 style="width: 100%"
-                :placeholder="LangUtil(`单注限额`) + ` ${item.minStake}-${item.maxStake}`"
+                :placeholder="getPlaceholder(item)"
                 v-model="item.stake"
                 @click="bshowkeybord = true"
             />
@@ -111,7 +111,7 @@
                 v-else
                 class="btnPlain--text ml-2 font-weight-bold"
                 style="width: 100%"
-                :placeholder="LangUtil(`单注限额`) + ` ${item.minStake}-${item.maxStake}`"
+                :placeholder="getPlaceholder(item)"
                 v-model="item.stake"
                 @input="onInput(item)"
             />
@@ -210,13 +210,13 @@
     <div class="d-flex ml10 mr10 mt-2 mb-1">
         <span>{{LangUtil("预计可赢")}}</span>
         <v-spacer />
-        <span class="yellow--text font-weight-bold">{{GlobalVar.currency}} {{getPreWin()}}</span>
+        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{getPreWin()}}</span>
     </div>
 
     <div class="d-flex ml10 mr10 mb-2" v-if="$vuetify.breakpoint.mobile">
         <span>{{LangUtil("投注限制")}}</span>
         <v-spacer />
-        <span class="yellow--text font-weight-bold">{{GlobalVar.currency}} {{item.maxStake}}</span>
+        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{item.maxStake}}</span>
     </div>
 
     <template v-if="!$vuetify.breakpoint.mobile">
@@ -226,10 +226,11 @@
                 :loading="pageData.loading"
                 height="40"
                 width="100%"
-                :disabled="item.isMarketClose || !isAllowBet"
+                :disabled="!isVisitor && (item.isMarketClose || !isAllowBet)"
                 @click="onBet"
             >
-                <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                <span v-if="!isVisitor" class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
             </v-btn>
             <!-- <btn-yellow height="36" width="100%" :rounded5="true" :disabled="item.isMarketClose" @click.native="onBet">
                 <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
@@ -243,9 +244,10 @@
                 height="40"
                 width="100%"
                 @click="onBet"
-                :disabled="item.isMarketClose || !isAllowBet"
+                :disabled="!isVisitor && (item.isMarketClose || !isAllowBet )"
             >
-                <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
+                <span v-if="!isVisitor" class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
+                <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
             </v-btn>
         </div>
     </template>
@@ -263,10 +265,11 @@
                         :loading="pageData.loading"
                         height="40"
                         width="100%"
-                        :disabled="item.isMarketClose || !isAllowBet"
+                        :disabled="!isVisitor && (item.isMarketClose || !isAllowBet)"
                         @click="onBet"
                     >
-                        <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                        <span v-if="!isVisitor" class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                        <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
                     </v-btn>
                     <!-- <btn-yellow height="40" width="100%" :rounded5="true" :disabled="item.isMarketClose" @click.native="onBet">
                         <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
@@ -279,9 +282,10 @@
                         height="40"
                         width="100%"
                         @click="onBet"
-                        :disabled="item.isMarketClose || !isAllowBet"
+                        :disabled="!isVisitor && (item.isMarketClose || !isAllowBet)"
                     >
-                        <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
+                        <span v-if="!isVisitor" class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
+                        <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
                     </v-btn>
                     <!-- <btn-yellow height="40" width="100%" :rounded5="true" @click.native="onBet">
                         <span class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}}) {{LangUtil("投注")}}</span>

@@ -26,7 +26,9 @@ export default class HomeMobileHeader extends AbstractView {
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
-
+    get isVisitor() {
+        return !this.selfProxy.userInfo || this.selfProxy.userInfo.user_type == 2;
+    }
     getTagNum(tag: string) {
         if (tag == "love") {
             return this.pageData.love_count;

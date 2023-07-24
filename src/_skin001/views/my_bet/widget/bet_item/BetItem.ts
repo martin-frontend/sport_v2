@@ -173,6 +173,10 @@ export default class BetItem extends AbstractView {
     }
     /**投注 */
     onBet() {
+        if (this.isVisitor) {
+            logEnterTips();
+            return;
+        }
         const stakeValue = parseLocaleNumber(this.item.stake.toString());
         const { gold, user_type } = this.selfProxy.userInfo;
         console.warn(">>>>>>>>gold: ", gold);
@@ -230,5 +234,15 @@ export default class BetItem extends AbstractView {
                 }
             }
         }, 200);
+    }
+    get isVisitor() {
+        return !this.selfProxy.userInfo || this.selfProxy.userInfo.user_type == 2;
+    }
+
+    getPlaceholder(item: any) {
+        if (this.isVisitor) {
+            return LangUtil("请输入");
+        }
+        return LangUtil("单注限额") + ` ${item.minStake}-${item.maxStake}`;
     }
 }

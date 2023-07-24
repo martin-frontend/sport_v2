@@ -69,4 +69,7 @@ export default class DialogMyBet extends AbstractView {
 
         return result;
     }
+    get isVisitor() {
+        return !this.selfProxy.userInfo || this.selfProxy.userInfo.user_type == 2;
+    }
 }

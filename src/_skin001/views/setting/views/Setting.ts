@@ -4,6 +4,7 @@ import SettingMediator from "../mediator/SettingMediator";
 import SettingProxy from "@/proxy/SettingProxy";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
+import SelfProxy from "@/proxy/SelfProxy";
 
 @Component
 export default class Setting extends AbstractView {
@@ -11,7 +12,7 @@ export default class Setting extends AbstractView {
     GlobalVar = GlobalVar;
     myProxy: SettingProxy = this.getProxy(SettingProxy);
     pageData = this.myProxy.pageData;
-
+    selfProxy: SelfProxy = this.getProxy(SelfProxy);
     radioGroup = 0;
 
     constructor() {
@@ -42,5 +43,8 @@ export default class Setting extends AbstractView {
 
     destroyed() {
         super.destroyed();
+    }
+    get isVisitor() {
+        return !this.selfProxy.userInfo || this.selfProxy.userInfo.user_type == 2;
     }
 }
