@@ -65,7 +65,7 @@
             </div>
         </div>
     </v-sheet>
-    <v-sheet color="bgBanner" class="d-flex align-center textGray--text py-2 mt-2">
+    <v-sheet v-if="!isVisitor" color="bgBanner" class="d-flex align-center textGray--text py-2 mt-2">
         <v-sheet class="rounded mx-2" color="yellow" width="3" height="22"></v-sheet>
         <div class="text-14">{{LangUtil("币种")}}</div>
         <div class="ml-1">{{GlobalVar.currency}}</div>

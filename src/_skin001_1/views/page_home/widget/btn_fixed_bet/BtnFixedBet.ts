@@ -141,10 +141,10 @@ export default class BtnFixedBet extends AbstractView {
     }
 
     onBet() {
-        if (this.user_type == 2) {
-            logEnterTips();
-            return;
-        }
+        // if (this.user_type == 2) {
+        //     logEnterTips();
+        //     return;
+        // }
         if (this.market && this.market.status != 2 && this.selection && this.selection.status == 0) {
             const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
             let comp: any = homeProxy.pageData.competition_list.find((item) => item.competition_id == this.matche.competition_id);

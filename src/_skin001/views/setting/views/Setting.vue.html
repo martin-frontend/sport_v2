@@ -1,5 +1,5 @@
 <v-sheet class="text-14 px-5" width="100%" color="transparent">
-    <v-sheet class="textGray--text mt-2" color="transparent">
+    <v-sheet v-if="!isVisitor" class="textGray--text mt-2" color="transparent">
         <v-row dense>
             <v-col cols="4">{{LangUtil("币种")}}</v-col>
             <v-col cols="8" class="btnPlain--text">{{GlobalVar.currency}}</v-col>

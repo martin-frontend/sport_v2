@@ -97,4 +97,7 @@ export default class DialogSetting extends AbstractView {
             thisObj: this,
         });
     }
+    get isVisitor() {
+        return !this.selfProxy.userInfo || this.selfProxy.userInfo.user_type == 2;
+    }
 }
