@@ -1,11 +1,11 @@
 <v-sheet
     ref="divBox"
     class="d-flex align-center justify-center rounded-5 hand btn"
-    :class="{'disabled': !market || market.status == 2 || !selection.type || selection.status != 0 || !selection.price.back}"
+    :class="{'disabled': !market || market.status == 2 || !selection ||!selection.type || selection.status != 0 || !selection.price.back}"
     height="30"
     @click="onBet"
 >
-    <svg-icon class="textGray--text" icon="lock" v-if="!selection.type || !market"></svg-icon>
+    <svg-icon class="textGray--text" icon="lock" v-if="!selection || !selection.type || !market"></svg-icon>
     <div v-else class="d-flex align-center justify-center pl-3" color="transparent" style="width: 100%">
         <div :class="$vuetify.breakpoint.mobile?'onlyphoneItem  text-13':'text-14'" class="divslot"><slot></slot></div>
         <v-spacer v-if="$slots.default" />
@@ -21,7 +21,7 @@
     <div
         ref="imgOdds"
         class="text-8 mx-1 opacity-0"
-        v-if="!(!market || market.status == 2 || !selection.type || selection.status != 0 || !selection.price.back)"
+        v-if="!(!market || market.status == 2 || !selection || !selection.type || selection.status != 0 || !selection.price.back)"
     >
         <svg-icon :icon="iconOdds"></svg-icon>
     </div>
