@@ -47,7 +47,7 @@ export default class BtnFixedBet extends AbstractView {
     //添加 涨迭样式
     @Watch("selection")
     watchSelection() {
-        if (this.market && this.market.status != 2 && this.selection.type && this.selection.status == 0 && this.selection.price.back) {
+        if (this.market && this.market.status != 2 && this.selection && this.selection.type && this.selection.status == 0 && this.selection.price.back) {
             const divPrice: HTMLElement = <any>this.$refs.divPrice;
             const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
             //@ts-ignore
@@ -91,7 +91,7 @@ export default class BtnFixedBet extends AbstractView {
         const divBox: HTMLElement = <any>this.$refs.divBox?.$el;
         const divPrice: HTMLElement = <any>this.$refs.divPrice;
         if (divBox) {
-            this.pageData.list.find((item) => item.selection.id == this.selection.id && item.market.market_id == this.market.market_id)
+            this.pageData.list.find((item) => item.selection && this.selection  && item.selection.id == this.selection.id && item.market.market_id == this.market.market_id)
                 ? addClass(divBox, "active")
                 : removeClass(divBox, "active");
             if (divPrice) {

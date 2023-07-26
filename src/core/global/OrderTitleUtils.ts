@@ -158,7 +158,23 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
 //special > 注单记录 双重机会/双胜彩
 function getTeamName(data: any, special: boolean = true) {
     const teamType = ["Home", "Away", "Draw"];
-    const marketType = ["HALF_TIME_FULL_TIME", "DOUBLE_CHANCE", "DOUBLE_CHANCE_HALF_TIME"];
+    const marketType = [
+        "HALF_TIME_FULL_TIME",
+        "DOUBLE_CHANCE",
+        "DOUBLE_CHANCE_HALF_TIME",
+
+        "MATCH_ODDS_AND_OVER_UNDER_2.5",
+        "MATCH_ODDS_AND_OVER_UNDER_2.5_HALF_TIME",
+
+        "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE",
+        "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME",
+
+        "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5",
+        "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5_HALF_TIME",
+
+        "ODD_OR_EVEN_AND_OVER_UNDER_2.5",
+        "ODD_OR_EVEN_AND_OVER_UNDER_2.5_HALF_TIME",
+    ];
     const notMarketType = ["DRAW_NO_BET", "DRAW_NO_BET_HALF_TIME"];
     if (special) {
         if (teamType.includes(data.selection.type) && !notMarketType.includes(data.market.market_type)) {
