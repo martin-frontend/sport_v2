@@ -26,7 +26,8 @@
                     {{LangUtil("距开赛")}} {{ day }}{{LangUtil("天")}}
                 </div>
                 <div class="text-gray scale" v-else-if="start_in_sec > 600">
-                    {{LangUtil("距开赛")}} {{ hr }}{{LangUtil("小时")}}{{ min }}{{LangUtil("分")}}
+                    {{LangUtil("距开赛")}} 
+                    <span v-if="hr">{{ hr }}{{LangUtil("小时")}}</span>{{ min }}{{LangUtil("分")}}
                 </div>
                 <!-- <div class="text-red" v-else>即将开赛</div> -->
             </div>
