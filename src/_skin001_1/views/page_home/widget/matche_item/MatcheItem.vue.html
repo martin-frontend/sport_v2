@@ -27,7 +27,9 @@
                     <div :class="states.match_phase=='-'? 'yellow--text':'btnPlain--text'">
                         {{ LangUtil(states ? states.match_phase : "") }}
                     </div>
-                    <div class="ml-1" v-if="states.phase_minute > 0">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
+                    <div class="ml-1" v-if="states.phase_minute > 0">
+                        {{ getFullTime(states ? states.match_phase : "",states.phase_minute) }}{{LangUtil("分钟")}}
+                    </div>
                     <div class="d-flex align-center ml-3">
                         <svg-icon icon="corner"></svg-icon>
                         <div class="text-gray1">{{ states.corners_ft }}</div>
@@ -41,7 +43,8 @@
                         <div>{{LangUtil("距开赛")}}</div>
                         <div class="ml-1">
                             <span v-if="hr && hr!='0'">{{ hr }}{{LangUtil("小时")}}</span>
-                            {{ min }}{{LangUtil("分")}}</div>
+                            {{ min }}{{LangUtil("分")}}
+                        </div>
                     </div>
                     <!-- 十分钟内 -->
                     <div v-else class="ml10 font-weight-bold yellow--text">{{LangUtil("即将开赛")}}</div>

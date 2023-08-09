@@ -2,7 +2,7 @@ import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
 import { MatchVO } from "@/vo/MatchVO";
-import { getResponseIcon, logEnterTips } from "@/core/global/Functions";
+import { getFullTime, getResponseIcon, logEnterTips } from "@/core/global/Functions";
 import PageHomeProxy from "@/_skin001/views/page_home/proxy/PageHomeProxy";
 import MarketUtils from "@/core/global/MarketUtils";
 import { formatEventTime, dateFormat, getDateByTimeZone } from "@/core/global/Functions";
@@ -26,6 +26,7 @@ export default class MatcheItem extends AbstractView {
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
     GlobalVar = GlobalVar;
+    getFullTime = getFullTime;
     //倒数计时
     day: any = "0";
     hr: any = "00";
@@ -169,6 +170,7 @@ export default class MatcheItem extends AbstractView {
         const arr = ["-", "1H", "HT", "2H", "FT"];
         return arr.includes(match_phase);
     }
+    
     /**是否显示点球比分 */
     isShowPK(match_phase: string): boolean {
         const arr = ["PK", "PK FT"];

@@ -49,7 +49,9 @@
 
                             <div class="d-flex justify-center text-14">
                                 <div class="mr-1">{{LangUtil(getStates().match_phase)}}</div>
-                                <div v-if="getStates().phase_minute > 0">{{ getStates().phase_minute }}{{LangUtil("分钟")}}</div>
+                                <div v-if="getStates().phase_minute > 0">
+                                    {{ getFullTime(getStates().match_phase,getStates().phase_minute ) }}{{LangUtil("分钟")}}
+                                </div>
                             </div>
                         </template>
                         <template v-else>
@@ -146,7 +148,9 @@
                     <div :class="getStates().match_phase=='-'? 'text-red':'white--text'" class="mr-1">
                         {{ LangUtil(getStates() ? getStates().match_phase : "") }}
                     </div>
-                    <div v-if="getStates().phase_minute > 0">{{ getStates().phase_minute }}{{LangUtil("分钟")}}</div>
+                    <div v-if="getStates().phase_minute > 0">
+                        {{ getFullTime(getStates().match_phase,getStates().phase_minute ) }}{{LangUtil("分钟")}}
+                    </div>
                 </div>
                 <div v-else-if="matche.sb_time-GlobalVar.server_time > 0" class="d-flex">
                     <div class="text-12" v-if="matche.sb_time-GlobalVar.server_time > 86400">

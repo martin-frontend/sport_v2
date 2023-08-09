@@ -28,7 +28,7 @@ import MatcheItemMobile from "@/_skin001_1/views/page_home/widget/matche_item_mo
 import SkinVariable from "@/core/SkinVariable";
 
 SkinVariable.home_market_type = 2;
-
+SkinVariable.skin="skin001_1";
 LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
