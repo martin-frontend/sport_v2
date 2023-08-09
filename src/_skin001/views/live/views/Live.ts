@@ -4,9 +4,10 @@ import LiveMediator from "../mediator/LiveMediator";
 import LiveProxy from "../proxy/LiveProxy";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
-import { formatEventTime, dateFormat, getDateByTimeZone, getResponseIcon, logEnterTips } from "@/core/global/Functions";
+import { formatEventTime, dateFormat, getDateByTimeZone, getResponseIcon, logEnterTips, getFullTime } from "@/core/global/Functions";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
+import SkinVariable from "@/core/SkinVariable";
 
 @Component
 export default class Live extends AbstractView {
@@ -21,6 +22,7 @@ export default class Live extends AbstractView {
     window = this.value;
     iframeHeight = 0;
     user_type: number = this.selfProxy.userInfo.user_type;
+
     @Watch("value")
     onWatchValue() {
         this.window = this.value;
@@ -169,5 +171,14 @@ export default class Live extends AbstractView {
     }
     destroyed() {
         super.destroyed();
+    }
+    getFullTime (match_phase: any, phase_minute: any)
+    {
+        if (SkinVariable.skin == "skin001_1")
+        {
+            return getFullTime(match_phase,phase_minute);
+            
+        }
+        return phase_minute;
     }
 }

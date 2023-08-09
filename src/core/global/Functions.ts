@@ -317,3 +317,23 @@ export function getUrlHashParam(key: string): string {
 
     return "";
 }
+/**计算全场总时间 */
+export function getFullTime(match_phase: any, phase_minute: any) {
+    if (!match_phase) return phase_minute;
+    let times = 0;
+    if (typeof phase_minute == "string") {
+        times = parseInt(phase_minute);
+    } else if (typeof phase_minute == "number") {
+        times = phase_minute;
+    }
+
+    if (match_phase == "2H") {
+        times = times + 45;
+    } else if (match_phase == "1H OT" || match_phase == "OT HT") {
+        times = times + 90;
+    } else if (match_phase == "2H OT") {
+        times = times + 105;
+    }
+
+    return times;
+}

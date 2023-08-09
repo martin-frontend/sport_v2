@@ -1,7 +1,7 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
-import { getResponseIcon } from "@/core/global/Functions";
+import { getFullTime, getResponseIcon } from "@/core/global/Functions";
 import { MatchVO } from "@/vo/MatchVO";
 import PageHomeProxy from "@/_skin001/views/page_home/proxy/PageHomeProxy";
 import MarketUtils from "@/core/global/MarketUtils";
@@ -19,6 +19,7 @@ export default class MatcheItemMobile extends AbstractView {
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     GlobalVar = GlobalVar;
+    getFullTime = getFullTime;
     //倒数计时
     day: any = "0";
     hr: any = "00";
