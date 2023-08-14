@@ -110,6 +110,10 @@ input {
 .btn_yellow {
     background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
 }
+.btn_yellow:disabled {
+    background-image: linear-gradient(90deg, #8f8f91 0%, #8f8f91);
+    color:#333333 !important;
+}
 .fast_choose {
     margin-left: 6px;
     margin-right: 6px;
