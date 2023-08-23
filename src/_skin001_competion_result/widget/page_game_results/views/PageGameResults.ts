@@ -134,7 +134,65 @@ export default class PageGameResults extends AbstractView {
             }
         }
     }
+    get scores_tagger_arr(): any {
+        if (this.states) {
+            if (["1H", "HT"].includes(this.states.match_phase)) {
+                return {
+                    ht: LangUtil("上半场"),
+                    ft: LangUtil("全场"),
+                };
+            } else if (["2H", "FT"].includes(this.states.match_phase)) {
+                return {
+                    ht: LangUtil("上半场"),
+                    ft: LangUtil("全场"),
+                };
+            } else if (["1H OT", "OT HT"].includes(this.states.match_phase)) {
+                return {
+                    ht: LangUtil("上半场"),
+                    ft: LangUtil("全场"),
+                    otht: LangUtil("加时-上半场"),
+                };
+            } else if (["2H OT", "OT FT"].includes(this.states.match_phase)) {
+                return {
+                    ht: LangUtil("上半场"),
+                    ft: LangUtil("全场"),
+                    otht: LangUtil("加时-上半场"),
+                    ot: LangUtil("加时-全场"),
+                };
+            } else if (["PK", "PK FT"].includes(this.states.match_phase)) {
+                return {
+                    ht: LangUtil("上半场"),
+                    ft: LangUtil("全场"),
+                    otht: LangUtil("加时-上半场"),
+                    ot: LangUtil("加时-全场"),
+                    pk: LangUtil("点球"),
+                };
+            }
+        }
+        return {
+            ht: LangUtil("上半场"),
+            ft: LangUtil("全场"),
+            otht: LangUtil("加时-上半场"),
+            ot: LangUtil("加时-全场"),
+            pk: LangUtil("点球"),
+        };
+    }
+    scores_tagger = "ft";
 
+    onClickTagger(key: any) {
+        console.log("收到点击", key);
+        this.scores_tagger = key;
+    }
+    dataKey = ["goals_", "corners_", "red_cards_", "yellow_cards_"];
+
+    getScores(item: any, index: number) {
+        const scores = this.states[item] || "";
+        const strarr = scores.split("-");
+        if (!strarr || !strarr[index]) {
+            return 0;
+        }
+        return strarr[index];
+    }
     htScores = {
         goals_ht: LangUtil("上半场比分"),
         corners_ht: LangUtil("上半场角球"),
@@ -177,6 +235,10 @@ export default class PageGameResults extends AbstractView {
         goals_ot: LangUtil("加时-全场比分"),
         corners_ot: LangUtil("加时-全场角球"),
         goals_pk: LangUtil("点球比分"),
+        red_cards_ht: LangUtil("上半场红牌"),
+        red_cards_ft: LangUtil("全场红牌"),
+        yellow_cards_ht: LangUtil("上半场黄牌"),
+        yellow_cards_ft: LangUtil("全场黄牌"),
     };
 
     destroyed() {

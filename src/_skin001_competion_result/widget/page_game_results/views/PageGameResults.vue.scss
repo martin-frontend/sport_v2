@@ -307,3 +307,57 @@
     }
     background-color: #f5f5f4 !important;
 }
+.arrow-down {
+    transform: rotate(0deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arrow-up {
+    transform: rotate(180deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.menulist {
+    border-radius: 10px;
+}
+.menulist-light {
+    background-color: #ffffff;
+    border: solid 2px #e8e8e2;
+}
+.menulist-dark {
+    background-color: #202121;
+    border: solid 2px #333435;
+}
+.menuitem {
+    width: 100%;
+    cursor: pointer;
+}
+.menuitem:hover {
+    color: #ffcd43;
+}
+.box_red {
+    background: linear-gradient(to right, #ff604a, #e92105);
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    &::before {
+        content: "";
+        background: url("~@/_skin001/assets/card_guang.png") no-repeat left 0px top 0px;
+        background-size: contain;
+        position: absolute;
+        width: 16px;
+        height: 22px;
+    }
+}
+.box_yellow {
+    background: linear-gradient(to right, #fecd42, #ffaf00);
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    &::before {
+        content: "";
+        background: url("~@/_skin001/assets/card_guang.png") no-repeat left 0px top 0px;
+        background-size: contain;
+        position: absolute;
+        width: 16px;
+        height: 22px;
+    }
+}

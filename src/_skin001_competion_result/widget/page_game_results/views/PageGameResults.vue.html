@@ -214,7 +214,7 @@
         </div>
     </div>
     <!-- 比分 -->
-    <div v-if="pageData.isActive == 2" class="pl-3">
+    <!-- <div v-if="pageData.isActive == 2" class="pl-3">
         <div class="my-2 mx-2 mx-md-0 d-flex" :class="$vuetify.breakpoint.mobile ? 'text-14' :'text-16'" v-for="(item, key) in scores">
             <v-sheet class="d-flex justify-space-between py-2 rounded-lg inheritcolor" width="100%">
                 <div class="d-flex align-center btnPlain--text">
@@ -228,5 +228,74 @@
                 </div>
             </v-sheet>
         </div>
+    </div> -->
+    <div v-if="pageData.isActive == 2" class="pl-3">
+        <v-sheet color="transparent" width="100%" class="d-flex align-center justify-center mt-4">
+            <v-sheet color="transparent" width="300" class="d-flex align-center justify-center">
+                <v-menu offset-y nudge-bottom="4">
+                    <template v-slot:activator="{ on, attrs }">
+                        <div class="mr10" v-bind="attrs" v-on="on">
+                            <btn-info class="text-14 textGray1--text" minWidth="106" height="32">
+                                <div class="d-flex align-center">
+                                    <div class="" style="width: 150px; text-align: center; font-weight: 700;">{{scores_tagger_arr[scores_tagger]}}</div>
+                                    <svg-icon
+                                        class="text-12"
+                                        icon="zoom_out"
+                                        :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                                    ></svg-icon>
+                                </div>
+                            </btn-info>
+                        </div>
+                    </template>
+                    <div class="py-3 menulist textGray1--text text-14" :class="$vuetify.theme.dark ? 'menulist-dark' : 'menulist-light'">
+                        <div class="pl-4 menuitem my-1" @click="onClickTagger(key)" v-for="(item,key) of scores_tagger_arr" :key="key">
+                            {{item}}
+                        </div>
+                    </div>
+                </v-menu>
+            </v-sheet>
+        </v-sheet>
+
+        <v-sheet color="transparent" width="100%" class="d-flex flex-column align-center justify-center mt-n8">
+            <v-sheet
+                color="transparent"
+                class="py-2 d-flex justify-space-around align-center"
+                :class="$vuetify.breakpoint.mobile ? 'text-14' :'text-16'"
+                v-for="(item, key) in dataKey"
+                :key="key"
+                width="400"
+            >
+                <div
+                    class="btnPlain--text d-flex align-center font-weight-400 justify-center"
+                    :class="{
+                        'text-12':$vuetify.breakpoint.mobile,
+                        'text-14':!$vuetify.breakpoint.mobile,
+                        'font-weight-bold' : item == 'goals_',
+                        'text-16' : item == 'goals_',
+                    }"
+                    style="width: 50px;"
+                >
+                    {{getScores(item+scores_tagger , 0)}}
+                </div>
+                <div class="mx-16 d-flex justify-center"  style="width: 30px;">
+                    <svg-icon v-if="item=='corners_'" class="text-24 ml-1" icon="corner"></svg-icon>
+                    <!-- <svg-icon v-else-if="item=='goals_'" class="text-24" icon="cup"></svg-icon> -->
+                    <v-sheet v-else-if="item=='red_cards_'" height="24" width="18" class="box_red"></v-sheet>
+                    <v-sheet v-else-if="item=='yellow_cards_'" height="24" width="18" class="box_yellow"></v-sheet>
+                </div>
+                <div
+                    class="btnPlain--text d-flex align-center font-weight-400 justify-center"
+                    :class="{
+                        'text-12':$vuetify.breakpoint.mobile,
+                        'text-14':!$vuetify.breakpoint.mobile,
+                        'font-weight-bold' : item == 'goals_',
+                        'text-16' : item == 'goals_',
+                    }"
+                    style="width: 50px;"
+                >
+                    {{getScores(item+scores_tagger , 1)}}
+                </div>
+            </v-sheet>
+        </v-sheet>
     </div>
 </div>

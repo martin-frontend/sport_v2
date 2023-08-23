@@ -11,6 +11,7 @@ import MarketM4 from "../widget/market_m4/MarketM4.vue";
 import MarketM5 from "../widget/market_m5/MarketM5.vue";
 import MarketM6 from "../widget/market_m6/MarketM6.vue";
 import MarketM7 from "../widget/market_m7/MarketM7.vue";
+import MarketM8 from "../widget/market_m8/MarketM8.vue";
 import Matche from "./Matche";
 
 @Component({
@@ -23,6 +24,7 @@ import Matche from "./Matche";
         MarketM5,
         MarketM6,
         MarketM7,
+        MarketM8,
     },
 })
 export default class extends Matche {

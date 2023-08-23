@@ -1,0 +1,13 @@
+<v-sheet class="pa10 pt15 rounded-b-10 text-14 textGray--text bgtexture" color="bgBanner">
+    <!-- 主客和 / 半场 - 主客和 -->
+    <v-row dense>
+        <v-col class="text-center text-truncate"> {{LangUtil("大大")}} </v-col>
+        <v-col class="text-center"> {{LangUtil("和和")}} </v-col>
+        <v-col class="text-center text-truncate">{{LangUtil("小小")}} </v-col>
+    </v-row>
+    <v-row dense>
+        <v-col><BtnFixedBet :matche="matche" :market="market" :selection="market.selections[0]"></BtnFixedBet></v-col>
+        <v-col class="mx-n1"><BtnFixedBet :matche="matche" :market="market" :selection="market.selections[2]"></BtnFixedBet></v-col>
+        <v-col><BtnFixedBet :matche="matche" :market="market" :selection="market.selections[1]"></BtnFixedBet></v-col>
+    </v-row>
+</v-sheet>

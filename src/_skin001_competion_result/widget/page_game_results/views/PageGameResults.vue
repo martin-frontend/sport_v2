@@ -9,8 +9,8 @@ import PageGameResults from "./PageGameResults";
     components: {},
 })
 export default class extends PageGameResults {
-    mounted() {
-        window.scrollTo(0, 0);
-    }
+    // mounted() {
+    //     window.scrollTo(0, 0);
+    // }
 }
 </script>

@@ -41,10 +41,11 @@
     </div>
 
     <div class="mb-1 ml10 mr10">
-        <template v-if="checkInplay()">
-            <span class="mr-1">{{LangUtil("滚球")}} </span>
-            <span class="font-weight-bold mr-1">{{getStats()}} </span>
-        </template>
+        <div v-if="checkInplay()" class="d-flex">
+            <div class="mr-1">{{LangUtil("滚球")}}</div>
+            <!-- <span class="font-weight-bold mr-1">{{getStats()}} </span> -->
+            <div class="font-weight-bold" v-html="getStats()"></div>
+        </div>
         <span>{{transTitle(item.market.title)}}</span>
     </div>
 
@@ -94,7 +95,11 @@
     </div>
 
     <div class="d-flex ml10 mr10 mb-3 input-box">
-        <v-sheet v-if="!isVisitor" class="d-flex align-center justify-center input_left" min-width="60" :height="$vuetify.breakpoint.mobile?40:36"
+        <v-sheet
+            v-if="!isVisitor"
+            class="d-flex align-center justify-center input_left"
+            min-width="60"
+            :height="$vuetify.breakpoint.mobile?40:36"
             >{{GlobalVar.currency}}</v-sheet
         >
         <v-sheet class="d-flex align-center input_right" width="100%" :height="$vuetify.breakpoint.mobile?40:36">
@@ -229,7 +234,9 @@
                 :disabled="!isVisitor && (item.isMarketClose || !isAllowBet)"
                 @click="onBet"
             >
-                <span v-if="!isVisitor" class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                <span v-if="!isVisitor" class="text-14 font-weight-bold"
+                    >{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span
+                >
                 <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
             </v-btn>
             <!-- <btn-yellow height="36" width="100%" :rounded5="true" :disabled="item.isMarketClose" @click.native="onBet">
@@ -268,7 +275,9 @@
                         :disabled="!isVisitor && (item.isMarketClose || !isAllowBet)"
                         @click="onBet"
                     >
-                        <span v-if="!isVisitor" class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                        <span v-if="!isVisitor" class="text-14 font-weight-bold"
+                            >{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span
+                        >
                         <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
                     </v-btn>
                     <!-- <btn-yellow height="40" width="100%" :rounded5="true" :disabled="item.isMarketClose" @click.native="onBet">
@@ -284,7 +293,9 @@
                         @click="onBet"
                         :disabled="!isVisitor && (item.isMarketClose || !isAllowBet)"
                     >
-                        <span v-if="!isVisitor" class="text-14 font-weight-bold">{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span>
+                        <span v-if="!isVisitor" class="text-14 font-weight-bold"
+                            >{{LangUtil("接受新赔率")}}(@{{TransMarketPrice(item.odds)}})</span
+                        >
                         <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
                     </v-btn>
                     <!-- <btn-yellow height="40" width="100%" :rounded5="true" @click.native="onBet">

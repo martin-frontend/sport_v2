@@ -54,7 +54,7 @@ export default class PageOrderDetail extends AbstractView {
     //根据盘口展示已结算的赛果角球还是比分等
     getHadResultStr(item: any) {
         const copyitem = JSON.parse(JSON.stringify(item));
-        copyitem.state = copyitem.real_time_state;
+        copyitem.state = copyitem.settle_state;
 
         return OrderTitleUtils.getScoreStr(copyitem);
     }
