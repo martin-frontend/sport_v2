@@ -105,7 +105,7 @@ export default class NetObserver extends AbstractMediator {
             //所有盘口类型
             case net.EventType.api_event_market_type_v2:
                 PlatConfig.allMarketType = body.market_type;
-                PlatConfig.market_main_type = body.market_main_type;
+                PlatConfig.market_main_type = Object.values(body.market_main_type);
                 if (GlobalVar.token) {
                     this.facade.sendNotification(net.HttpType.api_user_info);
                     this.facade.sendNotification(net.HttpType.api_event_sports);
