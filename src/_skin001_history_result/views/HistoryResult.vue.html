@@ -46,7 +46,7 @@
                 </template>
                
                 <v-date-picker format=yyyy/MM/dd range v-model="myProxy.selectDate" no-title scrollable 
-                    :locale="GlobalVar.lang == 'zh_CN' ? 'zh-cn':''" :max="myProxy.nowtime">
+                    :locale="GlobalVar.lang == 'zh_CN' ? 'zh-cn':''" :max="myProxy.nowtime" >
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="bShowDateSelect = false">
                         {{LangUtil("取消")}}
@@ -119,12 +119,16 @@
                     </div>
                     <div class="d-flex" v-if="item.state && Object.keys(item.state).length > 0">
                         <span >{{LangUtil("滚球")}}&nbsp;</span>
-                        <span >{{OrderTitleUtils.getScoreStr(item)}}</span>
+                        <span ><div v-html="OrderTitleUtils.getScoreStr(item)">
+                        </div>
+                            </span>
                     </div>
                 </v-col>
                 <v-col class="d-grid btnPlain--text ">
                     <div  v-if=" item.status !== 3 && item.c_type != 2">
-                        <span>{{getHadResultStr(item)}}</span>
+                        <span>
+                            <div v-html="getHadResultStr(item)"></div>
+                        </span>
                        
                     </div>
                     <span v-else>-</span>

@@ -62,18 +62,25 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
         case marketType.ASIAN_OVER_UNDER: //亚洲大小盘
         case marketType.ASIAN_OVER_UNDER_HALF_TIME: //半场 - 亚洲大小盘
         case marketType.CR_ASIAN_OVER_UNDER:
+        case marketType.CR_ASIAN_OVER_UNDER_HALF_TIME:
         case marketType.ASIAN_OVER_UNDER_EXTRA_TIME:
         case marketType.ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME:
         case marketType.ASIAN_OVER_UNDER_AFTER_PENALTIES:
             return `${s_type == "Overs" ? LangUtil("大") : LangUtil("小")} ${formatAsian(handicap, s_type).substring(1)}`;
+        case marketType.BK_ASIAN_OVER_UNDER:
+        case marketType.BK_ASIAN_OVER_UNDER_HALF_TIME:
+            return `${s_type == "Over" ? LangUtil("大") : LangUtil("小")} ${formatAsian(handicap, s_type).substring(1)}`;
         case marketType.ASIAN_HANDICAP: //亚洲让球盘
         case marketType.ASIAN_HANDICAP_HALF_TIME: //半场 - 亚洲让球盘
         case marketType.DRAW_NO_BET: //平局退款
         case marketType.DRAW_NO_BET_HALF_TIME: //半场-平局退款
         case marketType.CR_ASIAN_HANDICAP:
+        case marketType.CR_ASIAN_HANDICAP_HALF_TIME:
         case marketType.ASIAN_HANDICAP_EXTRA_TIME:
         case marketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME:
         case marketType.ASIAN_HANDICAP_AFTER_PENALTIES:
+        case marketType.BK_ASIAN_HANDICAP:
+        case marketType.BK_ASIAN_HANDICAP_HALF_TIME:
             return `${s_type == "Home" ? home_name : away_name} ${formatAsian(handicap, s_type)}`;
         case marketType.HALF_TIME_FULL_TIME: //半场/全场
             return ` ${formatAsian(handicap, s_type)}`;
@@ -153,6 +160,29 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
         case marketType.CORRECT_SCORE: //'波胆'
         case marketType.CORRECT_SCORE_HALF_TIME: //半场 - 波胆
             return s_type == "" ? LangUtil("其它") : s_type;
+        case marketType.BK_ASIAN_HANDICAP: //亚洲让分盘 - 罚牌数
+        case marketType.BK_ASIAN_HANDICAP_HALF_TIME: //亚洲让分盘 - 罚牌数
+            return "";
+        case marketType.WAY_OVER_UNDER_1:
+        case marketType.WAY_OVER_UNDER_2:
+        case marketType.WAY_OVER_UNDER_3:
+        case marketType.WAY_OVER_UNDER_4:
+        case marketType.WAY_OVER_UNDER_5:
+        case marketType.WAY_OVER_UNDER_6:
+        case marketType.WAY_OVER_UNDER_7:
+        case marketType.WAY_OVER_UNDER_8:
+        case marketType.WAY_OVER_UNDER_1_HALF_TIME:
+        case marketType.WAY_OVER_UNDER_2_HALF_TIME:
+        case marketType.WAY_OVER_UNDER_3_HALF_TIME:
+        case marketType.WAY_OVER_UNDER_4_HALF_TIME:
+        case marketType.WAY_OVER_UNDER_5_HALF_TIME:
+        case marketType.WAY_OVER_UNDER_6_HALF_TIME:
+        case marketType.WAY_OVER_UNDER_7_HALF_TIME:
+        case marketType.WAY_OVER_UNDER_8_HALF_TIME: {
+            console.warn("--s_type--", s_type);
+            // return `${s_type == "Over" ? LangUtil("大大") : s_type == "Under" ? LangUtil("小小") : LangUtil("和和")}`;
+            return `${s_type == "Over" ? LangUtil("大大") : s_type == "Exactly" ? LangUtil("和和") : LangUtil("小小")}`;
+        }
     }
 }
 //special > 注单记录 双重机会/双胜彩
@@ -228,7 +258,12 @@ function IsOnlyFirstHalf(market_type: string) {
 
 //获取比分说明 是角球点球还是比分等
 function getScoreStr(item: any) {
-    const cornersMarket_type = [marketType.CR_ASIAN_HANDICAP, marketType.CR_ASIAN_OVER_UNDER]; //角球
+    const cornersMarket_type = [
+        marketType.CR_ASIAN_HANDICAP,
+        marketType.CR_ASIAN_HANDICAP_HALF_TIME,
+        marketType.CR_ASIAN_OVER_UNDER,
+        marketType.CR_ASIAN_OVER_UNDER_HALF_TIME,
+    ]; //角球
     const addtimeHalfMarket_type = [marketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME, marketType.ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME]; //半场加时
     const addtimeMarket_type = [marketType.ASIAN_HANDICAP_EXTRA_TIME, marketType.ASIAN_OVER_UNDER_EXTRA_TIME]; //全场加时
     const AFTER_Market_type = [marketType.ASIAN_HANDICAP_AFTER_PENALTIES, marketType.ASIAN_OVER_UNDER_AFTER_PENALTIES]; //点球
@@ -247,6 +282,58 @@ function getScoreStr(item: any) {
         marketType.TEAM_B_WIN_TO_NIL_HALF_TIME,
         marketType.ODD_OR_EVEN_HALF_TIME,
         marketType.CORRECT_SCORE_HALF_TIME,
+        marketType.MATCH_ODDS_HALF_TIME,
+        marketType.DRAW_NO_BET_HALF_TIME,
+        marketType.TOTAL_GOALS_HALF_TIME,
+        marketType.ODD_OR_EVEN_HALF_TIME,
+        marketType.CORRECT_SCORE_HALF_TIME,
+        marketType.DOUBLE_CHANCE_HALF_TIME,
+        marketType.WINNING_MARGIN_HALF_TIME,
+        marketType.TEAM_A_TO_SCORE_HALF_TIME,
+        marketType.TEAM_B_TO_SCORE_HALF_TIME,
+        marketType.ASIAN_OVER_UNDER_HALF_TIME,
+        marketType.TEAM_A_WIN_TO_NIL_HALF_TIME,
+        marketType.TEAM_B_WIN_TO_NIL_HALF_TIME,
+        marketType.TOTAL_GOALS_RANGE_HALF_TIME,
+        marketType.TEAM_A_EXACT_GOALS_HALF_TIME,
+        marketType.TEAM_B_EXACT_GOALS_HALF_TIME,
+        marketType.BOTH_TEAMS_TO_SCORE_HALF_TIME,
+        marketType.EITHER_TEAM_TO_SCORE_HALF_TIME,
+        marketType.WAY_OVER_UNDER_1_HALF_TIME,
+        marketType.WAY_OVER_UNDER_2_HALF_TIME,
+        marketType.WAY_OVER_UNDER_3_HALF_TIME,
+        marketType.WAY_OVER_UNDER_4_HALF_TIME,
+        marketType.WAY_OVER_UNDER_5_HALF_TIME,
+        marketType.WAY_OVER_UNDER_6_HALF_TIME,
+        marketType.WAY_OVER_UNDER_7_HALF_TIME,
+        marketType.WAY_OVER_UNDER_8_HALF_TIME,
+        marketType.WAY_HANDICAP_MINUS_4_HALF_TIME,
+        marketType.WAY_HANDICAP_MINUS_3_HALF_TIME,
+        marketType.WAY_HANDICAP_MINUS_2_HALF_TIME,
+        marketType.WAY_HANDICAP_MINUS_1_HALF_TIME,
+        marketType.WAY_HANDICAP_PLUS_1_HALF_TIME,
+        marketType.WAY_HANDICAP_PLUS_2_HALF_TIME,
+        marketType.WAY_HANDICAP_PLUS_3_HALF_TIME,
+        marketType.WAY_HANDICAP_PLUS_4_HALF_TIME,
+        marketType.TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME,
+        marketType.TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME,
+        marketType.TEAM_A_TO_SCORE_TWICE_OR_MORE_HALF_TIME,
+        marketType.TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME,
+        marketType.MATCH_ODDS_AND_OVER_UNDER_2_5_HALF_TIME,
+        marketType.ODD_OR_EVEN_AND_OVER_UNDER_2_5_HALF_TIME,
+        marketType.BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME,
+        marketType.EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME,
+        marketType.EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME,
+        marketType.MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME,
+        marketType.BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5_HALF_TIME,
+        marketType.BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME,
+    ];
+    /**罚牌数量 */
+    const cardMarket_type = [
+        marketType.BK_ASIAN_HANDICAP,
+        marketType.BK_ASIAN_HANDICAP_HALF_TIME,
+        marketType.BK_ASIAN_OVER_UNDER,
+        marketType.BK_ASIAN_OVER_UNDER_HALF_TIME,
     ];
     const state = Object.keys(item.state || {}).length > 0 ? item.state : item.real_time_state ? item.real_time_state : item.state;
     if (!state) {
@@ -267,6 +354,21 @@ function getScoreStr(item: any) {
     } else if (firstHalfarr.indexOf(item.market_type) != -1) {
         if (!state.goals_ht) return "";
         return " " + LangUtil("半场比分") + "(" + state.goals_ht + ")";
+    } else if (cardMarket_type.indexOf(item.market_type) != -1) {
+        if (!state.yellow_cards_ft && !state.red_cards_ft) return "";
+        // return " " + LangUtil("罚牌") + "(" + state.yellow_cards_ht + ")";
+        return (
+            " " +
+            LangUtil("黄牌") +
+            "(" +
+            state.yellow_cards_ft +
+            ")" +
+            "<br/>" +
+            LangUtil("红牌") +
+            "(" +
+            state.red_cards_ft +
+            ")"
+        );
     } else {
         if (!state.goals_ft) return "";
         return " " + LangUtil("比分") + "(" + state.goals_ft + ")";
@@ -393,7 +495,23 @@ function advance_result(orderItem: any, playingState: any) {
             const score = goalsarr[0] - betgoalsarr[0] - (handicap + (goalsarr[0] - betgoalsarr[1]));
             result_tb.win_type = score == 0 ? 3 : score == -0.25 ? 2 : score == 0.25 ? 5 : score <= -0.5 ? 1 : 4;
         }
+    } else if (orderItem.market_type == marketType.CR_ASIAN_HANDICAP_HALF_TIME && isPlaying) {
+        const goalsarr = playingState.corners_ht.split("-"); //事实的比分
+        const betgoalsarr = orderItem.state.corners_ht.split("-"); //快照时候的比分
+        goalsarr[0] = Number(goalsarr[0]);
+        goalsarr[1] = Number(goalsarr[1]);
+        betgoalsarr[0] = Number(betgoalsarr[0]);
+        betgoalsarr[1] = Number(betgoalsarr[1]);
+
+        if (orderItem.s_type == "Home") {
+            const score = handicap + (goalsarr[0] - betgoalsarr[0]) - (goalsarr[1] - betgoalsarr[1]);
+            result_tb.win_type = score == 0 ? 3 : score == 0.25 ? 2 : score == -0.25 ? 5 : score >= 0.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Away") {
+            const score = goalsarr[0] - betgoalsarr[0] - (handicap + (goalsarr[0] - betgoalsarr[1]));
+            result_tb.win_type = score == 0 ? 3 : score == -0.25 ? 2 : score == 0.25 ? 5 : score <= -0.5 ? 1 : 4;
+        }
     }
+
     //亚洲让球盘
     else if (orderItem.market_type == marketType.ASIAN_HANDICAP) {
         const goalsarr = playingState.goals_ft.split("-");
@@ -418,7 +536,7 @@ function advance_result(orderItem: any, playingState: any) {
         }
     }
     //亚洲让球盘-角球
-    else if (orderItem.market_type == marketType.CR_ASIAN_HANDICAP) {
+    else if (orderItem.market_type == marketType.CR_ASIAN_HANDICAP || orderItem.market_type == marketType.CR_ASIAN_HANDICAP_HALF_TIME) {
         const goalsarr = playingState.corners_ft.split("-");
         if (orderItem.s_type == "Home") {
             const score = handicap + Number(goalsarr[0]) - Number(goalsarr[1]);
@@ -579,6 +697,17 @@ function advance_result(orderItem: any, playingState: any) {
     //亚洲大小盘-角球
     else if (orderItem.market_type == marketType.CR_ASIAN_OVER_UNDER) {
         const goalsarr = playingState.corners_ft.split("-");
+        const allscore = Number(goalsarr[0]) + Number(goalsarr[1]);
+        const offset = allscore - handicap;
+        if (orderItem.s_type == "Unders") {
+            result_tb.win_type = offset == 0 ? 3 : offset == 0.25 ? 2 : offset <= 0.5 ? 1 : offset >= -0.5 ? 4 : 5;
+        } else if (orderItem.s_type == "Overs") {
+            result_tb.win_type = offset == 0 ? 3 : offset == -0.25 ? 2 : offset >= 0.5 ? 1 : offset <= -0.5 ? 4 : 5;
+        }
+    }
+    //亚洲大小盘-角球-半场
+    else if (orderItem.market_type == marketType.CR_ASIAN_OVER_UNDER_HALF_TIME) {
+        const goalsarr = playingState.corners_ht.split("-");
         const allscore = Number(goalsarr[0]) + Number(goalsarr[1]);
         const offset = allscore - handicap;
         if (orderItem.s_type == "Unders") {
@@ -1159,6 +1288,60 @@ function advance_result(orderItem: any, playingState: any) {
             result_tb.win_type = !(goals0 > 0 && goals1 > 0) && goals0 + goals1 < 2.5 ? 1 : 4;
         }
     }
+    //亚洲让分盘 - 罚牌数
+    else if (orderItem.market_type == marketType.BK_ASIAN_HANDICAP) {
+        //主队罚牌分
+        const goals0 = parseInt(playingState.yellow_cards_ft.split("-")[0]) + 2 * parseInt(playingState.red_cards_ft.split("-")[0]);
+        const goals1 = parseInt(playingState.yellow_cards_ft.split("-")[1]) + 2 * parseInt(playingState.red_cards_ft.split("-")[1]);
+
+        if (orderItem.s_type == "Home") {
+            const score = handicap + goals0 - goals1;
+            result_tb.win_type = score == 0 ? 3 : score == 0.25 ? 2 : score == -0.25 ? 5 : score >= 0.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Away") {
+            const score = goals0 - (handicap + goals1);
+            result_tb.win_type = score == 0 ? 3 : score == -0.25 ? 2 : score == 0.25 ? 5 : score <= -0.5 ? 1 : 4;
+        }
+    }
+    //亚洲让分盘 - 罚牌数 - 半场
+    else if (orderItem.market_type == marketType.BK_ASIAN_HANDICAP_HALF_TIME) {
+        //主队罚牌分
+        const goals0 = parseInt(playingState.yellow_cards_ht.split("-")[0]) + 2 * parseInt(playingState.red_cards_ht.split("-")[0]);
+        const goals1 = parseInt(playingState.yellow_cards_ht.split("-")[1]) + 2 * parseInt(playingState.red_cards_ht.split("-")[1]);
+
+        if (orderItem.s_type == "Home") {
+            const score = handicap + goals0 - goals1;
+            result_tb.win_type = score == 0 ? 3 : score == 0.25 ? 2 : score == -0.25 ? 5 : score >= 0.5 ? 1 : 4;
+        } else if (orderItem.s_type == "Away") {
+            const score = goals0 - (handicap + goals1);
+            result_tb.win_type = score == 0 ? 3 : score == -0.25 ? 2 : score == 0.25 ? 5 : score <= -0.5 ? 1 : 4;
+        }
+    }
+    //亚洲大小盘 - 罚牌数
+    else if (orderItem.market_type == marketType.BK_ASIAN_OVER_UNDER) {
+        //主队罚牌分
+        const goals0 = parseInt(playingState.yellow_cards_ft.split("-")[0]) + 2 * parseInt(playingState.red_cards_ft.split("-")[0]);
+        const goals1 = parseInt(playingState.yellow_cards_ft.split("-")[1]) + 2 * parseInt(playingState.red_cards_ft.split("-")[1]);
+        const allscore = goals0 + goals1;
+        const offset = allscore - handicap;
+        if (orderItem.s_type == "Unders") {
+            result_tb.win_type = offset == 0 ? 3 : offset == 0.25 ? 2 : offset <= 0.5 ? 1 : offset >= -0.5 ? 4 : 5;
+        } else if (orderItem.s_type == "Overs") {
+            result_tb.win_type = offset == 0 ? 3 : offset == -0.25 ? 2 : offset >= 0.5 ? 1 : offset <= -0.5 ? 4 : 5;
+        }
+    }
+    //半场 - 亚洲大小盘 - 罚牌数
+    else if (orderItem.market_type == marketType.BK_ASIAN_OVER_UNDER_HALF_TIME) {
+        const goals0 = parseInt(playingState.yellow_cards_ht.split("-")[0]) + 2 * parseInt(playingState.red_cards_ht.split("-")[0]);
+        const goals1 = parseInt(playingState.yellow_cards_ht.split("-")[1]) + 2 * parseInt(playingState.red_cards_ht.split("-")[1]);
+        const allscore = goals0 + goals1;
+        const offset = allscore - handicap;
+        if (orderItem.s_type == "Unders") {
+            result_tb.win_type = offset == 0 ? 3 : offset == 0.25 ? 2 : offset <= 0.5 ? 1 : offset >= -0.5 ? 4 : 5;
+        } else if (orderItem.s_type == "Overs") {
+            result_tb.win_type = offset == 0 ? 3 : offset == -0.25 ? 2 : offset >= 0.5 ? 1 : offset <= -0.5 ? 4 : 5;
+        }
+    }
+
     result_tb.heardstr = "";
     if (result_tb.win_type == 1) {
         result_tb.win_num = "+" + Number(orderItem.expected_win);

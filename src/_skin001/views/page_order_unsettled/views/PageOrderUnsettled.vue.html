@@ -35,22 +35,22 @@
         <div class="d-flex px10 mt-1" v-if="item.state && Object.keys(item.state).length > 0">
             <div>{{LangUtil("滚球")}}</div>
             <v-spacer />
-            <div class="font-weight-bold">{{OrderTitleUtils.getScoreStr(item)}}</div>
+            <div class="font-weight-bold" v-html="OrderTitleUtils.getScoreStr(item)"></div>
         </div>
 
         <div class="px10 mt-1">{{transTitle(item.market_type_text)}}</div>
 
         <div class="px10 mt-1 d-flex flex-wrap">
             {{item.home_name}} <span class="mx-1">VS</span> {{item.away_name}}
-            <span class="font-weight-black mr-2 scoreColor--text" v-if="listQuery.is_settle == 1 && item.status !== 3 && item.c_type != 2"
-                >{{getHadResultStr(item)}}</span
-            >
+            <span class="font-weight-black mr-2 scoreColor--text" v-if="listQuery.is_settle == 1 && item.status !== 3 && item.c_type != 2">
+                <div v-html="getHadResultStr(item)"></div
+            ></span>
         </div>
 
         <div class="px10 mt-1 d-flex" v-if="listQuery.is_settle != 1">
-            <div>{{ getStateStr(myProxy.event_states(item)).states_str}}</div>
+            <div v-html="getStateStr(myProxy.event_states(item)).states_str"></div>
             <v-spacer />
-            <div>{{getStateStr(myProxy.event_states(item)).scoreStr}}</div>
+            <div v-html="getStateStr(myProxy.event_states(item)).scoreStr"></div>
         </div>
         <v-divider class="my-2" />
 

@@ -10,12 +10,19 @@ import LangUtil from "@/core/global/LangUtil";
 import MatcheProxy from "../../matche/proxy/MatcheProxy";
 import Matche from "../../matche/views/Matche";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 
 export default class DialogBetResultMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
         return [net.EventType.api_user_betfix, net.EventType.api_user_pending];
     }
-
+    //赛事进程
+    getStats(market_type: any, states: any) {
+        return `${OrderTitleUtils.getScoreStr({
+            market_type: market_type,
+            state: states,
+        })}`;
+    }
     public handleNotification(notification: puremvc.INotification): void {
         const body = notification.getBody();
         const myProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
@@ -36,7 +43,8 @@ export default class DialogBetResultMediator extends AbstractMediator {
                     const states = betProxy.pageData.event_states.find((item) => item.event_id == myProxy.pageData.event_id);
                     if (states && states.phase_minute > 0) {
                         myProxy.pageData.isInPlay = true;
-                        myProxy.pageData.goals = states.goals_ft;
+                        // myProxy.pageData.goals = states.goals_ft;
+                        myProxy.pageData.goals = this.getStats(body.requestData.market_type, states);
                         // data.states_str = LangUtil("已开赛");
                         if (states.match_phase) {
                             myProxy.pageData.states_str += " " + LangUtil(states.match_phase);

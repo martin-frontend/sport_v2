@@ -29,7 +29,9 @@ const EnumMarketType = {
     HANDICAP: "HANDICAP",
     OVER_UNDER: "OVER_UNDER",
     CR_ASIAN_HANDICAP: "CR_ASIAN_HANDICAP",
+    CR_ASIAN_HANDICAP_HALF_TIME: "CR_ASIAN_HANDICAP_HALF_TIME",
     CR_ASIAN_OVER_UNDER: "CR_ASIAN_OVER_UNDER",
+    CR_ASIAN_OVER_UNDER_HALF_TIME: "CR_ASIAN_OVER_UNDER_HALF_TIME",
     RMM_OUTRIGHT: "RMM_OUTRIGHT",
     RMM_GROUP_A_WINNER: "RMM_GROUP_A_WINNER",
     RMM_GROUP_B_WINNER: "RMM_GROUP_B_WINNER",
@@ -78,6 +80,25 @@ const EnumMarketType = {
     WAY_HANDICAP_PLUS_2_HALF_TIME: "3_WAY_HANDICAP_PLUS_2_HALF_TIME",
     WAY_HANDICAP_PLUS_3_HALF_TIME: "3_WAY_HANDICAP_PLUS_3_HALF_TIME",
     WAY_HANDICAP_PLUS_4_HALF_TIME: "3_WAY_HANDICAP_PLUS_4_HALF_TIME",
+
+    WAY_OVER_UNDER_1: "3_WAY_OVER_UNDER_1",
+    WAY_OVER_UNDER_2: "3_WAY_OVER_UNDER_2",
+    WAY_OVER_UNDER_3: "3_WAY_OVER_UNDER_3",
+    WAY_OVER_UNDER_4: "3_WAY_OVER_UNDER_4",
+    WAY_OVER_UNDER_5: "3_WAY_OVER_UNDER_5",
+    WAY_OVER_UNDER_6: "3_WAY_OVER_UNDER_6",
+    WAY_OVER_UNDER_7: "3_WAY_OVER_UNDER_7",
+    WAY_OVER_UNDER_8: "3_WAY_OVER_UNDER_8",
+
+    WAY_OVER_UNDER_1_HALF_TIME: "3_WAY_OVER_UNDER_1_HALF_TIME",
+    WAY_OVER_UNDER_2_HALF_TIME: "3_WAY_OVER_UNDER_2_HALF_TIME",
+    WAY_OVER_UNDER_3_HALF_TIME: "3_WAY_OVER_UNDER_3_HALF_TIME",
+    WAY_OVER_UNDER_4_HALF_TIME: "3_WAY_OVER_UNDER_4_HALF_TIME",
+    WAY_OVER_UNDER_5_HALF_TIME: "3_WAY_OVER_UNDER_5_HALF_TIME",
+    WAY_OVER_UNDER_6_HALF_TIME: "3_WAY_OVER_UNDER_6_HALF_TIME",
+    WAY_OVER_UNDER_7_HALF_TIME: "3_WAY_OVER_UNDER_7_HALF_TIME",
+    WAY_OVER_UNDER_8_HALF_TIME: "3_WAY_OVER_UNDER_8_HALF_TIME",
+
     WINNING_MARGIN: "WINNING_MARGIN",
     WINNING_MARGIN_HALF_TIME: "WINNING_MARGIN_HALF_TIME",
     TOTAL_GOALS_RANGE: "TOTAL_GOALS_RANGE",
@@ -99,6 +120,10 @@ const EnumMarketType = {
     BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2_5_HALF_TIME: "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5_HALF_TIME",
     BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE: "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE",
     BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME: "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+    BK_ASIAN_HANDICAP: "BK_ASIAN_HANDICAP",
+    BK_ASIAN_HANDICAP_HALF_TIME: "BK_ASIAN_HANDICAP_HALF_TIME",
+    BK_ASIAN_OVER_UNDER: "BK_ASIAN_OVER_UNDER",
+    BK_ASIAN_OVER_UNDER_HALF_TIME: "BK_ASIAN_OVER_UNDER_HALF_TIME",
 };
 
 function formatAsian(handicap: string, type: string): string {
@@ -123,6 +148,9 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.ASIAN_HANDICAP:
         case EnumMarketType.ASIAN_HANDICAP_HALF_TIME:
         case EnumMarketType.CR_ASIAN_HANDICAP:
+        case EnumMarketType.CR_ASIAN_HANDICAP_HALF_TIME:
+        case EnumMarketType.BK_ASIAN_HANDICAP:
+        case EnumMarketType.BK_ASIAN_HANDICAP_HALF_TIME:
         case EnumMarketType.ASIAN_HANDICAP_EXTRA_TIME:
         case EnumMarketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME:
         case EnumMarketType.ASIAN_HANDICAP_AFTER_PENALTIES:
@@ -130,9 +158,12 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.ASIAN_OVER_UNDER:
         case EnumMarketType.ASIAN_OVER_UNDER_HALF_TIME:
         case EnumMarketType.CR_ASIAN_OVER_UNDER:
+        case EnumMarketType.CR_ASIAN_OVER_UNDER_HALF_TIME:
         case EnumMarketType.ASIAN_OVER_UNDER_EXTRA_TIME:
         case EnumMarketType.ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME:
         case EnumMarketType.ASIAN_OVER_UNDER_AFTER_PENALTIES:
+        case EnumMarketType.BK_ASIAN_OVER_UNDER:
+        case EnumMarketType.BK_ASIAN_OVER_UNDER_HALF_TIME:
             return (
                 (selection.type == "Overs" ? LangUtil("大") : LangUtil("小")) +
                 " " +
@@ -228,7 +259,30 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.CORRECT_SCORE:
         case EnumMarketType.CORRECT_SCORE_HALF_TIME:
             return selection.type == "" ? LangUtil("其它") : selection.type;
-    }
+
+        case EnumMarketType.WAY_OVER_UNDER_1:
+        case EnumMarketType.WAY_OVER_UNDER_2:
+        case EnumMarketType.WAY_OVER_UNDER_3:
+        case EnumMarketType.WAY_OVER_UNDER_4:
+        case EnumMarketType.WAY_OVER_UNDER_5:
+        case EnumMarketType.WAY_OVER_UNDER_6:
+        case EnumMarketType.WAY_OVER_UNDER_7:
+        case EnumMarketType.WAY_OVER_UNDER_8:
+        case EnumMarketType.WAY_OVER_UNDER_1_HALF_TIME:
+        case EnumMarketType.WAY_OVER_UNDER_2_HALF_TIME:
+        case EnumMarketType.WAY_OVER_UNDER_3_HALF_TIME:
+        case EnumMarketType.WAY_OVER_UNDER_4_HALF_TIME:
+        case EnumMarketType.WAY_OVER_UNDER_5_HALF_TIME:
+        case EnumMarketType.WAY_OVER_UNDER_6_HALF_TIME:
+        case EnumMarketType.WAY_OVER_UNDER_7_HALF_TIME:
+        case EnumMarketType.WAY_OVER_UNDER_8_HALF_TIME:
+            {
+                console.warn("--type--", selection.type);
+            
+            //return `${selection.type == "Over" ? LangUtil("大大") : selection.type == "Under" ? LangUtil("小小") : LangUtil("和和")}`;
+            return `${selection.type == "Over" ? LangUtil("大大") : selection.type == "Exactly" ? LangUtil("和和") : LangUtil("小小")}`;
+        }
+        }
     if (selection.type == "Home-Draw" && noBet) return `${LangUtil("主")}-${LangUtil("和")}`;
     if (selection.type == "Away-Draw" && noBet) return `${LangUtil("客")}-${LangUtil("和")}`;
     if (selection.type == "Home-Home" && noBet) return `${LangUtil("主")}-${LangUtil("主")}`;

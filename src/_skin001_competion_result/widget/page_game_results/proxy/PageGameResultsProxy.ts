@@ -281,6 +281,30 @@ export default class PageGameResultsProxy extends puremvc.Proxy {
             category: [0],
             result: "",
         },
+        { market_type: "CR_ASIAN_HANDICAP_HALF_TIME", name: LangUtil("半场 - 亚洲让球盘 - 角球"), type: "FT", category: [0], result: "" },
+        { market_type: "CR_ASIAN_OVER_UNDER_HALF_TIME", name: LangUtil("半场 - 亚洲大小盘 - 角球"), type: "FT", category: [0], result: "" },
+        { market_type: "BK_ASIAN_HANDICAP", name: LangUtil("亚洲让分盘 - 罚牌数"), type: "FT", category: [0], result: "" },
+        { market_type: "BK_ASIAN_HANDICAP_HALF_TIME", name: LangUtil("半场 - 亚洲让分盘 - 罚牌数"), type: "FT", category: [0], result: "" },
+        { market_type: "BK_ASIAN_OVER_UNDER", name: LangUtil("亚洲大小盘 - 罚牌数"), type: "FT", category: [0], result: "" },
+        { market_type: "BK_ASIAN_OVER_UNDER_HALF_TIME", name: LangUtil("半场 - 亚洲大小盘 - 罚牌数"), type: "FT", category: [0], result: "" },
+
+        { market_type: "3_WAY_OVER_UNDER_1", name: LangUtil("入球赛果 [1]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_2", name: LangUtil("入球赛果 [2]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_3", name: LangUtil("入球赛果 [3]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_4", name: LangUtil("入球赛果 [4]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_5", name: LangUtil("入球赛果 [5]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_6", name: LangUtil("入球赛果 [6]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_7", name: LangUtil("入球赛果 [7]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_8", name: LangUtil("入球赛果 [8]"), type: "FT", category: [0], result: "" },
+
+        { market_type: "3_WAY_OVER_UNDER_1_HALF_TIME", name: LangUtil("半场 - 入球赛果 [1]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_2_HALF_TIME", name: LangUtil("半场 - 入球赛果 [2]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_3_HALF_TIME", name: LangUtil("半场 - 入球赛果 [3]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_4_HALF_TIME", name: LangUtil("半场 - 入球赛果 [4]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_5_HALF_TIME", name: LangUtil("半场 - 入球赛果 [5]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_6_HALF_TIME", name: LangUtil("半场 - 入球赛果 [6]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_7_HALF_TIME", name: LangUtil("半场 - 入球赛果 [7]"), type: "FT", category: [0], result: "" },
+        { market_type: "3_WAY_OVER_UNDER_8_HALF_TIME", name: LangUtil("半场 - 入球赛果 [8]"), type: "FT", category: [0], result: "" },
     ];
 
     marketTypeOptions: any[] = [];
@@ -323,10 +347,10 @@ export default class PageGameResultsProxy extends puremvc.Proxy {
 
     set_results(data: any) {
         // 全场 - 主客和 平局退款 双重机会/双胜彩
-        const homeScore = parseInt(data.goals_ft.split("-")[0]);
-        const awayScore = parseInt(data.goals_ft.split("-")[1]);
-        const homeScoreHF = parseInt(data.goals_ht.split("-")[0]);
-        const awayScoreHF = parseInt(data.goals_ht.split("-")[1]);
+        const homeScore = parseInt(data.goals_ft.split("-")[0]); //主队得分
+        const awayScore = parseInt(data.goals_ft.split("-")[1]); //客队得分
+        const homeScoreHF = parseInt(data.goals_ht.split("-")[0]); //主对半场
+        const awayScoreHF = parseInt(data.goals_ht.split("-")[1]); //客队半场
         if (homeScore > awayScore) {
             this.marketTypeKind[0].result = this.marketTypeKind[6].result = this.marketTypeKind[11].result = this.pageData.matche.home_team;
         } else if (homeScore == awayScore) {
@@ -701,8 +725,63 @@ export default class PageGameResultsProxy extends puremvc.Proxy {
             str = LangUtil("否");
         }
         this.marketTypeKind[84].result = str;
+
+        //全场入球赛果
+        goals0 = homeScore;
+        goals1 = awayScore;
+        let goals2 = goals0 + goals1;
+        for (let index = 1; index < 9; index++) {
+            if (index < goals2) {
+                this.getResulteItem(`3_WAY_OVER_UNDER_${index}`).result = LangUtil("大大");
+            } else if (index == goals2) {
+                this.getResulteItem(`3_WAY_OVER_UNDER_${index}`).result = LangUtil("和和");
+            } else if (index > goals2) {
+                this.getResulteItem(`3_WAY_OVER_UNDER_${index}`).result = LangUtil("小小");
+            }
+        }
+        //半场入球赛果
+        goals0 = homeScoreHF;
+        goals1 = awayScoreHF;
+        goals2 = goals0 + goals1;
+        for (let index = 1; index < 9; index++) {
+            if (index < goals2) {
+                this.getResulteItem(`3_WAY_OVER_UNDER_${index}_HALF_TIME`).result = LangUtil("大大");
+            } else if (index == goals2) {
+                this.getResulteItem(`3_WAY_OVER_UNDER_${index}_HALF_TIME`).result = LangUtil("和和");
+            } else if (index > goals2) {
+                this.getResulteItem(`3_WAY_OVER_UNDER_${index}_HALF_TIME`).result = LangUtil("小小");
+            }
+        }
+
+        //半场 - 亚洲让球盘 - 角球
+        this.getResulteItem("CR_ASIAN_HANDICAP_HALF_TIME").result = data.corners_ht;
+        //半场 - 亚洲大小盘 - 角球
+        this.getResulteItem("CR_ASIAN_OVER_UNDER_HALF_TIME").result =
+            parseInt(data.corners_ht.split("-")[0]) + parseInt(data.corners_ht.split("-")[1]);
+
+        //亚洲让分盘 - 罚牌数
+        goals0 = parseInt(data.yellow_cards_ft.split("-")[0]) + 2 * parseInt(data.red_cards_ft.split("-")[0]);
+        goals1 = parseInt(data.yellow_cards_ft.split("-")[1]) + 2 * parseInt(data.red_cards_ft.split("-")[1]);
+        this.getResulteItem("BK_ASIAN_HANDICAP").result = `${goals0}-${goals1}`;
+        //亚洲大小盘 - 罚牌数
+        this.getResulteItem("BK_ASIAN_OVER_UNDER").result = goals0 + goals1;
+
+        //半场 - 亚洲让分盘 - 罚牌数
+        goals0 = parseInt(data.yellow_cards_ht.split("-")[0]) + 2 * parseInt(data.red_cards_ht.split("-")[0]);
+        goals1 = parseInt(data.yellow_cards_ht.split("-")[1]) + 2 * parseInt(data.red_cards_ht.split("-")[1]);
+        this.getResulteItem("BK_ASIAN_HANDICAP_HALF_TIME").result = `${goals0}-${goals1}`;
+        //半场 - 亚洲大小盘 - 罚牌数
+        this.getResulteItem("BK_ASIAN_OVER_UNDER_HALF_TIME").result = goals0 + goals1;
+
     }
 
+    getResulteItem(type: string): any {
+        const res = this.marketTypeKind.filter((ele: any) => ele.market_type == type);
+        if (res && res.length > 0) {
+            return res[0];
+        }
+        return res;
+    }
     api_event_states(id: any) {
         const { unique } = this.listQueryMarket;
         const data = { event_id: id.toString(), unique };
