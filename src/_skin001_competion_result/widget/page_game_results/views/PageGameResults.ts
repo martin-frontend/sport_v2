@@ -165,7 +165,7 @@ export default class PageGameResults extends AbstractView {
                     ft: LangUtil("全场"),
                     otht: LangUtil("加时-上半场"),
                     ot: LangUtil("加时-全场"),
-                    pk: LangUtil("点球"),
+                    pk: LangUtil("点球pk"),
                 };
             }
         }

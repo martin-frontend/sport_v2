@@ -237,7 +237,9 @@
                         <div class="mr10" v-bind="attrs" v-on="on">
                             <btn-info class="text-14 textGray1--text" minWidth="106" height="32">
                                 <div class="d-flex align-center">
-                                    <div class="" style="width: 150px; text-align: center; font-weight: 700;">{{scores_tagger_arr[scores_tagger]}}</div>
+                                    <div class="" style="width: 150px; text-align: center; font-weight: 700">
+                                        {{scores_tagger_arr[scores_tagger]}}
+                                    </div>
                                     <svg-icon
                                         class="text-12"
                                         icon="zoom_out"
@@ -265,36 +267,38 @@
                 :key="key"
                 width="400"
             >
-                <div
-                    class="btnPlain--text d-flex align-center font-weight-400 justify-center"
-                    :class="{
+                <template v-if="scores_tagger != 'pk' || (scores_tagger == 'pk' && item == 'goals_' )">
+                    <div
+                        class="btnPlain--text d-flex align-center font-weight-400 justify-center"
+                        :class="{
                         'text-12':$vuetify.breakpoint.mobile,
                         'text-14':!$vuetify.breakpoint.mobile,
                         'font-weight-bold' : item == 'goals_',
                         'text-16' : item == 'goals_',
                     }"
-                    style="width: 50px;"
-                >
-                    {{getScores(item+scores_tagger , 0)}}
-                </div>
-                <div class="mx-16 d-flex justify-center"  style="width: 30px;">
-                    <svg-icon v-if="item=='corners_'" class="text-24 ml-1" icon="corner"></svg-icon>
-                    <!-- <svg-icon v-else-if="item=='goals_'" class="text-24" icon="cup"></svg-icon> -->
-                    <v-sheet v-else-if="item=='red_cards_'" height="24" width="18" class="box_red"></v-sheet>
-                    <v-sheet v-else-if="item=='yellow_cards_'" height="24" width="18" class="box_yellow"></v-sheet>
-                </div>
-                <div
-                    class="btnPlain--text d-flex align-center font-weight-400 justify-center"
-                    :class="{
+                        style="width: 50px"
+                    >
+                        {{getScores(item+scores_tagger , 0)}}
+                    </div>
+                    <div class="mx-16 d-flex justify-center" style="width: 30px">
+                        <svg-icon v-if="item=='corners_'" class="text-24 ml-1" icon="corner"></svg-icon>
+                        <!-- <svg-icon v-else-if="item=='goals_'" class="text-24" icon="cup"></svg-icon> -->
+                        <v-sheet v-else-if="item=='red_cards_'" height="24" width="18" class="box_red"></v-sheet>
+                        <v-sheet v-else-if="item=='yellow_cards_'" height="24" width="18" class="box_yellow"></v-sheet>
+                    </div>
+                    <div
+                        class="btnPlain--text d-flex align-center font-weight-400 justify-center"
+                        :class="{
                         'text-12':$vuetify.breakpoint.mobile,
                         'text-14':!$vuetify.breakpoint.mobile,
                         'font-weight-bold' : item == 'goals_',
                         'text-16' : item == 'goals_',
                     }"
-                    style="width: 50px;"
-                >
-                    {{getScores(item+scores_tagger , 1)}}
-                </div>
+                        style="width: 50px"
+                    >
+                        {{getScores(item+scores_tagger , 1)}}
+                    </div>
+                </template>
             </v-sheet>
         </v-sheet>
     </div>
