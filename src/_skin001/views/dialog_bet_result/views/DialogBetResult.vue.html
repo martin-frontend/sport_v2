@@ -26,15 +26,15 @@
                 <v-spacer />
                 <div class="font-weight-bold">@{{ TransMarketPrice(pageData.odds) }}</div>
             </div>
-            <div class="d-flex mb10">
-                <template v-if="pageData.isInPlay">
-                    <span class="mr-1">{{LangUtil("滚球")}} </span>
+            <div class="d-flex mb10 justify-space-between">
+                <div v-if="pageData.isInPlay">
+                    <span class="mr-1" style="word-break: keep-all;">{{LangUtil("滚球")}} </span>
                     <!-- <span>({{pageData.goals}})</span> -->
                     <span>
                         <div v-html="pageData.goals"></div>
                     </span>
                     <v-spacer />
-                </template>
+                </div>
 
                 <div>{{transTitle(market.title)}}</div>
             </div>
