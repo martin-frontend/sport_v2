@@ -206,10 +206,10 @@ export default class BetItem extends AbstractView {
 
     onMax(e: any) {
         const mobile = this.$vuetify.breakpoint.mobile;
-        if ((mobile && e.type == "touchstart") || (!mobile && e.type == "click")) {
+        // if ((mobile && e.type == "touchstart") || (!mobile && e.type == "click")) {
             this.item.stake = Math.min(parseFloat(this.selfProxy.userInfo.gold) >> 0, this.item.maxStake).toString();
             this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
-        }
+        // }
     }
 
     getPreWin() {

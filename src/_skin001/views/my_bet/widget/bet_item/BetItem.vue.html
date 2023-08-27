@@ -133,9 +133,7 @@
                     <v-card
                         class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 textBet--text"
                         height="40"
-                        @click="!$vuetify.breakpoint.mobile && onInput_mobile(num)"
-                        @touchstart="$vuetify.breakpoint.mobile && onInput_mobile(num)"
-                        @touchend="onTouchEnd"
+                        @click="onInput_mobile(num)"
                         :key="index"
                     >
                         {{num}}
@@ -154,8 +152,6 @@
                 </button>
                 <v-card
                     @click="onMax"
-                    @touchstart="onMax"
-                    @touchend="onTouchEnd"
                     class="keybordright text-18"
                     :width="$vuetify.breakpoint.mobile?70:60"
                     style="height: 88px"
@@ -163,9 +159,7 @@
                     MAX
                 </v-card>
                 <v-card
-                    @click="!$vuetify.breakpoint.mobile && (bshowkeybord=false)"
-                    @touchstart="$vuetify.breakpoint.mobile && (bshowkeybord=false)"
-                    @touchend="onTouchEnd"
+                    @click="(bshowkeybord=false)"
                     :width="$vuetify.breakpoint.mobile?70:60"
                     class="keybordright"
                 >
@@ -180,9 +174,7 @@
                 <v-card
                     class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
                     :height="$vuetify.breakpoint.mobile?40:30"
-                    @click="!$vuetify.breakpoint.mobile && (item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1]))"
-                    @touchstart="$vuetify.breakpoint.mobile && (item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1]))"
-                    @touchend="onTouchEnd"
+                    @click="item.stake = onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])"
                 >
                     <span class="font-weight-bold">+{{amountFormat(settintProxy.pageData.form.fast_choose[i-1])}}</span>
                 </v-card>
@@ -192,8 +184,6 @@
                     class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
                     :height="$vuetify.breakpoint.mobile?40:30"
                     @click="onMax"
-                    @touchstart="onMax"
-                    @touchend="onTouchEnd"
                 >
                     <span class="font-weight-bold">{{LangUtil("最大")}}</span>
                 </v-card>
@@ -203,8 +193,6 @@
                     class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
                     :height="$vuetify.breakpoint.mobile?40:30"
                     @click="item.stake = ''"
-                    @touchstart="item.stake = ''"
-                    @touchend="onTouchEnd"
                 >
                     <span class="font-weight-bold">{{LangUtil("清空")}}</span>
                 </v-card>
