@@ -50,8 +50,9 @@ router.beforeEach((to: any, from: any, next: any) => {
     }
     if (to.path == "/") {
         next("/page_home");
-    } else if (to.path == "/page_matche" && document.body.clientWidth > 960) {
-        next("/page_home");
+    // } else if (to.path == "/page_matche" && document.body.clientWidth > 960) {
+    //     console.warn("----切换路由-page_matche--");
+    //     next("/page_home");
     } else {
         next();
     }
