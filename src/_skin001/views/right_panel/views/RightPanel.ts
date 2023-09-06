@@ -49,4 +49,7 @@ export default class RightPanel extends AbstractView {
     destroyed() {
         super.destroyed();
     }
+    onClickShowTitle() {
+        this.myProxy.isShowLive = !this.myProxy.isShowLive;
+    }
 }
