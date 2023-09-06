@@ -22,10 +22,16 @@ export default class Live extends AbstractView {
     window = this.value;
     iframeHeight = 0;
     user_type: number = this.selfProxy.userInfo.user_type;
-
+    isShowLive = [0];
     @Watch("value")
     onWatchValue() {
         this.window = this.value;
+    }
+    @Watch("myProxy.pageData.loading")
+    onWatchLoading() {
+        if (!this.myProxy.pageData.loading) {
+            this.isShowLive = [0];
+        }
     }
 
     @Watch("window")
@@ -172,12 +178,9 @@ export default class Live extends AbstractView {
     destroyed() {
         super.destroyed();
     }
-    getFullTime (match_phase: any, phase_minute: any)
-    {
-        if (SkinVariable.skin == "skin001_1")
-        {
-            return getFullTime(match_phase,phase_minute);
-            
+    getFullTime(match_phase: any, phase_minute: any) {
+        if (SkinVariable.skin == "skin001_1") {
+            return getFullTime(match_phase, phase_minute);
         }
         return phase_minute;
     }

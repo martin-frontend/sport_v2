@@ -18,7 +18,7 @@
                 <svg-icon
                     class="text-12 textGray--text"
                     icon="zoom_out"
-                    :class="!pageData.isShowLiveList ? 'arrow-up' : 'arrow-down'"
+                    :class="pageData.isShowLiveList ? 'arrow-up' : 'arrow-down'"
                 ></svg-icon>
             </v-sheet>
 
@@ -71,6 +71,9 @@
                     </v-sheet>
                 </v-tooltip>
             </div>
+            <div v-if="!pageData.isShowLiveList" @click="onClickShowTitle" class="hand">
+                <svg-icon class="textGray--text text-12 mr-1" icon="zoom_out" :class="myProxy.isShowLive ? 'arrow-up' : 'arrow-down'"></svg-icon>
+            </div>
         </v-sheet>
     </v-sheet>
 
@@ -84,7 +87,7 @@
         </v-sheet> -->
     </template>
     <template v-else>
-        <Live v-model="pageData.liveIndex" />
+        <Live v-if="myProxy.isShowLive" v-model="pageData.liveIndex" />
         <Matche />
     </template>
 </div>

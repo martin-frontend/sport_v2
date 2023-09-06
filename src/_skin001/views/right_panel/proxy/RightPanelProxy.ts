@@ -7,4 +7,5 @@ export default class RightPanelProxy extends puremvc.Proxy {
         //是否显示直播列表
         isShowLiveList: false,
     };
+    isShowLive = true;
 }
