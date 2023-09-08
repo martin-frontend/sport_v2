@@ -121,42 +121,7 @@ export default class PageOrderDetail extends AbstractView {
             return LangUtil("输");
         }
     }
-    pickerOptions = {
-        shortcuts: [
-            {
-                text: LangUtil("今日"),
-                onClick(picker: any) {
-                    const start = getTodayOffset().formatdate3;
-                    const end = getTodayOffset(1, -1).formatdate3;
-                    picker.$emit("pick", [start, end]);
-                },
-            },
-            {
-                text: LangUtil("昨天"),
-                onClick(picker: any) {
-                    const start = getTodayOffset(-1).formatdate3;
-                    const end = getTodayOffset(0, -1).formatdate3;
-                    picker.$emit("pick", [start, end]);
-                },
-            },
-            {
-                text: LangUtil("7天"),
-                onClick(picker: any) {
-                    const start = getTodayOffset(-6).formatdate3;
-                    const end = getTodayOffset(1, -1).formatdate3;
-                    picker.$emit("pick", [start, end]);
-                },
-            },
-            {
-                text: LangUtil("30日"),
-                onClick(picker: any) {
-                    const start = getTodayOffset(-29).formatdate3;
-                    const end = getTodayOffset(1, -1).formatdate3;
-                    picker.$emit("pick", [start, end]);
-                },
-            },
-        ],
-    };
+    
     onTimeChange() {
         console.log("-time change",this.myProxy.selectDate);
         if (!this.myProxy.selectDate)
