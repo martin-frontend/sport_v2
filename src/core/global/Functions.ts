@@ -228,8 +228,12 @@ export function getTodayOffset(offset = 0, offsetSecond = 0): any {
     const today = getDateByTimeZone(GlobalVar.server_time * 1000 + 86400000 * offset, GlobalVar.zone);
     const formatdate = dateFormat(today, "yyyy/MM/dd");
     const formatdate2 = dateFormat(today, "yyyy-MM-dd");
+    // const formatdate3 =dateFormat( new Date( Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) + offsetSecond * 1000),"yyyy-MM-dd hh:mm:ss");
+    const destTime = Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) + offsetSecond * 1000;
+    const data_2 = getDateByTimeZone(destTime,GlobalVar.zone);
+    const formatdate3 = dateFormat(data_2 , "yyyy-MM-dd hh:mm:ss");
     const timestr = (Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
-    return { timestr, formatdate, formatdate2 };
+    return { timestr, formatdate, formatdate2 ,formatdate3};
 }
 /**
  * 如果是香港盘赔率要减一

@@ -46,8 +46,10 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         page_count: 1,
         page_size: 10,
         pageInfo: { pageCurrent: 0 },
-        "settle_time-{>=}": "",
-        "settle_time-{<=}": "",
+        // "settle_time-{>=}": "",
+        // "settle_time-{<=}": "",
+        "create_time-{>=}": "",
+        "create_time-{<=}": "",
     };
     init() {
         this.sendNotification(net.HttpType.api_event_sports);
@@ -55,39 +57,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
     }
     get_order_by_limit(type: number) {
         this.listQuery.page_count = 1;
-        switch (type) {
-            // 今日
-            case 0:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset().timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
-                this.selectDate[0] = getTodayOffset().formatdate2;
-                this.selectDate[1] = getTodayOffset().formatdate2;
-                break;
-            // 昨天
-            case -1:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-1).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(0, -1).timestr;
-                this.selectDate[0] = getTodayOffset(-1).formatdate2;
-                this.selectDate[1] = getTodayOffset(-1).formatdate2;
-                break;
-            // 7天
-            case 7:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-6).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
-                this.selectDate[0] = getTodayOffset(-6).formatdate2;
-                this.selectDate[1] = getTodayOffset().formatdate2;
-                break;
-            // 30天
-            case 30:
-                this.listQuery["settle_time-{>=}"] = getTodayOffset(-29).timestr;
-                this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
-                this.selectDate[0] = getTodayOffset(-29).formatdate2;
-                this.selectDate[1] = getTodayOffset(1, -1).formatdate2;
-                break;
-
-            default:
-                break;
-        }
+       
         this.pageData.list = [];
         this.api_user_orders();
     }
@@ -109,8 +79,8 @@ export default class HistoryResultProxy extends puremvc.Proxy {
             }
         }
         this.listQuery.page_count = 1;
-        this.listQuery["settle_time-{>=}"] = Date.parse(selectDate[0] + " " + timezone) / 1000;
-        this.listQuery["settle_time-{<=}"] = (Date.parse(selectDate[1] + " " + timezone) + 86400000) / 1000 - 1;
+        this.listQuery["create_time-{>=}"] = Date.parse(selectDate[0] + " " + timezone) / 1000;
+        this.listQuery["create_time-{<=}"] = Date.parse(selectDate[1] + " " + timezone) / 1000 - 1;
         this.pageData.list = [];
         this.api_user_orders();
     }
@@ -152,13 +122,15 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         const sTime = GlobalVar.server_time;
         this.nowtime = dateFormat(getDateByTimeZone(sTime * 1000, GlobalVar.zone), "yyyy/MM/dd");
         console.log("this.nowtime>>>", this.nowtime);
-        const date1 = this.nowtime;
-        const date2 = this.nowtime;
-        this.selectDate = [date1.toString(), date2.toString()];
+        const start = getTodayOffset().formatdate3;
+        const end = getTodayOffset(1, -1).formatdate3;
+        this.selectDate = [start, end];
+        // this.selectDate = [date1.toString(), date2.toString()];
         LangConfig.load(this.form.lang, true).then(() => {
             this.isloadSecLang = true;
             GlobalVar.token = token;
-            this.get_order_by_limit(0);
+            // this.get_order_by_limit(0);
+            this.get_order_selectdata(this.selectDate);
         });
     }
     api_public_plat_config() {

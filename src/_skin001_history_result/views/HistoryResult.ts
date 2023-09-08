@@ -5,7 +5,7 @@ import historyResultMediator from "../mediator/historyResultMediator";
 import historyResultProxy from "../proxy/historyResultProxy";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
-import { getQueryVariable } from "@/core/global/Functions";
+import { getQueryVariable, getTodayOffset } from "@/core/global/Functions";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import { getResponseIcon, amountFormat, dateFormat, TransMarketPrice, getDateByTimeZone } from "@/core/global/Functions";
 import CopyUtil from "@/core/global/CopyUtil";
@@ -27,8 +27,6 @@ export default class PageOrderDetail extends AbstractView {
 
     GlobalVar = GlobalVar;
     bShowDateSelect = false;
-    SelectDate1 = "";
-    SelectDate2 = "";
     form = {
         lang: getQueryVariable("lang") || "zh_CN",
         order_id: getQueryVariable("order_id"),
@@ -80,31 +78,14 @@ export default class PageOrderDetail extends AbstractView {
     onLimitOrder(type: any) {
         this.pageData.isActive = type;
         this.myProxy.get_order_by_limit(type);
-        this.onWatchselectDate();
+        // this.onWatchselectDate();
     }
     onSelectDate() {
         this.bShowDateSelect = false;
         this.pageData.isActive = 1000;
         this.myProxy.get_order_selectdata(this.myProxy.selectDate);
     }
-    @Watch("myProxy.selectDate")
-    onWatchselectDate() {
-        const sel1 = this.myProxy.selectDate[0];
-        const sel2 = this.myProxy.selectDate[1];
-        if (sel1 && sel2 && Date.parse(sel1) > Date.parse(sel2)) {
-            this.myProxy.selectDate = [sel2, sel1];
-        }
-        this.SelectDate1 = <any>this.formatDate(this.myProxy.selectDate[0]);
-        this.SelectDate2 = <any>this.formatDate(this.myProxy.selectDate[1]);
-        if (this.myProxy.selectDate[0]) {
-            this.myProxy.selectDate[0] = this.myProxy.selectDate[0].replaceAll("/", "-");
-        }
-        if (this.myProxy.selectDate[1]) {
-            this.myProxy.selectDate[1] = this.myProxy.selectDate[1].replaceAll("/", "-");
-        }
 
-        console.warn("selectDateselectDate>>" + this.myProxy.selectDate);
-    }
     formatDate(date: any) {
         if (!date) return null;
 
@@ -117,6 +98,9 @@ export default class PageOrderDetail extends AbstractView {
     }
 
     onfresh() {
+        if (!this.myProxy.selectDate || !this.myProxy.selectDate[0] || !this.myProxy.selectDate[1]){
+            return;
+        }
         this.myProxy.listQuery.page_count = 1;
         this.pageData.list = [];
         this.myProxy.get_order_selectdata(this.myProxy.selectDate);
@@ -136,5 +120,64 @@ export default class PageOrderDetail extends AbstractView {
         } else {
             return LangUtil("输");
         }
+    }
+    pickerOptions = {
+        shortcuts: [
+            {
+                text: LangUtil("今日"),
+                onClick(picker: any) {
+                    const start = getTodayOffset().formatdate3;
+                    const end = getTodayOffset(1, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+            {
+                text: LangUtil("昨天"),
+                onClick(picker: any) {
+                    const start = getTodayOffset(-1).formatdate3;
+                    const end = getTodayOffset(0, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+            {
+                text: LangUtil("7天"),
+                onClick(picker: any) {
+                    const start = getTodayOffset(-6).formatdate3;
+                    const end = getTodayOffset(1, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+            {
+                text: LangUtil("30日"),
+                onClick(picker: any) {
+                    const start = getTodayOffset(-29).formatdate3;
+                    const end = getTodayOffset(1, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+        ],
+    };
+    onTimeChange() {
+        console.log("-time change",this.myProxy.selectDate);
+        if (!this.myProxy.selectDate)
+        {
+            this.myProxy.selectDate = ["",""];
+        }
+        let startDate = this.myProxy.selectDate[0];
+        console.log("--->>>>",startDate);
+        let endDate = this.myProxy.selectDate[1];
+        if (!startDate) {
+            startDate = "";
+        }
+        if (!endDate) {
+            endDate = "";
+        }
+        if (!startDate || !endDate) {
+            this.myProxy.selectDate = [startDate, endDate];
+        }
+        if (!this.myProxy.selectDate[0] || !this.myProxy.selectDate[1]) return;
+        this.myProxy.get_order_selectdata(this.myProxy.selectDate);
+        // this.pageData.listQuery.page_count = 1;
+        // this.myProxy.getApi();
     }
 }

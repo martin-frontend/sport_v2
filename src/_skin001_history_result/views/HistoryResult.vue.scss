@@ -67,3 +67,63 @@ span {
     font-size: 11px;
     letter-spacing: -0.6px;
 }
+
+::v-deep .theme--dark {
+
+    .el-input__inner {
+        background-color: #2f3030 !important;
+        border-radius: 8px !important;
+        border: none;
+        color: #8E8F91;
+    }
+
+    .el-input__inner::placeholder {
+        color: #8E8F91;
+    }
+
+    .el-range-input {
+        color: #8E8F91;
+        width: auto;
+    }
+}
+
+::v-deep .theme--light {
+
+    .el-input__inner {
+        background-color: #F4F4F4 !important;
+        // background-color: transparent !important;
+        border-radius: 8px !important;
+        border: none;
+        color: #8E8F91;
+    }
+
+    .el-input__inner::placeholder {
+        color: #8E8F91;
+    }
+
+    .el-range-input {
+        color: #8E8F91;
+        width: auto;
+    }
+
+    .el-range__close-icon {
+        color: #8E8F91;
+    }
+}
+
+
+.el-range__icon {
+    margin-top: 3px;
+}
+
+.el-range__close-icon {
+    margin-top: 3px;
+}
+
+.el-range-input::placeholder {
+    color: #606266;
+}
+
+::v-deep .el-input--suffix .el-input__inner {
+    padding-right: 0px;
+}

@@ -27,6 +27,7 @@
         "axios-retry": "^3.4.0",
         "core-js": "^3.6.5",
         "custer-js-utils": "^1.0.5",
+        "element-ui": "^2.15.14",
         "gsap": "^3.10.4",
         "js-cookie": "^2.2.1",
         "js-md5": "^0.7.3",
