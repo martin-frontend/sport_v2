@@ -14,11 +14,13 @@ import BtnYellow from "@/_skin001/views/widget/btn_yellow/BtnYellow.vue";
 import BtnInfo from "@/_skin001/views/widget/btn_info/BtnInfo.vue";
 import AppFacade from "./AppFacade";
 import { getQueryVariable } from "@/core/global/Functions";
+import "element-ui/lib/theme-chalk/index.css";
+import { DatePicker } from "element-ui";
 LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
 Vue.use(Notifications, { velocity });
-
+Vue.use(DatePicker);
 // 注册到全局
 Vue.component("btn-yellow", BtnYellow);
 Vue.component("btn-info", BtnInfo);

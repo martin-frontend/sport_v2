@@ -2,13 +2,13 @@
     <v-sheet height="100%">
         <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
             <v-sheet class="d-flex">
-                <span class="text-20  font-weight-bold">{{LangUtil("注单历史")}}</span>
+                <span class="text-20 font-weight-bold">{{LangUtil("注单历史")}}</span>
             </v-sheet>
         </v-sheet>
         <v-divider width="100%" />
         <v-sheet height="66px" class="d-flex justify-space-between align-center font-weight-400">
             <span class="font-weight-bold text-16 ml-6">{{LangUtil("已经结算注单")}}</span>
-            <div class="mr-6">
+            <!-- <div class="mr-6">
                 <v-btn text height="36" @click="onLimitOrder(0)" class="text-gray1 mr-2" :class="pageData.isActive == 0 ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
                     ><span class="font-weight-bold text-14">{{ LangUtil('今日') }}</span>
                 </v-btn>
@@ -21,12 +21,11 @@
                 <v-btn text height="36" @click="onLimitOrder(30)" class="text-gray1 mr-2" :class="pageData.isActive == 30 ? 'tag-btn-active' : 'tag-btn-noactive def-border textGray--text'"
                     ><span class="font-weight-bold text-14">{{ LangUtil('30日') }}</span>
                 </v-btn>
-            </div>
-            
+            </div> -->
         </v-sheet>
-        <v-divider  class="mx-6" width="96%" />
-        <div class="d-flex mt-4 ml-5">
-            <v-menu ref="menu" right  v-model="bShowDateSelect" :close-on-content-click="false"
+        <v-divider class="mx-6" width="96%" />
+        <div class="d-flex mt-4 ml-5 align-center">
+            <!-- <v-menu ref="menu" right  v-model="bShowDateSelect" :close-on-content-click="false"
                  transition="scale-transition" offset-y left min-width="auto">
                 <template v-slot:activator="{ on, attrs }">
                     <v-sheet v-bind="attrs" v-on="on"
@@ -45,7 +44,7 @@
                     </v-sheet>
                 </template>
                
-                <v-date-picker format=yyyy/MM/dd range v-model="myProxy.selectDate" no-title scrollable 
+                <v-date-picker format='yyyy/MM/dd' range v-model="myProxy.selectDate" no-title scrollable 
                     :locale="GlobalVar.lang == 'zh_CN' ? 'zh-cn':''" :max="myProxy.nowtime" >
                     <v-spacer></v-spacer>
                     <v-btn text color="primary" @click="bShowDateSelect = false">
@@ -55,125 +54,160 @@
                         {{LangUtil("确定")}}
                     </v-btn>
                 </v-date-picker>
-            </v-menu>
-            <v-btn class="textGray--text ml-n3" icon @click="onfresh">
+            </v-menu> -->
+            <el-date-picker
+                v-model="myProxy.selectDate"
+                type="datetimerange"
+                :picker-options="pickerOptions"
+                range-separator="-"
+                :start-placeholder="LangUtil('开始日期')"
+                :end-placeholder="LangUtil('结束日期')"
+                :default-time="[`00:00:00`, `23:59:00`]"
+                align="right"
+                format="yyyy-MM-dd HH:mm:ss"
+                class="input_range align-center"
+                @change="onTimeChange"
+                :clearable="false"
+            >
+                <template slot="range-separator">-</template>
+            </el-date-picker>
+
+            <v-btn class="textGray--text ml-1" icon @click="onfresh">
                 <svg-icon class="text-23" icon="refrush"></svg-icon>
             </v-btn>
         </div>
-        <v-row justify="center" class="d-flex justify-center mx-6 mt-2 btnPlain--text text-14" >
-            <v-col cols="2" >
-                <span >{{LangUtil("订单")}}</span>
-            </v-col >
+        <v-row justify="center" class="d-flex justify-center mx-6 mt-2 btnPlain--text text-14">
             <v-col cols="2">
-                <span >{{LangUtil("比赛")}}</span>
+                <span>{{LangUtil("订单")}}</span>
             </v-col>
             <v-col cols="2">
-                <span >{{LangUtil("下注内容")}}</span>
+                <span>{{LangUtil("比赛")}}</span>
+            </v-col>
+            <v-col cols="2">
+                <span>{{LangUtil("下注内容")}}</span>
             </v-col>
             <v-col>
-                <span >{{LangUtil("赛果")}}</span>
+                <span>{{LangUtil("赛果")}}</span>
             </v-col>
             <v-col>
-                <span >{{LangUtil("币种")}}</span>
+                <span>{{LangUtil("币种")}}</span>
             </v-col>
             <v-col>
-                <span >{{LangUtil("投注额")}}</span>
+                <span>{{LangUtil("投注额")}}</span>
             </v-col>
             <v-col>
-                <span >{{LangUtil("输赢")}}</span>
+                <span>{{LangUtil("输赢")}}</span>
             </v-col>
             <v-col>
-                <span >{{LangUtil("状态")}}</span>
+                <span>{{LangUtil("状态")}}</span>
             </v-col>
         </v-row>
 
-        <div class="box-scroll px-9 pt-7 " >
-            <v-row  max-height="130px" class="text-center text-14  mb-4 textGray--text def-border rounded-lg d-flex align-center justify-space-around" v-for="(item, index) in pageData.list" :key="index" >
+        <div class="box-scroll px-9 pt-7">
+            <v-row
+                max-height="130px"
+                class="text-center text-14 mb-4 textGray--text def-border rounded-lg d-flex align-center justify-space-around"
+                v-for="(item, index) in pageData.list"
+                :key="index"
+            >
                 <!-- 订单 -->
-                <v-col cols="2" class="d-grid  align-content-center font-weight-bold">
+                <v-col cols="2" class="d-grid align-content-center font-weight-bold">
                     <span>{{item.order_no || "N/A"}}</span>
                     <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
-                        <svg-icon
-                            class="text-16"
-                            icon="copy"
-                        ></svg-icon>
+                        <svg-icon class="text-16" icon="copy"></svg-icon>
                     </button>
-                    <span> {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
+                    <span>
+                        {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                    >
                 </v-col>
-                <v-col cols="2" class=" justify-items-center d-grid align-content-center">
+                <v-col cols="2" class="justify-items-center d-grid align-content-center">
                     <span class="">{{item.cpn}}</span>
                     <span>{{item.home_name}}</span>
                     <span>VS</span>
                     <span>{{item.away_name}}</span>
                     <span> {{dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                 </v-col>
-                <v-col cols="2"   class="d-grid justify-items-center btnPlain--text  top-text">
-                    <div id="content" class="d-flex text-center" >
+                <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">
+                    <div id="content" class="d-flex text-center">
                         <div v-if="item.c_type == 2">{{item.content}}@{{TransMarketPrice(item.odds)}}</div>
-                        <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}} @{{TransMarketPrice(item.odds)}}</div>
-                        
-                    </div>
-                    
-                    <div> 
-                        {{transTitle(item.market_type_text,index)}}
-                    </div>
-                    <div class="d-flex" v-if="item.state && Object.keys(item.state).length > 0">
-                        <span >{{LangUtil("滚球")}}&nbsp;</span>
-                        <span ><div v-html="OrderTitleUtils.getScoreStr(item)">
+                        <div v-else>
+                            {{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}
+                            @{{TransMarketPrice(item.odds)}}
                         </div>
-                            </span>
+                    </div>
+
+                    <div>{{transTitle(item.market_type_text,index)}}</div>
+                    <div class="d-flex" v-if="item.state && Object.keys(item.state).length > 0">
+                        <span>{{LangUtil("滚球")}}&nbsp;</span>
+                        <span><div v-html="OrderTitleUtils.getScoreStr(item)"></div> </span>
                     </div>
                 </v-col>
-                <v-col class="d-grid btnPlain--text ">
-                    <div  v-if=" item.status !== 3 && item.c_type != 2">
+                <v-col class="d-grid btnPlain--text">
+                    <div v-if=" item.status !== 3 && item.c_type != 2">
                         <span>
                             <div v-html="getHadResultStr(item)"></div>
                         </span>
-                       
                     </div>
                     <span v-else>-</span>
                 </v-col>
 
-                <v-col >
+                <v-col>
                     <span>{{item.currency}}</span>
                 </v-col>
-                <v-col >
+                <v-col>
                     <span> {{amountFormat(item.stake,true) }}</span>
                 </v-col>
-                <v-col  >
-                    <span :class="item.win==0?'yellow--text':item.win>0?'green--text':'red--text'" v-if="item.status == 1">{{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}</span>
+                <v-col>
+                    <span :class="item.win==0?'yellow--text':item.win>0?'green--text':'red--text'" v-if="item.status == 1"
+                        >{{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}</span
+                    >
                     <span v-else>-</span>
                 </v-col>
 
-                <v-col  class="d-grid justify-items-center">
+                <v-col class="d-grid justify-items-center">
                     <div :class="item.status == 3 ? 'red--text':'' " v-if="item.status != 1">
-                        <span >{{statusMap[item.status]}}</span>
+                        <span>{{statusMap[item.status]}}</span>
                         <span>{{LangUtil(item.mark)}}</span>
                     </div>
                     <div v-else>
-                        <v-btn :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'" class="white--text "  fab depressed :color="item.win==0?'yellow':item.win>0?'green':'red'"><span >{{getResultStr(item.win)}}</span> </v-btn>
+                        <v-btn
+                            :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
+                            class="white--text"
+                            fab
+                            depressed
+                            :color="item.win==0?'yellow':item.win>0?'green':'red'"
+                            ><span>{{getResultStr(item.win)}}</span>
+                        </v-btn>
                     </div>
-                 
                 </v-col>
-                
             </v-row>
-            <v-sheet v-if="pageData.nodata" style="height: calc(100vh - 300px);" class="d-flex flex-column justify-center align-center" color="transparent">
+            <v-sheet
+                v-if="pageData.nodata"
+                style="height: calc(100vh - 300px)"
+                class="d-flex flex-column justify-center align-center"
+                color="transparent"
+            >
                 <img src="@/_skin001/assets/nodata.png" width="120" height="120" />
                 <div class="textGray--text text-14">{{LangUtil("暂无数据")}}</div>
             </v-sheet>
-                <div class="d-flex justify-center mt-2" v-if="pageData.pageInfo.pageCurrent != pageData.pageInfo.pageCount && pageData.list.length != 0">
-                    <v-btn class="def-border" text small rounded @click="pageLoad">{{LangUtil("加载更多")}}</v-btn>
-                </div>
+            <div
+                class="d-flex justify-center mt-2"
+                v-if="pageData.pageInfo.pageCurrent != pageData.pageInfo.pageCount && pageData.list.length != 0"
+            >
+                <v-btn class="def-border" text small rounded @click="pageLoad">{{LangUtil("加载更多")}}</v-btn>
+            </div>
         </div>
         <!-- 页脚 -->
         <v-sheet v-if="pageData.list.length != 0" class="d-flex justify-start mx-2 mt-3 text-14">
-            <div class="ml-6 d-flex">{{LangUtil("投注数量")}}&nbsp; <span class="blackText--text"> {{pageData.stats.total_count}}</span></div>
-            
+            <div class="ml-6 d-flex">
+                {{LangUtil("投注数量")}}&nbsp; <span class="blackText--text"> {{pageData.stats.total_count}}</span>
+            </div>
+
             <div class="ml-9 d-flex">
                 {{LangUtil("投注额度")}}&nbsp;
                 <span class="blackText--text"> {{ amountFormat(pageData.stats.total_stake,true)}}</span>
             </div>
-            <div  class="ml-9 d-flex">
+            <div class="ml-9 d-flex">
                 {{LangUtil("输赢")}}&nbsp;
                 <span :class="pageData.stats.total_win >= 0 ? 'success--text' : 'error--text'"
                     >{{pageData.stats.total_win>=0 ? "+" : ""}}{{ amountFormat(pageData.stats.total_win,true,2)}}</span
