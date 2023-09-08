@@ -4,6 +4,19 @@ import { objectRemoveNull, dateFormat, getDateByTimeZone } from "@/core/global/F
 import { getQueryVariable, getTodayOffset } from "@/core/global/Functions";
 import LangConfig from "@/core/config/LangConfig";
 import PlatConfig from "@/core/config/PlatConfig";
+
+import { DatePicker } from "element-ui";
+import Vue from "vue";
+import localeE from "element-ui/lib/locale";
+import lang_en from "element-ui/lib/locale/lang/en";
+import lang_ja from "element-ui/lib/locale/lang/ja";
+import lang_ko from "element-ui/lib/locale/lang/ko";
+import lang_es from "element-ui/lib/locale/lang/es";
+import lang_vi from "element-ui/lib/locale/lang/vi";
+import lang_zh from "element-ui/lib/locale/lang/zh-CN";
+import lang_zhtw from "element-ui/lib/locale/lang/zh-TW";
+import LangUtil from "@/core/global/LangUtil";
+
 export default class HistoryResultProxy extends puremvc.Proxy {
     static NAME = "HistoryResultProxy";
     public onRegister(): void {
@@ -57,7 +70,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
     }
     get_order_by_limit(type: number) {
         this.listQuery.page_count = 1;
-       
+
         this.pageData.list = [];
         this.api_user_orders();
     }
@@ -129,10 +142,81 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         LangConfig.load(this.form.lang, true).then(() => {
             this.isloadSecLang = true;
             GlobalVar.token = token;
+            this.setDateLang();
             // this.get_order_by_limit(0);
+            this.setDateOption();
             this.get_order_selectdata(this.selectDate);
         });
     }
+    setDateLang() {
+        // 添加element ui 控件 语言
+        if (GlobalVar.lang == "zh_CN") {
+            localeE.use(lang_zh);
+        } else if (GlobalVar.lang == "zh_TW") {
+            localeE.use(lang_zhtw);
+        } else {
+            const langT = GlobalVar.lang.substring(0, 2);
+            switch (langT) {
+                case "es":
+                    localeE.use(lang_es);
+                    break;
+                case "ko":
+                    localeE.use(lang_ko);
+                    break;
+                case "jp":
+                    localeE.use(lang_ja);
+                    break;
+                case "vi":
+                    localeE.use(lang_vi);
+                    break;
+                default:
+                    localeE.use(lang_en);
+                    break;
+            }
+        }
+        Vue.use(DatePicker);
+    }
+
+    setDateOption() {
+        this.pickerOptions.shortcuts = [
+            {
+                text: LangUtil("今日"),
+                onClick(picker: any) {
+                    const start = getTodayOffset().formatdate3;
+                    const end = getTodayOffset(1, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+            {
+                text: LangUtil("昨天"),
+                onClick(picker: any) {
+                    const start = getTodayOffset(-1).formatdate3;
+                    const end = getTodayOffset(0, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+            {
+                text: LangUtil("7天"),
+                onClick(picker: any) {
+                    const start = getTodayOffset(-6).formatdate3;
+                    const end = getTodayOffset(1, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+            {
+                text: LangUtil("30日"),
+                onClick(picker: any) {
+                    const start = getTodayOffset(-29).formatdate3;
+                    const end = getTodayOffset(1, -1).formatdate3;
+                    picker.$emit("pick", [start, end]);
+                },
+            },
+        ];
+    }
+    pickerOptions = {
+        shortcuts: <any>[],
+    };
+
     api_public_plat_config() {
         const { lang, plat_id, timezone, token } = this.form;
         this.sendNotification(net.HttpType.public_plat_config, {
