@@ -48,11 +48,16 @@ router.beforeEach((to: any, from: any, next: any) => {
             if (routerBox) homeProxy.pageData.scrollOffset = routerBox.scrollTop;
             break;
     }
+    if (to.path.includes("/page_matche")) {
+        if (document.body.clientWidth > 960) {
+            next("/page_home");
+        }
+    }
     if (to.path == "/") {
         next("/page_home");
-    // } else if (to.path == "/page_matche" && document.body.clientWidth > 960) {
-    //     console.warn("----切换路由-page_matche--");
-    //     next("/page_home");
+        // } else if (to.path == "/page_matche" && document.body.clientWidth > 960) {
+        //     console.warn("----切换路由-page_matche--");
+        //     next("/page_home");
     } else {
         next();
     }
