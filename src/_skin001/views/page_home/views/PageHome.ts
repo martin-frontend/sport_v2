@@ -11,6 +11,7 @@ import page_order from "../../page_order";
 import dialog_setting from "../../dialog_setting";
 import page_live_list from "../../page_live_list";
 import ScrollUtil from "@/core/global/ScrollUtil";
+import { CompetitionVO } from "@/vo/CompetitionVO";
 
 @Component
 export default class PageHome extends AbstractView {
@@ -29,6 +30,39 @@ export default class PageHome extends AbstractView {
         this.$nextTick(() => {
             ScrollUtil(routerBox, this.pageData.scrollOffset, 0);
         });
+    }
+
+    get competition_list() {
+        if (this.listQueryComp.tag == "today" && this.settingProxy.pageData.form.todayEarly == "1") {
+            const arr = [];
+            for (const comp of this.pageData.competition_list) {
+                const c: CompetitionVO = JSON.parse(JSON.stringify(comp));
+                c.count = 0;
+                c.matches = [];
+                for (const m of comp.matches) {
+                    if (m.sb_time > GlobalVar.server_time) {
+                        c.matches.push(m);
+                    }
+                }
+                c.count = c.matches.length;
+                if (c.count > 0) {
+                    arr.push(c);
+                }
+                // break;
+            }
+            return arr;
+        } else {
+            return this.pageData.competition_list;
+        }
+    }
+
+    @Watch("settingProxy.pageData.form.todayEarly")
+    onWatchTodayEarly() {
+        if (this.listQueryComp.tag == "today") {
+            this.$nextTick(() => {
+                this.pageData.openIndexs = [0, 1, 2];
+            });
+        }
     }
 
     /**关注整个联赛 */

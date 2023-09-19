@@ -19,6 +19,7 @@ export default class SettingProxy extends puremvc.Proxy {
             timezone: GlobalVar.zone,
             sort: "comp", //time->时间 comp->联赛
             MarketType_area: GlobalVar.MarketType_area, //0->欧洲盘  1->香港盘
+            todayEarly: "0", // 是否显示今日未开赛
         },
         //时区
         items: [
@@ -189,6 +190,8 @@ export default class SettingProxy extends puremvc.Proxy {
                 const offset = -(new Date().getTimezoneOffset() / 60);
                 form.timezone = offset >= 0 ? `+${offset}` : `${offset}`;
             }
+
+            form.todayEarly = json.todayEarly ?? "0";
 
             GlobalVar.MarketType_area = form.MarketType_area;
             GlobalVar.currency = form.currency_type; //币别

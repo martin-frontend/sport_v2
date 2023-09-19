@@ -9,7 +9,7 @@
         v-model="pageData.openIndexs"
         v-if="!$vuetify.breakpoint.mobile && !pageData.loading"
     >
-        <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
+        <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of competition_list" :key="key">
             <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
                 <template v-slot:default="{ open }">
                     <div class="d-flex align-center">
@@ -188,7 +188,7 @@
         v-model="pageData.openIndexs"
         v-if="$vuetify.breakpoint.mobile && !pageData.loading"
     >
-        <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of pageData.competition_list" :key="key">
+        <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of competition_list" :key="key">
             <v-expansion-panel-header elevation="0" rounded="lg" height="54" color="bgBanner">
                 <template v-slot:default="{ open }">
                     <div class="d-flex align-center">
@@ -212,5 +212,5 @@
     </v-expansion-panels>
 
     <loader v-if="pageData.loading" />
-    <Nodata v-if="pageData.competition_list.length == 0 && !pageData.loading" height="60vh" />
+    <Nodata v-if="competition_list.length == 0 && !pageData.loading" height="60vh" />
 </div>

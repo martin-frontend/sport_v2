@@ -4,4 +4,5 @@ export interface RemarkVO {
     fast_choose: string[];
     currency_type: string;
     MarketType_area: string;
+    todayEarly: string;
 }
