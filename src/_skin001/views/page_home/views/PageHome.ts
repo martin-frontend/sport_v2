@@ -33,24 +33,28 @@ export default class PageHome extends AbstractView {
     }
 
     get competition_list() {
-        if (this.listQueryComp.tag == "today" && this.settingProxy.pageData.form.todayEarly == "1") {
-            const arr = [];
-            for (const comp of this.pageData.competition_list) {
-                const c: CompetitionVO = JSON.parse(JSON.stringify(comp));
-                c.count = 0;
-                c.matches = [];
-                for (const m of comp.matches) {
-                    if (m.sb_time > GlobalVar.server_time) {
-                        c.matches.push(m);
+        if (this.listQueryComp.tag == "today") {
+            if (this.settingProxy.pageData.form.todayEarly == "1") {
+                return this.pageData.competition_list;
+            } else {
+                const arr = [];
+                for (const comp of this.pageData.competition_list) {
+                    const c: CompetitionVO = JSON.parse(JSON.stringify(comp));
+                    c.count = 0;
+                    c.matches = [];
+                    for (const m of comp.matches) {
+                        if (m.sb_time > GlobalVar.server_time) {
+                            c.matches.push(m);
+                        }
                     }
+                    c.count = c.matches.length;
+                    if (c.count > 0) {
+                        arr.push(c);
+                    }
+                    // break;
                 }
-                c.count = c.matches.length;
-                if (c.count > 0) {
-                    arr.push(c);
-                }
-                // break;
+                return arr;
             }
-            return arr;
         } else {
             return this.pageData.competition_list;
         }
