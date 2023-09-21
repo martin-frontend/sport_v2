@@ -11,6 +11,8 @@ import BlurUtil from "@/core/global/BlurUtil";
 import dialog_message_box from "../../dialog_message_box";
 import { formatURLParam, logEnterTips } from "@/core/global/Functions";
 import SelfProxy from "@/proxy/SelfProxy";
+import NavigationProxy from "../../navigation/proxy/NavigationProxy";
+import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 
 @Component
 export default class DialogSetting extends AbstractView {
@@ -19,6 +21,8 @@ export default class DialogSetting extends AbstractView {
     myProxy: SettingProxy = this.getProxy(SettingProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
+    navProxy: NavigationProxy = getProxy(NavigationProxy);
+    homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
 
     user_type: number;
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;

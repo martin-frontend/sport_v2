@@ -49,7 +49,11 @@
         <btn-yellow class="text-14 ml-3" minWidth="111" height="36" @click.native="onReSetting"> {{LangUtil("还原设置")}} </btn-yellow>
     </v-sheet>
 
-    <v-sheet color="bgBanner" class="d-flex align-center textGray--text py-2 mt-2">
+    <v-sheet
+        color="bgBanner"
+        class="d-flex align-center textGray--text py-2 mt-2"
+        v-if="$vuetify.breakpoint.mobile && homeProxy.listQueryComp.tag == 'today'"
+    >
         <v-sheet class="rounded mx-2" color="yellow" width="3" height="22"></v-sheet>
         <div class="text-14">{{LangUtil("今日未开赛")}}</div>
         <div class="ml-3" @click="pageData.form.todayEarly = pageData.form.todayEarly == '1' ? '0' : '1' ">
