@@ -11,6 +11,7 @@ import PlatConfig from "@/core/config/PlatConfig";
 import getProxy from "@/core/global/getProxy";
 import SelfProxy from "@/proxy/SelfProxy";
 import LangUtil from "@/core/global/LangUtil";
+import SettingProxy from "@/proxy/SettingProxy";
 export default class PageHomeProxy extends puremvc.Proxy {
     static NAME = "PageHomeProxy";
     /**是否第一次进入首页 */
@@ -90,11 +91,40 @@ export default class PageHomeProxy extends puremvc.Proxy {
         this.timer = setInterval(this.getMarketAndStates.bind(this), 5000);
     }
 
+    get competition_list() {
+        if (this.listQueryComp.tag == "today") {
+            const settingProxy: SettingProxy = getProxy(SettingProxy);
+            if (settingProxy.pageData.form.todayEarly == "1") {
+                return this.pageData.competition_list;
+            } else {
+                const arr = [];
+                for (const comp of this.pageData.competition_list) {
+                    const c: CompetitionVO = JSON.parse(JSON.stringify(comp));
+                    c.count = 0;
+                    c.matches = [];
+                    for (const m of comp.matches) {
+                        if (m.sb_time > GlobalVar.server_time) {
+                            c.matches.push(m);
+                        }
+                    }
+                    c.count = c.matches.length;
+                    if (c.count > 0) {
+                        arr.push(c);
+                    }
+                    // break;
+                }
+                return arr;
+            }
+        } else {
+            return this.pageData.competition_list;
+        }
+    }
+
     getMarketAndStates() {
         if (Vue.router.currentRoute.path == "/page_home") {
             const event_id: number[] = [];
             for (const index of this.pageData.openIndexs) {
-                const item = this.pageData.competition_list[index];
+                const item = this.competition_list[index];
                 if (item && item.matches) {
                     for (const match of item.matches) {
                         if (event_id.indexOf(match.id) == -1) event_id.push(match.id);
