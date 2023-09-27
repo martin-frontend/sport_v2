@@ -122,7 +122,7 @@ export default class extends APP {
 
 <style scoped lang="scss">
 .leftbox {
-    height: calc(100vh - 8px);
+    height: calc(100vh - 16px);
 }
 .rightbox {
     height: calc(100vh - 50px - 16px - 8px);

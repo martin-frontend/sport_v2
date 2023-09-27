@@ -75,6 +75,20 @@
 }
 
 .page-content {
-    height: calc(100vh - 54px);
+    height: calc(100vh - 72px);
     overflow-y: auto;
+}
+
+.bet-count {
+    position: absolute;
+    right: 10px;
+    background-color: rgb(254 186 0);
+    border-radius: 99999px;
+    padding: 0 5px;
+    min-height: 20px;
+    min-width: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
 }

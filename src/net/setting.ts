@@ -29,6 +29,9 @@ import cmd_api_event_result from "./cmd_api_event_result";
 import cmd_api_event_market_type_v2 from "./cmd_api_event_market_type_v2";
 import cmd_public_order_detail_data from "./cmd_public_order_detail_data";
 import cmd_api_helpcenter_list from "./cmd_api_helpcenter_list";
+import cmd_api_user_prebet_v3 from "./cmd_api_user_prebet_v3";
+import cmd_api_user_betfix_v3 from "./cmd_api_user_betfix_v3";
+import cmd_api_user_orders_v3 from "./cmd_api_user_orders_v3";
 /**
  * document: http://18.167.151.206:8090/pages/viewpage.action?pageId=11076347
  */
@@ -96,6 +99,12 @@ const HttpType = {
     public_order_detail_data: "public/order_detail_data",
     /**帮助中心內容接口*/
     api_helpcenter_list: "api/helpcenter/list",
+    /**预下注V3*/
+    api_user_prebet_v3: "api/user/prebet_v3",
+    /**下注 V3*/
+    api_user_betfix_v3: "api/user/betfix_v3",
+    /**投注纪录v3*/
+    api_user_orders_v3: "api/user/orders_v3",
 };
 /**事件*/
 const EventType = {
@@ -169,6 +178,12 @@ const EventType = {
     public_order_detail_data: "public_order_detail_data",
     /**帮助中心內容接口*/
     api_helpcenter_list: "api_helpcenter_list",
+    /**预下注V3*/
+    api_user_prebet_v3: "api_user_prebet_v3",
+    /**下注 V3*/
+    api_user_betfix_v3: "api_user_betfix_v3",
+    /**投注纪录v3*/
+    api_user_orders_v3: "api_user_orders_v3",
 };
 /**注册协议*/
 function initCommand() {
@@ -204,6 +219,9 @@ function initCommand() {
     facade.registerCommand(HttpType.api_event_market_type_v2, cmd_api_event_market_type_v2);
     facade.registerCommand(HttpType.public_order_detail_data, cmd_public_order_detail_data);
     facade.registerCommand(HttpType.api_helpcenter_list, cmd_api_helpcenter_list);
+    facade.registerCommand(HttpType.api_user_prebet_v3, cmd_api_user_prebet_v3);
+    facade.registerCommand(HttpType.api_user_betfix_v3, cmd_api_user_betfix_v3);
+    facade.registerCommand(HttpType.api_user_orders_v3, cmd_api_user_orders_v3);
 }
 const net = { HttpType, EventType, initCommand };
 export default net;

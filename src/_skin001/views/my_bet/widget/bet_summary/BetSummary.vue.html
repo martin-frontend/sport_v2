@@ -1,0 +1,191 @@
+<div class="ml10 mr10" v-click-outside="onClickOutside">
+    <template v-if="pageData.betType === 'single'">
+        <div class="btnPlain--text text-truncate text-14 font-weight-bold">{{LangUtil('单场')}}x{{pageData.list.length}}</div>
+    </template>
+    <template v-else>
+        <div v-if="allowBetArr.length >= 2" class="d-flex justify-space-between btnPlain--text text-truncate text-14 font-weight-bold">
+            <span>{{allowBetArr.length}}{{LangUtil('串')}}1*1</span>
+            <span>@{{myProxy.pageData.parlayData.odds}}</span>
+        </div>
+    </template>
+
+    <div v-click-outside="onClickOutside">
+        <div class="d-flex mb-3 mt-1 input-box">
+            <v-sheet
+                v-if="!isVisitor"
+                class="d-flex align-center justify-center input_left"
+                min-width="60"
+                :height="$vuetify.breakpoint.mobile?40:36"
+            >
+                {{GlobalVar.currency}}
+            </v-sheet>
+            <v-sheet class="d-flex align-center input_right" width="100%" :height="$vuetify.breakpoint.mobile?40:36">
+                <input
+                    v-if="$vuetify.breakpoint.mobile"
+                    readonly
+                    class="btnPlain--text ml-2 font-weight-bold"
+                    style="width: 100%"
+                    :placeholder="getPlaceholder()"
+                    v-model="pageData.summaryStake"
+                    @click="bshowkeybord = true"
+                />
+                <!-- :placeholder="getPlaceholder(item)" -->
+                <input
+                    v-else
+                    class="btnPlain--text ml-2 font-weight-bold"
+                    ref="betInput"
+                    style="width: 100%"
+                    v-model="pageData.summaryStake"
+                    :placeholder="getPlaceholder()"
+                    @input="onInput"
+                    @focus="onFocus"
+                />
+                <v-btn v-if="pageData.summaryStake" class="mr-2" icon width="20" height="20" @click="clearInput">
+                    <svg-icon icon="cancel-circle"></svg-icon>
+                </v-btn>
+            </v-sheet>
+        </div>
+        <v-expand-transition>
+            <v-sheet color="transparent" v-if="bshowkeybord && $vuetify.breakpoint.mobile" class="d-flex keybord" width="100%">
+                <v-row class="ml-2 mr-0" dense>
+                    <v-col cols="4" v-for="(num, index) in keybordarr" :key="index">
+                        <v-card
+                            class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 textBet--text"
+                            height="40"
+                            @click="onInput_mobile(num)"
+                            :key="index"
+                        >
+                            {{num}}
+                        </v-card>
+                    </v-col>
+                </v-row>
+                <div style="display: grid" class="mr-2 mt-n1">
+                    <button
+                        @click="onDeleteKeybord"
+                        @touchstart="onDeleteKeybord"
+                        :width="$vuetify.breakpoint.mobile?70:60"
+                        class="keybordright"
+                        v-ripple
+                    >
+                        <svg-icon class="text-25" icon="keyborddel"></svg-icon>
+                    </button>
+                    <v-card @click="onMax" class="keybordright text-18" :width="$vuetify.breakpoint.mobile?70:60" style="height: 88px">
+                        MAX
+                    </v-card>
+                    <v-card @click="(bshowkeybord=false)" :width="$vuetify.breakpoint.mobile?70:60" class="keybordright">
+                        <svg-icon class="text-30" icon="keybord"></svg-icon>
+                    </v-card>
+                </div>
+            </v-sheet>
+        </v-expand-transition>
+        <v-expand-transition>
+            <v-row class="mb-1" dense v-if="!bshowkeybord && isShowAmountBtns">
+                <v-col :cols="$vuetify.breakpoint.mobile?4:6" v-for="i in 6" :key="i">
+                    <v-card
+                        class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
+                        :height="$vuetify.breakpoint.mobile?40:30"
+                        @click="onInputFast(pageData.summaryStake, settintProxy.pageData.form.fast_choose[i-1])"
+                    >
+                        <span class="font-weight-bold">+{{amountFormat(settintProxy.pageData.form.fast_choose[i-1])}}</span>
+                    </v-card>
+                </v-col>
+                <v-col :cols="$vuetify.breakpoint.mobile?4:6">
+                    <v-card
+                        class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
+                        :height="$vuetify.breakpoint.mobile?40:30"
+                        @click="onMax"
+                    >
+                        <span class="font-weight-bold">{{LangUtil("最大")}}</span>
+                    </v-card>
+                </v-col>
+                <v-col :cols="$vuetify.breakpoint.mobile?8:6">
+                    <v-card
+                        class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
+                        :height="$vuetify.breakpoint.mobile?40:30"
+                        @click="clearInput"
+                    >
+                        <span class="font-weight-bold">{{LangUtil("清空")}}</span>
+                    </v-card>
+                </v-col>
+            </v-row>
+        </v-expand-transition>
+    </div>
+    <v-divider />
+    <div class="d-flex mt-2">
+        <span>{{LangUtil("总投注额")}}</span>
+        <v-spacer />
+        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{totalStake}}</span>
+    </div>
+    <div class="d-flex">
+        <span>{{LangUtil("预计可赢")}}</span>
+        <v-spacer />
+        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{preWin}}</span>
+    </div>
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <!-- v-if="!item.oddsChange || item.isMarketClose" -->
+        <div class="d-flex mt-2">
+            <v-btn class="elevation-0 rounded-5" color="bgGray" height="35" width="35" x-small @click="onDelete">
+                <svg-icon class="text-16 textGray--text" icon="delete"></svg-icon>
+            </v-btn>
+            <v-spacer />
+            <v-btn
+                class="elevation-0 rounded-5 btn_yellow textYellow--text"
+                :loading="pageData.loading"
+                height="35"
+                width="77%"
+                :disabled="!isAllowBet"
+                @click="onBet"
+            >
+                <span v-if="!isVisitor" class="text-14 font-weight-bold">{{LangUtil("投注")}}</span>
+                <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
+            </v-btn>
+            <!-- <btn-yellow height="40" width="100%" :rounded5="true" :disabled="item.isMarketClose" @click.native="onBet">
+                            <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                        </btn-yellow> -->
+        </div>
+    </template>
+    <template v-else>
+        <v-row class="my-1" dense>
+            <v-col cols="4">
+                <v-btn class="elevation-0 rounded-5" color="bgGray" height="40" width="100%" @click="onDelete">
+                    <svg-icon class="text-16 textGray--text" icon="delete"></svg-icon>
+                </v-btn>
+            </v-col>
+            <v-col cols="8">
+                <div>
+                    <v-btn
+                        class="elevation-0 rounded-5 btn_yellow textYellow--text"
+                        :loading="pageData.loading"
+                        height="40"
+                        width="100%"
+                        :disabled="!isAllowBet"
+                        @click="onBet"
+                    >
+                        <span v-if="!isVisitor" class="text-14 font-weight-bold">{{LangUtil("投注")}}</span>
+                        <span v-else class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
+                    </v-btn>
+                    <!-- <btn-yellow height="40" width="100%" :rounded5="true" :disabled="item.isMarketClose" @click.native="onBet">
+                        <span class="text-14 font-weight-bold">{{item.isMarketClose? LangUtil("盘口已关闭"): LangUtil("投注")}}</span>
+                    </btn-yellow> -->
+                </div>
+            </v-col>
+        </v-row>
+    </template>
+    <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-2" style="max-width: 100%">
+        <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
+            {{LangUtil('是否自动接受更好赔率')}}
+        </div>
+
+        <v-spacer />
+
+        <LeeSwitch
+            class="mt-n1 ml-2"
+            @change="clickOdditem()"
+            color="#3caa1f"
+            v-model="bBetter"
+            :startText="LangUtil('开')"
+            :endText="LangUtil('关')"
+        >
+        </LeeSwitch>
+    </div>
+</div>

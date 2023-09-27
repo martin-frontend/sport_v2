@@ -145,9 +145,9 @@ export function amountFormat(val: any, decimal: boolean = false, decimalLang: nu
         const numericString = val.replace(/[^0-9.]/g, "");
         numericAmount = parseFloat(numericString);
     } else {
-        numericAmount = val;
+        numericAmount = val ?? 0;
     }
-
+    
     const formattedAmount = numericAmount.toLocaleString(GlobalVar.lang.substring(0, 2), {
         minimumFractionDigits: decimal ? decimalLang : 0,
         maximumFractionDigits: decimalLang,

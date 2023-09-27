@@ -69,7 +69,8 @@ export default class PageOrderDetail extends AbstractView {
     }
     pageLoad() {
         this.listQuery.page_count++;
-        this.myProxy.api_user_orders();
+        // this.myProxy.api_user_orders();
+        this.myProxy.api_user_orders_v3();
     }
     transTime(_t: any) {
         return dateFormat(getDateByTimeZone(_t * 1000, GlobalVar.zone), "hh:mm:ss");

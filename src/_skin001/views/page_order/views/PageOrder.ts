@@ -137,7 +137,8 @@ export default class PageOrder extends AbstractView {
     onTabClick(tabIndex: number) {
         this.listQuery.is_settle = tabIndex;
         this.myProxy.onReset();
-        this.myProxy.api_user_orders();
+        // this.myProxy.api_user_orders();
+        this.myProxy.api_user_orders_v3();
     }
 
     onBack() {
@@ -145,12 +146,14 @@ export default class PageOrder extends AbstractView {
         this.$router.back();
         this.myProxy.onReset();
         this.myProxy.listQuery.unique = "settleCount";
-        this.myProxy.api_user_orders();
+        // this.myProxy.api_user_orders();
+        this.myProxy.api_user_orders_v3();
     }
     //pc获取更多
     pageLoad() {
         this.listQuery.page_count++;
-        this.myProxy.api_user_orders();
+        // this.myProxy.api_user_orders();
+        this.myProxy.api_user_orders_v3();
     }
 
     //重新整理

@@ -4,8 +4,11 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import PageOrderUnsettled from "./PageOrderUnsettled";
+import ParlayOrder from "../widget/ParlayOrder.vue";
 
-@Component
+@Component({
+    components: { ParlayOrder },
+})
 export default class extends PageOrderUnsettled {
     mounted() {
         window.scrollTo(0, 0);

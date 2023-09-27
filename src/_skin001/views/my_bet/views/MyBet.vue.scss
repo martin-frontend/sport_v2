@@ -1,3 +1,21 @@
 .tabs_box {
     background-color: transparent;
 }
+.bet-content {
+    display: flex;
+    flex-direction: column;
+    max-height: calc(100vh - 128px);
+    .bet-scroll {
+        flex: 1;
+        overflow-x: hidden;
+        overflow-y: scroll;
+    }
+}
+.mobile-bet-content {
+    max-height: calc(100vh - 250px);
+}
+@supports (max-height: 100dvh) {
+    .mobile-bet-content {
+        max-height: calc(100dvh - 180px);
+    }
+}

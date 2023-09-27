@@ -6,8 +6,12 @@
     persistent
     :fullscreen="$vuetify.breakpoint.height <= 600"
 >
-    <v-card class="pb-2 rounded-lg" color="bgBanner">
-        <v-card-title class="d-flex align-center">
+    <v-card class="rounded-lg" color="bgPage">
+        <v-card-text class="pa-4 dialog-content">
+        <!-- <v-card-text class="pa-4" > -->
+            <BetResult></BetResult>
+        </v-card-text>
+        <!-- <v-card-title class="d-flex align-center">
             <v-sheet color="transparent" class="d-flex align-center" width="100%">
             <v-sheet width="3" height="22" color="yellow"></v-sheet>
             <div class="text-18 ml10 comp text-truncate" v-if="competition">{{competition.competition_name}}</div>
@@ -31,7 +35,6 @@
             <div class="d-flex mb10 justify-space-between">
                 <div v-if="pageData.isInPlay">
                     <span class="mr-1" style="word-break: keep-all;">{{LangUtil("滚球")}} </span>
-                    <!-- <span>({{pageData.goals}})</span> -->
                     <span>
                         <div v-html="pageData.goals"></div>
                     </span>
@@ -76,6 +79,6 @@
         </v-card-text>
         <v-card-actions class="mt-n1">
             <btn-yellow class="text-18" width="100%" height="48" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
-        </v-card-actions>
+        </v-card-actions> -->
     </v-card>
 </v-dialog>

@@ -2,7 +2,7 @@
     class="divbox"
     color="bgMybet"
     v-model="pageData.bShow"
-    height="500"
+    height="auto"
     v-if="$vuetify.breakpoint.mobile"
     overlay-opacity="0.7"
     fixed
@@ -10,6 +10,7 @@
     bottom
     app
     temporary
+    max-height="90%"
 >
     <v-sheet
         class="d-flex align-center head header_mbg elevation-0 rounded-0"
@@ -18,9 +19,10 @@
         width="100%"
         color="bgMybet"
         @click="pageData.bShow=!pageData.bShow"
-        v-if="betProxy.pageData.list.length > 0"
+        v-if="isShowBet"
     >
-        <div class="ml-5 text-18 white--text font-weight-bold">{{LangUtil("注单")}}</div>
+        <span class="mx-2 bet-count">{{betProxy.pageData.list.length}}</span>
+        <div class="text-18 white--text font-weight-bold">{{LangUtil("注单")}}</div>
         <v-spacer />
 
         <div class="d-flex align-center mr-3 text-14">
@@ -31,7 +33,9 @@
                 min-width="106"
             >
                 <div class="d-flex align-end">
-                    <span class="text-14"><span v-if="!isVisitor">{{GlobalVar.currency}}</span> {{ amountFormat(selfProxy.userInfo.gold,true)}}</span>
+                    <span class="text-14"
+                        ><span v-if="!isVisitor">{{GlobalVar.currency}}</span> {{ amountFormat(selfProxy.userInfo.gold,true)}}</span
+                    >
                 </div>
             </v-sheet>
             <btn-yellow
@@ -48,7 +52,7 @@
         </div>
     </v-sheet>
     <v-divider v-if="$vuetify.theme.dark" />
-    <v-sheet id="divboxMyBet" class="pa10 divbox overflow-y-auto" color="bgMybet">
-        <MyBet class="rounded-lg mt-n2" />
+    <v-sheet id="divboxMyBet" class="overflow-y-auto" color="bgMybet">
+        <MyBet />
     </v-sheet>
 </v-navigation-drawer>

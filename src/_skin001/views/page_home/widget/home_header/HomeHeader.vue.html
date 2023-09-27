@@ -1,6 +1,32 @@
+<!--
+ * @Author: custer custer@xx.xx
+ * @Date: 2023-09-20 18:19:57
+ * @LastEditors: custer custer@xx.xx
+ * @LastEditTime: 2023-09-21 16:29:50
+ * @FilePath: /sport_v2/src/_skin001/views/page_home/widget/home_header/HomeHeader.vue.html
+ * @Description: 这是默认设置,请设置`customMade`, 打开koroFileHeader查看配置 进行设置: https://github.com/OBKoro1/koro1FileHeader/wiki/%E9%85%8D%E7%BD%AE
+-->
 <div class="d-flex align-center textGray--text">
     <div class="font-weight-bold text-16 ml-4 btnPlain--text">{{getTitleName()}}</div>
     <v-spacer />
+    <v-sheet
+        class="d-flex align-center rounded-10 textGray--text px-2 mr-2"
+        color="bgBanner"
+        height="32"
+        v-if="listQueryComp.tag == 'today'"
+    >
+        <div class="text-16">{{LangUtil("显示滚球")}}</div>
+        <div
+            class="ml-2 d-flex align-center"
+            @click="settingProxy.pageData.form.todayEarly = settingProxy.pageData.form.todayEarly == '1' ? '0' : '1' "
+        >
+            <svg-icon
+                class="text-18"
+                :icon=" settingProxy.pageData.form.todayEarly == '1' ? 'checkbox1_selected' : 'checkbox1' "
+            ></svg-icon>
+        </div>
+    </v-sheet>
+
     <v-sheet class="d-flex align-center rounded-10 textGray--text" color="bgBanner" height="32">
         <v-sheet
             class="d-flex align-center justify-center mx-3 hand btnbox text-14 font-weight-bold"

@@ -30,6 +30,8 @@ export default class NetObserver extends AbstractMediator {
             net.EventType.api_user_set_user_setting,
 
             net.EventType.api_user_betfix,
+            net.EventType.api_user_betfix_v3,
+            net.EventType.api_user_orders_v3,
         ];
     }
 
@@ -110,7 +112,8 @@ export default class NetObserver extends AbstractMediator {
                     this.facade.sendNotification(net.HttpType.api_user_info);
                     this.facade.sendNotification(net.HttpType.api_event_sports);
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
-                    orderUnsettledProxy.api_user_orders();
+                    // orderUnsettledProxy.api_user_orders();
+                    orderUnsettledProxy.api_user_orders_v3();
                 }
                 break;
             //盘口
@@ -146,10 +149,11 @@ export default class NetObserver extends AbstractMediator {
             case net.EventType.api_user_betfix:
                 {
                     // GlobalVar.loading = false;
-                    const betProxy: BetProxy = getProxy(BetProxy);
-                    betProxy.deleteItem(body.market_id, body.selection_id);
+                    // const betProxy: BetProxy = getProxy(BetProxy);
+                    // betProxy.deleteItem(body.market_id, body.selection_id);
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
-                    orderUnsettledProxy.api_user_orders();
+                    // orderUnsettledProxy.api_user_orders();
+                    orderUnsettledProxy.api_user_orders_v3();
                 }
                 break;
             case net.EventType.REQUEST_END:
@@ -160,6 +164,23 @@ export default class NetObserver extends AbstractMediator {
                             betProxy.pageData.loading = false;
                             break;
                     }
+                }
+                break;
+            case net.EventType.api_user_betfix_v3:
+                {
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                    // orderUnsettledProxy.api_user_orders();
+                    orderUnsettledProxy.api_user_orders_v3();
+                    const betProxy: BetProxy = getProxy(BetProxy);
+                    betProxy.pageData.loading = false;
+                }
+                break;
+                
+            //订单
+            case net.EventType.api_user_orders_v3:
+                if (type == OrderUnsettledProxy.NAME) {
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                    orderUnsettledProxy.set_user_orders(body);
                 }
                 break;
         }

@@ -1,14 +1,54 @@
 <div>
-    <!-- <v-sheet class="tabs_box">
-        <v-tabs color="btnPlain" fixed-tabs background-color="transparent" slider-color="yellow">
-            <v-tab>{{LangUtil("单关")}}</v-tab>
-            <v-tab>{{LangUtil("串关")}}</v-tab>
-        </v-tabs>
-    </v-sheet> -->
-
-    <v-sheet color="bgBanner" class="rounded-10 py10 mt-2 textGray--text text-13" v-for="(item,index) of pageData.list" :key="index">
-        <BetItem :item="item" />
-    </v-sheet>
-
-    <!-- <Nodata v-if="pageData.list.length == 0" height="200" /> -->
+    <v-tabs class="rounded-10" fixed-tabs v-if="pageData.betType != 'normal'">
+        <v-tabs-slider color="yellow1"></v-tabs-slider>
+        <v-tab class="btnPlain--text" @click="pageData.betType = 'single'">{{LangUtil("单关")}}</v-tab>
+        <v-tab class="btnPlain--text" @click="pageData.betType = 'parlay'">{{LangUtil("串关")}}</v-tab>
+    </v-tabs>
+    <v-window v-model="pageData.betType" class="elevation-0 mt-2">
+        <v-window-item class="bet-content" value="normal">
+            <v-sheet
+                color="bgBanner"
+                class="rounded-10 py10 mb-2 textGray--text text-13 bet-scroll"
+                v-for="(item,index) of pageData.list"
+                :key="index"
+            >
+                <BetItem :item="item" bet-type="normal" />
+            </v-sheet>
+        </v-window-item>
+        <v-window-item class="bet-content" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="single">
+            <div class="bet-scroll" :class="{'px-2': $vuetify.breakpoint.mobile}">
+                <v-sheet
+                    color="bgBanner"
+                    class="rounded-10 py10 mb-2 textGray--text text-13"
+                    v-for="(item,index) of pageData.list"
+                    :key="index"
+                >
+                    <BetItem :item="item" bet-type="single" />
+                </v-sheet>
+            </div>
+            <v-sheet color="bgBanner" class="py10 mb-2 textGray--text text-13">
+                <BetSummary />
+            </v-sheet>
+        </v-window-item>
+        <v-window-item class="bet-content" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="parlay">
+            <div
+                class="bet-scroll"
+                :class="{'px-2': $vuetify.breakpoint.mobile}"
+                style="border-top-right-radius: 10px; border-top-left-radius: 10px"
+            >
+                <v-sheet color="bgBanner" class="pt-2 textGray--text text-13" v-for="(item,index) of pageData.list" :key="index">
+                    <BetItem :item="item" bet-type="parlay" />
+                    <v-divider />
+                </v-sheet>
+            </div>
+            <v-sheet
+                color="bgBanner"
+                class="py10 textGray--text text-13"
+                :class="{'mb-2': !$vuetify.breakpoint.mobile}"
+                style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px"
+            >
+                <BetSummary />
+            </v-sheet>
+        </v-window-item>
+    </v-window>
 </div>

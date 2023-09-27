@@ -72,7 +72,8 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         this.listQuery.page_count = 1;
 
         this.pageData.list = [];
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
     get_order_selectdata(selectDate: any) {
         const symbal = GlobalVar.zone.substring(0, 1);
@@ -95,7 +96,8 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         this.listQuery["create_time-{>=}"] = Date.parse(selectDate[0] + " " + timezone) / 1000;
         this.listQuery["create_time-{<=}"] = Date.parse(selectDate[1] + " " + timezone) / 1000 - 1;
         this.pageData.list = [];
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
 
     set_user_orders(data: any) {
@@ -113,16 +115,21 @@ export default class HistoryResultProxy extends puremvc.Proxy {
     listRefrush(done: any) {
         this.pageData.done = done;
         this.listQuery.page_count = 1;
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
     /**手机上拉加载更多 */
     listMore(done: any) {
         this.pageData.done = done;
         this.listQuery.page_count++;
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
     api_user_orders() {
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
+    }
+    api_user_orders_v3() {
+        this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery));
     }
 
     set_public_plat_config(data: any) {

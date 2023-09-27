@@ -46,7 +46,8 @@ export default class PageOrderProxy extends puremvc.Proxy {
     };
     onRegister() {
         this.onReset();
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
         this.init();
     }
     onRemove(): void {
@@ -95,6 +96,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
             this.listQueryMarket.event_id = event_id.toString();
             this.api_event_states();
         }
+        
     }
     /**赛事进程*/
     api_event_states() {
@@ -109,18 +111,25 @@ export default class PageOrderProxy extends puremvc.Proxy {
         if (this.listQuery.page_count == 1) this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
+    
+    api_user_orders_v3() {
+        if (this.listQuery.page_count == 1) this.pageData.loading = true;
+        this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery));
+    }
 
     /**手机下拉刷新 */
     listRefrush(done: any) {
         this.pageData.done = done;
         this.listQuery.page_count = 1;
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
     /**手机上拉加载更多 */
     listMore(done: any) {
         this.pageData.done = done;
         this.listQuery.page_count++;
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
 
     get_order_by_limit(type: number) {
@@ -151,7 +160,8 @@ export default class PageOrderProxy extends puremvc.Proxy {
                 break;
         }
         this.pageData.list = [];
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
     set_event_states(data: any) {
         this.pageData.states = data; //"www":data[0]

@@ -36,12 +36,14 @@ export default class BetItem extends AbstractView {
 
     keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "000"];
     @Prop() item!: any;
+    @Prop() betType!: any;
 
     iconOdds = "arrow_up";
     cleartimer = 0;
     // bBetter = this.selfProxy.userInfo.better_odds == 1;
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
     expanded = false;
+    isShowAmountBtns = false;
     @Watch("bshowkeybord")
     onWatchShowKeyboard() {
         // 键盘打开后，向上滚动，露出投注按扭
@@ -142,10 +144,13 @@ export default class BetItem extends AbstractView {
     }
 
     onInput() {
-        this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
+        const newVal = this.item.stake.replace(/[^\d]/g, "");
+        this.item.stake = amountFormat(Math.min(newVal, this.maxValue));
     }
     onInput_mobile(num: string) {
-        this.item.stake = amountFormat(this.item.stake + num);
+        const stake = parseLocaleNumber(this.item.stake || "0");
+        const newVal = Number(stake + num);
+        this.item.stake = amountFormat(Math.min(newVal, this.maxValue));
     }
     onDeleteKeybord(e: any) {
         const mobile = this.$vuetify.breakpoint.mobile;
@@ -158,8 +163,10 @@ export default class BetItem extends AbstractView {
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {
         stake = parseLocaleNumber(stake || "0");
-        const value = (stake + parseInt(fastChoose)).toString();
-        return amountFormat(value.replace(/[^\d]/g, ""));
+        let value = (stake + parseInt(fastChoose)).toString();
+        value = value.replace(/[^\d]/g, "");
+        this.onBetInputFocus();
+        this.item.stake = amountFormat(Math.min(value, this.maxValue));
     }
     //删除注单
     onDelete() {
@@ -169,7 +176,7 @@ export default class BetItem extends AbstractView {
         const stakeValue = parseLocaleNumber(this.item.stake.toString());
         const { gold } = this.selfProxy.userInfo;
         const { selection, market } = this.item;
-        return this.item.stake && stakeValue >= this.item.minStake && stakeValue <= this.item.maxStake && stakeValue <= parseFloat(gold);
+        return this.item.stake && stakeValue >= Number(this.item.minStake) && stakeValue <= Number(this.item.maxStake) && stakeValue <= parseFloat(gold);
     }
     /**投注 */
     onBet() {
@@ -184,7 +191,7 @@ export default class BetItem extends AbstractView {
         if (user_type == 2) {
             logEnterTips();
             return;
-        } else if (stakeValue < <any>this.item.minStake || stakeValue > <any>this.item.maxStake) {
+        } else if (stakeValue < Number(this.item.minStake) || stakeValue > Number(this.item.maxStake)) {
             this.$notify({
                 group: "message",
                 title: LangUtil("请确认投注限额"),
@@ -200,16 +207,14 @@ export default class BetItem extends AbstractView {
                 title: LangUtil("确认投注额"),
             });
         } else {
-            this.myProxy.api_user_betfix(market.market_id, selection.id, this.selfProxy.userInfo.better_odds);
+            // this.myProxy.api_user_betfix(market.market_id, selection.id, this.selfProxy.userInfo.better_odds);
+            this.myProxy.api_user_betfix_v3(stakeValue, this.selfProxy.userInfo.better_odds);
         }
     }
 
     onMax(e: any) {
-        const mobile = this.$vuetify.breakpoint.mobile;
-        // if ((mobile && e.type == "touchstart") || (!mobile && e.type == "click")) {
-            this.item.stake = Math.min(parseFloat(this.selfProxy.userInfo.gold) >> 0, this.item.maxStake).toString();
-            this.item.stake = amountFormat(this.item.stake.replace(/[^\d]/g, ""));
-        // }
+        this.item.stake = amountFormat(this.maxValue);
+        this.onBetInputFocus();
     }
 
     getPreWin() {
@@ -244,5 +249,29 @@ export default class BetItem extends AbstractView {
             return LangUtil("请输入");
         }
         return LangUtil("单注限额") + ` ${item.minStake}-${item.maxStake}`;
+    }
+
+    onClickOutside() {
+        this.isShowAmountBtns = false;
+        this.bshowkeybord = false;
+    }
+
+    onBetInputFocus() {
+        //@ts-ignore
+        this.$refs.betInput?.focus();
+    }
+
+    onFocus() {
+        this.isShowAmountBtns = true;
+    }
+
+    get maxValue() {
+        const gold = parseFloat(this.selfProxy.userInfo.gold) >> 0;
+        return Math.min(gold, Number(this.item.maxStake) || 0);
+    }
+
+    clearInput() {
+        this.item.stake = "";
+        this.onBetInputFocus();
     }
 }

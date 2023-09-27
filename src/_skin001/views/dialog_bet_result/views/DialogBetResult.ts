@@ -32,7 +32,7 @@ export default class DialogBetResult extends AbstractView {
     }
 
     mounted() {
-        this.pageData.statusMsg = "";
+        // this.pageData.statusMsg = "";
     }
 
     // 注单状态
@@ -50,81 +50,108 @@ export default class DialogBetResult extends AbstractView {
         3: "#7E0000", //拒绝
         4: "#FF2828", //取消
     };
+    tipStatusMap = {
+        0: {
+            bgColor: "#f5e0bb",
+            color: this.statusMapColor[0],
+            title: LangUtil("注单确认中"),
+        },
+        1: {
+            bgColor: "#afdfaf",
+            color: this.statusMapColor[1],
+            title: LangUtil("注单确认成功"),
+        },
+    };
 
-    get competition() {
-        for (const comp of this.matcheProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return comp;
-                }
-            }
-        }
-        for (const comp of this.homeProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return comp;
-                }
-            }
-        }
-        return null;
+    get tipStatus(): any {
+        const index = this.pageData.list.findIndex((item: any) => item.status == 0);
+        return index > -1 ? 0 : 1;
     }
-    transTitle(title: any) {
-        const matches = this.matche;
-        if (!matches) {
+
+    get successfulCount() {
+        let num = 0;
+        //@ts-ignore
+        this.pageData.list.forEach((item) => {
+            if (item.status == 1) {
+                num++;
+            }
+        });
+        return num;
+    }
+
+    // get competition() {
+    //     for (const comp of this.matcheProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return comp;
+    //             }
+    //         }
+    //     }
+    //     for (const comp of this.homeProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return comp;
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // }
+    transTitle(title: any, matche: any) {
+        if (!matche) {
             return title;
         }
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
-        const { home_team, away_team } = matches;
+        const { home_team, away_team } = matche;
         title = title.replace(new RegExp(homestr, "ig"), home_team).replace(new RegExp(awaystr, "ig"), away_team);
         return title;
     }
-    get matche() {
-        for (const comp of this.matcheProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return matche;
-                }
-            }
-        }
-        for (const comp of this.homeProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return matche;
-                }
-            }
-        }
-        return null;
-    }
+    // get matche() {
+    //     for (const comp of this.matcheProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return matche;
+    //             }
+    //         }
+    //     }
+    //     for (const comp of this.homeProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return matche;
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // }
 
-    get market(): any {
-        for (const mar of this.matcheProxy.pageData.market_list) {
-            if (mar.event_id == this.pageData.event_id) {
-                return mar.fix_markets[this.pageData.market_type];
-            }
-        }
-        for (const mar of this.homeProxy.pageData.market_list) {
-            if (mar.event_id == this.pageData.event_id) {
-                return mar.fix_markets[this.pageData.market_type];
-            }
-        }
-        return null;
-    }
+    // get market(): any {
+    //     for (const mar of this.matcheProxy.pageData.market_list) {
+    //         if (mar.event_id == this.pageData.event_id) {
+    //             return mar.fix_markets[this.pageData.market_type];
+    //         }
+    //     }
+    //     for (const mar of this.homeProxy.pageData.market_list) {
+    //         if (mar.event_id == this.pageData.event_id) {
+    //             return mar.fix_markets[this.pageData.market_type];
+    //         }
+    //     }
+    //     return null;
+    // }
 
-    get selection() {
-        if (this.market) {
-            for (const sel of this.market.selections) {
-                if (sel.id == this.pageData.selection_id) {
-                    return sel;
-                }
-            }
-        }
-        return null;
-    }
+    // get selection() {
+    //     if (this.market) {
+    //         for (const sel of this.market.selections) {
+    //             if (sel.id == this.pageData.selection_id) {
+    //                 return sel;
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // }
 
-    getCreateTime() {
-        return dateFormat(new Date(this.pageData.create_time * 1000), "yyyy/MM/dd hh:mm:ss");
-    }
+    // getCreateTime() {
+    //     return dateFormat(new Date(this.pageData.create_time * 1000), "yyyy/MM/dd hh:mm:ss");
+    // }
 
     onClose() {
         this.pageData.bShow = false;

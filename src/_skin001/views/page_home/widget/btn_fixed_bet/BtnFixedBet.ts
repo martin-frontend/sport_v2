@@ -158,10 +158,10 @@ export default class BtnFixedBet extends AbstractView {
             }
             this.myProxy.addItem(comp, this.matche, this.market, this.selection, event_states);
 
-            const betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
-            betResultProxy.pageData.market = JSON.parse(JSON.stringify(this.market));
-            betResultProxy.pageData.matche = JSON.parse(JSON.stringify(this.matche));
-            betResultProxy.pageData.selection = JSON.parse(JSON.stringify(this.selection));
+            // const betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
+            // betResultProxy.pageData.market = JSON.parse(JSON.stringify(this.market));
+            // betResultProxy.pageData.matche = JSON.parse(JSON.stringify(this.matche));
+            // betResultProxy.pageData.selection = JSON.parse(JSON.stringify(this.selection));
         }
     }
 }

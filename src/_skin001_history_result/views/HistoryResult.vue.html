@@ -77,9 +77,18 @@
             </v-btn>
         </div>
         <v-row justify="center" class="d-flex justify-center mx-6 mt-2 btnPlain--text text-14">
+            <v-col>
+                <span>{{LangUtil("编号")}}</span>
+            </v-col>
             <v-col cols="2">
                 <span>{{LangUtil("订单")}}</span>
             </v-col>
+            <v-col>
+                <span>{{LangUtil("投注类型")}}</span>
+            </v-col>
+            <!-- <v-col>
+                <span>{{LangUtil("盘口归类")}}</span>
+            </v-col> -->
             <v-col cols="2">
                 <span>{{LangUtil("比赛")}}</span>
             </v-col>
@@ -103,84 +112,105 @@
             </v-col>
         </v-row>
 
-        <div class="box-scroll px-9 pt-7">
-            <v-row
-                max-height="130px"
-                class="text-center text-14 mb-4 textGray--text def-border rounded-lg d-flex align-center justify-space-around"
-                v-for="(item, index) in pageData.list"
-                :key="index"
-            >
-                <!-- 订单 -->
-                <v-col cols="2" class="d-grid align-content-center font-weight-bold">
-                    <span>{{item.order_no || "N/A"}}</span>
-                    <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
-                        <svg-icon class="text-16" icon="copy"></svg-icon>
-                    </button>
-                    <span>
-                        {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
-                    >
-                </v-col>
-                <v-col cols="2" class="justify-items-center d-grid align-content-center">
-                    <span class="">{{item.cpn}}</span>
-                    <span>{{item.home_name}}</span>
-                    <span>VS</span>
-                    <span>{{item.away_name}}</span>
-                    <span> {{dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
-                </v-col>
-                <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">
-                    <div id="content" class="d-flex text-center">
-                        <div v-if="item.c_type == 2">{{item.content}}@{{TransMarketPrice(item.odds)}}</div>
+        <div class="box-scroll px-6 pt-7">
+            <div class="def-border rounded-lg mb-4" v-for="(item, index) in pageData.list" :key="index">
+                <v-row
+                    v-for="(leg,index1) of item.leg_info"
+                    :key="index1"
+                    max-height="130px"
+                    class="text-center text-14 textGray--text d-flex justify-space-around align-center ma-0"
+                >
+                    <v-col>
+                        <span v-if="index1 == 0">{{LangUtil("编号")}}</span>
+                    </v-col>
+                    <!-- 订单 -->
+                    <v-col cols="2" class="font-weight-bold">
+                        <template v-if="index1 == 0">
+                            <span>{{item.order_no || "N/A"}}</span>
+                            <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
+                                <svg-icon class="text-16" icon="copy"></svg-icon>
+                            </button>
+                            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
+                        </template>
+                    </v-col>
+                    <v-col>
+                        <span v-if="item.bet_type == 'single'"> {{LangUtil("单关")}} </span>
                         <div v-else>
-                            {{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}
-                            @{{TransMarketPrice(item.odds)}}
+                            <template v-if="index1 == 0">
+                                <span>{{LangUtil("串关")}}</span>
+                                <span>{{item.leg_info.length}}X1*1 </span>
+                            </template>
                         </div>
-                    </div>
+                    </v-col>
+                    <!-- <v-col>
+                        <span>{{LangUtil("盘口归类")}}</span>
+                    </v-col> -->
+                    <v-col cols="2" class="justify-items-center d-grid align-content-center">
+                        <span class="">{{leg.competition_name}}</span>
+                        <span>{{leg.home_name}}</span>
+                        <span>VS</span>
+                        <span>{{leg.away_name}}</span>
+                        <!-- <span> {{dateFormat(getDateByTimeZone(leg.event_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span> -->
+                    </v-col>
+                    <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">
+                        <div id="content" class="d-flex text-center">
+                            <div v-if="leg.c_type == 2">{{leg.content}}@{{TransMarketPrice(leg.odds)}}</div>
+                            <div v-else>
+                                {{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}
+                                @{{TransMarketPrice(leg.odds)}}
+                            </div>
+                        </div>
 
-                    <div>{{transTitle(item.market_type_text,index)}}</div>
-                    <div class="d-flex" v-if="item.state && Object.keys(item.state).length > 0">
-                        <span>{{LangUtil("滚球")}}&nbsp;</span>
-                        <span><div v-html="OrderTitleUtils.getScoreStr(item)"></div> </span>
-                    </div>
-                </v-col>
-                <v-col class="d-grid btnPlain--text">
-                    <div v-if=" item.status !== 3 && item.c_type != 2">
-                        <span>
-                            <div v-html="getHadResultStr(item)"></div>
-                        </span>
-                    </div>
-                    <span v-else>-</span>
-                </v-col>
+                        <div>{{transTitle(leg.market_type_text,index)}}</div>
+                        <div class="d-flex" v-if="leg.state && Object.keys(leg.state).length > 0">
+                            <span>{{LangUtil("滚球")}}&nbsp;</span>
+                            <span><div v-html="OrderTitleUtils.getScoreStr(leg)"></div> </span>
+                        </div>
+                    </v-col>
+                    <v-col class="d-grid btnPlain--text">
+                        <div v-if=" leg.status !== 3 && leg.c_type != 2">
+                            <span>
+                                <div v-html="getHadResultStr(leg)"></div>
+                            </span>
+                        </div>
+                        <span v-else>-</span>
+                    </v-col>
 
-                <v-col>
-                    <span>{{item.currency}}</span>
-                </v-col>
-                <v-col>
-                    <span> {{amountFormat(item.stake,true) }}</span>
-                </v-col>
-                <v-col>
-                    <span :class="item.win==0?'yellow--text':item.win>0?'green--text':'red--text'" v-if="item.status == 1"
-                        >{{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}</span
-                    >
-                    <span v-else>-</span>
-                </v-col>
+                    <v-col>
+                        <span v-if="index1 == 0">{{item.currency}}</span>
+                    </v-col>
+                    <v-col>
+                        <span v-if="index1 == 0"> {{amountFormat(item.stake,true) }}</span>
+                    </v-col>
+                    <v-col>
+                        <template v-if="index1 == 0">
+                            <span :class="item.win==0?'yellow--text':item.win>0?'green--text':'red--text'" v-if="item.status == 1"
+                                >{{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}</span
+                            >
+                            <span v-else>-</span>
+                        </template>
+                    </v-col>
 
-                <v-col class="d-grid justify-items-center">
-                    <div :class="item.status == 3 ? 'red--text':'' " v-if="item.status != 1">
-                        <span>{{statusMap[item.status]}}</span>
-                        <span>{{LangUtil(item.mark)}}</span>
-                    </div>
-                    <div v-else>
-                        <v-btn
-                            :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
-                            class="white--text"
-                            fab
-                            depressed
-                            :color="item.win==0?'yellow':item.win>0?'green':'red'"
-                            ><span>{{getResultStr(item.win)}}</span>
-                        </v-btn>
-                    </div>
-                </v-col>
-            </v-row>
+                    <v-col class="d-grid justify-items-center">
+                        <template v-if="index1 == 0">
+                            <div :class="item.status == 3 ? 'red--text':'' " v-if="item.status != 1">
+                                <span>{{statusMap[item.status]}}</span>
+                                <span>{{LangUtil(item.mark)}}</span>
+                            </div>
+                            <div v-else>
+                                <v-btn
+                                    :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
+                                    class="white--text"
+                                    fab
+                                    depressed
+                                    :color="item.win==0?'yellow':item.win>0?'green':'red'"
+                                    ><span>{{getResultStr(item.win)}}</span>
+                                </v-btn>
+                            </div>
+                        </template>
+                    </v-col>
+                </v-row>
+            </div>
             <v-sheet
                 v-if="pageData.nodata"
                 style="height: calc(100vh - 300px)"

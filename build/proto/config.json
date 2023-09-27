@@ -31,6 +31,9 @@
         ["api/event/result",                    "赛事结果接口"],
         ["api/event/market_type_v2",            "盘口分类v2"],
         ["public/order_detail_data",            "三方获取注单详情"],
-        ["api/helpcenter/list",                 "帮助中心內容接口"]
+        ["api/helpcenter/list",                 "帮助中心內容接口"],
+        ["api/user/prebet_v3",                  "预下注V3"],
+        ["api/user/betfix_v3",                  "下注 V3"],
+        ["api/user/orders_v3",                  "投注纪录v3"]
     ]
 }

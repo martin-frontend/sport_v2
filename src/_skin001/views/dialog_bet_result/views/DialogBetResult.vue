@@ -4,7 +4,14 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import DialogBetResult from "./DialogBetResult";
+import BetResult from "../widget/bet_result/BetResult.vue";
 
-@Component
-export default class extends DialogBetResult {}
+@Component({
+    components: {
+        BetResult,
+    },
+})
+export default class extends DialogBetResult {
+    
+}
 </script>

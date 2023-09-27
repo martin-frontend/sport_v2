@@ -54,7 +54,8 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         clearInterval(this.timer);
         this.timer = setInterval(this.api_event_states.bind(this), 5000);
         this.listQuery.page_count = 1;
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
     clear() {
         clearInterval(this.timer);
@@ -64,13 +65,15 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     listRefrush(done: any) {
         this.pageData.done = done;
         this.listQuery.page_count = 1;
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
     /**手机上拉加载更多 */
     listMore(done: any) {
         this.pageData.done = done;
         this.listQuery.page_count++;
-        this.api_user_orders();
+        // this.api_user_orders();
+        this.api_user_orders_v3();
     }
 
     set_user_orders(data: any) {
@@ -111,6 +114,11 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         // GlobalVar.loading = true;
         this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
+    }
+    api_user_orders_v3() {
+        // GlobalVar.loading = true;
+        this.pageData.loading = true;
+        this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery));
     }
 
     event_states(Orderitem: any) {

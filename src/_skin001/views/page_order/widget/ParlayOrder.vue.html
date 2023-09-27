@@ -1,0 +1,115 @@
+<div>
+    <div class="d-flex align-center">
+        <v-sheet width="2" height="16" color="yellow" class="mx-2"></v-sheet>
+        <div class="text-16 text-truncate font-weight-bold">{{item.leg_info.length}}{{LangUtil('串')}}1*1</div>
+    </div>
+    <div class="ml-4 mr-2" style="position: relative">
+        <v-sheet width="100%" color="transparent">
+            <span class="textGray--text mr-1">{{LangUtil("订单状态")}}</span>
+            <span :style="{ 'color': statusMapColor[item.status]} ">{{statusMap[item.status]}}</span>
+        </v-sheet>
+        <div v-if="item.status==3" :style="{ 'color': statusMapColor[item.status]} ">{{LangUtil(item.mark)}}</div>
+
+        <v-sheet width="100%" color="transparent">
+            <span class="textGray--text mr-1">{{LangUtil("投注金额")}}</span>
+            <span>{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
+        </v-sheet>
+
+        <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
+            <span class="textGray--text mr-1">{{getdisplayResultStr(item)}}</span>
+            <span :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}} </span>
+        </v-sheet>
+        <v-sheet width="100%" color="transparent">
+            <span class="textGray--text mr-1">{{LangUtil("订单编号")}}</span>
+            <span>{{item.order_no}}</span></v-sheet
+        >
+        <v-sheet width="100%" color="transparent">
+            <span class="textGray--text mr-1">{{LangUtil("投注时间")}}</span>
+            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}} </span>
+        </v-sheet>
+
+        <v-sheet width="100%" color="transparent" v-if="listQuery.is_settle">
+            <span class="textGray--text mr-1">{{LangUtil("结算时间")}}</span>
+            <span> {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}} </span>
+        </v-sheet>
+
+        <v-sheet
+            width="100%"
+            color="transparent"
+            class="d-flex justify-end font-weight-bold text-14"
+            v-if="listQuery.is_settle && item.status == 1"
+        >
+            <span class="mr-1 btnPlain--text">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
+            <span :class="item.win>=0 ? 'success--text' : 'error--text' ">
+                {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
+            </span>
+        </v-sheet>
+
+        <v-img :src="getWinType(item)" class="win-type" v-if="listQuery.is_settle && item.win_type">
+            <div>{{getWinTypeStr(item)}}</div>
+        </v-img>
+    </div>
+
+    <v-sheet class="d-flex justify-center mt-1 mb-n2" color="transparent" height="12">
+        <v-btn
+            class="elevation-0 textGray--text text-10 rounded-t-10"
+            color="bgGray"
+            width="72"
+            height="12"
+            @click="isShowCompetition = !isShowCompetition"
+            ><svg-icon :icon="isShowCompetition ? 'zoom_in' : 'zoom_out' "></svg-icon
+        ></v-btn>
+    </v-sheet>
+
+    <v-expand-transition>
+        <div v-if="isShowCompetition">
+            <div v-for="(leg, index) in item.leg_info" :key="index">
+                <div class="my-2 mx-n2 line"></div>
+                <div class="d-flex align-center">
+                    <v-sheet width="2" height="16" color="yellow" class="mx-2"></v-sheet>
+                    <div class="text-16 text-truncate font-weight-bold">{{leg.competition_name}}</div>
+                </div>
+
+                <v-sheet class="ml-4 mr-2 mt-2 rounded pa-0 order-content" color="transparent">
+                    <div class="d-flex text-14 font-weight-bold top-text">
+                        <div v-if="leg.c_type == 2">{{leg.content}}</div>
+                        <div v-else>{{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}</div>
+                        <v-spacer />
+                        <div class="mr-2 text-16">@{{TransMarketPrice(leg.odds)}}</div>
+                    </div>
+
+                    <div class="text-14">
+                        <span v-if="leg.state && Object.keys(leg.state).length > 0">{{LangUtil("滚球")}}</span>
+                        <span class="font-weight-bold" v-if="leg.state && Object.keys(leg.state).length > 0"
+                            >{{OrderTitleUtils.getScoreStr(leg)}}</span
+                        >
+                        <div class="d-flex">
+                            <span>{{transTitle(leg.market_type_text,index)}}</span>
+                            <v-spacer />
+                            <span class="mr-2" :style="{color: resultMapColor[leg.win_type]}">{{getWinTypeStr(leg)}}</span>
+                        </div>
+                    </div>
+
+                    <div class="text-14 d-flex flex-wrap">
+                        <span class="mr-1"
+                            >{{leg.home_name}}
+                            <span class="mx-1">VS</span>
+                            {{leg.away_name}}</span
+                        >
+                        <span
+                            class="font-weight-black scoreColor--text"
+                            v-if="listQuery.is_settle == 1 && leg.status !== 3 && leg.c_type != 2"
+                        >
+                            {{getHadResultStr(leg)}}
+                        </span>
+                    </div>
+
+                    <v-sheet class="text-14" v-if="listQuery.is_settle != 1" color="transparent">
+                        <span>{{ getStateStr(myProxy.event_states(leg)).states_str}}</span>
+                        <span class="font-weight-bold"> {{getStateStr(myProxy.event_states(leg)).scoreStr}}</span>
+                    </v-sheet>
+                </v-sheet>
+            </div>
+        </div>
+    </v-expand-transition>
+</div>

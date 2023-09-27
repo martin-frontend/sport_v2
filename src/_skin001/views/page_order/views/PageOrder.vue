@@ -4,8 +4,13 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import PageOrder from "./PageOrder";
+import ParlayOrder from "../widget/ParlayOrder.vue";
 
-@Component
+@Component({
+    components: {
+        ParlayOrder,
+    },
+})
 export default class extends PageOrder {
     mounted() {
         window.scrollTo(0, 0);

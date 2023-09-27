@@ -61,7 +61,8 @@ export default class PageOrderUnsettled extends AbstractView {
 
     onMore() {
         this.listQuery.page_count++;
-        this.myProxy.api_user_orders();
+        // this.myProxy.api_user_orders();
+        this.myProxy.api_user_orders_v3();
     }
 
     getStateStr(item: any) {
@@ -90,14 +91,12 @@ export default class PageOrderUnsettled extends AbstractView {
             }
             result_tb.scoreStr = OrderTitleUtils.getScoreStr(copyitem);
         } else {
-            const start_in_sec = item.event_time_timestamp - GlobalVar.server_time;
+            const start_in_sec = item.event_time - GlobalVar.server_time;
             const day = Math.floor(start_in_sec / 60 / 60 / 24);
             const hr = Math.floor(start_in_sec / 60 / 60);
             const min = Math.floor((start_in_sec / 60) % 60);
             if (start_in_sec > 0) {
-                states_str = formatEventTime(
-                    dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss")
-                );
+                states_str = formatEventTime(dateFormat(getDateByTimeZone(item.event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss"));
                 if (start_in_sec > 86400) {
                     states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
                 } else if (start_in_sec > 600) {

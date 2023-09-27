@@ -1,11 +1,13 @@
+import Vue from "vue";
 import { generateUUID, parseLocaleNumber } from "@/core/global/Functions";
-import GlobalVar from "@/core/global/GlobalVar";
+import LangUtil from "@/core/global/LangUtil";
 import Http from "@/core/Http";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
 import { EventStatesVO } from "@/vo/EventStatesVO";
 import { MarketFixVO, FixSelectionVO, MarketVO } from "@/vo/MarketVO";
 import { MatchVO } from "@/vo/MatchVO";
+type BetType = "normal" | "single" | "parlay"; // normal: 单柱  single: 单场(批量) parlay: 串关
 
 export default class BetProxy extends puremvc.Proxy {
     static NAME = "BetProxy";
@@ -21,8 +23,11 @@ export default class BetProxy extends puremvc.Proxy {
                 if (!this.pageData.isShowResultPanel) {
                     this.api_user_pending();
                 }
-                for (const item of this.pageData.list) {
-                    this.api_user_prebet(item.market.market_id, item.selection.id);
+                // for (const item of this.pageData.list) {
+                //     this.api_user_prebet(item.market.market_id, item.selection.id);
+                // }
+                if (this.pageData.list.length > 0) {
+                    this.api_user_prebet_v3();
                 }
             }
             if (this.pageData.isShowResultPanel) {
@@ -44,54 +49,114 @@ export default class BetProxy extends puremvc.Proxy {
                 market: MarketFixVO;
                 selection: FixSelectionVO;
                 isMarketClose: boolean;
-                oddsChance: boolean;
+                oddsChange: boolean;
                 maxStake: string;
                 minStake: string;
                 odds: string;
                 oldOdds: string;
                 unique: string;
                 stake: string;
+                msg: string;
             }[]
         >[],
+        parlayData: <any>{ maxStake: "", minStake: "", oldOdds: "", odds: "" },
+
         /**盘口信息 */
         market_list: <MarketVO[]>[],
         /**赛事进程 */
         event_states: <EventStatesVO[]>[],
+        /**下注玩法 */
+        betType: <BetType>"normal",
+        /**是否可以添加同個Market */
+        isCanAddSameMarket: false,
+        /**前端自定义选项id，用来对应接口返回的数据 */
+        listName: "leg",
+        summaryStake: "",
     };
 
     /**添加一个注单 */
     addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: FixSelectionVO, event_states: EventStatesVO[]) {
         if (!this.deleteItem(market.market_id, selection.id)) {
-            this.pageData.list = [];
-            this.pageData.list.push({
+            // this.pageData.list = [];
+            if (this.pageData.list.length == 8) {
+                Vue.notify({ group: "message", title: LangUtil("最多选择8场比赛") });
+                return;
+            }
+            this.pageData.list.unshift({
                 type: "fix",
                 comp: comp,
                 matche: matche,
                 market: market,
                 selection: selection,
                 isMarketClose: false,
-                oddsChance: false,
+                oddsChange: false,
                 maxStake: "-",
                 minStake: "-",
                 odds: selection.price.back,
                 oldOdds: "",
                 unique: generateUUID(),
                 stake: "",
+                msg: "",
             });
-            this.pageData.activeCount++;
+            if (this.pageData.betType == "parlay") {
+                this.initBetList(true);
+            } else {
+                this.setBetType();
+                this.pageData.activeCount++;
+            }
             this.pageData.event_states = event_states;
         }
     }
     /**删除一个注单 */
     deleteItem(market_id: any, selection_id: any): boolean {
         this.pageData.loading = false;
-        const findIdx = this.pageData.list.findIndex((item) => item.selection.id == selection_id && item.market.market_id == market_id);
-        if (findIdx >= 0) {
-            this.pageData.list.splice(findIdx, 1);
-            this.pageData.activeCount++;
-            return true;
+        if (!this.pageData.isCanAddSameMarket) {
+            const findIdx = this.pageData.list.findIndex((item) => item.market.market_id == market_id);
+            if (findIdx >= 0) {
+                const item = this.pageData.list.splice(findIdx, 1);
+                this.pageData.activeCount++;
+                this.setBetType();
+                if (item[0].selection.id == selection_id) {
+                    if (this.pageData.betType == "parlay") {
+                        this.initBetList(true);
+                    }
+                    return true;
+                }
+            }
+        } else {
+            const findIdx = this.pageData.list.findIndex((item) => item.selection.id == selection_id && item.market.market_id == market_id);
+            if (findIdx >= 0) {
+                this.pageData.list.splice(findIdx, 1);
+                this.pageData.activeCount++;
+                this.setBetType();
+                return true;
+            }
         }
         return false;
+    }
+
+    setBetType() {
+        if (this.pageData.list.length > 1 && this.pageData.betType === "normal") {
+            this.pageData.betType = "single";
+        } else if (this.pageData.list.length == 1) {
+            this.pageData.betType = "normal";
+        }
+    }
+
+    /**删除全部注单或初始化stake */
+    initBetList(isHold: any = false) {
+        this.pageData.loading = false;
+        this.pageData.summaryStake = "";
+        Object.assign(this.pageData.parlayData, { maxStake: "", minStake: "", oldOdds: "", odds: "" });
+        if (!isHold) {
+            this.pageData.list.length = 0;
+        } else {
+            this.pageData.list.forEach((item) => {
+                item.stake = "";
+            });
+        }
+        this.pageData.activeCount++;
+        this.setBetType();
     }
 
     /**写入 待确认提示结果*/
@@ -125,7 +190,7 @@ export default class BetProxy extends puremvc.Proxy {
                         if (response.data.change == 1) {
                             if (response.data.newOdds) {
                                 findItem.isMarketClose = false;
-                                findItem.oddsChance = true;
+                                findItem.oddsChange = true;
                                 findItem.oldOdds = findItem.odds;
                                 findItem.odds = response.data.newOdds;
                             } else {
@@ -146,6 +211,101 @@ export default class BetProxy extends puremvc.Proxy {
             });
         }
     }
+    /**预投注v3 新 */
+    api_user_prebet_v3() {
+        // const { matche, market, selection, odds } = findItem;
+        const form: any = {};
+        form.is_multiple = this.pageData.betType != "parlay" ? 0 : 1;
+        form.multi_odds = 1;
+        form.bet_list = this.pageData.list.map((item, index) => {
+            if (form.is_multiple === 1) {
+                form.multi_odds *= Number(item.odds);
+            }
+            return {
+                leg_id: this.pageData.listName + index,
+                event_id: item.matche.id.toString(),
+                market_id: item.market.market_id,
+                market_type: item.market.market_type,
+                selection_id: item.selection.id.toString(),
+                odds: item.odds,
+                stake: 1,
+                side: "Back",
+                sport_id: 1,
+            };
+        });
+        if (form.is_multiple != 1) {
+            delete form.multi_odds;
+        } else {
+            form.multi_odds = (Math.floor(form.multi_odds * 100) / 100).toString();
+        }
+        Http.post(net.HttpType.api_user_prebet_v3, form).then((response: any) => {
+            if (response.status == 0) {
+                // 单关、单场
+                if (form.is_multiple == 0) {
+                    Object.keys(response.data).forEach((key) => {
+                        const { data, code, msg } = response.data[key];
+                        const index = key.replace(this.pageData.listName, "");
+                        const findItem = this.pageData.list[Number(index)];
+                        if (!findItem) return;
+                        findItem.msg = "";
+                        if (code === 0 && data) {
+                            findItem.minStake = data.minStake;
+                            findItem.maxStake = data.maxStake;
+                            if (data.change == 1) {
+                                if (data.newOdds) {
+                                    findItem.isMarketClose = false;
+                                    findItem.oddsChange = true;
+                                    findItem.oldOdds = findItem.odds;
+                                    findItem.odds = data.newOdds;
+                                } else {
+                                    findItem.isMarketClose = true;
+                                }
+                            }
+                        } else {
+                            this.deleteItem(findItem.market.market_id, findItem.selection.id);
+                        }
+                    });
+                }
+                // 串关
+                else {
+                    // if (response.data.change == 1 || !this.pageData.parlayData.odds) {
+                    const { maxStake, minStake, newOdds, odds } = response.data;
+                    Object.assign(this.pageData.parlayData, {
+                        maxStake,
+                        minStake,
+                        oldOdds: odds,
+                        odds: newOdds,
+                    });
+                    // }
+                    Object.keys(response.data.legs).forEach((key) => {
+                        const { data, code, msg } = response.data.legs[key];
+                        const index = key.replace(this.pageData.listName, "");
+                        const findItem = this.pageData.list[Number(index)];
+                        if (!findItem) return;
+                        findItem.msg = "";
+                        if (code === 0 && data) {
+                            findItem.minStake = data.minStake;
+                            findItem.maxStake = data.maxStake;
+                            if (response.data.change == 1) {
+                                if (data.newOdds) {
+                                    findItem.isMarketClose = false;
+                                    findItem.oddsChange = true;
+                                    findItem.oldOdds = findItem.odds;
+                                    findItem.odds = data.newOdds;
+                                } else {
+                                    findItem.isMarketClose = true;
+                                }
+                            }
+                        } else {
+                            findItem.msg = msg;
+                        }
+                    });
+                }
+            } else {
+                this.initBetList();
+            }
+        });
+    }
     /**投注 */
     api_user_betfix(market_id: any, selection_id: any, better_odds: number) {
         // GlobalVar.loading = true;
@@ -165,6 +325,45 @@ export default class BetProxy extends puremvc.Proxy {
             form.better_odds = better_odds;
             this.sendNotification(net.HttpType.api_user_betfix, form);
         }
+    }
+    /**投注v3 新 */
+    api_user_betfix_v3(total_stake: any, better_odds: any) {
+        // GlobalVar.loading = true;
+        this.pageData.loading = true;
+        const bet_type = this.pageData.betType == "parlay" ? "multi" : "single";
+        const form: any = {
+            total_stake,
+            better_odds,
+            bet_type,
+        };
+        if (bet_type == "multi") {
+            form.multi_odds = 1;
+        }
+        form.bet_list = [];
+        this.pageData.list.forEach((item, index) => {
+            if (item.stake == "") return;
+            const query: any = {
+                leg_id: this.pageData.listName + index,
+                event_id: item.matche.id.toString(),
+                market_id: item.market.market_id,
+                market_type: item.market.market_type,
+                selection_id: item.selection.id.toString(),
+                odds: item.odds,
+                stake: Number(item.stake),
+                side: "Back",
+                price_index: item.selection.priceIndex.toString(),
+                sport_id: 1,
+            };
+            if (bet_type == "multi") {
+                form.multi_odds *= Number(item.odds);
+                delete query.stake;
+            }
+            form.bet_list.push(query);
+        });
+        if (form.multi_odds) {
+            form.multi_odds = (Math.floor(form.multi_odds * 100) / 100).toString();
+        }
+        this.sendNotification(net.HttpType.api_user_betfix_v3, form);
     }
     /**待确认提示结果 */
     api_user_pending() {

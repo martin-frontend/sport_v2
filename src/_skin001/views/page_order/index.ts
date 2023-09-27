@@ -7,7 +7,8 @@ function show() {
 
     const myProxy: PageOrderProxy = getProxy(PageOrderProxy);
     myProxy.pageData.list = [];
-    myProxy.api_user_orders();
+    // myProxy.api_user_orders();
+    myProxy.api_user_orders_v3();
 }
 
 export default { show };

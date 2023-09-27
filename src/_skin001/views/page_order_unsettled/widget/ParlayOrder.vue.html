@@ -1,0 +1,104 @@
+<div>
+    <div class="btnPlain--text text-truncate text-14 font-weight-bold px10 mb-1">{{item.leg_info.length}}{{LangUtil('串')}}1*1</div>
+
+    <div class="d-flex px10">
+        {{LangUtil("订单状态")}}
+        <v-spacer />
+        <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status] || "--"}}</span>
+    </div>
+    <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">{{LangUtil(item.mark)}}</div>
+
+    <div class="d-flex px10 mt-1">
+        <div>{{LangUtil("投注金额")}}</div>
+        <v-spacer />
+        <span> {{GlobalVar.currency}} {{amountFormat(item.stake,true) }}</span>
+    </div>
+
+    <div class="d-flex px10 mt-1">
+        <div>{{getdisplayResultStr(item)}}</div>
+        <v-spacer />
+        <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}}</span>
+    </div>
+
+    <div class="d-flex px10 mt-1 align-center">
+        <div>{{LangUtil("订单编号")}}</div>
+        <v-spacer />
+        <div>{{item.order_no || "--"}}</div>
+        <v-btn v-if="item.order_no" fab plain x-small max-height="20" @click="onCopy(item.order_no)">
+            <svg-icon class="text-16 textGray--text" icon="copy"></svg-icon>
+        </v-btn>
+    </div>
+
+    <div class="d-flex px10 mt-1">
+        <div>{{LangUtil("投注时间")}}</div>
+        <v-spacer />
+        <div>{{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</div>
+    </div>
+
+    <div class="d-flex px10 mt-1" v-if="listQuery.is_settle">
+        <div>{{LangUtil("结算时间")}}</div>
+        <v-spacer />
+        <div>{{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</div>
+    </div>
+
+    <v-sheet class="d-flex justify-center mt-1 mb-n2" color="transparent" height="12">
+        <v-btn
+            class="elevation-0 textGray--text text-10 rounded-t-10"
+            color="bgGray"
+            width="72"
+            height="12"
+            @click="isShowCompetition = !isShowCompetition"
+            ><svg-icon :icon="isShowCompetition ? 'zoom_in' : 'zoom_out' "></svg-icon
+        ></v-btn>
+    </v-sheet>
+
+    <v-expand-transition>
+        <div v-if="isShowCompetition">
+            <div v-for="(leg, index) in item.leg_info" :key="index" >
+                <v-divider class="my-2" />
+    
+                <v-sheet class="d-flex align-center btnPlain--text px10 text-14" color="transparent">
+                    <v-sheet width="2" height="16" color="yellow"></v-sheet>
+                    <div class="pl10">{{leg.competition_name}}</div>
+                </v-sheet>
+                <template v-if="item.bet_type == 'single'">
+                    <v-divider class="my-2" />
+                </template>
+                <template v-else>
+                    <div class="my-2"></div>
+                </template>
+    
+                <div class="d-flex px10">
+                    <div v-if="leg.c_type == 2">{{leg.content}}</div>
+                    <div v-else>{{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}</div>
+                    <v-spacer />
+                    <div>@{{TransMarketPrice(leg.odds)}}</div>
+                </div>
+    
+                <div class="d-flex px10 mt-1" v-if="leg.state && Object.keys(leg.state).length > 0">
+                    <div>{{LangUtil("滚球")}}</div>
+                    <v-spacer />
+                    <div class="font-weight-bold" v-html="OrderTitleUtils.getScoreStr(leg)"></div>
+                </div>
+    
+                <div class="px10 mt-1">{{transTitle(leg.market_type_text)}}</div>
+    
+                <div class="px10 mt-1 d-flex flex-wrap">
+                    {{leg.home_name}} <span class="mx-1">VS</span> {{leg.away_name}}
+                    <span
+                        class="font-weight-black mr-2 scoreColor--text"
+                        v-if="listQuery.is_settle == 1 && leg.status !== 3 && leg.c_type != 2"
+                    >
+                        <div v-html="getHadResultStr(leg)"></div
+                    ></span>
+                </div>
+    
+                <div class="px10 mt-1 d-flex" v-if="listQuery.is_settle != 1">
+                    <div v-html="getStateStr(myProxy.event_states(leg)).states_str"></div>
+                    <v-spacer />
+                    <div v-html="getStateStr(myProxy.event_states(leg)).scoreStr"></div>
+                </div>
+            </div>
+        </div>
+    </v-expand-transition>
+</div>

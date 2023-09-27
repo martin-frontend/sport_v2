@@ -7,7 +7,7 @@
     overflow: visible !important;
 }
 .v-navigation-drawer--bottom.v-navigation-drawer--is-mobile {
-    max-height: calc(100% - 54px) !important;
+    // max-height: calc(100% - 54px) !important;
     // max-height: 100% !important;
     // position: relative;
 }
@@ -32,4 +32,16 @@
 }
 .divbox {
     max-height: calc(100% - 0px) !important;
+}
+
+.bet-count {
+    background-color: rgb(254 186 0);
+    border-radius: 99999px;
+    padding: 0 5px;
+    min-height: 20px;
+    min-width: 20px;
+    line-height: 20px;
+    font-size: 14px;
+    text-align: center;
+    font-weight: bold;
 }

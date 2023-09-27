@@ -24,10 +24,11 @@ export default class BetResult extends AbstractView {
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     matcheProxy: MatcheProxy = getProxy(MatcheProxy);
     myProxy: DialogBetResultProxy = this.getProxy(DialogBetResultProxy);
-    pageData = this.myProxy.pageData;
 
+    pageData = this.myProxy.pageData;
+    parlayData = this.pageData.parlayData;
     mounted() {
-        this.pageData.statusMsg = "";
+        // this.pageData.statusMsg = "";
     }
 
     // 注单状态
@@ -40,74 +41,119 @@ export default class BetResult extends AbstractView {
         8: LangUtil("准异常"), //无效
     };
     statusMapColor = {
-        0: "#FF7128", //确认中
-        1: "#007E29", //确认成功
-        3: "#7E0000", //拒绝
+        0: "#feba00", //确认中
+        1: "#41a81d", //确认成功
+        3: "#FF3C30", //拒绝
         4: "#FF2828", //取消
     };
+    tipStatusMap = {
+        0: {
+            bgColor: "#f5e0bb",
+            color: this.statusMapColor[0],
+            title: LangUtil("注单确认中"),
+        },
+        1: {
+            bgColor: "#afdfaf",
+            color: this.statusMapColor[1],
+            title: LangUtil("注单确认成功"),
+        },
+        3: {
+            bgColor: "#afdfaf",
+            color: this.statusMapColor[1],
+            title: LangUtil("注单确认成功"),
+        },
+    };
 
-    get competition() {
-        for (const comp of this.matcheProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return comp;
-                }
-            }
+    get tipStatus(): any {
+        if (this.betProxy.pageData.betType == "parlay") {
+            return this.pageData.parlayData.status;
+        } else {
+            const index = this.pageData.list.findIndex((item: any) => item.status == 0);
+            return index > -1 ? 0 : 1;
         }
-        for (const comp of this.homeProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return comp;
-                }
-            }
-        }
-        return null;
     }
-    transTitle(title: any) {
-        const matches = this.matches;
-        if (!matches) {
+
+    get successfulCount() {
+        if (this.betProxy.pageData.betType == "parlay") {
+            return this.pageData.parlayData.status == 1 ? 1 : 0;
+        }
+        let num = 0;
+        //@ts-ignore
+        this.pageData.list.forEach((item) => {
+            if (item.status == 1) {
+                num++;
+            }
+        });
+        return num;
+    }
+
+    // get competition() {
+    //     for (const comp of this.matcheProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return comp;
+    //             }
+    //         }
+    //     }
+    //     for (const comp of this.homeProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return comp;
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // }
+    transTitle(title: any, matche: any) {
+        if (!matche) {
             return title;
         }
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
-        const { home_team, away_team } = matches;
+        const { home_team, away_team } = matche;
         title = title.replace(new RegExp(homestr, "ig"), home_team).replace(new RegExp(awaystr, "ig"), away_team);
         return title;
     }
-    get matches() {
-        for (const comp of this.matcheProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return matche;
-                }
-            }
-        }
-        for (const comp of this.homeProxy.pageData.competition_list) {
-            for (const matche of comp.matches) {
-                if (matche.id == this.pageData.event_id) {
-                    return matche;
-                }
-            }
-        }
-        return null;
-    }
-    get matche() {
-        return this.pageData.matche;
-    }
+    // get matches() {
+    //     for (const comp of this.matcheProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return matche;
+    //             }
+    //         }
+    //     }
+    //     for (const comp of this.homeProxy.pageData.competition_list) {
+    //         for (const matche of comp.matches) {
+    //             if (matche.id == this.pageData.event_id) {
+    //                 return matche;
+    //             }
+    //         }
+    //     }
+    //     return null;
+    // }
+    // get matche() {
+    //     return this.pageData.matche;
+    // }
 
-    get market(): any {
-        return this.pageData.market;
-    }
+    // get market(): any {
+    //     return this.pageData.market;
+    // }
 
-    get selection() {
-        return this.pageData.selection;
-    }
+    // get selection() {
+    //     return this.pageData.selection;
+    // }
 
-    getCreateTime() {
-        return dateFormat(new Date(this.pageData.create_time * 1000), "MM/dd hh:mm:ss");
+    getCreateTime(create_time: any) {
+        return dateFormat(new Date(create_time * 1000), "MM/dd hh:mm:ss");
     }
 
     onClose() {
+        this.betProxy.initBetList();
+        this.pageData.bShow = false;
+    }
+
+    onHold() {
+        this.betProxy.initBetList(true);
         this.pageData.bShow = false;
     }
 }

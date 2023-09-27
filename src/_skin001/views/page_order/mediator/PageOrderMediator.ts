@@ -9,7 +9,7 @@ export default class PageOrderMediator extends AbstractMediator {
     }
 
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_user_orders, net.EventType.api_event_states];
+        return [net.EventType.api_user_orders, net.EventType.api_event_states, net.EventType.api_user_orders_v3];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -22,6 +22,9 @@ export default class PageOrderMediator extends AbstractMediator {
                 break;
             case net.EventType.api_event_states:
                 if (type == PageOrderProxy.NAME) myProxy.set_event_states(body);
+                break;
+            case net.EventType.api_user_orders_v3:
+                myProxy.set_user_orders(body);
                 break;
         }
     }
