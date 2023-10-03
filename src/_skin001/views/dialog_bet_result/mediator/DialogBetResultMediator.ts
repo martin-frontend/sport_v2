@@ -112,7 +112,9 @@ export default class DialogBetResultMediator extends AbstractMediator {
                             listData.status = item.status;
                             listData.statusMsg = item.statusMsg;
                             listData.order_no = item.order_no;
-                            listData.odds = item.odds;
+                            if(item.odds) {
+                                listData.odds = item.odds;
+                            }
                         }
                     }
                     // Vue.notify(<any>{
@@ -138,7 +140,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                     }
 
                     if (body.requestData.bet_type == "single") {
-                        if (!key.includes("leg")) {
+                        if (!key.includes(betProxy.pageData.listIdName)) {
                             return;
                         }
                         const data: any = {};
@@ -163,6 +165,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                                 myProxy.pageData.list.push(data);
                                 myProxy.pageData.parlayData.create_time = data.create_time;
                             });
+                            this.sortBySbTime(myProxy.pageData.list);
                         }
                     }
                 });
@@ -243,7 +246,9 @@ export default class DialogBetResultMediator extends AbstractMediator {
 
     getBetItem(market_id: any, selection_id: any) {
         const betProxy: BetProxy = getProxy(BetProxy);
-        const findItem = betProxy.pageData.list.find((item) => item.market.market_id == market_id && item.selection.id == selection_id);
+        const findItem = betProxy.pageData.bettedList.find(
+            (item) => item.market.market_id == market_id && item.selection.id == selection_id
+        );
         const newFindItem = JSON.parse(JSON.stringify(findItem));
         return newFindItem;
     }
@@ -266,5 +271,11 @@ export default class DialogBetResultMediator extends AbstractMediator {
             this.timeId = null;
             this.showFinshedOrdersTips();
         }, 4000);
+    }
+
+    sortBySbTime(data: any) {
+        data.sort((a: any, b: any) => {
+            return a.matche?.sb_time - b.matche?.sb_time;
+        });
     }
 }

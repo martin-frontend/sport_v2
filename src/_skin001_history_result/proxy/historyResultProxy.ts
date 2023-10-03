@@ -48,6 +48,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
             total_win: "0.000", // 总输赢
             total_expected_win: "0.000", // 总预计输赢
             total_count: 1, // 总注单数
+            currency_type: "", // 币种 
         },
         // 列表是否加载完成，手机模式专用
         finished: false,
@@ -222,6 +223,9 @@ export default class HistoryResultProxy extends puremvc.Proxy {
     }
     pickerOptions = {
         shortcuts: <any>[],
+        disabledDate(time: any) {
+            return time.getTime() > new Date(new Date().toLocaleDateString()).getTime() + 24 * 60 * 60 * 1000 - 1;
+        },
     };
 
     api_public_plat_config() {

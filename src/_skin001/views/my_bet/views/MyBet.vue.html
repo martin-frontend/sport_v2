@@ -5,38 +5,38 @@
         <v-tab class="btnPlain--text" @click="pageData.betType = 'parlay'">{{LangUtil("串关")}}</v-tab>
     </v-tabs>
     <v-window v-model="pageData.betType" class="elevation-0 mt-2">
-        <v-window-item class="bet-content" value="normal">
+        <v-window-item class="bet-content" value="normal" :class="{'px-2': $vuetify.breakpoint.mobile}">
             <v-sheet
                 color="bgBanner"
                 class="rounded-10 py10 mb-2 textGray--text text-13 bet-scroll"
-                v-for="(item,index) of pageData.list"
-                :key="index"
+                v-for="item of pageData.list"
+                :key="item.leg_id"
             >
                 <BetItem :item="item" bet-type="normal" />
             </v-sheet>
         </v-window-item>
         <v-window-item class="bet-content" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="single">
-            <div class="bet-scroll" :class="{'px-2': $vuetify.breakpoint.mobile}">
+            <div class="bet-scroll d-flex flex-column-reverse" :class="{'px-2': $vuetify.breakpoint.mobile}">
                 <v-sheet
                     color="bgBanner"
                     class="rounded-10 py10 mb-2 textGray--text text-13"
-                    v-for="(item,index) of pageData.list"
-                    :key="index"
+                    v-for="item of pageData.list"
+                    :key="item.leg_id"
                 >
                     <BetItem :item="item" bet-type="single" />
                 </v-sheet>
             </div>
-            <v-sheet color="bgBanner" class="py10 mb-2 textGray--text text-13">
+            <v-sheet color="betSummaryBg" class="py10 textGray--text text-13" :class="{'mb-2': !$vuetify.breakpoint.mobile}">
                 <BetSummary />
             </v-sheet>
         </v-window-item>
         <v-window-item class="bet-content" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="parlay">
             <div
-                class="bet-scroll"
+                class="bet-scroll d-flex flex-column-reverse"
                 :class="{'px-2': $vuetify.breakpoint.mobile}"
                 style="border-top-right-radius: 10px; border-top-left-radius: 10px"
             >
-                <v-sheet color="bgBanner" class="pt-2 textGray--text text-13" v-for="(item,index) of pageData.list" :key="index">
+                <v-sheet color="bgBanner" class="pt-2 textGray--text text-13" v-for="item of pageData.list" :key="item.leg_id">
                     <BetItem :item="item" bet-type="parlay" />
                     <v-divider />
                 </v-sheet>

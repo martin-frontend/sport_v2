@@ -2,6 +2,8 @@
     <div class="d-flex align-center">
         <v-sheet width="2" height="16" color="yellow" class="mx-2"></v-sheet>
         <div class="text-16 text-truncate font-weight-bold">{{item.leg_info.length}}{{LangUtil('串')}}1*1</div>
+        <v-spacer />
+        <!-- <div class="mr-4 text-16 font-weight-bold top-text">@{{parlayOdds}}</div> -->
     </div>
     <div class="ml-4 mr-2" style="position: relative">
         <v-sheet width="100%" color="transparent">
@@ -16,7 +18,7 @@
         </v-sheet>
 
         <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
-            <span class="textGray--text mr-1">{{getdisplayResultStr(item)}}</span>
+            <span class="textGray--text mr-1">{{LangUtil("预计可赢")}}</span>
             <span :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}} </span>
         </v-sheet>
         <v-sheet width="100%" color="transparent">
@@ -100,7 +102,8 @@
                             class="font-weight-black scoreColor--text"
                             v-if="listQuery.is_settle == 1 && leg.status !== 3 && leg.c_type != 2"
                         >
-                            {{getHadResultStr(leg)}}
+                            <!-- {{getHadResultStr(leg)}} -->
+                            {{leg.settle_score}}
                         </span>
                     </div>
 

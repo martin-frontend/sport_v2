@@ -34,6 +34,8 @@ export function getVuetify(): Vuetify {
                         textBet: "#3E3714",
                         helpColor: "#666666",
                         competBC: "#f5f5f4",
+                        errorMsgBg: "#f5e0bb",
+                        betSummaryBg: "#ffffff",
                     },
                     dark: {
                         competBC: "#1e1e1e",
@@ -59,6 +61,8 @@ export function getVuetify(): Vuetify {
                         textGoldBg: "#303030",
                         textBet: "#8E8F91",
                         helpColor: "#ffffff",
+                        errorMsgBg: "#685431",
+                        betSummaryBg: "#3e3f41",
                     },
                 },
                 dark: false,

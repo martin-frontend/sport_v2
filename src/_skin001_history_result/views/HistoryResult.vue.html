@@ -121,7 +121,7 @@
                     class="text-center text-14 textGray--text d-flex justify-space-around align-center ma-0"
                 >
                     <v-col>
-                        <span v-if="index1 == 0">{{LangUtil("编号")}}</span>
+                        <span v-if="index1 == 0">{{index + 1}}</span>
                     </v-col>
                     <!-- 订单 -->
                     <v-col cols="2" class="font-weight-bold">
@@ -150,7 +150,7 @@
                         <span>{{leg.home_name}}</span>
                         <span>VS</span>
                         <span>{{leg.away_name}}</span>
-                        <!-- <span> {{dateFormat(getDateByTimeZone(leg.event_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span> -->
+                        <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                     </v-col>
                     <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">
                         <div id="content" class="d-flex text-center">
@@ -170,8 +170,20 @@
                     <v-col class="d-grid btnPlain--text">
                         <div v-if=" leg.status !== 3 && leg.c_type != 2">
                             <span>
-                                <div v-html="getHadResultStr(leg)"></div>
+                                <!-- <div v-html="getHadResultStr(leg)"></div> -->
+                                {{leg.settle_score}}
                             </span>
+                            <template v-if="item.bet_type == 'multi' && leg.win_type != 0">
+                                <v-btn
+                                    :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
+                                    class="white--text mt-2"
+                                    fab
+                                    depressed
+                                    :color="getWinTypeColor(leg)"
+                                >
+                                    <span>{{getWinTypeStr(leg)}}</span>
+                                </v-btn>
+                            </template>
                         </div>
                         <span v-else>-</span>
                     </v-col>
@@ -198,13 +210,22 @@
                                 <span>{{LangUtil(item.mark)}}</span>
                             </div>
                             <div v-else>
-                                <v-btn
+                                <!-- <v-btn
                                     :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
                                     class="white--text"
                                     fab
                                     depressed
                                     :color="item.win==0?'yellow':item.win>0?'green':'red'"
                                     ><span>{{getResultStr(item.win)}}</span>
+                                </v-btn> -->
+                                <v-btn
+                                    :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
+                                    class="white--text mt-2"
+                                    fab
+                                    depressed
+                                    :color="getWinTypeColor(item)"
+                                >
+                                    <span>{{getWinTypeStr(item)}}</span>
                                 </v-btn>
                             </div>
                         </template>
@@ -229,16 +250,15 @@
         </div>
         <!-- 页脚 -->
         <v-sheet v-if="pageData.list.length != 0" class="d-flex justify-start mx-2 mt-3 text-14">
-            <div class="ml-6 d-flex">
-                {{LangUtil("投注数量")}}&nbsp; <span class="blackText--text"> {{pageData.stats.total_count}}</span>
-            </div>
+            <div class="ml-6 d-flex">{{LangUtil("总注单")}}&nbsp; <span class="blackText--text"> {{pageData.stats.total_count}}</span></div>
 
             <div class="ml-9 d-flex">
-                {{LangUtil("投注额度")}}&nbsp;
-                <span class="blackText--text"> {{ amountFormat(pageData.stats.total_stake,true)}}</span>
+                {{LangUtil("总投注额")}}&nbsp;
+                <span class="blackText--text">{{pageData.stats.currency_type}} {{ amountFormat(pageData.stats.total_stake,true)}}</span>
             </div>
             <div class="ml-9 d-flex">
-                {{LangUtil("输赢")}}&nbsp;
+                {{LangUtil("总输赢")}}&nbsp;
+                <span class="mr-1"> {{pageData.stats.currency_type}} </span>
                 <span :class="pageData.stats.total_win >= 0 ? 'success--text' : 'error--text'"
                     >{{pageData.stats.total_win>=0 ? "+" : ""}}{{ amountFormat(pageData.stats.total_win,true,2)}}</span
                 >

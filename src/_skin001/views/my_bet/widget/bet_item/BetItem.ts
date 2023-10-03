@@ -145,12 +145,12 @@ export default class BetItem extends AbstractView {
 
     onInput() {
         const newVal = this.item.stake.replace(/[^\d]/g, "");
-        this.item.stake = amountFormat(Math.min(newVal, this.maxValue));
+        this.item.stake = amountFormat(Math.min(newVal, this.maxValue) || "");
     }
     onInput_mobile(num: string) {
         const stake = parseLocaleNumber(this.item.stake || "0");
         const newVal = Number(stake + num);
-        this.item.stake = amountFormat(Math.min(newVal, this.maxValue));
+        this.item.stake = amountFormat(Math.min(newVal, this.maxValue) || "");
     }
     onDeleteKeybord(e: any) {
         const mobile = this.$vuetify.breakpoint.mobile;
@@ -176,7 +176,12 @@ export default class BetItem extends AbstractView {
         const stakeValue = parseLocaleNumber(this.item.stake.toString());
         const { gold } = this.selfProxy.userInfo;
         const { selection, market } = this.item;
-        return this.item.stake && stakeValue >= Number(this.item.minStake) && stakeValue <= Number(this.item.maxStake) && stakeValue <= parseFloat(gold);
+        return (
+            this.item.stake &&
+            stakeValue >= Number(this.item.minStake) &&
+            stakeValue <= Number(this.item.maxStake) &&
+            stakeValue <= parseFloat(gold)
+        );
     }
     /**投注 */
     onBet() {
@@ -219,7 +224,7 @@ export default class BetItem extends AbstractView {
 
     getPreWin() {
         const value = parseLocaleNumber(this.item.stake);
-        return amountFormat((this.item.selection.price.back * value - value).toFixed(3), true, 2);
+        return amountFormat((this.item.odds * value - value).toFixed(3), true, 2);
     }
     /**解决键盘点击太快留下残影的bug */
     timer_remove_ripple = 0;
@@ -248,7 +253,7 @@ export default class BetItem extends AbstractView {
         if (this.isVisitor) {
             return LangUtil("请输入");
         }
-        return LangUtil("单注限额") + ` ${item.minStake}-${item.maxStake}`;
+        return LangUtil("单注限额") + ` ${item.minStake || 0}-${item.maxStake || 0}`;
     }
 
     onClickOutside() {

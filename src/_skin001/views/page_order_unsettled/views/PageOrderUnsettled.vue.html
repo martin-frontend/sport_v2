@@ -1,14 +1,23 @@
 <div>
     <v-sheet class="text-14 pl10 py-2 btnPlain--text rounded-10" color="bgBanner">
+        <v-sheet color="transparent" class="font-weight-bold d-flex align-center mr-2 my-2 mb-3">
+            {{LangUtil("可提前结算订单")}}
+            <v-spacer />
+            <!-- <v-checkbox label="red" color="red"></v-checkbox> -->
+        </v-sheet>
+        <v-divider class="mb-2" />
         <div class="d-flex mr-2">
-            <div class="textGray--text">{{LangUtil("总计")}}</div>
-            <v-spacer />
-            <div class="font-weight-bold">{{pageData.stats.total_count}}</div>
-        </div>
-        <div class="d-flex mr-2 mt-1">
-            <div class="textGray--text">{{LangUtil("投注额")}}</div>
-            <v-spacer />
-            <div class="font-weight-bold">{{GlobalVar.currency}}: {{amountFormat(pageData.stats.total_stake)}}</div>
+            <v-sheet class="d-flex flex-column" color="transparent" width="70">
+                <div class="textGray--text mb-1">{{LangUtil("总计")}}</div>
+                <v-spacer />
+                <div class="font-weight-bold">{{pageData.stats.total_count}}</div>
+            </v-sheet>
+            <v-divider class="my-1" vertical></v-divider>
+            <v-sheet class="d-flex flex-column align-end" color="transparent" style="flex: 1">
+                <div class="textGray--text mb-1">{{LangUtil("投注额")}}</div>
+                <v-spacer />
+                <div class="font-weight-bold">{{GlobalVar.currency}}: {{amountFormat(pageData.stats.total_stake)}}</div>
+            </v-sheet>
         </div>
     </v-sheet>
     <loader v-if="pageData.loading" />
@@ -48,8 +57,9 @@
                         class="font-weight-black mr-2 scoreColor--text"
                         v-if="listQuery.is_settle == 1 && leg.status !== 3 && leg.c_type != 2"
                     >
-                        <div v-html="getHadResultStr(leg)"></div
-                    ></span>
+                        <!-- <div v-html="getHadResultStr(leg)"></div> -->
+                        {{leg.settle_score}}
+                    </span>
                 </div>
 
                 <div class="px10 mt-1 d-flex" v-if="listQuery.is_settle != 1">

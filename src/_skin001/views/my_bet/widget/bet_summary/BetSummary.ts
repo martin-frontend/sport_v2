@@ -51,7 +51,7 @@ export default class BetSummary extends AbstractView {
 
     onInput() {
         const newVal = this.pageData.summaryStake.replace(/[^\d]/g, "");
-        this.pageData.summaryStake = amountFormat(Math.min(Number(newVal), this.maxValue));
+        this.pageData.summaryStake = amountFormat(Math.min(Number(newVal), this.maxValue) || "");
         this.onStakeChange();
     }
     onMax(e: any) {
@@ -65,7 +65,7 @@ export default class BetSummary extends AbstractView {
         stake = parseLocaleNumber(stake || "0");
         let value = (stake + parseInt(fastChoose)).toString();
         value = value.replace(/[^\d]/g, "");
-        this.pageData.summaryStake = amountFormat(Math.min(value, this.maxValue));
+        this.pageData.summaryStake = amountFormat(Math.min(value, this.maxValue) || "");
         this.onStakeChange();
         this.onBetInputFocus();
     }
@@ -73,7 +73,7 @@ export default class BetSummary extends AbstractView {
         if (this.isVisitor) {
             return LangUtil("请输入");
         }
-        return LangUtil("单注限额") + ` ${this.minStake || "-"}-${this.maxStake || "-"}`;
+        return LangUtil("单注限额") + ` ${this.minStake}-${this.maxStake}`;
     }
     get minStake() {
         if (this.pageData.betType == "single") {
@@ -97,7 +97,7 @@ export default class BetSummary extends AbstractView {
     }
     get totalStake() {
         if (this.pageData.betType === "parlay") {
-            return Number(this.pageData.summaryStake) || 0;
+            return parseLocaleNumber(this.pageData.summaryStake || "0");
         }
         let val = 0;
         const sum = this.pageData.list.reduce(
@@ -107,14 +107,20 @@ export default class BetSummary extends AbstractView {
         return sum;
     }
     get preWin() {
-        let val = 0;
-        const sum = this.pageData.list.reduce((accumulator, currentValue) => {
-            const value = parseLocaleNumber(currentValue.stake);
-            const price = Number(currentValue.selection.price.back) || 0;
-            const preWin = Number(price * value - value);
-            return accumulator + preWin;
-        }, val);
-
+        let sum = 0;
+        if (this.pageData.betType === "parlay") {
+            const stake = parseLocaleNumber(this.pageData.summaryStake || "0");
+            const odds = Number(this.pageData.parlayData.odds);
+            sum = odds * stake - stake;
+        } else {
+            let val = 0;
+            sum = this.pageData.list.reduce((accumulator, currentValue) => {
+                const value = parseLocaleNumber(currentValue.stake);
+                const odds = Number(currentValue.odds) || 0;
+                const preWin = Number(odds * value - value);
+                return accumulator + preWin;
+            }, val);
+        }
         return amountFormat(sum.toFixed(3), true, 2);
     }
     get isVisitor() {
@@ -189,7 +195,7 @@ export default class BetSummary extends AbstractView {
     onInput_mobile(num: string) {
         const stake = parseLocaleNumber(this.pageData.summaryStake || "0");
         const newVal = Number(stake + num);
-        this.pageData.summaryStake = amountFormat(Math.min(newVal, this.maxValue));
+        this.pageData.summaryStake = amountFormat(Math.min(newVal, this.maxValue) || "");
         this.onStakeChange();
     }
     onDeleteKeybord(e: any) {
@@ -224,16 +230,18 @@ export default class BetSummary extends AbstractView {
         this.allowBetArr = [];
 
         if (this.pageData.betType == "single") {
+            let stakeError = false;
             this.myProxy.pageData.list.forEach((item) => {
-                if (item.stake == "") {
+                if (!Number(item.stake)) {
                     return;
                 }
                 if (Number(item.stake) < Number(item.minStake) || Number(item.stake) > Number(item.maxStake)) {
+                    stakeError = true;
                     return;
                 }
                 this.allowBetArr.push(item);
             });
-            return this.allowBetArr.length > 0;
+            return this.allowBetArr.length > 0 && !stakeError;
         } else {
             this.myProxy.pageData.list.forEach((item) => {
                 if (item.msg != "") {
@@ -241,8 +249,29 @@ export default class BetSummary extends AbstractView {
                 }
                 this.allowBetArr.push(item);
             });
-            if (this.pageData.summaryStake == "") return false;
+            if (parseLocaleNumber(this.pageData.summaryStake || "0") == 0) return false;
             return this.allowBetArr.length === this.pageData.list.length;
         }
+    }
+    clickOdditem() {
+        const idx = this.bBetter ? 1 : 0;
+        window.localStorage.setItem("better_odds", idx.toString());
+        this.selfProxy.userInfo.better_odds = idx;
+    }
+
+    get oddsChange() {
+        if (this.pageData.betType == "parlay") {
+            return this.pageData.parlayData.oddsChange;
+        } else {
+            return this.myProxy.pageData.list.findIndex((item) => item.oddsChange) > -1;
+        }
+    }
+
+    get parlayOdds() {
+        let odds = 1;
+        this.myProxy.pageData.list.forEach((item: any) => {
+            odds *= item.msg ? 1 : this.TransMarketPrice(item.odds);
+        });
+        return odds.toFixed(2);
     }
 }

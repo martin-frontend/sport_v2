@@ -48,6 +48,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         "settle_time-{>=}": "",
         "settle_time-{<=}": "",
         unique: OrderUnsettledProxy.NAME,
+        cash_out_status: "",
     };
 
     init() {

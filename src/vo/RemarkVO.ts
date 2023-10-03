@@ -5,4 +5,5 @@ export interface RemarkVO {
     currency_type: string;
     MarketType_area: string;
     todayEarly: string;
+    accept_change: number;
 }

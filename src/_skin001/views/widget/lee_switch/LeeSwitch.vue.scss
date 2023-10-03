@@ -7,7 +7,7 @@
     align-items: center;
 }
 .theme--dark .lee-switch {
-    background: #424242;
+    background: #8f8f91;
     cursor: pointer;
     position: relative;
     transition: all 0.3s;
@@ -34,7 +34,9 @@
     position: absolute;
     content: "";
     left: 2px;
-    top: 2px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
     transition: all 0.3s;
 }
 

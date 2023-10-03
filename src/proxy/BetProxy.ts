@@ -37,6 +37,8 @@ export default class BetProxy extends puremvc.Proxy {
         }, 1000);
     }
 
+    defaultParlayData = <any>{ maxStake: "", minStake: "", oldOdds: "", odds: "", oddsChange: false };
+
     pageData = {
         loading: false,
         isShowResultPanel: false, // 投注结果页是否处于打开状态
@@ -57,9 +59,29 @@ export default class BetProxy extends puremvc.Proxy {
                 unique: string;
                 stake: string;
                 msg: string;
+                leg_id: string;
             }[]
         >[],
-        parlayData: <any>{ maxStake: "", minStake: "", oldOdds: "", odds: "" },
+        bettedList: <
+            {
+                type: string;
+                comp: CompetitionVO;
+                matche: MatchVO;
+                market: MarketFixVO;
+                selection: FixSelectionVO;
+                isMarketClose: boolean;
+                oddsChange: boolean;
+                maxStake: string;
+                minStake: string;
+                odds: string;
+                oldOdds: string;
+                unique: string;
+                stake: string;
+                msg: string;
+                leg_id: string;
+            }[]
+        >[],
+        parlayData: { ...this.defaultParlayData },
 
         /**盘口信息 */
         market_list: <MarketVO[]>[],
@@ -70,7 +92,7 @@ export default class BetProxy extends puremvc.Proxy {
         /**是否可以添加同個Market */
         isCanAddSameMarket: false,
         /**前端自定义选项id，用来对应接口返回的数据 */
-        listName: "leg",
+        listIdName: "leg",
         summaryStake: "",
     };
 
@@ -82,7 +104,7 @@ export default class BetProxy extends puremvc.Proxy {
                 Vue.notify({ group: "message", title: LangUtil("最多选择8场比赛") });
                 return;
             }
-            this.pageData.list.unshift({
+            this.pageData.list.push({
                 type: "fix",
                 comp: comp,
                 matche: matche,
@@ -90,13 +112,14 @@ export default class BetProxy extends puremvc.Proxy {
                 selection: selection,
                 isMarketClose: false,
                 oddsChange: false,
-                maxStake: "-",
-                minStake: "-",
+                maxStake: "",
+                minStake: "",
                 odds: selection.price.back,
                 oldOdds: "",
                 unique: generateUUID(),
                 stake: "",
                 msg: "",
+                leg_id: this.pageData.listIdName + this.pageData.activeCount,
             });
             if (this.pageData.betType == "parlay") {
                 this.initBetList(true);
@@ -147,12 +170,13 @@ export default class BetProxy extends puremvc.Proxy {
     initBetList(isHold: any = false) {
         this.pageData.loading = false;
         this.pageData.summaryStake = "";
-        Object.assign(this.pageData.parlayData, { maxStake: "", minStake: "", oldOdds: "", odds: "" });
+        Object.assign(this.pageData.parlayData, { ...this.defaultParlayData });
         if (!isHold) {
             this.pageData.list.length = 0;
         } else {
             this.pageData.list.forEach((item) => {
                 item.stake = "";
+                item.oddsChange = false;
             });
         }
         this.pageData.activeCount++;
@@ -222,7 +246,8 @@ export default class BetProxy extends puremvc.Proxy {
                 form.multi_odds *= Number(item.odds);
             }
             return {
-                leg_id: this.pageData.listName + index,
+                // leg_id: this.pageData.listIdName + index,
+                leg_id: item.leg_id,
                 event_id: item.matche.id.toString(),
                 market_id: item.market.market_id,
                 market_type: item.market.market_type,
@@ -236,7 +261,7 @@ export default class BetProxy extends puremvc.Proxy {
         if (form.is_multiple != 1) {
             delete form.multi_odds;
         } else {
-            form.multi_odds = (Math.floor(form.multi_odds * 100) / 100).toString();
+            form.multi_odds = form.multi_odds.toFixed(2);
         }
         Http.post(net.HttpType.api_user_prebet_v3, form).then((response: any) => {
             if (response.status == 0) {
@@ -244,8 +269,8 @@ export default class BetProxy extends puremvc.Proxy {
                 if (form.is_multiple == 0) {
                     Object.keys(response.data).forEach((key) => {
                         const { data, code, msg } = response.data[key];
-                        const index = key.replace(this.pageData.listName, "");
-                        const findItem = this.pageData.list[Number(index)];
+                        // const index = key.replace(this.pageData.listIdName, "");
+                        const findItem = this.pageData.list.find((item) => item.leg_id == key);
                         if (!findItem) return;
                         findItem.msg = "";
                         if (code === 0 && data) {
@@ -274,13 +299,17 @@ export default class BetProxy extends puremvc.Proxy {
                         maxStake,
                         minStake,
                         oldOdds: odds,
-                        odds: newOdds,
+                        // odds: newOdds,
+                        odds: form.multi_odds,
                     });
+                    if (response.data.change == 1) {
+                        this.pageData.parlayData.oddsChange = true;
+                    }
                     // }
                     Object.keys(response.data.legs).forEach((key) => {
                         const { data, code, msg } = response.data.legs[key];
-                        const index = key.replace(this.pageData.listName, "");
-                        const findItem = this.pageData.list[Number(index)];
+                        // const index = key.replace(this.pageData.listIdName, "");
+                        const findItem = this.pageData.list.find((item) => item.leg_id == key);
                         if (!findItem) return;
                         findItem.msg = "";
                         if (code === 0 && data) {
@@ -340,10 +369,10 @@ export default class BetProxy extends puremvc.Proxy {
             form.multi_odds = 1;
         }
         form.bet_list = [];
-        this.pageData.list.forEach((item, index) => {
+        this.pageData.list.forEach((item) => {
             if (item.stake == "") return;
             const query: any = {
-                leg_id: this.pageData.listName + index,
+                leg_id: item.leg_id,
                 event_id: item.matche.id.toString(),
                 market_id: item.market.market_id,
                 market_type: item.market.market_type,
@@ -361,8 +390,9 @@ export default class BetProxy extends puremvc.Proxy {
             form.bet_list.push(query);
         });
         if (form.multi_odds) {
-            form.multi_odds = (Math.floor(form.multi_odds * 100) / 100).toString();
+            form.multi_odds = form.multi_odds.toFixed(2);
         }
+        this.pageData.bettedList = JSON.parse(JSON.stringify(this.pageData.list));
         this.sendNotification(net.HttpType.api_user_betfix_v3, form);
     }
     /**待确认提示结果 */

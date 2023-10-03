@@ -20,6 +20,7 @@ export default class SettingProxy extends puremvc.Proxy {
             sort: "comp", //time->时间 comp->联赛
             MarketType_area: GlobalVar.MarketType_area, //0->欧洲盘  1->香港盘
             todayEarly: "0", // 是否显示今日未开赛
+            accept_change: 0, 
         },
         //时区
         items: [

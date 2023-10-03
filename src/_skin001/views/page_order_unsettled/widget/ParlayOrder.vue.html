@@ -1,5 +1,13 @@
 <div>
-    <div class="btnPlain--text text-truncate text-14 font-weight-bold px10 mb-1">{{item.leg_info.length}}{{LangUtil('串')}}1*1</div>
+    <div class="d-flex btnPlain--text text-truncate text-14 px10 mb-1">
+        <span>
+            {{item.leg_info.length}}{{LangUtil('串')}}1*1
+        </span>
+        <v-spacer />
+        <!-- <span class="textGray--text text-13">
+            @{{parlayOdds}}
+        </span> -->
+    </div>
 
     <div class="d-flex px10">
         {{LangUtil("订单状态")}}
@@ -15,7 +23,7 @@
     </div>
 
     <div class="d-flex px10 mt-1">
-        <div>{{getdisplayResultStr(item)}}</div>
+        <div>{{LangUtil("预计可赢")}}</div>
         <v-spacer />
         <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}}</span>
     </div>
@@ -89,8 +97,9 @@
                         class="font-weight-black mr-2 scoreColor--text"
                         v-if="listQuery.is_settle == 1 && leg.status !== 3 && leg.c_type != 2"
                     >
-                        <div v-html="getHadResultStr(leg)"></div
-                    ></span>
+                        <!-- <div v-html="getHadResultStr(leg)"></div> -->
+                        {{leg.settle_score}}
+                    </span>
                 </div>
     
                 <div class="px10 mt-1 d-flex" v-if="listQuery.is_settle != 1">

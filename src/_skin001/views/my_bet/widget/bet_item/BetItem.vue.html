@@ -77,9 +77,11 @@
     </div>
     <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span> VS </span>{{item.matche.away_team}}</div>
     <template v-if="betType == 'parlay'">
-        <v-sheet color="#f5e0bb" class="text-center" style="color: #feba00" v-if="item.msg">
+        <v-sheet color="errorMsgBg" class="d-flex justify-center align-center px-2" v-if="item.msg">
             <svg-icon class="mr-1" icon="warning"></svg-icon>
-            {{item.msg}}
+            <span style="color: #feba00; line-height: 20px">
+                {{item.msg}}
+            </span>
         </v-sheet>
     </template>
 

@@ -124,7 +124,8 @@
                                         class="font-weight-black scoreColor--text"
                                         v-if="listQuery.is_settle == 1 && leg.status !== 3 && leg.c_type != 2"
                                     >
-                                        {{getHadResultStr(leg)}}
+                                        <!-- {{getHadResultStr(leg)}} -->
+                                        {{leg.settle_score}}
                                     </span>
                                 </div>
 

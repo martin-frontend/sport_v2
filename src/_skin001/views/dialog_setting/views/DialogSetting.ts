@@ -104,4 +104,8 @@ export default class DialogSetting extends AbstractView {
     get isVisitor() {
         return !this.selfProxy.userInfo || this.selfProxy.userInfo.user_type == 2;
     }
+
+    onAcceptChange(type: number) {
+        this.pageData.form.accept_change = type;
+    }
 }

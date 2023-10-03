@@ -130,15 +130,6 @@ export default class ParlayOrder extends AbstractView {
     destroyed() {
         super.destroyed();
     }
-    //获取预算文字
-    getdisplayResultStr(item: any) {
-        const itemState = this.pageData.states.find((tempitem: any) => item.event_id == tempitem.event_id);
-        if (itemState) {
-            return LangUtil("预计结果");
-        } else {
-            return LangUtil("预计可赢");
-        }
-    }
     transTitle(title: any, idx: any) {
         const matches = this.pageData.list[idx];
         const homestr = LangUtil("主队").trim();
@@ -175,4 +166,12 @@ export default class ParlayOrder extends AbstractView {
             };
         }
     }
+
+    // get parlayOdds() {
+    //     let odds = 1;
+    //     this.item.leg_info.forEach((item: any) => {
+    //         odds *= this.TransMarketPrice(item.odds);
+    //     });
+    //     return odds.toFixed(2);
+    // }
 }

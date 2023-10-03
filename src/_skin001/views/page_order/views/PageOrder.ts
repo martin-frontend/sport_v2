@@ -176,9 +176,9 @@ export default class PageOrder extends AbstractView {
     }
     //获取预算文字
     getdisplayResultStr(item: any) {
-        const itemState = this.pageData.states.find((tempitem: any) => item.event_id == tempitem.event_id);
+        const itemState = Object.keys(item.leg_info[0]?.state).length > 0;
         if (itemState) {
-            return LangUtil("预计结果");
+            return LangUtil("当前可赢");
         } else {
             return LangUtil("预计可赢");
         }

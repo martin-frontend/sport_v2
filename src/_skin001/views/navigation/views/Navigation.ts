@@ -82,13 +82,16 @@ export default class Navigation extends AbstractView {
     }
 
     @Watch("window")
-    onWatchWindow() {
-        if (this.window == 2) {
+    onWatchWindow(newVal: any, oldVal: any) {
+        if (newVal == 2) {
             this.orderUnsettledProxy.pageData.loading = true;
             this.orderUnsettledProxy.init();
         }
         if (!this.$vuetify.breakpoint.mobile) {
-            this.betProxy.pageData.isShowResultPanel = this.window == 3;
+            this.betProxy.pageData.isShowResultPanel = newVal == 3;
+            if(oldVal == 3) {
+                this.betResultProxy.pageData.bShow = false;
+            }
         }
     }
 

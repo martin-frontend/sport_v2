@@ -11,6 +11,7 @@ import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
 import PageHomeProxy from "@/_skin001/views/page_home/proxy/PageHomeProxy";
 import DialogBetResultProxy from "../../proxy/DialogBetResultProxy";
 import DialogBetResultMediator from "../../mediator/DialogBetResultMediator";
+import CopyUtil from "@/core/global/CopyUtil";
 
 @Component
 export default class BetResult extends AbstractView {
@@ -144,7 +145,7 @@ export default class BetResult extends AbstractView {
     // }
 
     getCreateTime(create_time: any) {
-        return dateFormat(new Date(create_time * 1000), "MM/dd hh:mm:ss");
+        return dateFormat(new Date(create_time * 1000), "yyyy/MM/dd hh:mm:ss");
     }
 
     onClose() {
@@ -156,4 +157,20 @@ export default class BetResult extends AbstractView {
         this.betProxy.initBetList(true);
         this.pageData.bShow = false;
     }
+
+    onCopy(str: string) {
+        CopyUtil(str);
+        this.$notify({
+            group: "message",
+            title: LangUtil("复制成功"),
+        });
+    }
+
+    // get parlayOdds() {
+    //     let odds = 1;
+    //     this.pageData.list.forEach((item: any) => {
+    //         odds *= TransMarketPrice(item.odds);
+    //     });
+    //     return odds.toFixed(2);
+    // }
 }

@@ -58,6 +58,7 @@ export default class PageOrderDetail extends AbstractView {
     }
     mounted() {
         this.myProxy.api_public_plat_config();
+        console.log("server_time", GlobalVar.server_time);
     }
     transTitle(title: any, idx: any) {
         const matches = this.pageData.list[idx];
@@ -99,7 +100,7 @@ export default class PageOrderDetail extends AbstractView {
     }
 
     onfresh() {
-        if (!this.myProxy.selectDate || !this.myProxy.selectDate[0] || !this.myProxy.selectDate[1]){
+        if (!this.myProxy.selectDate || !this.myProxy.selectDate[0] || !this.myProxy.selectDate[1]) {
             return;
         }
         this.myProxy.listQuery.page_count = 1;
@@ -122,15 +123,44 @@ export default class PageOrderDetail extends AbstractView {
             return LangUtil("输");
         }
     }
-    
+
+    getWinTypeStr(item: any) {
+        switch (item.win_type) {
+            case 1:
+                return LangUtil("赢");
+            case 2:
+                return LangUtil("半赢");
+            case 3:
+                return LangUtil("平手");
+            case 4:
+                return LangUtil("输");
+            case 5:
+                return LangUtil("输一半");
+        }
+    }
+
+    getWinTypeColor(item: any) {
+        switch (item.win_type) {
+            case 1:
+                return "green";
+            case 2:
+                return "purple";
+            case 3:
+                return "yellow";
+            case 4:
+                return "red";
+            case 5:
+                return "blue";
+        }
+    }
+
     onTimeChange() {
-        console.log("-time change",this.myProxy.selectDate);
-        if (!this.myProxy.selectDate)
-        {
-            this.myProxy.selectDate = ["",""];
+        console.log("-time change", this.myProxy.selectDate);
+        if (!this.myProxy.selectDate) {
+            this.myProxy.selectDate = ["", ""];
         }
         let startDate = this.myProxy.selectDate[0];
-        console.log("--->>>>",startDate);
+        console.log("--->>>>", startDate);
         let endDate = this.myProxy.selectDate[1];
         if (!startDate) {
             startDate = "";
