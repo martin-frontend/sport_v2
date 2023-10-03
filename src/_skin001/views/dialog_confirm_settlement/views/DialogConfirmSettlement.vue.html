@@ -1,0 +1,14 @@
+<DialogMessageBox>
+    <v-sheet color="transparent" class="text-center" width="100%">
+        <div class="mb-2">{{LangUtil("提前结算金额")}}</div>
+        <div>
+            {{GlobalVar.currency}}
+            <span class="text-20 font-weight-bold"> {{amountFormat(item.stake)}} </span>
+        </div>
+        <v-divider class="my-3" />
+        <div class="mb-2">{{LangUtil("提前结算返还")}}</div>
+        <div>{{GlobalVar.currency}}
+            <span class="text-20 font-weight-bold red--text"> {{amountFormat(item.amount)}} </span>
+        </div>
+    </v-sheet>
+</DialogMessageBox>

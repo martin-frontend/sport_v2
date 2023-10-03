@@ -9,7 +9,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     /**计时器 */
     private timer = 0;
     public onRegister(): void {
-        this.init();
+        // this.init();
     }
 
     pageData = {
@@ -33,6 +33,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         done: <any>null,
         isActive: 0,
         settleCount: 0, //未结算数
+        order_no: "", // 可提前结算注单
     };
     listQueryMarket = {
         // 多个指定赛事id，以逗号拼接
@@ -53,7 +54,10 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
 
     init() {
         clearInterval(this.timer);
-        this.timer = setInterval(this.api_event_states.bind(this), 5000);
+        this.timer = setInterval(() => {
+            this.api_event_states();
+            this.api_user_precashout();
+        }, 5000);
         this.listQuery.page_count = 1;
         // this.api_user_orders();
         this.api_user_orders_v3();
@@ -80,7 +84,6 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     set_user_orders(data: any) {
         this.listQueryMarket.event_id = "";
         // GlobalVar.loading = false;
-        this.pageData.loading = false;
         Object.assign(this.pageData.stats, data.stats);
         Object.assign(this.pageData.pageInfo, data.pageInfo);
         const { pageCount, pageCurrent } = this.pageData.pageInfo;
@@ -96,6 +99,15 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         }
 
         this.api_event_states();
+
+        const canCashOutList: any = [];
+        this.pageData.list.forEach((item: any) => {
+            if (item.is_able_to_cash_out == 1) {
+                canCashOutList.push(item.order_no);
+            }
+        });
+        this.pageData.order_no = canCashOutList.join();
+        this.api_user_precashout();
     }
 
     set_event_states(data: any) {
@@ -122,6 +134,16 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery));
     }
 
+    api_user_precashout() {
+        const { order_no } = this.pageData;
+        const { is_settle } = this.listQuery;
+        if (!order_no || is_settle == 1) {
+            this.pageData.loading = false;
+            return;
+        }
+        this.sendNotification(net.HttpType.api_user_precashout, { order_no });
+    }
+
     event_states(Orderitem: any) {
         const itemState = this.pageData.states.find((item: any) => Orderitem.event_id == item.event_id);
         if (itemState) {
@@ -130,5 +152,19 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         } else {
             return Orderitem;
         }
+    }
+
+    set_cashout(data: any, closeCashOut: boolean = false) {
+        this.pageData.loading = false;
+        const keys = Object.keys(data);
+        keys.forEach((key) => {
+            const findItem = this.pageData.list.find((item: any) => item.order_no == key);
+            if (findItem) {
+                Object.assign(findItem, data[key]);
+                if (closeCashOut) {
+                    findItem.is_able_to_cash_out = 0;
+                }
+            }
+        });
     }
 }

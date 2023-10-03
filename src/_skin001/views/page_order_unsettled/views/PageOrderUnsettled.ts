@@ -8,8 +8,9 @@ import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
 import CopyUtil from "@/core/global/CopyUtil";
 import EnumMarketType from "@/core/global/MarketUtils";
-const marketType = EnumMarketType.EnumMarketType;
+import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
 
+const marketType = EnumMarketType.EnumMarketType;
 @Component
 export default class PageOrderUnsettled extends AbstractView {
     LangUtil = LangUtil;
@@ -22,7 +23,7 @@ export default class PageOrderUnsettled extends AbstractView {
     myProxy: OrderUnsettledProxy = this.getProxy(OrderUnsettledProxy);
     pageData = this.myProxy.pageData;
     listQuery = this.myProxy.listQuery;
-    checkbox = false;
+    // isAbleToCashOut = false;
     // 注单状态
     statusMap = {
         0: LangUtil("确认中"), //确认中
@@ -177,6 +178,15 @@ export default class PageOrderUnsettled extends AbstractView {
             case 5:
                 return LangUtil("输一半");
         }
+    }
+
+    onQuery() {
+        this.listQuery.page_count = 1;
+        this.myProxy.api_user_orders_v3();
+    }
+
+    showDialog(item: any) {
+        dialog_confirm_settlement.show(item);
     }
 
     destroyed() {

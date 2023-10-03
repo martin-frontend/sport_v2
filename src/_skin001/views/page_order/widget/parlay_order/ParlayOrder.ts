@@ -1,6 +1,6 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Prop } from "vue-property-decorator";
-import PageOrderProxy from "../proxy/PageOrderProxy";
+import PageOrderProxy from "../../proxy/PageOrderProxy";
 import LangUtil from "@/core/global/LangUtil";
 import { amountFormat, dateFormat, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";

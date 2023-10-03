@@ -32,6 +32,8 @@ import cmd_api_helpcenter_list from "./cmd_api_helpcenter_list";
 import cmd_api_user_prebet_v3 from "./cmd_api_user_prebet_v3";
 import cmd_api_user_betfix_v3 from "./cmd_api_user_betfix_v3";
 import cmd_api_user_orders_v3 from "./cmd_api_user_orders_v3";
+import cmd_api_user_precashout from "./cmd_api_user_precashout";
+import cmd_api_user_cashout from "./cmd_api_user_cashout";
 /**
  * document: http://18.167.151.206:8090/pages/viewpage.action?pageId=11076347
  */
@@ -105,6 +107,10 @@ const HttpType = {
     api_user_betfix_v3: "api/user/betfix_v3",
     /**投注纪录v3*/
     api_user_orders_v3: "api/user/orders_v3",
+    /**提前结算预请求*/
+    api_user_precashout: "api/user/precashout",
+    /**提前结算cashout*/
+    api_user_cashout: "api/user/cashout",
 };
 /**事件*/
 const EventType = {
@@ -184,6 +190,10 @@ const EventType = {
     api_user_betfix_v3: "api_user_betfix_v3",
     /**投注纪录v3*/
     api_user_orders_v3: "api_user_orders_v3",
+    /**提前结算预请求*/
+    api_user_precashout: "api_user_precashout",
+    /**提前结算cashout*/
+    api_user_cashout: "api_user_cashout",
 };
 /**注册协议*/
 function initCommand() {
@@ -222,6 +232,8 @@ function initCommand() {
     facade.registerCommand(HttpType.api_user_prebet_v3, cmd_api_user_prebet_v3);
     facade.registerCommand(HttpType.api_user_betfix_v3, cmd_api_user_betfix_v3);
     facade.registerCommand(HttpType.api_user_orders_v3, cmd_api_user_orders_v3);
+    facade.registerCommand(HttpType.api_user_precashout, cmd_api_user_precashout);
+    facade.registerCommand(HttpType.api_user_cashout, cmd_api_user_cashout);
 }
 const net = { HttpType, EventType, initCommand };
 export default net;

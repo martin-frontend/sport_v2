@@ -34,6 +34,8 @@
         ["api/helpcenter/list",                 "帮助中心內容接口"],
         ["api/user/prebet_v3",                  "预下注V3"],
         ["api/user/betfix_v3",                  "下注 V3"],
-        ["api/user/orders_v3",                  "投注纪录v3"]
+        ["api/user/orders_v3",                  "投注纪录v3"],
+        ["api/user/precashout",                 "提前结算预请求"],
+        ["api/user/cashout",                    "提前结算cashout"]
     ]
 }

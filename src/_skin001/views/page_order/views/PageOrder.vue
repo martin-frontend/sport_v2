@@ -4,7 +4,7 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import PageOrder from "./PageOrder";
-import ParlayOrder from "../widget/ParlayOrder.vue";
+import ParlayOrder from "../widget/parlay_order/ParlayOrder.vue";
 
 @Component({
     components: {

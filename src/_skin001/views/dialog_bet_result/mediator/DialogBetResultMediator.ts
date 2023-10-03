@@ -112,7 +112,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                             listData.status = item.status;
                             listData.statusMsg = item.statusMsg;
                             listData.order_no = item.order_no;
-                            if(item.odds) {
+                            if (item.odds) {
                                 listData.odds = item.odds;
                             }
                         }

@@ -29,6 +29,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
         done: <any>null,
         isActive: 0,
         settleCount: 0, //未结算数
+        order_no: "",
     };
     listQueryMarket = {
         // 多个指定赛事id，以逗号拼接
@@ -55,7 +56,10 @@ export default class PageOrderProxy extends puremvc.Proxy {
     }
     init() {
         clearInterval(this.timer);
-        this.timer = setInterval(this.getMarketAndStates.bind(this), 5000);
+        this.timer = setInterval(() => {
+            this.getMarketAndStates();
+            this.api_user_precashout();
+        }, 5000);
     }
     onReset() {
         this.pageData.list = [];
@@ -88,6 +92,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
         } else {
             this.pageData.list.push(...data.list);
         }
+
         const event_id: number[] = [];
         if (this.listQuery.is_settle == 0) {
             data.list.forEach((item: any, idx: any) => {
@@ -96,7 +101,16 @@ export default class PageOrderProxy extends puremvc.Proxy {
             this.listQueryMarket.event_id = event_id.toString();
             this.api_event_states();
         }
-        
+
+        const canCashOutList: any = [];
+        this.pageData.list.forEach((item: any) => {
+            if (item.is_able_to_cash_out == 1) {
+                canCashOutList.push(item.order_no);
+            }
+        });
+        this.pageData.order_no = canCashOutList.join();
+
+        this.api_user_precashout();
     }
     /**赛事进程*/
     api_event_states() {
@@ -111,10 +125,17 @@ export default class PageOrderProxy extends puremvc.Proxy {
         if (this.listQuery.page_count == 1) this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
-    
+
     api_user_orders_v3() {
         if (this.listQuery.page_count == 1) this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery));
+    }
+
+    api_user_precashout() {
+        const { order_no } = this.pageData;
+        const { is_settle } = this.listQuery;
+        if (!order_no || is_settle == 1) return;
+        this.sendNotification(net.HttpType.api_user_precashout, { order_no });
     }
 
     /**手机下拉刷新 */
