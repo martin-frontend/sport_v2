@@ -72,11 +72,12 @@ export default class Navigation extends AbstractView {
             if (this.betProxy.pageData.list.length > 0) {
                 this.window = 1;
             } else {
-                if (this.betResultProxy.pageData.bShow) {
-                    this.window = 3;
-                } else {
-                    this.window = 0;
-                }
+                // if (this.betResultProxy.pageData.bShow) {
+                //     this.window = 3;
+                // } else {
+                //     this.window = 0;
+                // }
+                this.window = 0;
             }
         }
     }
@@ -89,7 +90,7 @@ export default class Navigation extends AbstractView {
         }
         if (!this.$vuetify.breakpoint.mobile) {
             this.betProxy.pageData.isShowResultPanel = newVal == 3;
-            if(oldVal == 3) {
+            if (oldVal == 3) {
                 this.betResultProxy.pageData.bShow = false;
             }
         }
@@ -124,4 +125,3 @@ export default class Navigation extends AbstractView {
         this.betProxy.initBetList();
     }
 }
- 

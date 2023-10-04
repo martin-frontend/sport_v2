@@ -129,6 +129,8 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 this.showFinshedOrdersTips();
                 break;
             case net.EventType.api_user_betfix_v3:
+                betProxy.pageData.loading = false;
+                if (betProxy.pageData.isContinueBetting) return;
                 myProxy.pageData.bShow = true;
                 myProxy.pageData.list.length = 0;
                 const keys = Object.keys(body);
