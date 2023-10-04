@@ -138,8 +138,8 @@ export default class BetProxy extends puremvc.Proxy {
             if (findIdx >= 0) {
                 const item = this.pageData.list.splice(findIdx, 1);
                 this.pageData.activeCount++;
-                this.setBetType();
                 if (item[0].selection.id == selection_id) {
+                    this.setBetType();
                     if (this.pageData.betType == "parlay") {
                         this.initBetList(true);
                     }
@@ -315,7 +315,7 @@ export default class BetProxy extends puremvc.Proxy {
                         if (code === 0 && data) {
                             findItem.minStake = data.minStake;
                             findItem.maxStake = data.maxStake;
-                            if (response.data.change == 1) {
+                            if (data.change == 1) {
                                 if (data.newOdds) {
                                     findItem.isMarketClose = false;
                                     findItem.oddsChange = true;

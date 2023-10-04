@@ -263,11 +263,12 @@ export default class BetSummary extends AbstractView {
     }
 
     get oddsChange() {
-        if (this.pageData.betType == "parlay") {
-            return this.pageData.parlayData.oddsChange;
-        } else {
-            return this.myProxy.pageData.list.findIndex((item) => item.oddsChange) > -1;
-        }
+        // if (this.pageData.betType == "parlay") {
+        //     return this.pageData.parlayData.oddsChange;
+        // } else {
+        //     return this.myProxy.pageData.list.findIndex((item) => item.oddsChange) > -1;
+        // }
+        return this.myProxy.pageData.list.findIndex((item) => item.oddsChange) > -1;
     }
 
     get parlayOdds() {
