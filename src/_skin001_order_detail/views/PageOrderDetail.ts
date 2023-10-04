@@ -80,7 +80,7 @@ export default class PageOrderDetail extends AbstractView {
         5: LangUtil("无效"), //无效
     };
     getWinType(item: any) {
-        //win_type: 1，赢，2 半赢，3 平手，4，输，5 输一半
+        //win_type: 1，赢，2 半赢，3 平手，4，输，5 输一半，6 提前结算
         switch (item.win_type) {
             case 1:
                 return require(`@/_skin001/assets/win_type/win.png`);
@@ -92,6 +92,8 @@ export default class PageOrderDetail extends AbstractView {
                 return require(`@/_skin001/assets/win_type/lose.png`);
             case 5:
                 return require(`@/_skin001/assets/win_type/halflose.png`);
+            case 6:
+                return require(`@/_skin001/assets/win_type/settlement.png`);
         }
     }
     getWinTypeStr(item: any) {
@@ -106,6 +108,8 @@ export default class PageOrderDetail extends AbstractView {
                 return LangUtil("输");
             case 5:
                 return LangUtil("输一半");
+            case 6:
+                return LangUtil("提前结算");
         }
     }
 }
