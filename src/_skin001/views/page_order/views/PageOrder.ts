@@ -7,6 +7,7 @@ import { amountFormat, dateFormat, getDateByTimeZone, TransMarketPrice } from "@
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import GlobalVar from "@/core/global/GlobalVar";
 import EnumMarketType from "@/core/global/MarketUtils";
+import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
 
 const marketType = EnumMarketType.EnumMarketType;
 
@@ -49,10 +50,11 @@ export default class PageOrder extends AbstractView {
         3: "#138723", //和
         4: "#ff0f0e", //输
         5: "#ff0f0e", //输一半
+        6: "#ea7800", //提前结算
     };
 
     getWinType(item: any) {
-        //win_type: 1，赢，2 半赢，3 平手，4，输，5 输一半
+        //win_type: 1，赢，2 半赢，3 平手，4，输，5 输一半，6 提前结算
         switch (item.win_type) {
             case 1:
                 return require(`@/_skin001/assets/win_type/win.png`);
@@ -64,6 +66,8 @@ export default class PageOrder extends AbstractView {
                 return require(`@/_skin001/assets/win_type/lose.png`);
             case 5:
                 return require(`@/_skin001/assets/win_type/halflose.png`);
+            case 6:
+                return require(`@/_skin001/assets/win_type/settlement.png`);
         }
     }
     getWinTypeStr(item: any) {
@@ -78,6 +82,8 @@ export default class PageOrder extends AbstractView {
                 return LangUtil("输");
             case 5:
                 return LangUtil("输一半");
+            case 6:
+                return LangUtil("提前结算");
         }
     }
     //根据盘口展示已结算的赛果角球还是比分等
@@ -218,5 +224,14 @@ export default class PageOrder extends AbstractView {
                 color: this.$vuetify.theme.dark ? "#1B5FFF" : "#0325b4",
             };
         }
+    }
+
+    onQuery() {
+        this.listQuery.page_count = 1;
+        this.myProxy.api_user_orders_v3();
+    }
+
+    showDialog(item: any) {
+        dialog_confirm_settlement.show(item);
     }
 }

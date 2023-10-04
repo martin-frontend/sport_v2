@@ -44,11 +44,9 @@ export default class PageOrderProxy extends puremvc.Proxy {
         pageInfo: { pageCurrent: 0 },
         "settle_time-{>=}": "",
         "settle_time-{<=}": "",
+        cash_out_status: "",
     };
     onRegister() {
-        this.onReset();
-        // this.api_user_orders();
-        this.api_user_orders_v3();
         this.init();
     }
     onRemove(): void {
@@ -60,11 +58,14 @@ export default class PageOrderProxy extends puremvc.Proxy {
             this.getMarketAndStates();
             this.api_user_precashout();
         }, 5000);
+        this.onReset();
+        this.api_user_orders_v3();
     }
     onReset() {
         this.pageData.list = [];
         this.listQuery.page_count = 1;
         this.pageData.isActive = 0;
+        this.listQuery.cash_out_status = "";
         if (this.listQuery.is_settle == 1) {
             this.listQuery["settle_time-{>=}"] = getTodayOffset().timestr;
             this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;
@@ -76,7 +77,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
 
     set_user_orders(data: any) {
         this.listQueryMarket.event_id = "";
-        this.pageData.loading = false;
+        // this.pageData.loading = false;
         Object.assign(this.pageData.stats, data.stats);
         Object.assign(this.pageData.pageInfo, data.pageInfo);
         const vuetify = Vue.vuetify;
@@ -100,17 +101,17 @@ export default class PageOrderProxy extends puremvc.Proxy {
             });
             this.listQueryMarket.event_id = event_id.toString();
             this.api_event_states();
+
+            const canCashOutList: any = [];
+            this.pageData.list.forEach((item: any) => {
+                if (item.is_able_to_cash_out == 1) {
+                    canCashOutList.push(item.order_no);
+                }
+            });
+            this.pageData.order_no = canCashOutList.join();
+
+            this.api_user_precashout();
         }
-
-        const canCashOutList: any = [];
-        this.pageData.list.forEach((item: any) => {
-            if (item.is_able_to_cash_out == 1) {
-                canCashOutList.push(item.order_no);
-            }
-        });
-        this.pageData.order_no = canCashOutList.join();
-
-        this.api_user_precashout();
     }
     /**赛事进程*/
     api_event_states() {
@@ -134,7 +135,10 @@ export default class PageOrderProxy extends puremvc.Proxy {
     api_user_precashout() {
         const { order_no } = this.pageData;
         const { is_settle } = this.listQuery;
-        if (!order_no || is_settle == 1) return;
+        if (!order_no || is_settle == 1) {
+            this.pageData.loading = false;
+            return;
+        }
         this.sendNotification(net.HttpType.api_user_precashout, { order_no });
     }
 
@@ -213,5 +217,16 @@ export default class PageOrderProxy extends puremvc.Proxy {
         if (this.listQueryMarket.event_id) {
             this.api_event_states();
         }
+    }
+
+    set_cashout(data: any) {
+        this.pageData.loading = false;
+        const keys = Object.keys(data);
+        keys.forEach((key) => {
+            const findItem = this.pageData.list.find((item: any) => item.order_no == key);
+            if (findItem) {
+                Object.assign(findItem, data[key]);
+            }
+        });
     }
 }

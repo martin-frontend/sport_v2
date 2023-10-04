@@ -58,7 +58,7 @@
                 class="d-flex px-2 py-2 rounded-lg mt-2 mx-2 py-1 text-14 font-weight-bold"
             >
                 <v-sheet width="2" height="16" color="yellow" class="mr-2" style="margin-top: 3px"></v-sheet>
-                <div>
+                <div style="width: 100%">
                     <span class="mr-2 _title"
                         >{{LangUtil("投注数量")}} <span class="blackText--text"> {{pageData.stats.total_count}}</span></span
                     >
@@ -73,6 +73,23 @@
                             amountFormat(pageData.stats.total_win,true,2)}}</span
                         >
                     </span>
+                    <v-sheet
+                        v-if="listQuery.is_settle == 0"
+                        color="transparent"
+                        class="font-weight-bold d-flex align-center mr-2 mt-2"
+                        height="21"
+                    >
+                        {{LangUtil("可提前结算订单")}}
+                        <v-checkbox
+                            v-model="listQuery.cash_out_status"
+                            class="mb-n2 mr-n2 ml-1"
+                            false-value=""
+                            true-value="1,4"
+                            @change="onQuery"
+                            color="yellow1"
+                            dense
+                        ></v-checkbox>
+                    </v-sheet>
                 </div>
             </v-sheet>
         </v-sheet>
@@ -137,7 +154,7 @@
                             <div class="my-2 mx-n2 line"></div>
                         </div>
 
-                        <div class="ml-4 mr-2" style="position: relative;">
+                        <div class="ml-4 mr-2" style="position: relative">
                             <v-sheet width="100%" color="transparent">
                                 <span class="textGray--text mr-1">{{LangUtil("订单状态")}}</span>
                                 <span :style="{ 'color': statusMapColor[item.status]} ">{{statusMap[item.status]}}</span>
@@ -191,6 +208,11 @@
                     <template v-if="item.bet_type == 'multi'">
                         <ParlayOrder :item="item"></ParlayOrder>
                     </template>
+                    <div v-if="item.is_able_to_cash_out && item.amount" class="mt-3 px-2">
+                        <btn-yellow class="text-13 font-weight-bold" width="100%" height="36" @click.native="showDialog(item)">
+                            {{LangUtil("提前结算")}} {{GlobalVar.currency}} {{amountFormat(item.amount)}}
+                        </btn-yellow>
+                    </div>
                 </v-sheet>
             </load_more>
         </div>

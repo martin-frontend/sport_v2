@@ -232,10 +232,13 @@ export default class BetSummary extends AbstractView {
         if (this.pageData.betType == "single") {
             let stakeError = false;
             this.myProxy.pageData.list.forEach((item) => {
-                if (!Number(item.stake)) {
+                if (!parseLocaleNumber(item.stake || "0")) {
                     return;
                 }
-                if (Number(item.stake) < Number(item.minStake) || Number(item.stake) > Number(item.maxStake)) {
+                if (
+                    parseLocaleNumber(item.stake || "0") < Number(item.minStake) ||
+                    parseLocaleNumber(item.stake || "0") > Number(item.maxStake)
+                ) {
                     stakeError = true;
                     return;
                 }

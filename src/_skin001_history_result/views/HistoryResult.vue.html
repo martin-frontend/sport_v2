@@ -221,7 +221,7 @@
                                 <v-btn
                                     :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
                                     class="white--text mt-2"
-                                    fab
+                                    :fab="item.win_type != 6"
                                     depressed
                                     :color="getWinTypeColor(item)"
                                 >

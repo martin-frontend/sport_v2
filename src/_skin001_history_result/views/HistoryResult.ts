@@ -136,6 +136,8 @@ export default class PageOrderDetail extends AbstractView {
                 return LangUtil("输");
             case 5:
                 return LangUtil("输一半");
+            case 6:
+                return LangUtil("提前结算");
         }
     }
 
@@ -151,6 +153,8 @@ export default class PageOrderDetail extends AbstractView {
                 return "red";
             case 5:
                 return "blue";
+            case 6:
+                return "orange";
         }
     }
 

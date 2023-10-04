@@ -1,19 +1,20 @@
 <div>
-    <v-sheet class="text-14 pl10 py-2 btnPlain--text rounded-10" color="bgBanner">
-        <v-sheet color="transparent" class="font-weight-bold d-flex align-center mr-2 my-2 mb-3">
+    <v-sheet class="text-14 pl10 btnPlain--text rounded-10" color="bgBanner">
+        <v-sheet color="transparent" class="font-weight-bold d-flex align-center mr-2 py-2">
             {{LangUtil("可提前结算订单")}}
             <v-spacer />
             <v-checkbox
                 v-model="listQuery.cash_out_status"
+                class="mb-n3 mr-n2"
                 false-value=""
                 true-value="1,4"
                 @change="onQuery"
-                label="red"
-                color="red"
+                color="yellow1"
+                dense
             ></v-checkbox>
         </v-sheet>
-        <v-divider class="mb-2" />
-        <div class="d-flex mr-2">
+        <v-divider class="mb-2 mr-2" />
+        <div class="d-flex mr-2 pb-2">
             <v-sheet class="d-flex flex-column" color="transparent" width="70">
                 <div class="textGray--text mb-1">{{LangUtil("总计")}}</div>
                 <v-spacer />

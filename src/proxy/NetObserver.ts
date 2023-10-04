@@ -188,7 +188,6 @@ export default class NetObserver extends AbstractMediator {
                 }
                 break;
 
-            //订单
             case net.EventType.api_user_precashout:
                 {
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
@@ -199,7 +198,7 @@ export default class NetObserver extends AbstractMediator {
             case net.EventType.api_user_cashout:
                 {
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
-                    orderUnsettledProxy.set_cashout(body, true);
+                    orderUnsettledProxy.init();
                 }
                 break;
         }

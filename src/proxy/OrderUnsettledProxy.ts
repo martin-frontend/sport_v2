@@ -154,16 +154,13 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         }
     }
 
-    set_cashout(data: any, closeCashOut: boolean = false) {
+    set_cashout(data: any) {
         this.pageData.loading = false;
         const keys = Object.keys(data);
         keys.forEach((key) => {
             const findItem = this.pageData.list.find((item: any) => item.order_no == key);
             if (findItem) {
                 Object.assign(findItem, data[key]);
-                if (closeCashOut) {
-                    findItem.is_able_to_cash_out = 0;
-                }
             }
         });
     }

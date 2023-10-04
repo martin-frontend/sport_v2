@@ -7,6 +7,7 @@ import "@/style/fontsize.scss";
 import "@/_skin001/style/space.scss";
 import "@/_skin001/style/rounded.scss";
 import "./style/common.scss";
+import "@mdi/font/css/materialdesignicons.css";
 import { getVuetify } from "./plugins/vuetify";
 import Notifications from "vue-notification";
 import velocity from "velocity-animate";
