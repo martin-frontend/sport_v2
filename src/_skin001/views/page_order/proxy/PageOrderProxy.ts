@@ -225,7 +225,11 @@ export default class PageOrderProxy extends puremvc.Proxy {
         keys.forEach((key) => {
             const findItem = this.pageData.list.find((item: any) => item.order_no == key);
             if (findItem) {
-                Object.assign(findItem, data[key]);
+                if (data[key].code == 0) {
+                    Object.assign(findItem, data[key]);
+                } else {
+                    findItem.is_able_to_cash_out = 0;
+                }
             }
         });
     }
