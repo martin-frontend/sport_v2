@@ -264,7 +264,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
             Vue.notify(<any>{
                 group: "order_finished",
                 // duration: -1,
-                duration: item.status == 0 || item.status == 1 ? 3000 : -1,
+                duration: item.status == 0 || item.status == 1 || item.cash_out_status == 5 ? 3000 : -1,
                 data: item,
             });
         });

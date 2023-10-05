@@ -94,6 +94,11 @@ export default class Navigation extends AbstractView {
                 this.betResultProxy.pageData.bShow = false;
             }
         }
+        if (oldVal == 2) {
+            this.orderUnsettledProxy.pageData.loading = false;
+            this.orderUnsettledProxy.init();
+            this.orderUnsettledProxy.clear();
+        }
     }
 
     @Watch("betResultProxy.pageData.bShow")
@@ -112,8 +117,6 @@ export default class Navigation extends AbstractView {
 
     onExitOrderUnsettled() {
         this.window = 0;
-        this.orderUnsettledProxy.pageData.loading = false;
-        this.orderUnsettledProxy.clear();
     }
 
     destroyed() {

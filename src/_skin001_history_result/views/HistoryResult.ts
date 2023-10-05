@@ -158,6 +158,40 @@ export default class PageOrderDetail extends AbstractView {
         }
     }
 
+    getMultiWinTypeStr(item: any) {
+        switch (item.selection_win_type) {
+            case 1:
+                return LangUtil("赢");
+            case 2:
+                return LangUtil("半赢");
+            case 3:
+                return LangUtil("平手");
+            case 4:
+                return LangUtil("输一半");
+            case 5:
+                return LangUtil("输");
+            case 7:
+                return "VOID";
+        }
+    }
+
+    getMultiWinTypeColor(item: any) {
+        switch (item.win_type) {
+            case 1:
+                return "green";
+            case 2:
+                return "purple";
+            case 3:
+                return "yellow";
+            case 4:
+                return "blue";
+            case 5:
+                return "red";
+            case 7:
+                return "gray";
+        }
+    }
+
     onTimeChange() {
         console.log("-time change", this.myProxy.selectDate);
         if (!this.myProxy.selectDate) {

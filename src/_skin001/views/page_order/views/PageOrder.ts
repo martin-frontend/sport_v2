@@ -234,4 +234,21 @@ export default class PageOrder extends AbstractView {
     showDialog(item: any) {
         dialog_confirm_settlement.show(item);
     }
+
+    getSettlementStr(item: any) {
+        switch (item.cash_out_status) {
+            case 1:
+                return `${LangUtil("提前结算")} ${GlobalVar.currency} ${amountFormat(item.amount)}`;
+            case 2:
+                return `${LangUtil("申请中")} ${GlobalVar.currency} ${amountFormat(item.amount)}`;
+            case 3:
+                return `${LangUtil("已接受")} ${GlobalVar.currency} ${amountFormat(item.amount)}`;
+            case 4:
+                return `${LangUtil("已拒绝")}`;
+            case 5:
+                return `${LangUtil("兑现完成")}`;
+            case 6:
+                return `${LangUtil("暂停兑现")}`;
+        }
+    }
 }

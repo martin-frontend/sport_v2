@@ -17,25 +17,44 @@
             <v-sheet color="bgPage" min-width="298" class="rounded-lg">
                 <v-sheet color="transparent" height="34" class="d-flex align-center pt-1">
                     <v-sheet width="100%" color="transparent" class="d-flex align-center text-14" @click="goPageOrder(props)">
-                        <svg-icon
-                            class="text-24 mx-3"
-                            :icon="props.item.data.status == 0 || props.item.data.status == 1 ? 'scuess' : 'failed'"
-                        ></svg-icon>
-                        <div class="btnPlain--text mr-5">{{ LangUtil("订单") }}: {{ props.item.data.order_no }}</div>
-                        <v-spacer />
-                        <span
-                            class="mr-3 font-weight-bold"
-                            :class="props.item.data.status == 0 || props.item.data.status == 1 ? 'green--text' : 'red--text'"
-                        >
-                            {{ LangUtil(EnumFixOrderStatus[props.item.data.status]) }}
-                        </span>
+                        <template v-if="props.item.data.status !== undefined">
+                            <svg-icon
+                                class="text-24 mx-3"
+                                :icon="props.item.data.status == 0 || props.item.data.status == 1 || props.item.data.cash_out_status == 5 ? 'scuess' : 'failed'"
+                            ></svg-icon>
+                            <div class="btnPlain--text mr-5">{{ LangUtil("订单") }}: {{ props.item.data.order_no }}</div>
+                            <v-spacer />
+                            <span
+                                class="mr-3 font-weight-bold"
+                                :class="props.item.data.status == 0 || props.item.data.status == 1 || props.item.data.cash_out_status == 5 ? 'green--text' : 'red--text'"
+                            >
+                                {{ props.item.data.cash_out_status == 5 ? LangUtil(EnumFixOrderStatus[1]) :
+                                LangUtil(EnumFixOrderStatus[props.item.data.status]) }}
+                            </span>
+                        </template>
+                        <!-- 提前结算 -->
+                        <template v-else>
+                            <svg-icon
+                                class="text-24 mx-3"
+                                :icon="props.item.data.cash_out_status == 5 ? 'scuess' : 'failed'"
+                            ></svg-icon>
+                            <div class="btnPlain--text mr-5">{{ LangUtil("订单") }}: {{ props.item.data.order_no }}</div>
+                            <v-spacer />
+                            <span
+                                class="mr-3 font-weight-bold"
+                                :class="props.item.data.cash_out_status == 5 ? 'green--text' : 'red--text'"
+                            >
+                                {{ props.item.data.cash_out_status == 5 ? LangUtil(EnumFixOrderStatus[1]) :
+                                LangUtil(EnumFixOrderStatus[3]) }}
+                            </span>
+                        </template>
                     </v-sheet>
 
                     <svg-icon
                         icon="close"
                         class="text-14 mr-3"
                         @click.native="props.close"
-                        v-if="props.item.data.status != 0 && props.item.data.status != 1"
+                        v-if="props.item.data.status != 0 && props.item.data.status != 1 && props.item.data.cash_out_status != 5"
                     ></svg-icon>
                 </v-sheet>
                 <div class="text-14 red--text font-weight-bold pb-1 text-center" v-if="props.item.data.status != 1">

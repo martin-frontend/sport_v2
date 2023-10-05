@@ -40,8 +40,9 @@ export default class ParlayOrder extends AbstractView {
         1: "#138723", //赢
         2: "#138723", //半赢
         3: "#138723", //和
-        4: "#ff0f0e", //输
-        5: "#ff0f0e", //输一半
+        4: "#ff0f0e", //输一半
+        5: "#ff0f0e", //输
+        7: "#ff0f0e", //void
     };
 
     getWinType(item: any) {
@@ -73,6 +74,24 @@ export default class ParlayOrder extends AbstractView {
                 return LangUtil("输一半");
         }
     }
+
+    getMultiWinTypeStr(item: any) {
+        switch (item.selection_win_type) {
+            case 1:
+                return LangUtil("赢");
+            case 2:
+                return LangUtil("半赢");
+            case 3:
+                return LangUtil("平手");
+            case 4:
+                return LangUtil("输一半");
+            case 5:
+                return LangUtil("输");
+            case 7:
+                return "VOID";
+        }
+    }
+
     //根据盘口展示已结算的赛果角球还是比分等
     getHadResultStr(item: any) {
         const copyitem = JSON.parse(JSON.stringify(item));
