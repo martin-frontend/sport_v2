@@ -30,6 +30,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
         isActive: 0,
         settleCount: 0, //未结算数
         order_no: "",
+        precashoutData: <any>{}, //存取 precashout 回传的资料
     };
     listQueryMarket = {
         // 多个指定赛事id，以逗号拼接
@@ -225,11 +226,15 @@ export default class PageOrderProxy extends puremvc.Proxy {
         keys.forEach((key) => {
             const findItem = this.pageData.list.find((item: any) => item.order_no == key);
             if (findItem) {
-                if (data[key].code == 0) {
+                const { code, cash_out_status } = data[key];
+                if (code == 0 && cash_out_status == 1) {
                     Object.assign(findItem, data[key]);
-                } else {
-                    findItem.is_able_to_cash_out = 0;
+                    this.pageData.precashoutData[key] = data[key];
                 }
+                if (cash_out_status == 2 || cash_out_status == 3) {
+                    findItem.amount = this.pageData.precashoutData[key]?.amount;
+                }
+                if (cash_out_status == 5) findItem.is_able_to_cash_out = 0;
             }
         });
     }
