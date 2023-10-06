@@ -205,7 +205,7 @@
 
                     <v-col class="d-grid justify-items-center">
                         <template v-if="index1 == 0">
-                            <div :class="item.status == 3 ? 'red--text':'' " v-if="item.status != 1">
+                            <div :class="item.status == 3 || item.status == 8 ? 'red--text':'' " v-if="item.status != 1">
                                 <span>{{statusMap[item.status]}}</span>
                                 <span>{{LangUtil(item.mark)}}</span>
                             </div>
