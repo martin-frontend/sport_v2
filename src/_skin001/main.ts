@@ -26,6 +26,7 @@ import Loader from "./views/widget/loader/Loader.vue";
 import HorizontalScroll from "./views/widget/horizontal_scroll/HorizontalScroll.vue";
 import MatcheItem from "@/_skin001/views/page_home/widget/matche_item/MatcheItem.vue";
 import MatcheItemMobile from "@/_skin001/views/page_home/widget/matche_item_mobile/MatcheItemMobile.vue";
+import SmallDecimal from "@/_skin001/views/widget/small_decimal/SmallDecimal.vue";
 
 LogUtil.init();
 Vue.config.productionTip = false;
@@ -42,6 +43,7 @@ Vue.component("overlay", Overlay);
 Vue.component("load_more", LoadMore);
 Vue.component("loader", Loader);
 Vue.component("horizontal_scroll", HorizontalScroll);
+Vue.component("SmallDecimal", SmallDecimal);
 
 if (isAndroid()) {
     GlobalVar.device_type = EnumDeviceType.ANDROID;

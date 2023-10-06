@@ -64,7 +64,9 @@
                     >
                     <span class="mr-2 _title">
                         {{LangUtil("投注额度")}}
-                        <span class="blackText--text"> {{GlobalVar.currency}} {{ amountFormat(pageData.stats.total_stake,true)}}</span>
+                        <span class="blackText--text"> {{GlobalVar.currency}}
+                            <SmallDecimal :amount="amountFormat(pageData.stats.total_stake, true)"></SmallDecimal>
+                        </span>
                     </span>
                     <span v-if="listQuery.is_settle == 1" class="mr-2 _title">
                         {{LangUtil("输赢")}}

@@ -24,18 +24,15 @@
             <v-sheet class="d-flex flex-column align-end" color="transparent" style="flex: 1">
                 <div class="textGray--text mb-1">{{LangUtil("投注额")}}</div>
                 <v-spacer />
-                <div class="font-weight-bold">{{GlobalVar.currency}}: {{amountFormat(pageData.stats.total_stake, true)}}</div>
+                <div class="font-weight-bold">
+                    {{GlobalVar.currency}}:
+                    <SmallDecimal :amount="amountFormat(pageData.stats.total_stake, true)"></SmallDecimal>
+                </div>
             </v-sheet>
         </div>
     </v-sheet>
     <loader v-if="pageData.loading" />
-    <v-sheet
-        v-else
-        class="text-13 mt-2 pb-2 pt10 textGray--text rounded-10"
-        color="bgBanner"
-        v-for="item in pageData.list"
-        :key="item.id"
-    >
+    <v-sheet v-else class="text-13 mt-2 pb-2 pt10 textGray--text rounded-10" color="bgBanner" v-for="item in pageData.list" :key="item.id">
         <template v-if="item.bet_type == 'single'">
             <div v-for="(leg, index1) in item.leg_info" :key="item.id + index1">
                 <v-sheet class="d-flex align-center btnPlain--text px10 text-14" color="transparent">
