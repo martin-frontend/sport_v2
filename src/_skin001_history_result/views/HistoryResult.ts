@@ -167,16 +167,16 @@ export default class PageOrderDetail extends AbstractView {
             case 3:
                 return LangUtil("平手");
             case 4:
-                return LangUtil("输一半");
-            case 5:
                 return LangUtil("输");
+            case 5:
+                return LangUtil("输一半");
             case 7:
                 return "VOID";
         }
     }
 
     getMultiWinTypeColor(item: any) {
-        switch (item.win_type) {
+        switch (item.selection_win_type) {
             case 1:
                 return "green";
             case 2:
@@ -184,9 +184,9 @@ export default class PageOrderDetail extends AbstractView {
             case 3:
                 return "yellow";
             case 4:
-                return "blue";
-            case 5:
                 return "red";
+            case 5:
+                return "blue";
             case 7:
                 return "black";
         }

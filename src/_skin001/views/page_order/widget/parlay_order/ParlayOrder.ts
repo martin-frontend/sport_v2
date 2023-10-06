@@ -40,8 +40,8 @@ export default class ParlayOrder extends AbstractView {
         1: "#138723", //赢
         2: "#138723", //半赢
         3: "#138723", //和
-        4: "#ff0f0e", //输一半
-        5: "#ff0f0e", //输
+        4: "#ff0f0e", //输
+        5: "#ff0f0e", //输一半
         7: "#ff0f0e", //void
     };
 
@@ -84,9 +84,9 @@ export default class ParlayOrder extends AbstractView {
             case 3:
                 return LangUtil("平手");
             case 4:
-                return LangUtil("输一半");
-            case 5:
                 return LangUtil("输");
+            case 5:
+                return LangUtil("输一半");
             case 7:
                 return "VOID";
         }
