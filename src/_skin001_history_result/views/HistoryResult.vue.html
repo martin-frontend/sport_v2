@@ -177,7 +177,7 @@
                                 <v-btn
                                     :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
                                     class="white--text mt-2"
-                                    fab
+                                    :fab="leg.win_type != 7"
                                     depressed
                                     :color="getMultiWinTypeColor(leg)"
                                 >

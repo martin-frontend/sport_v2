@@ -188,7 +188,7 @@ export default class PageOrderDetail extends AbstractView {
             case 5:
                 return "red";
             case 7:
-                return "gray";
+                return "black";
         }
     }
 
