@@ -171,7 +171,7 @@ export default class PageOrderDetail extends AbstractView {
             case 5:
                 return LangUtil("输一半");
             case 7:
-                return "VOID";
+                return LangUtil("失效");
         }
     }
 
@@ -188,7 +188,7 @@ export default class PageOrderDetail extends AbstractView {
             case 5:
                 return "blue";
             case 7:
-                return "black";
+                return "#a2a2a2";
         }
     }
 

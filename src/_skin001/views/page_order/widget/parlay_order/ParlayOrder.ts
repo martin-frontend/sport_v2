@@ -42,7 +42,7 @@ export default class ParlayOrder extends AbstractView {
         3: "#138723", //和
         4: "#ff0f0e", //输
         5: "#ff0f0e", //输一半
-        7: "#ff0f0e", //void
+        7: "#a2a2a2", //void
     };
 
     getWinType(item: any) {
@@ -88,7 +88,7 @@ export default class ParlayOrder extends AbstractView {
             case 5:
                 return LangUtil("输一半");
             case 7:
-                return "VOID";
+                return LangUtil("失效");
         }
     }
 
