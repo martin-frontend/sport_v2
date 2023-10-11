@@ -12,19 +12,15 @@
             min-width: 350px;
         "
     >
-        <div class="d-flex align-center">
-            <img src="@/_skin001_order_detail/assets/icon_blue.png" max-height="30" height="30" max-width="10" width="10" />
-            <div v-if="item.bet_type == 'single'" style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">
-                {{item.leg_info[0].competition_name}}
+        <template v-if="item.bet_type == 'single'">
+            <div class="d-flex align-center">
+                <img src="@/_skin001_order_detail/assets/icon_blue.png" max-height="30" height="30" max-width="10" width="10" />
+                <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">{{item.leg_info[0].competition_name}}</div>
             </div>
-            <div v-if="item.bet_type == 'multi'" style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">
-                {{item.leg_info.length}}{{LangUtil('串')}}1*1
-            </div>
-        </div>
-        <template v-for="(leg, index) of item.leg_info">
             <div
                 class="rounded order-content"
                 style="background-color: #fff; margin: 12px, 0px; padding: 12px; margin-left: 12px; margin-right: 12px; margin-top: 8px"
+                v-for="(leg, index) of item.leg_info"
                 :key="index"
             >
                 <div class="d-flex text-14 font-weight-bold top-text">
@@ -45,10 +41,7 @@
                     <span style="margin-right: 4px">
                         {{leg.home_name}} <span style="margin-right: 4px; margin-left: 4px" class="font-weight-bold">VS</span>
                         {{leg.away_name}}
-                        <span
-                            style="color: #ff3e3e; margin-right: 8px"
-                            class="font-weight-bold"
-                            v-if="item.status !== 3 && leg.c_type != 2"
+                        <span style="color: #ff3e3e; margin-right: 8px" class="font-weight-bold" v-if="item.status !== 3 && leg.c_type != 2"
                             >{{getHadResultStr()}}
                         </span>
                     </span>
@@ -61,48 +54,52 @@
                 <div style="margin-top: 8px; margin-bottom: 8px" class="custom-hr"></div>
                 <div width="100%">
                     {{LangUtil("订单状态")}}
-                    <span class="font-weight-bold" :style="{ 'color': statusMapColor[leg.status]}">{{statusMap[leg.status]}}</span>
+                    <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status]}}</span>
                 </div>
-                <div v-if="leg.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[leg.status]} ">
-                    {{LangUtil(leg.mark)}}
+                <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">
+                    {{LangUtil(item.mark)}}
                 </div>
 
                 <div width="100%">
-                    {{LangUtil("投注金额")}}<span class="font-weight-bold"> {{leg.currency}} {{amountFormat(leg.stake,true) }}</span>
+                    {{LangUtil("投注金额")}}<span class="font-weight-bold"> {{item.currency}} {{amountFormat(item.stake,true) }}</span>
                 </div>
 
-                <div width="100%" v-if="leg.is_settle == 0">
+                <div width="100%" v-if="item.is_settle == 0">
                     {{LangUtil("预计可赢")}}
                     <span class="font-weight-bold" style="color: #0325b4"
-                        >{{leg.currency+" "+amountFormat(leg.expected_win,true,2)}}</span
+                        >{{item.currency+" "+amountFormat(item.expected_win,true,2)}}</span
                     >
                 </div>
-                <div width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{leg.partner_order}}</span></div>
+                <div width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{item.partner_order}}</span></div>
                 <div width="100%">
                     {{LangUtil("投注时间")}}
                     <span class="font-weight-bold">
-                        {{dateFormat(getDateByTimeZone(leg.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                        {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
                     >
                 </div>
 
-                <div width="100%" v-if="leg.settle_time_timestamp">
+                <div width="100%" v-if="item.is_settle == 1">
                     {{LangUtil("结算时间")}}
                     <span class="font-weight-bold">
-                        {{dateFormat(getDateByTimeZone(leg.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                        {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
                     >
                 </div>
 
-                <div style="margin-right: 10px" class="winlostdiv" v-if="leg.win && leg.is_settle == 1">
-                    <span style="margin-right: 4px">{{LangUtil("输赢")}} {{leg.currency}}</span>
-                    <span class="font-weight-bold" :class="leg.win>=0 ? 'success--text' : 'error--text' ">
-                        {{leg.win>=0 ? "+" : ""}}{{amountFormat(leg.win,true,2)}}
+                <div style="margin-right: 10px" class="winlostdiv" v-if="item.win && item.is_settle == 1">
+                    <span style="margin-right: 4px">{{LangUtil("输赢")}} {{item.currency}}</span>
+                    <span class="font-weight-bold" :class="item.win>=0 ? 'success--text' : 'error--text' ">
+                        {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}
                     </span>
                 </div>
                 <div class="win-type">
-                    <img style="width: 100px; height: 100px" :src="getWinType(leg)" v-if="leg.win_type" />
-                    <p>{{getWinTypeStr(leg)}}</p>
+                    <img style="width: 100px; height: 100px" :src="getWinType(item)" v-if="item.win_type" />
+                    <p>{{getWinTypeStr(item)}}</p>
                 </div>
             </div>
+        </template>
+
+        <template v-if="item.bet_type == 'multi'">
+            <ParlayOrder :item="item"></ParlayOrder>
         </template>
     </div>
 </div>

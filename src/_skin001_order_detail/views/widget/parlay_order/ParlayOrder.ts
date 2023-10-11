@@ -88,6 +88,23 @@ export default class ParlayOrder extends AbstractView {
         }
     }
 
+    getMultiWinTypeColor(item: any) {
+        switch (item.selection_win_type) {
+            case 1:
+                return "green";
+            case 2:
+                return "purple";
+            case 3:
+                return "yellow";
+            case 4:
+                return "red";
+            case 5:
+                return "blue";
+            case 7:
+                return "#a2a2a2";
+        }
+    }
+
     //根据盘口展示已结算的赛果角球还是比分等
     getHadResultStr(item: any) {
         const copyitem = JSON.parse(JSON.stringify(item));

@@ -52,6 +52,7 @@ export default class PageOrderDetail extends AbstractView {
             3: LangUtil("已拒绝"), //拒绝
             4: LangUtil("已取消"), //拒绝
             5: LangUtil("无效"), //无效
+            8: LangUtil("准异常"), //准异常
         };
     }
     //根据盘口展示已结算的赛果角球还是比分等
@@ -67,8 +68,9 @@ export default class PageOrderDetail extends AbstractView {
     statusMapColor = {
         0: "#FF7128", //确认中
         1: "#007E29", //确认成功
-        3: "#7E0000", //拒绝
+        3: "#FF2828", //拒绝
         4: "#FF2828", //取消
+        8: "#FF2828", //准异常
     };
 
     // 注单状态
@@ -78,6 +80,7 @@ export default class PageOrderDetail extends AbstractView {
         3: LangUtil("已拒绝"), //拒绝
         4: LangUtil("已取消"), //拒绝
         5: LangUtil("无效"), //无效
+        8: LangUtil("准异常"), //准异常
     };
     getWinType(item: any) {
         //win_type: 1，赢，2 半赢，3 平手，4，输，5 输一半，6 提前结算
