@@ -137,8 +137,31 @@
         transform: rotate(-17deg);
     }
 }
+.win-type-chuan {
+    position: absolute;
+    top: 0;
+    right: 0px;
+    width: 80px;
+    height: 80px;
+    text-align: center;
+    p {
+        margin-top: -52px;
+        color: white;
+        font-size: 14px;
+        transform: rotate(-17deg);
+    }
+}
+
 .custom-hr {
-    border-top: 1px dashed #d8d8d8;
+    border-top: 1px dashed rgb(216, 216, 216);
     margin-top: 8px;
     margin-bottom: 8px;
+}
+.chuandan_win{
+    position: absolute;
+    bottom: -50%;
+    right: -20px;
+    width: 80px;
+    height: 80px;
+    font-size: 14px;
 }

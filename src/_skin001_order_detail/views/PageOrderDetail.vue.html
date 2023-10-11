@@ -1,81 +1,108 @@
-<div v-if="isloadSecLang" style="display: flex;justify-content: center;">
-    <div  class="default-color"
-        style=" background-color: #f1f1f1; margin-top: 8px; margin-bottom: 8px;padding-top:8px ;padding-bottom: 12px;font-size: 12px;width: 600px;min-width: 350px">
+<div v-if="isloadSecLang" style="display: flex; justify-content: center">
+    <div
+        class="default-color"
+        style="
+            background-color: #f1f1f1;
+            margin-top: 8px;
+            margin-bottom: 8px;
+            padding-top: 8px;
+            padding-bottom: 12px;
+            font-size: 12px;
+            width: 600px;
+            min-width: 350px;
+        "
+    >
         <div class="d-flex align-center">
-            <img src="@/_skin001_order_detail/assets/icon_blue.png" max-height="30" height="30" max-width="10" width="10">
-            </img>
-            <div style="margin-left: 8px;margin-top: 5px;" class="text-14 font-weight-bold">{{item.cpn}}</div>
+            <img src="@/_skin001_order_detail/assets/icon_blue.png" max-height="30" height="30" max-width="10" width="10" />
+            <div v-if="item.bet_type == 'single'" style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">
+                {{item.leg_info[0].competition_name}}
+            </div>
+            <div v-if="item.bet_type == 'multi'" style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">
+                {{item.leg_info.length}}{{LangUtil('串')}}1*1
+            </div>
         </div>
-        <div class="rounded order-content"
-            style="background-color: #fff; margin: 12px,0px;padding: 12px;  margin-left: 12px; margin-right: 12px;margin-top: 8px;">
-            <div class="d-flex text-14 font-weight-bold top-text">
-                <div v-if="item.c_type == 2">{{item.content}}</div>
-                <div v-else>{{ OrderTitleUtils.getTeamName(item, false)}}{{ OrderTitleUtils.getOrderTitle(item,true)}}
+        <template v-for="(leg, index) of item.leg_info">
+            <div
+                class="rounded order-content"
+                style="background-color: #fff; margin: 12px, 0px; padding: 12px; margin-left: 12px; margin-right: 12px; margin-top: 8px"
+                :key="index"
+            >
+                <div class="d-flex text-14 font-weight-bold top-text">
+                    <div v-if="leg.c_type == 2">{{leg.content}}</div>
+                    <div v-else>{{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}</div>
+                    <v-spacer />
+                    <div style="margin-right: 8px">@{{TransMarketPrice(leg.odds)}}</div>
                 </div>
-                <v-spacer />
-                <div style="margin-right: 8px;">@{{TransMarketPrice(item.odds)}}</div>
-            </div>
 
-            <div class="text-14 ">
-                <span v-if="item.state && Object.keys(item.state).length > 0">{{LangUtil("滚球")}}</span>
-                <span class="font-weight-bold "
-                    v-if="item.state && Object.keys(item.state).length > 0">{{OrderTitleUtils.getScoreStr(item)}}</span>
-                {{item.market_type_text}}
-            </div>
-            <div class="text-14 d-flex flex-wrap">
-                <span style="margin-right: 4px;"> {{item.home_name}} <span style="margin-right: 4px;margin-left: 4px;"
-                        class="font-weight-bold">VS</span>
-                         {{item.away_name}}
-                         <span style="color: #ff3e3e;margin-right: 8px;" class="font-weight-bold"
-                             v-if="item.status !== 3 && item.c_type != 2">{{getHadResultStr()}}
+                <div class="text-14">
+                    <span v-if="leg.state && Object.keys(leg.state).length > 0">{{LangUtil("滚球")}}</span>
+                    <span class="font-weight-bold" v-if="leg.state && Object.keys(leg.state).length > 0"
+                        >{{OrderTitleUtils.getScoreStr(leg)}}</span
+                    >
+                    {{leg.market_type_text}}
+                </div>
+                <div class="text-14 d-flex flex-wrap">
+                    <span style="margin-right: 4px">
+                        {{leg.home_name}} <span style="margin-right: 4px; margin-left: 4px" class="font-weight-bold">VS</span>
+                        {{leg.away_name}}
+                        <span
+                            style="color: #ff3e3e; margin-right: 8px"
+                            class="font-weight-bold"
+                            v-if="item.status !== 3 && leg.c_type != 2"
+                            >{{getHadResultStr()}}
                         </span>
-                </span>
-                
-            </div>
-            <!-- <div class="text-14 " v-if="listQuery.is_settle != 1">
+                    </span>
+                </div>
+                <!-- <div class="text-14 " v-if="listQuery.is_settle != 1">
                 <span >{{ getStateStr(myProxy.event_states(item)).states_str}}</span>
                 <span class="font-weight-bold "> {{getStateStr(myProxy.event_states(item)).scoreStr}}</span>
             </div>
             <div class="my-2 custom-hr"></div> -->
-            <div style="margin-top: 8px;margin-bottom: 8px;" class="custom-hr"></div>
-            <div width="100%">
-                {{LangUtil("订单状态")}}
-                <span class="font-weight-bold"
-                    :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status]}}</span>
-            </div>
-            <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">
-                {{LangUtil(item.mark)}}</div>
+                <div style="margin-top: 8px; margin-bottom: 8px" class="custom-hr"></div>
+                <div width="100%">
+                    {{LangUtil("订单状态")}}
+                    <span class="font-weight-bold" :style="{ 'color': statusMapColor[leg.status]}">{{statusMap[leg.status]}}</span>
+                </div>
+                <div v-if="leg.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[leg.status]} ">
+                    {{LangUtil(leg.mark)}}
+                </div>
 
-            <div width="100%">{{LangUtil("投注金额")}}<span class="font-weight-bold"> {{item.currency}}
-                    {{amountFormat(item.stake,true) }}</span>
-            </div>
+                <div width="100%">
+                    {{LangUtil("投注金额")}}<span class="font-weight-bold"> {{leg.currency}} {{amountFormat(leg.stake,true) }}</span>
+                </div>
 
-            <div width="100%" v-if="item.is_settle == 0">{{LangUtil("预计可赢")}}
-                <span class="font-weight-bold" style="color: #0325b4">{{item.currency+"
-                    "+amountFormat(item.expected_win,true,2)}}</span>
-            </div>
-            <div width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{item.partner_order}}</span></div>
-            <div width="100%">{{LangUtil("投注时间")}}
-                <span class="font-weight-bold">
-                    {{dateFormat(getDateByTimeZone(item.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
-            </div>
+                <div width="100%" v-if="leg.is_settle == 0">
+                    {{LangUtil("预计可赢")}}
+                    <span class="font-weight-bold" style="color: #0325b4"
+                        >{{leg.currency+" "+amountFormat(leg.expected_win,true,2)}}</span
+                    >
+                </div>
+                <div width="100%">{{LangUtil("订单编号")}} <span class="font-weight-bold"> {{leg.partner_order}}</span></div>
+                <div width="100%">
+                    {{LangUtil("投注时间")}}
+                    <span class="font-weight-bold">
+                        {{dateFormat(getDateByTimeZone(leg.create_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                    >
+                </div>
 
-            <div width="100%" v-if="item.settle_time_timestamp">{{LangUtil("结算时间")}}
-                <span class="font-weight-bold">
-                    {{dateFormat(getDateByTimeZone(item.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
-            </div>
+                <div width="100%" v-if="leg.settle_time_timestamp">
+                    {{LangUtil("结算时间")}}
+                    <span class="font-weight-bold">
+                        {{dateFormat(getDateByTimeZone(leg.settle_time_timestamp * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                    >
+                </div>
 
-            <div style="margin-right: 10px;" class="winlostdiv" v-if="item.win && item.is_settle == 1"> 
-                <span style="margin-right: 4px;">{{LangUtil("输赢")}} {{item.currency}}</span>
-                <span class="font-weight-bold" :class="item.win>=0 ? 'success--text' : 'error--text' ">
-                    {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}
-                </span>
+                <div style="margin-right: 10px" class="winlostdiv" v-if="leg.win && leg.is_settle == 1">
+                    <span style="margin-right: 4px">{{LangUtil("输赢")}} {{leg.currency}}</span>
+                    <span class="font-weight-bold" :class="leg.win>=0 ? 'success--text' : 'error--text' ">
+                        {{leg.win>=0 ? "+" : ""}}{{amountFormat(leg.win,true,2)}}
+                    </span>
+                </div>
+                <div class="win-type">
+                    <img style="width: 100px; height: 100px" :src="getWinType(leg)" v-if="leg.win_type" />
+                    <p>{{getWinTypeStr(leg)}}</p>
+                </div>
             </div>
-            <div class="win-type">
-                <img style="width: 100px;height: 100px;" :src="getWinType(item)" v-if="item.win_type">
-                <p>{{getWinTypeStr(item)}}</p>
-
-            </div>
-        </div>
+        </template>
     </div>
 </div>

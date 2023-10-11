@@ -37,7 +37,7 @@ export default class PageOrderDetail extends AbstractView {
             GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
             GlobalVar.lang = lang;
             LangConfig.load(this.form.lang).then(() => {
-                Http.post(net.HttpType.public_order_detail_data, this.form).then((response: any) => {
+                Http.post(net.HttpType.public_order_detail_data_v3, this.form).then((response: any) => {
                     this.init();
                     this.isloadSecLang = true;
                     this.item = response.data;
