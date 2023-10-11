@@ -53,14 +53,14 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         cash_out_status: "",
     };
 
-    init() {
+    init(cash_out_status: any = "") {
         clearInterval(this.timer);
         this.timer = setInterval(() => {
             this.api_event_states();
             this.api_user_precashout();
         }, 5000);
         this.listQuery.page_count = 1;
-        this.listQuery.cash_out_status = "";
+        this.listQuery.cash_out_status = cash_out_status;
         // this.api_user_orders();
         this.api_user_orders_v3();
     }

@@ -198,7 +198,7 @@ export default class NetObserver extends AbstractMediator {
             case net.EventType.api_user_cashout:
                 {
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
-                    orderUnsettledProxy.init();
+                    orderUnsettledProxy.init(orderUnsettledProxy.listQuery.cash_out_status);
                 }
                 break;
         }
