@@ -215,27 +215,12 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 data.goals = this.getStats(data.market.market_type, states);
                 if (states.phase_minute > 0) {
                     data.states_str += " " + LangUtil("已开赛");
-                }
+                } 
                 if (states.match_phase) {
                     data.states_str += " " + LangUtil(states.match_phase);
                 }
                 if (states.phase_minute > 0) {
                     data.states_str += " " + states.phase_minute + LangUtil("分钟");
-                }
-            } else {
-                const start_in_sec = matche.sb_time - GlobalVar.server_time;
-                const day = Math.floor(start_in_sec / 60 / 60 / 24);
-                const hr = Math.floor(start_in_sec / 60 / 60);
-                const min = Math.floor((start_in_sec / 60) % 60);
-                if (start_in_sec > 0) {
-                    data.states_str = dateFormat(getDateByTimeZone(matche.sb_time * 1000, GlobalVar.zone), "MM-dd hh:mm");
-                    if (start_in_sec > 86400) {
-                        data.states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
-                    } else if (start_in_sec > 600) {
-                        data.states_str += " " + LangUtil("距开赛") + " " + hr + LangUtil("小时") + min + LangUtil("分");
-                    } else {
-                        data.states_str += LangUtil("即将开赛");
-                    }
                 }
             }
         }
