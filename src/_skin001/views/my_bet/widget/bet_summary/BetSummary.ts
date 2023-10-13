@@ -253,7 +253,9 @@ export default class BetSummary extends AbstractView {
                 }
                 this.allowBetArr.push(item);
             });
-            if (parseLocaleNumber(this.pageData.summaryStake || "0") == 0) return false;
+            if (parseLocaleNumber(this.pageData.summaryStake || "0") < Number(this.pageData.parlayData.minStake)) {
+                return false;
+            }
             return this.allowBetArr.length === this.pageData.list.length;
         }
     }

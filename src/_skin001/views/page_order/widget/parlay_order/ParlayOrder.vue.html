@@ -16,6 +16,13 @@
             <span class="textGray--text mr-1">{{LangUtil("投注金额")}}</span>
             <span>{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
         </v-sheet>
+        <v-sheet width="100%" color="transparent" v-if="listQuery.is_settle && item.status == 1">
+            <span class="textGray--text mr-1">{{LangUtil("输赢")}}</span>
+            <span>{{GlobalVar.currency}}</span>
+            <span :class="item.win>=0 ? 'success--text' : 'error--text' ">
+                {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}
+            </span>
+        </v-sheet>
 
         <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
             <span class="textGray--text mr-1">{{LangUtil("预计可赢")}}</span>
@@ -35,7 +42,7 @@
             <span> {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}} </span>
         </v-sheet>
 
-        <v-sheet
+        <!-- <v-sheet
             width="100%"
             color="transparent"
             class="d-flex justify-end font-weight-bold text-14"
@@ -43,9 +50,9 @@
         >
             <span class="mr-1 btnPlain--text">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
             <span :class="item.win>=0 ? 'success--text' : 'error--text' ">
-                {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
+                {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}
             </span>
-        </v-sheet>
+        </v-sheet> -->
 
         <v-img :src="getWinType(item)" class="win-type" v-if="listQuery.is_settle && item.win_type">
             <div>{{getWinTypeStr(item)}}</div>

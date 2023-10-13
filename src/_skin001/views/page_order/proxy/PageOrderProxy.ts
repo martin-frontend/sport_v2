@@ -46,6 +46,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
         "settle_time-{>=}": "",
         "settle_time-{<=}": "",
         cash_out_status: "",
+        unique: PageOrderProxy.NAME,
     };
     onRegister() {
         this.init();
@@ -53,20 +54,20 @@ export default class PageOrderProxy extends puremvc.Proxy {
     onRemove(): void {
         clearInterval(this.timer);
     }
-    init() {
+    init(cash_out_status: any = "") {
         clearInterval(this.timer);
         this.timer = setInterval(() => {
             this.getMarketAndStates();
             this.api_user_precashout();
         }, 5000);
+        this.listQuery.cash_out_status = cash_out_status;
         this.onReset();
         this.api_user_orders_v3();
     }
     onReset() {
-        this.pageData.list = [];
+        this.pageData.list.length = 0;
         this.listQuery.page_count = 1;
         this.pageData.isActive = 0;
-        this.listQuery.cash_out_status = "";
         if (this.listQuery.is_settle == 1) {
             this.listQuery["settle_time-{>=}"] = getTodayOffset().timestr;
             this.listQuery["settle_time-{<=}"] = getTodayOffset(1, -1).timestr;

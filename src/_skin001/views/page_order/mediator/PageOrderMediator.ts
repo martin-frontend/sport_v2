@@ -30,13 +30,13 @@ export default class PageOrderMediator extends AbstractMediator {
                 if (type == PageOrderProxy.NAME) myProxy.set_event_states(body);
                 break;
             case net.EventType.api_user_orders_v3:
-                myProxy.set_user_orders(body);
+                if (type == PageOrderProxy.NAME) myProxy.set_user_orders(body);
                 break;
             case net.EventType.api_user_precashout:
                 myProxy.set_cashout(body);
                 break;
             case net.EventType.api_user_cashout:
-                myProxy.init();
+                myProxy.init(myProxy.listQuery.cash_out_status);
                 break;
         }
     }
