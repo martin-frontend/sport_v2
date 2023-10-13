@@ -198,7 +198,7 @@
                             >
                                 <span class="mr-1 btnPlain--text">{{LangUtil("输赢")}} {{GlobalVar.currency}}</span>
                                 <span :class="item.win>=0 ? 'success--text' : 'error--text' ">
-                                    {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,3)}}
+                                    {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}
                                 </span>
                             </v-sheet>
 
