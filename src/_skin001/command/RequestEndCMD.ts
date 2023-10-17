@@ -25,22 +25,22 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
         if (status == 9999) {
             //@ts-ignore
             if (Vue._isMounted) {
-                dialog_message_box.alert({ message: body.data.msg });
+                dialog_message_box.alert({ message: LangUtil(body.data.msg) });
             } else {
-                alert(body.data.msg);
+                alert(LangUtil(body.data.msg));
             }
         } else if (status == 10124) {
             //用户被禁用
             if (PlatConfig.config) {
-                dialog_message_box.alert({ message: body.data.msg });
+                dialog_message_box.alert({ message: LangUtil(body.data.msg) });
             } else {
-                alert(body.data.msg);
+                alert(LangUtil(body.data.msg));
             }
         } else if (status === 10126) {
             // console.log("登陆已失效，请重新登陆");
             GlobalVar.tokenExpired = true;
             if (body.config.url == net.HttpType.api_config) {
-                alert(body.data.msg);
+                alert(LangUtil(body.data.msg));
             } else {
                 dialog_message_box.alert({
                     message: LangUtil("闲置时间过长，请重新回到平台再次开启。"),
@@ -53,16 +53,16 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
             }
         } else if (status === 1112002) {
             // 该赛事不存在或已结束
-            Vue.notify({ group: "message", title: body.data.msg });
+            Vue.notify({ group: "message", title: LangUtil(body.data.msg) });
             Vue.router.replace("/page_home");
             window.location.reload();
         } else if (status === 140000001 || status === 140000002 || status === 140000003) {
             console.warn(body.data.msg);
         } else if (ERROR_CODE.includes(status)) {
-            Vue.notify({ group: "message", title: body.data.msg });
+            Vue.notify({ group: "message", title: LangUtil(body.data.msg) });
             GlobalVar.loading = false;
         } else if (status != 0) {
-            Vue.notify({ group: "message", title: body.data.msg });
+            Vue.notify({ group: "message", title: LangUtil(body.data.msg) });
         }
         if (status != 0) {
             this.sendNotification(net.EventType.REQUEST_ERROR, body);
