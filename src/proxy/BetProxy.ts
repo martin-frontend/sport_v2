@@ -76,7 +76,7 @@ export default class BetProxy extends puremvc.Proxy {
                 odds: string;
                 oldOdds: string;
                 unique: string;
-                stake: string;
+                stake: any;
                 msg: string;
                 leg_id: string;
             }[]
@@ -107,7 +107,7 @@ export default class BetProxy extends puremvc.Proxy {
         }
 
         /**当前是在订单确认页时，添加下注需清空注单 */
-        if(this.pageData.isShowResultPanel) {
+        if (this.pageData.isShowResultPanel) {
             this.initBetList();
         }
 
@@ -373,6 +373,7 @@ export default class BetProxy extends puremvc.Proxy {
         // GlobalVar.loading = true;
         this.pageData.loading = true;
         this.pageData.isContinueBetting = false;
+        this.pageData.bettedList = JSON.parse(JSON.stringify(this.pageData.list));
         const bet_type = this.pageData.betType == "parlay" ? "multi" : "single";
         const form: any = {
             total_stake,
@@ -383,8 +384,9 @@ export default class BetProxy extends puremvc.Proxy {
             form.multi_odds = 1;
         }
         form.bet_list = [];
-        this.pageData.list.forEach((item) => {
+        this.pageData.bettedList.forEach((item) => {
             if (item.stake == "") return;
+            item.stake = parseLocaleNumber(item.stake);
             const query: any = {
                 leg_id: item.leg_id,
                 event_id: item.matche.id.toString(),
@@ -392,7 +394,7 @@ export default class BetProxy extends puremvc.Proxy {
                 market_type: item.market.market_type,
                 selection_id: item.selection.id.toString(),
                 odds: item.odds,
-                stake: parseLocaleNumber(item.stake),
+                stake: item.stake,
                 // stake: null,
                 side: "Back",
                 price_index: item.selection.priceIndex.toString(),
@@ -407,7 +409,6 @@ export default class BetProxy extends puremvc.Proxy {
         if (form.multi_odds) {
             form.multi_odds = form.multi_odds.toFixed(2);
         }
-        this.pageData.bettedList = JSON.parse(JSON.stringify(this.pageData.list));
         this.sendNotification(net.HttpType.api_user_betfix_v3, form);
     }
     /**待确认提示结果 */

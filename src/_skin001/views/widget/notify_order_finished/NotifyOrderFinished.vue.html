@@ -58,7 +58,7 @@
                     ></svg-icon>
                 </v-sheet>
                 <div class="text-14 red--text font-weight-bold pb-1 text-center" v-if="props.item.data.status != 1">
-                    {{props.item.data.statusMsg}}
+                    {{LangUtil(props.item.data.statusMsg)}}
                 </div>
             </v-sheet>
         </v-sheet>
