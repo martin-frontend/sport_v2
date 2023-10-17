@@ -64,5 +64,8 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
         } else if (status != 0) {
             Vue.notify({ group: "message", title: body.data.msg });
         }
+        if (status != 0) {
+            this.sendNotification(net.EventType.REQUEST_ERROR, body);
+        }
     }
 }

@@ -84,20 +84,24 @@ export default class Navigation extends AbstractView {
 
     @Watch("window")
     onWatchWindow(newVal: any, oldVal: any) {
+        // 进入未结算住单时
         if (newVal == 2) {
             this.orderUnsettledProxy.pageData.loading = true;
             this.orderUnsettledProxy.init();
+        }
+        // 离开未结算住单时
+        if (oldVal == 2) {
+            this.orderUnsettledProxy.onReset();
+            this.orderUnsettledProxy.clear();
+            this.orderUnsettledProxy.listQuery.unique = "settleCount";
+            this.orderUnsettledProxy.listQuery.cash_out_status = "";
+            this.orderUnsettledProxy.api_user_orders_v3();
         }
         if (!this.$vuetify.breakpoint.mobile) {
             this.betProxy.pageData.isShowResultPanel = newVal == 3;
             if (oldVal == 3) {
                 this.betResultProxy.pageData.bShow = false;
             }
-        }
-        if (oldVal == 2) {
-            this.orderUnsettledProxy.pageData.loading = false;
-            this.orderUnsettledProxy.init();
-            this.orderUnsettledProxy.clear();
         }
     }
 

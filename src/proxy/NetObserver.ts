@@ -34,6 +34,8 @@ export default class NetObserver extends AbstractMediator {
             net.EventType.api_user_orders_v3,
             net.EventType.api_user_precashout,
             net.EventType.api_user_cashout,
+
+            net.EventType.REQUEST_ERROR,
         ];
     }
 
@@ -181,24 +183,36 @@ export default class NetObserver extends AbstractMediator {
             //订单
             case net.EventType.api_user_orders_v3:
                 {
+                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
                     if (type == OrderUnsettledProxy.NAME) {
-                        const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
                         orderUnsettledProxy.set_user_orders(body);
+                    }
+                    if (type == "settleCount") {
+                        orderUnsettledProxy.pageData.stats.total_count = body.stats.total_count;
                     }
                 }
                 break;
 
             case net.EventType.api_user_precashout:
                 {
-                    const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
-                    orderUnsettledProxy.set_cashout(body);
+                    if (type == OrderUnsettledProxy.NAME) {
+                        const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
+                        orderUnsettledProxy.set_cashout(body);
+                    }
                 }
                 break;
 
             case net.EventType.api_user_cashout:
                 {
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
-                    orderUnsettledProxy.init(orderUnsettledProxy.listQuery.cash_out_status);
+                    orderUnsettledProxy.set_cashout(body);
+                    // orderUnsettledProxy.init(orderUnsettledProxy.listQuery.cash_out_status);
+                }
+                break;
+            case net.EventType.REQUEST_ERROR:
+                if (body.config.url == net.HttpType.api_user_betfix_v3) {
+                    const betProxy: BetProxy = getProxy(BetProxy);
+                    betProxy.pageData.loading = false;
                 }
                 break;
         }

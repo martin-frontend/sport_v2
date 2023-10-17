@@ -32,7 +32,7 @@ export default class DialogConfirmSettlementProxy extends puremvc.Proxy {
     set_cashout(data: any) {
         const keys = Object.keys(data);
         keys.forEach((key) => {
-            if (data.order_no == key) {
+            if (this.pageData.data.order_no == key) {
                 Object.assign(this.pageData.data, data[key]);
             }
         });

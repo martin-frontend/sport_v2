@@ -149,6 +149,7 @@ export default class PageOrder extends AbstractView {
 
     onBack() {
         this.myProxy.listQuery.is_settle = 0;
+        this.myProxy.listQuery.cash_out_status = "";
         this.$router.back();
         this.myProxy.onReset();
         this.myProxy.listQuery.unique = "settleCount";
@@ -227,7 +228,8 @@ export default class PageOrder extends AbstractView {
     }
 
     onQuery() {
-        this.listQuery.page_count = 1;
+        this.myProxy.onReset();
+        this.pageData.loading = true;
         this.myProxy.api_user_orders_v3();
     }
 

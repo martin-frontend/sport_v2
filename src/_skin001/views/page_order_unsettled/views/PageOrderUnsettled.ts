@@ -181,7 +181,8 @@ export default class PageOrderUnsettled extends AbstractView {
     }
 
     onQuery() {
-        this.listQuery.page_count = 1;
+        this.myProxy.onReset();
+        this.pageData.loading = true;
         this.myProxy.api_user_orders_v3();
     }
 

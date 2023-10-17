@@ -2,6 +2,7 @@ import Vue from "vue";
 import { objectRemoveNull } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 import net from "@/net/setting";
+import Http from "@/core/Http";
 
 export default class OrderUnsettledProxy extends puremvc.Proxy {
     static NAME = "OrderUnsettledProxy";
@@ -53,17 +54,23 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         cash_out_status: "",
     };
 
-    init(cash_out_status: any = "") {
+    init() {
         clearInterval(this.timer);
         this.timer = setInterval(() => {
             this.api_event_states();
             this.api_user_precashout();
         }, 5000);
-        this.listQuery.page_count = 1;
-        this.listQuery.cash_out_status = cash_out_status;
         // this.api_user_orders();
+        this.onReset();
         this.api_user_orders_v3();
     }
+
+    onReset() {
+        this.pageData.list.length = 0;
+        this.listQuery.page_count = 1;
+        this.listQuery.unique = OrderUnsettledProxy.name;
+    }
+
     clear() {
         clearInterval(this.timer);
     }
@@ -90,7 +97,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         Object.assign(this.pageData.pageInfo, data.pageInfo);
         const { pageCount, pageCurrent } = this.pageData.pageInfo;
         if (pageCurrent == 1) {
-            this.pageData.list = data.list;
+            this.pageData.list = [...data.list];
         } else {
             this.pageData.list.push(...data.list);
         }
@@ -132,18 +139,22 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     }
     api_user_orders_v3() {
         // GlobalVar.loading = true;
-        this.pageData.loading = true;
-        this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery));
+        // this.pageData.loading = true;
+        const newQuery = { ...this.listQuery };
+        if (this.listQuery.cash_out_status != "") {
+            newQuery.page_size = 1000;
+        }
+        this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(newQuery));
     }
 
     api_user_precashout() {
         const { order_no } = this.pageData;
-        const { is_settle } = this.listQuery;
+        const { is_settle, unique } = this.listQuery;
         if (!order_no || is_settle == 1) {
             this.pageData.loading = false;
             return;
         }
-        this.sendNotification(net.HttpType.api_user_precashout, { order_no });
+        this.sendNotification(net.HttpType.api_user_precashout, { order_no, unique });
     }
 
     event_states(Orderitem: any) {
@@ -160,10 +171,12 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         this.pageData.loading = false;
         const keys = Object.keys(data);
         keys.forEach((key) => {
-            const findItem = this.pageData.list.find((item: any) => item.order_no == key);
-            if (findItem) {
+            const index = this.pageData.list.findIndex((item: any) => item.order_no == key);
+            if (index != -1) {
+                const findItem = this.pageData.list[index];
                 const { code, cash_out_status } = data[key];
                 findItem.cash_out_status = cash_out_status;
+                // cash_out_status 1:提前结算、2:申请中、3:已接受、4:已拒绝、5:兑现完成、6:暂停兑现
                 if (code == 0 && cash_out_status == 1) {
                     Object.assign(findItem, data[key]);
                     this.pageData.precashoutData[key] = data[key];
@@ -171,7 +184,13 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
                 if (cash_out_status == 2 || cash_out_status == 3 || cash_out_status == 4) {
                     findItem.amount = this.pageData.precashoutData[key]?.amount;
                 }
-                if (cash_out_status == 5) findItem.is_able_to_cash_out = 0;
+                if (cash_out_status == 5) {
+                    this.pageData.list.splice(index, 1);
+                    Http.post(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery)).then((response: any) => {
+                        const { stats } = response.data;
+                        Object.assign(this.pageData.stats, stats);
+                    });
+                }
             }
         });
     }

@@ -1,3 +1,4 @@
+import Http from "@/core/Http";
 import { getTodayOffset, objectRemoveNull } from "@/core/global/Functions";
 import GlobalVar from "@/core/global/GlobalVar";
 import net from "@/net/setting";
@@ -54,13 +55,12 @@ export default class PageOrderProxy extends puremvc.Proxy {
     onRemove(): void {
         clearInterval(this.timer);
     }
-    init(cash_out_status: any = "") {
+    init() {
         clearInterval(this.timer);
         this.timer = setInterval(() => {
             this.getMarketAndStates();
             this.api_user_precashout();
         }, 5000);
-        this.listQuery.cash_out_status = cash_out_status;
         this.onReset();
         this.api_user_orders_v3();
     }
@@ -75,6 +75,7 @@ export default class PageOrderProxy extends puremvc.Proxy {
             this.listQuery["settle_time-{>=}"] = "";
             this.listQuery["settle_time-{<=}"] = "";
         }
+        this.listQuery.unique = PageOrderProxy.NAME;
     }
 
     set_user_orders(data: any) {
@@ -225,18 +226,26 @@ export default class PageOrderProxy extends puremvc.Proxy {
         this.pageData.loading = false;
         const keys = Object.keys(data);
         keys.forEach((key) => {
-            const findItem = this.pageData.list.find((item: any) => item.order_no == key);
-            if (findItem) {
+            const index = this.pageData.list.findIndex((item: any) => item.order_no == key);
+            if (index != -1) {
+                const findItem = this.pageData.list[index];
                 const { code, cash_out_status } = data[key];
                 findItem.cash_out_status = cash_out_status;
+                // cash_out_status 1:提前结算、2:申请中、3:已接受、4:已拒绝、5:兑现完成、6:暂停兑现
                 if (code == 0 && cash_out_status == 1) {
                     Object.assign(findItem, data[key]);
                     this.pageData.precashoutData[key] = data[key];
                 }
-                if (cash_out_status == 2 || cash_out_status == 3) {
+                if (cash_out_status == 2 || cash_out_status == 3 || cash_out_status == 4) {
                     findItem.amount = this.pageData.precashoutData[key]?.amount;
                 }
-                if (cash_out_status == 5) findItem.is_able_to_cash_out = 0;
+                if (cash_out_status == 5) {
+                    this.pageData.list.splice(index, 1);
+                    Http.post(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery)).then((response: any) => {
+                        const { stats } = response.data;
+                        Object.assign(this.pageData.stats, stats);
+                    });
+                }
             }
         });
     }

@@ -36,7 +36,7 @@ export default class PageOrderMediator extends AbstractMediator {
                 myProxy.set_cashout(body);
                 break;
             case net.EventType.api_user_cashout:
-                myProxy.init(myProxy.listQuery.cash_out_status);
+                myProxy.set_cashout(body);
                 break;
         }
     }

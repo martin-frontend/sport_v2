@@ -14,6 +14,15 @@ export default class DialogConfirmSettlement extends AbstractView {
     pageData = this.myProxy.pageData;
     GlobalVar = GlobalVar;
     amountFormat = amountFormat;
+
+    constructor() {
+        super(DialogConfirmSettlementMediator);
+    }
+
+    destroyed() {
+        super.destroyed();
+    }
+
     get item() {
         return this.pageData.data;
     }

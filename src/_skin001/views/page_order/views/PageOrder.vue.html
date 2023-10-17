@@ -1,5 +1,5 @@
 <div>
-    <div class="header_m">
+    <v-sheet class="header_m pb-2" color="bgPage">
         <v-sheet height="54" class="d-flex align-center header_mbg">
             <v-btn icon @click="onBack">
                 <svg-icon class="white--text" icon="back2"></svg-icon>
@@ -95,7 +95,7 @@
                 </div>
             </v-sheet>
         </v-sheet>
-    </div>
+    </v-sheet>
 
     <div ref="divScroll" class="overflow-hidden pb-16">
         <loader v-if="pageData.loading" />
@@ -104,12 +104,12 @@
             <load_more @onRefresh="onRefresh" @onLoad="onLoad" :finished="pageData.finished" :listNodata="pageData.list.length == 0">
                 <v-sheet
                     color="bgBanner"
-                    class="mx-2 mt-2 pt-2 pb-3 text-12 rounded default-color"
-                    v-for="(item, index) in pageData.list"
-                    :key="index"
+                    class="mx-2 mb-2 pt-2 pb-3 text-12 rounded default-color"
+                    v-for="item in pageData.list"
+                    :key="item.order_no"
                 >
                     <template v-if="item.bet_type == 'single'">
-                        <div v-for="(leg, index1) in item.leg_info" :key="index + index1">
+                        <div v-for="(leg, index) in item.leg_info" :key="index">
                             <div class="d-flex align-center">
                                 <v-sheet width="2" height="16" color="yellow" class="mx-2"></v-sheet>
                                 <div class="text-16 text-truncate font-weight-bold">{{leg.competition_name}}</div>

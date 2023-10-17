@@ -225,7 +225,7 @@ export default class BetSummary extends AbstractView {
 
     get isAllowBet() {
         const { gold } = this.selfProxy.userInfo;
-        if (this.totalStake > parseFloat(gold)) {
+        if (this.totalStake > parseFloat(gold) || this.pageData.summaryStake === "") {
             return false;
         }
         this.allowBetArr = [];
