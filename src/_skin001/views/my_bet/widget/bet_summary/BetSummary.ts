@@ -225,7 +225,7 @@ export default class BetSummary extends AbstractView {
 
     get isAllowBet() {
         const { gold } = this.selfProxy.userInfo;
-        if (this.totalStake > parseFloat(gold) || this.pageData.summaryStake === "") {
+        if (this.totalStake > parseFloat(gold)) {
             return false;
         }
         this.allowBetArr = [];
@@ -253,7 +253,10 @@ export default class BetSummary extends AbstractView {
                 }
                 this.allowBetArr.push(item);
             });
-            if (parseLocaleNumber(this.pageData.summaryStake || "0") < Number(this.pageData.parlayData.minStake)) {
+            if (
+                parseLocaleNumber(this.pageData.summaryStake || "0") < Number(this.pageData.parlayData.minStake) ||
+                this.pageData.summaryStake === ""
+            ) {
                 return false;
             }
             return this.allowBetArr.length === this.pageData.list.length;
