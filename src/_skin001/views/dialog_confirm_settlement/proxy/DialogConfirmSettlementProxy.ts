@@ -6,10 +6,12 @@ import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 
 export default class DialogConfirmSettlementProxy extends puremvc.Proxy {
     static NAME = "DialogConfirmSettlementProxy";
-
     pageData = {
         // bShow: false,
-        data: <any>{},
+        data: <any>{
+            amount: "",
+            stake: "",
+        },
         messageData: <MessageVO>{
             title: LangUtil("确认提前结算"),
             message: "",

@@ -22,8 +22,4 @@ export default class DialogConfirmSettlement extends AbstractView {
     destroyed() {
         super.destroyed();
     }
-
-    get item() {
-        return this.pageData.data;
-    }
 }

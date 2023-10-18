@@ -9,7 +9,7 @@ function show(data: any) {
     DialogMount(DialogConfirmSettlement);
     const myProxy: DialogConfirmSettlementProxy = getProxy(DialogConfirmSettlementProxy);
     const messageBoxProxy: DialogMessageBoxProxy = getProxy(DialogMessageBoxProxy);
-    myProxy.pageData.data = data;
+    Object.assign(myProxy.pageData.data, data);
     messageBoxProxy.pageData.bShow = true;
     // myProxy.pageData.bShow = true;
     messageBoxProxy.pageData.data = { ...myProxy.pageData.messageData };
