@@ -114,7 +114,7 @@
     <div class="d-flex mt-2">
         <span>{{LangUtil("总投注额")}}</span>
         <v-spacer />
-        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{totalStake}}</span>
+        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake)}}</span>
     </div>
     <div class="d-flex">
         <span>{{LangUtil("预计可赢")}}</span>

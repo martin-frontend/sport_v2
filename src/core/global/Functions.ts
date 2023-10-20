@@ -147,7 +147,7 @@ export function amountFormat(val: any, decimal: boolean = false, decimalLang: nu
     } else {
         numericAmount = val ?? 0;
     }
-    
+
     const formattedAmount = numericAmount.toLocaleString(GlobalVar.lang.substring(0, 2), {
         minimumFractionDigits: decimal ? decimalLang : 0,
         maximumFractionDigits: decimalLang,
@@ -156,6 +156,9 @@ export function amountFormat(val: any, decimal: boolean = false, decimalLang: nu
 }
 //解析数字格式
 export function parseLocaleNumber(stringNumber: any) {
+    if (stringNumber === "") {
+        return stringNumber;
+    }
     const format = new Intl.NumberFormat(GlobalVar.lang.substring(0, 2));
 
     const groupSeparator = format.format(1000).charAt(1);
@@ -163,7 +166,7 @@ export function parseLocaleNumber(stringNumber: any) {
 
     const sanitizedNumber = stringNumber.replace(new RegExp(`\\${groupSeparator}`, "g"), "").replace(decimalSeparator, ".");
 
-    return parseFloat(sanitizedNumber) || 0;
+    return sanitizedNumber;
 }
 /**
  * Check if an element has a class
@@ -230,10 +233,10 @@ export function getTodayOffset(offset = 0, offsetSecond = 0): any {
     const formatdate2 = dateFormat(today, "yyyy-MM-dd");
     // const formatdate3 =dateFormat( new Date( Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) + offsetSecond * 1000),"yyyy-MM-dd hh:mm:ss");
     const destTime = Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) + offsetSecond * 1000;
-    const data_2 = getDateByTimeZone(destTime,GlobalVar.zone);
-    const formatdate3 = dateFormat(data_2 , "yyyy-MM-dd hh:mm:ss");
+    const data_2 = getDateByTimeZone(destTime, GlobalVar.zone);
+    const formatdate3 = dateFormat(data_2, "yyyy-MM-dd hh:mm:ss");
     const timestr = (Date.parse(dateFormat(today, "yyyy/MM/dd 00:00:00") + " " + timezone) / 1000 + offsetSecond).toString();
-    return { timestr, formatdate, formatdate2 ,formatdate3};
+    return { timestr, formatdate, formatdate2, formatdate3 };
 }
 /**
  * 如果是香港盘赔率要减一
@@ -340,4 +343,29 @@ export function getFullTime(match_phase: any, phase_minute: any) {
     }
 
     return times;
+}
+// 验证金额输入
+export function validateInput(input: any) {
+    // 使用正则表达式来匹配第一位不是小数点，最后一位可以是小数点，小数部分最多两位
+    const regex = /^[0-9]\d*(\.\d{0,2})?\.?$/;
+
+    // 使用test()方法来检查输入是否匹配正则表达式
+    if (regex.test(input)) {
+        // 使用正则表达式检查是否包含两个小数点
+        const regex1 = /\.\d*\./;
+        if (regex1.test(input)) {
+            return false;
+        }
+        return true; // 输入是有效的数字，小数点后最多两位
+    } else {
+        return false; // 输入无效
+    }
+}
+// 数字字串最后是否是小数点
+export function isLastCharacterDecimalPoint(str: any) {
+    if (str.charAt(str.length - 1) === ".") {
+        return true;
+    } else {
+        return false;
+    }
 }

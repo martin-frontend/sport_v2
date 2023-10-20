@@ -79,9 +79,7 @@
     <template v-if="betType == 'parlay'">
         <v-sheet color="errorMsgBg" class="d-flex justify-center align-center px-2" v-if="item.msg">
             <svg-icon class="mr-1" icon="warning"></svg-icon>
-            <span style="color: #feba00; line-height: 20px">
-                {{item.msg}}
-            </span>
+            <span style="color: #feba00; line-height: 20px"> {{item.msg}} </span>
         </v-sheet>
     </template>
 
@@ -168,7 +166,7 @@
                         <v-card @click="onMax" class="keybordright text-18" :width="$vuetify.breakpoint.mobile?70:60" style="height: 88px">
                             MAX
                         </v-card>
-                        <v-card @click="(bshowkeybord=false)" :width="$vuetify.breakpoint.mobile?70:60" class="keybordright">
+                        <v-card @click="bshowkeybord = false" :width="$vuetify.breakpoint.mobile?70:60" class="keybordright">
                             <svg-icon class="text-30" icon="keybord"></svg-icon>
                         </v-card>
                     </div>

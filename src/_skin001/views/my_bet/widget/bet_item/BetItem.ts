@@ -9,6 +9,8 @@ import {
     getDateByTimeZone,
     parseLocaleNumber,
     logEnterTips,
+    validateInput,
+    isLastCharacterDecimalPoint,
 } from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
@@ -34,7 +36,7 @@ export default class BetItem extends AbstractView {
     pageData = this.myProxy.pageData;
     bshowkeybord = false;
 
-    keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "000"];
+    keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "."];
     @Prop() item!: any;
     @Prop() betType!: any;
 
@@ -143,37 +145,35 @@ export default class BetItem extends AbstractView {
         return !!this.states && !!this.states.goals_ft;
     }
 
-    onInput() {
-        const newVal = this.item.stake.replace(/[^\d]/g, "");
-        this.item.stake = amountFormat(Math.min(newVal, this.maxValue) || "");
+    onInput(e: any) {
+        const val = parseLocaleNumber(e.target.value);
+        this.updateStake(val);
     }
     onInput_mobile(num: string) {
-        const stake = parseLocaleNumber(this.item.stake || "0");
-        const newVal = Number(stake + num);
-        this.item.stake = amountFormat(Math.min(newVal, this.maxValue) || "");
+        const stake = parseLocaleNumber(this.item.stake);
+        const newVal = stake + num;
+        this.updateStake(newVal, num);
     }
     onDeleteKeybord(e: any) {
         const mobile = this.$vuetify.breakpoint.mobile;
         if ((mobile && e.type == "touchstart") || (!mobile && e.type == "click")) {
-            const stake = Math.floor(Number(parseLocaleNumber(this.item.stake || "0")) / 10);
-            this.item.stake = amountFormat(stake);
-            this.item.stake = this.item.stake == "0" ? "" : this.item.stake;
+            const stake = parseLocaleNumber(this.item.stake.slice(0, -1));
+            this.updateStake(stake);
         }
     }
     //快捷输入
     onInputFast(stake: any, fastChoose: any) {
-        stake = parseLocaleNumber(stake || "0");
-        let value = (stake + parseInt(fastChoose)).toString();
-        value = value.replace(/[^\d]/g, "");
+        stake = parseLocaleNumber(stake);
+        const value = (Number(stake) + parseInt(fastChoose)).toString();
+        this.updateStake(value);
         this.onBetInputFocus();
-        this.item.stake = amountFormat(Math.min(value, this.maxValue));
     }
     //删除注单
     onDelete() {
         this.myProxy.deleteItem(this.item.market.market_id, this.item.selection.id);
     }
     get isAllowBet() {
-        const stakeValue = parseLocaleNumber(this.item.stake.toString());
+        const stakeValue = Number(parseLocaleNumber(this.item.stake)) || 0;
         const { gold } = this.selfProxy.userInfo;
         const { selection, market } = this.item;
         return (
@@ -189,7 +189,7 @@ export default class BetItem extends AbstractView {
             logEnterTips();
             return;
         }
-        const stakeValue = parseLocaleNumber(this.item.stake.toString());
+        const stakeValue = Number(parseLocaleNumber(this.item.stake)) || 0;
         const { gold, user_type } = this.selfProxy.userInfo;
         console.warn(">>>>>>>>gold: ", gold);
         const { selection, market } = this.item;
@@ -223,7 +223,7 @@ export default class BetItem extends AbstractView {
     }
 
     getPreWin() {
-        const value = parseLocaleNumber(this.item.stake);
+        const value = Number(parseLocaleNumber(this.item.stake)) || 0;
         return amountFormat((this.item.odds * value - value).toFixed(3), true, 2);
     }
     /**解决键盘点击太快留下残影的bug */
@@ -258,7 +258,6 @@ export default class BetItem extends AbstractView {
 
     onClickOutside() {
         this.isShowAmountBtns = false;
-        this.bshowkeybord = false;
     }
 
     onBetInputFocus() {
@@ -278,5 +277,43 @@ export default class BetItem extends AbstractView {
     clearInput() {
         this.item.stake = "";
         this.onBetInputFocus();
+    }
+
+    updateStake(val: string, addStr?: string) {
+        if (val === "" || val === "0") {
+            // console.warn("val1", val);
+            this.item.stake = val;
+        } else if (validateInput(val)) {
+            // console.warn("val3", val);
+            if (Number(val) === 0) {
+                // console.log("val3-1", val);
+                this.item.stake = val;
+            } else if (Number(val) >= this.maxValue) {
+                // console.log("val3-2", val);
+                this.item.stake = this.amountFormat(this.maxValue);
+            } else {
+                if (isLastCharacterDecimalPoint(val)) {
+                    // console.log("val3-3", val);
+                    this.item.stake = this.amountFormat(val) + ".";
+                } else {
+                    // console.log("val3-4", val);
+                    const parts = val.split(".");
+                    const integerPart = parts[0]; // 整数部分
+                    const decimalPart = parts[1] !== undefined ? "." + parts[1] : ""; // 小数部分
+                    this.item.stake = this.amountFormat(integerPart) + decimalPart;
+                }
+            }
+        } else {
+            // console.warn("val4", val);
+            let deleteLength = 1;
+            if (addStr) {
+                deleteLength = addStr.length;
+            }
+            val = val.slice(0, deleteLength * -1);
+            const parts = val.split(".");
+            const integerPart = parts[0]; // 整数部分
+            const decimalPart = parts[1] !== undefined ? "." + parts[1] : ""; // 小数部分
+            this.item.stake = this.amountFormat(integerPart) + decimalPart;
+        }
     }
 }
