@@ -385,7 +385,7 @@ export default class BetProxy extends puremvc.Proxy {
         }
         form.bet_list = [];
         this.pageData.bettedList.forEach((item) => {
-            if (item.stake == "") return;
+            if (item.stake == "" || item.stake == ".") return;
             item.stake = Number(parseLocaleNumber(item.stake));
             const query: any = {
                 leg_id: item.leg_id,

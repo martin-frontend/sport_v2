@@ -344,28 +344,3 @@ export function getFullTime(match_phase: any, phase_minute: any) {
 
     return times;
 }
-// 验证金额输入
-export function validateInput(input: any) {
-    // 使用正则表达式来匹配第一位不是小数点，最后一位可以是小数点，小数部分最多两位
-    const regex = /^[0-9]\d*(\.\d{0,2})?\.?$/;
-
-    // 使用test()方法来检查输入是否匹配正则表达式
-    if (regex.test(input)) {
-        // 使用正则表达式检查是否包含两个小数点
-        const regex1 = /\.\d*\./;
-        if (regex1.test(input)) {
-            return false;
-        }
-        return true; // 输入是有效的数字，小数点后最多两位
-    } else {
-        return false; // 输入无效
-    }
-}
-// 数字字串最后是否是小数点
-export function isLastCharacterDecimalPoint(str: any) {
-    if (str.charAt(str.length - 1) === ".") {
-        return true;
-    } else {
-        return false;
-    }
-}

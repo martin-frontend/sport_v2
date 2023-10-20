@@ -9,8 +9,6 @@ import {
     getDateByTimeZone,
     parseLocaleNumber,
     logEnterTips,
-    validateInput,
-    isLastCharacterDecimalPoint,
 } from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
@@ -52,7 +50,8 @@ export default class BetSummary extends AbstractView {
     }
 
     onInput(e: any) {
-        const val = parseLocaleNumber(e.target.value);
+        let val = parseLocaleNumber(e.target.value);
+        val = val.replace(/[^0-9.]/g, "");
         this.updateStake(val);
         this.onStakeChange();
     }
@@ -97,27 +96,27 @@ export default class BetSummary extends AbstractView {
         }
     }
     get totalStake() {
-        if (this.pageData.betType === "single") {
+        if (this.pageData.betType === "parlay") {
+            return Number(parseLocaleNumber(this.pageData.summaryStake)) || 0;
+        } else {
             let val = 0;
             const sum = this.pageData.list.reduce(
-                (accumulator, currentValue) => accumulator + Number(parseLocaleNumber(currentValue.stake)),
+                (accumulator, currentValue) => accumulator + (Number(parseLocaleNumber(currentValue.stake)) || 0),
                 val
             );
             return sum;
-        } else {
-            return Number(parseLocaleNumber(this.pageData.summaryStake));
         }
     }
     get preWin() {
         let sum = 0;
         if (this.pageData.betType === "parlay") {
-            const stake = parseLocaleNumber(this.pageData.summaryStake);
+            const stake = Number(parseLocaleNumber(this.pageData.summaryStake)) || 0;
             const odds = Number(this.pageData.parlayData.odds);
-            sum = odds * Number(stake) - stake;
+            sum = odds * stake - stake;
         } else {
             let val = 0;
             sum = this.pageData.list.reduce((accumulator, currentValue) => {
-                const value = parseLocaleNumber(currentValue.stake);
+                const value = Number(parseLocaleNumber(currentValue.stake)) || 0;
                 const odds = Number(currentValue.odds) || 0;
                 const preWin = Number(odds * Number(value) - Number(value));
                 return accumulator + preWin;
@@ -197,7 +196,7 @@ export default class BetSummary extends AbstractView {
     onInput_mobile(num: string) {
         const stake = parseLocaleNumber(this.pageData.summaryStake);
         const newVal = stake + num;
-        this.updateStake(newVal, num);
+        this.updateStake(newVal);
         this.onStakeChange();
     }
     onDeleteKeybord(e: any) {
@@ -233,7 +232,7 @@ export default class BetSummary extends AbstractView {
             let stakeError = false;
             this.myProxy.pageData.list.forEach((item) => {
                 const stake = parseLocaleNumber(item.stake);
-                if (!stake) {
+                if (!stake || stake == ".") {
                     return;
                 }
                 if (Number(stake) < Number(item.minStake) || Number(stake) > Number(item.maxStake)) {
@@ -251,7 +250,11 @@ export default class BetSummary extends AbstractView {
                 this.allowBetArr.push(item);
             });
             const stake = parseLocaleNumber(this.pageData.summaryStake);
-            if (Number(stake) < Number(this.pageData.parlayData.minStake) || this.pageData.summaryStake === "") {
+            if (
+                Number(stake) < Number(this.pageData.parlayData.minStake) ||
+                this.pageData.summaryStake === "" ||
+                this.pageData.summaryStake === "."
+            ) {
                 return false;
             }
             return this.allowBetArr.length === this.pageData.list.length;
@@ -280,41 +283,22 @@ export default class BetSummary extends AbstractView {
         return odds.toFixed(2);
     }
 
-    updateStake(val: string, addStr?: string) {
+    updateStake(val: string) {
         if (val === "" || val === "0") {
-            // console.warn("val1", val);
             this.pageData.summaryStake = val;
-        } else if (validateInput(val)) {
-            // console.warn("val3", val);
-            if (Number(val) === 0) {
-                // console.log("val3-1", val);
-                this.pageData.summaryStake = val;
-            } else if (Number(val) >= this.maxValue) {
-                // console.log("val3-2", val);
-                this.pageData.summaryStake = this.amountFormat(this.maxValue);
-            } else {
-                if (isLastCharacterDecimalPoint(val)) {
-                    // console.log("val3-3", val);
-                    this.pageData.summaryStake = this.amountFormat(val) + ".";
-                } else {
-                    // console.log("val3-4", val);
-                    const parts = val.split(".");
-                    const integerPart = parts[0]; // 整数部分
-                    const decimalPart = parts[1] !== undefined ? "." + parts[1] : ""; // 小数部分
-                    this.pageData.summaryStake = this.amountFormat(integerPart) + decimalPart;
-                }
-            }
         } else {
-            // console.warn("val4", val);
-            let deleteLength = 1;
-            if (addStr) {
-                deleteLength = addStr.length;
+            val = val.replace(/[^0-9.]/g, "");
+            if (Number(val) >= this.maxValue) {
+                val = this.maxValue.toString();
             }
-            val = val.slice(0, deleteLength * -1);
             const parts = val.split(".");
-            const integerPart = parts[0]; // 整数部分
-            const decimalPart = parts[1] !== undefined ? "." + parts[1] : ""; // 小数部分
-            this.pageData.summaryStake = this.amountFormat(integerPart) + decimalPart;
+            const integerPart = amountFormat(parts[0]);
+            if (parts.length > 1) {
+                var decimalPart = parts[1].slice(0, 2);
+                this.pageData.summaryStake = integerPart + "." + decimalPart;
+            } else {
+                this.pageData.summaryStake = integerPart;
+            }
         }
     }
 }
