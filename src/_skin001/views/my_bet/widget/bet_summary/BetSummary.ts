@@ -33,7 +33,7 @@ export default class BetSummary extends AbstractView {
     pageData = this.myProxy.pageData;
     isShowAmountBtns = false;
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
-    keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "000"];
+    keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "."];
     bshowkeybord = false;
     expanded = false;
     allowBetArr = <any>[];
