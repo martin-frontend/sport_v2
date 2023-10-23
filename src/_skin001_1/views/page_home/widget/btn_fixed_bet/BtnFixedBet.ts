@@ -30,6 +30,7 @@ export default class BtnFixedBet extends AbstractView {
     iconOdds = "arrow_up";
     cleartimer = 0;
     isChangeAni = false; //当前是否正在播放赔率变化动画
+    betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
 
     mounted() {
         this.watchSelection();
@@ -146,6 +147,18 @@ export default class BtnFixedBet extends AbstractView {
         //     return;
         // }
         if (this.market && this.market.status != 2 && this.selection && this.selection.status == 0) {
+            // 投注完后等待api回传结果时，如继续下注，需清空注单，并且不跳转确认订单页
+            if (this.pageData.loading && !this.pageData.isContinueBetting) {
+                this.pageData.isContinueBetting = true;
+                this.myProxy.initBetList();
+            }
+
+            // 当前是在订单确认页时，添加下注需清空注单
+            if (this.betResultProxy.pageData.bShow) {
+                this.betResultProxy.pageData.bShow = false;
+                this.myProxy.initBetList();
+            }
+
             const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
             let comp: any = homeProxy.pageData.competition_list.find((item) => item.competition_id == this.matche.competition_id);
             let event_states = homeProxy.pageData.event_states;

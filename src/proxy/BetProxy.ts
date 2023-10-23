@@ -100,17 +100,6 @@ export default class BetProxy extends puremvc.Proxy {
 
     /**添加一个注单 */
     addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: FixSelectionVO, event_states: EventStatesVO[]) {
-        /**投注完后等待api回传结果时，如继续下注，需清空注单，并且不跳转确认订单页 */
-        if (this.pageData.loading && !this.pageData.isContinueBetting) {
-            this.pageData.isContinueBetting = true;
-            this.initBetList();
-        }
-
-        /**当前是在订单确认页时，添加下注需清空注单 */
-        if (this.pageData.isShowResultPanel) {
-            this.initBetList();
-        }
-
         if (!this.deleteItem(market.market_id, selection.id)) {
             // this.pageData.list = [];
             if (this.pageData.list.length == 8) {

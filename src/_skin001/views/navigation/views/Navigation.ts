@@ -69,6 +69,9 @@ export default class Navigation extends AbstractView {
     @Watch("betProxy.pageData.activeCount")
     onWatchMyBet() {
         if (!this.$vuetify.breakpoint.mobile) {
+            if (this.betResultProxy.pageData.bShow) {
+                return;
+            }
             if (this.betProxy.pageData.list.length > 0) {
                 this.window = 1;
             } else {
@@ -77,9 +80,7 @@ export default class Navigation extends AbstractView {
                 // } else {
                 //     this.window = 0;
                 // }
-                if (!this.betResultProxy.pageData.bShow) {
-                    this.window = 0;
-                }
+                this.window = 0;
             }
         }
     }
