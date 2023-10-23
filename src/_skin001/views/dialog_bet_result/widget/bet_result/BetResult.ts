@@ -149,13 +149,13 @@ export default class BetResult extends AbstractView {
     }
 
     onClose() {
-        this.betProxy.initBetList();
         this.pageData.bShow = false;
+        this.betProxy.initBetList();
     }
 
     onHold() {
-        this.betProxy.initBetList(true);
         this.pageData.bShow = false;
+        this.betProxy.initBetList(true);
     }
 
     onCopy(str: string) {

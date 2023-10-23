@@ -77,7 +77,9 @@ export default class Navigation extends AbstractView {
                 // } else {
                 //     this.window = 0;
                 // }
-                this.window = 0;
+                if (!this.betResultProxy.pageData.bShow) {
+                    this.window = 0;
+                }
             }
         }
     }
