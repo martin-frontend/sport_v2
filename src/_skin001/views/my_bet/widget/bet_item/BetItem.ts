@@ -256,6 +256,7 @@ export default class BetItem extends AbstractView {
 
     onClickOutside() {
         this.isShowAmountBtns = false;
+        this.bshowkeybord = false;
     }
 
     onBetInputFocus() {

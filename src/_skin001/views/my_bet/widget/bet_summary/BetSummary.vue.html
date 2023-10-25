@@ -46,8 +46,8 @@
             </v-sheet>
         </div>
         <v-expand-transition>
-            <v-sheet color="transparent" v-if="bshowkeybord && $vuetify.breakpoint.mobile" class="d-flex keybord" width="100%">
-                <v-row class="ml-2 mr-0" dense>
+            <v-sheet color="transparent" v-if="bshowkeybord && $vuetify.breakpoint.mobile" class="d-flex keybord mb-2" width="100%">
+                <v-row class="mr-0" dense>
                     <v-col cols="4" v-for="(num, index) in keybordarr" :key="index">
                         <v-card
                             class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 textBet--text"
@@ -59,7 +59,7 @@
                         </v-card>
                     </v-col>
                 </v-row>
-                <div style="display: grid" class="mr-2 mt-n1">
+                <div style="display: grid" class="mt-n1">
                     <button
                         @click="onDeleteKeybord"
                         @touchstart="onDeleteKeybord"
@@ -79,7 +79,7 @@
             </v-sheet>
         </v-expand-transition>
         <v-expand-transition>
-            <v-row class="mb-1" dense v-if="!bshowkeybord && isShowAmountBtns">
+            <v-row class="mb-1" dense v-if="!$vuetify.breakpoint.mobile && isShowAmountBtns">
                 <v-col :cols="$vuetify.breakpoint.mobile?4:6" v-for="i in 6" :key="i">
                     <v-card
                         class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
@@ -110,11 +110,13 @@
             </v-row>
         </v-expand-transition>
     </div>
-    <v-divider />
+<v-divider />
     <div class="d-flex mt-2">
         <span>{{LangUtil("总投注额")}}</span>
         <v-spacer />
-        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake || 0)}}</span>
+        <span class="yellow--text font-weight-bold"
+            ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake || 0)}}</span
+        >
     </div>
     <div class="d-flex">
         <span>{{LangUtil("预计可赢")}}</span>
@@ -137,9 +139,7 @@
                 @click="onBet"
             >
                 <template v-if="!isVisitor">
-                    <span v-if="oddsChange" class="text-14 font-weight-bold">
-                        {{LangUtil("接受新赔率")}}
-                    </span>
+                    <span v-if="oddsChange" class="text-14 font-weight-bold"> {{LangUtil("接受新赔率")}} </span>
                     <span v-else class="text-14 font-weight-bold">{{LangUtil("投注")}}</span>
                 </template>
                 <template v-else>
@@ -149,35 +149,29 @@
         </div>
     </template>
     <template v-else>
-        <v-row class="my-1" dense>
-            <v-col cols="4">
-                <v-btn class="elevation-0 rounded-5" color="bgGray" height="40" width="100%" @click="onDelete">
-                    <svg-icon class="text-16 textGray--text" icon="delete"></svg-icon>
+        <v-sheet color="transparent" class="my-1 d-flex">
+            <v-btn class="elevation-0 rounded-5 mr10" x-small color="bgGray" height="40" width="40" @click="onDelete">
+                <svg-icon class="text-16 textGray--text" icon="delete"></svg-icon>
+            </v-btn>
+            <div style="flex: 1">
+                <v-btn
+                    class="elevation-0 rounded-5 btn_yellow textYellow--text"
+                    :loading="pageData.loading"
+                    height="40"
+                    width="100%"
+                    :disabled="!isAllowBet && !isVisitor"
+                    @click="onBet"
+                >
+                    <template v-if="!isVisitor">
+                        <span v-if="oddsChange" class="text-14 font-weight-bold"> {{LangUtil("接受新赔率")}} </span>
+                        <span v-else class="text-14 font-weight-bold">{{LangUtil("投注")}}</span>
+                    </template>
+                    <template v-else>
+                        <span class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
+                    </template>
                 </v-btn>
-            </v-col>
-            <v-col cols="8">
-                <div>
-                    <v-btn
-                        class="elevation-0 rounded-5 btn_yellow textYellow--text"
-                        :loading="pageData.loading"
-                        height="40"
-                        width="100%"
-                        :disabled="!isAllowBet && !isVisitor"
-                        @click="onBet"
-                    >
-                        <template v-if="!isVisitor">
-                            <span v-if="oddsChange" class="text-14 font-weight-bold">
-                                {{LangUtil("接受新赔率")}}
-                            </span>
-                            <span v-else class="text-14 font-weight-bold">{{LangUtil("投注")}}</span>
-                        </template>
-                        <template v-else>
-                            <span class="text-14 font-weight-bold">{{LangUtil("登录")}}</span>
-                        </template>
-                    </v-btn>
-                </div>
-            </v-col>
-        </v-row>
+            </div>
+        </v-sheet>
     </template>
     <div v-if="able_to_choose_betterodds" class="d-flex justify-start align-center mt-2" style="max-width: 100%">
         <div @click="expanded = !expanded" :class="{ 'one-line-ellipsis': !expanded }" class="text-content">
