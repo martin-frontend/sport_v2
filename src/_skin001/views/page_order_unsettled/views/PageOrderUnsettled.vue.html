@@ -1,7 +1,7 @@
 <div>
     <v-sheet color="bgPage" class="pb-2" style="position: sticky; top: 0; z-index: 1">
         <v-sheet class="text-14 pl10 btnPlain--text rounded-10" color="bgBanner">
-            <v-sheet color="transparent" class="font-weight-bold d-flex align-center mr-2 py-2">
+            <!-- <v-sheet color="transparent" class="font-weight-bold d-flex align-center mr-2 py-2">
                 {{LangUtil("可提前结算订单")}}
                 <v-spacer />
                 <v-checkbox
@@ -14,7 +14,7 @@
                     dense
                 ></v-checkbox>
             </v-sheet>
-            <v-divider class="mr-2" />
+            <v-divider class="mr-2" /> -->
             <div class="d-flex mr-2 py-2">
                 <v-sheet class="d-flex flex-column" color="transparent" width="70">
                     <div class="textGray--text mb-1">{{LangUtil("总计")}}</div>
@@ -33,7 +33,7 @@
             </div>
         </v-sheet>
     </v-sheet>
-    <template v-if="pageData.loading" >
+    <template v-if="pageData.loading">
         <loader />
     </template>
     <template v-else>
@@ -50,22 +50,22 @@
                         <div class="pl10">{{leg.competition_name}}</div>
                     </v-sheet>
                     <v-divider class="my-2" />
-    
+
                     <div class="d-flex px10">
                         <div v-if="leg.c_type == 2">{{leg.content}}</div>
                         <div v-else>{{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}</div>
                         <v-spacer />
                         <div>@{{TransMarketPrice(leg.odds)}}</div>
                     </div>
-    
+
                     <div class="d-flex px10 mt-1" v-if="leg.state && Object.keys(leg.state).length > 0">
                         <div>{{LangUtil("滚球")}}</div>
                         <v-spacer />
                         <div class="font-weight-bold" v-html="OrderTitleUtils.getScoreStr(leg)"></div>
                     </div>
-    
+
                     <div class="px10 mt-1">{{transTitle(leg.market_type_text)}}</div>
-    
+
                     <div class="px10 mt-1 d-flex flex-wrap">
                         {{leg.home_name}} <span class="mx-1">VS</span> {{leg.away_name}}
                         <span
@@ -76,7 +76,7 @@
                             {{leg.settle_score}}
                         </span>
                     </div>
-    
+
                     <div class="px10 mt-1 d-flex" v-if="listQuery.is_settle != 1">
                         <div v-html="getStateStr(myProxy.event_states(leg)).states_str"></div>
                         <v-spacer />
@@ -84,28 +84,30 @@
                     </div>
                     <v-divider class="my-2" />
                 </div>
-    
+
                 <div class="d-flex px10">
                     {{LangUtil("订单状态")}}
                     <v-spacer />
-                    <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status] || "--"}}</span>
+                    <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}"
+                        >{{statusMap[item.status] || "--"}}</span
+                    >
                 </div>
                 <div v-if="item.status==3" class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">
                     {{LangUtil(item.mark)}}
                 </div>
-    
+
                 <div class="d-flex px10 mt-1">
                     <div>{{LangUtil("投注金额")}}</div>
                     <v-spacer />
                     <span> {{GlobalVar.currency}} {{amountFormat(item.stake,true) }}</span>
                 </div>
-    
+
                 <div class="d-flex px10 mt-1">
                     <div>{{getdisplayResultStr(item)}}</div>
                     <v-spacer />
                     <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}}</span>
                 </div>
-    
+
                 <div class="d-flex px10 mt-1 align-center">
                     <div>{{LangUtil("订单编号")}}</div>
                     <v-spacer />
@@ -116,7 +118,7 @@
                         </v-btn>
                     </div>
                 </div>
-    
+
                 <div class="d-flex px10 mt-1">
                     <div>{{LangUtil("投注时间")}}</div>
                     <v-spacer />
@@ -124,7 +126,7 @@
                         {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}
                     </div>
                 </div>
-    
+
                 <div class="d-flex px10 mt-1" v-if="listQuery.is_settle">
                     <div>{{LangUtil("结算时间")}}</div>
                     <v-spacer />
@@ -136,7 +138,7 @@
             <template v-if="item.bet_type == 'multi'">
                 <ParlayOrder :item="item"></ParlayOrder>
             </template>
-            <div v-if="item.is_able_to_cash_out && item.cash_out_status > 0" class="mt-3 px-2">
+            <!-- <div v-if="item.is_able_to_cash_out && item.cash_out_status > 0" class="mt-3 px-2">
                 <btn-yellow
                     :disabled="item.cash_out_status != 1"
                     class="text-13 font-weight-bold"
@@ -150,7 +152,7 @@
                     </div>
                     <span v-else> {{getSettlementStr(item)}} </span>
                 </btn-yellow>
-            </div>
+            </div> -->
         </v-sheet>
     </template>
     <v-sheet v-if="!pageData.loading" class="d-flex justify-center my-1" color="transparent">
