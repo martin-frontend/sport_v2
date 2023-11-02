@@ -68,7 +68,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
     onReset() {
         this.pageData.list.length = 0;
         this.listQuery.page_count = 1;
-        this.listQuery.unique = OrderUnsettledProxy.name;
+        // this.listQuery.unique = OrderUnsettledProxy.name;
     }
 
     clear() {
