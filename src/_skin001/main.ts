@@ -28,7 +28,7 @@ import MatcheItem from "@/_skin001/views/page_home/widget/matche_item/MatcheItem
 import MatcheItemMobile from "@/_skin001/views/page_home/widget/matche_item_mobile/MatcheItemMobile.vue";
 import SmallDecimal from "@/_skin001/views/widget/small_decimal/SmallDecimal.vue";
 
-LogUtil.init();
+// LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
 Vue.use(Notifications, { velocity });
