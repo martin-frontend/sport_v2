@@ -23,7 +23,7 @@
     },
     "dependencies": {
         "@liveqing/liveplayer": "^2.6.7",
-        "@mdi/font": "^7.2.96",
+        "@mdi/font": "7.2.96",
         "axios": "^0.24.0",
         "axios-retry": "^3.4.0",
         "core-js": "^3.6.5",
