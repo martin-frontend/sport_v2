@@ -4,7 +4,8 @@
 .bet-content {
     display: flex;
     flex-direction: column;
-    max-height: calc(100vh - 128px);
+    // max-height: calc(100vh - 128px);
+    max-height: calc(100vh - 68px);
     .bet-scroll {
         flex: 1;
         overflow-x: hidden;

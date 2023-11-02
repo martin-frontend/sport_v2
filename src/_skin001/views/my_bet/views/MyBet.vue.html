@@ -1,9 +1,9 @@
 <div>
-    <v-tabs background-color="bgBanner" class="rounded-10" fixed-tabs v-if="pageData.betType != 'normal'">
+    <!-- <v-tabs background-color="bgBanner" class="rounded-10 mb-2" fixed-tabs v-if="pageData.betType != 'normal'">
         <v-tabs-slider color="yellow1"></v-tabs-slider>
         <v-tab class="btnPlain--text" @click="pageData.betType = 'single'">{{LangUtil("单关")}}</v-tab>
         <v-tab class="btnPlain--text" @click="pageData.betType = 'parlay'">{{LangUtil("串关")}}</v-tab>
-    </v-tabs>
+    </v-tabs> -->
     <v-window v-model="pageData.betType" class="elevation-0">
         <v-window-item class="bet-content" value="normal" :class="{'px-2': $vuetify.breakpoint.mobile}">
             <v-sheet
@@ -15,7 +15,7 @@
                 <BetItem :item="item" bet-type="normal" />
             </v-sheet>
         </v-window-item>
-        <v-window-item class="bet-content mt-2" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="single">
+        <v-window-item class="bet-content" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="single">
             <div class="bet-scroll d-flex flex-column-reverse" :class="{'px-2': $vuetify.breakpoint.mobile}">
                 <v-sheet
                     color="bgBanner"
@@ -30,7 +30,7 @@
                 <BetSummary />
             </v-sheet>
         </v-window-item>
-        <v-window-item class="bet-content mt-2" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="parlay">
+        <v-window-item class="bet-content" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="parlay">
             <div
                 class="bet-scroll d-flex flex-column-reverse"
                 :class="{'px-2': $vuetify.breakpoint.mobile}"
