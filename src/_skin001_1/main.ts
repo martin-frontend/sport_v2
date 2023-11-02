@@ -30,7 +30,7 @@ import SmallDecimal from "@/_skin001/views/widget/small_decimal/SmallDecimal.vue
 
 SkinVariable.home_market_type = 2;
 SkinVariable.skin="skin001_1";
-// LogUtil.init();
+LogUtil.init();
 Vue.config.productionTip = false;
 Vue.use(VueLoadmore);
 Vue.use(Notifications, { velocity });

@@ -116,8 +116,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
             }
         });
         this.pageData.order_no = canCashOutList.join();
-        this.api_user_precashout();
-        console.warn('this.pageData.list', this.pageData.list);        
+        this.api_user_precashout();     
     }
 
     set_event_states(data: any) {
