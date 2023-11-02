@@ -89,7 +89,7 @@ export default class Navigation extends AbstractView {
     onWatchWindow(newVal: any, oldVal: any) {
         // 进入未结算住单时
         if (newVal == 2) {
-            this.orderUnsettledProxy.pageData.loading = true;
+            // this.orderUnsettledProxy.pageData.loading = true;
             this.orderUnsettledProxy.init();
         }
         // 离开未结算住单时

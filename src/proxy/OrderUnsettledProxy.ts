@@ -97,7 +97,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         Object.assign(this.pageData.pageInfo, data.pageInfo);
         const { pageCount, pageCurrent } = this.pageData.pageInfo;
         if (pageCurrent == 1) {
-            this.pageData.list = [...data.list];
+            this.pageData.list = data.list;
         } else {
             this.pageData.list.push(...data.list);
         }
@@ -117,6 +117,7 @@ export default class OrderUnsettledProxy extends puremvc.Proxy {
         });
         this.pageData.order_no = canCashOutList.join();
         this.api_user_precashout();
+        console.warn('this.pageData.list', this.pageData.list);        
     }
 
     set_event_states(data: any) {
