@@ -1,9 +1,9 @@
 <div>
-    <!-- <v-tabs background-color="bgBanner" class="rounded-10 mb-2" fixed-tabs v-if="pageData.betType != 'normal'">
+    <v-tabs background-color="bgBanner" class="rounded-10 mb-2" fixed-tabs v-if="pageData.betType != 'normal'">
         <v-tabs-slider color="yellow1"></v-tabs-slider>
         <v-tab class="btnPlain--text" @click="pageData.betType = 'single'">{{LangUtil("单关")}}</v-tab>
         <v-tab class="btnPlain--text" @click="pageData.betType = 'parlay'">{{LangUtil("串关")}}</v-tab>
-    </v-tabs> -->
+    </v-tabs>
     <v-window v-model="pageData.betType" class="elevation-0">
         <v-window-item class="bet-content" value="normal" :class="{'px-2': $vuetify.breakpoint.mobile}">
             <v-sheet

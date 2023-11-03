@@ -53,7 +53,6 @@
             </v-sheet>
 
             <v-sheet
-                v-if="pageData.list.length != 0"
                 color="bgBanner"
                 class="d-flex px-2 py-2 rounded-lg mt-2 mx-2 py-1 text-14 font-weight-bold"
             >
@@ -75,7 +74,7 @@
                             amountFormat(pageData.stats.total_win,true,2)}}</span
                         >
                     </span>
-                    <!-- <v-sheet
+                    <v-sheet
                         v-if="listQuery.is_settle == 0"
                         color="transparent"
                         class="font-weight-bold d-flex align-center mr-2 mt-2"
@@ -91,7 +90,7 @@
                             color="yellow1"
                             dense
                         ></v-checkbox>
-                    </v-sheet> -->
+                    </v-sheet>
                 </div>
             </v-sheet>
         </v-sheet>
@@ -210,7 +209,7 @@
                     <template v-if="item.bet_type == 'multi'">
                         <ParlayOrder :item="item"></ParlayOrder>
                     </template>
-                    <!-- <div v-if="item.is_able_to_cash_out && item.cash_out_status > 0" class="mt-3 px-2">
+                    <div v-if="item.is_able_to_cash_out && item.cash_out_status > 0" class="mt-3 px-2">
                         <btn-yellow
                             :disabled="item.cash_out_status != 1"
                             class="text-13 font-weight-bold"
@@ -224,7 +223,7 @@
                             </div>
                             <span v-else> {{getSettlementStr(item)}} </span>
                         </btn-yellow>
-                    </div> -->
+                    </div>
                 </v-sheet>
             </load_more>
         </div>
