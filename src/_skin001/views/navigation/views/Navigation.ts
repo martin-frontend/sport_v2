@@ -68,6 +68,9 @@ export default class Navigation extends AbstractView {
 
     @Watch("betProxy.pageData.activeCount")
     onWatchMyBet() {
+        if (this.betProxy.pageData.isLive) {
+            return;
+        }
         if (!this.$vuetify.breakpoint.mobile) {
             if (this.betResultProxy.pageData.bShow) {
                 return;
@@ -87,6 +90,9 @@ export default class Navigation extends AbstractView {
 
     @Watch("window")
     onWatchWindow(newVal: any, oldVal: any) {
+        if (this.betProxy.pageData.isLive) {
+            return;
+        }
         // 进入未结算住单时
         if (newVal == 2) {
             this.orderUnsettledProxy.pageData.loading = true;
@@ -111,6 +117,9 @@ export default class Navigation extends AbstractView {
 
     @Watch("betResultProxy.pageData.bShow")
     onWatchBetResultShow() {
+        if (this.betProxy.pageData.isLive) {
+            return;
+        }
         if (this.betResultProxy.pageData.bShow) {
             this.window = 3;
         }
@@ -134,5 +143,10 @@ export default class Navigation extends AbstractView {
     onExitBetResult() {
         this.betResultProxy.pageData.bShow = false;
         this.betProxy.initBetList();
+    }
+
+    get betLength() {
+        if (this.betProxy.pageData.isLive) return 0;
+        return this.betProxy.pageData.list.length;
     }
 }

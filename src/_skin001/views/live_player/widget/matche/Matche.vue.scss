@@ -1,0 +1,89 @@
+.mr6 {
+    margin-right: 6px;
+}
+.theme--light {
+    .btntype {
+        border-width: 1px;
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        &.active {
+            border-width: 0;
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            .txt {
+                color: #272828 !important;
+            }
+        }
+    }
+}
+
+.theme--dark {
+    .btntype {
+        border-width: 1px;
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        &.active {
+            border-width: 0;
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            .txt {
+                color: #272828 !important;
+            }
+        }
+    }
+}
+::v-deep .v-expansion-panel-header:before {
+    background-color: transparent;
+}
+.v-expansion-panels .v-expansion-panel {
+    background-color: transparent;
+}
+::v-deep .v-expansion-panel-header {
+    padding: 0;
+}
+::v-deep .v-expansion-panel-header--active {
+    border-bottom-left-radius: 0px;
+    border-bottom-right-radius: 0px;
+}
+::v-deep .v-expansion-panel-content__wrap {
+    padding: 0px !important;
+}
+::v-deep .v-expansion-panel {
+    border-radius: 8px;
+}
+::v-deep .v-expansion-panel::before {
+    box-shadow: none;
+}
+.titleline {
+    position: absolute;
+    bottom: 0px;
+    width: 100%;
+}
+::v-deep .v-expansion-panels .v-expansion-panel-header .v-expansion-panel-header__icon .v-icon {
+    color: #adadad;
+}
+
+::v-deep .theme--light {
+    .btn {
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        // border: solid 1px #dcdcdc;
+        &:hover {
+            background-color: rgba($color: #000000, $alpha: 0.5);
+            // border-color: #ffec8e;
+        }
+    }
+}
+::v-deep .theme--dark,
+::v-deep .theme--light {
+    .btn {
+        background-color: rgba($color: #000000, $alpha: 0.6);
+        border: solid 1px transparent;
+        &:hover {
+            filter: brightness(120%);
+        }
+        .divslot {
+            color: #ADADAD;
+        }
+        &.active {
+            .divslot {
+                color: #0f1213;
+            }
+        }
+    }
+}

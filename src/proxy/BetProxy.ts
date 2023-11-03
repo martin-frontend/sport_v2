@@ -96,12 +96,18 @@ export default class BetProxy extends puremvc.Proxy {
         summaryStake: "",
         /**投注后还未跳转确认订单页时，继续下注 */
         isContinueBetting: false,
+        /**是否在直播时下注 */
+        isLive: false,
     };
 
     /**添加一个注单 */
     addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: FixSelectionVO, event_states: EventStatesVO[]) {
         if (!this.deleteItem(market.market_id, selection.id)) {
             // this.pageData.list = [];
+            if (this.pageData.isLive) {
+                this.initBetList();
+            }
+
             if (this.pageData.list.length == 8) {
                 Vue.notify({ group: "message", title: LangUtil("最多选择8场比赛") });
                 return;
@@ -174,7 +180,7 @@ export default class BetProxy extends puremvc.Proxy {
         this.pageData.summaryStake = "";
         Object.assign(this.pageData.parlayData, { ...this.defaultParlayData });
         if (!isHold) {
-            this.pageData.list.length = 0;
+            this.pageData.list.splice(0, this.pageData.list.length);
         } else {
             this.pageData.list.forEach((item) => {
                 item.stake = "";

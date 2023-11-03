@@ -1,0 +1,40 @@
+.v-btn.v-btn--outlined.v-btn--text {
+    border: 1px solid #fed946;
+    position: absolute;
+    bottom: 53px;
+    right: 10px;
+}
+
+.video-header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    background-color: rgba($color: #000000, $alpha: 0.6);
+}
+
+.video-matche {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    // left: 10px;
+    height: calc(100vh - 103px);
+    background-color: rgba($color: #000000, $alpha: 0.3);
+    .close-btn {
+        border-radius: 10px 0 0 10px;
+        background-color: rgba($color: #000000, $alpha: 0.3);
+        position: absolute;
+        left: -30px;
+        top: 40px;
+    }
+}
+.video-bet {
+    position: absolute;
+    bottom: 50px;
+    right: 10px;
+    // left: 10px;
+    z-index: 1;
+}
+
+::v-deep .vue-notification-group {
+    position: absolute;
+}

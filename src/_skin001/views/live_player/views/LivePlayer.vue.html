@@ -1,0 +1,99 @@
+<VideoPlayer v-bind="$attrs" v-on="$listeners" videoUrl="testvideo.mp4" live @fullscreen="fullscreen" ref="videoPlayer">
+    <template v-if="isFullscreen">
+        <!-- 顶部资讯 -->
+        <v-sheet v-if="getStates()" width="100%" height="40" class="video-header d-flex align-center px-2">
+            <!-- 下半场时，显示上半场比分 -->
+            <div class="d-flex justify-center text-14 white--text" v-if="getStates().match_phase == '2H'">
+                <div class="mr-1">{{LangUtil('1H')}}</div>
+                <div>還沒有比分</div>
+            </div>
+            <v-sheet color="transparent" width="50%" class="mx-auto" style="position: absolute; left: 0; right: 0">
+                <v-row dense class="white--text font-weight-bold justify-center">
+                    <v-col cols="5" class="text-truncate text-right">{{getHomeName()}}</v-col>
+                    <v-col cols="1" class="d-flex align-center justify-center">
+                        <template v-if="getCurrMatche() && getStates()">
+                            <div v-if="isShowFullScore()">
+                                {{goals_ot_Value[0]}}<span class="text-14" v-if="isShowPK()">({{goals_pk_Value[0]}})</span>
+                            </div>
+                            <div v-else>{{goalsValue[0]}}</div>
+                        </template>
+
+                        <div class="mx-2">-</div>
+
+                        <template v-if="getCurrMatche() && getStates()">
+                            <div v-if="isShowFullScore()">
+                                {{goals_ot_Value[1]}}<span class="text-14" v-if="isShowPK()">({{goals_pk_Value[1]}})</span>
+                            </div>
+                            <div v-else>{{goalsValue[1]}}</div>
+                        </template>
+                    </v-col>
+                    <v-col cols="5" class="text-truncate text-left">{{getAwayName()}}</v-col>
+                </v-row>
+            </v-sheet>
+            <v-spacer></v-spacer>
+            <div class="d-flex">
+                <div class="d-flex align-center white--text">
+                    <CardYellow class="mr-2" value="" />
+                    <span>{{getStates().yellow_cards_ft}}</span>
+                    <CardRed class="mr-2 ml-4" value="" />
+                    <span>{{getStates().red_cards_ft}}</span>
+                </div>
+                <div class="d-flex align-center white--text" v-if="getStates()">
+                    <svg-icon class="text-18 mr-2 ml-4" icon="corner"></svg-icon>
+                    <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
+                    <svg-icon class="text-18 ml-4 mr-2" icon="hafe_time"></svg-icon>
+                    <div>{{getStates().goals_ht != '' ? getStates().goals_ht : '0-0' }}</div>
+                </div>
+            </div>
+        </v-sheet>
+
+        <!-- 赛事 -->
+        <v-scroll-y-reverse-transition>
+            <v-sheet v-if="!isShowBetBtn" width="330" class="video-matche pa-1 rounded">
+                <v-btn @click="isShowBetBtn = true" width="30" height="30" class="close-btn" icon x-small color="white">
+                    <svg-icon class="text-16" icon="close"></svg-icon>
+                </v-btn>
+                <Matche />
+            </v-sheet>
+        </v-scroll-y-reverse-transition>
+
+        <!-- 投注、确认订单 -->
+        <v-scroll-y-reverse-transition>
+            <v-window v-model="window" class="elevation-0 video-bet" v-if="betProxy.pageData.list.length > 0 && !isShowBetBtn">
+                <v-window-item>
+                    <v-sheet
+                        dark
+                        color="#272828"
+                        class="rounded py10 text-13"
+                        v-for="item of betProxy.pageData.list"
+                        :key="item.leg_id"
+                        width="330"
+                    >
+                        <BetItem :item="item" bet-type="normal" />
+                    </v-sheet>
+                </v-window-item>
+                <v-window-item>
+                    <v-sheet dark color="#272828" class="rounded text-13 px-2" width="330">
+                        <BetResult></BetResult>
+                    </v-sheet>
+                </v-window-item>
+            </v-window>
+        </v-scroll-y-reverse-transition>
+        <v-btn
+            v-if="isShowBetBtn && !$vuetify.breakpoint.mobile"
+            @click="isShowBetBtn = false"
+            class="text-14"
+            color="#FED946"
+            small
+            outlined
+            text
+        >
+            {{LangUtil("快速下注")}}
+        </v-btn>
+
+        <!-- 消息 -->
+        <NotifyMessage />
+        <!-- 订单状态返回消息框 -->
+        <NotifyOrderFinished />
+    </template>
+</VideoPlayer>

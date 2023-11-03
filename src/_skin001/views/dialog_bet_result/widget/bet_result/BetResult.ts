@@ -28,6 +28,7 @@ export default class BetResult extends AbstractView {
 
     pageData = this.myProxy.pageData;
     parlayData = this.pageData.parlayData;
+    isLive = this.betProxy.pageData.isLive;
     mounted() {
         // this.pageData.statusMsg = "";
     }

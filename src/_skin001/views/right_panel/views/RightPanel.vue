@@ -7,12 +7,14 @@ import Live from "../../live/views/Live.vue";
 import LiveList from "../../live_list/views/LiveList.vue";
 import Matche from "../../matche/views/Matche.vue";
 import RightPanel from "./RightPanel";
+// import LivePlayer from "@/_skin001/views/live_player/views/LivePlayer.vue";
 
 @Component({
     components: {
         Live,
         Matche,
         LiveList,
+        // LivePlayer,
     },
 })
 export default class extends RightPanel {}

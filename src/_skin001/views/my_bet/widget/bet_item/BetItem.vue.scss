@@ -49,6 +49,12 @@ input {
     .disactItem {
         border: solid 1px #e8ebef;
     }
+    .textTitle {
+        color: #3e3714;
+    }
+    .textContent {
+        color: #3e3714;
+    }
 }
 .v-menu__content {
     width: 203px;
@@ -83,6 +89,12 @@ input {
     .disactItem {
         border: solid 1px #393a3c;
     }
+    .textTitle {
+        color: #ffffff;
+    }
+    .textContent {
+        color: #8e8f91;
+    }
 }
 
 .oddmenu {
@@ -112,7 +124,7 @@ input {
 }
 .btn_yellow:disabled {
     background-image: linear-gradient(90deg, #8f8f91 0%, #8f8f91);
-    color:#333333 !important;
+    color: #333333 !important;
 }
 .fast_choose {
     margin-left: 6px;

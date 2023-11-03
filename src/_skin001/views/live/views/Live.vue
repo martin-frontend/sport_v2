@@ -4,10 +4,9 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import Live from "./Live";
-//@ts-ignore
-import LivePlayer from "@liveqing/liveplayer";
 import CardRed from "../../widget/card_red/CardRed.vue";
 import CardYellow from "../../widget/card_yellow/CardYellow.vue";
+import LivePlayer from "../../live_player/views/LivePlayer.vue";
 
 @Component({
     components: {

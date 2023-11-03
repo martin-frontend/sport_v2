@@ -4,6 +4,7 @@
         class="rounded-lg mb-2 d-flex align-center justify-center"
         min-height="36"
         :style="{ 'color': tipStatusMap[tipStatus].color}"
+        v-if="!isLive"
     >
         <div class="text-14 font-weight-bold">{{tipStatusMap[tipStatus].title}}</div>
         <template v-if="tipStatus == 0">
@@ -22,7 +23,12 @@
 
     <div style="flex: 1; overflow-y: auto; overflow-x: hidden">
         <template v-if="betProxy.pageData.betType == 'normal' || betProxy.pageData.betType == 'single'">
-            <v-card class="rounded-lg elevation-0 mb-2" color="bgBanner" v-for="item of pageData.list" :key="item.leg_id">
+            <v-card
+                class="rounded-lg elevation-0 mb-2"
+                :color="isLive?'transparent':'bgBanner'"
+                v-for="item of pageData.list"
+                :key="item.leg_id"
+            >
                 <v-card-title class="pa-2 pb-0">
                     <v-sheet color="transparent" class="d-flex align-center" width="200">
                         <v-sheet width="2" height="16" color="yellow"></v-sheet>
@@ -201,8 +207,13 @@
             </v-card>
         </template>
     </div>
-    <btn-yellow class="text-13 mt-3 py-2" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
-    <btn-yellow class="text-13 my-2 py-2" width="100%" height="36" :outlined="true" @click.native="onHold">
-        {{LangUtil("保留投注项")}}
-    </btn-yellow>
+    <template v-if="!isLive">
+        <btn-yellow class="text-13 mt-3 py-2" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
+        <btn-yellow class="text-13 my-2 py-2" width="100%" height="36" :outlined="true" @click.native="onHold">
+            {{LangUtil("保留投注项")}}
+        </btn-yellow>
+    </template>
+    <template v-else>
+        <btn-yellow class="text-13 py-2 mt-n2 mb-2" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
+    </template>
 </div>

@@ -46,7 +46,14 @@
             v-model="pageData.panelIndexs"
             v-if="pageData.market_list.length>0 && Object.keys(pageData.market_list[0].fix_markets).length>0"
         >
-            <v-expansion-panel :id="`panel${index}`" v-for="(market, index) of marketSort" :key="market.id" elevation="0" class="mb-2">
+            <v-expansion-panel
+                :id="`panel${index}`"
+                v-for="(market, index) of marketSort"
+                :key="market.id"
+                elevation="0"
+                class="mb-2 rounded-10"
+                style="overflow: hidden"
+            >
                 <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
                     <template v-slot:default="{ open }">
                         <div class="d-flex align-center">
@@ -77,7 +84,7 @@
                     </template>
                 </v-expansion-panel-header>
 
-                <v-expansion-panel-content elevation="0" color="transparent">
+                <v-expansion-panel-content elevation="0" color="bgBanner">
                     <MarketM1 v-if="marketTypeKind[1].includes(market.market_type)" :matche="matche" :market="market" />
                     <MarketM2 v-if="marketTypeKind[2].includes(market.market_type)" :matche="matche" :market="market" />
                     <MarketM3 v-if="marketTypeKind[3].includes(market.market_type)" :matche="matche" :market="market" />

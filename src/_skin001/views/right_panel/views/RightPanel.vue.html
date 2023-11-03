@@ -72,11 +72,14 @@
                 </v-tooltip>
             </div>
             <div v-if="!pageData.isShowLiveList" @click="onClickShowTitle" class="hand">
-                <svg-icon class="textGray--text text-12 mr-1" icon="zoom_out" :class="myProxy.isShowLive ? 'arrow-up' : 'arrow-down'"></svg-icon>
+                <svg-icon
+                    class="textGray--text text-12 mr-1"
+                    icon="zoom_out"
+                    :class="myProxy.isShowLive ? 'arrow-up' : 'arrow-down'"
+                ></svg-icon>
             </div>
         </v-sheet>
     </v-sheet>
-
     <template v-if="pageData.isShowLiveList">
         <v-sheet color="bgBanner" class="pa10 mt-2 rounded-10">
             <div class="text-18 font-weight-bold mt-0 mb-2 ml-2">{{LangUtil("热门赛事")}}</div>

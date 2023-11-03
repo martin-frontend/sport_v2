@@ -5,7 +5,7 @@
         <v-tab class="btnPlain--text" @click="pageData.betType = 'parlay'">{{LangUtil("串关")}}</v-tab>
     </v-tabs> -->
     <v-window v-model="pageData.betType" class="elevation-0">
-        <v-window-item class="bet-content" value="normal" :class="{'px-2': $vuetify.breakpoint.mobile}">
+        <v-window-item class="bet-content" value="normal" :class="{'px-2 mt-2': $vuetify.breakpoint.mobile}">
             <v-sheet
                 color="bgBanner"
                 class="rounded-10 py10 mb-2 textGray--text text-13 bet-scroll"

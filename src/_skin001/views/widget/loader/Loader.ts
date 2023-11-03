@@ -7,4 +7,5 @@ import GlobalVar from "@/core/global/GlobalVar";
 export default class Loader extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
+    @Prop({ default: false }) dark!: Boolean;
 }

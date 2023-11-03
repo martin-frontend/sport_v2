@@ -1,10 +1,10 @@
-<div class="textBet--text" :class="{'div-disabled': pageData.loading}">
+<div class="textContent" :class="{'div-disabled': pageData.loading}">
     <div class="d-flex align-center ml10 mr-1 mb-2">
         <v-sheet class="mr10" color="yellow" width="2" height="16" rounded></v-sheet>
-        <div class="btnPlain--text text-truncate text-14 font-weight-bold">{{item.comp.competition_name}}</div>
+        <div class="textTitle text-truncate text-14 font-weight-bold">{{item.comp.competition_name}}</div>
         <v-spacer />
         <v-btn plain fab x-small @click="onDelete(item)" v-if="!$vuetify.breakpoint.mobile || betType != 'normal'">
-            <svg-icon class="text-16 btnPlain--text" icon="close"></svg-icon>
+            <svg-icon class="text-16 textTitle" icon="close"></svg-icon>
         </v-btn>
     </div>
 
@@ -117,7 +117,7 @@
                     <input
                         v-if="$vuetify.breakpoint.mobile"
                         readonly
-                        class="btnPlain--text ml-2 font-weight-bold"
+                        class="textTitle ml-2 font-weight-bold"
                         style="width: 100%"
                         :placeholder="getPlaceholder(item)"
                         v-model="item.stake"
@@ -125,7 +125,7 @@
                     />
                     <input
                         v-else
-                        class="btnPlain--text ml-2 font-weight-bold"
+                        class="textTitle ml-2 font-weight-bold"
                         ref="betInput"
                         style="width: 100%"
                         :placeholder="getPlaceholder(item)"
@@ -144,7 +144,7 @@
                     <v-row class="ml-2 mr-0" dense>
                         <v-col cols="4" v-for="(num, index) in keybordarr" :key="index">
                             <v-card
-                                class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 textBet--text"
+                                class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 textContent"
                                 height="40"
                                 @click="onInput_mobile(num)"
                                 :key="index"
@@ -176,7 +176,7 @@
                 <v-row class="fast_choose mb-1" dense v-if="!$vuetify.breakpoint.mobile && isShowAmountBtns">
                     <v-col :cols="$vuetify.breakpoint.mobile?4:6" v-for="i in 6" :key="i">
                         <v-card
-                            class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
+                            class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textContent"
                             :height="$vuetify.breakpoint.mobile?40:30"
                             @click="onInputFast(item.stake, settintProxy.pageData.form.fast_choose[i-1])"
                         >
@@ -185,7 +185,7 @@
                     </v-col>
                     <v-col :cols="$vuetify.breakpoint.mobile?4:6">
                         <v-card
-                            class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
+                            class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textContent"
                             :height="$vuetify.breakpoint.mobile?40:30"
                             @click="onMax"
                         >
@@ -194,7 +194,7 @@
                     </v-col>
                     <v-col :cols="$vuetify.breakpoint.mobile?8:6">
                         <v-card
-                            class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textBet--text"
+                            class="d-flex align-center justify-center rounded-10 btns elevation-0 text-14 hand textContent"
                             :height="$vuetify.breakpoint.mobile?40:30"
                             @click="clearInput"
                         >

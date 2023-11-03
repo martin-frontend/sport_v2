@@ -31,6 +31,7 @@ export default class BtnFixedBet extends AbstractView {
     cleartimer = 0;
     isChangeAni = false; //当前是否正在播放赔率变化动画
     betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
+    isLive = this.myProxy.pageData.isLive;
 
     mounted() {
         this.watchSelection();
@@ -114,8 +115,13 @@ export default class BtnFixedBet extends AbstractView {
                         divPrice.style.color = "#0F1213";
                         divBox.style.borderColor = "#FFCD43";
                     } else {
-                        divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
-                        divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
+                        if (this.isLive) {
+                            divPrice.style.color = "#FFFFFF";
+                            divBox.style.borderColor = "transparent";
+                        } else {
+                            divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
+                            divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
+                        }
                     }
                 }
             }
@@ -138,8 +144,13 @@ export default class BtnFixedBet extends AbstractView {
                         (item) => item.selection.id == this.selection.id && item.market.market_id == this.market.market_id
                     )
                 ) {
-                    if (divPrice) divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
-                    if (divBox) divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
+                    if (this.isLive) {
+                        divPrice.style.color = "#FFFFFF";
+                        divBox.style.borderColor = "transparent";
+                    } else {
+                        divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
+                        divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
+                    }
                 }
                 this.isChangeAni = false;
                 this.onWatchActive();
