@@ -5,7 +5,7 @@
             <!-- 下半场时，显示上半场比分 -->
             <div class="d-flex justify-center text-14 white--text" v-if="getStates().match_phase == '2H'">
                 <div class="mr-1">{{LangUtil('1H')}}</div>
-                <div>還沒有比分</div>
+                <div>{{getStates().goals_ht}}</div>
             </div>
             <v-sheet color="transparent" width="50%" class="mx-auto" style="position: absolute; left: 0; right: 0">
                 <v-row dense class="white--text font-weight-bold justify-center">
