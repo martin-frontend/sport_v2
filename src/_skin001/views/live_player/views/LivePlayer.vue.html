@@ -1,4 +1,4 @@
-<VideoPlayer v-bind="$attrs" v-on="$listeners" videoUrl="testvideo.mp4" live @fullscreen="fullscreen" ref="videoPlayer">
+<VideoPlayer v-bind="$attrs" v-on="$listeners" @fullscreen="fullscreen" ref="videoPlayer">
     <template v-if="isFullscreen">
         <!-- 顶部资讯 -->
         <v-sheet v-if="getStates()" width="100%" height="40" class="video-header d-flex align-center px-2">
