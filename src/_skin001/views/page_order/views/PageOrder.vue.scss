@@ -9,12 +9,11 @@
         color: #3e3714;
     }
     .btnType {
-        background-color: white;
-        background: linear-gradient(to right, #fcb131, #ffe64d);
+        background: none;
+        background-color: #eaeaea;
         color: #272828;
         &.active {
-            background: none;
-            background-color: white;
+            background: linear-gradient(to right, #fcb131, #ffe64d);
         }
     }
 }
