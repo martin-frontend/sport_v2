@@ -76,10 +76,12 @@
         </span>
     </div>
     <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span> VS </span>{{item.matche.away_team}}</div>
+
+    <!-- 串关错误讯息 -->
     <template v-if="betType == 'parlay'">
         <v-sheet color="errorMsgBg" class="d-flex justify-center align-center px-2" v-if="item.msg">
-            <svg-icon class="mr-1" icon="warning"></svg-icon>
-            <span style="color: #feba00; line-height: 20px"> {{item.msg}} </span>
+            <svg-icon class="mr-1 red--text" icon="warning"></svg-icon>
+            <span style="color: red; line-height: 20px"> {{item.msg}} </span>
         </v-sheet>
     </template>
 
@@ -103,6 +105,7 @@
         </div>
     </template>
 
+    <!-- 投注金额 -->
     <template v-if="betType == 'normal' || betType == 'single'">
         <div v-click-outside="onClickOutside">
             <div class="d-flex ml10 mr10 mb-3 input-box">
@@ -218,6 +221,7 @@
         </div> -->
     </template>
 
+    <!-- 下注按钮 -->
     <template v-if="betType === 'normal'">
         <template v-if="!$vuetify.breakpoint.mobile">
             <div class="ml10 mr10 mb-1" v-if="!item.oddsChange || item.isMarketClose">
