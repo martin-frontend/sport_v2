@@ -26,6 +26,7 @@ export default class PlatConfig extends puremvc.Proxy {
             isRecharge: "0",
             MarketType_area: "0",
             OddsColorType: 0,
+            isDefaultParlay: 0,
         },
     };
 }

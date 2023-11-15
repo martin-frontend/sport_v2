@@ -7,6 +7,7 @@ import { CompetitionVO } from "@/vo/CompetitionVO";
 import { EventStatesVO } from "@/vo/EventStatesVO";
 import { MarketFixVO, FixSelectionVO, MarketVO } from "@/vo/MarketVO";
 import { MatchVO } from "@/vo/MatchVO";
+import PlatConfig from "@/core/config/PlatConfig";
 type BetType = "normal" | "single" | "parlay"; // normal: 单柱  single: 单场(批量) parlay: 串关
 
 export default class BetProxy extends puremvc.Proxy {
@@ -168,7 +169,7 @@ export default class BetProxy extends puremvc.Proxy {
 
     setBetType() {
         if (this.pageData.list.length > 1 && this.pageData.betType === "normal") {
-            this.pageData.betType = "single";
+            this.pageData.betType = PlatConfig.config.client.isDefaultParlay == 1 ? "parlay" : "single";
         } else if (this.pageData.list.length == 1) {
             this.pageData.betType = "normal";
         }

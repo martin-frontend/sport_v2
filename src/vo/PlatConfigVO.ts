@@ -14,5 +14,6 @@ export interface PlatConfigVO {
          * 1:  赔率上升为绿色，下降为红色
          */
         OddsColorType: number;
+        isDefaultParlay: number;
     };
 }

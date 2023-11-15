@@ -9,16 +9,24 @@ export default class MyBet extends AbstractView {
     LangUtil = LangUtil;
     myProxy: BetProxy = this.getProxy(BetProxy);
     pageData = this.myProxy.pageData;
+    tab: any = null;
 
     @Watch("pageData.betType")
-    onBetTypeChange() {
+    onBetTypeChange(val: string) {
+        if (val === "single") {
+            this.tab = 0;
+        } else if (val === "parlay") {
+            this.tab = 1;
+        } else {
+            this.tab = null;
+        }
+
         /**投注完后等待api回传结果时更换标签，不跳转确认订单页 */
         if (this.pageData.loading && !this.pageData.isContinueBetting) {
             this.pageData.isContinueBetting = true;
         }
         this.myProxy.initBetList(true);
     }
-
     constructor() {
         super(MyBetMediator);
     }
