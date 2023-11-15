@@ -14,6 +14,7 @@
         "build:qa6": "vue-cli-service build --mode qa6",
         "build:qa7": "vue-cli-service build --mode qa7",
         "build:qa8": "vue-cli-service build --mode qa8",
+        "build:staging": "vue-cli-service build --mode staging",
         "lint": "vue-cli-service lint",
         "dev": "vue-cli-service serve",
         "proto": "node build/proto.js",
