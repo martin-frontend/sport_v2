@@ -280,7 +280,8 @@ export default class BetSummary extends AbstractView {
         this.myProxy.pageData.list.forEach((item: any) => {
             odds *= item.msg ? 1 : this.TransMarketPrice(item.odds);
         });
-        return odds.toFixed(2);
+        let parlayOdds = Math.min(odds, this.myProxy.pageData.maxParlayOdds).toFixed(2);
+        return (this.myProxy.pageData.parlayOdds = parlayOdds);
     }
 
     updateStake(val: string) {

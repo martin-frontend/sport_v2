@@ -94,7 +94,12 @@ export default class BetProxy extends puremvc.Proxy {
         isCanAddSameMarket: false,
         /**前端自定义选项id，用来对应接口返回的数据 */
         listIdName: "leg",
+        /**总投注额 */
         summaryStake: "",
+        /**串关赔率 */
+        parlayOdds: "",
+        /**串关最大赔率 */
+        maxParlayOdds: 500000,
         /**投注后还未跳转确认订单页时，继续下注 */
         isContinueBetting: false,
         /**是否在直播时下注 */
@@ -253,9 +258,6 @@ export default class BetProxy extends puremvc.Proxy {
         form.is_multiple = this.pageData.betType != "parlay" ? 0 : 1;
         form.multi_odds = 1;
         form.bet_list = this.pageData.list.map((item, index) => {
-            if (form.is_multiple === 1) {
-                form.multi_odds *= Number(item.odds);
-            }
             return {
                 // leg_id: this.pageData.listIdName + index,
                 leg_id: item.leg_id,
@@ -269,10 +271,8 @@ export default class BetProxy extends puremvc.Proxy {
                 sport_id: 1,
             };
         });
-        if (form.is_multiple != 1) {
-            delete form.multi_odds;
-        } else {
-            form.multi_odds = form.multi_odds.toFixed(2);
+        if (form.is_multiple == 1) {
+            form.multi_odds = this.pageData.parlayOdds;
         }
         Http.post(net.HttpType.api_user_prebet_v3, form).then((response: any) => {
             if (response.status == 0) {
@@ -379,7 +379,7 @@ export default class BetProxy extends puremvc.Proxy {
             bet_type,
         };
         if (bet_type == "multi") {
-            form.multi_odds = 1;
+            form.multi_odds = this.pageData.parlayOdds;
         }
         form.bet_list = [];
         this.pageData.bettedList.forEach((item) => {
@@ -399,14 +399,10 @@ export default class BetProxy extends puremvc.Proxy {
                 sport_id: 1,
             };
             if (bet_type == "multi") {
-                form.multi_odds *= Number(item.odds);
                 delete query.stake;
             }
             form.bet_list.push(query);
         });
-        if (form.multi_odds) {
-            form.multi_odds = form.multi_odds.toFixed(2);
-        }
         this.sendNotification(net.HttpType.api_user_betfix_v3, form);
     }
     /**待确认提示结果 */
