@@ -86,7 +86,7 @@
                             >{{OrderTitleUtils.getScoreStr(leg)}}</span
                         >
                         <div class="d-flex">
-                            <span>{{transTitle(leg.market_type_text,index)}}</span>
+                            <span>{{leg.market_type_text}}</span>
                             <v-spacer />
                             <span class="mr-2" :style="{color: resultMapColor[leg.selection_win_type]}">{{getMultiWinTypeStr(leg)}}</span>
                         </div>

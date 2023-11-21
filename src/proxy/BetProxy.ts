@@ -99,6 +99,8 @@ export default class BetProxy extends puremvc.Proxy {
         isContinueBetting: false,
         /**是否在直播时下注 */
         isLive: false,
+        /**最大下注数 */
+        maxBetLength: 10,
     };
 
     /**添加一个注单 */
@@ -109,8 +111,8 @@ export default class BetProxy extends puremvc.Proxy {
                 this.initBetList();
             }
 
-            if (this.pageData.list.length == 8) {
-                Vue.notify({ group: "message", title: LangUtil("最多选择8场比赛") });
+            if (this.pageData.list.length == this.pageData.maxBetLength) {
+                Vue.notify({ group: "message", title: LangUtil("最多选择{0}场比赛", this.pageData.maxBetLength) });
                 return;
             }
             this.pageData.list.push({

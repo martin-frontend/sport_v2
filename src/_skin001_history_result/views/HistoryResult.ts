@@ -60,14 +60,14 @@ export default class PageOrderDetail extends AbstractView {
         this.myProxy.api_public_plat_config();
         console.log("server_time", GlobalVar.server_time);
     }
-    transTitle(title: any, idx: any) {
-        const matches = this.pageData.list[idx];
-        const homestr = LangUtil("主队").trim();
-        const awaystr = LangUtil("客队").trim();
-        const { home_name, away_name } = matches;
-        title = title.replace(new RegExp(homestr, "ig"), home_name).replace(new RegExp(awaystr, "ig"), away_name);
-        return title;
-    }
+    // transTitle(title: any, idx: any) {
+    //     const matches = this.pageData.list[idx];
+    //     const homestr = LangUtil("主队").trim();
+    //     const awaystr = LangUtil("客队").trim();
+    //     const { home_name, away_name } = matches;
+    //     title = title.replace(new RegExp(homestr, "ig"), home_name).replace(new RegExp(awaystr, "ig"), away_name);
+    //     return title;
+    // }
     pageLoad() {
         this.listQuery.page_count++;
         // this.myProxy.api_user_orders();
