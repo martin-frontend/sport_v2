@@ -26,8 +26,8 @@
                     <BetItem :item="item" bet-type="single" />
                 </v-sheet>
             </div>
-            <v-sheet color="betSummaryBg" class="py10 textGray--text text-13" :class="{'mb-2': !$vuetify.breakpoint.mobile}">
-                <BetSummary />
+            <v-sheet color="betSummaryBg" class="py10 textGray--text text-13">
+                <BetSummary bet-type="single" />
             </v-sheet>
         </v-window-item>
         <v-window-item class="bet-content" :class="{'mobile-bet-content': $vuetify.breakpoint.mobile}" value="parlay">
@@ -44,10 +44,9 @@
             <v-sheet
                 color="bgBanner"
                 class="py10 textGray--text text-13"
-                :class="{'mb-2': !$vuetify.breakpoint.mobile}"
                 style="border-bottom-right-radius: 10px; border-bottom-left-radius: 10px"
             >
-                <BetSummary />
+                <BetSummary bet-type="parlay" />
             </v-sheet>
         </v-window-item>
     </v-window>

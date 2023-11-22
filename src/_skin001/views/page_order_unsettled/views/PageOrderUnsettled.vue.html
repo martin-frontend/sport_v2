@@ -111,9 +111,9 @@
                 <div class="d-flex px10 mt-1 align-center">
                     <div>{{LangUtil("订单编号")}}</div>
                     <v-spacer />
-                    <div class="d-flex justify-end flex-wrap">
+                    <div class="d-flex justify-end flex-wrap align-center">
                         <div class="text-right">{{item.order_no || "--"}}</div>
-                        <v-btn v-if="item.order_no" fab plain x-small max-height="20" @click="onCopy(item.order_no)">
+                        <v-btn v-if="item.order_no" fab plain x-small height="25" width="25" @click="onCopy(item.order_no)">
                             <svg-icon class="text-16 textGray--text" icon="copy"></svg-icon>
                         </v-btn>
                     </div>

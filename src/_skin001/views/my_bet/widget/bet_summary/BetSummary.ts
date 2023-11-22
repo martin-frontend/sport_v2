@@ -37,6 +37,7 @@ export default class BetSummary extends AbstractView {
     bshowkeybord = false;
     expanded = false;
     allowBetArr = <any>[];
+    @Prop() betType!: string;
 
     @Watch("bshowkeybord")
     onWatchShowKeyboard() {
@@ -72,11 +73,11 @@ export default class BetSummary extends AbstractView {
         if (this.isVisitor) {
             return LangUtil("请输入");
         }
-        const p = this.pageData.betType == "single" ? LangUtil("单注限额") : LangUtil("串关限额");
+        const p = this.betType == "single" ? LangUtil("单注限额") : LangUtil("串关限额");
         return p + ` ${this.minStake}-${this.maxStake}`;
     }
     get minStake() {
-        if (this.pageData.betType == "single") {
+        if (this.betType == "single") {
             return Math.max(...this.pageData.list.map((p) => Number(p.minStake))) || 0;
         } else {
             if (this.allowBetArr.length !== this.pageData.list.length) {
@@ -86,7 +87,7 @@ export default class BetSummary extends AbstractView {
         }
     }
     get maxStake() {
-        if (this.pageData.betType == "single") {
+        if (this.betType == "single") {
             return Math.min(...this.pageData.list.map((p) => Number(p.maxStake))) || 0;
         } else {
             if (this.allowBetArr.length !== this.pageData.list.length) {
@@ -96,7 +97,7 @@ export default class BetSummary extends AbstractView {
         }
     }
     get totalStake() {
-        if (this.pageData.betType === "parlay") {
+        if (this.betType === "parlay") {
             return Number(parseLocaleNumber(this.pageData.summaryStake)) || 0;
         } else {
             let val = 0;
@@ -109,7 +110,7 @@ export default class BetSummary extends AbstractView {
     }
     get preWin() {
         let sum = 0;
-        if (this.pageData.betType === "parlay") {
+        if (this.betType === "parlay") {
             const stake = Number(parseLocaleNumber(this.pageData.summaryStake)) || 0;
             const odds = Number(this.pageData.parlayData.odds);
             sum = odds * stake - stake;
@@ -228,7 +229,7 @@ export default class BetSummary extends AbstractView {
         }
         this.allowBetArr = [];
 
-        if (this.pageData.betType == "single") {
+        if (this.betType == "single") {
             let stakeError = false;
             this.myProxy.pageData.list.forEach((item) => {
                 const stake = parseLocaleNumber(item.stake);
@@ -267,7 +268,7 @@ export default class BetSummary extends AbstractView {
     }
 
     get oddsChange() {
-        // if (this.pageData.betType == "parlay") {
+        // if (this.betType == "parlay") {
         //     return this.pageData.parlayData.oddsChange;
         // } else {
         //     return this.myProxy.pageData.list.findIndex((item) => item.oddsChange) > -1;

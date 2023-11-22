@@ -1,11 +1,11 @@
 <div class="ml10 mr10" v-click-outside="onClickOutside">
-    <template v-if="pageData.betType === 'single'">
+    <template v-if="betType === 'single'">
         <div class="btnPlain--text text-truncate text-14 font-weight-bold">{{LangUtil('单场')}}x{{pageData.list.length}}</div>
     </template>
     <template v-else>
         <div v-if="allowBetArr.length >= 2" class="d-flex justify-space-between btnPlain--text text-truncate text-14 font-weight-bold">
             <span>{{allowBetArr.length}}{{LangUtil('串')}}1*1</span>
-            <span>@{{parlayOdds}}</span>
+            <span class="text-18">@{{parlayOdds}}</span>
         </div>
     </template>
 

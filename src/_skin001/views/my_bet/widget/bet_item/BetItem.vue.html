@@ -36,7 +36,9 @@
         </template>
 
         <v-spacer />
-        <div ref="divPrice" id="divPrice" class="pr-1 font-weight-bold text-18">@{{ TransMarketPrice(item.odds) }}</div>
+        <div ref="divPrice" id="divPrice" class="pr-1 font-weight-bold" :class="betType === 'parlay'?'text-14':'text-18'">
+            @{{ TransMarketPrice(item.odds) }}
+        </div>
         <div ref="imgOdds" class="text-8 mr-n1 opacity-0">
             <svg-icon :icon="iconOdds"></svg-icon>
         </div>
