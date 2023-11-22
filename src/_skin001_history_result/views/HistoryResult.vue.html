@@ -218,10 +218,14 @@
                                     :color="item.win==0?'yellow':item.win>0?'green':'red'"
                                     ><span>{{getResultStr(item.win)}}</span>
                                 </v-btn> -->
+                                <v-btn v-if="item.win_type == 6" small class="white--text" depressed :color="getWinTypeColor(item)">
+                                    <span>{{getWinTypeStr(item)}}</span>
+                                </v-btn>
                                 <v-btn
+                                    v-else
                                     :class="GlobalVar.lang!='zh_CN'?'resultbtn_en':'resultbtn_zh'"
-                                    class="white--text mt-2"
-                                    :fab="item.win_type != 6"
+                                    class="white--text"
+                                    fab
                                     depressed
                                     :color="getWinTypeColor(item)"
                                 >
