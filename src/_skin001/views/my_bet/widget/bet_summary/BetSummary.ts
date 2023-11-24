@@ -9,6 +9,7 @@ import {
     getDateByTimeZone,
     parseLocaleNumber,
     logEnterTips,
+    getDecimalSeparator,
 } from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
@@ -33,10 +34,11 @@ export default class BetSummary extends AbstractView {
     pageData = this.myProxy.pageData;
     isShowAmountBtns = false;
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
-    keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "."];
+    // keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "."];
     bshowkeybord = false;
     expanded = false;
     allowBetArr = <any>[];
+    decimalSeparator = getDecimalSeparator();
     @Prop() betType!: string;
 
     @Watch("bshowkeybord")
@@ -52,7 +54,6 @@ export default class BetSummary extends AbstractView {
 
     onInput(e: any) {
         let val = parseLocaleNumber(e.target.value);
-        val = val.replace(/[^0-9.]/g, "");
         this.updateStake(val);
         this.onStakeChange();
     }
@@ -74,7 +75,7 @@ export default class BetSummary extends AbstractView {
             return LangUtil("请输入");
         }
         const p = this.betType == "single" ? LangUtil("单注限额") : LangUtil("串关限额");
-        return p + ` ${this.minStake}-${this.maxStake}`;
+        return p + ` ${amountFormat(this.minStake)}-${amountFormat(this.maxStake)}`;
     }
     get minStake() {
         if (this.betType == "single") {
@@ -130,7 +131,7 @@ export default class BetSummary extends AbstractView {
     }
 
     get maxValue() {
-        const gold = parseFloat(this.selfProxy.userInfo.gold) >> 0;
+        const gold = parseFloat(this.selfProxy.userInfo.gold);
         return Math.min(gold, this.maxStake);
     }
 
@@ -195,15 +196,16 @@ export default class BetSummary extends AbstractView {
         better ? (this.selfProxy.userInfo.better_odds = 1) : (this.selfProxy.userInfo.better_odds = 0);
     }
     onInput_mobile(num: string) {
-        const stake = parseLocaleNumber(this.pageData.summaryStake);
-        const newVal = stake + num;
+        const stake = this.pageData.summaryStake + num;
+        const newVal = parseLocaleNumber(stake);
         this.updateStake(newVal);
         this.onStakeChange();
     }
     onDeleteKeybord(e: any) {
         const mobile = this.$vuetify.breakpoint.mobile;
         if ((mobile && e.type == "touchstart") || (!mobile && e.type == "click")) {
-            this.updateStake(this.pageData.summaryStake.slice(0, -1));
+            const stake = parseLocaleNumber(this.pageData.summaryStake.slice(0, -1));
+            this.updateStake(stake);
             this.onStakeChange();
         }
     }
@@ -297,10 +299,13 @@ export default class BetSummary extends AbstractView {
             const integerPart = amountFormat(parts[0]);
             if (parts.length > 1) {
                 var decimalPart = parts[1].slice(0, 2);
-                this.pageData.summaryStake = integerPart + "." + decimalPart;
+                this.pageData.summaryStake = integerPart + this.decimalSeparator + decimalPart;
             } else {
                 this.pageData.summaryStake = integerPart;
             }
         }
     }
+    get keybordarr(){
+        return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", this.decimalSeparator];
+    } 
 }

@@ -152,6 +152,7 @@ export function amountFormat(val: any, decimal: boolean = false, decimalLang: nu
         minimumFractionDigits: decimal ? decimalLang : 0,
         maximumFractionDigits: decimalLang,
     });
+
     return prefix + formattedAmount;
 }
 //解析数字格式
@@ -167,6 +168,12 @@ export function parseLocaleNumber(stringNumber: any) {
     const sanitizedNumber = stringNumber.replace(new RegExp(`\\${groupSeparator}`, "g"), "").replace(decimalSeparator, ".");
 
     return sanitizedNumber;
+}
+//获取小数符号
+export function getDecimalSeparator() {
+    const format = new Intl.NumberFormat(GlobalVar.lang.substring(0, 2));
+    const decimalSeparator = format.format(0.1).charAt(1);
+    return decimalSeparator;
 }
 /**
  * Check if an element has a class

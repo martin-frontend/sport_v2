@@ -9,6 +9,7 @@ import {
     getDateByTimeZone,
     parseLocaleNumber,
     logEnterTips,
+    getDecimalSeparator,
 } from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
@@ -34,7 +35,7 @@ export default class BetItem extends AbstractView {
     pageData = this.myProxy.pageData;
     bshowkeybord = false;
     oldStake = "";
-    keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "."];
+    // keybordarr = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", "."];
     @Prop() item!: any;
     @Prop() betType!: any;
 
@@ -44,6 +45,7 @@ export default class BetItem extends AbstractView {
     able_to_choose_betterodds = this.selfProxy.userInfo.able_to_choose_betterodds;
     expanded = false;
     isShowAmountBtns = false;
+    decimalSeparator = getDecimalSeparator();
     @Watch("bshowkeybord")
     onWatchShowKeyboard() {
         // 键盘打开后，向上滚动，露出投注按扭
@@ -148,8 +150,8 @@ export default class BetItem extends AbstractView {
         this.updateStake(val);
     }
     onInput_mobile(num: string) {
-        const stake = parseLocaleNumber(this.item.stake);
-        const newVal = stake + num;
+        const stake = this.item.stake + num;
+        const newVal = parseLocaleNumber(stake);
         this.updateStake(newVal);
     }
     onDeleteKeybord(e: any) {
@@ -251,7 +253,7 @@ export default class BetItem extends AbstractView {
         if (this.isVisitor) {
             return LangUtil("请输入");
         }
-        return LangUtil("单注限额") + ` ${item.minStake || 0}-${item.maxStake || 0}`;
+        return LangUtil("单注限额") + ` ${amountFormat(item.minStake) || 0}-${amountFormat(item.maxStake) || 0}`;
     }
 
     onClickOutside() {
@@ -269,7 +271,7 @@ export default class BetItem extends AbstractView {
     }
 
     get maxValue() {
-        const gold = parseFloat(this.selfProxy.userInfo.gold) >> 0;
+        const gold = parseFloat(this.selfProxy.userInfo.gold);
         return Math.min(gold, Number(this.item.maxStake) || 0);
     }
 
@@ -290,10 +292,13 @@ export default class BetItem extends AbstractView {
             const integerPart = amountFormat(parts[0]);
             if (parts.length > 1) {
                 var decimalPart = parts[1].slice(0, 2);
-                this.item.stake = integerPart + "." + decimalPart;
+                this.item.stake = integerPart + this.decimalSeparator + decimalPart;
             } else {
                 this.item.stake = integerPart;
             }
         }
+    }
+    get keybordarr() {
+        return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", this.decimalSeparator];
     }
 }
