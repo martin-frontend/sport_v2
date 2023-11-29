@@ -12,6 +12,7 @@ import BlurUtil from "@/core/global/BlurUtil";
 import dialog_setting from "../../dialog_setting";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
+
 @Component
 export default class Header extends AbstractView {
     LangUtil = LangUtil;
@@ -23,6 +24,12 @@ export default class Header extends AbstractView {
 
     isShowSetting = false;
     user_type: any;
+
+    tagOptions = [
+        { icon: "", title: "籃球", count: "1" },
+        { icon: "", title: "足球", count: "2" },
+        { icon: "", title: "賽馬", count: "3" },
+    ];
 
     constructor() {
         super(HeaderMediator);

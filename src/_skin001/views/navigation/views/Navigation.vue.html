@@ -2,13 +2,8 @@
     <v-window v-model="window" class="elevation-0">
         <v-window-item>
             <v-list nav dense class="navlist">
-                <v-list-item
-                    class="mb-1"
-                    link
-                    @click="window = 1"
-                    v-if="!$vuetify.breakpoint.mobile"
-                    :disabled="betLength == 0"
-                >
+                <MarketTypeTag />
+                <v-list-item class="mb-1" link @click="window = 1" v-if="!$vuetify.breakpoint.mobile" :disabled="betLength == 0">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem"
                         color="bgBanner"
@@ -45,7 +40,6 @@
                         <div class="mr15">{{loveCount}}</div>
                     </v-sheet>
                 </v-list-item>
-
                 <v-list-item
                     class="mb-1"
                     link
@@ -70,67 +64,84 @@
                     </v-sheet>
                 </v-list-item>
 
-                <v-list-group
-                    class="mb-1"
-                    v-model="pageData.menu_subnav.centerOpen[index]"
-                    v-for="(item, index) in pageData.menu_subnav.center"
-                    :key="item.country_code"
-                    @click="onGetSubMenu(item.country_code)"
-                    v-ripple="{ class: `textGray--text` }"
-                >
-                    <template v-slot:activator>
-                        <v-sheet
-                            class="d-flex align-center text-14 rounded-lg textGray--text listitem"
-                            color="bgBanner"
-                            height="38"
-                            width="100%"
-                        >
-                            <v-img
-                                :src="item.icon"
-                                width="20px"
-                                height="20px"
-                                max-height="20px"
-                                max-width="20px"
-                                contain
-                                class="ml15 mr15"
-                            ></v-img>
-                            <div class="text-truncate mr-3">{{LangUtil(item.country_name)}}</div>
-                            <v-spacer />
-                            <div class="mr15">{{item.num}}</div>
-                        </v-sheet>
-                    </template>
-                    <div>
-                        <v-list-item
+                <v-list-item class="mb-1" link @click="showAllComp">
+                    <v-sheet
+                        class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                        color="bgBanner"
+                        height="38"
+                        width="100%"
+                    >
+                        <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
+                        <div class="text-truncate">{{LangUtil('全部赛事')}}</div>
+                        <svg-icon class="text-12 ml-2" icon="zoom_out" :class="isShowAllComp ? 'arrow-up' : 'arrow-down'"></svg-icon>
+                    </v-sheet>
+                </v-list-item>
+
+                <v-expand-transition>
+                    <div v-show="isShowAllComp">
+                        <v-list-group
                             class="mb-1"
-                            link
-                            v-for="(item1, index1) in item.competitions"
-                            :key="index1"
-                            @click="onShowCompetition(item1.competition_id)"
+                            v-model="pageData.menu_subnav.centerOpen[index]"
+                            v-for="(item, index) in pageData.menu_subnav.center"
+                            :key="item.country_code"
+                            @click="onGetSubMenu(item.country_code)"
+                            v-ripple="{ class: `textGray--text` }"
                         >
-                            <v-sheet
-                                class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
-                                :class="{'active': homeProxy.listQueryComp.competition_id == item1.competition_id}"
-                                height="38"
-                                width="100%"
-                            >
-                                <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
-                                <div v-if="item1.name" class="text-truncate mr-3">{{item1.name}}</div>
-                                <v-skeleton-loader v-else class="mr-2" width="100%" type="card-heading"></v-skeleton-loader>
-                            </v-sheet>
-                        </v-list-item>
-                        <v-list-item link @click="onShowCountry(item.country_code)">
-                            <v-sheet
-                                class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
-                                :class="{'active': homeProxy.listQueryComp.country == item.country_code}"
-                                height="38"
-                                width="100%"
-                            >
-                                <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
-                                <div class="text-truncate mr-3">{{LangUtil("更多赛事")}}</div>
-                            </v-sheet>
-                        </v-list-item>
+                            <template v-slot:activator>
+                                <v-sheet
+                                    class="d-flex align-center text-14 rounded-lg textGray--text listitem border"
+                                    color="#f4f4f4"
+                                    height="38"
+                                    width="100%"
+                                >
+                                    <v-img
+                                        :src="item.icon"
+                                        width="20px"
+                                        height="20px"
+                                        max-height="20px"
+                                        max-width="20px"
+                                        contain
+                                        class="ml15 mr15"
+                                    ></v-img>
+                                    <div class="text-truncate mr-3">{{LangUtil(item.country_name)}}</div>
+                                    <v-spacer />
+                                    <div class="mr15">{{item.num}}</div>
+                                </v-sheet>
+                            </template>
+                            <div>
+                                <v-list-item
+                                    class="mb-1"
+                                    link
+                                    v-for="(item1, index1) in item.competitions"
+                                    :key="index1"
+                                    @click="onShowCompetition(item1.competition_id)"
+                                >
+                                    <v-sheet
+                                        class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
+                                        :class="{'active': homeProxy.listQueryComp.competition_id == item1.competition_id}"
+                                        height="38"
+                                        width="100%"
+                                    >
+                                        <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
+                                        <div v-if="item1.name" class="text-truncate mr-3">{{item1.name}}</div>
+                                        <v-skeleton-loader v-else class="mr-2" width="100%" type="card-heading"></v-skeleton-loader>
+                                    </v-sheet>
+                                </v-list-item>
+                                <v-list-item link @click="onShowCountry(item.country_code)">
+                                    <v-sheet
+                                        class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
+                                        :class="{'active': homeProxy.listQueryComp.country == item.country_code}"
+                                        height="38"
+                                        width="100%"
+                                    >
+                                        <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
+                                        <div class="text-truncate mr-3">{{LangUtil("更多赛事")}}</div>
+                                    </v-sheet>
+                                </v-list-item>
+                            </div>
+                        </v-list-group>
                     </div>
-                </v-list-group>
+                </v-expand-transition>
             </v-list>
         </v-window-item>
 

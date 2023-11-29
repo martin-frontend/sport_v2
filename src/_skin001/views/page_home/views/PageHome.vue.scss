@@ -45,17 +45,42 @@ input {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-
-.btnTag {
-    min-height: 30px;
-    display: inline-block;
-    background-color: transparent;
-    overflow: hidden;
-    &.active {
-        background: linear-gradient(to right, #fcb131, #ffe64d);
-        color: #3e3714 !important;
+.tag-btn {
+    opacity: 0.8;
+    &:hover {
+        opacity: 1;
     }
-    padding: 0;
+    &.active {
+        color: #ffbc05 !important;
+        opacity: 1;
+    }
+    &::before {
+        background-color: transparent !important;
+    }
+}
+.tag-btn1 {
+    border-color: #d6dde3;
+    background-color: #fff;
+    opacity: 0.8;
+    &::before {
+        background-color: transparent !important;
+    }
+    &.active {
+        color: #0f1213 !important;
+        border-color: #febc08;
+        opacity: 1;
+    }
+}
+.theme--dark {
+    .tag-btn1 {
+        border-color: transparent;
+        background-color: #272828;
+        color: #fff;
+        &.active {
+            color: #fff !important;
+            border-color: #febc08;
+        }
+    }
 }
 .theme--light {
     .money {

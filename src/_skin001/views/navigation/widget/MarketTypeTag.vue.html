@@ -1,0 +1,34 @@
+<v-sheet color="transparent" width="100%">
+    <v-list-item class="mb-1" link @click="isShowChildTag = !isShowChildTag">
+        <v-sheet
+            class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+            :class="{'active': isShowChildTag}"
+            color="bgBanner"
+            height="38"
+            width="100%"
+        >
+            <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
+            <div class="text-truncate">{{LangUtil('test')}}</div>
+            <v-spacer />
+            <div class="mr15">1</div>
+        </v-sheet>
+    </v-list-item>
+    <v-expand-transition>
+        <div v-if="isShowChildTag">
+            <v-list-item @click="onTagClick(key)" link class="mb-1" v-for="({title,icon,key,vClass,count}) of childTagOption" :key="key">
+                <v-sheet
+                    class="d-flex align-center text-14 rounded-lg listitem border"
+                    :class="[{'child-active': childTag == key},vClass]"
+                    color="bgBanner"
+                    height="38"
+                    width="100%"
+                >
+                    <div class="text-20 ml15 mr15"><svg-icon :icon="icon"></svg-icon></div>
+                    <div class="text-truncate">{{LangUtil(title)}}</div>
+                    <v-spacer />
+                    <div class="mr15">{{count}}</div>
+                </v-sheet>
+            </v-list-item>
+        </div>
+    </v-expand-transition>
+</v-sheet>

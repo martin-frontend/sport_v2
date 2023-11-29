@@ -23,6 +23,7 @@ export default class Navigation extends AbstractView {
     pageData = this.myProxy.pageData;
 
     window = 0;
+    isShowAllComp = false;
 
     constructor() {
         super(NavigationMediator);
@@ -148,5 +149,9 @@ export default class Navigation extends AbstractView {
     get betLength() {
         if (this.betProxy.pageData.isLive) return 0;
         return this.betProxy.pageData.list.length;
+    }
+
+    showAllComp() {
+        this.isShowAllComp = !this.isShowAllComp;
     }
 }

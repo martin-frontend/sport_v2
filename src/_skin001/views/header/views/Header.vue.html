@@ -1,98 +1,122 @@
-<v-sheet class="rounded-lg d-flex align-center mt-2 mr-2" height="46" color="bgBanner">
-    <v-btn plain color="btnPlain" :ripple="false" @click="openHistoryResult">
-        <svg-icon color="primary" class="text-15" icon="history"></svg-icon>
-        <div class="text-14 ml-1">{{LangUtil("注单历史")}}</div>
-    </v-btn>
-    <v-btn plain color="btnPlain" :ripple="false" @click="openCompetionResult">
-        <svg-icon class="text-15" icon="score"></svg-icon>
-        <div class="text-14 ml-1">{{LangUtil("赛果&比分")}}</div>
-    </v-btn>
-    <v-sheet class="search_box d-flex align-center rounded-pill px10 textGray--text ml-2" width="321" height="30" color="bgPage">
-        <input
-            class="text-14 ml-2 textGray--text text-truncate"
-            :placeholder="LangUtil('搜索联赛或球队名称')"
-            v-model="txtSearch"
-            @keyup.enter="onSearch"
-        />
-        <svg-icon icon="search" @click.native="onSearch"></svg-icon>
-    </v-sheet>
-    <v-spacer />
-
-    <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32"
-        ><span @click="openHelp">{{LangUtil("帮助中心")}}</span></btn-info
-    >
-
-    <v-menu offset-y nudge-bottom="4">
-        <template v-slot:activator="{ on, attrs }">
-            <div class="mr10" v-bind="attrs" v-on="on">
-                <btn-info class="text-12 textGray1--text" minWidth="76" height="32">
-                    <div class="d-flex align-center">
-                        <div class="mr10">{{LangUtil( settingProxy.pageData.form.MarketType_area == 0 ? "欧洲盘" : "亚洲盘")}}</div>
-                        <svg-icon
-                            class="text-12"
-                            icon="zoom_out"
-                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
-                        ></svg-icon>
-                    </div>
-                </btn-info>
-            </div>
-        </template>
-        <div class="py-3 menulist textGray1--text text-12" :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'">
-            <div class="pl-4 menuitem" @click="onMarketTypeArea(0)">{{LangUtil("欧洲盘")}}</div>
-            <div class="pl-4 menuitem mt-2" @click="onMarketTypeArea(1)">{{LangUtil("亚洲盘")}}</div>
-        </div>
-    </v-menu>
-
-    <!-- <v-menu offset-y nudge-bottom="4">
-        <template v-slot:activator="{ on, attrs }">
-            <div class="mr10" v-bind="attrs" v-on="on">
-                <btn-info class="text-14" minWidth="86" height="36">
-                    <div class="d-flex align-center">
-                        <div class="mr10">{{LangUtil("简体中文")}}</div>
-                        <svg-icon
-                            class="text-12"
-                            icon="zoom_out"
-                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
-                        ></svg-icon>
-                    </div>
-                </btn-info>
-            </div>
-        </template>
-        <div class="py-3 menulist textGray--text" :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'">
-            <div class="pl-4 menuitem">{{LangUtil("简体中文")}}</div>
-            <div class="pl-4 menuitem mt-2">{{LangUtil("English")}}</div>
-        </div>
-    </v-menu> -->
-
-    <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32" @click.native="onSetting">
-        <div class="d-flex align-center">
-            <div class="mr10">{{LangUtil("设置")}}</div>
-            <svg-icon class="text-12" icon="zoom_out"></svg-icon>
-        </div>
-    </btn-info>
-
-    <!-- <v-menu offset-y nudge-bottom="4" :close-on-content-click="false" @input="onSettingSave" v-model="isShowSetting">
-        <template v-slot:activator="{ on, attrs }">
-            <div class="mr10" v-bind="attrs" v-on="on">
-                <btn-info class="text-12 textGray1--text" minWidth="76" height="32">
-                    <div class="d-flex align-center">
-                        <div class="mr10">{{LangUtil("设置")}}</div>
-                        <svg-icon
-                            class="text-12"
-                            icon="zoom_out"
-                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
-                        ></svg-icon>
-                    </div>
-                </btn-info>
-            </div>
-        </template>
-        <v-sheet
-            class="py-3 menulist textGray--text"
-            :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'"
-            color="transparent"
-            width="420"
-        >
-            <Setting />
+<div>
+    <v-sheet class="rounded-lg d-flex align-center mt-2 mr-2" height="46" color="bgBanner">
+        <v-btn plain color="btnPlain" :ripple="false" @click="openHistoryResult">
+            <svg-icon color="primary" class="text-15" icon="history"></svg-icon>
+            <div class="text-14 ml-1">{{LangUtil("注单历史")}}</div>
+        </v-btn>
+        <v-btn plain color="btnPlain" :ripple="false" @click="openCompetionResult">
+            <svg-icon class="text-15" icon="score"></svg-icon>
+            <div class="text-14 ml-1">{{LangUtil("赛果&比分")}}</div>
+        </v-btn>
+        <v-sheet class="search_box d-flex align-center rounded-pill px10 textGray--text ml-2" width="321" height="30" color="bgPage">
+            <input
+                class="text-14 ml-2 textGray--text text-truncate"
+                :placeholder="LangUtil('搜索联赛或球队名称')"
+                v-model="txtSearch"
+                @keyup.enter="onSearch"
+            />
+            <svg-icon icon="search" @click.native="onSearch"></svg-icon>
         </v-sheet>
-    </v-menu> -->
-</v-sheet>
+        <v-spacer />
+
+        <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32"
+            ><span @click="openHelp">{{LangUtil("帮助中心")}}</span></btn-info
+        >
+
+        <v-menu offset-y nudge-bottom="4">
+            <template v-slot:activator="{ on, attrs }">
+                <div class="mr10" v-bind="attrs" v-on="on">
+                    <btn-info class="text-12 textGray1--text" minWidth="76" height="32">
+                        <div class="d-flex align-center">
+                            <div class="mr10">{{LangUtil( settingProxy.pageData.form.MarketType_area == 0 ? "欧洲盘" : "亚洲盘")}}</div>
+                            <svg-icon
+                                class="text-12"
+                                icon="zoom_out"
+                                :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                            ></svg-icon>
+                        </div>
+                    </btn-info>
+                </div>
+            </template>
+            <div class="py-3 menulist textGray1--text text-12" :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'">
+                <div class="pl-4 menuitem" @click="onMarketTypeArea(0)">{{LangUtil("欧洲盘")}}</div>
+                <div class="pl-4 menuitem mt-2" @click="onMarketTypeArea(1)">{{LangUtil("亚洲盘")}}</div>
+            </div>
+        </v-menu>
+
+        <!-- <v-menu offset-y nudge-bottom="4">
+            <template v-slot:activator="{ on, attrs }">
+                <div class="mr10" v-bind="attrs" v-on="on">
+                    <btn-info class="text-14" minWidth="86" height="36">
+                        <div class="d-flex align-center">
+                            <div class="mr10">{{LangUtil("简体中文")}}</div>
+                            <svg-icon
+                                class="text-12"
+                                icon="zoom_out"
+                                :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                            ></svg-icon>
+                        </div>
+                    </btn-info>
+                </div>
+            </template>
+            <div class="py-3 menulist textGray--text" :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'">
+                <div class="pl-4 menuitem">{{LangUtil("简体中文")}}</div>
+                <div class="pl-4 menuitem mt-2">{{LangUtil("English")}}</div>
+            </div>
+        </v-menu> -->
+
+        <btn-info class="mr10 text-12 textGray1--text" minWidth="76" height="32" @click.native="onSetting">
+            <div class="d-flex align-center">
+                <div class="mr10">{{LangUtil("设置")}}</div>
+                <svg-icon class="text-12" icon="zoom_out"></svg-icon>
+            </div>
+        </btn-info>
+
+        <!-- <v-menu offset-y nudge-bottom="4" :close-on-content-click="false" @input="onSettingSave" v-model="isShowSetting">
+            <template v-slot:activator="{ on, attrs }">
+                <div class="mr10" v-bind="attrs" v-on="on">
+                    <btn-info class="text-12 textGray1--text" minWidth="76" height="32">
+                        <div class="d-flex align-center">
+                            <div class="mr10">{{LangUtil("设置")}}</div>
+                            <svg-icon
+                                class="text-12"
+                                icon="zoom_out"
+                                :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                            ></svg-icon>
+                        </div>
+                    </btn-info>
+                </div>
+            </template>
+            <v-sheet
+                class="py-3 menulist textGray--text"
+                :class="$vuetify.theme.dark ? 'menulist-dark' : 'enulist-light'"
+                color="transparent"
+                width="420"
+            >
+                <Setting />
+            </v-sheet>
+        </v-menu> -->
+    </v-sheet>
+
+    <v-sheet color="bgBanner" class="mt-2 mr-2 rounded-lg">
+        <horizontal_scroll class="py-2" :offsetx="16">
+            <template v-slot="{data}">
+                <v-btn
+                    v-for="(item, key) of tagOptions"
+                    :key="key"
+                    class="mr-2 font-weight-bold tag-btn"
+                    :class="{'active1': item.title == '籃球'}"
+                    text
+                    :ripple="false"
+                    max-height="30"
+                    style="background-color: transparent;"
+                >
+                    <span class="d-flex align-center">
+                        {{ item.title }}
+                        <span>{{item.count}}</span>
+                    </span>
+                </v-btn>
+            </template>
+        </horizontal_scroll>
+    </v-sheet>
+</div>
