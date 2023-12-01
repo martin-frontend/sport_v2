@@ -175,13 +175,17 @@ export default class PageHomeProxy extends puremvc.Proxy {
     set_event_states(data: any) {
         for (const item of data) {
             const finditem = this.pageData.event_states.find((item1) => item.event_id == item1.event_id);
+            // 已完赛
+            if (item.match_phase == "FT") {
+                this.api_event_list(false);
+                return;
+            }
             if (finditem) {
                 Object.assign(finditem, item);
             } else {
                 this.pageData.event_states.push(item);
             }
         }
-        // TODO 移除已经结束的赛事
     }
     set_user_lovematch(data: any) {
         if (this.listQueryComp.tag == "love") this.pageData.loading = false;
@@ -200,9 +204,9 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
 
     /**赛事接口-新*/
-    api_event_list() {
+    api_event_list(loading: boolean = true) {
         if (this.listQueryComp.tag != "love") {
-            this.pageData.loading = true;
+            this.pageData.loading = loading;
             this.pageData.market_list = [];
             this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
         } else {
