@@ -142,7 +142,7 @@ export default class BetItem extends AbstractView {
     }
     //检测是否为滚球
     checkInplay() {
-        return !!this.states && !!this.states.goals_ft;
+        return !!this.states && !!this.states.goals_ft && this.states.match_phase != '-';
     }
 
     onInput(e: any) {

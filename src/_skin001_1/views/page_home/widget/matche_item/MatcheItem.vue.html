@@ -97,7 +97,7 @@
                             />
                             <v-spacer />
                             <v-sheet
-                                v-if="states"
+                                v-if="states && states.match_phase != '-'"
                                 class="ml-1 d-flex align-center font-weight-bold text-18"
                                 min-width="15"
                                 color="transparent"
@@ -129,7 +129,7 @@
                             />
                             <v-spacer />
                             <v-sheet
-                                v-if="states"
+                                v-if="states && states.match_phase != '-'"
                                 class="ml-1 d-flex align-center font-weight-bold text-18"
                                 min-width="15"
                                 color="transparent"

@@ -167,7 +167,7 @@ export default class MatcheItem extends AbstractView {
 
     /**是否显示全场比分，or加时比分 */
     isShowFullScore(match_phase: string): boolean {
-        const arr = ["-", "1H", "HT", "2H", "FT"];
+        const arr = ["1H", "HT", "2H", "FT"];
         return arr.includes(match_phase);
     }
     

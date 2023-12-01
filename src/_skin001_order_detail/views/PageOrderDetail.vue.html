@@ -31,10 +31,10 @@
                 </div>
 
                 <div class="text-14">
-                    <span v-if="leg.state && Object.keys(leg.state).length > 0">{{LangUtil("滚球")}}</span>
-                    <span class="font-weight-bold" v-if="leg.state && Object.keys(leg.state).length > 0"
-                        >{{OrderTitleUtils.getScoreStr(leg)}}</span
-                    >
+                    <template v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
+                        <span>{{LangUtil("滚球")}}</span>
+                        <span class="font-weight-bold">{{OrderTitleUtils.getScoreStr(leg)}}</span>
+                    </template>
                     {{leg.market_type_text}}
                 </div>
                 <div class="text-14 d-flex flex-wrap">

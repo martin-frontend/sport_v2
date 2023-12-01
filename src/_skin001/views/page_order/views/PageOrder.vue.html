@@ -52,10 +52,7 @@
                 </v-tabs>
             </v-sheet>
 
-            <v-sheet
-                color="bgBanner"
-                class="d-flex px-2 py-2 rounded-lg mt-2 mx-2 py-1 text-14 font-weight-bold"
-            >
+            <v-sheet color="bgBanner" class="d-flex px-2 py-2 rounded-lg mt-2 mx-2 py-1 text-14 font-weight-bold">
                 <v-sheet width="2" height="16" color="yellow" class="mr-2" style="margin-top: 3px"></v-sheet>
                 <div style="width: 100%">
                     <span class="mr-2 _title"
@@ -63,7 +60,8 @@
                     >
                     <span class="mr-2 _title">
                         {{LangUtil("投注额度")}}
-                        <span class="blackText--text"> {{GlobalVar.currency}}
+                        <span class="blackText--text">
+                            {{GlobalVar.currency}}
                             <SmallDecimal :amount="amountFormat(pageData.stats.total_stake, true)"></SmallDecimal>
                         </span>
                     </span>
@@ -125,10 +123,10 @@
                                 </div>
 
                                 <div class="text-14">
-                                    <span v-if="leg.state && Object.keys(leg.state).length > 0">{{LangUtil("滚球")}}</span>
-                                    <span class="font-weight-bold" v-if="leg.state && Object.keys(leg.state).length > 0"
-                                        >{{OrderTitleUtils.getScoreStr(leg)}}</span
-                                    >
+                                    <template v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
+                                        <span>{{LangUtil("滚球")}}</span>
+                                        <span class="font-weight-bold">{{OrderTitleUtils.getScoreStr(leg)}}</span>
+                                    </template>
                                     <span>{{leg.market_type_text}}</span>
                                 </div>
 

@@ -83,7 +83,7 @@
                     <div>@{{TransMarketPrice(leg.odds)}}</div>
                 </div>
     
-                <div class="d-flex px10 mt-1" v-if="leg.state && Object.keys(leg.state).length > 0">
+                <div class="d-flex px10 mt-1" v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
                     <div>{{LangUtil("滚球")}}</div>
                     <v-spacer />
                     <div class="font-weight-bold" v-html="OrderTitleUtils.getScoreStr(leg)"></div>

@@ -12,7 +12,7 @@
                 <span class="font-weight-bold "> {{getStateStr(myProxy.event_states(item)).scoreStr}}</span>
             </div>
             <div class="my-2 custom-hr"></div> -->
-        <div style="position: relative;">
+        <div style="position: relative">
             <div width="100%">
                 {{LangUtil("订单状态")}}
                 <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status]}}</span>
@@ -72,10 +72,10 @@
                 <div style="margin-left: 8px">@{{TransMarketPrice(leg.odds)}}</div>
             </div>
             <div class="text-14">
-                <span v-if="leg.state && Object.keys(leg.state).length > 0">{{LangUtil("滚球")}}</span>
-                <span class="font-weight-bold" v-if="leg.state && Object.keys(leg.state).length > 0"
-                    >{{OrderTitleUtils.getScoreStr(leg)}}</span
-                >
+                <template v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
+                    <span>{{LangUtil("滚球")}}</span>
+                    <span class="font-weight-bold">{{OrderTitleUtils.getScoreStr(leg)}}</span>
+                </template>
                 {{leg.market_type_text}}
             </div>
             <div class="chuandan_win" v-if="leg.selection_win_type">
