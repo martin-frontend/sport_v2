@@ -10,6 +10,7 @@ import BetProxy from "@/proxy/BetProxy";
 import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import DialogBetResultProxy from "../../dialog_bet_result/proxy/DialogBetResultProxy";
+import Assets from "@/_skin001/assets/Assets";
 
 @Component
 export default class Navigation extends AbstractView {
@@ -21,6 +22,7 @@ export default class Navigation extends AbstractView {
     orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
     myProxy: NavigationProxy = getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
+    sportIcon = Assets.SportIcon;
 
     window = 0;
     isShowAllComp = false;
@@ -36,6 +38,10 @@ export default class Navigation extends AbstractView {
         champion: "cup",
     };
 
+    get new_menu_subnav() {
+        return this.homeProxy.pageData.new_menu_subnav;
+    }
+
     get loveCount() {
         let count = 0;
         for (const comp of this.pageData.lovematch) {
@@ -48,9 +54,14 @@ export default class Navigation extends AbstractView {
         return this.orderUnsettledProxy.pageData.stats.total_count;
     }
 
-    onTagClick(tag: string) {
-        page_home.showByTag(tag);
-        this.$emit("onChange");
+    // onTagClick(tag: string) {
+    //     page_home.showByTag(tag);
+    //     this.$emit("onChange");
+    // }
+
+    onTagClick(sport_id: any) {
+        this.homeProxy.listQueryComp.sport_id = sport_id;
+        // this.$emit("onChange");
     }
 
     onGetSubMenu(country_code: string) {

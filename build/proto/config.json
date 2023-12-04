@@ -37,6 +37,7 @@
         ["api/user/orders_v3",                  "投注纪录v3"],
         ["api/user/precashout",                 "提前结算预请求"],
         ["api/user/cashout",                    "提前结算cashout"],
-        ["public/order_detail_data_v3",         "投注详情新接口"]
+        ["public/order_detail_data_v3",         "投注详情新接口"],
+        ["api/menu/leftnav",                    "左侧菜单栏"]
     ]
 }
