@@ -77,6 +77,17 @@
                     </v-sheet>
                 </v-list-item>
 
+                <v-list-item class="mb-1" link @click="showRacing">
+                    <v-sheet
+                        class="d-flex align-center text-14 rounded-lg textGray--text listitem"
+                        color="bgBanner"
+                        height="38"
+                        width="100%"
+                    >
+                        <div class="text-truncate">{{LangUtil('賽馬')}}</div>
+                    </v-sheet>
+                </v-list-item>
+
                 <v-expand-transition>
                     <div v-show="isShowAllComp">
                         <v-list-group

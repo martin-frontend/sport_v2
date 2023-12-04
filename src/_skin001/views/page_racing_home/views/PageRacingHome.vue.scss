@@ -1,0 +1,28 @@
+.tab-btn {
+    border-color: #d6dde3;
+    background-color: #fff;
+    color: #5d5d5d;
+    &:hover {
+        opacity: 0.7;
+    }
+    &::before {
+        background-color: transparent !important;
+    }
+    &.active {
+        color: #0f1213 !important;
+        border: unset;
+        margin: 1px;
+        background-image: linear-gradient(90deg, #fcb131 0%, #ffe64d);
+        opacity: 1;
+    }
+}
+.theme--dark {
+    .tab-btn {
+        border-color: transparent;
+        background-color: #272828;
+        color: #fff;
+    }
+}
+.border-bottom {
+    border-bottom: 1px solid #d6dde3;
+}

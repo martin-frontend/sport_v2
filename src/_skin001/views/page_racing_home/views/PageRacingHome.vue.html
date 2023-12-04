@@ -1,0 +1,53 @@
+<v-sheet color="transparent" height="100%" class="mr-2 py-2 d-flex flex-column">
+    <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="onBack">
+        <svg-icon icon="back3" class="text-22"></svg-icon>
+    </v-btn>
+
+    <v-sheet color="transparent" class="rounded-lg" height="40">
+        <horizontal_scroll :offsetx="16">
+            <template v-slot="{data}">
+                <v-btn
+                    v-for="item of tabOptions"
+                    :key="item.key"
+                    :disabled="false"
+                    class="rounded-pill mr-2 tab-btn"
+                    :class="{'active': tab == item.key}"
+                    elevation="0"
+                    outlined
+                    max-height="40"
+                    @click="tab = item.key"
+                >
+                    <span class="d-flex align-center"> {{ LangUtil(item.title) }} </span>
+                </v-btn>
+            </template>
+        </horizontal_scroll>
+    </v-sheet>
+
+    <v-sheet class="rounded-lg overflow-y-auto overflow-x-hidden scroll-div mt-1" style="flex: 1" color="bgBanner">
+        <div class="d-flex pl-8 border-bottom">
+            <v-checkbox
+                v-model="checkBoxArr"
+                :value="key"
+                multiple
+                color="#feba00"
+                class="mr-8"
+                v-for="(item,key) of checkBoxOptions"
+                :key="key"
+            >
+                <template #label>
+                    <svg-icon :icon="item.icon" class="text-22 tagTextColor2--text"></svg-icon>
+                </template>
+            </v-checkbox>
+        </div>
+        <!-- 下一场 -->
+        <template v-if="false">
+            <RaceTable v-for="(item, index) of 3" :key="index" :isNextDay="true" :option="checkBoxOptions['h']"></RaceTable>
+        </template>
+
+        <template v-else>
+            <template v-for="(item,key) of checkBoxOptions">
+                <RaceTable v-if="checkBoxArr.includes(key)" :key="key" :option="item"></RaceTable>
+            </template>
+        </template>
+    </v-sheet>
+</v-sheet>

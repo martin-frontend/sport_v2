@@ -10,6 +10,7 @@ import BetProxy from "@/proxy/BetProxy";
 import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import DialogBetResultProxy from "../../dialog_bet_result/proxy/DialogBetResultProxy";
+import page_racing_home from "../../page_racing_home";
 
 @Component
 export default class Navigation extends AbstractView {
@@ -153,5 +154,9 @@ export default class Navigation extends AbstractView {
 
     showAllComp() {
         this.isShowAllComp = !this.isShowAllComp;
+    }
+
+    showRacing() {
+        page_racing_home.show();
     }
 }

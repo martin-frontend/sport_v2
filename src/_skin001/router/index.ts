@@ -37,6 +37,16 @@ const routes: Array<RouteConfig> = [
         component: () =>
             import(/* webpackChunkName: "skin001_page_competion_result" */ "@/_skin001_competion_result/views/CompetionResult.vue"),
     },
+    {
+        path: "/page_racing_home",
+        name: "page_racing_home",
+        component: () => import(/* webpackChunkName: "skin001_page_racing_home" */ "@/_skin001/views/page_racing_home/views/PageRacingHome.vue"),
+    },
+    {
+        path: "/page_racing_detail",
+        name: "page_racing_detail",
+        component: () => import(/* webpackChunkName: "skin001_page_racing_detail" */ "@/_skin001/views/page_racing_detail/views/PageRacingDetail.vue"),
+    },
 ];
 
 const router = new VueRouter({ routes });
