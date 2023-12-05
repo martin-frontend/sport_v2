@@ -64,7 +64,7 @@
                 :end-placeholder="LangUtil('结束日期')"
                 :default-time="[`00:00:00`, `23:59:00`]"
                 align="right"
-                format="yyyy-MM-dd HH:mm:ss"
+                :format="`${LangUtil('yyyy-MM-dd')} HH:mm:ss`"
                 class="input_range align-center"
                 @change="onTimeChange"
                 :clearable="false"
@@ -130,7 +130,7 @@
                             <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
                                 <svg-icon class="text-16" icon="copy"></svg-icon>
                             </button>
-                            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
+                            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span>
                         </template>
                     </v-col>
                     <v-col>
@@ -150,7 +150,7 @@
                         <span>{{leg.home_name}}</span>
                         <span>VS</span>
                         <span>{{leg.away_name}}</span>
-                        <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
+                        <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span>
                     </v-col>
                     <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">
                         <div id="content" class="d-flex text-center">

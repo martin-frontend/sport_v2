@@ -146,7 +146,7 @@ export default class BetResult extends AbstractView {
     // }
 
     getCreateTime(create_time: any) {
-        return dateFormat(new Date(create_time * 1000), "yyyy/MM/dd hh:mm:ss");
+        return dateFormat(new Date(create_time * 1000), "yyyy/MM/dd hh:mm:ss" ,true);
     }
 
     onClose() {

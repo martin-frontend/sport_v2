@@ -39,14 +39,14 @@
             <div width="100%">
                 {{LangUtil("投注时间")}}
                 <span class="font-weight-bold">
-                    {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                    {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span
                 >
             </div>
 
             <div width="100%" v-if="item.is_settle == 1">
                 {{LangUtil("结算时间")}}
                 <span class="font-weight-bold">
-                    {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                    {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span
                 >
             </div>
             <div class="win-type-chuan">

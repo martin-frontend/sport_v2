@@ -17,7 +17,7 @@ export default class OtherCompetition extends AbstractView {
     @Prop() curevent_id!: Number;
     start_time(matche: any) {
         const timearr = <any>{};
-        timearr.day = dateFormat(getDateByTimeZone(matche.sb_time * 1000, GlobalVar.zone), "MM/dd");
+        timearr.day = dateFormat(getDateByTimeZone(matche.sb_time * 1000, GlobalVar.zone), "MM/dd" ,true);
         timearr.min = dateFormat(getDateByTimeZone(matche.sb_time * 1000, GlobalVar.zone), "hh:mm");
         return timearr;
     }

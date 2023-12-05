@@ -68,7 +68,7 @@ export default class Live extends AbstractView {
     }
 
     get start_time() {
-        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm");
+        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm" ,true);
     }
 
     getCompName() {

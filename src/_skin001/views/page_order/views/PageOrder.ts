@@ -125,7 +125,7 @@ export default class PageOrder extends AbstractView {
             const hr = Math.floor(start_in_sec / 60 / 60);
             const min = Math.floor((start_in_sec / 60) % 60);
             if (start_in_sec > 0) {
-                states_str = dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000, GlobalVar.zone), "MM-dd hh:mm");
+                states_str = dateFormat(getDateByTimeZone(item.event_time_timestamp * 1000, GlobalVar.zone), "MM/dd hh:mm", true);
                 if (start_in_sec > 86400) {
                     states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
                 } else if (start_in_sec > 600) {
