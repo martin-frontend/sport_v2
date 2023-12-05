@@ -102,18 +102,20 @@
         <horizontal_scroll class="py-2" :offsetx="16">
             <template v-slot="{data}">
                 <v-btn
-                    v-for="(item, key) of tagOptions"
+                    v-for="(item, key) of new_menu_subnav"
                     :key="key"
                     class="mr-2 font-weight-bold tag-btn"
-                    :class="{'active1': item.title == '籃球'}"
+                    :class="{'active1': key == curSportId}"
                     text
                     :ripple="false"
                     max-height="30"
                     style="background-color: transparent;"
+                    :disabled="!item.all_competition_amount"
+                    @click="onSportClick(key)"
                 >
                     <span class="d-flex align-center">
-                        <svg-icon class="text-20 mr-1" :icon="item.icon"></svg-icon>
-                        <span>{{item.count}}</span>
+                        <svg-icon class="text-20 mr-1" :icon="sportIcon[key]"></svg-icon>
+                        <span>{{item.all_competition_amount}}</span>
                     </span>
                 </v-btn>
             </template>

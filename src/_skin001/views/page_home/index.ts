@@ -7,7 +7,6 @@ function show() {
         Vue.router.replace("/page_home");
     }
 }
-
 /**按标签查询 */
 function showByTag(tag: string) {
     show();
@@ -18,7 +17,7 @@ function showByTag(tag: string) {
     } else {
         myProxy.api_event_list();
     }
-    myProxy.api_menu_subnav();
+    // myProxy.api_menu_subnav();
 }
 /**按国家查询 */
 function showByCountry(country: string) {
@@ -60,4 +59,10 @@ function getMyProxy(): PageHomeProxy {
     return myProxy;
 }
 
-export default { show, showByTag, showByCountry, showByCompetition, showByKeyword, showEventList };
+/**按运动查询 */
+function showBySport(sport_id: any) {
+    const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
+    myProxy.listQueryComp.sport_id = sport_id;
+    showByTag("inplay");
+}
+export default { show, showByTag, showByCountry, showByCompetition, showByKeyword, showEventList, showBySport };

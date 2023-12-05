@@ -1,5 +1,5 @@
-<v-sheet color="transparent" width="100%">
-    <v-list-item class="mb-1" link @click="onSportTagClick">
+<v-sheet color="transparent" width="100%" v-if="item">
+    <v-list-item :disabled="!item.all_competition_amount" class="mb-1" link @click="onSportClick">
         <v-sheet
             class="d-flex align-center text-14 rounded-lg textGray--text listitem"
             :class="{'active': homeProxy.listQueryComp.sport_id == sportId}"
@@ -14,11 +14,18 @@
         </v-sheet>
     </v-list-item>
     <v-expand-transition>
-        <div v-if="item && homeProxy.listQueryComp.sport_id == sportId">
-            <v-list-item @click="onTypeClick(key)" link class="mb-1" v-for="({icon,vClass}, key) of childTagOption" :key="key">
+        <div v-if="curSportId == sportId">
+            <v-list-item
+                :disabled="!item[key].num"
+                @click="onTagClick(key)"
+                link
+                class="mb-1"
+                v-for="({icon,vClass}, key) of tagOption"
+                :key="key"
+            >
                 <v-sheet
                     class="d-flex align-center text-14 rounded-lg listitem border"
-                    :class="[{'child-active': childTag == key},vClass]"
+                    :class="[{'child-active': key == curTag},vClass]"
                     color="bgBanner"
                     height="38"
                     width="100%"

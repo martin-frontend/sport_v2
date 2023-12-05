@@ -31,17 +31,6 @@ export default class Navigation extends AbstractView {
         super(NavigationMediator);
     }
 
-    tagIcon = {
-        inplay: "live",
-        today: "today",
-        future: "early",
-        champion: "cup",
-    };
-
-    get new_menu_subnav() {
-        return this.homeProxy.pageData.new_menu_subnav;
-    }
-
     get loveCount() {
         let count = 0;
         for (const comp of this.pageData.lovematch) {
@@ -54,13 +43,8 @@ export default class Navigation extends AbstractView {
         return this.orderUnsettledProxy.pageData.stats.total_count;
     }
 
-    // onTagClick(tag: string) {
-    //     page_home.showByTag(tag);
-    //     this.$emit("onChange");
-    // }
-
-    onTagClick(sport_id: any) {
-        this.homeProxy.listQueryComp.sport_id = sport_id;
+    onTagClick(tag: string) {
+        page_home.showByTag(tag);
         // this.$emit("onChange");
     }
 
@@ -70,13 +54,13 @@ export default class Navigation extends AbstractView {
 
     onShowCompetition(comp_id: number) {
         page_home.showByCompetition(comp_id);
-        this.$emit("onChange");
+        // this.$emit("onChange");
     }
 
-    onShowCountry(country_code: string) {
-        page_home.showByCountry(country_code);
-        this.$emit("onChange");
-    }
+    // onShowCountry(country_code: string) {
+    //     page_home.showByCountry(country_code);
+    //     this.$emit("onChange");
+    // }
 
     @Watch("betProxy.pageData.activeCount")
     onWatchMyBet() {
@@ -137,12 +121,12 @@ export default class Navigation extends AbstractView {
         }
     }
 
-    @Watch("pageData.update_count")
-    onWatchCountryUpdate() {
-        if (this.$vuetify.breakpoint.mobile) {
-            this.$forceUpdate();
-        }
-    }
+    // @Watch("pageData.update_count")
+    // onWatchCountryUpdate() {
+    //     if (this.$vuetify.breakpoint.mobile) {
+    //         this.$forceUpdate();
+    //     }
+    // }
 
     onExitOrderUnsettled() {
         this.window = 0;
@@ -164,5 +148,13 @@ export default class Navigation extends AbstractView {
 
     showAllComp() {
         this.isShowAllComp = !this.isShowAllComp;
+    }
+
+    get new_menu_subnav() {
+        return this.homeProxy.pageData.new_menu_subnav;
+    }
+
+    get curSportId() {
+        return this.homeProxy.listQueryComp.sport_id;
     }
 }
