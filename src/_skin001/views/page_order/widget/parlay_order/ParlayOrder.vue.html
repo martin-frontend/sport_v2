@@ -1,7 +1,10 @@
 <div>
     <div class="d-flex align-center">
         <v-sheet width="2" height="16" color="yellow" class="mx-2"></v-sheet>
-        <div class="text-16 text-truncate font-weight-bold">{{item.leg_info.length}}{{LangUtil('串')}}1*1</div>
+        <div class="text-16 text-truncate font-weight-bold" v-if="['vi_VN'].includes(GlobalVar.lang)">
+            {{LangUtil("串{0} {1}*{2}",item.leg_info.length, 1, 1)}}
+        </div>
+        <div class="text-16 text-truncate font-weight-bold" v-else>{{LangUtil("{0}串{1}*{2}",item.leg_info.length, 1, 1)}}</div>
         <v-spacer />
         <!-- <div class="mr-4 text-16 font-weight-bold top-text">@{{parlayOdds}}</div> -->
     </div>
