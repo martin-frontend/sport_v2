@@ -414,8 +414,8 @@ export default class BetProxy extends puremvc.Proxy {
         if (this.pageData.list.length > 0) {
             const form = {
                 type: "fix",
-                event_id: this.pageData.list.map((item) => item.matche.id),
-                market_type: this.pageData.list.map((item) => item.market.market_type),
+                event_id: this.pageData.list.map((item) => item.matche.id).toString(),
+                market_type: this.pageData.list.map((item) => item.market.market_type).toString(),
                 unique: BetProxy.NAME,
             };
             this.sendNotification(net.HttpType.api_market_typelist, form);
