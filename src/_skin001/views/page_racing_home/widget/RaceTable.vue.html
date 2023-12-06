@@ -18,7 +18,9 @@
                 <v-sheet v-if="false" color="timeColor1" class="white--text rounded text-center px-1 text-12 mt-1" min-width="50">
                     9分45秒
                 </v-sheet>
-                <v-sheet v-else color="timeColor2" class="white--text rounded text-center px-1 text-12 mt-1" min-width="50"> 33分鐘 </v-sheet>
+                <v-sheet v-else color="timeColor2" class="white--text rounded text-center px-1 text-12 mt-1" min-width="50">
+                    33分鐘
+                </v-sheet>
             </div>
         </v-sheet>
     </template>
@@ -42,20 +44,27 @@
         <v-expand-transition>
             <div v-if="isShowContent">
                 <template v-if="true">
-                    <v-row v-for="y of 5" :key="y" class="px-2 border-bottom" no-gutters>
-                        <v-col class="d-flex align-center tagTextColor2--text hand" @click="onShowDetail">
+                    <v-row v-for="y of 5" :key="y" class="border-bottom" no-gutters>
+                        <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowDetail">
                             <svg-icon :icon="option.icon" class="text-22 mx-1"></svg-icon>
                             <div class="py-2">
                                 <div class="ml-2 font-weight-bold text-14">艾莉条斯普林斯 11月04日</div>
                                 <div class="ml-2 font-weight-bold text-14 tagTextColor1--text">澳大利亚</div>
                             </div>
                         </v-col>
-                        <v-col cols="auto" class="hand" v-for="i of 14" :key="i" @click="onShowDetail">
+                        <v-col
+                            cols="auto"
+                            class="hand"
+                            v-for="i of 14"
+                            :key="i"
+                            @click="onShowDetail"
+                        >
                             <v-sheet
                                 class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1"
                                 width="70"
                                 height="100%"
-                                style="border-left: 1px solid #d6dde3"
+                                color="transparent"
+                                style="border-left: 1px solid #d6dde3 !important"
                             >
                                 <template v-if="i !== 2">
                                     <div>3,8,7</div>
@@ -81,7 +90,7 @@
                                 </template>
                             </v-sheet>
                         </v-col>
-                        <v-col cols="auto" class="d-flex align-center">
+                        <v-col cols="auto" class="d-flex align-center pr-2">
                             <v-sheet width="14" color="transparent"></v-sheet>
                         </v-col>
                     </v-row>

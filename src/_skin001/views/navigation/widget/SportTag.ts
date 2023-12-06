@@ -6,6 +6,7 @@ import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import getProxy from "@/core/global/getProxy";
 import page_home from "../../page_home";
 import NavigationProxy from "../proxy/NavigationProxy";
+import page_racing_home from "../../page_racing_home";
 
 @Component
 export default class MarketTypeTag extends AbstractView {
@@ -45,8 +46,10 @@ export default class MarketTypeTag extends AbstractView {
     }
 
     onSportClick() {
-        if(!this.isRaceSport) {
+        if (!this.isRaceSport) {
             page_home.showBySport(this.sportId);
+        } else {
+            page_racing_home.showBySport(this.sportId);
         }
     }
 

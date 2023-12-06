@@ -8,6 +8,7 @@ import SelfProxy from "@/proxy/SelfProxy";
 import NavigationProxy from "@/_skin001/views/navigation/proxy/NavigationProxy";
 import getProxy from "@/core/global/getProxy";
 import page_home from "@/_skin001/views/page_home";
+import page_racing_home from "@/_skin001/views/page_racing_home";
 
 @Component
 export default class HeaderNav extends AbstractView {
@@ -38,6 +39,8 @@ export default class HeaderNav extends AbstractView {
     onSportClick(sport_id: any) {
         if (!this.isRaceSport(sport_id)) {
             page_home.showBySport(sport_id);
+        } else {
+            page_racing_home.showBySport(sport_id);
         }
     }
 
