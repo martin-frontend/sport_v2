@@ -266,4 +266,8 @@ export default class PageHomeProxy extends puremvc.Proxy {
     api_menu_subnav() {
         this.sendNotification(net.HttpType.api_menu_subnav);
     }
+
+    api_menu_leftnav() {
+        this.sendNotification(net.HttpType.api_menu_leftnav);
+    }
 }

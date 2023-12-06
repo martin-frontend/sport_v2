@@ -21,15 +21,8 @@ export default class Header extends AbstractView {
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
     txtSearch = "";
-
     isShowSetting = false;
     user_type: any;
-
-    tagOptions = [
-        { icon: "basketball", title: "籃球", count: "1" },
-        { icon: "football", title: "足球", count: "2" },
-        { icon: "race", title: "賽馬", count: "3" },
-    ];
 
     constructor() {
         super(HeaderMediator);

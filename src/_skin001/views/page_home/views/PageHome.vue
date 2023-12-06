@@ -8,6 +8,7 @@ import HomeHeader from "../widget/home_header/HomeHeader.vue";
 import HomeMobileHeader from "../widget/home_mobile_header/HomeMobileHeader.vue";
 import ChampionItem from "../widget/champion_item/ChampionItem.vue";
 import PageHome from "./PageHome";
+import HeaderNav from "../../header/widget/header_nav/HeaderNav.vue";
 
 @Component({
     components: {
@@ -15,6 +16,7 @@ import PageHome from "./PageHome";
         ChampionItem,
         HomeMobileHeader,
         HomeHeader,
+        HeaderNav
     },
 })
 export default class extends PageHome {}

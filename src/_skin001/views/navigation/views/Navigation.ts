@@ -11,6 +11,7 @@ import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import DialogBetResultProxy from "../../dialog_bet_result/proxy/DialogBetResultProxy";
 import page_racing_home from "../../page_racing_home";
+// import Assets from "@/_skin001/assets/Assets";
 
 @Component
 export default class Navigation extends AbstractView {
@@ -22,51 +23,39 @@ export default class Navigation extends AbstractView {
     orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
     myProxy: NavigationProxy = getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
+    // sportIcon = Assets.SportIcon;
 
     window = 0;
-    isShowAllComp = false;
 
     constructor() {
         super(NavigationMediator);
     }
 
-    tagIcon = {
-        inplay: "live",
-        today: "today",
-        future: "early",
-        champion: "cup",
-    };
-
-    get loveCount() {
-        let count = 0;
-        for (const comp of this.pageData.lovematch) {
-            count += comp.count;
-        }
-        return count;
-    }
+    // get loveCount() {
+    //     let count = 0;
+    //     for (const comp of this.pageData.lovematch) {
+    //         count += comp.count;
+    //     }
+    //     return count;
+    // }
 
     get unsettledCount() {
         return this.orderUnsettledProxy.pageData.stats.total_count;
     }
 
-    onTagClick(tag: string) {
-        page_home.showByTag(tag);
-        this.$emit("onChange");
-    }
+    // onTagClick(tag: string) {
+    //     page_home.showByTag(tag);
+    //     this.$emit("onChange");
+    // }
 
-    onGetSubMenu(country_code: string) {
-        this.myProxy.api_menu_subnav_country(country_code);
-    }
+    // onGetSubMenu(country_code: string) {
+    //     this.myProxy.api_menu_subnav_country(country_code);
+    // }
 
-    onShowCompetition(comp_id: number) {
-        page_home.showByCompetition(comp_id);
-        this.$emit("onChange");
-    }
-
-    onShowCountry(country_code: string) {
-        page_home.showByCountry(country_code);
-        this.$emit("onChange");
-    }
+    // onShowCountry(country_code: string) {
+    //     page_home.showByCountry(country_code);
+    //     this.$emit("onChange");
+    // }
 
     @Watch("betProxy.pageData.activeCount")
     onWatchMyBet() {
@@ -127,12 +116,12 @@ export default class Navigation extends AbstractView {
         }
     }
 
-    @Watch("pageData.update_count")
-    onWatchCountryUpdate() {
-        if (this.$vuetify.breakpoint.mobile) {
-            this.$forceUpdate();
-        }
-    }
+    // @Watch("pageData.update_count")
+    // onWatchCountryUpdate() {
+    //     if (this.$vuetify.breakpoint.mobile) {
+    //         this.$forceUpdate();
+    //     }
+    // }
 
     onExitOrderUnsettled() {
         this.window = 0;
@@ -152,9 +141,17 @@ export default class Navigation extends AbstractView {
         return this.betProxy.pageData.list.length;
     }
 
-    showAllComp() {
-        this.isShowAllComp = !this.isShowAllComp;
+    get new_menu_subnav() {
+        return this.myProxy.pageData.new_menu_subnav;
     }
+
+    // get curSportId() {
+    //     return this.homeProxy.listQueryComp.sport_id;
+    // }
+
+    // get curSportNav() {
+    //     return this.new_menu_subnav[this.curSportId];
+    // }
 
     showRacing() {
         page_racing_home.show();

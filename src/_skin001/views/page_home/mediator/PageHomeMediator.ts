@@ -9,10 +9,10 @@ import MatcheProxy from "../../matche/proxy/MatcheProxy";
 export default class PageHomeMediator extends AbstractMediator {
     onRegister() {
         const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
-        if (myProxy.isFirstRequest) {
-            // GlobalVar.loading = true;
-            myProxy.api_menu_subnav();
-        }
+        // GlobalVar.loading = true;
+        // myProxy.api_menu_subnav();
+        // myProxy.api_menu_leftnav();
+        myProxy.api_event_list();
     }
 
     public listNotificationInterests(): string[] {
@@ -22,7 +22,7 @@ export default class PageHomeMediator extends AbstractMediator {
             net.EventType.api_event_states,
             net.EventType.api_user_lovematch,
             net.EventType.api_user_love,
-            net.EventType.api_menu_subnav,
+            // net.EventType.api_menu_subnav,
         ];
     }
 
@@ -57,34 +57,34 @@ export default class PageHomeMediator extends AbstractMediator {
             case net.EventType.api_user_love:
                 myProxy.api_user_lovematch();
                 break;
-            case net.EventType.api_menu_subnav:
-                {
-                    myProxy.pageData.menu_subnav.top = body.top;
-                    myProxy.pageData.menu_subnav.center = body.center;
-                    if (myProxy.isFirstRequest) {
-                        myProxy.isFirstRequest = false;
-                        const { top } = myProxy.pageData.menu_subnav;
-                        const inplay = top.find((item) => item.tag == "inplay");
-                        const today = top.find((item) => item.tag == "today");
+            // case net.EventType.api_menu_subnav:
+            //     {
+            //         myProxy.pageData.menu_subnav.top = body.top;
+            //         myProxy.pageData.menu_subnav.center = body.center;
+            //         if (myProxy.isFirstRequest) {
+            //             myProxy.isFirstRequest = false;
+            //             const { top } = myProxy.pageData.menu_subnav;
+            //             const inplay = top.find((item) => item.tag == "inplay");
+            //             const today = top.find((item) => item.tag == "today");
 
-                        if (inplay?.num == 0) {
-                            myProxy.listQueryComp.tag = "today";
-                            if (today?.num == 0) {
-                                myProxy.listQueryComp.tag = "future";
-                            }
-                        }
-                        if (selfProxy.userInfo.user_setting.remark) {
-                            try {
-                                myProxy.listQueryComp.sort = JSON.parse(selfProxy.userInfo.user_setting.remark).sort;
-                            } catch (error) {
-                                myProxy.listQueryComp.sort = "comp";
-                            }
-                        }
+            //             if (inplay?.num == 0) {
+            //                 myProxy.listQueryComp.tag = "today";
+            //                 if (today?.num == 0) {
+            //                     myProxy.listQueryComp.tag = "future";
+            //                 }
+            //             }
+            //             if (selfProxy.userInfo.user_setting.remark) {
+            //                 try {
+            //                     myProxy.listQueryComp.sort = JSON.parse(selfProxy.userInfo.user_setting.remark).sort;
+            //                 } catch (error) {
+            //                     myProxy.listQueryComp.sort = "comp";
+            //                 }
+            //             }
 
-                        myProxy.api_event_list();
-                    }
-                }
-                break;
+            //             myProxy.api_event_list();
+            //         }
+            //     }
+            //     break;
         }
     }
 }
