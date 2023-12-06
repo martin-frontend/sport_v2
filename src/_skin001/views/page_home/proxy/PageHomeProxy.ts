@@ -48,9 +48,6 @@ export default class PageHomeProxy extends puremvc.Proxy {
         scrollOffset: 0,
         //获取关注计数
         lovematch_order: 0,
-
-        new_menu_subnav: {},
-        sportIdArr: <number[]>[],
     };
 
     listQueryComp = {

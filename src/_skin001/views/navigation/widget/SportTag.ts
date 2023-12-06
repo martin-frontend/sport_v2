@@ -5,6 +5,7 @@ import Assets from "@/_skin001/assets/Assets";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import getProxy from "@/core/global/getProxy";
 import page_home from "../../page_home";
+import NavigationProxy from "../proxy/NavigationProxy";
 
 @Component
 export default class MarketTypeTag extends AbstractView {
@@ -12,12 +13,16 @@ export default class MarketTypeTag extends AbstractView {
     @Prop() item!: any;
     @Prop() sportId!: any;
     sportIcon = Assets.SportIcon;
+    tagIcon = Assets.TagIcon;
+    myProxy: NavigationProxy = getProxy(NavigationProxy);
+    pageData = this.myProxy.pageData;
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     tagOption = {
-        inplay: { icon: "live", vClass: "tagTextColor1--text" },
-        today: { icon: "today", vClass: "tagTextColor2--text" },
-        future: { icon: "early", vClass: "tagTextColor3--text" },
+        inplay: { vClass: "tagTextColor1--text" },
+        today: { vClass: "tagTextColor2--text" },
+        future: { vClass: "tagTextColor3--text" },
     };
+    isShowAllComp = false;
 
     get curSportId() {
         return this.homeProxy.listQueryComp.sport_id;
@@ -27,15 +32,42 @@ export default class MarketTypeTag extends AbstractView {
         return this.homeProxy.listQueryComp.tag;
     }
 
+    get curSportNav() {
+        return this.myProxy.pageData.new_menu_subnav[this.curSportId];
+    }
+
+    get loveCount() {
+        let count = 0;
+        for (const comp of this.pageData.lovematch) {
+            count += comp.count;
+        }
+        return count;
+    }
+
     onSportClick() {
-        page_home.showBySport(this.sportId);
+        if(!this.isRaceSport) {
+            page_home.showBySport(this.sportId);
+        }
     }
 
     onTagClick(key: string) {
+        this.isShowAllComp = false;
         page_home.showByTag(key);
+    }
+
+    showAllComp() {
+        this.isShowAllComp = !this.isShowAllComp;
+    }
+
+    onShowCompetition(comp_id: number) {
+        page_home.showByCompetition(comp_id);
     }
 
     destroyed() {
         super.destroyed();
+    }
+
+    get isRaceSport() {
+        return [7, 8].includes(Number(this.sportId));
     }
 }

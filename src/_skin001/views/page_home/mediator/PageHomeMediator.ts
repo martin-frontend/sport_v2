@@ -11,7 +11,8 @@ export default class PageHomeMediator extends AbstractMediator {
         const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
         // GlobalVar.loading = true;
         // myProxy.api_menu_subnav();
-        myProxy.api_menu_leftnav();
+        // myProxy.api_menu_leftnav();
+        myProxy.api_event_list();
     }
 
     public listNotificationInterests(): string[] {
@@ -22,7 +23,6 @@ export default class PageHomeMediator extends AbstractMediator {
             net.EventType.api_user_lovematch,
             net.EventType.api_user_love,
             // net.EventType.api_menu_subnav,
-            net.EventType.api_menu_leftnav,
         ];
     }
 
@@ -85,41 +85,6 @@ export default class PageHomeMediator extends AbstractMediator {
             //         }
             //     }
             //     break;
-            case net.EventType.api_menu_leftnav:
-                {
-                    delete body.requestData;
-                    myProxy.pageData.new_menu_subnav = body;
-                    // 排序
-                    const entries = Object.entries(body);
-                    entries.sort((a: any, b: any) => {
-                        return a[1].sort - b[1].sort;
-                    });
-                    myProxy.pageData.sportIdArr = [];
-                    entries.forEach((item: any) => {
-                        myProxy.pageData.sportIdArr.push(item[0]);
-                    });
-
-                    const firstData = body[myProxy.pageData.sportIdArr[0]];
-                    const inplay = firstData?.["inplay"];
-                    const today = firstData?.["today"];
-
-                    if (inplay?.num == 0) {
-                        myProxy.listQueryComp.tag = "today";
-                        if (today?.num == 0) {
-                            myProxy.listQueryComp.tag = "future";
-                        }
-                    }
-                    if (selfProxy.userInfo.user_setting.remark) {
-                        try {
-                            myProxy.listQueryComp.sort = JSON.parse(selfProxy.userInfo.user_setting.remark).sort;
-                        } catch (error) {
-                            myProxy.listQueryComp.sort = "comp";
-                        }
-                    }
-
-                    myProxy.api_event_list();
-                }
-                break;
         }
     }
 }

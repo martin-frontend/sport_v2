@@ -7,4 +7,10 @@ const SportIcon = {
     // "harness_racing",
 };
 
-export default { SportIcon };
+const TagIcon = {
+    inplay: "live", //滚球
+    today: "today", //今日
+    future: "early", //早盘
+};
+
+export default { SportIcon, TagIcon };

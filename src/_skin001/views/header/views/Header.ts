@@ -12,8 +12,6 @@ import BlurUtil from "@/core/global/BlurUtil";
 import dialog_setting from "../../dialog_setting";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
-import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
-import Assets from "@/_skin001/assets/Assets";
 
 @Component
 export default class Header extends AbstractView {
@@ -23,10 +21,8 @@ export default class Header extends AbstractView {
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
     txtSearch = "";
-    homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     isShowSetting = false;
     user_type: any;
-    sportIcon = Assets.SportIcon;
 
     constructor() {
         super(HeaderMediator);
@@ -143,17 +139,5 @@ export default class Header extends AbstractView {
 
     destroyed() {
         super.destroyed();
-    }
-
-    get new_menu_subnav() {
-        return this.homeProxy.pageData.new_menu_subnav;
-    }
-
-    get curSportId() {
-        return this.homeProxy.listQueryComp.sport_id;
-    }
-
-    onSportClick(sport_id: any) {
-        page_home.showBySport(sport_id);
     }
 }

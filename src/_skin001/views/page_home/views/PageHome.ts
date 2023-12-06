@@ -12,6 +12,8 @@ import dialog_setting from "../../dialog_setting";
 import page_live_list from "../../page_live_list";
 import ScrollUtil from "@/core/global/ScrollUtil";
 import { CompetitionVO } from "@/vo/CompetitionVO";
+import Assets from "@/_skin001/assets/Assets";
+import NavigationProxy from "../../navigation/proxy/NavigationProxy";
 
 @Component
 export default class PageHome extends AbstractView {
@@ -19,8 +21,12 @@ export default class PageHome extends AbstractView {
     GlobalVar = GlobalVar;
     settingProxy: SettingProxy = this.getProxy(SettingProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
+    navProxy: NavigationProxy = this.getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
+    sportIcon = Assets.SportIcon;
+    tagIcon = Assets.TagIcon;
+
     constructor() {
         super(PageHomeMediator);
     }
@@ -107,9 +113,6 @@ export default class PageHome extends AbstractView {
     getTagNum(tag: string) {
         if (tag == "love") {
             return this.pageData.love_count;
-        } else {
-            const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
-            return findItem?.num;
         }
     }
 
@@ -150,5 +153,13 @@ export default class PageHome extends AbstractView {
 
     destroyed() {
         super.destroyed();
+    }
+
+    get new_menu_subnav() {
+        return this.navProxy.pageData.new_menu_subnav;
+    }
+
+    get curSportNav() {
+        return this.new_menu_subnav[this.listQueryComp.sport_id];
     }
 }

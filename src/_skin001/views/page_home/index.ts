@@ -63,6 +63,6 @@ function getMyProxy(): PageHomeProxy {
 function showBySport(sport_id: any) {
     const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
     myProxy.listQueryComp.sport_id = sport_id;
-    showByTag("inplay");
+    showByTag("today");
 }
 export default { show, showByTag, showByCountry, showByCompetition, showByKeyword, showEventList, showBySport };

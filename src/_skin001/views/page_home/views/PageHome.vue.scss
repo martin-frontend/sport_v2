@@ -45,19 +45,6 @@ input {
     border-bottom-right-radius: 10px;
     border-bottom-left-radius: 10px;
 }
-.tag-btn {
-    opacity: 0.8;
-    &:hover {
-        opacity: 1;
-    }
-    &.active {
-        color: #ffbc05 !important;
-        opacity: 1;
-    }
-    &::before {
-        background-color: transparent !important;
-    }
-}
 .tag-btn1 {
     border-color: #d6dde3;
     background-color: #fff;
