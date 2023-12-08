@@ -9,7 +9,7 @@ export default class PageMatcheMediator extends AbstractMediator {
     }
 
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_event_list];
+        return [net.EventType.api_event_list_v3];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -17,7 +17,7 @@ export default class PageMatcheMediator extends AbstractMediator {
         const type = notification.getType();
         const myProxy: PageMatcheProxy = getProxy(PageMatcheProxy);
         switch (notification.getName()) {
-            case net.EventType.api_event_list:
+            case net.EventType.api_event_list_v3:
                 if (type == PageMatcheProxy.NAME) {
                     myProxy.set_event_list(body);
                 }

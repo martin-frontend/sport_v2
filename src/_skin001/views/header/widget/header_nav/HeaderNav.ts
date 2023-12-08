@@ -9,6 +9,7 @@ import NavigationProxy from "@/_skin001/views/navigation/proxy/NavigationProxy";
 import getProxy from "@/core/global/getProxy";
 import page_home from "@/_skin001/views/page_home";
 import page_racing_home from "@/_skin001/views/page_racing_home";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class HeaderNav extends AbstractView {
@@ -16,11 +17,9 @@ export default class HeaderNav extends AbstractView {
     myProxy: HeaderProxy = this.getProxy(HeaderProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
-    txtSearch = "";
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     navProxy: NavigationProxy = getProxy(NavigationProxy);
     isShowSetting = false;
-    user_type: any;
     sportIcon = Assets.SportIcon;
     tagIcon = Assets.TagIcon;
 
@@ -32,14 +31,19 @@ export default class HeaderNav extends AbstractView {
         return this.navProxy.pageData.new_menu_subnav;
     }
 
+    get sportIdArr() {
+        return this.navProxy.pageData.sportIdArr;
+    }
+
     get curSportId() {
         return this.homeProxy.listQueryComp.sport_id;
     }
 
-    onSportClick(sport_id: any) {
-        if (!this.isRaceSport(sport_id)) {
+    onSportClick(sport_id: number) {
+        if (!SportUtil.isRaceEvent(sport_id)) {
             page_home.showBySport(sport_id);
         } else {
+            this.homeProxy.listQueryComp.sport_id = sport_id;
             page_racing_home.showBySport(sport_id);
         }
     }
@@ -48,9 +52,5 @@ export default class HeaderNav extends AbstractView {
         if (tag == "love") {
             return this.homeProxy.pageData.love_count;
         }
-    }
-
-    isRaceSport(sport_id: any) {
-        return [7, 8].includes(Number(sport_id));
     }
 }

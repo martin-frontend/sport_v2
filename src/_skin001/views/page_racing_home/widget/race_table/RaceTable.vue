@@ -4,11 +4,13 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import RaceTable from "./RaceTable";
-import Nodata from "../../widget/nodata/Nodata.vue";
+import Nodata from "../../../widget/nodata/Nodata.vue";
+import CountdownTime from "../countdown_time/CountdownTime.vue";
 
 @Component({
     components: {
         Nodata,
+        CountdownTime,
     },
 })
 export default class extends RaceTable {}

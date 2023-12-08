@@ -51,6 +51,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     };
 
     listQueryComp = {
+        // 1 足球、4 篮球、5 美式足球、7 赛马、8 赛狗
         sport_id: 1,
         // all: 全部 fix: 固赔 exchange: 交易所
         type: "fix",
@@ -69,6 +70,8 @@ export default class PageHomeProxy extends puremvc.Proxy {
         market_id: "",
         market_type: "",
         page_size: 1000,
+        //球类比赛, 请带：1 、RACE 比赛, 请带：2
+        event_type: 1,
 
         unique: PageHomeProxy.NAME,
     };
@@ -200,11 +203,22 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
 
     /**赛事接口-新*/
+    // api_event_list() {
+    //     if (this.listQueryComp.tag != "love") {
+    //         this.pageData.loading = true;
+    //         this.pageData.market_list = [];
+    //         this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
+    //     } else {
+    //         this.api_user_lovematch();
+    //     }
+    // }
+    /**赛事接口-新*/
     api_event_list() {
         if (this.listQueryComp.tag != "love") {
             this.pageData.loading = true;
             this.pageData.market_list = [];
-            this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
+            this.listQueryComp.sport_id = Number(this.listQueryComp.sport_id);
+            this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
         } else {
             this.api_user_lovematch();
         }
@@ -265,9 +279,5 @@ export default class PageHomeProxy extends puremvc.Proxy {
 
     api_menu_subnav() {
         this.sendNotification(net.HttpType.api_menu_subnav);
-    }
-
-    api_menu_leftnav() {
-        this.sendNotification(net.HttpType.api_menu_leftnav);
     }
 }

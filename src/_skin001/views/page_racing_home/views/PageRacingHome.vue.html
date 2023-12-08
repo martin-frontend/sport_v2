@@ -7,15 +7,15 @@
         <horizontal_scroll :offsetx="16">
             <template v-slot="{data}">
                 <v-btn
-                    v-for="item of tabOptions"
-                    :key="item.key"
+                    v-for="(item,key) of tagOptions"
+                    :key="key"
                     :disabled="false"
-                    class="rounded-pill mr-2 tab-btn"
-                    :class="{'active': tab == item.key}"
+                    class="rounded-pill mr-2 tag-btn"
+                    :class="{'active': tag == key}"
                     elevation="0"
                     outlined
                     max-height="40"
-                    @click="tab = item.key"
+                    @click="onTagClick(key)"
                 >
                     <span class="d-flex align-center"> {{ LangUtil(item.title) }} </span>
                 </v-btn>
@@ -25,28 +25,35 @@
 
     <v-sheet class="rounded-lg overflow-y-auto overflow-x-hidden scroll-div mt-1" style="flex: 1" color="bgBanner">
         <div class="d-flex pl-8 border-bottom">
-            <v-checkbox
-                v-model="checkBoxArr"
-                :value="key"
-                multiple
-                color="#feba00"
-                class="mr-8"
-                v-for="(item,key) of checkBoxOptions"
-                :key="key"
-            >
-                <template #label>
-                    <svg-icon :icon="item.icon" class="text-22 tagTextColor2--text"></svg-icon>
-                </template>
-            </v-checkbox>
+            <template>
+                <v-checkbox
+                    v-for="sportId of raceSportArr"
+                    v-model="checkBoxArr"
+                    :value="Number(sportId)"
+                    multiple
+                    color="#feba00"
+                    class="mr-8"
+                    :key="sportId"
+                    @change="onCheckboxChange"
+                >
+                    <template #label>
+                        <svg-icon :icon="checkBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
+                    </template>
+                </v-checkbox>
+            </template>
         </div>
         <!-- 下一场 -->
         <template v-if="false">
             <RaceTable v-for="(item, index) of 3" :key="index" :isNextDay="true" :option="checkBoxOptions['h']"></RaceTable>
         </template>
-
         <template v-else>
-            <template v-for="(item,key) of checkBoxOptions">
-                <RaceTable v-if="checkBoxArr.includes(key)" :key="key" :option="item"></RaceTable>
+            <template v-for="sportId of raceSportArr">
+                <RaceTable
+                    v-if="checkBoxArr.includes(Number(sportId))"
+                    :key="sportId"
+                    :option="checkBoxOptions[sportId]"
+                    :table-data="pageData.competition_list[sportId]"
+                ></RaceTable>
             </template>
         </template>
     </v-sheet>

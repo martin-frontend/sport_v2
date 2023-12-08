@@ -33,39 +33,38 @@ export default class NavigationMediator extends AbstractMediator {
             //     break;
 
             case net.EventType.api_menu_leftnav:
-                {
-                    delete body.requestData;
-                    myProxy.pageData.new_menu_subnav = body;
-                    // 排序
-                    const entries = Object.entries(body);
-                    entries.sort((a: any, b: any) => {
-                        return a[1].sort - b[1].sort;
-                    });
-                    myProxy.pageData.sportIdArr = [];
-                    entries.forEach((item: any) => {
-                        myProxy.pageData.sportIdArr.push(item[0]);
-                    });
+                delete body.requestData;
+                myProxy.pageData.new_menu_subnav = body;
+                // 排序
+                const entries = Object.entries(body);
+                entries.sort((a: any, b: any) => {
+                    return a[1].sort - b[1].sort;
+                });
+                myProxy.pageData.sportIdArr = [];
+                entries.forEach((item: any) => {
+                    myProxy.pageData.sportIdArr.push(Number(item[0]));
+                });
 
-                    const firstData = body[myProxy.pageData.sportIdArr[0]];
-                    const inplay = firstData?.["inplay"];
-                    const today = firstData?.["today"];
+                homeProxy.listQueryComp.sport_id = myProxy.pageData.sportIdArr[0];
+                const firstData = body[myProxy.pageData.sportIdArr[0]];
+                const inplay = firstData?.["inplay"];
+                const today = firstData?.["today"];
 
-                    if (inplay?.num == 0) {
-                        homeProxy.listQueryComp.tag = "today";
-                        if (today?.num == 0) {
-                            homeProxy.listQueryComp.tag = "future";
-                        }
+                if (inplay?.num == 0) {
+                    homeProxy.listQueryComp.tag = "today";
+                    if (today?.num == 0) {
+                        homeProxy.listQueryComp.tag = "future";
                     }
-                    if (selfProxy.userInfo.user_setting.remark) {
-                        try {
-                            homeProxy.listQueryComp.sort = JSON.parse(selfProxy.userInfo.user_setting.remark).sort;
-                        } catch (error) {
-                            homeProxy.listQueryComp.sort = "comp";
-                        }
-                    }
-
-                    homeProxy.api_event_list();
                 }
+                if (selfProxy.userInfo.user_setting.remark) {
+                    try {
+                        homeProxy.listQueryComp.sort = JSON.parse(selfProxy.userInfo.user_setting.remark).sort;
+                    } catch (error) {
+                        homeProxy.listQueryComp.sort = "comp";
+                    }
+                }
+
+                homeProxy.api_event_list();
                 break;
         }
     }

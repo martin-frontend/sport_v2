@@ -9,7 +9,7 @@
                 color="transparent"
                 v-if="!$vuetify.breakpoint.mobile && $route.path != '/page_racing_home'"
             >
-                <Navigation />
+                <Navigation v-if="!$vuetify.breakpoint.mobile" />
             </v-sheet>
             <v-sheet
                 class="py-0 overflow-hidden"
@@ -70,7 +70,16 @@
         <!-- dialog的挂载点 -->
         <div id="dialog_container"></div>
         <!-- 侧边导航 -->
-        <v-navigation-drawer v-model="GlobalVar.navDrawer" color="bgPage" app absolute temporary floating style="z-index: 101">
+        <v-navigation-drawer
+            v-model="GlobalVar.navDrawer"
+            color="bgPage"
+            app
+            absolute
+            temporary
+            floating
+            style="z-index: 101"
+            v-if="$vuetify.breakpoint.mobile"
+        >
             <Navigation class="mt-3" @onChange="GlobalVar.navDrawer = false" />
         </v-navigation-drawer>
         <!-- 右侧设置页 -->

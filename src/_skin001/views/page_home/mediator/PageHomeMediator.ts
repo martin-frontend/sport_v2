@@ -17,7 +17,7 @@ export default class PageHomeMediator extends AbstractMediator {
 
     public listNotificationInterests(): string[] {
         return [
-            net.EventType.api_event_list,
+            net.EventType.api_event_list_v3,
             net.EventType.api_market_typelist,
             net.EventType.api_event_states,
             net.EventType.api_user_lovematch,
@@ -32,7 +32,7 @@ export default class PageHomeMediator extends AbstractMediator {
         const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
         const selfProxy: SelfProxy = getProxy(SelfProxy);
         switch (notification.getName()) {
-            case net.EventType.api_event_list:
+            case net.EventType.api_event_list_v3:
                 if (type == PageHomeProxy.NAME) {
                     myProxy.set_event_list(body);
                 }

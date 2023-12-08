@@ -4,7 +4,7 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import PageRacingHome from "./PageRacingHome";
-import RaceTable from "../widget/RaceTable.vue";
+import RaceTable from "../widget/race_table/RaceTable.vue";
 
 @Component({
     components: {

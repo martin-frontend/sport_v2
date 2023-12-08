@@ -63,6 +63,9 @@ router.beforeEach((to: any, from: any, next: any) => {
             next("/page_home");
         }
     }
+    if(from.path == '/' && ["/page_racing_home","/page_racing_detail"].includes(to.path)) {
+        next("/page_home");
+    }
     if (to.path == "/") {
         next("/page_home");
         // } else if (to.path == "/page_matche" && document.body.clientWidth > 960) {

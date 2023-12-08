@@ -7,12 +7,13 @@ import getProxy from "@/core/global/getProxy";
 import page_home from "../../page_home";
 import NavigationProxy from "../proxy/NavigationProxy";
 import page_racing_home from "../../page_racing_home";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class MarketTypeTag extends AbstractView {
     LangUtil = LangUtil;
     @Prop() item!: any;
-    @Prop() sportId!: any;
+    @Prop() sportId!: number;
     sportIcon = Assets.SportIcon;
     tagIcon = Assets.TagIcon;
     myProxy: NavigationProxy = getProxy(NavigationProxy);
@@ -24,6 +25,7 @@ export default class MarketTypeTag extends AbstractView {
         future: { vClass: "tagTextColor3--text" },
     };
     isShowAllComp = false;
+    isRaceEvent = SportUtil.isRaceEvent;
 
     get curSportId() {
         return this.homeProxy.listQueryComp.sport_id;
@@ -46,9 +48,10 @@ export default class MarketTypeTag extends AbstractView {
     }
 
     onSportClick() {
-        if (!this.isRaceSport) {
+        if (!SportUtil.isRaceEvent(this.sportId)) {
             page_home.showBySport(this.sportId);
         } else {
+            this.homeProxy.listQueryComp.sport_id = this.sportId;
             page_racing_home.showBySport(this.sportId);
         }
     }

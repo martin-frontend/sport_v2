@@ -5,7 +5,7 @@ import net from "@/net/setting";
 
 export default class LiveMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_event_list, net.EventType.api_event_states];
+        return [net.EventType.api_event_list_v3, net.EventType.api_event_states];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -13,7 +13,7 @@ export default class LiveMediator extends AbstractMediator {
         const type = notification.getType();
         const myProxy: LiveProxy = getProxy(LiveProxy);
         switch (notification.getName()) {
-            case net.EventType.api_event_list:
+            case net.EventType.api_event_list_v3:
                 if (type == LiveProxy.NAME) {
                     myProxy.set_event_list(body);
                 }

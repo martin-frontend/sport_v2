@@ -36,6 +36,7 @@ import cmd_api_user_precashout from "./cmd_api_user_precashout";
 import cmd_api_user_cashout from "./cmd_api_user_cashout";
 import cmd_public_order_detail_data_v3 from "./cmd_public_order_detail_data_v3";
 import cmd_api_menu_leftnav from "./cmd_api_menu_leftnav";
+import cmd_api_event_list_v3 from "./cmd_api_event_list_v3";
 /**
  * document: http://18.167.151.206:8090/pages/viewpage.action?pageId=11076347
  */
@@ -117,6 +118,8 @@ const HttpType = {
     public_order_detail_data_v3: "public/order_detail_data_v3",
     /**左侧菜单栏*/
     api_menu_leftnav: "api/menu/leftnav",
+    /**球類賽事列表*/
+    api_event_list_v3: "api/event/list_v3",
 };
 /**事件*/
 const EventType = {
@@ -204,6 +207,8 @@ const EventType = {
     public_order_detail_data_v3: "public_order_detail_data_v3",
     /**左侧菜单栏*/
     api_menu_leftnav: "api_menu_leftnav",
+    /**球類賽事列表*/
+    api_event_list_v3: "api_event_list_v3",
 };
 /**注册协议*/
 function initCommand() {
@@ -246,6 +251,7 @@ function initCommand() {
     facade.registerCommand(HttpType.api_user_cashout, cmd_api_user_cashout);
     facade.registerCommand(HttpType.public_order_detail_data_v3, cmd_public_order_detail_data_v3);
     facade.registerCommand(HttpType.api_menu_leftnav, cmd_api_menu_leftnav);
+    facade.registerCommand(HttpType.api_event_list_v3, cmd_api_event_list_v3);
 }
 const net = { HttpType, EventType, initCommand };
 export default net;

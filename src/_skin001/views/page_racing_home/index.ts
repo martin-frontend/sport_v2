@@ -9,13 +9,19 @@ function show() {
     }
 }
 
+/**按标签查询 */
+function showByTag(tag?: string) {
+    show();
+    const myProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
+    if (tag) {
+        myProxy.listQueryComp.tag = tag;
+    }
+    myProxy.api_event_list();
+}
 /**按运动查询 */
 function showBySport(sport_id: any) {
-    // const myProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
-    // myProxy.listQueryComp.sport_id = sport_id;
-    // myProxy.listQueryComp.tag = tag;
-    const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
-    homeProxy.listQueryComp.sport_id = sport_id;
-    show();
+    const myProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
+    myProxy.listQueryComp.sport_id = sport_id;
+    showByTag();
 }
-export default { show, showBySport };
+export default { show, showBySport, showByTag };

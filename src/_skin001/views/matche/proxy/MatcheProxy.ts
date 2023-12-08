@@ -5,6 +5,7 @@ import LangUtil from "@/core/global/LangUtil";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
 import { MarketVO } from "@/vo/MarketVO";
+import SportUtil from "@/core/global/SportUtil";
 
 export default class MatcheProxy extends puremvc.Proxy {
     static NAME = "MatcheProxy";
@@ -42,6 +43,7 @@ export default class MatcheProxy extends puremvc.Proxy {
 
     listQueryComp = {
         sport_id: 1,
+        event_type: 1,
         event_id: "",
         unique: MatcheProxy.NAME,
     };
@@ -96,7 +98,8 @@ export default class MatcheProxy extends puremvc.Proxy {
         // GlobalVar.loading = true;
         this.pageData.loading = true;
         this.listQueryMarket.market_type = 0;
-        this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
+        this.listQueryComp.event_type = SportUtil.isRaceEvent(this.listQueryComp.sport_id) ? 2 : 1;
+        this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
 
     /**盘口接口-新*/

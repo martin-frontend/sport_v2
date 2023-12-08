@@ -1,5 +1,5 @@
 <v-sheet color="transparent" width="100%" v-if="item">
-    <v-list-item :disabled="!item.all_competition_amount" class="mb-1" link @click="onSportClick">
+    <v-list-item :disabled="!item.num" class="mb-1" link @click="onSportClick">
         <v-sheet
             class="d-flex align-center text-14 rounded-lg listitem"
             :class="{'active': homeProxy.listQueryComp.sport_id == sportId}"
@@ -9,10 +9,10 @@
             <div v-if="sportIcon[sportId]" class="text-20 ml15 mr15"><svg-icon :icon="sportIcon[sportId]"></svg-icon></div>
             <div class="text-truncate">{{LangUtil(item.sport)}}</div>
             <v-spacer />
-            <div class="mr15">{{item.all_competition_amount}}</div>
+            <div class="mr15">{{item.num}}</div>
         </v-sheet>
     </v-list-item>
-    <template v-if="!isRaceSport">
+    <template v-if="!isRaceEvent(sportId)">
         <v-expand-transition>
             <div v-if="curSportId == sportId && curSportNav">
                 <!-- 自订义标签 -->
