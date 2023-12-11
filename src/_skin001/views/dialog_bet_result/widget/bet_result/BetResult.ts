@@ -1,7 +1,7 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
-import { amountFormat, dateFormat, TransMarketPrice } from "@/core/global/Functions";
+import { amountFormat, dateFormat, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import MarketUtils from "@/core/global/MarketUtils";
@@ -146,7 +146,7 @@ export default class BetResult extends AbstractView {
     // }
 
     getCreateTime(create_time: any) {
-        return dateFormat(new Date(create_time * 1000), "yyyy/MM/dd hh:mm:ss" ,true);
+        return dateFormat(getDateByTimeZone(create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)
     }
 
     onClose() {
