@@ -5,7 +5,7 @@
 // 8 赛狗
 
 function isRaceEvent(sport_id: any) {
-    return [7, 8].includes(Number(sport_id));
+    return [7, 8, 9].includes(Number(sport_id));
 }
 
 const SportUtil = {

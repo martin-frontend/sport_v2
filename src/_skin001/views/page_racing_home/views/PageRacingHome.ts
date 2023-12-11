@@ -20,7 +20,7 @@ export default class PageRacingHome extends AbstractView {
     tag = "today";
 
     get curSportId() {
-        return this.myProxy.listQueryComp.sport_id;
+        return this.homeProxy.listQueryComp.sport_id;
     }
 
     get curTag() {
@@ -40,9 +40,9 @@ export default class PageRacingHome extends AbstractView {
         };
     }
 
-    onTagClick(key: any) {
-        this.tag = key;
-        page_racing_home.showByTag(key);
+    onTagClick(tag: any) {
+        this.tag = tag;
+        page_racing_home.showBySport(this.sportCheckBoxArr.toString(), tag);
     }
 
     get raceSportArr() {
@@ -51,26 +51,32 @@ export default class PageRacingHome extends AbstractView {
 
     @Watch("homeProxy.listQueryComp.sport_id")
     onWatchSportId(newVal: any) {
-        this.checkBoxArr = [newVal];
+        this.sportCheckBoxArr = [`${newVal}`];
     }
 
-    checkBoxArr = [this.homeProxy.listQueryComp.sport_id];
+    sportCheckBoxArr = [`${this.homeProxy.listQueryComp.sport_id}`];
 
-    checkBoxOptions = {
-        7: { title: "赛马", sportId: 7, icon: "race" },
-        8: { title: "赛狗", sportId: 8, icon: "greyhound_racing" },
-        // c: { title: "马车赛", sportId: "c", icon: "harness_racing" },
+    sportCheckBoxOptions = {
+        7: { title: "赛马", sportId: "7", icon: "race" },
+        8: { title: "赛狗", sportId: "8", icon: "greyhound_racing" },
+        9: { title: "马车赛", sportId: "9", icon: "harness_racing" },
     };
 
     // onBack() {
     //     this.$router.back();
     // }
 
+    oldArrLength = 0;
     onCheckboxChange(val: any) {
-        if (val.length > 0) {
+        if (this.oldArrLength < val.length) {
             const lastVal = val[val.length - 1];
             page_racing_home.showBySport(lastVal);
         }
+        this.oldArrLength = val.length;
+    }
+
+    getTableData(sportId: number) {
+        return this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
     }
 
     constructor() {

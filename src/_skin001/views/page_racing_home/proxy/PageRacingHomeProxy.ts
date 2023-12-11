@@ -10,14 +10,15 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
     static NAME = "PageRacingHomeProxy";
 
     public onRegister(): void {
-        this.pageData.loading = true;
+        // this.init();
         // TODO 请求初始数据
     }
-
+    /**计时器 */
+    private timer = 0;
     pageData = {
         loading: false,
         /**联赛列表 */
-        competition_list: <any>{},
+        competition_list: <any>[],
         /**盘口信息 */
         market_list: <MarketVO[]>[],
         /**赛事进程 */
@@ -26,7 +27,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
 
     listQueryComp = {
         // 1 足球、4 篮球、5 美式足球、7 赛马、8 赛狗
-        sport_id: 7,
+        sport_id: "7",
         // all: 全部 fix: 固赔 exchange: 交易所
         type: "fix",
         // withinAnHour:下一场、today:今天、tomorrow:明天、dayAfterTomorrow:後天
@@ -50,6 +51,19 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         unique: PageRacingHomeProxy.NAME,
     };
 
+    listQueryStates = {
+        // all: 全部 fix: 固赔 exchange: 交易所
+        type: "fix",
+        // 多个指定赛事id，以逗号拼接
+        event_id: "",
+        // 对应的盘口类型，以逗号拼接
+        market_type: "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME",
+        // 记录所在位置
+        unique: PageRacingHomeProxy.NAME,
+        //暂时不用的
+        market_id: "",
+    };
+
     listQueryMarket = {
         // all: 全部 fix: 固赔 exchange: 交易所
         type: "fix",
@@ -63,31 +77,33 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         market_id: "",
     };
 
+    init() {
+        clearInterval(this.timer);
+        this.timer = setInterval(this.getMarketAndStates.bind(this), 5000);
+    }
+
     getMarketAndStates() {
-        // if (Vue.router.currentRoute.path == "/page_home") {
+        if (Vue.router.currentRoute.path == "/page_racing_home") {
             const event_id: number[] = [];
-            // for (const index of this.pageData.openIndexs) {
-            //     const item = this.competition_list[index];
-            //     if (item && item.matches) {
-            //         for (const match of item.matches) {
-            //             if (event_id.indexOf(match.id) == -1) event_id.push(match.id);
-            //         }
-            //     }
-            // }
-            this.listQueryMarket.event_id = event_id.toString();
-            if (this.listQueryMarket.event_id) {
-                this.api_market_typelist();
+            this.pageData.competition_list.forEach((item: any) => {
+                Object.keys(item.matches).forEach((key: any) => {
+                    const match = item.matches[key];
+                    event_id.push(match.id);
+                });
+            });
+
+            this.listQueryStates.event_id = event_id.toString();
+            if (this.listQueryStates.event_id) {
+                // this.api_market_typelist();
                 this.api_event_states();
             }
-        // }
+        }
     }
 
     set_event_list(data: any) {
         this.pageData.loading = false;
-        const { sport_id } = this.listQueryComp;
-        Vue.set(this.pageData.competition_list, sport_id, data);
-        // this.pageData.competition_list[sport_id] = data;
-        // this.getMarketAndStates();
+        this.pageData.competition_list.push(...data);
+        this.getMarketAndStates();
     }
     set_market_typelist(data: any) {
         // for (const item of data) {
@@ -117,44 +133,47 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         // }
     }
     set_event_states(data: any) {
-        for (const item of data) {
-            const finditem = this.pageData.event_states.find((item1) => item.event_id == item1.event_id);
-            if (finditem) {
-                Object.assign(finditem, item);
-            } else {
-                this.pageData.event_states.push(item);
+        if (data.length == 0) return;
+        const dataByEventId: any = {};
+        const event_id = <Number[]>[];
+        data.forEach((item: any) => {
+            dataByEventId[item.event_id] = item;
+            if (item.match_phase == "OPEN") {
+                event_id.push(item.event_id);
             }
+        });
+
+        this.pageData.competition_list.forEach((item: any) => {
+            Object.keys(item.matches).forEach((key: any) => {
+                const match = item.matches[key];
+                Vue.set(match, "states", dataByEventId[match.id]);
+            });
+        });
+
+        this.listQueryMarket.event_id = event_id.toString();
+        if (this.listQueryMarket.event_id) {
+            this.api_market_typelist();
         }
-        // TODO 移除已经结束的赛事
     }
 
     /**赛事接口-新*/
     api_event_list() {
         this.pageData.loading = true;
         this.pageData.market_list = [];
-        this.listQueryComp.sport_id = Number(this.listQueryComp.sport_id);
+        this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
+        this.pageData.competition_list = this.pageData.competition_list.filter(
+            (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)
+        );
         this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
     /**盘口接口-新*/
     api_market_typelist() {
-        const vuetify = Vue.vuetify;
-        if (this.listQueryComp.tag == "champion") {
-            this.listQueryMarket.market_type = PlatConfig.config.client.champion_type;
-        } else {
-            const { h5MarketType, pcMarketType, h5MarketType_extra, pcMarketType_extra } = PlatConfig.config.client;
-            if (vuetify.framework.breakpoint.mobile) {
-                this.listQueryMarket.market_type = h5MarketType;
-                if (h5MarketType_extra) this.listQueryMarket.market_type += "," + h5MarketType_extra;
-            } else {
-                this.listQueryMarket.market_type = pcMarketType;
-                if (pcMarketType_extra) this.listQueryMarket.market_type += "," + pcMarketType_extra;
-            }
-        }
-        this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(this.listQueryMarket));
+        const { event_id, unique } = this.listQueryMarket;
+        this.sendNotification(net.HttpType.api_market_typelist, { event_id, unique });
     }
     /**赛事进程*/
     api_event_states() {
-        const { event_id, unique } = this.listQueryMarket;
+        const { event_id, unique } = this.listQueryStates;
         this.sendNotification(net.HttpType.api_event_states, { event_id, unique });
     }
 }

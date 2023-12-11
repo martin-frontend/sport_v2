@@ -27,9 +27,9 @@ export default class PageRacingHomeMediator extends AbstractMediator {
                 // }
                 break;
             case net.EventType.api_event_states:
-                // if (type == PageRacingHomeProxy.NAME) {
-                //     myProxy.set_event_states(body);
-                // }
+                if (type == PageRacingHomeProxy.NAME) {
+                    myProxy.set_event_states(body);
+                }
                 break;
         }
     }

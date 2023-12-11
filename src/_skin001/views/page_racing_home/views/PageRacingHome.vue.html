@@ -28,8 +28,8 @@
             <template>
                 <v-checkbox
                     v-for="sportId of raceSportArr"
-                    v-model="checkBoxArr"
-                    :value="Number(sportId)"
+                    v-model="sportCheckBoxArr"
+                    :value="`${sportId}`"
                     multiple
                     color="#feba00"
                     class="mr-8"
@@ -37,22 +37,22 @@
                     @change="onCheckboxChange"
                 >
                     <template #label>
-                        <svg-icon :icon="checkBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
+                        <svg-icon :icon="sportCheckBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
                     </template>
                 </v-checkbox>
             </template>
         </div>
         <!-- 下一场 -->
         <template v-if="false">
-            <RaceTable v-for="(item, index) of 3" :key="index" :isNextDay="true" :option="checkBoxOptions['h']"></RaceTable>
+            <RaceTable v-for="(item, index) of 3" :key="index" :isNextDay="true" :option="sportCheckBoxOptions['h']"></RaceTable>
         </template>
         <template v-else>
             <template v-for="sportId of raceSportArr">
                 <RaceTable
-                    v-if="checkBoxArr.includes(Number(sportId))"
+                    v-if="sportCheckBoxArr.includes(`${sportId}`)"
                     :key="sportId"
-                    :option="checkBoxOptions[sportId]"
-                    :table-data="pageData.competition_list[sportId]"
+                    :option="sportCheckBoxOptions[sportId]"
+                    :table-data="getTableData(sportId)"
                 ></RaceTable>
             </template>
         </template>

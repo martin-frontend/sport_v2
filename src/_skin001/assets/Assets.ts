@@ -4,7 +4,7 @@ const SportIcon = {
     5: "soccer", //美式足球
     7: "race", //赛马
     8: "greyhound_racing", //赛狗
-    // "harness_racing",
+    9: "harness_racing", //马车赛
 };
 
 const TagIcon = {

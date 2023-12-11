@@ -52,7 +52,7 @@
                                 <div class="ml-2 font-weight-bold text-14 tagTextColor1--text">{{LangUtil(item.country)}}</div>
                             </div>
                         </v-col>
-                        <v-col cols="auto" class="hand" v-for="i of headerList" :key="i" @click="onShowDetail">
+                        <v-col cols="auto" :class="{'hand': item.matches[i]}" v-for="i of headerList" :key="i" @click="onShowDetail(item.matches[i])">
                             <v-sheet
                                 class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1"
                                 width="70"
@@ -60,12 +60,16 @@
                                 color="transparent"
                                 style="border-left: 1px solid #d6dde3 !important"
                             >
-                                <template v-if="false">
-                                    <div>3,8,7</div>
-                                </template>
-                                <template v-else>
-                                    <svg-icon class="text-14" icon="p"></svg-icon>
-                                    <CountdownTime :date="item.matches[i]?.start_time_timestamp"></CountdownTime>
+                                <template v-if="item.matches[i]">
+                                    <template v-if="item.matches[i].states">
+                                        <svg-icon class="text-14" icon="p"></svg-icon>
+                                        <!-- <CountdownTime :date="item.matches[i].start_time_timestamp"></CountdownTime> -->
+                                        <div>{{item.matches[i].states.match_phase}}</div>
+
+                                    </template>
+                                    <template v-else>
+                                        <div class="timeColor2--text">{{getStartTime(item.matches[i].start_time_timestamp)}}</div>
+                                    </template>
                                 </template>
                             </v-sheet>
                         </v-col>
@@ -76,7 +80,10 @@
                 </template>
                 <!-- v-if="pageData.list.length == 0 && !pageData.loading" -->
                 <template v-else>
-                    <div class="border-bottom">
+                    <div v-if="isLoading" class="border-bottom">
+                        <loader />
+                    </div>
+                    <div v-else class="border-bottom">
                         <Nodata height="300" />
                     </div>
                 </template>

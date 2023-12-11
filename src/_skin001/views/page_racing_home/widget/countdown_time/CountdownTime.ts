@@ -27,7 +27,7 @@ export default class CountdownTime extends AbstractView {
     onWatchData() {
         clearInterval(this.timeId);
         this.time = this.date;
-        this.updateCountdown();
+        // this.updateCountdown();
     }
 
     destroyed() {
