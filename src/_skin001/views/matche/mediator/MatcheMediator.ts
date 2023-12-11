@@ -9,7 +9,6 @@ import dialog_message_box from "../../dialog_message_box";
 import LangUtil from "@/core/global/LangUtil";
 import page_home from "../../page_home";
 import GlobalVar from "@/core/global/GlobalVar";
-import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 
 export default class MatcheMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
@@ -22,9 +21,6 @@ export default class MatcheMediator extends AbstractMediator {
         const myProxy: MatcheProxy = getProxy(MatcheProxy);
         switch (notification.getName()) {
             case net.EventType.api_event_list:
-                if (type == PageHomeProxy.NAME) {
-                    myProxy.listQueryComp.event_id = "";
-                }
                 if (body.length > 0 && !myProxy.listQueryComp.event_id) {
                     if (GlobalVar.pre_event_id) {
                         matche.init(GlobalVar.pre_event_id);

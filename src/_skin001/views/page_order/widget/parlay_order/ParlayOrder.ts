@@ -186,6 +186,12 @@ export default class ParlayOrder extends AbstractView {
         }
     }
 
+    getPayout(item: any) {
+        const stake = Number(item.stake) || 0;
+        const preWin = Number(item.expected_win) || 0;
+        return amountFormat(preWin + stake, true);
+    }
+
     // get parlayOdds() {
     //     let odds = 1;
     //     this.item.leg_info.forEach((item: any) => {

@@ -253,4 +253,10 @@ export default class PageOrder extends AbstractView {
                 return `${LangUtil("暂停兑现")}`;
         }
     }
+
+    getPayout(item: any) {
+        const stake = Number(item.stake) || 0;
+        const preWin = Number(item.expected_win) || 0;
+        return amountFormat(preWin + stake, true);
+    }
 }

@@ -24,6 +24,11 @@
             <span class="textGray--text mr-1">{{LangUtil("预计可赢")}}</span>
             <span :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}} </span>
         </v-sheet>
+
+        <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
+            <span class="textGray--text mr-1">{{LangUtil("预计派彩")}}</span>
+            <span class="preWinColor--text">{{GlobalVar.currency}} {{getPayout(item)}}</span>
+        </v-sheet>
         <v-sheet width="100%" color="transparent">
             <span class="textGray--text mr-1">{{LangUtil("订单编号")}}</span>
             <span>{{item.order_no}}</span></v-sheet

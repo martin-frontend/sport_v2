@@ -36,6 +36,7 @@ export function getVuetify(): Vuetify {
                         competBC: "#f5f5f4",
                         errorMsgBg: "#fff4e5",
                         betSummaryBg: "#ffffff",
+                        preWinColor: "#0325b4",
                     },
                     dark: {
                         competBC: "#1e1e1e",
@@ -63,6 +64,7 @@ export function getVuetify(): Vuetify {
                         helpColor: "#ffffff",
                         errorMsgBg: "#3d3522",
                         betSummaryBg: "#3e3f41",
+                        preWinColor: "#1B5FFF",
                     },
                 },
                 dark: false,

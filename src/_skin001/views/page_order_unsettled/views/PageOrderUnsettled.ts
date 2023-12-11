@@ -5,7 +5,7 @@ import LangUtil from "@/core/global/LangUtil";
 import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
-import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
+import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, parseLocaleNumber, TransMarketPrice } from "@/core/global/Functions";
 import CopyUtil from "@/core/global/CopyUtil";
 import EnumMarketType from "@/core/global/MarketUtils";
 import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
@@ -209,5 +209,11 @@ export default class PageOrderUnsettled extends AbstractView {
             case 6:
                 return `${LangUtil("暂停兑现")}`;
         }
+    }
+
+    getPayout(item: any) {
+        const stake = Number(item.stake) || 0;
+        const preWin = Number(item.expected_win) || 0;
+        return amountFormat(preWin + stake, true);
     }
 }
