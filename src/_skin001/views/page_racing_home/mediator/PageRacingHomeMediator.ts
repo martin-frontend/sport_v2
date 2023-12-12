@@ -20,9 +20,10 @@ export default class PageRacingHomeMediator extends AbstractMediator {
                 }
                 break;
             case net.EventType.api_market_typelist:
-                // if (type == PageRacingHomeProxy.NAME) {
-                //     myProxy.set_market_typelist(body);
-                // } else if (type == MatcheProxy.NAME) {
+                if (type == PageRacingHomeProxy.NAME) {
+                    myProxy.set_market_typelist(body);
+                }
+                //  else if (type == MatcheProxy.NAME) {
                 //     myProxy.updateMarketCount(body);
                 // }
                 break;

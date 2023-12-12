@@ -43,15 +43,20 @@
             </template>
         </div>
         <!-- 下一场 -->
-        <template v-if="false">
-            <RaceTable v-for="(item, index) of 3" :key="index" :isNextDay="true" :option="sportCheckBoxOptions['h']"></RaceTable>
+        <template v-if="tag == tagOptions.withinAnHour.tag">
+            <RaceTable
+                v-if="sportCheckBoxArr.length > 0"
+                :is-next="true"
+                :options="sportCheckBoxOptions"
+                :table-data="nextTableData"
+            ></RaceTable>
         </template>
         <template v-else>
             <template v-for="sportId of raceSportArr">
                 <RaceTable
                     v-if="sportCheckBoxArr.includes(`${sportId}`)"
                     :key="sportId"
-                    :option="sportCheckBoxOptions[sportId]"
+                    :sport-item="sportCheckBoxOptions[sportId]"
                     :table-data="getTableData(sportId)"
                 ></RaceTable>
             </template>

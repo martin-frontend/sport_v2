@@ -2,6 +2,7 @@ import AbstractView from "@/core/abstract/AbstractView";
 import { Watch, Component, Prop } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
+import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 
 @Component
 export default class CountdownTime extends AbstractView {
@@ -10,24 +11,39 @@ export default class CountdownTime extends AbstractView {
     @Prop() date!: any;
     time: any = "";
     timeId = 0;
-    min: any = "";
-    sec: any = "";
+    hr = 0;
+    min = 0;
+    sec = 0;
     updateCountdown() {
-        const start_in_sec = this.time - GlobalVar.server_time;
-        const hr = Math.floor(start_in_sec / 60 / 60);
-        if (hr > 0) return;
-        this.min = Math.floor((start_in_sec / 60) % 60);
-        this.sec = Math.floor(start_in_sec % 60);
-        this.timeId = setInterval(() => {
-            this.updateCountdown();
-        }, 1000);
+        const timestamp = new Date(this.date).getTime() / 1000;
+        const start_in_sec = timestamp - GlobalVar.server_time;
+        this.hr = Math.floor(start_in_sec / 60 / 60);
+        if (this.hr > 0) {
+            this.time = this.getStartTime(this.date);
+            clearInterval(this.timeId);
+        } else {
+            this.min = Math.floor((start_in_sec / 60) % 60);
+            this.sec = Math.floor(start_in_sec % 60);
+            if (this.min > 5) {
+                this.time = `${this.min}${LangUtil("分钟")}`;
+            } else if (this.min > 0) {
+                this.time = `${this.min}${LangUtil("分")}${this.sec}${LangUtil("秒")}`;
+            } else {
+                this.time = `${this.sec}${LangUtil("秒")}`;
+            }
+        }
+    }
+
+    getStartTime(start_time_timestamp: any) {
+        return dateFormat(getDateByTimeZone(start_time_timestamp * 1000, <any>GlobalVar.zone), "hh:mm");
     }
 
     @Watch("date", { immediate: true })
     onWatchData() {
         clearInterval(this.timeId);
-        this.time = this.date;
-        // this.updateCountdown();
+        this.timeId = setInterval(() => {
+            this.updateCountdown();
+        }, 1000);
     }
 
     destroyed() {

@@ -104,6 +104,8 @@ export default class MatcheProxy extends puremvc.Proxy {
 
     /**盘口接口-新*/
     api_market_typelist() {
+        if (Vue.router.currentRoute.path == "/page_racing_home") return;
+
         let market_type = "";
         switch (this.listQueryMarket.market_type) {
             case 0:

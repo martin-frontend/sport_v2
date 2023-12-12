@@ -40,6 +40,22 @@ export default class PageRacingHome extends AbstractView {
         };
     }
 
+    get nextTableData() {
+        if (this.tag != this.tagOptions.withinAnHour.tag) return [];
+        const arr = <any>[];
+        this.pageData.competition_list.forEach((item: any) => {
+            if (!this.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
+            Object.keys(item.matches).forEach((key) => {
+                const match = item.matches[key];
+                arr.push({ ...match, ...item, r: key });
+            });
+        });
+        arr.sort(function (a: any, b: any) {
+            return a.start_time_timestamp - b.start_time_timestamp;
+        });
+        return arr;
+    }
+
     onTagClick(tag: any) {
         this.tag = tag;
         page_racing_home.showBySport(this.sportCheckBoxArr.toString(), tag);

@@ -10,7 +10,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
     static NAME = "PageRacingHomeProxy";
 
     public onRegister(): void {
-        // this.init();
+        this.init();
         // TODO 请求初始数据
     }
     /**计时器 */
@@ -21,8 +21,10 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         competition_list: <any>[],
         /**盘口信息 */
         market_list: <MarketVO[]>[],
+        marketListByEventId: <any>{},
         /**赛事进程 */
         event_states: <EventStatesVO[]>[],
+        eventStatesByEventId: <any>{},
     };
 
     listQueryComp = {
@@ -105,49 +107,35 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         this.pageData.competition_list.push(...data);
         this.getMarketAndStates();
     }
+
     set_market_typelist(data: any) {
-        // for (const item of data) {
-        //     for (const key of Object.keys(item.fix_markets)) {
-        //         const market = item.fix_markets[key];
-        //         market.selections = market.selections.filter((item: any) => item.status == 0);
-        //     }
-        //     const finditem = this.pageData.market_list.find((item1) => item.event_id == item1.event_id);
-        //     if (finditem) {
-        //         Object.assign(finditem, item);
-        //     } else {
-        //         this.pageData.market_list.push(item);
-        //     }
-        // }
-    }
-    updateMarketCount(data: any) {
-        // for (const item of data) {
-        //     const { event_id, market_amount } = item;
-        //     for (const comp of this.pageData.competition_list) {
-        //         for (const matche of comp.matches) {
-        //             if (matche.id == event_id) {
-        //                 matche.market_amount = market_amount;
-        //                 break;
-        //             }
-        //         }
-        //     }
-        // }
-    }
-    set_event_states(data: any) {
-        if (data.length == 0) return;
-        const dataByEventId: any = {};
-        const event_id = <Number[]>[];
         data.forEach((item: any) => {
-            dataByEventId[item.event_id] = item;
+            Vue.set(this.pageData.marketListByEventId, item.event_id, item);
+
+            const finditem = this.pageData.market_list.find((item1) => item.event_id == item1.event_id);
+            if (finditem) {
+                Object.assign(finditem, item);
+            } else {
+                this.pageData.market_list.push(item);
+            }
+        });
+    }
+
+    set_event_states(data: any) {
+        // if (data.length == 0) return;
+        const event_id = <Number[]>[];
+
+        data.forEach((item: any) => {
+            Vue.set(this.pageData.eventStatesByEventId, item.event_id, item);
             if (item.match_phase == "OPEN") {
                 event_id.push(item.event_id);
             }
-        });
-
-        this.pageData.competition_list.forEach((item: any) => {
-            Object.keys(item.matches).forEach((key: any) => {
-                const match = item.matches[key];
-                Vue.set(match, "states", dataByEventId[match.id]);
-            });
+            const finditem = this.pageData.event_states.find((item1) => item.event_id == item1.event_id);
+            if (finditem) {
+                Object.assign(finditem, item);
+            } else {
+                this.pageData.event_states.push(item);
+            }
         });
 
         this.listQueryMarket.event_id = event_id.toString();
@@ -160,7 +148,9 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
     api_event_list() {
         this.pageData.loading = true;
         this.pageData.market_list = [];
+        this.pageData.event_states = [];
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
+        // 清除将重新查询的sport
         this.pageData.competition_list = this.pageData.competition_list.filter(
             (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)
         );
