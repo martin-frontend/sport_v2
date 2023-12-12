@@ -15,8 +15,7 @@ export default class CountdownTime extends AbstractView {
     min = 0;
     sec = 0;
     updateCountdown() {
-        const timestamp = new Date(this.date).getTime() / 1000;
-        const start_in_sec = timestamp - GlobalVar.server_time;
+        const start_in_sec = this.date - GlobalVar.server_time;
         this.hr = Math.floor(start_in_sec / 60 / 60);
         if (this.hr > 0) {
             this.time = this.getStartTime(this.date);
@@ -24,7 +23,7 @@ export default class CountdownTime extends AbstractView {
         } else {
             this.min = Math.floor((start_in_sec / 60) % 60);
             this.sec = Math.floor(start_in_sec % 60);
-            if (this.min > 5) {
+            if (this.min >= 5) {
                 this.time = `${this.min}${LangUtil("分钟")}`;
             } else if (this.min > 0) {
                 this.time = `${this.min}${LangUtil("分")}${this.sec}${LangUtil("秒")}`;

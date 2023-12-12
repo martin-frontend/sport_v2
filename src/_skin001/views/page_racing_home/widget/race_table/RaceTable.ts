@@ -5,14 +5,6 @@ import page_racing_detail from "../../../page_racing_detail";
 import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 import PageRacingHomeProxy from "../../proxy/PageRacingHomeProxy";
 import GlobalVar from "@/core/global/GlobalVar";
-enum type {
-    OPEN = "OPEN",
-    DONE = "DONE",
-    INTERIM = "INTERIM", //临时
-    ABANDONED = "ABANDONED", //放弃
-    FINAL = "FINAL", //最后
-    CLOSED = "CLOSED", //关闭
-}
 @Component
 export default class RaceTable extends AbstractView {
     LangUtil = LangUtil;
@@ -48,13 +40,20 @@ export default class RaceTable extends AbstractView {
         return dateFormat(new Date(date), "MM/dd");
     }
 
-    onShowDetail(match: any) {
-        if (!match) return;
-        page_racing_detail.show();
+    onShowDetail(item: any, matchKey: any) {
+        if (!item) return;
+        page_racing_detail.show({
+            pageData: JSON.parse(JSON.stringify(this.pageData)),
+            listQueryMarket: { ...this.myProxy.listQueryMarket },
+            listQueryStates: { ...this.myProxy.listQueryStates },
+            listQueryComp: { ...this.myProxy.listQueryComp },
+            competition_id: item.competition_id,
+            matchKey: matchKey,
+        });
     }
 
-    getStartTime(start_time_datetime: any) {
-        return dateFormat(getDateByTimeZone(new Date(start_time_datetime).getTime(), <any>GlobalVar.zone), "hh:mm");
+    getStartTime(start_time_timestamp: any) {
+        return dateFormat(getDateByTimeZone(start_time_timestamp * 1000, <any>GlobalVar.zone), "hh:mm");
     }
 
     /**盘口 固陪*/

@@ -1,7 +1,7 @@
 <div>
     <!-- 下一场 -->
     <template v-if="isNext">
-        <template v-if="tableData?.length > 0">
+        <template v-if="!pageData.loading">
             <template v-for="item of tableData">
                 <v-sheet
                     v-if="getStates(item.id)?.match_phase == 'OPEN'"
@@ -61,7 +61,7 @@
             <div v-show="isShowContent">
                 <template v-if="tableData?.length > 0">
                     <v-row v-for="item of tableData" :key="item.competition_id" class="border-bottom" no-gutters>
-                        <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowDetail">
+                        <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowDetail(item, headerList[0])">
                             <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
                             <div class="py-2">
                                 <div class="ml-2 font-weight-bold text-14">{{item.competition_name}} {{getEventDate(item.date)}}</div>
@@ -73,7 +73,7 @@
                             :class="{'hand': item.matches[i]}"
                             v-for="i of headerList"
                             :key="i"
-                            @click="onShowDetail(item.matches[i])"
+                            @click="onShowDetail(item, i)"
                         >
                             <v-sheet
                                 class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1"
@@ -88,7 +88,7 @@
                                     <template v-if="getStates(item.matches[i].id)">
                                         <template v-if="getStates(item.matches[i].id).match_phase == 'OPEN'">
                                             <svg-icon v-if="isShowP(item.matches[i].id)" class="text-14 mb-1" icon="p"></svg-icon>
-                                            <CountdownTime :date="item.matches[i].start_time_datetime"></CountdownTime>
+                                            <CountdownTime :date="item.matches[i].start_time_timestamp"></CountdownTime>
                                         </template>
                                         <div v-else-if="getStates(item.matches[i].id).match_phase == 'DONE'">
                                             {{getRanking(item.matches[i].id)}}
@@ -96,7 +96,7 @@
                                         <div class="red--text" v-else>{{getResultStr(getStates(item.matches[i].id).match_phase)}}</div>
                                     </template>
                                     <template v-else>
-                                        <div class="timeColor2--text">{{getStartTime(item.matches[i].start_time_datetime)}}</div>
+                                        <div class="timeColor2--text">{{getStartTime(item.matches[i].start_time_timestamp)}}</div>
                                     </template>
                                 </template>
                             </v-sheet>

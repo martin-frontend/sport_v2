@@ -18,7 +18,7 @@ function showByTag(tag?: string) {
     }
     myProxy.api_event_list();
 }
-/**按运动查询 */
+/**按sport查询 */
 function showBySport(sport_id: any, tag?: string) {
     const myProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
     myProxy.listQueryComp.sport_id = `${sport_id}`;

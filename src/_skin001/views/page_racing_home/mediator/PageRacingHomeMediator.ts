@@ -2,7 +2,6 @@ import AbstractMediator from "@/core/abstract/AbstractMediator";
 import PageRacingHomeProxy from "../proxy/PageRacingHomeProxy";
 import getProxy from "@/core/global/getProxy";
 import net from "@/net/setting";
-import MatcheProxy from "../../matche/proxy/MatcheProxy";
 
 export default class PageRacingHomeMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
