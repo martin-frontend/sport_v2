@@ -26,8 +26,8 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
         event_states: <EventStatesVO[]>[],
         eventStatesByEventId: <any>{},
         // 当前选择的赛事
-        curCompetitionId: 0,
-        curMatchKey: "",
+        competitionId: 0,
+        matchKey: "R1",
     };
 
     listQueryComp = {
@@ -69,17 +69,10 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
 
     getMarketAndStates() {
         if (Vue.router.currentRoute.path == "/page_racing_detail") {
-            const event_id: number[] = [];
-            this.pageData.competition_list.forEach((item: any) => {
-                Object.keys(item.matches).forEach((key: any) => {
-                    const match = item.matches[key];
-                    event_id.push(match.id);
-                });
-            });
-
-            this.listQueryStates.event_id = event_id.toString();
+            const findItem = this.pageData.competition_list.find((item: any) => item.competition_id == this.pageData.competitionId);
+            const event_id = findItem?.matches[this.pageData.matchKey]?.id;
+            this.listQueryStates.event_id = event_id?.toString();
             if (this.listQueryStates.event_id) {
-                // this.api_market_typelist();
                 this.api_event_states();
             }
         }
@@ -105,6 +98,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
     }
 
     set_event_states(data: any) {
+        this.pageData.loading = false;
         // if (data.length == 0) return;
         const event_id = <Number[]>[];
 
@@ -132,11 +126,8 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
         this.pageData.loading = true;
         this.pageData.market_list = [];
         this.pageData.event_states = [];
+        this.pageData.competition_list = [];
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
-        // 清除将重新查询的sport
-        this.pageData.competition_list = this.pageData.competition_list.filter(
-            (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)
-        );
         this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
     /**盘口接口-新*/

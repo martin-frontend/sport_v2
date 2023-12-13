@@ -3,7 +3,7 @@
         <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="onBack">
             <svg-icon icon="back3" class="text-22"></svg-icon>
         </v-btn>
-        <v-menu open-on-hover bottom offset-y>
+        <v-menu open-on-hover bottom offset-y v-if="Object.keys(curCompetition).length > 0">
             <template v-slot:activator="{ on, attrs, value }">
                 <div class="d-flex align-center font-weight-bold text-18 tagTextColor2--text" v-bind="attrs" v-on="on">
                     <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
@@ -16,7 +16,7 @@
             </template>
 
             <v-list dense class="py-0">
-                <v-list-item-group v-model="selectedItem" active-class="list-active" mandatory>
+                <v-list-item-group @change="onChangeCompetion" v-model="selectedItem" active-class="list-active" mandatory>
                     <template v-for="(item, index) in pageData.competition_list">
                         <v-list-item :key="item.competition_id">
                             <v-list-item-title class="d-flex align-center">
@@ -36,50 +36,63 @@
         <horizontal_scroll :offsetx="16">
             <template v-slot="{data}">
                 <v-btn
-                    v-for="(item,index) of 14"
-                    :key="index"
+                    v-for="(_,key) of curCompetition?.matches"
+                    :key="key"
                     :disabled="false"
-                    class="rounded mr-2 tab-btn"
-                    :class="{'active': tab == index}"
+                    class="rounded mr-2 tag-btn"
+                    :class="{'active': pageData.matchKey == key}"
                     elevation="0"
                     outlined
                     width="60"
                     height="30"
-                    @click="tab = index"
+                    @click="onTagClick(key)"
                 >
-                    <span class="d-flex align-center font-weight-bold"> R{{ item }} </span>
+                    <span class="d-flex align-center font-weight-bold"> {{ key }} </span>
                 </v-btn>
             </template>
         </horizontal_scroll>
     </v-sheet>
-    <v-sheet color="transparent" class="mt-3 d-flex">
-        <svg-icon icon="race" class="text-22"></svg-icon>
-        <div class="text-14 tagTextColor2--text ml-2">
-            <div>
-                <span>德国</span>
-                <span class="tagTextColor1--text ml-2">Scone(赛事名称)</span>
+    <template v-if="!pageData.loading">
+        <v-sheet color="transparent" class="mt-3 d-flex" v-if="match">
+            <v-img :src="curCompetition.country_icon" height="21" max-width="21" contain></v-img>
+            <div class="text-14 tagTextColor2--text ml-2">
+                <div>
+                    <span>{{LangUtil(curCompetition.country)}}</span>
+                    <span class="tagTextColor1--text ml-2">{{curCompetition.competition_name}}</span>
+                </div>
+                <div>{{LangUtil("赛程：{0}m",match.distance)}}</div>
             </div>
-            <div>赛程：1000m</div>
-        </div>
-        <v-spacer></v-spacer>
-        <v-sheet
-            v-if="true"
-            color="timeColor1"
-            class="white--text rounded text-center px-1 text-12 mt-1 d-flex justify-center align-center"
-            min-width="50"
-            height="20"
-        >
-            9分45秒
+            <v-spacer></v-spacer>
+            <template v-if="states">
+                <template v-if="states.match_phase == 'OPEN'">
+                    <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                </template>
+                <v-sheet
+                    v-else
+                    color="timeColor2"
+                    class="rounded d-flex align-center justify-center px-1 text-12 white--text"
+                    width="60"
+                    height="20"
+                    max-width="60"
+                >
+                    {{getResultStr(states.match_phase)}}
+                </v-sheet>
+            </template>
+            <template v-else>
+                <v-sheet
+                    color="timeColor2"
+                    class="white--text rounded d-flex align-center justify-center px-1 text-12"
+                    width="60"
+                    height="20"
+                    max-width="60"
+                >
+                    {{getStartTime(match.start_time_timestamp)}}
+                </v-sheet>
+            </template>
         </v-sheet>
-        <v-sheet
-            v-else
-            color="timeColor2"
-            class="white--text rounded text-center px-1 text-12 mt-1 d-flex justify-center align-center"
-            min-width="50"
-            height="20"
-        >
-            33分鐘
-        </v-sheet>
-    </v-sheet>
-    <v-sheet color="bgBanner" class="mt-3 rounded-lg" height="500"> </v-sheet>
+        <ResultTable></ResultTable>
+    </template>
+    <template v-else>
+        <loader />
+    </template>
 </div>

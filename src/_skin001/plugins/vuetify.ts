@@ -42,6 +42,7 @@ export function getVuetify(): Vuetify {
                         tableHeaderColor: "#f7f8fa",
                         timeColor1: "#eb7d00",
                         timeColor2: "#0f1213",
+                        headerTextColor: "#919191",
                     },
                     dark: {
                         competBC: "#1e1e1e",
@@ -75,6 +76,7 @@ export function getVuetify(): Vuetify {
                         tableHeaderColor: "#f7f8fa",
                         timeColor1: "#eb7d00",
                         timeColor2: "#0f1213",
+                        headerTextColor: "#919191",
                     },
                 },
                 dark: false,

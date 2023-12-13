@@ -5,7 +5,7 @@ import GlobalVar from "@/core/global/GlobalVar";
 import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 
 @Component
-export default class CountdownTime extends AbstractView {
+export default class ResultTable extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
     @Prop() date!: any;

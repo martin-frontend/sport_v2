@@ -43,11 +43,8 @@ export default class RaceTable extends AbstractView {
     onShowDetail(item: any, matchKey: any) {
         if (!item) return;
         page_racing_detail.show({
-            pageData: JSON.parse(JSON.stringify(this.pageData)),
-            listQueryMarket: { ...this.myProxy.listQueryMarket },
-            listQueryStates: { ...this.myProxy.listQueryStates },
+            competitionId: item.competition_id,
             listQueryComp: { ...this.myProxy.listQueryComp },
-            competition_id: item.competition_id,
             matchKey: matchKey,
         });
     }

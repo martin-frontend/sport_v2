@@ -7,13 +7,14 @@ function show(data: any) {
         Vue.router.push("/page_racing_detail");
     }
     const myProxy: PageRacingDetailProxy = getProxy(PageRacingDetailProxy);
-    const { pageData, listQueryMarket, listQueryStates, listQueryComp, competition_id, matchKey } = data;
-    Object.assign(myProxy.pageData, pageData);
-    myProxy.pageData.curCompetitionId = competition_id;
-    myProxy.pageData.curMatchKey = matchKey;
-    myProxy.listQueryMarket = listQueryMarket;
-    myProxy.listQueryStates = listQueryStates;
-    myProxy.listQueryComp = listQueryComp;
+    const { listQueryComp, competitionId, matchKey } = data;
+    myProxy.pageData.competitionId = competitionId;
+    myProxy.pageData.matchKey = matchKey;
+    myProxy.listQueryComp = {
+        ...listQueryComp,
+        unique: PageRacingDetailProxy.NAME,
+    };
+    myProxy.api_event_list();
 }
 
 export default { show };
