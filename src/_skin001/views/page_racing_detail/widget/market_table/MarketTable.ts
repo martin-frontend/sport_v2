@@ -5,10 +5,10 @@ import GlobalVar from "@/core/global/GlobalVar";
 import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 
 @Component
-export default class ResultTable extends AbstractView {
+export default class MarketTable extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
-    window = 0;
+    isShowDetail = true;
 
     destroyed() {
         super.destroyed();

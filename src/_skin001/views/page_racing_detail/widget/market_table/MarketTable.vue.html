@@ -1,0 +1,100 @@
+<v-sheet color="bgBanner" class="pt-4 pb-2 rounded-lg mt-2 text-14">
+    <v-sheet color="transparent" class="mb-4 px-2 tagTextColor2--text font-weight-bold d-flex align-center">
+        <span>{{LangUtil("投注盘")}}</span>
+        <v-spacer></v-spacer>
+        <v-sheet color="transparent" height="20">
+            <v-checkbox v-model="isShowDetail" class="mt-n1 detail" color="yellow1">
+                <template #label>
+                    <span class="tagTextColor2--text">{{LangUtil('详情')}}</span>
+                </template>
+            </v-checkbox>
+        </v-sheet>
+    </v-sheet>
+    <v-divider></v-divider>
+    <v-sheet color="transparent" class="px-2">
+        <v-row no-gutters class="py-2 tagTextColor1--text">
+            <v-col>{{LangUtil("當位")}}</v-col>
+            <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("開放")}}</v-col>
+            <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("價錢1")}}</v-col>
+            <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("價錢2")}}</v-col>
+            <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                {{LangUtil("獨贏")}}
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <div class="hand ml-1" v-bind="attrs" v-on="on">
+                            <v-icon dense>mdi-help-circle</v-icon>
+                        </div>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{'test'}}</span>
+                    </v-sheet>
+                </v-tooltip>
+            </v-col>
+            <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                {{LangUtil("位置")}}
+                <v-tooltip top>
+                    <template v-slot:activator="{ on, attrs }">
+                        <div class="hand ml-1" v-bind="attrs" v-on="on">
+                            <v-icon dense>mdi-help-circle</v-icon>
+                        </div>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{'test'}}</span>
+                    </v-sheet>
+                </v-tooltip>
+            </v-col>
+        </v-row>
+        <template v-for="i of 2">
+            <v-row no-gutters class="py-2 tagTextColor2--text" :key="i">
+                <v-col>
+                    <v-sheet color="transparent" class="d-flex flex-column">
+                        <span class="font-weight-bold">{{"1.Top Glory (4)"}}</span>
+                        <div class="d-flex text-12 mt-1">
+                            <div>
+                                <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
+                                <span class="mx-2">{{"Lea Bails"}}</span>
+                            </div>
+                            <div>
+                                <span>{{LangUtil('練馬師:')}}</span>
+                                <span class="mx-2">{{"Lea Bails"}}</span>
+                            </div>
+                        </div>
+                    </v-sheet>
+                </v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{2.55}}</v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{"-"}}</v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{"-"}}</v-col>
+                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center"> {{LangUtil("獨贏")}} </v-col>
+                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center"> {{LangUtil("位置")}} </v-col>
+            </v-row>
+            <v-divider></v-divider>
+        </template>
+
+        <template v-for="i of 2">
+            <v-row no-gutters class="py-2 tagTextColor1--text" :key="i">
+                <v-col>
+                    <v-sheet color="transparent" class="d-flex flex-column tagTextColor1--text">
+                        <span style="text-decoration: line-through">{{"1.Top Glory (4)"}}</span>
+                        <div class="d-flex text-12 mt-1">
+                            <div>
+                                <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
+                                <span class="mx-2">{{"Lea Bails"}}</span>
+                            </div>
+                            <div>
+                                <span>{{LangUtil('練馬師:')}}</span>
+                                <span class="mx-2">{{"Lea Bails"}}</span>
+                            </div>
+                        </div>
+                    </v-sheet>
+                </v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{2.55}}</v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{"-"}}</v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{"-"}}</v-col>
+                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center"> {{LangUtil("獨贏")}} </v-col>
+                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center"> {{LangUtil("位置")}} </v-col>
+            </v-row>
+            <v-divider></v-divider>
+        </template>
+        <div class="mt-2 tagTextColor2--text">{{LangUtil("其他规则: 第三名没有奖励")}}</div>
+    </v-sheet>
+</v-sheet>

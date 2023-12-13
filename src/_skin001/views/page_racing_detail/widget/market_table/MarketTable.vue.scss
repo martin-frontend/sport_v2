@@ -1,0 +1,10 @@
+.tab.active {
+    background-color: #feba00;
+}
+::v-deep .detail .v-input__slot {
+    display: flex;
+    flex-direction: row-reverse;
+    .v-input--selection-controls__input {
+        margin-left: 8px;
+    }
+}

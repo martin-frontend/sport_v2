@@ -1,46 +1,71 @@
-<v-sheet color="bgBanner" class="py-4 rounded-lg mt-2">
+<v-sheet color="bgBanner" class="pt-4 pb-2 rounded-lg mt-2">
     <v-row no-gutters class="mb-4 px-2">
         <v-col>
             <v-sheet color="transparent">
-                <v-btn small class="tab active px-2" height="26" elevation="0">
+                <v-btn small :class="{'active': window == 0}" class="tab px-2" height="26" elevation="0" @click="window = 0">
                     <span class="text-14"> {{LangUtil('结果')}} </span>
                 </v-btn>
-                <v-btn small class="tab" height="26" elevation="0">
+                <v-btn small :class="{'active': window == 1}" class="tab" height="26" elevation="0" @click="window = 1">
                     <span class="text-14"> {{LangUtil('扣除')}} </span>
                 </v-btn>
             </v-sheet>
         </v-col>
-        <v-col cols="2" class="text-center headerTextColor--text">{{LangUtil('独赢')}}</v-col>
-        <v-col cols="2" class="text-center headerTextColor--text">{{LangUtil('位置')}}</v-col>
+        <template v-if="window == 0">
+            <v-col cols="2" class="text-center headerTextColor--text text-14">{{LangUtil('独赢')}}</v-col>
+            <v-col cols="2" class="text-center headerTextColor--text text-14">{{LangUtil('位置')}}</v-col>
+        </template>
     </v-row>
     <v-divider></v-divider>
-    <v-sheet color="transparent" class="px-2">
-        <template v-for="i of 4">
-            <v-row no-gutters class="py-2" :key="i">
-                <v-col>
-                    <v-sheet color="transparent" class="d-flex flex-column">
-                        <div class="d-flex">
-                            <v-sheet color="#0f1213" class="rounded white--text text-12 px-1 d-flex align-center">
-                                {{LangUtil('第一名')}}
+    <v-window v-model="window">
+        <v-window-item>
+            <v-sheet color="transparent" class="px-2">
+                <template v-for="i of 4">
+                    <v-row no-gutters class="py-2" :key="i">
+                        <v-col>
+                            <v-sheet color="transparent" class="d-flex flex-column">
+                                <div class="d-flex">
+                                    <v-sheet color="#0f1213" class="rounded white--text text-12 px-1 d-flex align-center">
+                                        {{LangUtil('第一名')}}
+                                    </v-sheet>
+                                    <span class="ml-2 font-weight-bold">{{"1.Top Glory (4)"}}</span>
+                                </div>
+                                <div class="d-flex text-12 mt-2">
+                                    <div>
+                                        <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
+                                        <span class="mx-2">{{"Lea Bails"}}</span>
+                                    </div>
+                                    <div>
+                                        <span>{{LangUtil('練馬師:')}}</span>
+                                        <span class="mx-2">{{"Lea Bails"}}</span>
+                                    </div>
+                                </div>
                             </v-sheet>
-                            <span class="ml-2 font-weight-bold">{{"1.Top Glory (4)"}}</span>
-                        </div>
-                        <div class="d-flex text-12 mt-2">
-                            <div>
-                                <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
-                                <span class="mx-2">{{"Lea Bails"}}</span>
-                            </div>
-                            <div>
-                                <span>{{LangUtil('練馬師:')}}</span>
-                                <span class="mx-2">{{"Lea Bails"}}</span>
-                            </div>
-                        </div>
-                    </v-sheet>
-                </v-col>
-                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">1.45</v-col>
-                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">1.45</v-col>
-            </v-row>
-            <v-divider></v-divider>
-        </template>
-    </v-sheet>
+                        </v-col>
+                        <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">1.45</v-col>
+                        <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">1.45</v-col>
+                    </v-row>
+                    <v-divider></v-divider>
+                </template>
+            </v-sheet>
+        </v-window-item>
+        <v-window-item>
+            <v-sheet color="transparent" class="px-2">
+                <template v-for="i of 4">
+                    <v-row no-gutters class="py-2" :key="i">
+                        <v-col cols="6" class="d-flex flex-column tagTextColor1--text">
+                            <div style="text-decoration: line-through">{{"1.Top Glory (4)"}}</div>
+                            <div class="d-flex text-12 mt-1">{{'對於退賽前投注的固定投注'}}</div>
+                        </v-col>
+                        <v-spacer></v-spacer>
+                        <v-sheet color="transparent" class="d-flex flex-column justify-center pr-3 tagTextColor1--text text-14">
+                            <div class="text-center">退賽 @ 2023/11/14 04:49:51</div>
+                            <div class="text-center">扣除: W 11% / P 12%</div>
+                        </v-sheet>
+                    </v-row>
+                    <v-divider></v-divider>
+                </template>
+                <div class="text-12 tagTextColor1--text mt-2">{{LangUtil("*從固定賠率的原始估計收益中扣除。")}}</div>
+            </v-sheet>
+        </v-window-item>
+    </v-window>
 </v-sheet>
