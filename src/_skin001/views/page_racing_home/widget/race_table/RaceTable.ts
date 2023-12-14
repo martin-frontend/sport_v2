@@ -19,7 +19,7 @@ export default class RaceTable extends AbstractView {
     headerList = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14"];
 
     get isLoading() {
-        return this.pageData.loading && this.myProxy.listQueryComp.sport_id.includes(this.sportItem.sportId);
+        return this.pageData.loading && this.myProxy.listQueryComp.sport_id.includes(`${this.sportItem.sportId}`);
     }
 
     getResultStr(match_phase: string) {
@@ -41,7 +41,6 @@ export default class RaceTable extends AbstractView {
     }
 
     onShowDetail(item: any, matchKey: any) {
-        if (!item) return;
         page_racing_detail.show({
             competitionId: item.competition_id,
             listQueryComp: { ...this.myProxy.listQueryComp },

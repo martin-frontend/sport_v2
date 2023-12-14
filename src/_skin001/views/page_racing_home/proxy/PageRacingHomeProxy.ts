@@ -98,12 +98,13 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
             if (this.listQueryStates.event_id) {
                 // this.api_market_typelist();
                 this.api_event_states();
+            } else {
+                this.pageData.loading = false;
             }
         }
     }
 
     set_event_list(data: any) {
-        this.pageData.loading = false;
         this.pageData.competition_list.push(...data);
         this.getMarketAndStates();
     }
@@ -122,6 +123,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
     }
 
     set_event_states(data: any) {
+        this.pageData.loading = false;
         // if (data.length == 0) return;
         const event_id = <Number[]>[];
 

@@ -4,7 +4,12 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import MarketTable from "./MarketTable";
+import Price from "../price/Price.vue";
 
-@Component
+@Component({
+    components: {
+        Price,
+    },
+})
 export default class extends MarketTable {}
 </script>

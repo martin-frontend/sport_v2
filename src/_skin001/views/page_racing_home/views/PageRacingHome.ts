@@ -17,8 +17,6 @@ export default class PageRacingHome extends AbstractView {
     pageData = this.myProxy.pageData;
     isRaceEvent = SportUtil.isRaceEvent;
 
-    tag = "today";
-
     get curSportId() {
         return this.homeProxy.listQueryComp.sport_id;
     }
@@ -41,23 +39,23 @@ export default class PageRacingHome extends AbstractView {
     }
 
     get nextTableData() {
-        if (this.tag != this.tagOptions.withinAnHour.tag) return [];
+        if (this.curTag != this.tagOptions.withinAnHour.tag) return [];
         const arr = <any>[];
         this.pageData.competition_list.forEach((item: any) => {
             if (!this.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
             Object.keys(item.matches).forEach((key) => {
                 const match = item.matches[key];
-                arr.push({ ...match, ...item, r: key });
+                arr.push({ ...item, r: key, match });
             });
         });
         arr.sort(function (a: any, b: any) {
-            return a.start_time_timestamp - b.start_time_timestamp;
+            return a.match.start_time_timestamp - b.match.start_time_timestamp;
         });
         return arr;
     }
 
     onTagClick(tag: any) {
-        this.tag = tag;
+        this.myProxy.listQueryComp.tag = tag;
         page_racing_home.showBySport(this.sportCheckBoxArr.toString(), tag);
     }
 

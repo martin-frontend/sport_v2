@@ -4,12 +4,11 @@
         <template v-if="!pageData.loading">
             <template v-for="item of tableData">
                 <v-sheet
-                    v-if="getStates(item.id)?.match_phase == 'OPEN'"
                     :key="item.id"
                     height="45"
                     width="100%"
                     class="hand px-2 py-1 d-flex align-center border-bottom"
-                    @click="onShowDetail"
+                    @click="onShowDetail(item, item.r)"
                 >
                     <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
                     <svg-icon :icon="options[item.sport_id].icon" class="text-26 ml-2"></svg-icon>
@@ -24,18 +23,29 @@
                     <span class="font-weight-bold text-14 tagTextColor2--text ml-2">{{item.competition_name}}</span>
                     <v-spacer></v-spacer>
                     <div class="d-flex align-center justify-center flex-column">
-                        <svg-icon v-if="isShowP(item.id)" class="text-14 mb-1" icon="p"></svg-icon>
-                        <CountdownTime :date="item.start_time_timestamp"></CountdownTime>
+                        <template v-if="getStates(item.match.id)">
+                            <template v-if="getStates(item.match.id).match_phase == 'OPEN'">
+                                <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
+                                <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
+                            </template>
+                            <div v-else-if="getStates(item.match.id).match_phase == 'DONE'">{{getRanking(item.match.id)}}</div>
+                            <v-sheet v-else color="transparent" width="60" class="red--text text-center">
+                                {{getResultStr(getStates(item.match.id).match_phase)}}
+                            </v-sheet>
+                        </template>
+                        <template v-else>
+                            <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
+                        </template>
                     </div>
                 </v-sheet>
             </template>
+            <div v-if="tableData.length == 0" class="border-bottom">
+                <Nodata height="300" />
+            </div>
         </template>
         <template v-else>
             <div v-if="pageData.loading" class="border-bottom">
                 <loader />
-            </div>
-            <div v-else class="border-bottom">
-                <Nodata height="300" />
             </div>
         </template>
     </template>
@@ -59,7 +69,7 @@
 
         <v-expand-transition>
             <div v-show="isShowContent">
-                <template v-if="tableData?.length > 0">
+                <template v-if="!isLoading">
                     <v-row v-for="item of tableData" :key="item.competition_id" class="border-bottom" no-gutters>
                         <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowDetail(item, headerList[0])">
                             <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
@@ -96,7 +106,7 @@
                                         <div class="red--text" v-else>{{getResultStr(getStates(item.matches[i].id).match_phase)}}</div>
                                     </template>
                                     <template v-else>
-                                        <div class="timeColor2--text">{{getStartTime(item.matches[i].start_time_timestamp)}}</div>
+                                        <CountdownTime :date="item.matches[i].start_time_timestamp"></CountdownTime>
                                     </template>
                                 </template>
                             </v-sheet>
@@ -105,14 +115,13 @@
                             <v-sheet width="14" color="transparent"></v-sheet>
                         </v-col>
                     </v-row>
-                </template>
-                <!-- v-if="pageData.list.length == 0 && !pageData.loading" -->
-                <template v-else>
-                    <div v-if="isLoading" class="border-bottom">
-                        <loader />
-                    </div>
-                    <div v-else class="border-bottom">
+                    <div v-if="tableData?.length <= 0" class="border-bottom">
                         <Nodata height="300" />
+                    </div>
+                </template>
+                <template v-else>
+                    <div class="border-bottom">
+                        <loader />
                     </div>
                 </template>
             </div>

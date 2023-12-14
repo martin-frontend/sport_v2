@@ -21,11 +21,14 @@ export default class CountdownTime extends AbstractView {
             this.time = this.getStartTime(this.date);
             clearInterval(this.timeId);
         } else {
-            this.min = Math.floor((start_in_sec / 60) % 60);
+            this.min = Math.floor((Math.abs(start_in_sec) / 60) % 60);
+            if (start_in_sec < 0) {
+                this.min *= -1;
+            }
             this.sec = Math.floor(start_in_sec % 60);
             if (this.min >= 5) {
                 this.time = `${this.min}${LangUtil("分钟")}`;
-            } else if (this.min > 0) {
+            } else if (this.min > 0 || this.min < 0) {
                 this.time = `${this.min}${LangUtil("分")}${this.sec}${LangUtil("秒")}`;
             } else {
                 this.time = `${this.sec}${LangUtil("秒")}`;
@@ -39,8 +42,6 @@ export default class CountdownTime extends AbstractView {
 
     @Watch("date", { immediate: true })
     onWatchDate(val: any) {
-        console.warn('date', val);
-        
         if (!val) return;
         clearInterval(this.timeId);
         this.updateCountdown();

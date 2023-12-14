@@ -58,40 +58,27 @@
             <div class="text-14 tagTextColor2--text ml-2">
                 <div>
                     <span>{{LangUtil(curCompetition.country)}}</span>
-                    <span class="tagTextColor1--text ml-2">{{curCompetition.competition_name}}</span>
+                    <!-- <span class="tagTextColor1--text ml-2">{{curCompetition.competition_name}}</span> -->
                 </div>
                 <div>{{LangUtil("赛程：{0}m",match.distance)}}</div>
             </div>
             <v-spacer></v-spacer>
-            <template v-if="states">
-                <template v-if="states.match_phase == 'OPEN'">
-                    <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
-                </template>
+            <template v-if="states && states.match_phase != 'OPEN'">
                 <v-sheet
-                    v-else
                     color="timeColor2"
                     class="rounded d-flex align-center justify-center px-1 text-12 white--text"
-                    width="60"
                     height="20"
-                    max-width="60"
+                    min-width="60"
                 >
                     {{getResultStr(states.match_phase)}}
                 </v-sheet>
             </template>
             <template v-else>
-                <v-sheet
-                    color="timeColor2"
-                    class="white--text rounded d-flex align-center justify-center px-1 text-12"
-                    width="60"
-                    height="20"
-                    max-width="60"
-                >
-                    {{getStartTime(match.start_time_timestamp)}}
-                </v-sheet>
+                <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
             </template>
         </v-sheet>
-        <ResultTable></ResultTable>
-        <MarketTable></MarketTable>
+        <ResultTable v-if="states?.match_phase == 'DONE'" :match="match" :states="states" :markets="markets"></ResultTable>
+        <MarketTable v-if="match" :match="match" :states="states" :markets="markets"></MarketTable>
     </template>
     <template v-else>
         <loader />

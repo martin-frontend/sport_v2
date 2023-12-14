@@ -50,8 +50,8 @@ export default class PageRacingDetail extends AbstractView {
     }
 
     /**盘口 固陪*/
-    getFixMarket(event_id: number) {
-        return this.pageData.marketListByEventId[event_id]?.fix_markets;
+    get markets() {
+        return this.pageData.marketListByEventId[this.match?.id]?.fix_markets;
     }
 
     getStartTime(start_time_timestamp: any) {

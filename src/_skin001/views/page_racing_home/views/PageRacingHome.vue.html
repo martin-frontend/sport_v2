@@ -11,7 +11,7 @@
                     :key="key"
                     :disabled="false"
                     class="rounded-pill mr-2 tag-btn"
-                    :class="{'active': tag == key}"
+                    :class="{'active': curTag == key}"
                     elevation="0"
                     outlined
                     max-height="40"
@@ -43,7 +43,7 @@
             </template>
         </div>
         <!-- 下一场 -->
-        <template v-if="tag == tagOptions.withinAnHour.tag">
+        <template v-if="curTag == tagOptions.withinAnHour.tag">
             <RaceTable
                 v-if="sportCheckBoxArr.length > 0"
                 :is-next="true"
