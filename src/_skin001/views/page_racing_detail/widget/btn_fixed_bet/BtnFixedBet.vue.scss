@@ -1,4 +1,9 @@
 .btn {
+    overflow: hidden;
+    &.fav {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
     &.active {
         background: linear-gradient(to right, #fcb131, #ffe64d);
         color: #0f1213;
@@ -9,8 +14,11 @@
 }
 .theme--light {
     .btn {
-        background-color: #f2f2f2;
-        // border: solid 1px #dcdcdc;
+        background-color: transparent;
+        border: 1px solid #d6dde3;
+        &.fav {
+            border-color: #41a81d;
+        }
         &:hover {
             background-color: #fff1a9;
             // border-color: #ffec8e;

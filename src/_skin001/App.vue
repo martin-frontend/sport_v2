@@ -2,12 +2,13 @@
     <v-app>
         <v-sheet id="page" class="d-flex overflow-x-hidden" color="transparent">
             <v-sheet
+                v-if="!$vuetify.breakpoint.mobile"
                 class="overflow-y-auto mt-2 leftbox scroll-div"
                 :class="{ 'pb-16': $vuetify.breakpoint.mobile }"
                 min-width="242"
                 max-width="242"
                 color="transparent"
-                v-if="!$vuetify.breakpoint.mobile && $route.path != '/page_racing_home'"
+                v-show="$route.path != '/page_racing_home'"
             >
                 <Navigation v-if="!$vuetify.breakpoint.mobile" />
             </v-sheet>

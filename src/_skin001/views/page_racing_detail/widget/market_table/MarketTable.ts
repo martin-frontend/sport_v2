@@ -39,6 +39,55 @@ export default class MarketsTable extends AbstractView {
         return this.getWinSelection(runnerId)?.metadata.fluctuate ?? [];
     }
 
+    // 价格组波动：开放价格 + 多次价格 (max: 8)
+    getFluctuatingPriceArr(runnerId: any) {
+        const arr = this.getFluctuate(runnerId);
+        if (arr.length > 8) {
+            return [arr[0], ...arr.slice(-7)];
+        } else {
+            return arr.slice(-8);
+        }
+    }
+
+    getOpenPrice(runnerId: any) {
+        return this.getFluctuate(runnerId)[0] ?? 0;
+    }
+
+    getPrice1(runnerId: any) {
+        const arr = this.getFluctuate(runnerId);
+        return arr[arr.length - 2] ?? 0;
+    }
+
+    getPrice2(runnerId: any) {
+        const arr = this.getFluctuate(runnerId);
+        return arr[arr.length - 1] ?? 0;
+    }
+
+    getWin(runnerId: any) {
+        const selection = this.getWinSelection(runnerId);
+        return selection?.price?.back ?? 0;
+    }
+
+    getPlace(runnerId: any) {
+        const selection = this.getPlaceSelection(runnerId);
+        return selection?.price?.back ?? 0;
+    }
+
+    get favRunnerId() {
+        const selections = this.markets?.RB_WIN?.selections ?? [];
+        if (selections.length == 0) return -1;
+        const runner = selections.reduce(
+            (minRunner: any, currentRunner: any) => {
+                if (currentRunner?.price?.back) {
+                    return Number(currentRunner?.price?.back) < Number(minRunner?.price?.back) ? currentRunner : minRunner;
+                }
+                return minRunner;
+            },
+            { id: -1, price: { back: 999999 } }
+        );
+        return runner?.id;
+    }
+
     get rules() {
         const length = this.match.runners.length;
         if (length >= 8) {
@@ -49,6 +98,10 @@ export default class MarketsTable extends AbstractView {
         } else {
             return LangUtil("其他规则：只有第一名有奖励");
         }
+    }
+
+    get isShowPlace() {
+        return this.match.runners.length > 5 && this.markets?.RB_PLACE?.selections?.findIndex((item: any) => item.price.back > 0) > -1;
     }
 
     destroyed() {

@@ -14,10 +14,15 @@ export default class PageRacingDetail extends AbstractView {
     pageData = this.myProxy.pageData;
     selectedItem = 0;
     sportIcon = Assets.SportIcon;
-    tab = null;
-    items = ["web", "shopping", "videos", "images", "news"];
+
     constructor() {
         super(PageRacingDetailMediator);
+    }
+
+    created() {
+        if (!this.pageData.competitionId) {
+            this.$router.push("/page_racing_home");
+        }
     }
 
     getResultStr(match_phase: string) {

@@ -12,35 +12,19 @@ export default class ResultTable extends AbstractView {
     @Prop() match!: any;
     @Prop() states!: any;
     @Prop() markets!: any;
-    rankingOption = { 1: "第一名", 2: "第二名", 3: "第三名", 4: "第四名" };
+    rankingOption: any = { 1: "第一名", 2: "第二名", 3: "第三名", 4: "第四名" };
 
-    getRanking() {
-        const placings = this.states?.results?.placings;
-        let str = "";
-        if (placings) {
-            // 将物件转换为键值对的阵列
-            const keyValueArray = Object.entries(placings);
-
-            // 根据值的大小升幂排序阵列
-            keyValueArray.sort((a: any, b: any) => a[1] - b[1]);
-
-            const arr: any = [];
-            keyValueArray.forEach((item: any, index) => {
-                if (item[1] < 4) {
-                    // 名次与前一个相同的加-
-                    if (index != 0 && item[1] == keyValueArray[index - 1][1]) {
-                        const pre = arr.pop();
-                        arr.push(pre + "-" + item[0]);
-                    } else {
-                        arr.push(item[0]);
-                    }
-                }
-            });
-            str = arr.toString();
+    getRankingStr(ranking: any) {
+        const arr = this.runnersRanking.filter((item: any) => item.ranking == ranking);
+        if (arr.length > 1) {
+            const str = "并列" + this.rankingOption[ranking];
+            return str;
+        } else {
+            return this.rankingOption[ranking];
         }
-        return str;
     }
 
+    // 前4名跑者名次排序
     get runnersRanking() {
         const placings = this.states?.results?.placings;
         const arr: any = [];

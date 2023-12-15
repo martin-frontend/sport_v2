@@ -89,7 +89,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
     set_market_typelist(data: any) {
         data.forEach((item: any) => {
             Vue.set(this.pageData.marketListByEventId, item.event_id, item);
-            Vue.set(this.pageData.marketListByEventId, this.listQueryStates.event_id, item);
+            // Vue.set(this.pageData.marketListByEventId, this.listQueryStates.event_id, item);
             
             const finditem = this.pageData.market_list.find((item1) => item.event_id == item1.event_id);
             if (finditem) {
@@ -102,14 +102,9 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
 
     set_event_states(data: any) {
         this.pageData.loading = false;
-        // if (data.length == 0) return;
-        const event_id = <Number[]>[];
 
         data.forEach((item: any) => {
             Vue.set(this.pageData.eventStatesByEventId, item.event_id, item);
-            // if (item.match_phase == "OPEN") {
-            //     event_id.push(item.event_id);
-            // }
             const finditem = this.pageData.event_states.find((item1) => item.event_id == item1.event_id);
             if (finditem) {
                 Object.assign(finditem, item);
@@ -117,11 +112,6 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
                 this.pageData.event_states.push(item);
             }
         });
-
-        // this.listQueryMarket.event_id = event_id.toString();
-        // if (this.listQueryMarket.event_id) {
-        //     this.api_market_typelist();
-        // }
     }
 
     /**赛事接口-新*/
@@ -136,7 +126,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
     /**盘口接口-新*/
     api_market_typelist() {
         const { event_id, unique } = this.listQueryStates;
-        this.sendNotification(net.HttpType.api_market_typelist, { event_id: "295680", unique });
+        this.sendNotification(net.HttpType.api_market_typelist, { event_id, unique });
     }
     /**赛事进程*/
     api_event_states() {

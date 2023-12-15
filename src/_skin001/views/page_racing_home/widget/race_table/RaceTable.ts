@@ -43,7 +43,7 @@ export default class RaceTable extends AbstractView {
     onShowDetail(item: any, matchKey: any) {
         page_racing_detail.show({
             competitionId: item.competition_id,
-            listQueryComp: { ...this.myProxy.listQueryComp },
+            listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
             matchKey: matchKey,
         });
     }
@@ -89,7 +89,7 @@ export default class RaceTable extends AbstractView {
     }
 
     isShowP(event_id: number) {
-        return this.getFixMarket(event_id)?.RB_WIN?.selections[0]?.metadata?.fluctuate.length > 0;
+        return this.getFixMarket(event_id)?.RB_WIN?.selections[0]?.metadata?.fluctuate?.length > 0;
     }
 
     getSelections(matche: any, market_type: string) {

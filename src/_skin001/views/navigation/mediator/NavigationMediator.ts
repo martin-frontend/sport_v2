@@ -4,6 +4,10 @@ import getProxy from "@/core/global/getProxy";
 import net from "@/net/setting";
 import SelfProxy from "@/proxy/SelfProxy";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import Vue from "vue";
+import PageRacingHomeProxy from "../../page_racing_home/proxy/PageRacingHomeProxy";
+import SportUtil from "@/core/global/SportUtil";
+import page_racing_home from "../../page_racing_home";
 
 export default class NavigationMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
@@ -21,6 +25,7 @@ export default class NavigationMediator extends AbstractMediator {
         const myProxy: NavigationProxy = getProxy(NavigationProxy);
         const selfProxy: SelfProxy = getProxy(SelfProxy);
         const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
+        const racingHomeProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
         switch (notification.getName()) {
             // case net.EventType.api_menu_subnav:
             //     myProxy.set_menu_subnav(body);
@@ -44,27 +49,36 @@ export default class NavigationMediator extends AbstractMediator {
                 entries.forEach((item: any) => {
                     myProxy.pageData.sportIdArr.push(Number(item[0]));
                 });
+                if (Vue.router.currentRoute.path == "/page_home") {
+                    homeProxy.listQueryComp.sport_id = myProxy.pageData.sportIdArr[0];
+                    const firstData = body[myProxy.pageData.sportIdArr[0]];
+                    const inplay = firstData?.["inplay"];
+                    const today = firstData?.["today"];
 
-                homeProxy.listQueryComp.sport_id = myProxy.pageData.sportIdArr[0];
-                const firstData = body[myProxy.pageData.sportIdArr[0]];
-                const inplay = firstData?.["inplay"];
-                const today = firstData?.["today"];
+                    if (inplay?.num == 0) {
+                        homeProxy.listQueryComp.tag = "today";
+                        if (today?.num == 0) {
+                            homeProxy.listQueryComp.tag = "future";
+                        }
+                    }
+                    if (selfProxy.userInfo.user_setting.remark) {
+                        try {
+                            homeProxy.listQueryComp.sort = JSON.parse(selfProxy.userInfo.user_setting.remark).sort;
+                        } catch (error) {
+                            homeProxy.listQueryComp.sort = "comp";
+                        }
+                    }
 
-                if (inplay?.num == 0) {
-                    homeProxy.listQueryComp.tag = "today";
-                    if (today?.num == 0) {
-                        homeProxy.listQueryComp.tag = "future";
+                    homeProxy.api_event_list();
+                }
+
+                if (Vue.router.currentRoute.path == "/page_racing_home") {
+                    const sport_id = myProxy.pageData.sportIdArr.find((sportId) => SportUtil.isRaceEvent(sportId));
+                    if (sport_id) {
+                        homeProxy.listQueryComp.sport_id = sport_id;
+                        page_racing_home.showBySport(sport_id);
                     }
                 }
-                if (selfProxy.userInfo.user_setting.remark) {
-                    try {
-                        homeProxy.listQueryComp.sort = JSON.parse(selfProxy.userInfo.user_setting.remark).sort;
-                    } catch (error) {
-                        homeProxy.listQueryComp.sort = "comp";
-                    }
-                }
-
-                homeProxy.api_event_list();
                 break;
         }
     }

@@ -30,7 +30,7 @@
                     </v-sheet>
                 </v-tooltip>
             </v-col>
-            <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="match.runners.length >5">
+            <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
                 {{LangUtil("位置")}}
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
@@ -61,15 +61,23 @@
                         </div>
                     </v-sheet>
                 </v-col>
-                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{2.55}}</v-col>
-                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{"-"}}</v-col>
-                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{"-"}}</v-col>
-                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center"> {{LangUtil("獨贏")}} </v-col>
-                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="match.runners.length >5">
-                    {{LangUtil("位置")}}
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">
+                    <Price class="mx-2" :price="getOpenPrice(runner.runner_id)" :animation="false"></Price>
+                </v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">
+                    <Price class="mx-2" :price="getPrice1(runner.runner_id)"></Price>
+                </v-col>
+                <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">
+                    <Price class="mx-2" :price="getPrice2(runner.runner_id)"></Price>
+                </v-col>
+                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                    <BtnFixedBet :is-fav="favRunnerId == runner.runner_id" :price="getWin(runner.runner_id)"></BtnFixedBet>
+                </v-col>
+                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
+                    <BtnFixedBet :price="getPlace(runner.runner_id)"></BtnFixedBet>
                 </v-col>
             </v-row>
-            <div class="pb-2 d-flex align-center" v-if="isShowDetail">
+            <div class="pb-2 d-flex align-center" v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0">
                 <v-sheet
                     min-width="40"
                     width="40"
@@ -79,7 +87,14 @@
                 >
                     {{LangUtil("开放")}}
                 </v-sheet>
-                <Price class="ml-2" v-for="(price, index) of getFluctuate(runner.runner_id)" :key="index" :price="price"></Price>
+                <Price
+                    class="mx-2"
+                    v-for="(price, index) of getFluctuatingPriceArr(runner.runner_id)"
+                    :key="index"
+                    :price="price"
+                    :old-price="getFluctuatingPriceArr(runner.runner_id)[index-1]"
+                    :animation="false"
+                ></Price>
             </div>
             <v-divider></v-divider>
         </template>
