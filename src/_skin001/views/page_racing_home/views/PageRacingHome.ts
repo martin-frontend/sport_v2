@@ -40,7 +40,7 @@ export default class PageRacingHome extends AbstractView {
             withinAnHour: { title: "下一场", tag: "withinAnHour" },
             today: { title: "今天", tag: "today" },
             tomorrow: { title: "明天", tag: "tomorrow" },
-            dayAfterTomorrow: { title: this.curSportNav?.dayAfterTomorrow.name, tag: "dayAfterTomorrow" },
+            dayAfterTomorrow: { title: this.curSportNav?.dayAfterTomorrow?.name, tag: "dayAfterTomorrow" },
         };
     }
 

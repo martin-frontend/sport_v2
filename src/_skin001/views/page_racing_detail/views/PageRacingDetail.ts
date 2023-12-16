@@ -14,6 +14,14 @@ export default class PageRacingDetail extends AbstractView {
     pageData = this.myProxy.pageData;
     selectedItem = 0;
     sportIcon = Assets.SportIcon;
+    mobileWindow = 0;
+
+    get mobileTagOptions() {
+        if (this.states?.match_phase == "DONE") {
+            return ["赛果", "投注盘"];
+        }
+        return ["投注盘"];
+    }
 
     constructor() {
         super(PageRacingDetailMediator);
@@ -23,6 +31,7 @@ export default class PageRacingDetail extends AbstractView {
         if (!this.pageData.competitionId) {
             this.$router.push("/page_racing_home");
         }
+        this.mobileWindow = 0;
     }
 
     getResultStr(match_phase: string) {

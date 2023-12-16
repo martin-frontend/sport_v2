@@ -107,24 +107,27 @@
 
         <template v-if="!pageData.loading">
             <template v-if="curTag == tagOptions.withinAnHour.tag">
-                <MobileRaceTable
-                    class="px-2 my-2"
-                    :is-next="true"
-                    :table-data="nextTableData"
-                    :sport-item="sportCheckBoxOptions[curSportId]"
-                ></MobileRaceTable>
+                <template v-if="nextTableData.length > 0">
+                    <MobileRaceTable
+                        class="px-2 my-2"
+                        :is-next="true"
+                        :table-data="nextTableData"
+                        :sport-item="sportCheckBoxOptions[curSportId]"
+                    ></MobileRaceTable>
+                </template>
+                <Nodata v-else height="300" />
             </template>
             <template v-else>
-                <MobileRaceTable
-                    class="px-2 my-2"
-                    v-for="data of getTableData(curSportId)"
-                    :key="data.competition_id"
-                    :data="data"
-                ></MobileRaceTable>
+                <template v-if="getTableData(curSportId).length > 0">
+                    <MobileRaceTable
+                        class="px-2 my-2"
+                        v-for="data of getTableData(curSportId)"
+                        :key="data.competition_id"
+                        :data="data"
+                    ></MobileRaceTable>
+                </template>
+                <Nodata v-else height="300" />
             </template>
-            <div v-if="getTableData(curSportId).length == 0">
-                <Nodata height="300" />
-            </div>
         </template>
         <template v-else>
             <div class="px-2 my-2">

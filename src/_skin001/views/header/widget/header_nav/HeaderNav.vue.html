@@ -23,7 +23,7 @@
         </horizontal_scroll>
     </v-sheet>
     
-    <v-sheet v-if="$vuetify.breakpoint.mobile" color="bgBanner" class="rounded-lg">
+    <v-sheet v-else color="bgBanner" class="rounded-lg">
         <horizontal_scroll class="py-2" :offsetx="16" v-if="new_menu_subnav">
             <template v-slot="{data}">
                 <v-btn
