@@ -1,65 +1,135 @@
-<v-sheet color="transparent" height="100%" class="mr-2 py-2 d-flex flex-column">
-    <!-- <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="onBack">
-        <svg-icon icon="back3" class="text-22"></svg-icon>
-    </v-btn> -->
+<div>
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <v-sheet color="transparent" height="100%" class="mr-2 py-2 d-flex flex-column">
+            <!-- <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="onBack">
+                <svg-icon icon="back3" class="text-22"></svg-icon>
+            </v-btn> -->
 
-    <v-sheet color="transparent" class="rounded-lg" height="40">
-        <horizontal_scroll :offsetx="16">
-            <template v-slot="{data}">
-                <v-btn
-                    v-for="(item,key) of tagOptions"
-                    :key="key"
-                    :disabled="false"
-                    class="rounded-pill mr-2 tag-btn"
-                    :class="{'active': curTag == key}"
-                    elevation="0"
-                    outlined
-                    max-height="40"
-                    @click="onTagClick(key)"
-                >
-                    <span class="d-flex align-center"> {{ LangUtil(item.title) }} </span>
-                </v-btn>
-            </template>
-        </horizontal_scroll>
-    </v-sheet>
-
-    <v-sheet class="rounded-lg overflow-y-auto overflow-x-hidden scroll-div mt-1" style="flex: 1" color="bgBanner">
-        <div class="d-flex pl-8 border-bottom">
-            <template>
-                <v-checkbox
-                    v-for="sportId of raceSportArr"
-                    v-model="sportCheckBoxArr"
-                    :value="`${sportId}`"
-                    multiple
-                    color="#feba00"
-                    class="mr-8"
-                    :key="sportId"
-                    @change="onCheckboxChange"
-                >
-                    <template #label>
-                        <svg-icon :icon="sportCheckBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
+            <v-sheet color="transparent" class="rounded-lg" height="40">
+                <horizontal_scroll :offsetx="16">
+                    <template v-slot="{data}">
+                        <v-btn
+                            v-for="(item,key) of tagOptions"
+                            :key="key"
+                            :disabled="false"
+                            class="rounded-pill mr-2 race-tag-btn"
+                            :class="{'active': curTag == key}"
+                            elevation="0"
+                            outlined
+                            max-height="40"
+                            @click="onTagClick(key)"
+                        >
+                            <span class="d-flex align-center"> {{ LangUtil(item.title) }} </span>
+                        </v-btn>
                     </template>
-                </v-checkbox>
+                </horizontal_scroll>
+            </v-sheet>
+
+            <v-sheet class="rounded-lg overflow-y-auto overflow-x-hidden scroll-div mt-1" style="flex: 1" color="bgBanner">
+                <div class="d-flex pl-8 border-bottom">
+                    <template>
+                        <v-checkbox
+                            v-for="sportId of raceSportArr"
+                            v-model="sportCheckBoxArr"
+                            :value="`${sportId}`"
+                            multiple
+                            color="#feba00"
+                            class="mr-8"
+                            :key="sportId"
+                            @change="onCheckboxChange"
+                        >
+                            <template #label>
+                                <svg-icon :icon="sportCheckBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
+                            </template>
+                        </v-checkbox>
+                    </template>
+                </div>
+                <!-- 下一场 -->
+                <template v-if="curTag == tagOptions.withinAnHour.tag">
+                    <RaceTable
+                        v-if="sportCheckBoxArr.length > 0"
+                        :is-next="true"
+                        :options="sportCheckBoxOptions"
+                        :table-data="nextTableData"
+                    ></RaceTable>
+                </template>
+                <template v-else>
+                    <template v-for="sportId of raceSportArr">
+                        <RaceTable
+                            v-if="sportCheckBoxArr.includes(`${sportId}`)"
+                            :key="sportId"
+                            :sport-item="sportCheckBoxOptions[sportId]"
+                            :table-data="getTableData(sportId)"
+                        ></RaceTable>
+                    </template>
+                </template>
+            </v-sheet>
+        </v-sheet>
+    </template>
+
+    <template v-else>
+        <HomeMobileHeader />
+        <HeaderNav class="mx-2 mt-2" />
+        <v-sheet color="transparent" class="rounded-lg mx-2 mt-4" height="40">
+            <horizontal_scroll :offsetx="16">
+                <template v-slot="{data}">
+                    <v-btn
+                        v-for="(item,key) of tagOptions"
+                        :key="key"
+                        :disabled="false"
+                        class="rounded-pill mr-2 mobile-race-tag-btn px-4"
+                        :class="{'active': curTag == key}"
+                        elevation="0"
+                        outlined
+                        max-height="30"
+                        @click="onTagClick(key)"
+                    >
+                        <span class="d-flex align-center text-12"> {{ LangUtil(item.title) }} </span>
+                    </v-btn>
+                </template>
+            </horizontal_scroll>
+        </v-sheet>
+        <!-- 搜索 -->
+        <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2 mt-2" color="bgBanner">
+            <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" max-width="220" width="100%" height="30">
+                <v-form @submit.prevent="onSearch" class="d-flex align-center">
+                    <input
+                        class="text-14 text-truncate bgColor1--text"
+                        :placeholder="LangUtil('搜索联赛或球队名称')"
+                        v-model="listQueryComp.keyword"
+                    />
+                </v-form>
+                <v-spacer />
+                <svg-icon icon="search" @click.native="onSearch"></svg-icon>
+            </v-sheet>
+            <svg-icon @click.native="goLiveList" class="text-20 ml-2" icon="live1_"></svg-icon>
+        </v-sheet>
+
+        <template v-if="!pageData.loading">
+            <template v-if="curTag == tagOptions.withinAnHour.tag">
+                <MobileRaceTable
+                    class="px-2 my-2"
+                    :is-next="true"
+                    :table-data="nextTableData"
+                    :sport-item="sportCheckBoxOptions[curSportId]"
+                ></MobileRaceTable>
             </template>
-        </div>
-        <!-- 下一场 -->
-        <template v-if="curTag == tagOptions.withinAnHour.tag">
-            <RaceTable
-                v-if="sportCheckBoxArr.length > 0"
-                :is-next="true"
-                :options="sportCheckBoxOptions"
-                :table-data="nextTableData"
-            ></RaceTable>
+            <template v-else>
+                <MobileRaceTable
+                    class="px-2 my-2"
+                    v-for="data of getTableData(curSportId)"
+                    :key="data.competition_id"
+                    :data="data"
+                ></MobileRaceTable>
+            </template>
+            <div v-if="getTableData(curSportId).length == 0">
+                <Nodata height="300" />
+            </div>
         </template>
         <template v-else>
-            <template v-for="sportId of raceSportArr">
-                <RaceTable
-                    v-if="sportCheckBoxArr.includes(`${sportId}`)"
-                    :key="sportId"
-                    :sport-item="sportCheckBoxOptions[sportId]"
-                    :table-data="getTableData(sportId)"
-                ></RaceTable>
-            </template>
+            <div class="px-2 my-2">
+                <loader />
+            </div>
         </template>
-    </v-sheet>
-</v-sheet>
+    </template>
+</div>

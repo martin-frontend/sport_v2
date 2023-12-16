@@ -7,6 +7,7 @@ import NavigationProxy from "../../navigation/proxy/NavigationProxy";
 import SportUtil from "@/core/global/SportUtil";
 import page_racing_home from "..";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import page_live_list from "../../page_live_list";
 
 @Component
 export default class PageRacingHome extends AbstractView {
@@ -16,6 +17,11 @@ export default class PageRacingHome extends AbstractView {
     navProxy: NavigationProxy = this.getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
     isRaceEvent = SportUtil.isRaceEvent;
+    listQueryComp = this.myProxy.listQueryComp;
+
+    constructor() {
+        super(PageRacingHomeMediator);
+    }
 
     get curSportId() {
         return this.homeProxy.listQueryComp.sport_id;
@@ -42,7 +48,12 @@ export default class PageRacingHome extends AbstractView {
         if (this.curTag != this.tagOptions.withinAnHour.tag) return [];
         const arr = <any>[];
         this.pageData.competition_list.forEach((item: any) => {
-            if (!this.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
+            if (!this.$vuetify.breakpoint.mobile) {
+                if (!this.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
+            } else {
+                if (item.sport_id != this.listQueryComp.sport_id) return;
+            }
+
             Object.keys(item.matches).forEach((key) => {
                 const match = item.matches[key];
                 arr.push({ ...item, r: key, match });
@@ -93,8 +104,14 @@ export default class PageRacingHome extends AbstractView {
         return this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
     }
 
-    constructor() {
-        super(PageRacingHomeMediator);
+    //搜寻
+    onSearch() {
+        page_racing_home.showByKeyword(this.listQueryComp.keyword);
+    }
+
+    // 打开热门直播页
+    goLiveList() {
+        page_live_list.show();
     }
 
     destroyed() {

@@ -1,0 +1,102 @@
+<div>
+    <!-- 下一场 -->
+    <template v-if="isNext">
+        <v-sheet color="bgBanner" class="rounded-10 pb-2">
+            <div v-for="item of tableData" :key="item.id" class="border-bottom" @click="onShowDetail(item, item.r)">
+                <v-sheet color="transparent" height="50" class="pa-2 d-flex align-center">
+                    <v-img :src="item.country_icon" height="20" max-width="20" contain></v-img>
+                    <svg-icon :icon="sportItem.icon" class="text-26 ml-2"></svg-icon>
+                    <v-sheet
+                        color="#feba00"
+                        width="30"
+                        height="18"
+                        class="ml-2 rounded d-flex align-center justify-center font-weight-bold text-14"
+                    >
+                        {{item.r}}
+                    </v-sheet>
+                    <span class="font-weight-bold text-14 tagTextColor2--text ml-2">{{item.competition_name}}</span>
+                    <v-spacer></v-spacer>
+                    <div class="d-flex align-center justify-center flex-column text-14">
+                        <template v-if="getStates(item.match.id)">
+                            <template v-if="getStates(item.match.id).match_phase == 'OPEN'">
+                                <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
+                                <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
+                            </template>
+                            <div v-else-if="getStates(item.match.id).match_phase == 'DONE'">{{getRanking(item.match.id)}}</div>
+                            <v-sheet v-else color="transparent" width="60" class="red--text text-center">
+                                {{getResultStr(getStates(item.match.id).match_phase)}}
+                            </v-sheet>
+                        </template>
+                        <template v-else>
+                            <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
+                        </template>
+                    </div>
+                </v-sheet>
+            </div>
+        </v-sheet>
+    </template>
+
+    <template v-else>
+        <v-sheet color="bgBanner" class="rounded-10 py-2 d-flex flex-column" width="100%">
+            <v-sheet color="transparent" class="px-2 d-flex align-center" height="48" @click="isShowContent = !isShowContent">
+                <v-img :src="data.country_icon" height="30" max-width="30" contain></v-img>
+                <div class="d-flex flex-column text-14">
+                    <div class="ml-2 font-weight-bold">{{data.competition_name}} {{getEventDate(data.date)}}</div>
+                    <div class="ml-2 font-weight-bold tagTextColor1--text">{{LangUtil(data.country)}}</div>
+                </div>
+                <v-spacer></v-spacer>
+                <v-sheet color="transparent" width="14" class="d-flex flex-column text-14">
+                    <span>{{Object.keys(data.matches).length}}</span>
+                    <v-sheet height="21" color="transparent">
+                        <svg-icon v-if="isShowHeaderP(data.matches)" icon="p"></svg-icon>
+                    </v-sheet>
+                </v-sheet>
+                <v-sheet class="ml-4" height="100%" color="transparent">
+                    <div class="text-12 mt-1" :class="isShowContent ? 'arrow-show' : 'arrow'">
+                        <svg-icon icon="zoom_out"></svg-icon>
+                    </div>
+                </v-sheet>
+            </v-sheet>
+            <v-divider v-if="isShowContent"></v-divider>
+            <v-expand-transition>
+                <div v-if="isShowContent" class="d-flex flex-column px-2">
+                    <v-sheet
+                        v-for="(match,key) of data.matches"
+                        :key="key"
+                        height="40"
+                        class="d-flex align-center border-bottom py-2"
+                        style="background-color: transparent"
+                        @click="onShowDetail(data, key)"
+                    >
+                        <v-sheet
+                            color="#feba00"
+                            width="30"
+                            height="20"
+                            class="rounded d-flex align-center justify-center font-weight-bold text-14"
+                        >
+                            {{key}}
+                        </v-sheet>
+                        <div class="ml-4 text-14">
+                            <template v-if="getStates(match.id)">
+                                <template v-if="getStates(match.id).match_phase == 'OPEN'">
+                                    <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                                </template>
+                                <div v-else-if="getStates(match.id).match_phase == 'DONE'" class="tagTextColor1--text">
+                                    {{getRanking(match.id)}}
+                                </div>
+                                <div class="red--text" v-else>{{getResultStr(getStates(match.id).match_phase)}}</div>
+                            </template>
+                            <template v-else>
+                                <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                            </template>
+                        </div>
+                        <v-spacer></v-spacer>
+                        <v-sheet width="42" color="transparent" class="text-14">
+                            <svg-icon v-if="isShowP(match.id)" icon="p"></svg-icon>
+                        </v-sheet>
+                    </v-sheet>
+                </div>
+            </v-expand-transition>
+        </v-sheet>
+    </template>
+</div>

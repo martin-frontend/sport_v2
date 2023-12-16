@@ -1,4 +1,4 @@
-.tag-btn {
+.race-tag-btn {
     border-color: #d6dde3;
     background-color: #fff;
     color: #5d5d5d;
@@ -16,11 +16,33 @@
         opacity: 1;
     }
 }
+.mobile-race-tag-btn {
+    border-color: #d6dde3;
+    background-color: #fff;
+    opacity: 0.8;
+    &::before {
+        background-color: transparent !important;
+    }
+    &.active {
+        color: #0f1213 !important;
+        border-color: #febc08;
+        opacity: 1;
+    }
+}
 .theme--dark {
-    .tag-btn {
+    .race-tag-btn {
         border-color: transparent;
         background-color: #272828;
         color: #fff;
+    }
+    .mobile-race-tag-btn {
+        border-color: transparent;
+        background-color: #272828;
+        color: #fff;
+        &.active {
+            color: #fff !important;
+            border-color: #febc08;
+        }
     }
 }
 .border-bottom {

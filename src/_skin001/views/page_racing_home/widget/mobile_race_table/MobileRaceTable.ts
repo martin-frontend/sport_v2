@@ -6,21 +6,17 @@ import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 import PageRacingHomeProxy from "../../proxy/PageRacingHomeProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 @Component
-export default class RaceTable extends AbstractView {
+export default class MobileRaceTable extends AbstractView {
     LangUtil = LangUtil;
     myProxy: PageRacingHomeProxy = this.getProxy(PageRacingHomeProxy);
     pageData = this.myProxy.pageData;
-    isShowContent = true;
-    @Prop() options!: any;
-    @Prop() sportItem!: any;
+    isShowContent = false;
+    @Prop() data!: any;
     @Prop() tableData!: any;
+    @Prop() sportItem!: any;
     @Prop({ default: false }) isNext!: boolean;
 
     headerList = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14"];
-
-    get isLoading() {
-        return this.pageData.loading && this.myProxy.listQueryComp.sport_id.includes(`${this.sportItem.sportId}`);
-    }
 
     getResultStr(match_phase: string) {
         const type: any = {
@@ -90,6 +86,17 @@ export default class RaceTable extends AbstractView {
 
     isShowP(event_id: number) {
         return this.getFixMarket(event_id)?.RB_WIN?.selections[0]?.metadata?.fluctuate?.length > 0;
+    }
+
+    isShowHeaderP(matches: any) {
+        let type = false;
+        Object.keys(matches).forEach((key) => {
+            if (this.isShowP(matches[key].event_id)) {
+                type = true;
+                return;
+            }
+        });
+        return type;
     }
 
     destroyed() {
