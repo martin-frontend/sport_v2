@@ -14,10 +14,8 @@
                 v-if="competition && matche"
             >
                 <v-img width="20" height="20" :src="competition.country_icon"></v-img>
-                <div v-if="$route.path != '/page_racing_detail'" class="text-14 mx10 text-truncate">
-                    {{matche.home_team}} VS {{matche.away_team}}
-                </div>
-                <div class="d-flex align-center" v-else>
+                <div v-if="!isRaceEvent(curSportId)" class="text-14 mx10 text-truncate">{{matche.home_team}} VS {{matche.away_team}}</div>
+                <div v-else class="d-flex align-center">
                     <v-sheet
                         color="#feba00"
                         width="30"
@@ -33,7 +31,7 @@
             </v-sheet>
 
             <v-spacer />
-            <div v-if="$route.path != '/page_racing_detail'">
+            <div v-if="!isRaceEvent(curSportId)">
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet color="transparent" v-bind="attrs" v-on="on">

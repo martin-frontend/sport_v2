@@ -91,7 +91,7 @@ export default class MobileRaceTable extends AbstractView {
     isShowHeaderP(matches: any) {
         let type = false;
         Object.keys(matches).forEach((key) => {
-            if (this.isShowP(matches[key].event_id)) {
+            if (this.isShowP(matches[key].id)) {
                 type = true;
                 return;
             }

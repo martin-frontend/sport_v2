@@ -12,6 +12,7 @@ import OpenLink from "@/core/global/OpenLink";
 import page_order from "../../page_order";
 import matche from "../../matche";
 import live from "../../live";
+import right_panel from "../../right_panel";
 
 @Component
 export default class PageRacingDetail extends AbstractView {
@@ -91,6 +92,7 @@ export default class PageRacingDetail extends AbstractView {
         this.pageData.loading = true;
         this.pageData.matchKey = key;
         this.myProxy.getMarketAndStates();
+        right_panel.show(1);
         matche.init(this.match.id);
         live.init(this.match.id);
     }
@@ -100,6 +102,7 @@ export default class PageRacingDetail extends AbstractView {
         this.pageData.matchKey = "R1";
         this.pageData.loading = true;
         this.myProxy.getMarketAndStates();
+        right_panel.show(1);
         matche.init(this.pageData.competition_list[val].matches["R1"].id);
         live.init(this.match.id);
     }

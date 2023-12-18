@@ -8,6 +8,7 @@ import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
 import { dateFormat, logEnterTips } from "@/core/global/Functions";
 import PageRacingDetailProxy from "../../page_racing_detail/proxy/PageRacingDetailProxy";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class RightPanel extends AbstractView {
@@ -18,6 +19,7 @@ export default class RightPanel extends AbstractView {
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
     user_type!: number;
+    isRaceEvent = SportUtil.isRaceEvent;
     constructor() {
         super(RightPanelMediator);
         const { user_type } = this.selfProxy.userInfo;
@@ -28,11 +30,17 @@ export default class RightPanel extends AbstractView {
         return this.matcheProxy.pageData.competition_list[0];
     }
     get matche() {
-        if (this.$router.currentRoute.path == "/page_racing_detail") {
-            return this.competition?.matches[this.racingDetailProxy.pageData.matchKey];
+        if (this.isRaceEvent(this.curSportId)) {
+            const matche = this.competition?.matches[this.racingDetailProxy.pageData.matchKey];
+            this.myProxy.isShowLive = !!matche?.animation_id;
+            return matche;
         } else {
             return this.competition?.matches[0];
         }
+    }
+
+    get curSportId() {
+        return this.matcheProxy.listQueryComp.sport_id;
     }
 
     onLiveList() {

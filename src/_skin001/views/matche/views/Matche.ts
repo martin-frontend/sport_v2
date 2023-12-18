@@ -5,6 +5,7 @@ import MatcheProxy from "../proxy/MatcheProxy";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
 import RightPanelProxy from "../../right_panel/proxy/RightPanelProxy";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class Matche extends AbstractView {
@@ -15,6 +16,7 @@ export default class Matche extends AbstractView {
     pageData = this.myProxy.pageData;
 
     timer = 0;
+    isRaceEvent = SportUtil.isRaceEvent;
 
     constructor() {
         super(MatcheMediator);
@@ -38,6 +40,10 @@ export default class Matche extends AbstractView {
     @Watch("$router.currentRoute.query")
     onWatchId() {
         this.myProxy.onRegister();
+    }
+
+    get curSportId() {
+        return this.myProxy.listQueryComp.sport_id;
     }
 
     get matche() {
