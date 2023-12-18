@@ -8,7 +8,6 @@ import { formatEventTime, dateFormat, getDateByTimeZone, getResponseIcon, logEnt
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
 import SkinVariable from "@/core/SkinVariable";
-import MatcheProxy from "../../matche/proxy/MatcheProxy";
 import SportUtil from "@/core/global/SportUtil";
 
 @Component
@@ -19,7 +18,6 @@ export default class Live extends AbstractView {
     myProxy: LiveProxy = this.getProxy(LiveProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
-    matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     bShowTime = false; //是否显示倒计时
     @Prop({ default: 0 }) value!: number;
     window = this.value;
@@ -47,7 +45,7 @@ export default class Live extends AbstractView {
     }
 
     get curSportId() {
-        return this.matcheProxy.listQueryComp.sport_id;
+        return this.myProxy.listQueryComp.sport_id;
     }
 
     mounted() {

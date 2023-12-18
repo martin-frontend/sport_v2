@@ -1,5 +1,5 @@
 <VideoPlayer v-bind="$attrs" v-on="$listeners" @fullscreen="fullscreen" ref="videoPlayer">
-    <template v-if="isFullscreen">
+    <template v-if="isFullscreen && !isRaceEvent(curSportId)">
         <!-- 顶部资讯 -->
         <v-sheet v-if="getStates()" width="100%" height="40" class="video-header d-flex align-center px-2">
             <!-- 下半场时，显示上半场比分 -->
@@ -80,7 +80,7 @@
             </v-window>
         </v-scroll-y-reverse-transition>
         <v-btn
-            v-if="isShowBetBtn && !$vuetify.breakpoint.mobile"
+            v-if="isShowBetBtn && !$vuetify.breakpoint.mobile && !isRaceEvent(curSportId)"
             @click="isShowBetBtn = false"
             class="text-14"
             color="#FED946"

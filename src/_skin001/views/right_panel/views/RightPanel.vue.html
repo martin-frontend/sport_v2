@@ -98,7 +98,8 @@
         </v-sheet> -->
     </template>
     <template v-else>
-        <Live v-if="myProxy.isShowLive" v-model="pageData.liveIndex" />
-        <Matche />
+        <Live v-show="myProxy.isShowLive" v-model="pageData.liveIndex" />
+        <Matche v-if="!isRaceEvent(curSportId)" />
+        <RacingPanel v-else class="mt-2"></RacingPanel>
     </template>
 </div>

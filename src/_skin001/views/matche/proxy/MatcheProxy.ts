@@ -37,7 +37,7 @@ export default class MatcheProxy extends puremvc.Proxy {
         isNeedOpenAll: true,
         panelIndexs: <number[]>[],
         /**当前打开的赛事 */
-        competition_list: <any>[],
+        competition_list: <CompetitionVO[]>[],
         /**盘口信息 */
         market_list: <MarketVO[]>[],
     };
@@ -105,7 +105,7 @@ export default class MatcheProxy extends puremvc.Proxy {
 
     /**盘口接口-新*/
     api_market_typelist() {
-        if (Vue.router.currentRoute.path == "/page_racing_home") return;
+        if (SportUtil.isRaceEvent(this.listQueryComp.sport_id)) return;
 
         let market_type = "";
         switch (this.listQueryMarket.market_type) {

@@ -1,0 +1,42 @@
+<div>
+    <v-sheet color="transparent" height="40">
+        <horizontal_scroll :offsetx="16">
+            <template v-slot="{data}">
+                <v-btn
+                    v-for="(item,index) of tagOptions"
+                    :key="index"
+                    :disabled="false"
+                    class="rounded-10 mr-2 race-tag-btn"
+                    :class="{'active': tag == index}"
+                    elevation="0"
+                    outlined
+                    max-height="40"
+                    @click="onTagClick(index)"
+                >
+                    <span class="d-flex align-center"> {{ LangUtil(item) }} </span>
+                </v-btn>
+            </template>
+        </horizontal_scroll>
+    </v-sheet>
+
+    <v-sheet color="bgBanner" height="400" class="mt-2 rounded-10">
+        <div class="d-flex pl-8 border-bottom">
+            <template>
+                <v-checkbox
+                    v-for="sportId of raceSportArr"
+                    v-model="sportCheckBoxArr"
+                    :value="`${sportId}`"
+                    multiple
+                    color="#feba00"
+                    class="mr-8"
+                    :key="sportId"
+                    @change="onCheckboxChange"
+                >
+                    <template #label>
+                        <svg-icon :icon="sportCheckBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
+                    </template>
+                </v-checkbox>
+            </template>
+        </div>
+    </v-sheet>
+</div>

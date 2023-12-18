@@ -3,17 +3,17 @@ import { Watch, Component } from "vue-property-decorator";
 import RightPanelMediator from "../mediator/RightPanelMediator";
 import RightPanelProxy from "../proxy/RightPanelProxy";
 import LangUtil from "@/core/global/LangUtil";
-import MatcheProxy from "../../matche/proxy/MatcheProxy";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
 import { dateFormat, logEnterTips } from "@/core/global/Functions";
 import PageRacingDetailProxy from "../../page_racing_detail/proxy/PageRacingDetailProxy";
 import SportUtil from "@/core/global/SportUtil";
+import LiveProxy from "../../live/proxy/LiveProxy";
 
 @Component
 export default class RightPanel extends AbstractView {
     LangUtil = LangUtil;
-    matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
+    liveProxy: LiveProxy = this.getProxy(LiveProxy);
     racingDetailProxy: PageRacingDetailProxy = this.getProxy(PageRacingDetailProxy);
     myProxy: RightPanelProxy = this.getProxy(RightPanelProxy);
     pageData = this.myProxy.pageData;
@@ -27,7 +27,7 @@ export default class RightPanel extends AbstractView {
     }
 
     get competition() {
-        return this.matcheProxy.pageData.competition_list[0];
+        return this.liveProxy.pageData.competition_list[0];
     }
     get matche() {
         if (this.isRaceEvent(this.curSportId)) {
@@ -40,7 +40,7 @@ export default class RightPanel extends AbstractView {
     }
 
     get curSportId() {
-        return this.matcheProxy.listQueryComp.sport_id;
+        return this.liveProxy.listQueryComp.sport_id;
     }
 
     onLiveList() {

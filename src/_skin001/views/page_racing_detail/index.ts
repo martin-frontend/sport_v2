@@ -19,7 +19,7 @@ function show(data: any) {
     };
     if(event_id) {
         right_panel.show(1);
-        matche.init(event_id);
+        // matche.init(event_id);
         live.init(event_id);
     }
     myProxy.api_event_list();
