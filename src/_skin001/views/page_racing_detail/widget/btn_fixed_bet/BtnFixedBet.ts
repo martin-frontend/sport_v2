@@ -117,8 +117,6 @@ export default class BtnFixedBet extends AbstractView {
                 divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
                 if (this.isFav) {
                     divBox.style.borderColor = "#41a81d";
-                } else {
-                    divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
                 }
                 this.isChangeAni = false;
                 this.onWatchActive();

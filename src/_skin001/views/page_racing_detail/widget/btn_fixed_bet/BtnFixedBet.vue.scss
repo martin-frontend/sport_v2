@@ -32,6 +32,9 @@
         &:hover {
             filter: brightness(120%);
         }
+        &.fav {
+            border-color: #41a81d;
+        }
         .divslot {
             color: #b0b0b0;
         }

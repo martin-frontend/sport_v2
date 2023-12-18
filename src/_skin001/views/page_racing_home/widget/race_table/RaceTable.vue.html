@@ -92,8 +92,7 @@
                                 style="background-color: transparent;"
                             >
                                 <template v-if="item.matches[i]">
-                                    <!-- {{item.matches[i].id}}
-                                    {{getStates(item.matches[i].id)?.match_phase}} -->
+                                    <!-- {{item.matches[i].id}} -->
                                     <template v-if="getStates(item.matches[i].id)">
                                         <template v-if="getStates(item.matches[i].id).match_phase == 'OPEN'">
                                             <svg-icon v-if="isShowP(item.matches[i].id)" class="text-14 mb-1" icon="p"></svg-icon>

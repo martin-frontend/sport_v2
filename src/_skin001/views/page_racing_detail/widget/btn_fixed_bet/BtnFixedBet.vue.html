@@ -16,7 +16,7 @@
             </template>
             <template v-else>
                 <!-- <svg-icon class="textGray--text" icon="lock" v-if="!selection || !selection.type || !market"></svg-icon> -->
-                <div class="d-flex align-center justify-center" color="transparent" style="width: 100%">
+                <div class="d-flex align-center justify-center" style="width: 100%">
                     <!-- <svg-icon
                         class="textGray--text mr-1"
                         icon="lock"
@@ -25,36 +25,35 @@
                     <!-- <div v-else ref="divPrice" class="font-weight-bold" :class="$vuetify.breakpoint.mobile ? 'text-14' : 'text-14'">
                         {{TransMarketPrice(getPrice())}}
                     </div> -->
-                    <div ref="divPrice" class="font-weight-bold">{{price == 0 ? LangUtil("SP"): TransMarketPrice(price)}}</div>
-                </div>
-                <div ref="imgOdds" class="text-8 mx-1 opacity-0" v-if="isChangeAni">
-                    <svg-icon :icon="iconOdds"></svg-icon>
+                    <div ref="divPrice" class="font-weight-bold" :class="{'ml-3': !isChangeAni}">
+                        {{price == 0 ? LangUtil("SP"): TransMarketPrice(price)}}
+                    </div>
+                    <div ref="imgOdds" class="text-8 ml-1 opacity-0">
+                        <svg-icon :icon="iconOdds"></svg-icon>
+                    </div>
                 </div>
             </template>
         </v-sheet>
     </template>
 
     <template v-else>
-        <v-sheet
-            ref="divBox"
-            class="d-flex align-center rounded-5 hand btn"
-            :class="{'disabled': false, 'fav': isFav}"
-            @click="onBet"
-        >
+        <v-sheet ref="divBox" class="d-flex rounded-5 hand btn" :class="{'disabled': false, 'fav': isFav}" @click="onBet">
             <template v-if="isFav">
-                <v-sheet width="52" height="60" class="d-flex flex-column">
-                    <v-sheet color="#41a81d" height="30" class="white--text d-flex align-center justify-center text-12">
-                        {{LangUtil("FAV")}}
-                    </v-sheet>
+                <v-sheet color="transparent" width="52" height="60" class="d-flex flex-column">
                     <span class="font-weight-bold d-flex justify-center align-center" style="flex: 1">
                         {{price == 0 ? LangUtil("SP"): TransMarketPrice(price)}}
                     </span>
+                    <v-sheet color="#41a81d" height="30" class="white--text d-flex align-center justify-center text-12">
+                        {{LangUtil("FAV")}}
+                    </v-sheet>
                 </v-sheet>
             </template>
             <template v-else>
                 <v-sheet class="d-flex align-center justify-center" width="52" height="30" color="transparent">
-                    <div ref="divPrice" class="font-weight-bold">{{price == 0 ? LangUtil("SP"): TransMarketPrice(price)}}</div>
-                    <div ref="imgOdds" class="text-8 mx-1 opacity-0" v-if="isChangeAni">
+                    <div ref="divPrice" class="font-weight-bold" :class="{'ml-3': !isChangeAni}">
+                        {{price == 0 ? LangUtil("SP"): TransMarketPrice(price)}}
+                    </div>
+                    <div ref="imgOdds" class="text-8 ml-1 opacity-0">
                         <svg-icon :icon="iconOdds"></svg-icon>
                     </div>
                 </v-sheet>

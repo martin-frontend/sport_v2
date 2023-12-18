@@ -22,6 +22,13 @@ export default class LiveProxy extends puremvc.Proxy {
         animation_id: "",
     };
 
+    listQueryComp = {
+        type: "fix",
+        sport_id: 1,
+        event_id: "",
+        unique: LiveProxy.NAME,
+    };
+
     set_event_list(data: any) {
         this.pageData.competition_list = data;
         this.pageData.animation_id = this.pageData.competition_list[0]?.matches[0]?.animation_id;
@@ -46,11 +53,13 @@ export default class LiveProxy extends puremvc.Proxy {
     }
 
     /**赛事接口-新*/
-    api_event_list(event_id: string) {
+    api_event_list() {
         this.pageData.loading = true;
         this.pageData.animation_id = "";
         this.pageData.live_url = "";
         this.pageData.event_states = [];
-        this.sendNotification(net.HttpType.api_event_list_v3, { sport_id: 1, type: "fix", event_id, unique: LiveProxy.NAME });
+        this.sendNotification(net.HttpType.api_event_list_v3, {
+            ...this.listQueryComp,
+        });
     }
 }

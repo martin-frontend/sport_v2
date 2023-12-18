@@ -85,7 +85,8 @@
                             width="40"
                             height="20"
                             class="text-12 white--text d-flex align-center justify-center rounded"
-                            color="tagTextColor2"
+                            :class="{'textGray2--text': $vuetify.theme.dark}"
+                            color="timeColor2"
                         >
                             {{LangUtil("开放")}}
                         </v-sheet>
@@ -166,10 +167,10 @@
                                 </div>
                             </v-sheet>
                         </v-col>
-                        <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                        <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1">
                             <BtnFixedBet :is-fav="favRunnerId == runner.runner_id" :price="getWin(runner.runner_id)"></BtnFixedBet>
                         </v-col>
-                        <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
+                        <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1" v-if="isShowPlace">
                             <BtnFixedBet :price="getPlace(runner.runner_id)"></BtnFixedBet>
                         </v-col>
                     </v-row>

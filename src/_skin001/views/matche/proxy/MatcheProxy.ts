@@ -22,8 +22,9 @@ export default class MatcheProxy extends puremvc.Proxy {
         this.pageData.market_list = [];
     }
 
-    init(id: any) {
+    init(id: any, sport_id: any = "1") {
         this.onRemove();
+        this.listQueryComp.sport_id = sport_id;
         this.listQueryComp.event_id = id.toString();
         this.listQueryMarket.event_id = id.toString();
         this.api_event_list();
@@ -36,7 +37,7 @@ export default class MatcheProxy extends puremvc.Proxy {
         isNeedOpenAll: true,
         panelIndexs: <number[]>[],
         /**当前打开的赛事 */
-        competition_list: <CompetitionVO[]>[],
+        competition_list: <any>[],
         /**盘口信息 */
         market_list: <MarketVO[]>[],
     };

@@ -6,12 +6,14 @@ import LangUtil from "@/core/global/LangUtil";
 import MatcheProxy from "../../matche/proxy/MatcheProxy";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
-import { logEnterTips } from "@/core/global/Functions";
+import { dateFormat, logEnterTips } from "@/core/global/Functions";
+import PageRacingDetailProxy from "../../page_racing_detail/proxy/PageRacingDetailProxy";
 
 @Component
 export default class RightPanel extends AbstractView {
     LangUtil = LangUtil;
     matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
+    racingDetailProxy: PageRacingDetailProxy = this.getProxy(PageRacingDetailProxy);
     myProxy: RightPanelProxy = this.getProxy(RightPanelProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
@@ -26,7 +28,11 @@ export default class RightPanel extends AbstractView {
         return this.matcheProxy.pageData.competition_list[0];
     }
     get matche() {
-        return this.competition?.matches[0];
+        if (this.$router.currentRoute.path == "/page_racing_detail") {
+            return this.competition?.matches[this.racingDetailProxy.pageData.matchKey];
+        } else {
+            return this.competition?.matches[0];
+        }
     }
 
     onLiveList() {
@@ -45,6 +51,9 @@ export default class RightPanel extends AbstractView {
             return;
         }
         this.pageData.liveIndex = 2;
+    }
+    getEventDate(date: any) {
+        return dateFormat(new Date(date), "MM/dd");
     }
     destroyed() {
         super.destroyed();

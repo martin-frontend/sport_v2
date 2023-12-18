@@ -10,6 +10,8 @@ import getProxy from "@/core/global/getProxy";
 import SelfProxy from "@/proxy/SelfProxy";
 import OpenLink from "@/core/global/OpenLink";
 import page_order from "../../page_order";
+import matche from "../../matche";
+import live from "../../live";
 
 @Component
 export default class PageRacingDetail extends AbstractView {
@@ -89,6 +91,8 @@ export default class PageRacingDetail extends AbstractView {
         this.pageData.loading = true;
         this.pageData.matchKey = key;
         this.myProxy.getMarketAndStates();
+        matche.init(this.match.id);
+        live.init(this.match.id);
     }
 
     onChangeCompetion(val: any) {
@@ -96,6 +100,8 @@ export default class PageRacingDetail extends AbstractView {
         this.pageData.matchKey = "R1";
         this.pageData.loading = true;
         this.myProxy.getMarketAndStates();
+        matche.init(this.pageData.competition_list[val].matches["R1"].id);
+        live.init(this.match.id);
     }
 
     onBack() {
