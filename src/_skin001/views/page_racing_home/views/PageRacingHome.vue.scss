@@ -31,12 +31,12 @@
 }
 .theme--dark {
     .race-tag-btn {
-        border-color: transparent;
+        border-color: #3e3f41;
         background-color: #272828;
         color: #fff;
     }
     .mobile-race-tag-btn {
-        border-color: transparent;
+        border-color: #3e3f41;
         background-color: #272828;
         color: #fff;
         &.active {
@@ -47,4 +47,10 @@
 }
 .border-bottom {
     border-bottom: 1px solid #d6dde3;
+}
+
+.theme--dark {
+    .border-bottom,.border-top {
+        border-color: #3e3f41;
+    }
 }

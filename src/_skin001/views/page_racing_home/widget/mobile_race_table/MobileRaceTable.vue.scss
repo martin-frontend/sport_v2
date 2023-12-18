@@ -15,3 +15,13 @@
 .hand:hover {
     background-color: #fff8e5;
 }
+.theme--dark {
+    .border-bottom,
+    .border-top,
+    .border-left {
+        border-color: #3e3f41;
+    }
+    .hand:hover {
+        background-color: #323232;
+    }
+}

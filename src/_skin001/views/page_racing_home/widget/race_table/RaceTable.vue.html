@@ -16,7 +16,7 @@
                         color="#feba00"
                         width="30"
                         height="18"
-                        class="ml-2 rounded d-flex align-center justify-center font-weight-bold text-14"
+                        class="ml-2 rounded d-flex align-center justify-center font-weight-bold text-14 textGray2--text"
                     >
                         {{item.r}}
                     </v-sheet>
@@ -86,11 +86,10 @@
                             @click="onShowDetail(item, i)"
                         >
                             <v-sheet
-                                class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1"
+                                class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
                                 width="70"
                                 height="100%"
-                                color="transparent"
-                                style="border-left: 1px solid #d6dde3 !important"
+                                style="background-color: transparent;"
                             >
                                 <template v-if="item.matches[i]">
                                     <!-- {{item.matches[i].id}}

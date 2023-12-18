@@ -89,7 +89,7 @@
     </template>
 
     <template v-else>
-        <v-sheet color="bgBanner" class="d-flex align-center px-2" height="64" style="position: sticky; top: 0; z-index: 1;">
+        <v-sheet color="bgBanner" class="d-flex align-center px-2" height="64" style="position: sticky; top: 0; z-index: 1">
             <v-btn icon @click="onBack">
                 <svg-icon class="tagTextColor2--text" icon="back2"></svg-icon>
             </v-btn>
@@ -121,6 +121,14 @@
                     </v-list-item-group>
                 </v-list>
             </v-menu>
+
+            <v-spacer></v-spacer>
+            <v-btn icon @click="openHelp">
+                <svg-icon class="text-20 tagTextColor2--text" icon="help"></svg-icon>
+            </v-btn>
+            <v-btn icon class="ml-1 mr-3" @click="onOrder">
+                <svg-icon class="text-20 tagTextColor2--text" icon="history"></svg-icon>
+            </v-btn>
         </v-sheet>
         <v-sheet color="transparent" class="mt-4 px-2">
             <horizontal_scroll :offsetx="16">
@@ -142,31 +150,85 @@
             </horizontal_scroll>
         </v-sheet>
         <template v-if="!pageData.loading">
-            <v-sheet color="bgBanner" class="mt-4 mx-2 px-2 rounded-10 d-flex align-center" height="80" v-if="match">
-                <v-img :src="curCompetition.country_icon" height="36" max-width="36" contain></v-img>
-                <div class="text-14 tagTextColor2--text ml-3 font-weight-bold">
-                    <div>
-                        <span>{{LangUtil(curCompetition.country)}}</span>
-                        <!-- <span class="tagTextColor1--text ml-2">{{curCompetition.competition_name}}</span> -->
-                    </div>
-                    <div>{{LangUtil("赛程：{0}m",match.distance)}}</div>
-                </div>
-                <v-spacer></v-spacer>
-                <template v-if="states && states.match_phase != 'OPEN'">
-                    <v-sheet
-                        color="timeColor2"
-                        class="rounded d-flex align-center justify-center px-1 text-12 white--text"
-                        height="20"
-                        min-width="60"
-                    >
-                        {{getResultStr(states.match_phase)}}
-                    </v-sheet>
-                </template>
-                <template v-else>
-                    <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
-                </template>
+            <v-sheet
+                v-if="match"
+                color="bgBanner"
+                ref="divbox"
+                class="overflow-hidden mt-4 mx-2 rounded-10 pa-2"
+                style="position: relative"
+            >
+                <v-window v-model="mobileTopWindow">
+                    <v-window-item>
+                        <v-sheet color="transparent" class="d-flex align-center" height="72">
+                            <v-img :src="curCompetition.country_icon" height="36" max-width="36" contain></v-img>
+                            <div class="text-14 tagTextColor2--text ml-3 font-weight-bold">
+                                <div>
+                                    <span>{{LangUtil(curCompetition.country)}}</span>
+                                    <!-- <span class="tagTextColor1--text ml-2">{{curCompetition.competition_name}}</span> -->
+                                </div>
+                                <div>{{LangUtil("赛程：{0}m",match.distance)}}</div>
+                            </div>
+                            <v-spacer></v-spacer>
+                            <template v-if="states && states.match_phase != 'OPEN'">
+                                <v-sheet
+                                    color="timeColor2"
+                                    class="rounded d-flex align-center justify-center px-1 text-12 white--text"
+                                    height="20"
+                                    min-width="60"
+                                >
+                                    {{getResultStr(states.match_phase)}}
+                                </v-sheet>
+                            </template>
+                            <template v-else>
+                                <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                            </template>
+                        </v-sheet>
+                        <template v-if="match.live_status == 1 || match.animation_status == 1">
+                            <v-divider></v-divider>
+                            <div class="d-flex justify-center pt-2">
+                                <v-btn
+                                    class="btns elevation-0 rounded-pill mx-2"
+                                    height="30"
+                                    v-if="match.live_status == 1"
+                                    @click="clicklive"
+                                >
+                                    <svg-icon class="text-20" icon="live1_"></svg-icon>
+                                    <div class="text-12 ml-1">{{LangUtil("直播")}}</div>
+                                </v-btn>
+                                <v-btn
+                                    class="btns elevation-0 rounded-pill mx-2"
+                                    height="30"
+                                    v-if="match.animation_status == 1"
+                                    @click="clickAnim"
+                                >
+                                    <svg-icon class="text-20" icon="animate1_"></svg-icon>
+                                    <div class="text-12 ml-1">{{LangUtil("动画")}}</div>
+                                </v-btn>
+                            </div>
+                        </template>
+                    </v-window-item>
+                    <v-window-item>
+                        <LivePlayer class="pt-6" v-if="mobileTopWindow==1" :videoUrl="match.live_url" live autoplay />
+                    </v-window-item>
+                    <v-window-item>
+                        <iframe
+                            v-if="mobileTopWindow==2"
+                            class="pt-1"
+                            ref="ifr"
+                            width="100%"
+                            :height="iframeHeight"
+                            frameborder="0"
+                            :src="'./animation/preview.html?anim_id=' + match.animation_id + '&lang=' + GlobalVar.lang"
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+                        ></iframe>
+                    </v-window-item>
+                </v-window>
+
+                <v-btn class="btn_close" icon v-if="mobileTopWindow != 0" @click="mobileTopWindow=0">
+                    <svg-icon class="text-20" icon="close"></svg-icon>
+                </v-btn>
             </v-sheet>
-    
+
             <template v-if="mobileTagOptions.length == 1">
                 <div class="text-14 pl-2 mt-4 font-weight-bold">{{mobileTagOptions[0]}}</div>
                 <MarketTable v-if="match" class="px-2" :match="match" :states="states" :markets="markets"></MarketTable>
@@ -178,18 +240,18 @@
                         :key="title"
                         :disabled="false"
                         class="rounded-10 tag-btn"
-                        :class="[{'active': index == mobileWindow},{'mr-2': index == 0}]"
+                        :class="[{'active': index == mobileBottomWindow},{'mr-2': index == 0}]"
                         elevation="0"
                         outlined
                         height="36"
                         style="flex: 1"
-                        @click="mobileWindow = index"
+                        @click="mobileBottomWindow = index"
                     >
                         <span class="d-flex align-center"> {{ LangUtil(title) }} </span>
                     </v-btn>
                 </v-sheet>
-    
-                <v-window v-model="mobileWindow" class="px-2">
+
+                <v-window v-model="mobileBottomWindow" class="px-2">
                     <v-window-item>
                         <ResultTable :match="match" :states="states" :markets="markets"></ResultTable>
                     </v-window-item>

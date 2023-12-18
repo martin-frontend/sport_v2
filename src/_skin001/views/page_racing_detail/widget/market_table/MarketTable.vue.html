@@ -24,7 +24,7 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on, attrs }">
                                 <div class="hand ml-1" v-bind="attrs" v-on="on">
-                                    <v-icon dense>mdi-help-circle</v-icon>
+                                    <v-icon color="tagTextColor1" dense>mdi-help-circle</v-icon>
                                 </div>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
@@ -37,7 +37,7 @@
                         <v-tooltip top>
                             <template v-slot:activator="{ on, attrs }">
                                 <div class="hand ml-1" v-bind="attrs" v-on="on">
-                                    <v-icon dense>mdi-help-circle</v-icon>
+                                    <v-icon color="tagTextColor1" dense>mdi-help-circle</v-icon>
                                 </div>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
@@ -51,7 +51,7 @@
                         <v-col>
                             <v-sheet color="transparent" class="d-flex flex-column">
                                 <span class="font-weight-bold">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span>
-                                <div class="d-flex text-12 mt-1">
+                                <div class="d-flex text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
                                     <div>
                                         <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
                                         <span class="mx-2">{{runner.jockey}}</span>
@@ -127,7 +127,7 @@
                     </v-row>
                     <v-divider></v-divider>
                 </template>
-                <div class="mt-3 mb-1 tagTextColor2--text" v-if="rules">{{rules}}</div>
+                <div class="mt-3 mb-1 tagTextColor1--text" v-if="rules">{{rules}}</div>
             </v-sheet>
         </v-sheet>
     </template>
@@ -156,11 +156,11 @@
                         <v-col>
                             <v-sheet color="transparent" class="d-flex flex-column pl-2 text-14 py-1">
                                 <span class="font-weight-bold">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span>
-                                <div>
+                                <div :class="{'textGray--text': $vuetify.theme.dark}">
                                     <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
                                     <span class="mx-2">{{runner.jockey}}</span>
                                 </div>
-                                <div>
+                                <div :class="{'textGray--text': $vuetify.theme.dark}">
                                     <span class="font-weight-bold">{{LangUtil('練馬師:')}}</span>
                                     <span class="mx-2">{{runner.trainer}}</span>
                                 </div>
@@ -173,13 +173,14 @@
                             <BtnFixedBet :price="getPlace(runner.runner_id)"></BtnFixedBet>
                         </v-col>
                     </v-row>
-                    <div class="pb-2 d-flex align-center pr-2" v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0">
+                    <div class="pb-2 d-flex align-center pr-2 px-2 flex-wrap" v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0">
                         <v-sheet
                             min-width="40"
                             width="40"
                             height="20"
                             class="text-12 white--text d-flex align-center justify-center rounded"
-                            color="tagTextColor2"
+                            :class="{'textGray2--text': $vuetify.theme.dark}"
+                            color="timeColor2"
                         >
                             {{LangUtil("开放")}}
                         </v-sheet>
@@ -213,7 +214,7 @@
                     </v-sheet>
                     <v-divider class="mx-2"></v-divider>
                 </template>
-                <div class="mt-3 mb-1 tagTextColor2--text text-14 pl-2 font-weight-bold" v-if="rules">{{rules}}</div>
+                <div class="mt-3 mb-1 tagTextColor1--text text-14 pl-2 font-weight-bold" v-if="rules">{{rules}}</div>
             </v-sheet>
         </v-sheet>
     </template>

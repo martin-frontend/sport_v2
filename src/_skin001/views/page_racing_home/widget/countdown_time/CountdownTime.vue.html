@@ -4,6 +4,7 @@
         v-else
         :color="min>=5?'timeColor2':sec<=0 && min<=0 ?'red':'timeColor1'"
         class="white--text rounded px-1 text-12 d-flex align-center justify-center"
+        :class="{'textGray2--text': min>=5 && $vuetify.theme.dark}"
         height="20"
         min-width="60"
         style="white-space: nowrap"

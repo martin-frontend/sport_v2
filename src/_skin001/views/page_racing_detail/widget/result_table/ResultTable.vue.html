@@ -28,14 +28,18 @@
                                 <v-col>
                                     <v-sheet color="transparent" class="d-flex flex-column">
                                         <div class="d-flex">
-                                            <v-sheet color="#0f1213" class="rounded white--text text-12 px-1 d-flex align-center">
+                                            <v-sheet
+                                                color="#0f1213"
+                                                class="rounded white--text text-12 px-1 d-flex align-center"
+                                                :class="{'ranking-border': $vuetify.theme.dark}"
+                                            >
                                                 {{LangUtil(getRankingStr(runner))}}
                                             </v-sheet>
                                             <span class="ml-2 font-weight-bold"
                                                 >{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span
                                             >
                                         </div>
-                                        <div class="d-flex text-12 mt-2">
+                                        <div class="d-flex text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}">
                                             <div>
                                                 <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
                                                 <span class="mx-2">{{runner.jockey}}</span>
@@ -116,18 +120,22 @@
                                 <v-col>
                                     <v-sheet color="transparent" class="d-flex flex-column">
                                         <div class="d-flex">
-                                            <v-sheet color="#0f1213" class="rounded white--text text-12 px-1 d-flex align-center">
+                                            <v-sheet
+                                                color="#0f1213"
+                                                class="rounded white--text text-12 px-1 d-flex align-center"
+                                                :class="{'ranking-border': $vuetify.theme.dark}"
+                                            >
                                                 {{LangUtil(getRankingStr(runner))}}
                                             </v-sheet>
                                             <span class="ml-2 font-weight-bold text-14">
                                                 {{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）
                                             </span>
                                         </div>
-                                        <div class="text-12 mt-2">
+                                        <div class="text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}">
                                             <span class="font-weight-bold">{{LangUtil('騎師:')}}</span>
                                             <span class="mx-2">{{runner.jockey}}</span>
                                         </div>
-                                        <div class="text-12 mt-1">
+                                        <div class="text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
                                             <span class="font-weight-bold">{{LangUtil('練馬師:')}}</span>
                                             <span class="mx-2">{{runner.trainer}}</span>
                                         </div>

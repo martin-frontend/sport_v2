@@ -90,7 +90,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
         data.forEach((item: any) => {
             Vue.set(this.pageData.marketListByEventId, item.event_id, item);
             // Vue.set(this.pageData.marketListByEventId, this.listQueryStates.event_id, item);
-            
+
             const finditem = this.pageData.market_list.find((item1) => item.event_id == item1.event_id);
             if (finditem) {
                 Object.assign(finditem, item);

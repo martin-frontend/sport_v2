@@ -3,18 +3,27 @@ import { Watch, Component } from "vue-property-decorator";
 import PageRacingDetailMediator from "../mediator/PageRacingDetailMediator";
 import PageRacingDetailProxy from "../proxy/PageRacingDetailProxy";
 import LangUtil from "@/core/global/LangUtil";
-import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
+import { dateFormat, formatURLParam, getDateByTimeZone, logEnterTips } from "@/core/global/Functions";
 import Assets from "@/_skin001/assets/Assets";
 import GlobalVar from "@/core/global/GlobalVar";
+import getProxy from "@/core/global/getProxy";
+import SelfProxy from "@/proxy/SelfProxy";
+import OpenLink from "@/core/global/OpenLink";
+import page_order from "../../page_order";
 
 @Component
 export default class PageRacingDetail extends AbstractView {
     LangUtil = LangUtil;
+    GlobalVar = GlobalVar;
     myProxy: PageRacingDetailProxy = this.getProxy(PageRacingDetailProxy);
     pageData = this.myProxy.pageData;
     selectedItem = 0;
     sportIcon = Assets.SportIcon;
-    mobileWindow = 0;
+    mobileTopWindow = 0;
+    mobileBottomWindow = 0;
+    selfProxy: SelfProxy = getProxy(SelfProxy);
+    user_type: number = this.selfProxy.userInfo.user_type;
+    iframeHeight = 0;
 
     get mobileTagOptions() {
         if (this.states?.match_phase == "DONE") {
@@ -31,7 +40,7 @@ export default class PageRacingDetail extends AbstractView {
         if (!this.pageData.competitionId) {
             this.$router.push("/page_racing_home");
         }
-        this.mobileWindow = 0;
+        this.mobileBottomWindow = 0;
     }
 
     getResultStr(match_phase: string) {
@@ -91,6 +100,66 @@ export default class PageRacingDetail extends AbstractView {
 
     onBack() {
         this.$router.back();
+    }
+
+    clicklive() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
+        this.mobileTopWindow = 1;
+    }
+    clickAnim() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
+        this.mobileTopWindow = 2;
+    }
+
+    // 打开注单历史
+    onOrder() {
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
+        page_order.show();
+    }
+
+    openHelp() {
+        if (this.$vuetify.breakpoint.mobile) {
+            this.$router.push("/page_help");
+        } else {
+            const dark = this.$vuetify.theme.dark;
+            const params = formatURLParam({
+                daynight_type: dark ? 2 : 1,
+                plat_id: GlobalVar.plat_id,
+                timezone: GlobalVar.zone,
+            });
+            const link = "./skin001_help.html?" + params;
+            OpenLink(link);
+        }
+    }
+
+    @Watch("$vuetify.breakpoint.width")
+    onWatchWidth() {
+        const divbox = this.$refs.divbox;
+        const ifr: any = this.$refs.ifr;
+        if (divbox && ifr) {
+            //@ts-ignore
+            this.iframeHeight = (divbox.$el.getBoundingClientRect().width * 290) / 400;
+        }
+    }
+
+    @Watch("mobileTopWindow")
+    onWatchWindow() {
+        setTimeout(() => {
+            this.onWatchWidth();
+        }, 100);
+    }
+
+    mounted() {
+        this.onWatchWidth();
     }
 
     destroyed() {
