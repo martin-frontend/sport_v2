@@ -13,10 +13,11 @@ function show(data: any) {
     const { listQueryComp, competitionId, matchKey, event_id } = data;
     myProxy.pageData.competitionId = competitionId;
     myProxy.pageData.matchKey = matchKey;
-    myProxy.listQueryComp = {
+    Object.assign(myProxy.listQueryComp, {
         ...listQueryComp,
         unique: PageRacingDetailProxy.NAME,
-    };
+    });
+
     if (event_id) {
         right_panel.show(1);
         right_panel.showLiveList(false);

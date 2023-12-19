@@ -72,6 +72,7 @@ export default class LiveProxy extends puremvc.Proxy {
         this.pageData.animation_id = "";
         this.pageData.live_url = "";
         this.pageData.event_states = [];
+        this.listQueryComp.tag = this.listQueryComp.tag == "withinAnHour" ? "today" : this.listQueryComp.tag;
         this.listQueryComp.event_type = SportUtil.isRaceEvent(this.listQueryComp.sport_id) ? 2 : 1;
         this.sendNotification(net.HttpType.api_event_list_v3, {
             ...this.listQueryComp,

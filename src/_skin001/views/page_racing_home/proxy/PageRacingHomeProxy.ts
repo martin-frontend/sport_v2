@@ -137,6 +137,8 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         this.pageData.loading = true;
         this.pageData.market_list = [];
         this.pageData.event_states = [];
+        this.pageData.marketListByEventId = {};
+        this.pageData.eventStatesByEventId = {};
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
         // 清除将重新查询的sport
         this.pageData.competition_list = this.pageData.competition_list.filter(

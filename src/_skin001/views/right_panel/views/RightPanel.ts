@@ -11,6 +11,7 @@ import SportUtil from "@/core/global/SportUtil";
 import LiveProxy from "../../live/proxy/LiveProxy";
 import live_list from "../../live_list";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import right_panel from "..";
 
 @Component
 export default class RightPanel extends AbstractView {
@@ -72,7 +73,14 @@ export default class RightPanel extends AbstractView {
 
     @Watch("homeProxy.listQueryComp.sport_id")
     onWatchSportId() {
-        this.pageData.isShowLiveList = false;
+        right_panel.showLiveList(false);
+        right_panel.show(0);
+    }
+
+    @Watch("homeProxy.listQueryComp.tag")
+    onWatchTag() {
+        right_panel.showLiveList(false);
+        right_panel.show(0);
     }
 
     destroyed() {

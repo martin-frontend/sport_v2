@@ -95,18 +95,20 @@ export default class PageRacingDetail extends AbstractView {
         right_panel.show(1);
         right_panel.showLiveList(false);
         // matche.init(this.match.id);
-        live.init(this.match.id);
+        const match = this.curCompetition.matches?.[key];
+        live.init(match.id, this.myProxy.listQueryComp.sport_id);
     }
 
     onChangeCompetion(val: any) {
+        this.pageData.loading = true;
         this.pageData.competitionId = this.pageData.competition_list[val].competition_id;
         this.pageData.matchKey = "R1";
-        this.pageData.loading = true;
         this.myProxy.getMarketAndStates();
         right_panel.show(1);
         right_panel.showLiveList(false);
         // matche.init(this.pageData.competition_list[val].matches["R1"].id);
-        live.init(this.match.id);
+        const match = this.curCompetition.matches?.[this.pageData.matchKey];
+        live.init(match.id, this.myProxy.listQueryComp.sport_id);
     }
 
     onBack() {
