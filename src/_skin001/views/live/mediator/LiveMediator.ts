@@ -2,6 +2,8 @@ import AbstractMediator from "@/core/abstract/AbstractMediator";
 import LiveProxy from "../proxy/LiveProxy";
 import getProxy from "@/core/global/getProxy";
 import net from "@/net/setting";
+import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import live from "..";
 
 export default class LiveMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
@@ -16,6 +18,12 @@ export default class LiveMediator extends AbstractMediator {
             case net.EventType.api_event_list_v3:
                 if (type == LiveProxy.NAME) {
                     myProxy.set_event_list(body);
+                }
+                if(type == PageHomeProxy.NAME) {
+                    const event_id = body[0]?.matches[0]?.id;
+                    if(event_id) {
+                        live.init(event_id);
+                    }
                 }
                 break;
             case net.EventType.api_event_states:

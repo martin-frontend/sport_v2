@@ -9,6 +9,7 @@ import dialog_message_box from "../../dialog_message_box";
 import LangUtil from "@/core/global/LangUtil";
 import page_home from "../../page_home";
 import GlobalVar from "@/core/global/GlobalVar";
+import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 
 export default class MatcheMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
@@ -25,10 +26,12 @@ export default class MatcheMediator extends AbstractMediator {
                     if (GlobalVar.pre_event_id) {
                         matche.init(GlobalVar.pre_event_id);
                         live.init(GlobalVar.pre_event_id);
-                    } else {
-                        const event_id = body[0].matches[0].id;
+                    }
+                }
+                if(type == PageHomeProxy.NAME) {
+                    const event_id = body[0]?.matches[0]?.id;
+                    if(event_id) {
                         matche.init(event_id);
-                        live.init(event_id);
                     }
                 }
                 if (type == MatcheProxy.NAME) {

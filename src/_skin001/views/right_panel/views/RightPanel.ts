@@ -10,6 +10,7 @@ import PageRacingDetailProxy from "../../page_racing_detail/proxy/PageRacingDeta
 import SportUtil from "@/core/global/SportUtil";
 import LiveProxy from "../../live/proxy/LiveProxy";
 import live_list from "../../live_list";
+import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 
 @Component
 export default class RightPanel extends AbstractView {
@@ -17,6 +18,7 @@ export default class RightPanel extends AbstractView {
     liveProxy: LiveProxy = this.getProxy(LiveProxy);
     racingDetailProxy: PageRacingDetailProxy = this.getProxy(PageRacingDetailProxy);
     myProxy: RightPanelProxy = this.getProxy(RightPanelProxy);
+    homeProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
     user_type!: number;
@@ -67,6 +69,12 @@ export default class RightPanel extends AbstractView {
     getEventDate(date: any) {
         return dateFormat(new Date(date), "MM/dd");
     }
+
+    @Watch("homeProxy.listQueryComp.sport_id")
+    onWatchSportId() {
+        this.pageData.isShowLiveList = false;
+    }
+
     destroyed() {
         super.destroyed();
     }

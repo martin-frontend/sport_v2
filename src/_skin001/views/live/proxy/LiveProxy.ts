@@ -26,6 +26,7 @@ export default class LiveProxy extends puremvc.Proxy {
     listQueryComp = {
         event_type: 1,
         sport_id: 1,
+        tag: "",
         event_id: "",
         unique: LiveProxy.NAME,
     };

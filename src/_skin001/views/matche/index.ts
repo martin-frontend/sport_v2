@@ -6,7 +6,9 @@ import PageHomeProxy from "../page_home/proxy/PageHomeProxy";
 function init(id: number) {
     const myProxy: MatcheProxy = getProxy(MatcheProxy);
     const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
-    myProxy.init(id, homeProxy.listQueryComp.sport_id);
+    myProxy.listQueryComp.sport_id = homeProxy.listQueryComp.sport_id;
+    myProxy.listQueryComp.tag = homeProxy.listQueryComp.tag;
+    myProxy.init(id);
 }
 
 export default { init };

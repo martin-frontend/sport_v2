@@ -19,6 +19,7 @@ function show(data: any) {
     };
     if (event_id) {
         right_panel.show(1);
+        right_panel.showLiveList(false);
         // matche.init(event_id);
         live.init(event_id, listQueryComp.sport_id);
     }

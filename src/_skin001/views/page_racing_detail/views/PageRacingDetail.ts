@@ -93,6 +93,7 @@ export default class PageRacingDetail extends AbstractView {
         this.pageData.matchKey = key;
         this.myProxy.getMarketAndStates();
         right_panel.show(1);
+        right_panel.showLiveList(false);
         // matche.init(this.match.id);
         live.init(this.match.id);
     }
@@ -103,6 +104,7 @@ export default class PageRacingDetail extends AbstractView {
         this.pageData.loading = true;
         this.myProxy.getMarketAndStates();
         right_panel.show(1);
+        right_panel.showLiveList(false);
         // matche.init(this.pageData.competition_list[val].matches["R1"].id);
         live.init(this.match.id);
     }

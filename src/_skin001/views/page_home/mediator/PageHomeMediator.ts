@@ -5,6 +5,7 @@ import SelfProxy from "@/proxy/SelfProxy";
 import net from "@/net/setting";
 import GlobalVar from "@/core/global/GlobalVar";
 import MatcheProxy from "../../matche/proxy/MatcheProxy";
+import right_panel from "../../right_panel";
 
 export default class PageHomeMediator extends AbstractMediator {
     onRegister() {
@@ -34,6 +35,7 @@ export default class PageHomeMediator extends AbstractMediator {
         switch (notification.getName()) {
             case net.EventType.api_event_list_v3:
                 if (type == PageHomeProxy.NAME) {
+                    right_panel.show(0);
                     myProxy.set_event_list(body);
                 }
                 break;

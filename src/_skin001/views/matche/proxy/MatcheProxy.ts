@@ -22,9 +22,8 @@ export default class MatcheProxy extends puremvc.Proxy {
         this.pageData.market_list = [];
     }
 
-    init(id: any, sport_id: any = "1") {
+    init(id: any) {
         this.onRemove();
-        this.listQueryComp.sport_id = sport_id;
         this.listQueryComp.event_id = id.toString();
         this.listQueryMarket.event_id = id.toString();
         this.api_event_list();
@@ -44,6 +43,7 @@ export default class MatcheProxy extends puremvc.Proxy {
 
     listQueryComp = {
         sport_id: 1,
+        tag: "",
         event_type: 1,
         event_id: "",
         unique: MatcheProxy.NAME,
