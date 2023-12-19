@@ -32,29 +32,24 @@
                         <div class="mr15">{{item.num}}</div>
                     </v-sheet>
                 </v-list-item>
-    
+
                 <!-- 滚球、今日、早盘 -->
-                <v-list-item
-                    :disabled="!item[key].num"
-                    @click="onTagClick(key)"
-                    link
-                    class="mb-1"
-                    v-for="({vClass}, key) of tagOption"
-                    :key="key"
-                >
-                    <v-sheet
-                        class="d-flex align-center text-14 rounded-lg listitem border"
-                        :class="[{'child-active': key == curTag},vClass]"
-                        height="38"
-                        width="100%"
-                    >
-                        <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[key]"></svg-icon></div>
-                        <div class="text-truncate">{{LangUtil(item[key].name)}}</div>
-                        <v-spacer />
-                        <div class="mr15">{{item[key].num}}</div>
-                    </v-sheet>
-                </v-list-item>
-    
+                <template v-for="({vClass}, key) of tagOption">
+                    <v-list-item v-if="item[key]" :disabled="!item[key].num" @click="onTagClick(key)" link class="mb-1" :key="key">
+                        <v-sheet
+                            class="d-flex align-center text-14 rounded-lg listitem border"
+                            :class="[{'child-active': key == curTag},vClass]"
+                            height="38"
+                            width="100%"
+                        >
+                            <div class="text-20 ml15 mr15"><svg-icon :icon="tagIcon[key]"></svg-icon></div>
+                            <div class="text-truncate">{{LangUtil(item[key].name)}}</div>
+                            <v-spacer />
+                            <div class="mr15">{{item[key].num}}</div>
+                        </v-sheet>
+                    </v-list-item>
+                </template>
+
                 <!-- 关注 -->
                 <v-list-item class="mb-1" link @click="onTagClick('love')" :disabled="!loveCount">
                     <v-sheet
@@ -69,14 +64,10 @@
                         <div class="mr15">{{loveCount}}</div>
                     </v-sheet>
                 </v-list-item>
-    
+
                 <!-- 全部赛事 -->
                 <v-list-item class="mb-1" link @click="showAllComp">
-                    <v-sheet
-                        class="d-flex align-center text-14 rounded-lg textGray--text listitem border"
-                        height="38"
-                        width="100%"
-                    >
+                    <v-sheet class="d-flex align-center text-14 rounded-lg textGray--text listitem border" height="38" width="100%">
                         <div class="text-20 ml15 mr15"><svg-icon icon="bet"></svg-icon></div>
                         <div class="text-truncate">{{LangUtil('全部赛事')}}</div>
                         <!-- <svg-icon class="text-12 ml-2" icon="zoom_out" :class="isShowAllComp ? 'arrow-up' : 'arrow-down'"></svg-icon> -->
@@ -84,7 +75,7 @@
                         <div class="mr15">{{curSportNav.all_competition_amount}}</div>
                     </v-sheet>
                 </v-list-item>
-    
+
                 <v-expand-transition>
                     <div v-show="isShowAllComp">
                         <v-list-group

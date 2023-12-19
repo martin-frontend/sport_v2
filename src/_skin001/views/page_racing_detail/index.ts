@@ -17,10 +17,10 @@ function show(data: any) {
         ...listQueryComp,
         unique: PageRacingDetailProxy.NAME,
     };
-    if(event_id) {
+    if (event_id) {
         right_panel.show(1);
         // matche.init(event_id);
-        live.init(event_id);
+        live.init(event_id, listQueryComp.sport_id);
     }
     myProxy.api_event_list();
 }

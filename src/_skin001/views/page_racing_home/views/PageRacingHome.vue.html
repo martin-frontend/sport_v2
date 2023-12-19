@@ -8,19 +8,21 @@
             <v-sheet color="transparent" class="rounded-lg" height="40">
                 <horizontal_scroll :offsetx="16">
                     <template v-slot="{data}">
-                        <v-btn
-                            v-for="(item,key) of tagOptions"
-                            :key="key"
-                            :disabled="false"
-                            class="rounded-pill mr-2 race-tag-btn"
-                            :class="{'active': curTag == key}"
-                            elevation="0"
-                            outlined
-                            max-height="40"
-                            @click="onTagClick(key)"
-                        >
-                            <span class="d-flex align-center"> {{ LangUtil(item.title) }} </span>
-                        </v-btn>
+                        <template v-for="(item,key) of tagOptions">
+                            <v-btn
+                                v-if="curSportNav?.[key]"
+                                :key="key"
+                                :disabled="false"
+                                class="rounded-pill mr-2 race-tag-btn"
+                                :class="{'active': curTag == key}"
+                                elevation="0"
+                                outlined
+                                max-height="40"
+                                @click="onTagClick(key)"
+                            >
+                                <span class="d-flex align-center"> {{ LangUtil(item.title) }} </span>
+                            </v-btn>
+                        </template>
                     </template>
                 </horizontal_scroll>
             </v-sheet>

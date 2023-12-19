@@ -121,6 +121,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
         this.pageData.event_states = [];
         this.pageData.competition_list = [];
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
+        this.listQueryComp.tag = this.listQueryComp.tag == "withinAnHour" ? "today" : this.listQueryComp.tag;
         this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
     /**盘口接口-新*/

@@ -120,9 +120,7 @@
         </v-window-item>
         <v-window-item>
             <LivePlayer v-if="window==1 && pageData.live_url" :videoUrl="pageData.live_url" live autoplay />
-            <v-sheet v-else height="200" class="d-flex align-center justify-center">
-                <Nodata></Nodata>
-            </v-sheet>
+            <Nodata v-else height="200"></Nodata>
         </v-window-item>
         <v-window-item>
             <iframe

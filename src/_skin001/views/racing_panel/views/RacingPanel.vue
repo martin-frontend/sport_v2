@@ -4,11 +4,14 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import RacingPanel from "./RacingPanel";
+import Nodata from "../../widget/nodata/Nodata.vue";
+import CountdownTime from "../../page_racing_home/widget/countdown_time/CountdownTime.vue";
 
-@Component
-export default class extends RacingPanel {
-    mounted() {
-        window.scrollTo(0, 0);
-    }
-}
+@Component({
+    components: {
+        Nodata,
+        CountdownTime,
+    },
+})
+export default class extends RacingPanel {}
 </script>

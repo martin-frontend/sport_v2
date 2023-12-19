@@ -1,9 +1,5 @@
-import PlatConfig from "@/core/config/PlatConfig";
 import { objectRemoveNull } from "@/core/global/Functions";
 import net from "@/net/setting";
-import { CompetitionVO } from "@/vo/CompetitionVO";
-import { EventStatesVO } from "@/vo/EventStatesVO";
-import { MarketVO } from "@/vo/MarketVO";
 import Vue from "vue";
 
 export default class PageRacingHomeProxy extends puremvc.Proxy {
@@ -20,10 +16,10 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         /**联赛列表 */
         competition_list: <any>[],
         /**盘口信息 */
-        market_list: <MarketVO[]>[],
+        market_list: <any>[],
         marketListByEventId: <any>{},
         /**赛事进程 */
-        event_states: <EventStatesVO[]>[],
+        event_states: <any>[],
         eventStatesByEventId: <any>{},
     };
 
@@ -34,8 +30,6 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         type: "fix",
         // withinAnHour:下一场、today:今天、tomorrow:明天、dayAfterTomorrow:後天
         tag: "today",
-        //comp: 联赛 time: 时间
-        sort: "comp",
 
         //每次搜索前清空以下参数, 且最多只取一个值
         keyword: "",
@@ -58,12 +52,8 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         type: "fix",
         // 多个指定赛事id，以逗号拼接
         event_id: "",
-        // 对应的盘口类型，以逗号拼接
-        market_type: "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME",
         // 记录所在位置
         unique: PageRacingHomeProxy.NAME,
-        //暂时不用的
-        market_id: "",
     };
 
     listQueryMarket = {
@@ -71,12 +61,8 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         type: "fix",
         // 多个指定赛事id，以逗号拼接
         event_id: "",
-        // 对应的盘口类型，以逗号拼接
-        market_type: "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME",
         // 记录所在位置
         unique: PageRacingHomeProxy.NAME,
-        //暂时不用的
-        market_id: "",
     };
 
     init() {
@@ -113,7 +99,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         data.forEach((item: any) => {
             Vue.set(this.pageData.marketListByEventId, item.event_id, item);
 
-            const finditem = this.pageData.market_list.find((item1) => item.event_id == item1.event_id);
+            const finditem = this.pageData.market_list.find((item1: any) => item.event_id == item1.event_id);
             if (finditem) {
                 Object.assign(finditem, item);
             } else {
@@ -132,7 +118,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
             if (item.match_phase == "OPEN") {
                 event_id.push(item.event_id);
             }
-            const finditem = this.pageData.event_states.find((item1) => item.event_id == item1.event_id);
+            const finditem = this.pageData.event_states.find((item1: any) => item.event_id == item1.event_id);
             if (finditem) {
                 Object.assign(finditem, item);
             } else {
