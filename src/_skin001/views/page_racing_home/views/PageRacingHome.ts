@@ -8,6 +8,7 @@ import SportUtil from "@/core/global/SportUtil";
 import page_racing_home from "..";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import page_live_list from "../../page_live_list";
+import Assets from "@/_skin001/assets/Assets";
 
 @Component
 export default class PageRacingHome extends AbstractView {
@@ -18,6 +19,7 @@ export default class PageRacingHome extends AbstractView {
     pageData = this.myProxy.pageData;
     isRaceEvent = SportUtil.isRaceEvent;
     listQueryComp = this.myProxy.listQueryComp;
+    sportIcon = Assets.SportIcon;
 
     constructor() {
         super(PageRacingHomeMediator);
@@ -82,9 +84,9 @@ export default class PageRacingHome extends AbstractView {
     sportCheckBoxArr = [`${this.homeProxy.listQueryComp.sport_id}`];
 
     sportCheckBoxOptions = {
-        7: { title: "赛马", sportId: "7", icon: "race" },
-        8: { title: "赛狗", sportId: "8", icon: "greyhound_racing" },
-        9: { title: "马车赛", sportId: "9", icon: "harness_racing" },
+        7: { title: "赛马", sportId: "7" },
+        8: { title: "赛狗", sportId: "8" },
+        9: { title: "马车赛", sportId: "9" },
     };
 
     // onBack() {

@@ -10,7 +10,7 @@
                 class="d-flex align-center btnPlain--text hand mr-2"
                 color="transparent"
                 max-width="70%"
-                @click="pageData.isShowLiveList = !pageData.isShowLiveList"
+                @click="onLiveList"
                 v-if="competition && matche"
             >
                 <v-img width="20" height="20" :src="competition.country_icon"></v-img>

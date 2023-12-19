@@ -9,6 +9,7 @@ import { dateFormat, logEnterTips } from "@/core/global/Functions";
 import PageRacingDetailProxy from "../../page_racing_detail/proxy/PageRacingDetailProxy";
 import SportUtil from "@/core/global/SportUtil";
 import LiveProxy from "../../live/proxy/LiveProxy";
+import live_list from "../../live_list";
 
 @Component
 export default class RightPanel extends AbstractView {
@@ -45,6 +46,9 @@ export default class RightPanel extends AbstractView {
 
     onLiveList() {
         this.pageData.isShowLiveList = !this.pageData.isShowLiveList;
+        if (this.pageData.isShowLiveList) {
+            live_list.show();
+        }
     }
     clicklive() {
         if (this.user_type == 2) {

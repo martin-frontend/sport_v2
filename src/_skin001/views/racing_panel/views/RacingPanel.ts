@@ -8,6 +8,7 @@ import SportUtil from "@/core/global/SportUtil";
 import racing_panel from "..";
 import page_racing_detail from "../../page_racing_detail";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import Assets from "@/_skin001/assets/Assets";
 
 @Component
 export default class RacingPanel extends AbstractView {
@@ -20,6 +21,7 @@ export default class RacingPanel extends AbstractView {
     navProxy: NavigationProxy = this.getProxy(NavigationProxy);
     isRaceEvent = SportUtil.isRaceEvent;
     timer = 0;
+    sportIcon = Assets.SportIcon;
 
     created() {
         racing_panel.init(this.homeProxy.listQueryComp.sport_id);
@@ -32,9 +34,9 @@ export default class RacingPanel extends AbstractView {
     }
 
     sportCheckBoxOptions = {
-        7: { title: "赛马", sportId: "7", icon: "race" },
-        8: { title: "赛狗", sportId: "8", icon: "greyhound_racing" },
-        9: { title: "马车赛", sportId: "9", icon: "harness_racing" },
+        7: { title: "赛马", sportId: "7" },
+        8: { title: "赛狗", sportId: "8" },
+        9: { title: "马车赛", sportId: "9" },
     };
 
     get raceSportArr() {

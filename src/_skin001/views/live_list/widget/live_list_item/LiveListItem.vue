@@ -4,7 +4,12 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import LiveListItem from "./LiveListItem";
+import CountdownTime from "@/_skin001/views/page_racing_home/widget/countdown_time/CountdownTime.vue";
 
-@Component
+@Component({
+    components: {
+        CountdownTime,
+    },
+})
 export default class extends LiveListItem {}
 </script>

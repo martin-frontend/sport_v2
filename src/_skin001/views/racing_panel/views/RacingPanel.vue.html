@@ -33,7 +33,7 @@
                         @change="onCheckboxChange"
                     >
                         <template #label>
-                            <svg-icon :icon="sportCheckBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
+                            <svg-icon :icon="sportIcon[sportId]" class="text-22 tagTextColor2--text"></svg-icon>
                         </template>
                     </v-checkbox>
                 </template>
@@ -44,7 +44,7 @@
                         <template v-for="item of nextTableData">
                             <div :key="item.id" class="hand pa-2 d-flex align-center border-bottom" @click="onShowDetail(item, item.r)">
                                 <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
-                                <svg-icon :icon="sportCheckBoxOptions[item.sport_id].icon" class="text-26 ml-2"></svg-icon>
+                                <svg-icon :icon="sportIcon[item.sport_id]" class="text-26 ml-2"></svg-icon>
                                 <v-sheet
                                     color="#feba00"
                                     width="30"

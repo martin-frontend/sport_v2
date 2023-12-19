@@ -5,6 +5,7 @@ import page_racing_detail from "../../../page_racing_detail";
 import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
 import PageRacingHomeProxy from "../../proxy/PageRacingHomeProxy";
 import GlobalVar from "@/core/global/GlobalVar";
+import Assets from "@/_skin001/assets/Assets";
 @Component
 export default class MobileRaceTable extends AbstractView {
     LangUtil = LangUtil;
@@ -15,7 +16,7 @@ export default class MobileRaceTable extends AbstractView {
     @Prop() tableData!: any;
     @Prop() sportItem!: any;
     @Prop({ default: false }) isNext!: boolean;
-
+    sportIcon = Assets.SportIcon;
     headerList = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14"];
 
     getResultStr(match_phase: string) {

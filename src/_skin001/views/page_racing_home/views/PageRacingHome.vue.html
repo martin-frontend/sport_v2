@@ -41,7 +41,7 @@
                             @change="onCheckboxChange"
                         >
                             <template #label>
-                                <svg-icon :icon="sportCheckBoxOptions[sportId]?.icon" class="text-22 tagTextColor2--text"></svg-icon>
+                                <svg-icon :icon="sportIcon[sportId]" class="text-22 tagTextColor2--text"></svg-icon>
                             </template>
                         </v-checkbox>
                     </template>
@@ -75,19 +75,21 @@
         <v-sheet color="transparent" class="rounded-lg mx-2 mt-4" height="40">
             <horizontal_scroll :offsetx="16">
                 <template v-slot="{data}">
-                    <v-btn
-                        v-for="(item,key) of tagOptions"
-                        :key="key"
-                        :disabled="false"
-                        class="rounded-pill mr-2 mobile-race-tag-btn px-4"
-                        :class="{'active': curTag == key}"
-                        elevation="0"
-                        outlined
-                        max-height="30"
-                        @click="onTagClick(key)"
-                    >
-                        <span class="d-flex align-center text-12"> {{ LangUtil(item.title) }} </span>
-                    </v-btn>
+                    <template v-for="(item,key) of tagOptions">
+                        <v-btn
+                            v-if="curSportNav?.[key]"
+                            :key="key"
+                            :disabled="false"
+                            class="rounded-pill mr-2 mobile-race-tag-btn px-4"
+                            :class="{'active': curTag == key}"
+                            elevation="0"
+                            outlined
+                            max-height="30"
+                            @click="onTagClick(key)"
+                        >
+                            <span class="d-flex align-center text-12"> {{ LangUtil(item.title) }} </span>
+                        </v-btn>
+                    </template>
                 </template>
             </horizontal_scroll>
         </v-sheet>
