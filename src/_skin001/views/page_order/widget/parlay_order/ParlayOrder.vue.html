@@ -69,7 +69,8 @@
                 <div class="my-2 mx-n2 line"></div>
                 <div class="d-flex align-center">
                     <v-sheet width="2" height="16" color="yellow" class="mx-2"></v-sheet>
-                    <div class="text-16 text-truncate font-weight-bold">{{leg.competition_name}}</div>
+                    <svg-icon class="text-20" :icon="sportIcon[leg.sport_id]"></svg-icon>
+                    <div class="text-16 text-truncate font-weight-bold ml-2">{{leg.competition_name}}</div>
                 </div>
 
                 <v-sheet class="ml-4 mr-2 mt-2 rounded pa-0 order-content" color="transparent">

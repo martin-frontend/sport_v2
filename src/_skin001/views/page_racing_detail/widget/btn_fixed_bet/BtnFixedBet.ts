@@ -6,6 +6,10 @@ import getProxy from "@/core/global/getProxy";
 import { TransMarketPrice } from "@/core/global/Functions";
 import BetProxy from "@/proxy/BetProxy";
 import GlobalVar from "@/core/global/GlobalVar";
+import SelfProxy from "@/proxy/SelfProxy";
+import DialogBetResultProxy from "@/_skin001/views/dialog_bet_result/proxy/DialogBetResultProxy";
+import PageRacingDetailProxy from "../../proxy/PageRacingDetailProxy";
+
 @Component
 export default class BtnFixedBet extends AbstractView {
     LangUtil = LangUtil;
@@ -13,13 +17,25 @@ export default class BtnFixedBet extends AbstractView {
     myProxy: BetProxy = getProxy(BetProxy);
     pageData = this.myProxy.pageData;
     @Prop() match!: any;
-    @Prop() states!: any;
-    @Prop() markets!: any;
+    @Prop() matchKey!: any;
+    @Prop() market!: any;
+    @Prop() selection!: any;
     @Prop() price!: any;
     @Prop({ default: false }) isFav!: any;
     iconOdds = "arrow_up";
     cleartimer = 0;
     isChangeAni = false; //当前是否正在播放赔率变化动画
+    selfProxy: SelfProxy = getProxy(SelfProxy);
+    user_type!: number;
+    betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
+    isActive = false;
+
+    mounted() {
+        this.clearOddsStatus();
+        this.onWatchActive();
+        const { user_type } = this.selfProxy.userInfo;
+        this.user_type = user_type;
+    }
 
     @Watch("$vuetify.theme.dark")
     onWatchDark() {
@@ -40,6 +56,8 @@ export default class BtnFixedBet extends AbstractView {
         const imgOdds: HTMLElement = <any>this.$refs.imgOdds;
         //@ts-ignore
         const divBox: HTMLElement = <any>this.$refs.divBox.$el;
+        if (this.isActive) return;
+
         if (newVal > oldVal) {
             this.isChangeAni = true;
             this.clearOddsStatus();
@@ -71,18 +89,18 @@ export default class BtnFixedBet extends AbstractView {
         const divBox: HTMLElement = <any>this.$refs.divBox?.$el;
         const divPrice: HTMLElement = <any>this.$refs.divPrice;
         if (divBox) {
-            // this.pageData.list.find(
-            //     (item) =>
-            //         item.selection &&
-            //         this.selection &&
-            //         item.selection.id == this.selection.id &&
-            //         item.market.market_id == this.market.market_id
-            // )
-            //     ? addClass(divBox, "active")
-            //     : removeClass(divBox, "active");
+            const item = this.pageData.list.find(
+                (item) =>
+                    item.selection &&
+                    this.selection &&
+                    item.selection.id == this.selection.id &&
+                    item.market.market_id == this.market.market_id
+            );
+            this.isActive = !!item;
+
             if (divPrice) {
                 if (!this.isChangeAni) {
-                    if (hasClass(divBox, "active")) {
+                    if (this.isActive) {
                         divPrice.style.color = "#0F1213";
                         divBox.style.borderColor = "#FFCD43";
                     } else {
@@ -104,20 +122,16 @@ export default class BtnFixedBet extends AbstractView {
             this.cleartimer = setTimeout(() => {
                 imgOdds.style.opacity = "0";
                 imgOdds.classList.remove("animation-translate");
-                // if (
-                //     !this.pageData.list.find(
-                //         (item) => item.selection.id == this.selection.id && item.market.market_id == this.market.market_id
-                //     )
-                // ) {
-                //     divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
-                //     divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
-                // }
-
-                // todo 被選中時不要播動畫
-                divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
-                if (this.isFav) {
-                    divBox.style.borderColor = "#41a81d";
+                if (
+                    !this.pageData.list.find(
+                        (item) => item.selection.id == this.selection.id && item.market.market_id == this.market.market_id
+                    )
+                ) {
+                    divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
+                    divBox.style.borderColor = this.$vuetify.theme.dark ? "#333435" : "#DCDCDC";
                 }
+
+                divPrice.style.color = this.$vuetify.theme.dark ? "#FFFFFF" : "#0F1213";
                 this.isChangeAni = false;
                 this.onWatchActive();
             }, delay);
@@ -125,35 +139,26 @@ export default class BtnFixedBet extends AbstractView {
     }
 
     onBet() {
-        // if (this.user_type == 2) {
-        //     logEnterTips();
-        //     return;
-        // }
-        // if (this.market && this.market.status != 2 && this.selection && this.selection.status == 0) {
-        //     // 投注完后等待api回传结果时，如继续下注，需清空注单，并且不跳转确认订单页
-        //     if (this.pageData.loading && !this.pageData.isContinueBetting) {
-        //         this.pageData.isContinueBetting = true;
-        //         this.myProxy.initBetList();
-        //     }
-        //     // 当前是在订单确认页时，添加下注需清空注单
-        //     if (this.betResultProxy.pageData.bShow) {
-        //         this.betResultProxy.pageData.bShow = false;
-        //         this.myProxy.initBetList();
-        //     }
-        //     const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
-        //     let comp: any = homeProxy.pageData.competition_list.find((item) => item.competition_id == this.matche.competition_id);
-        //     let event_states = homeProxy.pageData.event_states;
-        //     if (!comp) {
-        //         const matcheProxy: MatcheProxy = getProxy(MatcheProxy);
-        //         comp = matcheProxy.pageData.competition_list[0];
-        //         const liveProxy: LiveProxy = getProxy(LiveProxy);
-        //         event_states = liveProxy.pageData.event_states;
-        //     }
-        //     this.myProxy.addItem(comp, this.matche, this.market, this.selection, event_states);
-        //     // const betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
-        //     // betResultProxy.pageData.market = JSON.parse(JSON.stringify(this.market));
-        //     // betResultProxy.pageData.matche = JSON.parse(JSON.stringify(this.matche));
-        //     // betResultProxy.pageData.selection = JSON.parse(JSON.stringify(this.selection));
-        // }
+        if (this.user_type == 2) {
+            logEnterTips();
+            return;
+        }
+        // 投注完后等待api回传结果时，如继续下注，需清空注单，并且不跳转确认订单页
+        if (this.pageData.loading && !this.pageData.isContinueBetting) {
+            this.pageData.isContinueBetting = true;
+            this.myProxy.initBetList();
+        }
+        // 当前是在订单确认页时，添加下注需清空注单
+        if (this.betResultProxy.pageData.bShow) {
+            this.betResultProxy.pageData.bShow = false;
+            this.myProxy.initBetList();
+        }
+        const detailProxy: PageRacingDetailProxy = getProxy(PageRacingDetailProxy);
+        let comp: any = detailProxy.pageData.competition_list.find(
+            (item: any) => item.competition_id == detailProxy.pageData.competitionId
+        );
+        let event_states = detailProxy.pageData.event_states;
+
+        this.myProxy.addItem(comp, { ...this.match, key: this.matchKey }, this.market, this.selection, event_states);
     }
 }

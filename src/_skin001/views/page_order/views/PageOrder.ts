@@ -8,8 +8,8 @@ import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import GlobalVar from "@/core/global/GlobalVar";
 import EnumMarketType from "@/core/global/MarketUtils";
 import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
-
-const marketType = EnumMarketType.EnumMarketType;
+import SportUtil from "@/core/global/SportUtil";
+import Assets from "@/_skin001/assets/Assets";
 
 @Component
 export default class PageOrder extends AbstractView {
@@ -23,6 +23,8 @@ export default class PageOrder extends AbstractView {
     myProxy: PageOrderProxy = this.getProxy(PageOrderProxy);
     pageData = this.myProxy.pageData;
     listQuery = this.myProxy.listQuery;
+    sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
 
     constructor() {
         super(PageOrderMediator);
@@ -252,5 +254,12 @@ export default class PageOrder extends AbstractView {
             case 6:
                 return `${LangUtil("暂停兑现")}`;
         }
+    }
+
+    getRaceTime(event_time: any) {
+        if(event_time < GlobalVar.server_time) {
+            return ""
+        }
+        return dateFormat(getDateByTimeZone(event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss")
     }
 }

@@ -9,8 +9,8 @@ import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, TransMark
 import CopyUtil from "@/core/global/CopyUtil";
 import EnumMarketType from "@/core/global/MarketUtils";
 import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
-
-const marketType = EnumMarketType.EnumMarketType;
+import SportUtil from "@/core/global/SportUtil";
+import Assets from "@/_skin001/assets/Assets";
 @Component
 export default class PageOrderUnsettled extends AbstractView {
     LangUtil = LangUtil;
@@ -23,6 +23,8 @@ export default class PageOrderUnsettled extends AbstractView {
     myProxy: OrderUnsettledProxy = this.getProxy(OrderUnsettledProxy);
     pageData = this.myProxy.pageData;
     listQuery = this.myProxy.listQuery;
+    sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
     // isAbleToCashOut = false;
     // 注单状态
     statusMap = {
@@ -209,5 +211,12 @@ export default class PageOrderUnsettled extends AbstractView {
             case 6:
                 return `${LangUtil("暂停兑现")}`;
         }
+    }
+
+    getRaceTime(event_time: any) {
+        if(event_time < GlobalVar.server_time) {
+            return ""
+        }
+        return dateFormat(getDateByTimeZone(event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss")
     }
 }

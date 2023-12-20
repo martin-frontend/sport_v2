@@ -73,10 +73,23 @@
                             <Price class="mx-2" :price="getPrice2(runner.runner_id)"></Price>
                         </v-col>
                         <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
-                            <BtnFixedBet :is-fav="favRunnerId == runner.runner_id" :price="getWin(runner.runner_id)"></BtnFixedBet>
+                            <BtnFixedBet
+                                :match-key="pageData.matchKey"
+                                :match="match"
+                                :selection="getWinSelection(runner.runner_id)"
+                                :market="markets?.RB_WIN"
+                                :is-fav="favRunnerId == runner.runner_id"
+                                :price="getWin(runner.runner_id)"
+                            ></BtnFixedBet>
                         </v-col>
                         <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
-                            <BtnFixedBet :price="getPlace(runner.runner_id)"></BtnFixedBet>
+                            <BtnFixedBet
+                                :match-key="pageData.matchKey"
+                                :match="match"
+                                :selection="getPlaceSelection(runner.runner_id)"
+                                :market="markets?.RB_PLACE"
+                                :price="getPlace(runner.runner_id)"
+                            ></BtnFixedBet>
                         </v-col>
                     </v-row>
                     <div class="pb-2 d-flex align-center" v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0">
@@ -168,13 +181,29 @@
                             </v-sheet>
                         </v-col>
                         <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1">
-                            <BtnFixedBet :is-fav="favRunnerId == runner.runner_id" :price="getWin(runner.runner_id)"></BtnFixedBet>
+                            <BtnFixedBet
+                                :match-key="pageData.matchKey"
+                                :match="match"
+                                :selection="getWinSelection(runner.runner_id)"
+                                :market="markets?.RB_WIN"
+                                :is-fav="favRunnerId == runner.runner_id"
+                                :price="getWin(runner.runner_id)"
+                            ></BtnFixedBet>
                         </v-col>
                         <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1" v-if="isShowPlace">
-                            <BtnFixedBet :price="getPlace(runner.runner_id)"></BtnFixedBet>
+                            <BtnFixedBet
+                                :match-key="pageData.matchKey"
+                                :match="match"
+                                :selection="getPlaceSelection(runner.runner_id)"
+                                :market="markets?.RB_PLACE"
+                                :price="getPlace(runner.runner_id)"
+                            ></BtnFixedBet>
                         </v-col>
                     </v-row>
-                    <div class="pb-2 d-flex align-center pr-2 px-2 flex-wrap" v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0">
+                    <div
+                        class="pb-2 d-flex align-center pr-2 px-2 flex-wrap"
+                        v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0"
+                    >
                         <v-sheet
                             min-width="40"
                             width="40"
