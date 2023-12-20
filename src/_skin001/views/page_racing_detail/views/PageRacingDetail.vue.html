@@ -256,7 +256,7 @@
                         <ResultTable :match="match" :states="states" :markets="markets"></ResultTable>
                     </v-window-item>
                     <v-window-item>
-                        <MarketTable v-if="match" :match="match" :states="states" :markets="markets"></MarketTable>
+                        <MarketTable v-if="match && markets" :match="match" :states="states" :markets="markets"></MarketTable>
                     </v-window-item>
                 </v-window>
             </template>
