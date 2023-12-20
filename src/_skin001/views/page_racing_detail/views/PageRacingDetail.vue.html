@@ -79,7 +79,7 @@
                         <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
                     </template>
                 </v-sheet>
-                <ResultTable v-if="states?.match_phase == 'DONE'" :match="match" :states="states" :markets="markets"></ResultTable>
+                <ResultTable v-if="states && states.match_phase == 'DONE'" :match="match" :states="states" :markets="markets"></ResultTable>
                 <MarketTable v-if="match" :match="match" :states="states" :markets="markets"></MarketTable>
             </template>
             <template v-else>
