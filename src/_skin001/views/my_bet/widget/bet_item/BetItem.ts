@@ -20,6 +20,8 @@ import SettingProxy from "@/proxy/SettingProxy";
 import BetProxy from "@/proxy/BetProxy";
 import ScrollUtil from "@/core/global/ScrollUtil";
 import Vue from "vue";
+import SportUtil from "@/core/global/SportUtil";
+import Assets from "@/_skin001/assets/Assets";
 
 @Component
 export default class BetItem extends AbstractView {
@@ -46,6 +48,8 @@ export default class BetItem extends AbstractView {
     expanded = false;
     isShowAmountBtns = false;
     decimalSeparator = getDecimalSeparator();
+    sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
     @Watch("bshowkeybord")
     onWatchShowKeyboard() {
         // 键盘打开后，向上滚动，露出投注按扭
@@ -300,5 +304,9 @@ export default class BetItem extends AbstractView {
     }
     get keybordarr() {
         return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", this.decimalSeparator];
+    }
+
+    getRaceTime(date: any) {
+        return dateFormat(getDateByTimeZone(date * 1000, <any>GlobalVar.zone), "yyyy/MM/dd hh:mm:ss");
     }
 }

@@ -80,6 +80,9 @@
             <v-col>
                 <span>{{LangUtil("编号")}}</span>
             </v-col>
+            <v-col>
+                <span>{{LangUtil("体育类型")}}</span>
+            </v-col>
             <v-col cols="2">
                 <span>{{LangUtil("订单")}}</span>
             </v-col>
@@ -123,6 +126,9 @@
                     <v-col>
                         <span v-if="index1 == 0">{{index + 1}}</span>
                     </v-col>
+                    <v-col>
+                        <svg-icon class="text-30" :icon="sportIcon[item.sport_id]"></svg-icon>
+                    </v-col>
                     <!-- 订单 -->
                     <v-col cols="2" class="font-weight-bold">
                         <template v-if="index1 == 0">
@@ -146,10 +152,26 @@
                         <span>{{LangUtil("盘口归类")}}</span>
                     </v-col> -->
                     <v-col cols="2" class="justify-items-center d-grid align-content-center">
-                        <span class="">{{leg.competition_name}}</span>
-                        <span>{{leg.home_name}}</span>
-                        <span>VS</span>
-                        <span>{{leg.away_name}}</span>
+                        <template v-if="!isRaceEvent(item.sport_id)">
+                            <span class="">{{leg.competition_name}}</span>
+                            <span>{{leg.home_name}}</span>
+                            <span>VS</span>
+                            <span>{{leg.away_name}}</span>
+                        </template>
+                        <template v-else>
+                            <span class="">
+                                <v-sheet
+                                    v-if="leg.number_of_session"
+                                    color="#feba00"
+                                    width="30"
+                                    height="18"
+                                    class="mr-2 rounded d-flex align-center justify-center font-weight-bold text-14 textGray2--text"
+                                >
+                                    {{leg.number_of_session}}
+                                </v-sheet>
+                                {{leg.competition_name}}</span
+                            >
+                        </template>
                         <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                     </v-col>
                     <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">

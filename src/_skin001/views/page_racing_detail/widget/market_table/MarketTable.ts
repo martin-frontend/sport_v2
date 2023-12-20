@@ -3,12 +3,15 @@ import { Watch, Component, Prop } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
 import GlobalVar from "@/core/global/GlobalVar";
 import { dateFormat, getDateByTimeZone } from "@/core/global/Functions";
+import PageRacingDetailProxy from "../../proxy/PageRacingDetailProxy";
 
 @Component
 export default class MarketsTable extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
     isShowDetail = false;
+    myProxy: PageRacingDetailProxy = this.getProxy(PageRacingDetailProxy);
+    pageData = this.myProxy.pageData;
     @Prop() match!: any;
     @Prop() states!: any;
     @Prop() markets!: any;

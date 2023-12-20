@@ -47,7 +47,7 @@ export default class BetProxy extends puremvc.Proxy {
         list: <
             {
                 type: string;
-                comp: CompetitionVO;
+                comp: any;
                 matche: MatchVO;
                 market: MarketFixVO;
                 selection: FixSelectionVO;
@@ -66,7 +66,7 @@ export default class BetProxy extends puremvc.Proxy {
         bettedList: <
             {
                 type: string;
-                comp: CompetitionVO;
+                comp: any;
                 matche: MatchVO;
                 market: MarketFixVO;
                 selection: FixSelectionVO;
@@ -109,7 +109,7 @@ export default class BetProxy extends puremvc.Proxy {
     };
 
     /**添加一个注单 */
-    addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: FixSelectionVO, event_states: EventStatesVO[]) {
+    addItem(comp: CompetitionVO, matche: MatchVO, market: MarketFixVO, selection: any, event_states: EventStatesVO[]) {
         if (!this.deleteItem(market.market_id, selection.id)) {
             // this.pageData.list = [];
             if (this.pageData.isLive) {
@@ -268,7 +268,7 @@ export default class BetProxy extends puremvc.Proxy {
                 odds: item.odds,
                 stake: 1,
                 side: "Back",
-                sport_id: 1,
+                sport_id: item.comp.sport_id,
             };
         });
         if (form.is_multiple == 1) {
@@ -396,7 +396,7 @@ export default class BetProxy extends puremvc.Proxy {
                 // stake: null,
                 side: "Back",
                 price_index: item.selection.priceIndex.toString(),
-                sport_id: 1,
+                sport_id: item.comp.sport_id,
             };
             if (bet_type == "multi") {
                 delete query.stake;

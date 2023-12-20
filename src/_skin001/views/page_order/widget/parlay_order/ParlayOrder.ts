@@ -5,6 +5,8 @@ import LangUtil from "@/core/global/LangUtil";
 import { amountFormat, dateFormat, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import GlobalVar from "@/core/global/GlobalVar";
+import SportUtil from "@/core/global/SportUtil";
+import Assets from "@/_skin001/assets/Assets";
 export default class ParlayOrder extends AbstractView {
     @Prop() item!: any;
 
@@ -19,6 +21,8 @@ export default class ParlayOrder extends AbstractView {
     myProxy: PageOrderProxy = this.getProxy(PageOrderProxy);
     pageData = this.myProxy.pageData;
     listQuery = this.myProxy.listQuery;
+    sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
 
     // 注单状态
     statusMap = {
@@ -184,6 +188,13 @@ export default class ParlayOrder extends AbstractView {
                 color: this.$vuetify.theme.dark ? "#1B5FFF" : "#0325b4",
             };
         }
+    }
+
+    getRaceTime(event_time: any) {
+        if(event_time < GlobalVar.server_time) {
+            return ""
+        }
+        return dateFormat(getDateByTimeZone(event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss")
     }
 
     // get parlayOdds() {

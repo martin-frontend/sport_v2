@@ -4,10 +4,6 @@
         border-top-left-radius: 5px;
         border-bottom-left-radius: 5px;
     }
-    &.active {
-        background: linear-gradient(to right, #fcb131, #ffe64d);
-        color: #0f1213;
-    }
     &.disabled {
         pointer-events: none;
     }
@@ -17,11 +13,16 @@
         background-color: transparent;
         border: 1px solid #d6dde3;
         &.fav {
-            border-color: #41a81d;
+            border-color: #41a81d !important;
         }
         &:hover {
             background-color: #fff1a9;
             // border-color: #ffec8e;
+        }
+        &.active {
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            border-color: #FFCD43 !important;
+            color: #0f1213;
         }
     }
 }
@@ -33,15 +34,12 @@
             filter: brightness(120%);
         }
         &.fav {
-            border-color: #41a81d;
-        }
-        .divslot {
-            color: #b0b0b0;
+            border-color: #41a81d !important;
         }
         &.active {
-            .divslot {
-                color: #0f1213;
-            }
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            border-color: #FFCD43 !important;
+            color: #0f1213;
         }
     }
 }
