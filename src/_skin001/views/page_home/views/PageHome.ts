@@ -57,10 +57,12 @@ export default class PageHome extends AbstractView {
 
     /**关注整个联赛 */
     setAllLove(competition: any) {
+        console.warn("competition", competition);
+
         const matches = competition.matches;
         const len = matches.length;
         for (let i = len - 1; i >= 0; i--) {
-            this.myProxy.api_user_love(matches[i].id);
+            this.myProxy.api_user_love(competition.competition_id, matches[i].id);
         }
         // let lovecount: number = 0;
         // matches.forEach((item: any) => {

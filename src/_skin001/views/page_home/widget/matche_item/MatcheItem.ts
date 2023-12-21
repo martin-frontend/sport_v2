@@ -71,7 +71,7 @@ export default class MatcheItem extends AbstractView {
     }
 
     get start_time() {
-        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm" ,true);
+        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm", true);
     }
 
     get start() {
@@ -220,6 +220,6 @@ export default class MatcheItem extends AbstractView {
     }
 
     onLove() {
-        this.myProxy.api_user_love(this.matche.id);
+        this.myProxy.api_user_love(1, this.matche.id);
     }
 }

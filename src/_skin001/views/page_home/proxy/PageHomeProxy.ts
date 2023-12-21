@@ -250,7 +250,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
         this.pageData.lovematch_order++;
         this.sendNotification(net.HttpType.api_user_lovematch, { unique: this.pageData.lovematch_order });
     }
-    api_user_love(event_id: number) {
+    api_user_love(competition_id: number, event_id: number) {
         if (this.user_type == 2) {
             logEnterTips();
             return;
@@ -273,7 +273,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
                 }
             }
         }
-        this.sendNotification(net.HttpType.api_user_love, { event_id: event_id.toString() });
+        this.sendNotification(net.HttpType.api_user_love, { event_id: event_id.toString(), competition_id: competition_id.toString() });
     }
 
     api_menu_subnav() {
