@@ -1,6 +1,7 @@
 <div>
     <div class="d-flex btnPlain--text text-truncate text-14 px10 mb-1">
-        <span> {{item.leg_info.length}}{{LangUtil('串')}}1*1 </span>
+        <span v-if="['vi_VN'].includes(GlobalVar.lang)"> {{LangUtil("串{0} {1}*{2}",item.leg_info.length, 1, 1)}} </span>
+        <span v-else>{{LangUtil("{0}串{1}*{2}",item.leg_info.length, 1, 1)}}</span>
         <v-spacer />
         <!-- <span class="textGray--text text-13">
             @{{parlayOdds}}
@@ -24,6 +25,12 @@
         <div>{{LangUtil("预计可赢")}}</div>
         <v-spacer />
         <span class="font-weight-bold" :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}}</span>
+    </div>
+
+    <div class="d-flex px10 mt-1">
+        <div>{{LangUtil("预计派彩")}}</div>
+        <v-spacer />
+        <span class="font-weight-bold yellow--text">{{GlobalVar.currency}} {{getPayout(item)}}</span>
     </div>
 
     <div class="d-flex px10 mt-1 align-center">
@@ -83,7 +90,7 @@
                         <div>@{{TransMarketPrice(leg.odds)}}</div>
                     </div>
 
-                    <div class="d-flex px10 mt-1" v-if="leg.state && Object.keys(leg.state).length > 0">
+                    <div class="d-flex px10 mt-1" v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
                         <div>{{LangUtil("滚球")}}</div>
                         <v-spacer />
                         <div class="font-weight-bold" v-html="OrderTitleUtils.getScoreStr(leg)"></div>

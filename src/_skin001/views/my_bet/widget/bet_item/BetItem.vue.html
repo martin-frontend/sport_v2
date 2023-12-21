@@ -238,10 +238,16 @@
             </v-expand-transition>
         </div>
 
-        <div class="d-flex ml10 mr10 mt-2 mb-1">
+        <div class="d-flex ml10 mr10 mt-2">
             <span>{{LangUtil("预计可赢")}}</span>
             <v-spacer />
             <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{getPreWin()}}</span>
+        </div>
+
+        <div class="d-flex ml10 mr10 mb-1">
+            <span>{{LangUtil("预计派彩")}}</span>
+            <v-spacer />
+            <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{payout}}</span>
         </div>
 
         <!-- <div class="d-flex ml10 mr10 mb-2" v-if="$vuetify.breakpoint.mobile">

@@ -1,7 +1,12 @@
 <div>
     <div class="d-flex align-center">
         <img src="@/_skin001_order_detail/assets/icon_blue.png" max-height="30" height="30" max-width="10" width="10" />
-        <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">{{item.leg_info.length}}{{LangUtil('串')}}1*1</div>
+        <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold" v-if="['vi_VN'].includes(GlobalVar.lang)">
+            {{LangUtil("串{0} {1}*{2}",item.leg_info.length, 1, 1)}}
+        </div>
+        <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold" v-else>
+            {{LangUtil("{0}串{1}*{2}",item.leg_info.length, 1, 1)}}
+        </div>
     </div>
     <div
         class="rounded order-content"
@@ -12,7 +17,7 @@
                 <span class="font-weight-bold "> {{getStateStr(myProxy.event_states(item)).scoreStr}}</span>
             </div>
             <div class="my-2 custom-hr"></div> -->
-        <div style="position: relative;">
+        <div style="position: relative">
             <div width="100%">
                 {{LangUtil("订单状态")}}
                 <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">{{statusMap[item.status]}}</span>
@@ -39,14 +44,14 @@
             <div width="100%">
                 {{LangUtil("投注时间")}}
                 <span class="font-weight-bold">
-                    {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                    {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span
                 >
             </div>
 
             <div width="100%" v-if="item.is_settle == 1">
                 {{LangUtil("结算时间")}}
                 <span class="font-weight-bold">
-                    {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                    {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span
                 >
             </div>
             <div class="win-type-chuan">
@@ -72,10 +77,10 @@
                 <div style="margin-left: 8px">@{{TransMarketPrice(leg.odds)}}</div>
             </div>
             <div class="text-14">
-                <span v-if="leg.state && Object.keys(leg.state).length > 0">{{LangUtil("滚球")}}</span>
-                <span class="font-weight-bold" v-if="leg.state && Object.keys(leg.state).length > 0"
-                    >{{OrderTitleUtils.getScoreStr(leg)}}</span
-                >
+                <template v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
+                    <span>{{LangUtil("滚球")}}</span>
+                    <span class="font-weight-bold">{{OrderTitleUtils.getScoreStr(leg)}}</span>
+                </template>
                 {{leg.market_type_text}}
             </div>
             <div class="chuandan_win" v-if="leg.selection_win_type">

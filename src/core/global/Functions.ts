@@ -16,7 +16,16 @@ export function generateUUID() {
 }
 
 /** 格式化日期 */
-export function dateFormat(d: any, fmt: any): string {
+export function dateFormat(d: any, fmt: any, translate: boolean = false): string {
+    if (translate) {
+        if (fmt.includes("yyyy/MM/dd")) {
+            fmt = fmt.replace("yyyy/MM/dd", LangUtil("yyyy/MM/dd"));
+        } else if (fmt.includes("yyyy-MM-dd")) {
+            fmt = fmt.replace("yyyy-MM-dd", LangUtil("yyyy-MM-dd"));
+        } else if (fmt.includes("MM/dd")) {
+            fmt = fmt.replace("MM/dd", LangUtil("MM/dd"));
+        }
+    }
     const o: any = {
         "M+": d.getMonth() + 1, //月份
         "d+": d.getDate(), //日

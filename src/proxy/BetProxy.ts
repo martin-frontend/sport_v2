@@ -272,7 +272,7 @@ export default class BetProxy extends puremvc.Proxy {
             };
         });
         if (form.is_multiple == 1) {
-            form.multi_odds = this.pageData.parlayOdds;
+            form.multi_odds = `${this.pageData.parlayOdds}`;
         }
         Http.post(net.HttpType.api_user_prebet_v3, form).then((response: any) => {
             if (response.status == 0) {
@@ -379,7 +379,7 @@ export default class BetProxy extends puremvc.Proxy {
             bet_type,
         };
         if (bet_type == "multi") {
-            form.multi_odds = this.pageData.parlayOdds;
+            form.multi_odds = `${this.pageData.parlayOdds}`;
         }
         form.bet_list = [];
         this.pageData.bettedList.forEach((item) => {

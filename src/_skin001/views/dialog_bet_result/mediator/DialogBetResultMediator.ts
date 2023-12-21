@@ -211,6 +211,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
             const betProxy: BetProxy = getProxy(BetProxy);
             const states = betProxy.pageData.event_states.find((item) => item.event_id == data.event_id);
             if (states) {
+                data.states = states;
                 data.isInPlay = true;
                 data.goals = this.getStats(data.market.market_type, states);
                 if (states.phase_minute > 0) {

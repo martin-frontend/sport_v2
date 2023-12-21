@@ -120,7 +120,9 @@ export default class BetItem extends AbstractView {
     }
 
     getStartTime() {
-        return formatEventTime(dateFormat(getDateByTimeZone(this.item.matche.sb_time * 1000, <any>GlobalVar.zone), "yyyy/MM/dd hh:mm:ss"));
+        return formatEventTime(
+            dateFormat(getDateByTimeZone(this.item.matche.sb_time * 1000, <any>GlobalVar.zone), "yyyy/MM/dd hh:mm:ss", true)
+        );
     }
 
     getDay(): number {
@@ -146,7 +148,7 @@ export default class BetItem extends AbstractView {
     }
     //检测是否为滚球
     checkInplay() {
-        return !!this.states && !!this.states.goals_ft;
+        return !!this.states && !!this.states.goals_ft && this.states.match_phase != "-";
     }
 
     onInput(e: any) {
@@ -308,5 +310,11 @@ export default class BetItem extends AbstractView {
 
     getRaceTime(date: any) {
         return dateFormat(getDateByTimeZone(date * 1000, <any>GlobalVar.zone), "yyyy/MM/dd hh:mm:ss");
+    }
+
+    get payout() {
+        const stake = Number(parseLocaleNumber(this.item.stake)) || 0;
+        const preWin = Number(parseLocaleNumber(this.getPreWin())) || 0;
+        return amountFormat(preWin + stake, true);
     }
 }

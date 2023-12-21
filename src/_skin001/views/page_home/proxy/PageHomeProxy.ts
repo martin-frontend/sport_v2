@@ -184,7 +184,6 @@ export default class PageHomeProxy extends puremvc.Proxy {
                 this.pageData.event_states.push(item);
             }
         }
-        // TODO 移除已经结束的赛事
     }
     set_user_lovematch(data: any) {
         if (this.listQueryComp.tag == "love") this.pageData.loading = false;

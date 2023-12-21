@@ -64,7 +64,7 @@
                 :end-placeholder="LangUtil('结束日期')"
                 :default-time="[`00:00:00`, `23:59:00`]"
                 align="right"
-                format="yyyy-MM-dd HH:mm:ss"
+                :format="`${LangUtil('yyyy-MM-dd')} HH:mm:ss`"
                 class="input_range align-center"
                 @change="onTimeChange"
                 :clearable="false"
@@ -136,7 +136,7 @@
                             <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
                                 <svg-icon class="text-16" icon="copy"></svg-icon>
                             </button>
-                            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
+                            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span>
                         </template>
                     </v-col>
                     <v-col>
@@ -184,7 +184,7 @@
                         </div>
 
                         <div>{{leg.market_type_text}}</div>
-                        <div class="d-flex" v-if="leg.state && Object.keys(leg.state).length > 0">
+                        <div class="d-flex" v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
                             <span>{{LangUtil("滚球")}}&nbsp;</span>
                             <span><div v-html="OrderTitleUtils.getScoreStr(leg)"></div> </span>
                         </div>

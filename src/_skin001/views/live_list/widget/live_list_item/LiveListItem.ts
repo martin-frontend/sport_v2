@@ -26,7 +26,7 @@ export default class LiveListItem extends AbstractView {
 
     get start_time() {
         //@ts-ignore
-        return dateFormat(getDateByTimeZone(this.data.start_time_timestamp * 1000, GlobalVar.zone), "MM-dd hh:mm");
+        return dateFormat(getDateByTimeZone(this.data.start_time_timestamp * 1000, GlobalVar.zone), "MM/dd hh:mm", true);
     }
 
     get race_start_time() {

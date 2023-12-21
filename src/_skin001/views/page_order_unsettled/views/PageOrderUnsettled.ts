@@ -5,7 +5,7 @@ import LangUtil from "@/core/global/LangUtil";
 import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
-import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
+import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, parseLocaleNumber, TransMarketPrice } from "@/core/global/Functions";
 import CopyUtil from "@/core/global/CopyUtil";
 import EnumMarketType from "@/core/global/MarketUtils";
 import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
@@ -99,7 +99,9 @@ export default class PageOrderUnsettled extends AbstractView {
             const hr = Math.floor(start_in_sec / 60 / 60);
             const min = Math.floor((start_in_sec / 60) % 60);
             if (start_in_sec > 0) {
-                states_str = formatEventTime(dateFormat(getDateByTimeZone(item.event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss"));
+                states_str = formatEventTime(
+                    dateFormat(getDateByTimeZone(item.event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss", true)
+                );
                 if (start_in_sec > 86400) {
                     states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
                 } else if (start_in_sec > 600) {
@@ -214,9 +216,15 @@ export default class PageOrderUnsettled extends AbstractView {
     }
 
     getRaceTime(event_time: any) {
-        if(event_time < GlobalVar.server_time) {
-            return ""
+        if (event_time < GlobalVar.server_time) {
+            return "";
         }
-        return dateFormat(getDateByTimeZone(event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss")
+        return dateFormat(getDateByTimeZone(event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss");
+    }
+
+    getPayout(item: any) {
+        const stake = Number(item.stake) || 0;
+        const preWin = Number(item.expected_win) || 0;
+        return amountFormat(preWin + stake, true);
     }
 }

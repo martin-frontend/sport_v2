@@ -1,7 +1,7 @@
 import AbstractView from "@/core/abstract/AbstractView";
 import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
-import { amountFormat, dateFormat, TransMarketPrice } from "@/core/global/Functions";
+import { amountFormat, dateFormat, parseLocaleNumber, getDateByTimeZone, TransMarketPrice } from "@/core/global/Functions";
 import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import MarketUtils from "@/core/global/MarketUtils";
@@ -150,7 +150,7 @@ export default class BetResult extends AbstractView {
     // }
 
     getCreateTime(create_time: any) {
-        return dateFormat(new Date(create_time * 1000), "yyyy/MM/dd hh:mm:ss");
+        return dateFormat(getDateByTimeZone(create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)
     }
 
     onClose() {
@@ -169,6 +169,16 @@ export default class BetResult extends AbstractView {
             group: "message",
             title: LangUtil("复制成功"),
         });
+    }
+
+    getPreWin(item: any) {
+        return amountFormat((item.odds * item.stake - item.stake).toFixed(3), true, 2);
+    }
+
+    getPayout(item: any) {
+        const stake = Number(item.stake) || 0;
+        const preWin = Number(parseLocaleNumber(this.getPreWin(item))) || 0;
+        return amountFormat(preWin + stake, true);
     }
 
     // get parlayOdds() {

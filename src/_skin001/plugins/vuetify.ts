@@ -44,6 +44,7 @@ export function getVuetify(): Vuetify {
                         timeColor2: "#0f1213",
                         headerTextColor: "#919191",
                         textGray2: "#0F1213",
+                        preWinColor: "#0325b4",
                     },
                     dark: {
                         competBC: "#1e1e1e",
@@ -79,6 +80,7 @@ export function getVuetify(): Vuetify {
                         timeColor2: "#8e8f91",
                         headerTextColor: "#919191",
                         textGray2: "#0F1213",
+                        preWinColor: "#1B5FFF",
                     },
                 },
                 dark: false,

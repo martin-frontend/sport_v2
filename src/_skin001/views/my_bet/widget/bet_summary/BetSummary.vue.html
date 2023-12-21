@@ -4,8 +4,9 @@
     </template>
     <template v-else>
         <div v-if="allowBetArr.length >= 2" class="d-flex justify-space-between btnPlain--text text-truncate text-14 font-weight-bold">
-            <span>{{allowBetArr.length}}{{LangUtil('串')}}1*1</span>
-            <span class="text-18">@{{parlayOdds}}</span>
+            <span v-if="['vi_VN'].includes(GlobalVar.lang)">{{LangUtil("串{0} {1}*{2}",allowBetArr.length, 1, 1)}}</span>
+            <span v-else>{{LangUtil("{0}串{1}*{2}",allowBetArr.length, 1, 1)}}</span>
+            <span class="text-18">@{{TransMarketPrice(parlayOdds)}}</span>
         </div>
     </template>
 
@@ -122,6 +123,11 @@
         <span>{{LangUtil("预计可赢")}}</span>
         <v-spacer />
         <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{preWin}}</span>
+    </div>
+    <div class="d-flex">
+        <span>{{LangUtil("预计派彩")}}</span>
+        <v-spacer />
+        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{payout}}</span>
     </div>
     <template v-if="!$vuetify.breakpoint.mobile">
         <!-- v-if="!item.oddsChange || item.isMarketClose" -->

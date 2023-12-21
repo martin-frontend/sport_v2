@@ -281,7 +281,7 @@ export default class BetSummary extends AbstractView {
     get parlayOdds() {
         let odds = 1;
         this.myProxy.pageData.list.forEach((item: any) => {
-            odds *= item.msg ? 1 : this.TransMarketPrice(item.odds);
+            odds *= item.msg ? 1 : item.odds;
         });
         let parlayOdds = Math.min(odds, this.myProxy.pageData.maxParlayOdds).toFixed(2);
         return (this.myProxy.pageData.parlayOdds = parlayOdds);
@@ -305,7 +305,13 @@ export default class BetSummary extends AbstractView {
             }
         }
     }
-    get keybordarr(){
+    get keybordarr() {
         return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", this.decimalSeparator];
-    } 
+    }
+
+    get payout() {
+        const stake = this.totalStake;
+        const preWin = Number(parseLocaleNumber(this.preWin)) || 0;
+        return amountFormat(preWin + stake, true);
+    }
 }

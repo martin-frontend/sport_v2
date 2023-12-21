@@ -31,10 +31,10 @@
                 </div>
 
                 <div class="text-14">
-                    <span v-if="leg.state && Object.keys(leg.state).length > 0">{{LangUtil("滚球")}}</span>
-                    <span class="font-weight-bold" v-if="leg.state && Object.keys(leg.state).length > 0"
-                        >{{OrderTitleUtils.getScoreStr(leg)}}</span
-                    >
+                    <template v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
+                        <span>{{LangUtil("滚球")}}</span>
+                        <span class="font-weight-bold">{{OrderTitleUtils.getScoreStr(leg)}}</span>
+                    </template>
                     {{leg.market_type_text}}
                 </div>
                 <div class="text-14 d-flex flex-wrap">
@@ -74,14 +74,14 @@
                 <div width="100%">
                     {{LangUtil("投注时间")}}
                     <span class="font-weight-bold">
-                        {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                        {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span
                     >
                 </div>
 
                 <div width="100%" v-if="item.is_settle == 1">
                     {{LangUtil("结算时间")}}
                     <span class="font-weight-bold">
-                        {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span
+                        {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span
                     >
                 </div>
 
