@@ -28,7 +28,7 @@
                                 </div>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                                <span>{{markets?.RB_WIN?.hint}}</span>
+                                <span>{{markets.RB_WIN.hint}}</span>
                             </v-sheet>
                         </v-tooltip>
                     </v-col>
@@ -41,7 +41,7 @@
                                 </div>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                                <span>{{markets?.RB_PLACE?.hint}}</span>
+                                <span>{{markets.RB_PLACE.hint}}</span>
                             </v-sheet>
                         </v-tooltip>
                     </v-col>
@@ -77,7 +77,7 @@
                                 :match-key="pageData.matchKey"
                                 :match="match"
                                 :selection="getWinSelection(runner.runner_id)"
-                                :market="markets?.RB_WIN"
+                                :market="markets.RB_WIN"
                                 :is-fav="favRunnerId == runner.runner_id"
                                 :price="getWin(runner.runner_id)"
                             ></BtnFixedBet>
@@ -87,7 +87,7 @@
                                 :match-key="pageData.matchKey"
                                 :match="match"
                                 :selection="getPlaceSelection(runner.runner_id)"
-                                :market="markets?.RB_PLACE"
+                                :market="markets.RB_PLACE"
                                 :price="getPlace(runner.runner_id)"
                             ></BtnFixedBet>
                         </v-col>
@@ -185,7 +185,7 @@
                                 :match-key="pageData.matchKey"
                                 :match="match"
                                 :selection="getWinSelection(runner.runner_id)"
-                                :market="markets?.RB_WIN"
+                                :market="markets.RB_WIN"
                                 :is-fav="favRunnerId == runner.runner_id"
                                 :price="getWin(runner.runner_id)"
                             ></BtnFixedBet>
@@ -195,7 +195,7 @@
                                 :match-key="pageData.matchKey"
                                 :match="match"
                                 :selection="getPlaceSelection(runner.runner_id)"
-                                :market="markets?.RB_PLACE"
+                                :market="markets.RB_PLACE"
                                 :price="getPlace(runner.runner_id)"
                             ></BtnFixedBet>
                         </v-col>
