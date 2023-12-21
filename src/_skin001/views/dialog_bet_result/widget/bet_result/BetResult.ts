@@ -74,7 +74,7 @@ export default class BetResult extends AbstractView {
         if (this.betProxy.pageData.betType == "parlay") {
             return this.pageData.parlayData.status;
         } else {
-            const index = this.pageData.list.findIndex((item: any) => item.status == 0 && item.code == 0);
+            const index = this.pageData.list.findIndex((item: any) => item.status == 0 && !item.code);
             return index > -1 ? 0 : 1;
         }
     }
@@ -86,7 +86,7 @@ export default class BetResult extends AbstractView {
         let num = 0;
         //@ts-ignore
         this.pageData.list.forEach((item) => {
-            if (item.status == 1 || item.code != 0) {
+            if (item.status == 1 || !!item.code) {
                 num++;
             }
         });

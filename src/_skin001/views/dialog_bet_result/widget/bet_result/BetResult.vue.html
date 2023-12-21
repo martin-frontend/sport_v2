@@ -82,7 +82,7 @@
                 <v-card-text class="pa-2">
                     <div class="d-flex justify-space-between">
                         <span>{{LangUtil("订单状态")}} </span>
-                        <div v-if="item.code == 0">
+                        <div v-if="!item.code">
                             <span class="font-weight-bold" :style="{ 'color': statusMapColor[item.status]} ">
                                 {{statusMap[item.status]}}
                             </span>
