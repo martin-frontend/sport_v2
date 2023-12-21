@@ -82,7 +82,7 @@ export default class BetResult extends AbstractView {
         let num = 0;
         //@ts-ignore
         this.pageData.list.forEach((item) => {
-            if (item.status == 1 || !!item.code) {
+            if (item.status == 1) {
                 num++;
             }
         });
