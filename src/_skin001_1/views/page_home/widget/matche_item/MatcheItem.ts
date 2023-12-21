@@ -214,6 +214,6 @@ export default class MatcheItem extends AbstractView {
     }
 
     onLove() {
-        this.myProxy.api_user_love(this.matche.id);
+        this.myProxy.api_user_love(1, this.matche.id);
     }
 }

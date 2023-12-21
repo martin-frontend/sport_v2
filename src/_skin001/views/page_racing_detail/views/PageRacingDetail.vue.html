@@ -69,15 +69,15 @@
                     <template v-if="states && states.match_phase != 'OPEN'">
                         <v-sheet
                             color="timeColor2"
-                            class="rounded d-flex align-center justify-center px-1 text-12 white--text"
-                            height="20"
+                            class="rounded d-flex align-center justify-center px-1 text-14 white--text font-weight-bold"
+                            height="30"
                             min-width="60"
                         >
                             {{getResultStr(states.match_phase)}}
                         </v-sheet>
                     </template>
                     <template v-else>
-                        <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                        <div class="tagTextColor2--text text-16 font-weight-bold px-1">{{getStartTime(match.start_time_timestamp)}}</div>
                     </template>
                 </v-sheet>
                 <ResultTable v-if="states && states.match_phase == 'DONE'" :match="match" :states="states" :markets="markets"></ResultTable>
