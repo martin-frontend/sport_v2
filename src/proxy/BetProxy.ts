@@ -395,7 +395,7 @@ export default class BetProxy extends puremvc.Proxy {
                 stake: item.stake,
                 // stake: null,
                 side: "Back",
-                price_index: item.selection.priceIndex.toString(),
+                price_index: item.selection.priceIndex?.toString() || "0",
                 sport_id: item.comp.sport_id,
             };
             if (bet_type == "multi") {

@@ -69,12 +69,13 @@
                         <div class="d-flex">
                             <div class="text-truncate">{{item.selection.id}}. {{item.selection.name}}</div>
                             <v-spacer />
-                            <div class="font-weight-bold">@{{ TransMarketPrice(item.odds) }}</div>
+                            <div class="font-weight-bold">
+                                <span v-if="item.odds != 'SP'"> @{{ TransMarketPrice(item.odds) }} </span>
+                                <span v-else>SP</span>
+                            </div>
                         </div>
                         <div>{{LangUtil(item.market.title)}}</div>
-                        <div class="font-weight-bold">
-                            {{item.matche.key}}
-                        </div>
+                        <div class="font-weight-bold">{{item.matche.key}}</div>
                     </template>
                 </v-card-text>
                 <v-divider />
@@ -96,18 +97,17 @@
                         <span>{{LangUtil("投注金额")}} </span>
                         <span class="font-weight-bold">{{GlobalVar.currency}} {{amountFormat(item.stake)}}</span>
                     </div>
-                    <div class="d-flex justify-space-between">
-                        <span>{{LangUtil("预计可赢")}} </span>
-                        <span class="font-weight-bold"
-                            >{{GlobalVar.currency}} {{getPreWin(item)}}</span
-                        >
-                    </div>
-                    <div class="d-flex justify-space-between">
-                        <span>{{LangUtil("预计派彩")}} </span>
-                        <span class="font-weight-bold"
-                            >{{GlobalVar.currency}} {{getPayout(item)}}</span
-                        >
-                    </div>
+
+                    <template v-if="item.odds != 'SP'">
+                        <div class="d-flex justify-space-between">
+                            <span>{{LangUtil("预计可赢")}} </span>
+                            <span class="font-weight-bold">{{GlobalVar.currency}} {{getPreWin(item)}}</span>
+                        </div>
+                        <div class="d-flex justify-space-between">
+                            <span>{{LangUtil("预计派彩")}} </span>
+                            <span class="font-weight-bold">{{GlobalVar.currency}} {{getPayout(item)}}</span>
+                        </div>
+                    </template>
                     <div class="d-flex justify-space-between">
                         <span>{{LangUtil("订单编号")}} </span>
                         <div class="text-right">
@@ -164,15 +164,11 @@
                     </div>
                     <div class="d-flex justify-space-between">
                         <span>{{LangUtil("预计可赢")}} </span>
-                        <span class="font-weight-bold">
-                            {{GlobalVar.currency}} {{getPreWin(parlayData)}}
-                        </span>
+                        <span class="font-weight-bold"> {{GlobalVar.currency}} {{getPreWin(parlayData)}} </span>
                     </div>
                     <div class="d-flex justify-space-between">
                         <span>{{LangUtil("预计派彩")}} </span>
-                        <span class="font-weight-bold">
-                            {{GlobalVar.currency}} {{getPayout(parlayData)}}
-                        </span>
+                        <span class="font-weight-bold"> {{GlobalVar.currency}} {{getPayout(parlayData)}} </span>
                     </div>
                     <div class="d-flex justify-space-between">
                         <span>{{LangUtil("订单编号")}} </span>
@@ -231,7 +227,7 @@
                                 <span class="mr-1">{{LangUtil("滚球")}} </span>
                                 <span class="font-weight-bold mr-2">{{item.goals}}</span>
                             </template>
-    
+
                             <div>{{transTitle(item.market.title, item.matche)}}</div>
                         </div>
                         <div>{{item.matche.home_team}}<span> VS </span>{{item.matche.away_team}}</div>
@@ -243,9 +239,7 @@
                             <div class="font-weight-bold">@{{ TransMarketPrice(item.odds) }}</div>
                         </div>
                         <div>{{LangUtil(item.market.title)}}</div>
-                        <div class="font-weight-bold">
-                            {{item.matche.key}}
-                        </div>
+                        <div class="font-weight-bold">{{item.matche.key}}</div>
                     </template>
                 </v-card-text>
             </v-card>

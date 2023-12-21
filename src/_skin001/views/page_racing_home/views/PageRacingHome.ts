@@ -9,6 +9,7 @@ import page_racing_home from "..";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import page_live_list from "../../page_live_list";
 import Assets from "@/_skin001/assets/Assets";
+import { dateFormat } from "@/core/global/Functions";
 
 @Component
 export default class PageRacingHome extends AbstractView {
@@ -42,8 +43,13 @@ export default class PageRacingHome extends AbstractView {
             withinAnHour: { title: "下一场", tag: "withinAnHour" },
             today: { title: "今天", tag: "today" },
             tomorrow: { title: "明天", tag: "tomorrow" },
-            dayAfterTomorrow: { title: this.curSportNav?.dayAfterTomorrow?.name, tag: "dayAfterTomorrow" },
+            dayAfterTomorrow: { title: this.getDayAfterTomorrow(this.curSportNav?.dayAfterTomorrow?.name), tag: "dayAfterTomorrow" },
         };
+    }
+
+    getDayAfterTomorrow(dayAfterTomorrow: any) {
+        if (!dayAfterTomorrow) return "";
+        return dateFormat(new Date(dayAfterTomorrow), "yyyy/MM/dd");
     }
 
     get nextTableData() {

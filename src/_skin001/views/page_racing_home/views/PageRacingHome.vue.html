@@ -63,6 +63,7 @@
                             :key="sportId"
                             :sport-item="sportCheckBoxOptions[sportId]"
                             :table-data="getTableData(sportId)"
+                            :is-hide-arrow="sportCheckBoxArr.length == 1 && sportCheckBoxArr.includes(`${sportId}`)"
                         ></RaceTable>
                     </template>
                 </template>

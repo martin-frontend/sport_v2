@@ -158,9 +158,13 @@
                                     <div class="d-flex text-14 font-weight-bold top-text">
                                         <div>{{leg.content}}</div>
                                         <v-spacer />
-                                        <div class="mr-2 text-16">@{{TransMarketPrice(leg.odds)}}</div>
+                                        <div class="mr-2 text-16">
+                                            <span v-if="leg.odds != 'SP'"> @{{ TransMarketPrice(leg.odds) }} </span>
+                                            <span v-else>SP</span>
+                                        </div>
                                     </div>
                                     <div class="text-14">{{leg.market_type_text}}</div>
+                                    <div class="text-14 font-weight-bold">{{leg.number_of_session}}</div>
                                     <div class="text-14" v-if="listQuery.is_settle != 1">{{getRaceTime(leg.event_time)}}</div>
                                 </template>
                             </v-sheet>
@@ -179,15 +183,18 @@
                                 <span>{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
                             </v-sheet>
 
-                            <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
-                                <span class="textGray--text mr-1">{{getdisplayResultStr(item)}}</span>
-                                <span :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}} </span>
-                            </v-sheet>
+                            <template v-if="item.leg_info[0] && item.leg_info[0].odds != 'SP'">
+                                <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
+                                    <span class="textGray--text mr-1">{{getdisplayResultStr(item)}}</span>
+                                    <span :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}} </span>
+                                </v-sheet>
 
-                            <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
-                                <span class="textGray--text mr-1">{{LangUtil("预计派彩")}}</span>
-                                <span class="preWinColor--text">{{GlobalVar.currency}} {{getPayout(item)}}</span>
-                            </v-sheet>
+                                <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
+                                    <span class="textGray--text mr-1">{{LangUtil("预计派彩")}}</span>
+                                    <span class="preWinColor--text">{{GlobalVar.currency}} {{getPayout(item)}}</span>
+                                </v-sheet>
+                            </template>
+
                             <v-sheet width="100%" color="transparent">
                                 <span class="textGray--text mr-1">{{LangUtil("订单编号")}}</span>
                                 <span>{{item.order_no}}</span></v-sheet

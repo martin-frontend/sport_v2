@@ -51,7 +51,7 @@
     </template>
 
     <template v-else>
-        <v-row class="tableHeaderColor px-2 py-2 hand" no-gutters @click="isShowContent = !isShowContent">
+        <v-row class="tableHeaderColor px-2 py-2" :class="{'hand': !isHideArrow}" no-gutters @click="onShowContent">
             <v-col class="d-flex align-center tagTextColor2--text">
                 <v-sheet class="rounded" width="2" height="16" color="yellow1"></v-sheet>
                 <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-22 ml-2"></svg-icon>
@@ -60,7 +60,7 @@
             <v-col cols="auto" v-for="i of 14" :key="i">
                 <v-sheet color="transparent" class="text-center tagTextColor1--text text-14" width="70">R{{ i }}</v-sheet>
             </v-col>
-            <v-col cols="auto" class="d-flex align-center">
+            <v-col cols="auto" class="d-flex align-center" v-if="!isHideArrow">
                 <div class="icon-box iconfont text-14 tagTextColor2--text" :class="isShowContent? 'arrow-show':'arrow'">
                     <svg-icon icon="zoom_out"></svg-icon>
                 </div>
@@ -109,7 +109,7 @@
                                 </template>
                             </v-sheet>
                         </v-col>
-                        <v-col cols="auto" class="d-flex align-center pr-2">
+                        <v-col v-if="!isHideArrow" cols="auto" class="d-flex align-center pr-2">
                             <v-sheet width="14" color="transparent"></v-sheet>
                         </v-col>
                     </v-row>

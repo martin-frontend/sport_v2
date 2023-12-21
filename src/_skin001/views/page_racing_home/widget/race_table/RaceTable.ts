@@ -16,6 +16,7 @@ export default class RaceTable extends AbstractView {
     @Prop() sportItem!: any;
     @Prop() tableData!: any;
     @Prop({ default: false }) isNext!: boolean;
+    @Prop() isHideArrow!: boolean;
     sportIcon = Assets.SportIcon;
     headerList = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14"];
 
@@ -92,6 +93,18 @@ export default class RaceTable extends AbstractView {
 
     isShowP(event_id: number) {
         return this.getFixMarket(event_id)?.RB_WIN?.selections[0]?.metadata?.fluctuate?.length > 0;
+    }
+
+    onShowContent() {
+        if (this.isHideArrow) return;
+        this.isShowContent = !this.isShowContent;
+    }
+
+    @Watch("isHideArrow")
+    onWatchIsHideArrow(val: boolean) {
+        if (val) {
+            this.isShowContent = true;
+        }
     }
 
     destroyed() {
