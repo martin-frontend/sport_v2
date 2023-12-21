@@ -38,6 +38,7 @@
                             color="#feba00"
                             class="mr-8"
                             :key="sportId"
+                            :disabled="sportCheckBoxArr.length == 1 && sportCheckBoxArr.includes(`${sportId}`)"
                             @change="onCheckboxChange"
                         >
                             <template #label>

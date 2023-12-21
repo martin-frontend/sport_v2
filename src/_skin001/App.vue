@@ -8,16 +8,10 @@
                 min-width="242"
                 max-width="242"
                 color="transparent"
-                v-show="$route.path != '/page_racing_home'"
             >
-                <Navigation v-if="!$vuetify.breakpoint.mobile" />
+                <Navigation />
             </v-sheet>
-            <v-sheet
-                class="py-0 overflow-hidden"
-                width="100%"
-                color="transparent"
-                :class="{ 'ml-2': !$vuetify.breakpoint.mobile && $route.path == '/page_racing_home' }"
-            >
+            <v-sheet class="py-0 overflow-hidden" width="100%" color="transparent">
                 <Header v-if="!$vuetify.breakpoint.mobile" />
                 <!-- <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
                     <v-sheet
@@ -32,39 +26,25 @@
                         <RightPanel />
                     </v-sheet>
                 </v-sheet> -->
-                <template v-if="$route.path == '/page_racing_home'">
-                    <v-sheet
-                        id="routerBox"
-                        class="overflow-y-auto overflow-x-hidden scroll-div"
-                        v-scroll.self="onScroll"
-                        width="100%"
-                        color="transparent"
-                        :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
-                    >
-                        <router-view />
-                    </v-sheet>
-                </template>
-                <template v-else>
-                    <v-row dense :class="{ 'mt-1': !$vuetify.breakpoint.mobile }">
-                        <v-col :cols="$vuetify.breakpoint.mobile ? 12 : 8">
-                            <v-sheet
-                                id="routerBox"
-                                class="overflow-y-auto overflow-x-hidden scroll-div"
-                                v-scroll.self="onScroll"
-                                width="100%"
-                                color="transparent"
-                                :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
-                            >
-                                <router-view />
-                            </v-sheet>
-                        </v-col>
-                        <v-col cols="4">
-                            <v-sheet class="rightbox mr-2" color="transparent" v-if="!$vuetify.breakpoint.mobile">
-                                <RightPanel />
-                            </v-sheet>
-                        </v-col>
-                    </v-row>
-                </template>
+                <v-row dense :class="{ 'mt-1': !$vuetify.breakpoint.mobile }">
+                    <v-col :cols="$vuetify.breakpoint.mobile || $route.path == '/page_racing_home' ? 12 : 8">
+                        <v-sheet
+                            id="routerBox"
+                            class="overflow-y-auto overflow-x-hidden scroll-div"
+                            v-scroll.self="onScroll"
+                            width="100%"
+                            color="transparent"
+                            :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
+                        >
+                            <router-view />
+                        </v-sheet>
+                    </v-col>
+                    <v-col cols="4" v-if="!$vuetify.breakpoint.mobile && $route.path != '/page_racing_home'">
+                        <v-sheet class="rightbox mr-2" color="transparent">
+                            <RightPanel />
+                        </v-sheet>
+                    </v-col>
+                </v-row>
             </v-sheet>
         </v-sheet>
 

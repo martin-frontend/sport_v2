@@ -26,6 +26,7 @@
                         v-for="sportId of raceSportArr"
                         v-model="sportCheckBoxArr"
                         :value="`${sportId}`"
+                        :disabled="sportCheckBoxArr.length == 1 && sportCheckBoxArr.includes(`${sportId}`)"
                         multiple
                         color="#feba00"
                         class="mr-8"
