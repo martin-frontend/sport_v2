@@ -159,6 +159,10 @@ export default class BtnFixedBet extends AbstractView {
         );
         let event_states = detailProxy.pageData.event_states;
 
+        if (this.selection.price.back == null) {
+            this.selection.price.back = "SP";
+        }
+
         this.myProxy.addItem(comp, { ...this.match, key: this.matchKey }, this.market, this.selection, event_states);
     }
 }
