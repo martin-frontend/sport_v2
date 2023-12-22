@@ -8,7 +8,11 @@ function init(id: number) {
     const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     myProxy.listQueryComp.sport_id = homeProxy.listQueryComp.sport_id;
     myProxy.listQueryComp.tag = homeProxy.listQueryComp.tag;
-    myProxy.init(id);
+    if (id) {
+        myProxy.init(id);
+    } else {
+        myProxy.pageData.competition_list = [];
+    }
 }
 
 export default { init };
