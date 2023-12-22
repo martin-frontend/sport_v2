@@ -1,5 +1,5 @@
 <div>
-    <v-sheet color="transparent" height="40">
+    <v-sheet color="transparent" height="40" v-if="false">
         <horizontal_scroll :offsetx="16">
             <template v-slot="{data}">
                 <!-- <v-btn
@@ -33,7 +33,10 @@
         </horizontal_scroll>
     </v-sheet>
     <div ref="divlist">
-        <v-sheet color="bgBanner" class="mt-1 rounded-10 d-flex flex-column pb-2" max-height="100%">
+        <v-sheet color="bgBanner" class="mt-1 rounded-10 pb-2" max-height="100%">
+            <v-sheet color="#febc08" height="30" class="rounded d-inline-flex justify-center align-center px-2 ma-2">
+                <span>{{ LangUtil("下一场") }}</span>
+            </v-sheet>
             <div class="d-flex pl-8 border-bottom">
                 <template>
                     <v-checkbox

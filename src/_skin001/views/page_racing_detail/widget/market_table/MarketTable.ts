@@ -99,7 +99,7 @@ export default class MarketsTable extends AbstractView {
         if (length >= 5 && length < 8) {
             return LangUtil("其他规则: 第三名没有奖励");
         } else {
-            return LangUtil("其他规则：只有第一名有奖励");
+            return LangUtil("其他规则: 只有第一名有奖励");
         }
     }
 
