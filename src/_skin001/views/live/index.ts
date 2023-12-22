@@ -8,12 +8,17 @@ function init(event_id: number, sport_id?: any) {
     const myProxy: LiveProxy = getProxy(LiveProxy);
     const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     const racingDetailProxy: PageRacingDetailProxy = getProxy(PageRacingDetailProxy);
-    myProxy.listQueryComp.event_id = event_id.toString();
     myProxy.listQueryComp.sport_id = sport_id ?? homeProxy.listQueryComp.sport_id;
     myProxy.listQueryComp.tag = !SportUtil.isRaceEvent(myProxy.listQueryComp.sport_id)
         ? homeProxy.listQueryComp.tag
         : racingDetailProxy.listQueryComp.tag;
-    myProxy.api_event_list();
+
+    if (event_id) {
+        myProxy.listQueryComp.event_id = event_id.toString();
+        myProxy.api_event_list();
+    } else {
+        myProxy.pageData.competition_list = [];
+    }
 }
 
 export default { init };

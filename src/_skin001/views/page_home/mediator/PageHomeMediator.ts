@@ -35,7 +35,6 @@ export default class PageHomeMediator extends AbstractMediator {
         switch (notification.getName()) {
             case net.EventType.api_event_list_v3:
                 if (type == PageHomeProxy.NAME) {
-                    right_panel.show(0);
                     myProxy.set_event_list(body);
                 }
                 break;

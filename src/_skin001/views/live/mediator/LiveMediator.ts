@@ -19,11 +19,9 @@ export default class LiveMediator extends AbstractMediator {
                 if (type == LiveProxy.NAME) {
                     myProxy.set_event_list(body);
                 }
-                if(type == PageHomeProxy.NAME) {
+                if (type == PageHomeProxy.NAME) {
                     const event_id = body[0]?.matches[0]?.id;
-                    if(event_id) {
-                        live.init(event_id);
-                    }
+                    live.init(event_id);
                 }
                 break;
             case net.EventType.api_event_states:

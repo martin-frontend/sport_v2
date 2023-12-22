@@ -28,11 +28,9 @@ export default class MatcheMediator extends AbstractMediator {
                         live.init(GlobalVar.pre_event_id);
                     }
                 }
-                if(type == PageHomeProxy.NAME) {
+                if (type == PageHomeProxy.NAME) {
                     const event_id = body[0]?.matches[0]?.id;
-                    if(event_id) {
-                        matche.init(event_id);
-                    }
+                    matche.init(event_id);
                 }
                 if (type == MatcheProxy.NAME) {
                     myProxy.set_event_list(body);
