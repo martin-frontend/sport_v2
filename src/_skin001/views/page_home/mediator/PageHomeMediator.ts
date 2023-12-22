@@ -13,7 +13,9 @@ export default class PageHomeMediator extends AbstractMediator {
         // GlobalVar.loading = true;
         // myProxy.api_menu_subnav();
         // myProxy.api_menu_leftnav();
-        myProxy.api_event_list();
+        if (!myProxy.pageData.loading) {
+            myProxy.api_event_list();
+        }
     }
 
     public listNotificationInterests(): string[] {

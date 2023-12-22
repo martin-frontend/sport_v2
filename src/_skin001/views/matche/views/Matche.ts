@@ -13,7 +13,6 @@ export default class Matche extends AbstractView {
     rightProxy: RightPanelProxy = this.getProxy(RightPanelProxy);
     myProxy: MatcheProxy = this.getProxy(MatcheProxy);
     pageData = this.myProxy.pageData;
-
     timer = 0;
 
     constructor() {
@@ -45,9 +44,12 @@ export default class Matche extends AbstractView {
     }
 
     /**盘口 筛选 */
-    get marketTypeOptions() {
-        return this.myProxy.marketTypeOptions;
+    get market_main_type() {
+        const arr = [{ id: 0, name: LangUtil("所有") }];
+        arr.push(...this.pageData.marketTypeOptions.market_main_type);
+        return arr;
     }
+
     transTitle(title: any) {
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();

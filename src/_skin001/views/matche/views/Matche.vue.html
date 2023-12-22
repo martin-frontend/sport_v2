@@ -8,7 +8,7 @@
                     height="30"
                     outlined
                     color="borderGray"
-                    v-for="(item, index) in myProxy.marketTypeOptions"
+                    v-for="(item, index) in market_main_type"
                     :key="index"
                     @click="!data.isMoving && onMarketType(item.id)"
                 >
