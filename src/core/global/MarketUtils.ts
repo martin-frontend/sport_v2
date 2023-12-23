@@ -124,6 +124,21 @@ const EnumMarketType = {
     BK_ASIAN_HANDICAP_HALF_TIME: "BK_ASIAN_HANDICAP_HALF_TIME",
     BK_ASIAN_OVER_UNDER: "BK_ASIAN_OVER_UNDER",
     BK_ASIAN_OVER_UNDER_HALF_TIME: "BK_ASIAN_OVER_UNDER_HALF_TIME",
+
+    HANDICAP_FIRST_QUARTER: "HANDICAP_FIRST_QUARTER",
+    HANDICAP_HALF_TIME: "HANDICAP_HALF_TIME",
+    MONEY_LINE: "MONEY_LINE",
+    MONEY_LINE_FIRST_QUARTER: "MONEY_LINE_FIRST_QUARTER",
+    MONEY_LINE_HALF_TIME: "MONEY_LINE_HALF_TIME",
+    TOTAL_POINTS: "TOTAL_POINTS",
+    TOTAL_POINTS_FIRST_QUARTER: "TOTAL_POINTS_FIRST_QUARTER",
+    TOTAL_POINTS_HALF_TIME: "TOTAL_POINTS_HALF_TIME",
+    TEAM_A_TOTAL_POINTS: "TEAM_A_TOTAL_POINTS",
+    TEAM_A_TOTAL_POINTS_FIRST_QUARTER: "TEAM_A_TOTAL_POINTS_FIRST_QUARTER",
+    TEAM_A_TOTAL_POINTS_HALF_TIME: "TEAM_A_TOTAL_POINTS_HALF_TIME",
+    TEAM_B_TOTAL_POINTS: "TEAM_B_TOTAL_POINTS",
+    TEAM_B_TOTAL_POINTS_FIRST_QUARTER: "TEAM_B_TOTAL_POINTS_FIRST_QUARTER",
+    TEAM_B_TOTAL_POINTS_HALF_TIME: "TEAM_B_TOTAL_POINTS_HALF_TIME",
 };
 
 function formatAsian(handicap: string, type: string): string {
@@ -154,6 +169,8 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.ASIAN_HANDICAP_EXTRA_TIME:
         case EnumMarketType.ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME:
         case EnumMarketType.ASIAN_HANDICAP_AFTER_PENALTIES:
+        case EnumMarketType.HANDICAP_FIRST_QUARTER:
+        case EnumMarketType.HANDICAP_HALF_TIME:
             return formatAsian(selection.handicap, selection.type);
         case EnumMarketType.ASIAN_OVER_UNDER:
         case EnumMarketType.ASIAN_OVER_UNDER_HALF_TIME:
@@ -174,6 +191,9 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
             return "";
         case EnumMarketType.TOTAL_GOALS:
         case EnumMarketType.TOTAL_GOALS_HALF_TIME:
+        case EnumMarketType.TOTAL_POINTS:
+        case EnumMarketType.TOTAL_POINTS_FIRST_QUARTER:
+        case EnumMarketType.TOTAL_POINTS_HALF_TIME:
             return (
                 (selection.type == "Overs" ? LangUtil("大") : LangUtil("小")) +
                 " " +
@@ -185,6 +205,9 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME:
         case EnumMarketType.TEAM_B_GOALS_ODD_OR_EVEN:
         case EnumMarketType.TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME:
+        case EnumMarketType.MONEY_LINE:
+        case EnumMarketType.MONEY_LINE_FIRST_QUARTER:
+        case EnumMarketType.MONEY_LINE_HALF_TIME:
             return selection.type == "Odd" ? LangUtil("单") : LangUtil("双");
         case EnumMarketType.TEAM_A_WIN_TO_NIL:
         case EnumMarketType.TEAM_B_WIN_TO_NIL:
@@ -223,6 +246,12 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.TEAM_A_EXACT_GOALS_HALF_TIME:
         case EnumMarketType.TEAM_B_EXACT_GOALS:
         case EnumMarketType.TEAM_B_EXACT_GOALS_HALF_TIME:
+        case EnumMarketType.TEAM_A_TOTAL_POINTS:
+        case EnumMarketType.TEAM_A_TOTAL_POINTS_FIRST_QUARTER:
+        case EnumMarketType.TEAM_A_TOTAL_POINTS_HALF_TIME:
+        case EnumMarketType.TEAM_B_TOTAL_POINTS:
+        case EnumMarketType.TEAM_B_TOTAL_POINTS_FIRST_QUARTER:
+        case EnumMarketType.TEAM_B_TOTAL_POINTS_HALF_TIME:
             switch (selection.type) {
                 case "No Winner":
                     return LangUtil("比分平局");
@@ -275,14 +304,13 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.WAY_OVER_UNDER_5_HALF_TIME:
         case EnumMarketType.WAY_OVER_UNDER_6_HALF_TIME:
         case EnumMarketType.WAY_OVER_UNDER_7_HALF_TIME:
-        case EnumMarketType.WAY_OVER_UNDER_8_HALF_TIME:
-            {
-                console.warn("--type--", selection.type);
-            
+        case EnumMarketType.WAY_OVER_UNDER_8_HALF_TIME: {
+            console.warn("--type--", selection.type);
+
             //return `${selection.type == "Over" ? LangUtil("大大") : selection.type == "Under" ? LangUtil("小小") : LangUtil("和和")}`;
             return `${selection.type == "Over" ? LangUtil("大大") : selection.type == "Exactly" ? LangUtil("和和") : LangUtil("小小")}`;
         }
-        }
+    }
     if (selection.type == "Home-Draw" && noBet) return `${LangUtil("主")}-${LangUtil("和")}`;
     if (selection.type == "Away-Draw" && noBet) return `${LangUtil("客")}-${LangUtil("和")}`;
     if (selection.type == "Home-Home" && noBet) return `${LangUtil("主")}-${LangUtil("主")}`;

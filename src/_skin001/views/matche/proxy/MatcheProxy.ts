@@ -112,13 +112,13 @@ export default class MatcheProxy extends puremvc.Proxy {
         let market_type = "";
         switch (this.listQueryMarket.market_type) {
             case 0:
-                market_type = PlatConfig.allMarketType.map((item) => item.market_type).toString();
+                market_type = this.pageData.marketTypeOptions.market_type.map((item: any) => item.market_type).toString();
                 break;
             default: {
-                const arr = PlatConfig.allMarketType.filter((item) =>
+                const arr = this.pageData.marketTypeOptions.market_type.filter((item: any) =>
                     item.main_type.split(",").includes(this.listQueryMarket.market_type.toString())
                 );
-                market_type = arr.map((item) => item.market_type).toString();
+                market_type = arr.map((item: any) => item.market_type).toString();
             }
         }
         const formCopy = JSON.parse(JSON.stringify(this.listQueryMarket));
