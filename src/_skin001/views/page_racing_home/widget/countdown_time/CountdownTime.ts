@@ -9,6 +9,9 @@ export default class CountdownTime extends AbstractView {
     LangUtil = LangUtil;
     GlobalVar = GlobalVar;
     @Prop() date!: any;
+    @Prop({ default: 20 }) height!: any;
+    @Prop() width!: any;
+    @Prop({ default: 12 }) fontSize!: any;
     time: any = "";
     timeId = 0;
     hr = 0;

@@ -52,7 +52,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
 
     listQueryComp = {
         // 1 足球、4 篮球、5 美式足球、7 赛马、8 赛狗
-        sport_id: 1,
+        sport_id: -1,
         // all: 全部 fix: 固赔 exchange: 交易所
         type: "fix",
         // inplay: 滚球 today: 今日 future: 早盘  (love: 关注) search: 搜索
@@ -218,6 +218,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     // }
     /**赛事接口-新*/
     api_event_list() {
+        if (this.listQueryComp.sport_id == -1) return;
         if (this.listQueryComp.tag != "love") {
             this.pageData.loading = true;
             this.pageData.market_list = [];

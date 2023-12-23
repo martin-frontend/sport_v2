@@ -39,6 +39,10 @@ export default class MatcheProxy extends puremvc.Proxy {
         competition_list: <CompetitionVO[]>[],
         /**盘口信息 */
         market_list: <MarketVO[]>[],
+        marketTypeOptions: <any>{
+            market_main_type: <any>[],
+            market_type: <any>[],
+        },
     };
 
     listQueryComp = {
@@ -55,12 +59,6 @@ export default class MatcheProxy extends puremvc.Proxy {
         market_type: 0,
         unique: MatcheProxy.NAME,
     };
-
-    get marketTypeOptions() {
-        const arr = [{ id: 0, name: LangUtil("所有") }];
-        arr.push(...PlatConfig.market_main_type);
-        return arr;
-    }
 
     set_event_list(data: any) {
         this.pageData.competition_list = data;
@@ -92,6 +90,10 @@ export default class MatcheProxy extends puremvc.Proxy {
             // GlobalVar.loading = false;
             this.pageData.loading = false;
         }, 100);
+    }
+
+    set_event_market_type_v2(data: any) {
+        Object.assign(this.pageData.marketTypeOptions, { ...data });
     }
 
     /**赛事接口-新*/
@@ -126,5 +128,12 @@ export default class MatcheProxy extends puremvc.Proxy {
     /**热门赛事 */
     api_event_hot() {
         this.sendNotification(net.HttpType.api_event_hot);
+    }
+
+    api_event_market_type_v2() {
+        this.sendNotification(net.HttpType.api_event_market_type_v2, {
+            sport_id: this.listQueryComp.sport_id,
+            unique: MatcheProxy.NAME,
+        });
     }
 }

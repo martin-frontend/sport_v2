@@ -13,7 +13,7 @@ import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 
 export default class MatcheMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_event_list_v3, net.EventType.api_market_typelist];
+        return [net.EventType.api_event_list_v3, net.EventType.api_market_typelist, net.EventType.api_event_market_type_v2];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -49,6 +49,9 @@ export default class MatcheMediator extends AbstractMediator {
                 break;
             case net.EventType.api_market_typelist:
                 if (type == MatcheProxy.NAME) myProxy.set_market_typelist(body);
+                break;
+            case net.EventType.api_event_market_type_v2:
+                if (type == MatcheProxy.NAME) myProxy.set_event_market_type_v2(body);
                 break;
         }
     }

@@ -6,7 +6,10 @@ import PageHomeProxy from "../page_home/proxy/PageHomeProxy";
 function init(id: number) {
     const myProxy: MatcheProxy = getProxy(MatcheProxy);
     const homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
-    myProxy.listQueryComp.sport_id = homeProxy.listQueryComp.sport_id;
+    if (myProxy.listQueryComp.sport_id != homeProxy.listQueryComp.sport_id) {
+        myProxy.listQueryComp.sport_id = homeProxy.listQueryComp.sport_id;
+        myProxy.api_event_market_type_v2();
+    }
     myProxy.listQueryComp.tag = homeProxy.listQueryComp.tag;
     if (id) {
         myProxy.init(id);

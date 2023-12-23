@@ -41,11 +41,11 @@
                                         </div>
                                         <div class="d-flex text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}">
                                             <div>
-                                                <span class="font-weight-bold">{{LangUtil('骑师:')}}</span>
+                                                <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                                 <span class="mx-2">{{runner.jockey}}</span>
                                             </div>
                                             <div>
-                                                <span>{{LangUtil('练马师:')}}</span>
+                                                <span>{{LangUtil('练马师')}}:</span>
                                                 <span class="mx-2">{{runner.trainer}}</span>
                                             </div>
                                         </div>
@@ -75,9 +75,9 @@
                                 <v-spacer></v-spacer>
                                 <v-sheet color="transparent" class="d-flex flex-column justify-center pr-3 tagTextColor1--text text-14">
                                     <div class="d-flex justify-center align-center">
-                                        {{LangUtil("退赛 @")}} {{getScratchedTime(runner.scratched_time)}}
+                                        {{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}
                                     </div>
-                                    <div class="d-flex justify-center align-center">{{LangUtil("扣除:")}} {{runner.deduction}}</div>
+                                    <div class="d-flex justify-center align-center">{{LangUtil("扣除")}}: {{runner.deduction}}</div>
                                 </v-sheet>
                             </v-row>
                             <v-divider></v-divider>
@@ -134,11 +134,11 @@
                                             </span>
                                         </div>
                                         <div class="text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}">
-                                            <span class="font-weight-bold">{{LangUtil('骑师:')}}</span>
+                                            <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                             <span class="mx-2">{{runner.jockey}}</span>
                                         </div>
                                         <div class="text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
-                                            <span class="font-weight-bold">{{LangUtil('练马师:')}}</span>
+                                            <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
                                             <span class="mx-2">{{runner.trainer}}</span>
                                         </div>
                                     </v-sheet>
@@ -164,8 +164,8 @@
                             <div class="d-flex flex-column tagTextColor1--text text-14 py-2" :key="runner.runner_id">
                                 <div style="text-decoration: line-through">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</div>
                                 <div class="d-flex text-12 my-1">{{LangUtil("对于退赛前投注的固定投注")}}</div>
-                                <div>{{LangUtil("退赛 @")}} {{getScratchedTime(runner.scratched_time)}}</div>
-                                <div>{{LangUtil("扣除:")}} {{runner.deduction}}</div>
+                                <div>{{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}</div>
+                                <div>{{LangUtil("扣除")}}: {{runner.deduction}}</div>
                             </div>
                             <v-divider></v-divider>
                         </template>

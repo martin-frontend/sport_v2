@@ -77,7 +77,7 @@
                         </v-sheet>
                     </template>
                     <template v-else>
-                        <div class="tagTextColor2--text text-16 font-weight-bold px-1">{{getStartTime(match.start_time_timestamp)}}</div>
+                        <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
                     </template>
                 </v-sheet>
                 <ResultTable v-if="states && states.match_phase == 'DONE'" :match="match" :states="states" :markets="markets"></ResultTable>
