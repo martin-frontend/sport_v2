@@ -53,11 +53,11 @@
                                 <span class="font-weight-bold">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span>
                                 <div class="d-flex text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
                                     <div>
-                                        <span class="font-weight-bold">{{LangUtil('骑师:')}}</span>
+                                        <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                         <span class="mx-2">{{runner.jockey}}</span>
                                     </div>
                                     <div>
-                                        <span class="font-weight-bold">{{LangUtil('练马师:')}}</span>
+                                        <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
                                         <span class="mx-2">{{runner.trainer}}</span>
                                     </div>
                                 </div>
@@ -124,19 +124,19 @@
                                 >
                                 <div class="d-flex text-12 mt-1">
                                     <div>
-                                        <span class="font-weight-bold">{{LangUtil('骑师:')}}</span>
+                                        <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                         <span class="mx-2">{{runner.jockey}}</span>
                                     </div>
                                     <div>
-                                        <span class="font-weight-bold">{{LangUtil('练马师:')}}</span>
+                                        <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
                                         <span class="mx-2">{{runner.trainer}}</span>
                                     </div>
                                 </div>
                             </v-sheet>
                         </v-col>
                         <v-sheet color="transparent" class="d-flex flex-column justify-center pr-3 tagTextColor1--text text-14">
-                            <div class="text-center">{{LangUtil("退赛 @")}} {{getScratchedTime(runner.scratched_time)}}</div>
-                            <div class="text-center">{{LangUtil("扣除:")}} {{runner.deduction}}</div>
+                            <div class="text-center">{{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}</div>
+                            <div class="text-center">{{LangUtil("扣除")}}: {{runner.deduction}}</div>
                         </v-sheet>
                     </v-row>
                     <v-divider></v-divider>
@@ -171,11 +171,11 @@
                             <v-sheet color="transparent" class="d-flex flex-column pl-2 text-14 py-1">
                                 <span class="font-weight-bold">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span>
                                 <div :class="{'textGray--text': $vuetify.theme.dark}">
-                                    <span class="font-weight-bold">{{LangUtil('骑师:')}}</span>
+                                    <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                     <span class="mx-2">{{runner.jockey}}</span>
                                 </div>
                                 <div :class="{'textGray--text': $vuetify.theme.dark}">
-                                    <span class="font-weight-bold">{{LangUtil('练马师:')}}</span>
+                                    <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
                                     <span class="mx-2">{{runner.trainer}}</span>
                                 </div>
                             </v-sheet>
@@ -230,16 +230,16 @@
                     <v-sheet :key="runner.runner_id" color="transparent" class="d-flex flex-column tagTextColor1--text pl-2 text-14 py-2">
                         <span style="text-decoration: line-through"> {{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}） </span>
                         <div>
-                            <span class="font-weight-bold">{{LangUtil('骑师:')}}</span>
+                            <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                             <span class="mx-2">{{runner.jockey}}</span>
                         </div>
                         <div>
-                            <span class="font-weight-bold">{{LangUtil('练马师:')}}</span>
+                            <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
                             <span class="mx-2">{{runner.trainer}}</span>
                         </div>
                         <div class="mt-1">
-                            <div>{{LangUtil("退赛 @")}} {{getScratchedTime(runner.scratched_time)}}</div>
-                            <div>{{LangUtil("扣除:")}} {{runner.deduction}}</div>
+                            <div>{{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}</div>
+                            <div>{{LangUtil("扣除")}}: {{runner.deduction}}</div>
                         </div>
                     </v-sheet>
                     <v-divider class="mx-2"></v-divider>
