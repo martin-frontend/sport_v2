@@ -200,7 +200,10 @@
                             class="mb-1"
                             :class="(item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && skey == 2 && isShowDrow) ? 'mt-37' : ''"
                         >
-                            <div class="text-14" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
+                            <div
+                                class="text-14"
+                                v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && item != 'MONEY_LINE'&& item != 'MONEY_LINE_FIRST_QUARTER'&& item != 'MONEY_LINE_HALF_TIME'"
+                            >
                                 {{MarketUtils.getSelectionName(item, sel)}}
                             </div>
                         </BtnFixedBet>
