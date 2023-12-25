@@ -8,6 +8,7 @@ import Vue from "vue";
 import PageRacingHomeProxy from "../../page_racing_home/proxy/PageRacingHomeProxy";
 import SportUtil from "@/core/global/SportUtil";
 import page_racing_home from "../../page_racing_home";
+import page_home from "../../page_home";
 
 export default class NavigationMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
@@ -50,7 +51,7 @@ export default class NavigationMediator extends AbstractMediator {
                     myProxy.pageData.sportIdArr.push(Number(item[0]));
                 });
                 if (Vue.router.currentRoute.path == "/page_home") {
-                    homeProxy.listQueryComp.sport_id = myProxy.pageData.sportIdArr[0];
+                    const sport_id = myProxy.pageData.sportIdArr[0];
                     const firstData = body[myProxy.pageData.sportIdArr[0]];
                     const inplay = firstData?.["inplay"];
                     const today = firstData?.["today"];
@@ -69,7 +70,7 @@ export default class NavigationMediator extends AbstractMediator {
                         }
                     }
 
-                    homeProxy.api_event_list();
+                    page_home.showBySport(sport_id);
                 }
 
                 if (Vue.router.currentRoute.path == "/page_racing_home") {

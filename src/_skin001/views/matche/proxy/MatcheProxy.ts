@@ -28,6 +28,7 @@ export default class MatcheProxy extends puremvc.Proxy {
         this.listQueryMarket.event_id = id.toString();
         this.api_event_list();
         this.api_event_hot();
+        if (Vue.vuetify.framework.breakpoint.mobile) this.api_event_market_type_v2();
     }
 
     pageData = {

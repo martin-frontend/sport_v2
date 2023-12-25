@@ -54,14 +54,12 @@ export default class MatcheItem extends AbstractView {
         ASIAN_OVER_UNDER_AFTER_PENALTIES: "大小点球",
     };
     get tableColumn() {
-        const arr = [];
-        const marketTypes = this.marketTypes;
-        for (const mtype of marketTypes) {
-            const mt = PlatConfig.allMarketType.find((item) => item.market_type == mtype);
-            if (mt) {
-                arr.push(this.marketTypeAlias[mtype] || mt.title);
-            }
-        }
+        const arr: any = [];
+        this.marketTypes.forEach((mtype: any, index: number) => {
+            const mtypeTrim = mtype.trim();
+            const mt = this.myProxy.pageData.marketTypeOptions.market_type.find((item: any) => item.market_type == mtypeTrim);
+            arr[index] = mt ? this.marketTypeAlias[mtypeTrim] || mt.title : "";
+        });
         if (this.$vuetify.breakpoint.width <= 1430) {
             return arr.slice(0, 3);
         } else if (this.$vuetify.breakpoint.width <= 1580) {
@@ -106,11 +104,12 @@ export default class MatcheItem extends AbstractView {
     /**获取需要显示的盘口 */
     get marketTypes() {
         const arr = ["1H OT", "2H OT", "OT HT"];
+        const { sport_id } = this.listQueryComp;
         let marketTypes: string[] = [];
         if (this.states && arr.includes(this.states.match_phase)) {
-            marketTypes = PlatConfig.config.client.pcMarketType_extra.split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeExtraBySportId[sport_id].split(",");
         } else {
-            marketTypes = PlatConfig.config.client.pcMarketType.split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeBySportId[sport_id].split(",");
         }
         if (this.$vuetify.breakpoint.width <= 1450) {
             return marketTypes.slice(0, 3);

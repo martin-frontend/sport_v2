@@ -48,6 +48,10 @@ export default class PageHomeProxy extends puremvc.Proxy {
         scrollOffset: 0,
         //获取关注计数
         lovematch_order: 0,
+        marketTypeOptions: <any>{
+            market_main_type: <any>[],
+            market_type: <any>[],
+        },
     };
 
     listQueryComp = {
@@ -205,7 +209,9 @@ export default class PageHomeProxy extends puremvc.Proxy {
             this.pageData.openIndexs = [0, 1, 2];
         }
     }
-
+    set_event_market_type_v2(data: any) {
+        Object.assign(this.pageData.marketTypeOptions, { ...data });
+    }
     /**赛事接口-新*/
     // api_event_list() {
     //     if (this.listQueryComp.tag != "love") {
@@ -231,16 +237,21 @@ export default class PageHomeProxy extends puremvc.Proxy {
     /**盘口接口-新*/
     api_market_typelist() {
         const vuetify = Vue.vuetify;
+        const { sport_id } = this.listQueryComp;
         if (this.listQueryComp.tag == "champion") {
-            this.listQueryMarket.market_type = PlatConfig.config.client.champion_type;
+            // this.listQueryMarket.market_type = PlatConfig.config.client.champion_type;
+            this.listQueryMarket.market_type = PlatConfig.config.client.championTypeBySportId[sport_id];
         } else {
-            const { h5MarketType, pcMarketType, h5MarketType_extra, pcMarketType_extra } = PlatConfig.config.client;
+            // const { h5MarketType, pcMarketType, h5MarketType_extra, pcMarketType_extra } = PlatConfig.config.client;
+            const { pcMarketTypeBySportId, h5MarketTypeBySportId, pcMarketTypeExtraBySportId, h5MarketTypeExtraBySportId } =
+                PlatConfig.config.client;
             if (vuetify.framework.breakpoint.mobile) {
-                this.listQueryMarket.market_type = h5MarketType;
-                if (h5MarketType_extra) this.listQueryMarket.market_type += "," + h5MarketType_extra;
+                this.listQueryMarket.market_type = h5MarketTypeBySportId[sport_id];
+                // if (h5MarketType_extra) this.listQueryMarket.market_type += "," + h5MarketType_extra;
+                if (h5MarketTypeExtraBySportId[sport_id]) this.listQueryMarket.market_type += "," + h5MarketTypeExtraBySportId[sport_id];
             } else {
-                this.listQueryMarket.market_type = pcMarketType;
-                if (pcMarketType_extra) this.listQueryMarket.market_type += "," + pcMarketType_extra;
+                this.listQueryMarket.market_type = pcMarketTypeBySportId[sport_id];                
+                if (pcMarketTypeExtraBySportId[sport_id]) this.listQueryMarket.market_type += "," + pcMarketTypeExtraBySportId[sport_id];
             }
         }
         this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(this.listQueryMarket));
@@ -284,5 +295,12 @@ export default class PageHomeProxy extends puremvc.Proxy {
 
     api_menu_subnav() {
         this.sendNotification(net.HttpType.api_menu_subnav);
+    }
+
+    api_event_market_type_v2() {
+        this.sendNotification(net.HttpType.api_event_market_type_v2, {
+            sport_id: this.listQueryComp.sport_id,
+            unique: PageHomeProxy.NAME,
+        });
     }
 }

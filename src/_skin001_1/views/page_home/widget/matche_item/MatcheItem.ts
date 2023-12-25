@@ -55,15 +55,21 @@ export default class MatcheItem extends AbstractView {
         ASIAN_OVER_UNDER_AFTER_PENALTIES: "大小点球",
     };
     get tableColumn() {
-        let arr = ["1", "x", "2", LangUtil("大"), LangUtil("小")];
-        if (this.$vuetify.breakpoint.width <= 1600) {
-            arr = ["1", "x", "2"];
+        const { sport_id } = this.listQueryComp;
+        if (sport_id == 1) {
+            let arr = ["1", "x", "2", LangUtil("大"), LangUtil("小")];
+            if (this.$vuetify.breakpoint.width <= 1600) {
+                arr = ["1", "x", "2"];
+            }
+            return arr;
+        } else {
+            let arr = [LangUtil("主"), LangUtil("客"), LangUtil("大"), LangUtil("小")];
+            return arr;
         }
-        return arr;
     }
 
     get start_time() {
-        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm" ,true);
+        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm", true);
     }
 
     get start() {
@@ -99,15 +105,18 @@ export default class MatcheItem extends AbstractView {
     get marketTypes() {
         const arr = ["1H OT", "2H OT", "OT HT"];
         let marketTypes: string[] = [];
+        const { sport_id } = this.listQueryComp;
         if (this.states && arr.includes(this.states.match_phase)) {
-            marketTypes = PlatConfig.config.client.pcMarketType_extra.split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeExtraBySportId[sport_id].split(",");
         } else {
-            marketTypes = PlatConfig.config.client.pcMarketType.split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeBySportId[sport_id].split(",");
         }
-        if (this.$vuetify.breakpoint.width <= 1600) {
-            return marketTypes.slice(0, 1);
-        } else if (this.$vuetify.breakpoint.width <= 1810) {
-            return marketTypes.slice(0, 2);
+        if(sport_id == 1) {
+            if (this.$vuetify.breakpoint.width <= 1600) {
+                return marketTypes.slice(0, 1);
+            } else if (this.$vuetify.breakpoint.width <= 1810) {
+                return marketTypes.slice(0, 2);
+            }
         }
         return marketTypes;
     }
@@ -170,7 +179,7 @@ export default class MatcheItem extends AbstractView {
         const arr = ["1H", "HT", "2H", "FT"];
         return arr.includes(match_phase);
     }
-    
+
     /**是否显示点球比分 */
     isShowPK(match_phase: string): boolean {
         const arr = ["PK", "PK FT"];

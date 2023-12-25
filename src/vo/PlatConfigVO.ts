@@ -15,5 +15,10 @@ export interface PlatConfigVO {
          */
         OddsColorType: number;
         isDefaultParlay: number;
+        championTypeBySportId: any;
+        pcMarketTypeBySportId: any;
+        h5MarketTypeBySportId: any;
+        pcMarketTypeExtraBySportId: any;
+        h5MarketTypeExtraBySportId: any;
     };
 }
