@@ -1,7 +1,7 @@
 <v-sheet class="pt-2 pb10 bgtexture" :class="{'roundedb10': isLast}" color="bgBanner">
     <!-- <v-divider /> -->
     <div class="d-flex" :class="{'mt-n2': !isFirst}">
-        <v-sheet class="text-14" color="transparent" min-width="350">
+        <v-sheet class="text-14" color="transparent" :min-width="listQueryComp.sport_id == 1? 350: 300">
             <v-sheet class="d-flex align-center btnPlain--text text-14" color="transparent" height="30">
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">

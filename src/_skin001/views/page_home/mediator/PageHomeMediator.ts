@@ -26,6 +26,7 @@ export default class PageHomeMediator extends AbstractMediator {
             net.EventType.api_user_lovematch,
             net.EventType.api_user_love,
             // net.EventType.api_menu_subnav,
+            net.EventType.api_event_market_type_v2,
         ];
     }
 
@@ -88,6 +89,9 @@ export default class PageHomeMediator extends AbstractMediator {
             //         }
             //     }
             //     break;
+            case net.EventType.api_event_market_type_v2:
+                if (type == PageHomeProxy.NAME) myProxy.set_event_market_type_v2(body);
+                break;
         }
     }
 }

@@ -62,7 +62,10 @@ function getMyProxy(): PageHomeProxy {
 /**按运动查询 */
 function showBySport(sport_id: any) {
     const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
-    myProxy.listQueryComp.sport_id = sport_id;
+    if (myProxy.listQueryComp.sport_id != sport_id) {
+        myProxy.listQueryComp.sport_id = sport_id;
+        myProxy.api_event_market_type_v2();
+    }
     showByTag("today");
 }
 export default { show, showByTag, showByCountry, showByCompetition, showByKeyword, showEventList, showBySport };

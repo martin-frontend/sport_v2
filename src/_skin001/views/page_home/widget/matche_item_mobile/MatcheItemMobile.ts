@@ -18,6 +18,7 @@ export default class MatcheItemMobile extends AbstractView {
     getResponseIcon = getResponseIcon;
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
+    listQueryComp = this.myProxy.listQueryComp;
     GlobalVar = GlobalVar;
     //倒数计时
     day: any = "0";
@@ -29,7 +30,7 @@ export default class MatcheItemMobile extends AbstractView {
     showAll = false;
 
     get start_time() {
-        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, GlobalVar.zone), "MM/dd hh:mm" ,true);
+        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, GlobalVar.zone), "MM/dd hh:mm", true);
     }
 
     get start() {
@@ -67,11 +68,12 @@ export default class MatcheItemMobile extends AbstractView {
     get marketTypes() {
         if (!this.fixMarket) return [];
         const arr = ["1H OT", "2H OT", "OT HT"];
+        const { sport_id } = this.listQueryComp;
         let marketTypes: string[] = [];
         if (this.states && arr.includes(this.states.match_phase)) {
-            marketTypes = PlatConfig.config.client.h5MarketType_extra.split(",");
+            marketTypes = PlatConfig.config.client.h5MarketTypeExtraBySportId[sport_id].split(",");
         } else {
-            marketTypes = PlatConfig.config.client.h5MarketType.split(",");
+            marketTypes = PlatConfig.config.client.h5MarketTypeBySportId[sport_id].split(",");
         }
         return marketTypes.slice(0, 2);
     }
@@ -96,14 +98,12 @@ export default class MatcheItemMobile extends AbstractView {
         ASIAN_OVER_UNDER_AFTER_PENALTIES: "大小点球",
     };
     get tableColumn() {
-        const arr = [];
-        const marketTypes = this.marketTypes;
-        for (const mtype of marketTypes) {
-            const mt = PlatConfig.allMarketType.find((item) => item.market_type == mtype);
-            if (mt) {
-                arr.push(this.marketTypeAlias[mtype] || mt.title);
-            }
-        }
+        const arr: any = [];
+        this.marketTypes.forEach((mtype: any, index: number) => {
+            const mtypeTrim = mtype.trim();
+            const mt = this.myProxy.pageData.marketTypeOptions.market_type.find((item: any) => item.market_type == mtypeTrim);
+            arr[index] = mt ? this.marketTypeAlias[mtypeTrim] || mt.title : "";
+        });
         return arr;
     }
 
@@ -170,6 +170,6 @@ export default class MatcheItemMobile extends AbstractView {
     }
 
     onLove() {
-        this.myProxy.api_user_love(1 ,this.matche.id);
+        this.myProxy.api_user_love(1, this.matche.id);
     }
 }

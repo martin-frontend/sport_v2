@@ -58,30 +58,74 @@ export default class NetObserver extends AbstractMediator {
 
                 if (SkinVariable.home_market_type == 2) {
                     //直接写死
-                    PlatConfig.config.client.pcMarketType = "MATCH_ODDS,ASIAN_OVER_UNDER";
-                    PlatConfig.config.client.h5MarketType = "MATCH_ODDS";
-                    PlatConfig.config.client.pcMarketType_extra = "";
-                    PlatConfig.config.client.h5MarketType_extra = "";
+                    // PlatConfig.config.client.pcMarketType = "MATCH_ODDS,ASIAN_OVER_UNDER";
+                    // PlatConfig.config.client.h5MarketType = "MATCH_ODDS";
+                    // PlatConfig.config.client.pcMarketType_extra = "";
+                    // PlatConfig.config.client.h5MarketType_extra = "";
+                    PlatConfig.config.client.pcMarketTypeBySportId = {
+                        "1": "MATCH_ODDS,ASIAN_OVER_UNDER",
+                        "4": "MONEY_LINE,TOTAL_POINTS",
+                        "5": "MONEY_LINE,TOTAL_POINTS",
+                    };
+                    PlatConfig.config.client.h5MarketTypeBySportId = { "1": "MATCH_ODDS", "4": "HANDICAP", "5": "HANDICAP" };
+                    PlatConfig.config.client.pcMarketTypeExtraBySportId = { "1": "", "4": "", "5": "" };
+                    PlatConfig.config.client.h5MarketTypeExtraBySportId = { "1": "", "4": "", "5": "" };
                 } else {
                     // 如果没有配置，给默认值
-                    if (!PlatConfig.config.client.pcMarketType) {
-                        PlatConfig.config.client.pcMarketType =
-                            "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME";
+                    // if (!PlatConfig.config.client.pcMarketType) {
+                    //     PlatConfig.config.client.pcMarketType =
+                    //         "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME";
+                    // }
+                    // if (!PlatConfig.config.client.h5MarketType) {
+                    //     PlatConfig.config.client.h5MarketType = "ASIAN_OVER_UNDER,ASIAN_HANDICAP";
+                    // }
+                    // if (!PlatConfig.config.client.pcMarketType_extra) {
+                    //     PlatConfig.config.client.pcMarketType_extra =
+                    //         "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES";
+                    // }
+                    // if (!PlatConfig.config.client.h5MarketType_extra) {
+                    //     PlatConfig.config.client.h5MarketType_extra = "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME";
+                    // }
+
+                    if (!PlatConfig.config.client.pcMarketTypeBySportId) {
+                        PlatConfig.config.client.pcMarketTypeBySportId = {
+                            "1": "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME",
+                            "4": "HANDICAP,TOTAL_POINTS,MONEY_LINE,HANDICAP_HALF_TIME,TOTAL_POINTS_HALF_TIME,MONEY_LINE_HALF_TIME",
+                            "5": "HANDICAP,TOTAL_POINTS,MONEY_LINE,HANDICAP_HALF_TIME,TOTAL_POINTS_HALF_TIME,MONEY_LINE_HALF_TIME",
+                        };
                     }
-                    if (!PlatConfig.config.client.h5MarketType) {
-                        PlatConfig.config.client.h5MarketType = "ASIAN_OVER_UNDER,ASIAN_HANDICAP";
+                    if (!PlatConfig.config.client.h5MarketTypeBySportId) {
+                        PlatConfig.config.client.h5MarketTypeBySportId = {
+                            "1": "ASIAN_OVER_UNDER,ASIAN_HANDICAP",
+                            "4": "HANDICAP,TOTAL_POINTS",
+                            "5": "HANDICAP,TOTAL_POINTS",
+                        };
                     }
-                    if (!PlatConfig.config.client.pcMarketType_extra) {
-                        PlatConfig.config.client.pcMarketType_extra =
-                            "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES";
+                    if (!PlatConfig.config.client.pcMarketTypeExtraBySportId) {
+                        PlatConfig.config.client.pcMarketTypeExtraBySportId = {
+                            "1": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES",
+                            "4": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES",
+                            "5": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES",
+                        };
                     }
-                    if (!PlatConfig.config.client.h5MarketType_extra) {
-                        PlatConfig.config.client.h5MarketType_extra = "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME";
+                    if (!PlatConfig.config.client.h5MarketTypeExtraBySportId) {
+                        PlatConfig.config.client.h5MarketTypeExtraBySportId = {
+                            "1": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME",
+                            "4": "HANDICAP,TOTAL_POINTS",
+                            "5": "HANDICAP,TOTAL_POINTS",
+                        };
                     }
                 }
 
-                if (!PlatConfig.config.client.champion_type) {
-                    PlatConfig.config.client.champion_type = "RMM_OUTRIGHTS";
+                // if (!PlatConfig.config.client.champion_type) {
+                //     PlatConfig.config.client.champion_type = "RMM_OUTRIGHTS";
+                // }
+                if (!PlatConfig.config.client.championTypeBySportId) {
+                    PlatConfig.config.client.championTypeBySportId = {
+                        "1": "RMM_OUTRIGHTS",
+                        "4": "RMM_OUTRIGHTS",
+                        "5": "RMM_OUTRIGHTS",
+                    };
                 }
 
                 if (PlatConfig.config.client.isRecharge == undefined) {
