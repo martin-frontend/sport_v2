@@ -171,6 +171,7 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.ASIAN_HANDICAP_AFTER_PENALTIES:
         case EnumMarketType.HANDICAP_FIRST_QUARTER:
         case EnumMarketType.HANDICAP_HALF_TIME:
+        case EnumMarketType.HANDICAP:
             return formatAsian(selection.handicap, selection.type);
         case EnumMarketType.ASIAN_OVER_UNDER:
         case EnumMarketType.ASIAN_OVER_UNDER_HALF_TIME:

@@ -89,6 +89,10 @@ export default class Matche extends AbstractView {
             "3_WAY_HANDICAP_PLUS_2_HALF_TIME",
             "3_WAY_HANDICAP_PLUS_3_HALF_TIME",
             "3_WAY_HANDICAP_PLUS_4_HALF_TIME",
+
+            "MONEY_LINE",
+            "MONEY_LINE_FIRST_QUARTER",
+            "MONEY_LINE_HALF_TIME",
         ],
         2: [
             "TOTAL_GOALS",
@@ -136,10 +140,6 @@ export default class Matche extends AbstractView {
             "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
             "BK_ASIAN_OVER_UNDER",
             "BK_ASIAN_OVER_UNDER_HALF_TIME",
-
-            "MONEY_LINE",
-            "MONEY_LINE_FIRST_QUARTER",
-            "MONEY_LINE_HALF_TIME",
 
             "TOTAL_POINTS",
             "TOTAL_POINTS_FIRST_QUARTER",
