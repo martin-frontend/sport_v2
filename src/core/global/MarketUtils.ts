@@ -195,6 +195,12 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.TOTAL_POINTS:
         case EnumMarketType.TOTAL_POINTS_FIRST_QUARTER:
         case EnumMarketType.TOTAL_POINTS_HALF_TIME:
+        case EnumMarketType.TEAM_A_TOTAL_POINTS:
+        case EnumMarketType.TEAM_A_TOTAL_POINTS_FIRST_QUARTER:
+        case EnumMarketType.TEAM_A_TOTAL_POINTS_HALF_TIME:
+        case EnumMarketType.TEAM_B_TOTAL_POINTS:
+        case EnumMarketType.TEAM_B_TOTAL_POINTS_FIRST_QUARTER:
+        case EnumMarketType.TEAM_B_TOTAL_POINTS_HALF_TIME:
             return (
                 (selection.type == "Overs" ? LangUtil("大") : LangUtil("小")) +
                 " " +
@@ -244,12 +250,6 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.TEAM_A_EXACT_GOALS_HALF_TIME:
         case EnumMarketType.TEAM_B_EXACT_GOALS:
         case EnumMarketType.TEAM_B_EXACT_GOALS_HALF_TIME:
-        case EnumMarketType.TEAM_A_TOTAL_POINTS:
-        case EnumMarketType.TEAM_A_TOTAL_POINTS_FIRST_QUARTER:
-        case EnumMarketType.TEAM_A_TOTAL_POINTS_HALF_TIME:
-        case EnumMarketType.TEAM_B_TOTAL_POINTS:
-        case EnumMarketType.TEAM_B_TOTAL_POINTS_FIRST_QUARTER:
-        case EnumMarketType.TEAM_B_TOTAL_POINTS_HALF_TIME:
             switch (selection.type) {
                 case "No Winner":
                     return LangUtil("比分平局");
