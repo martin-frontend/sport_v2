@@ -202,7 +202,7 @@
                         >
                             <div
                                 class="text-14"
-                                v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME'"
+                                v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && item != 'MONEY_LINE'&& item != 'MONEY_LINE_FIRST_QUARTER'&& item != 'MONEY_LINE_HALF_TIME'"
                             >
                                 {{MarketUtils.getSelectionName(item, sel)}}
                             </div>
