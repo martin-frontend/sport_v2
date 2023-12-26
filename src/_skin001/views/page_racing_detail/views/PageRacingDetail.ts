@@ -30,7 +30,7 @@ export default class PageRacingDetail extends AbstractView {
 
     get mobileTagOptions() {
         if (this.states?.match_phase == "DONE") {
-            return ["赛果", "投注盘"];
+            return ["race赛果", "投注盘"];
         }
         return ["投注盘"];
     }
