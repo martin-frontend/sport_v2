@@ -32,7 +32,7 @@ export default class CountdownTime extends AbstractView {
             if (this.min >= 5) {
                 this.time = `${this.min}${LangUtil("分钟")}`;
             } else if (this.min > 0 || this.min < 0) {
-                this.time = `${this.min}${LangUtil("分")}${this.sec}${LangUtil("秒")}`;
+                this.time = `${this.min}${LangUtil("分")}${Math.abs(this.sec)}${LangUtil("秒")}`;
             } else {
                 this.time = `${this.sec}${LangUtil("秒")}`;
             }

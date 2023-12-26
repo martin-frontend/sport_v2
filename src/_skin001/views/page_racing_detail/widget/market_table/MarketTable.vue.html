@@ -50,7 +50,10 @@
                     <v-row no-gutters class="py-2 tagTextColor2--text" :key="runner.runner_id">
                         <v-col>
                             <v-sheet color="transparent" class="d-flex flex-column">
-                                <span class="font-weight-bold">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span>
+                                <span class="font-weight-bold"
+                                    >{{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </span>
                                 <div class="d-flex text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
                                     <div>
                                         <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
@@ -120,8 +123,9 @@
                         <v-col>
                             <v-sheet color="transparent" class="d-flex flex-column tagTextColor1--text">
                                 <span style="text-decoration: line-through"
-                                    >{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span
-                                >
+                                    >{{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </span>
                                 <div class="d-flex text-12 mt-1">
                                     <div>
                                         <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
@@ -169,7 +173,10 @@
                     <v-row no-gutters class="tagTextColor2--text py-1" :key="runner.runner_id">
                         <v-col>
                             <v-sheet color="transparent" class="d-flex flex-column pl-2 text-14 py-1">
-                                <span class="font-weight-bold">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span>
+                                <span class="font-weight-bold"
+                                    >{{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </span>
                                 <div :class="{'textGray--text': $vuetify.theme.dark}">
                                     <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                     <span class="mx-2">{{runner.jockey}}</span>
@@ -228,7 +235,10 @@
 
                 <template v-for="runner of scratchedRunners">
                     <v-sheet :key="runner.runner_id" color="transparent" class="d-flex flex-column tagTextColor1--text pl-2 text-14 py-2">
-                        <span style="text-decoration: line-through"> {{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}） </span>
+                        <span style="text-decoration: line-through">
+                            {{runner.runner_id}}. {{runner.name}}
+                            <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                        </span>
                         <div>
                             <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                             <span class="mx-2">{{runner.jockey}}</span>

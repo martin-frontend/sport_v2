@@ -12,6 +12,7 @@ export default class ResultTable extends AbstractView {
     @Prop() match!: any;
     @Prop() states!: any;
     @Prop() markets!: any;
+    @Prop() sportId!: any;
     rankingOption: any = { 1: "第一名", 2: "第二名", 3: "第三名", 4: "第四名" };
 
     getRankingStr(runner: any) {

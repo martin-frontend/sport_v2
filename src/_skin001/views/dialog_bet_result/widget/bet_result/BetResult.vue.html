@@ -75,7 +75,7 @@
                             </div>
                         </div>
                         <div>{{LangUtil(item.market.title)}}</div>
-                        <div class="font-weight-bold">{{item.matche.key}}</div>
+                        <div>{{item.matche.key}}</div>
                     </template>
                 </v-card-text>
                 <v-divider />
@@ -139,7 +139,7 @@
                         <span style="min-width: 57px">{{LangUtil("投注时间")}} </span>
                         <span class="font-weight-bold text-13 text-right">{{getCreateTime(item.create_time)}}</span>
                     </div>
-                    <div class="d-flex justify-space-between">
+                    <div class="d-flex justify-space-between" v-if="!isRaceEvent(item.comp.sport_id)">
                         <span>{{LangUtil("比赛进程")}} </span>
                         <span class="font-weight-bold">{{item.states_str}}</span>
                     </div>
