@@ -119,7 +119,7 @@
             ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake || 0)}}</span
         >
     </div>
-    <div class="d-flex" v-if="isShowTotalSP">
+    <div class="d-flex" v-show="isShowTotalSP">
         <span>{{LangUtil("SP注额")}}</span>
         <v-spacer />
         <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalSP || 0)}}</span>

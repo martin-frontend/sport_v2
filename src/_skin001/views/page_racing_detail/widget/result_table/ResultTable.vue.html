@@ -36,8 +36,9 @@
                                                 {{LangUtil(getRankingStr(runner))}}
                                             </v-sheet>
                                             <span class="ml-2 font-weight-bold"
-                                                >{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</span
-                                            >
+                                                >{{runner.runner_id}}. {{runner.name}}
+                                                <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                            </span>
                                         </div>
                                         <div class="d-flex text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}">
                                             <div>
@@ -68,7 +69,8 @@
                             <v-row no-gutters class="py-2" :key="runner.runner_id">
                                 <v-col cols="6" class="d-flex flex-column tagTextColor1--text">
                                     <div style="text-decoration: line-through">
-                                        {{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）
+                                        {{runner.runner_id}}. {{runner.name}}
+                                        <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                     </div>
                                     <div class="d-flex text-12 mt-1">{{LangUtil("对于退赛前投注的固定投注")}}</div>
                                 </v-col>
@@ -86,7 +88,8 @@
                             {{LangUtil("*从固定赔率的原始估计收益中扣除。")}}
                         </div>
                         <template v-else>
-                            <div class="text-12 pt-2">{{LangUtil("没有退赛的马匹")}}</div>
+                            <div class="text-12 pt-2" v-if="sportId == 8">{{LangUtil("没有退赛的狗匹")}}</div>
+                            <div class="text-12 pt-2" v-else>{{LangUtil("没有退赛的马匹")}}</div>
                         </template>
                     </v-sheet>
                 </v-window-item>
@@ -130,7 +133,8 @@
                                                 {{LangUtil(getRankingStr(runner))}}
                                             </v-sheet>
                                             <span class="ml-2 font-weight-bold text-14">
-                                                {{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）
+                                                {{runner.runner_id}}. {{runner.name}}
+                                                <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                             </span>
                                         </div>
                                         <div class="text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}">
@@ -162,7 +166,10 @@
                     <v-sheet color="transparent" class="px-2">
                         <template v-for="runner of scratchedRunners">
                             <div class="d-flex flex-column tagTextColor1--text text-14 py-2" :key="runner.runner_id">
-                                <div style="text-decoration: line-through">{{runner.runner_id}}. {{runner.name}}（{{runner.barrier}}）</div>
+                                <div style="text-decoration: line-through">
+                                    {{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </div>
                                 <div class="d-flex text-12 my-1">{{LangUtil("对于退赛前投注的固定投注")}}</div>
                                 <div>{{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}</div>
                                 <div>{{LangUtil("扣除")}}: {{runner.deduction}}</div>
@@ -173,7 +180,8 @@
                             {{LangUtil("*从固定赔率的原始估计收益中扣除。")}}
                         </div>
                         <template v-else>
-                            <div class="text-12 pt-2">{{LangUtil("没有退赛的马匹")}}</div>
+                            <div class="text-12 pt-2" v-if="sportId == 8">{{LangUtil("没有退赛的狗匹")}}</div>
+                            <div class="text-12 pt-2" v-else>{{LangUtil("没有退赛的马匹")}}</div>
                         </template>
                     </v-sheet>
                 </v-window-item>

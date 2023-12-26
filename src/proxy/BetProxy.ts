@@ -299,6 +299,7 @@ export default class BetProxy extends puremvc.Proxy {
                             }
                         } else {
                             this.deleteItem(findItem.market.market_id, findItem.selection.id);
+                            Vue.notify({ group: "message", title: LangUtil(msg) });
                         }
                     });
                 }

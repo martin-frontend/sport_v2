@@ -319,10 +319,11 @@ export default class BetSummary extends AbstractView {
         let isShow = false;
         let isOnly = true;
         let val = 0;
+        
         this.pageData.list.forEach((item) => {
             if (item.odds == "SP") {
                 isShow = true;
-                val += parseLocaleNumber(item.stake) || 0;
+                val += Number(parseLocaleNumber(item.stake)) || 0;
             } else {
                 isOnly = false;
             }
