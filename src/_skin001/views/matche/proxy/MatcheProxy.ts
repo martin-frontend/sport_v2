@@ -124,7 +124,11 @@ export default class MatcheProxy extends puremvc.Proxy {
         }
         const formCopy = JSON.parse(JSON.stringify(this.listQueryMarket));
         formCopy.market_type = market_type;
-        this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(formCopy));
+        if (market_type) {
+            this.sendNotification(net.HttpType.api_market_typelist, formCopy);
+        } else {
+            this.set_market_typelist([]);
+        }
     }
     /**热门赛事 */
     api_event_hot() {

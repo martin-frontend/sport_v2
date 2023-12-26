@@ -206,9 +206,6 @@ function getSelectionName(market_type: string, selection: FixSelectionVO, matche
         case EnumMarketType.TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME:
         case EnumMarketType.TEAM_B_GOALS_ODD_OR_EVEN:
         case EnumMarketType.TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME:
-        case EnumMarketType.MONEY_LINE:
-        case EnumMarketType.MONEY_LINE_FIRST_QUARTER:
-        case EnumMarketType.MONEY_LINE_HALF_TIME:
             return selection.type == "Odd" ? LangUtil("单") : LangUtil("双");
         case EnumMarketType.TEAM_A_WIN_TO_NIL:
         case EnumMarketType.TEAM_B_WIN_TO_NIL:
