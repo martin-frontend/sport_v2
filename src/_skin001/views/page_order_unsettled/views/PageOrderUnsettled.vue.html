@@ -41,7 +41,7 @@
             class="text-13 mb-2 pb-2 pt10 textGray--text rounded-10"
             color="bgBanner"
             v-for="item in pageData.list"
-            :key="item.order_no"
+            :key="item.id"
         >
             <template v-if="item.bet_type == 'single'">
                 <div v-for="(leg, index) in item.leg_info" :key="index">

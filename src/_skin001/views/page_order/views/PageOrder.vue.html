@@ -103,7 +103,7 @@
                     color="bgBanner"
                     class="mx-2 mb-2 pt-2 pb-3 text-12 rounded default-color"
                     v-for="item in pageData.list"
-                    :key="item.order_no"
+                    :key="item.id"
                 >
                     <template v-if="item.bet_type == 'single'">
                         <div v-for="(leg, index) in item.leg_info" :key="index">
