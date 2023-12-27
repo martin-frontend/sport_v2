@@ -31,7 +31,7 @@ function showByTag(tag?: string) {
     navProxy.api_menu_leftnav();
 }
 /**按sport查询 */
-function showBySport(sport_id: any, tag?: string) {
+function showBySport(sport_id: any, tag = "today") {
     const myProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
     myProxy.listQueryComp.sport_id = `${sport_id}`;
     showByTag(tag);

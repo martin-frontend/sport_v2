@@ -103,7 +103,7 @@ export default class PageRacingHome extends AbstractView {
     onCheckboxChange(val: any) {
         if (this.oldArrLength < val.length) {
             const lastVal = val[val.length - 1];
-            page_racing_home.showBySport(lastVal);
+            page_racing_home.showBySport(lastVal, this.curTag);
         }
         this.oldArrLength = val.length;
     }
