@@ -119,7 +119,7 @@
                                     <v-sheet
                                         color="transparent"
                                         class="d-flex align-center text-14 comp-item"
-                                        :class="{'comp-item-active': homeProxy.listQueryComp.competition_id == item1.id}"
+                                        :class="{'comp-item-active': homeProxy.listQueryComp.competition_id == item1.id && !homeProxy.listQueryComp.country}"
                                         height="38"
                                         width="100%"
                                     >
@@ -130,7 +130,7 @@
                                         <div class="text-truncate mr-3">{{item1.name}}</div>
                                     </v-sheet>
                                 </v-list-item>
-                                <v-list-item link @click="onShowCountry(item.country_code)">
+                                <v-list-item link @click="onShowCountry(item)">
                                     <v-sheet
                                         color="transparent"
                                         class="d-flex align-center text-14 comp-item"

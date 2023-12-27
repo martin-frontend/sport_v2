@@ -5,11 +5,12 @@ import SettingProxy from "@/proxy/SettingProxy";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
 import page_home from "../..";
 import GlobalVar from "@/core/global/GlobalVar";
+import NavigationProxy from "@/_skin001/views/navigation/proxy/NavigationProxy";
 
 @Component
 export default class HomeHeader extends AbstractView {
     LangUtil = LangUtil;
-    homeProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
+    navProxy: NavigationProxy = this.getProxy(NavigationProxy);
     settingProxy: SettingProxy = this.getProxy(SettingProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
@@ -18,7 +19,9 @@ export default class HomeHeader extends AbstractView {
     getTitleName() {
         const { country, competition_id, tag, keyword } = this.listQueryComp;
         if (country) {
-            const findItem = this.pageData.menu_subnav.center.find((item) => item.country_code == country);
+            const findItem = this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id]?.all_competition.find(
+                (item: any) => item.country_code == country
+            );
             if (findItem) {
                 return findItem.country_name;
             }
@@ -34,7 +37,7 @@ export default class HomeHeader extends AbstractView {
         if (tag == "love") {
             return LangUtil("关注赛事");
         } else {
-            const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
+            const findItem = this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id]?.[tag];
             if (findItem) {
                 return findItem.name;
             }
@@ -67,14 +70,14 @@ export default class HomeHeader extends AbstractView {
     }
     //检测所有面板是否关闭
     checkExpansionPanels() {
-        return this.homeProxy.pageData.openIndexs.length == 0;
+        return this.myProxy.pageData.openIndexs.length == 0;
     }
 
     onTaggleOpen() {
         if (this.checkExpansionPanels()) {
-            this.homeProxy.pageData.openIndexs = [0, 1, 2];
+            this.myProxy.pageData.openIndexs = [0, 1, 2];
         } else {
-            this.homeProxy.pageData.openIndexs = [];
+            this.myProxy.pageData.openIndexs = [];
         }
     }
 }
