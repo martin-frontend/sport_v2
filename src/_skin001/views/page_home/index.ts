@@ -1,6 +1,7 @@
 import getProxy from "@/core/global/getProxy";
 import Vue from "vue";
 import PageHomeProxy from "./proxy/PageHomeProxy";
+import NavigationProxy from "../navigation/proxy/NavigationProxy";
 
 function show() {
     if (Vue.router.currentRoute.path != "/page_home") {
@@ -62,10 +63,18 @@ function getMyProxy(): PageHomeProxy {
 /**按运动查询 */
 function showBySport(sport_id: any) {
     const myProxy: PageHomeProxy = getProxy(PageHomeProxy);
+    const navProxy: NavigationProxy = getProxy(NavigationProxy);
     if (myProxy.listQueryComp.sport_id != sport_id) {
         myProxy.listQueryComp.sport_id = sport_id;
         myProxy.api_event_market_type_v2();
     }
-    showByTag("today");
+
+    const curNav = navProxy.pageData.new_menu_subnav[sport_id];
+    const inplay = curNav?.["inplay"];
+    if (inplay?.num == 0) {
+        showByTag("today");
+    } else {
+        showByTag("inplay");
+    }
 }
 export default { show, showByTag, showByCountry, showByCompetition, showByKeyword, showEventList, showBySport };

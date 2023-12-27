@@ -54,13 +54,9 @@ export default class NavigationMediator extends AbstractMediator {
                     const sport_id = myProxy.pageData.sportIdArr[0];
                     const firstData = body[myProxy.pageData.sportIdArr[0]];
                     const inplay = firstData?.["inplay"];
-                    const today = firstData?.["today"];
 
                     if (inplay?.num == 0) {
                         homeProxy.listQueryComp.tag = "today";
-                        if (today?.num == 0) {
-                            homeProxy.listQueryComp.tag = "future";
-                        }
                     }
                     if (selfProxy.userInfo.user_setting.remark) {
                         try {

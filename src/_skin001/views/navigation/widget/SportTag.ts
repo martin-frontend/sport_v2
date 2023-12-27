@@ -19,12 +19,9 @@ export default class MarketTypeTag extends AbstractView {
     myProxy: NavigationProxy = getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
-    tagOption = {
-        inplay: { vClass: "tagTextColor1--text" },
-        today: { vClass: "tagTextColor2--text" },
-        future: { vClass: "tagTextColor3--text" },
-    };
+    isExpend = false;
     isShowAllComp = false;
+
     isRaceEvent = SportUtil.isRaceEvent;
 
     get curSportId() {
@@ -48,6 +45,9 @@ export default class MarketTypeTag extends AbstractView {
     }
 
     onSportClick() {
+        this.isExpend = !this.isExpend;
+        if (this.sportId == this.curSportId) return;
+
         if (!SportUtil.isRaceEvent(this.sportId)) {
             page_home.showBySport(this.sportId);
         } else {
@@ -57,7 +57,6 @@ export default class MarketTypeTag extends AbstractView {
     }
 
     onTagClick(key: string) {
-        this.isShowAllComp = false;
         page_home.showByTag(key);
     }
 
@@ -67,6 +66,22 @@ export default class MarketTypeTag extends AbstractView {
 
     onShowCompetition(comp_id: number) {
         page_home.showByCompetition(comp_id);
+    }
+
+    @Watch("curSportId", {immediate: true})
+    onWatchCurSportId(val: any) {
+        if (val != this.sportId) {
+            this.isExpend = false;
+        } else {
+            this.isExpend = true;
+        }
+    }
+
+    @Watch("isExpend")
+    onWatchIsExpend(val: any) {
+        if (!val) {
+            this.isShowAllComp = false;
+        }
     }
 
     destroyed() {

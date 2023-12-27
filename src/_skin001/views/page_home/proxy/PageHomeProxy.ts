@@ -147,11 +147,6 @@ export default class PageHomeProxy extends puremvc.Proxy {
     }
 
     set_event_list(data: any) {
-        if (data.length == 0 && this.listQueryComp.tag == "today") {
-            this.listQueryComp.tag = "future";
-            this.api_event_list();
-            return;
-        }
         this.pageData.loading = false;
         this.pageData.competition_list = data;
         this.pageData.openIndexs = [0, 1, 2];
