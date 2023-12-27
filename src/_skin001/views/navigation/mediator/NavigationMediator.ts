@@ -8,7 +8,6 @@ import Vue from "vue";
 import PageRacingHomeProxy from "../../page_racing_home/proxy/PageRacingHomeProxy";
 import SportUtil from "@/core/global/SportUtil";
 import page_racing_home from "../../page_racing_home";
-import page_home from "../../page_home";
 
 export default class NavigationMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
@@ -19,6 +18,8 @@ export default class NavigationMediator extends AbstractMediator {
             net.EventType.api_menu_leftnav,
         ];
     }
+
+    private isFirstInit = true;
 
     public handleNotification(notification: puremvc.INotification): void {
         const body = notification.getBody();
@@ -41,6 +42,9 @@ export default class NavigationMediator extends AbstractMediator {
             case net.EventType.api_menu_leftnav:
                 delete body.requestData;
                 myProxy.pageData.new_menu_subnav = body;
+                if (!this.isFirstInit) return;
+                this.isFirstInit = false;
+
                 // 排序
                 const entries = Object.entries(body);
                 entries.sort((a: any, b: any) => {
@@ -50,11 +54,19 @@ export default class NavigationMediator extends AbstractMediator {
                 entries.forEach((item: any) => {
                     myProxy.pageData.sportIdArr.push(Number(item[0]));
                 });
-                if (Vue.router.currentRoute.path == "/page_home") {
+
+                if (Vue.router.currentRoute.path == "/page_racing_home") {
+                    const sport_id = myProxy.pageData.sportIdArr.find((sportId) => SportUtil.isRaceEvent(sportId));
+                    if (sport_id) {
+                        homeProxy.listQueryComp.sport_id = sport_id;
+                        page_racing_home.showBySport(sport_id);
+                    }
+                } else {
                     const sport_id = myProxy.pageData.sportIdArr[0];
                     const firstData = body[myProxy.pageData.sportIdArr[0]];
                     const inplay = firstData?.["inplay"];
-
+                    homeProxy.listQueryComp.sport_id = sport_id;
+                    homeProxy.listQueryComp.tag = "inplay";
                     if (inplay?.num == 0) {
                         homeProxy.listQueryComp.tag = "today";
                     }
@@ -65,15 +77,9 @@ export default class NavigationMediator extends AbstractMediator {
                             homeProxy.listQueryComp.sort = "comp";
                         }
                     }
-
-                    page_home.showBySport(sport_id);
-                }
-
-                if (Vue.router.currentRoute.path == "/page_racing_home") {
-                    const sport_id = myProxy.pageData.sportIdArr.find((sportId) => SportUtil.isRaceEvent(sportId));
-                    if (sport_id) {
-                        homeProxy.listQueryComp.sport_id = sport_id;
-                        page_racing_home.showBySport(sport_id);
+                    if (Vue.router.currentRoute.path == "/page_home") {
+                        homeProxy.api_event_market_type_v2();
+                        homeProxy.api_event_list();
                     }
                 }
                 break;

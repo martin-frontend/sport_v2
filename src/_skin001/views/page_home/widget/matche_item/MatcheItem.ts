@@ -107,9 +107,9 @@ export default class MatcheItem extends AbstractView {
         const { sport_id } = this.listQueryComp;
         let marketTypes: string[] = [];
         if (this.states && arr.includes(this.states.match_phase)) {
-            marketTypes = PlatConfig.config.client.pcMarketTypeExtraBySportId[sport_id].split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeExtraBySportId[sport_id]?.split(",");
         } else {
-            marketTypes = PlatConfig.config.client.pcMarketTypeBySportId[sport_id].split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeBySportId[sport_id]?.split(",") || [];
         }
         if (this.$vuetify.breakpoint.width <= 1450) {
             return marketTypes.slice(0, 3);
