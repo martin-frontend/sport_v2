@@ -92,6 +92,9 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
 
     set_event_list(data: any) {
         this.pageData.competition_list.push(...data);
+        this.pageData.competition_list = this.pageData.competition_list.sort((a: any, b: any) => {
+            return a.sort - b.sort;
+        });
         this.init();
         this.getMarketAndStates();
     }
