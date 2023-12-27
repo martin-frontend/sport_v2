@@ -10,7 +10,7 @@
             <div class="text-truncate">{{LangUtil(item.sport)}}</div>
             <v-spacer />
             <!-- <div class="mr15">{{item.num}}</div> -->
-            <div v-if="item.num && !isRaceEvent(sportId)" class="icon-box ml-4 text-12 mr15" :class="isExpend? 'arrow-show' : 'arrow'">
+            <div v-if="item.num && !isRaceEvent(sportId)" class="icon-box ml-4 text-12 mr15" :class="!isExpend? 'arrow-show' : 'arrow'">
                 <svg-icon icon="zoom_out1"></svg-icon>
             </div>
         </v-sheet>
