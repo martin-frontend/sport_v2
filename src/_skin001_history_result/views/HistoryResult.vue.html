@@ -127,7 +127,12 @@
                         <span v-if="index1 == 0">{{index + 1}}</span>
                     </v-col>
                     <v-col>
-                        <svg-icon class="text-30" :icon="sportIcon[item.sport_id]"></svg-icon>
+                        <template v-if="item.bet_type == 'single'">
+                            <svg-icon class="text-30" :icon="sportIcon[item.sport_id]"></svg-icon>
+                        </template>
+                        <template v-else> 
+                            <svg-icon v-if="index1 == 0" class="text-24" icon="c64"></svg-icon>
+                        </template>
                     </v-col>
                     <!-- 订单 -->
                     <v-col cols="2" class="font-weight-bold">
@@ -136,7 +141,10 @@
                             <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
                                 <svg-icon class="text-16" icon="copy"></svg-icon>
                             </button>
-                            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span>
+                            <span>
+                                {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss',
+                                true)}}</span
+                            >
                         </template>
                     </v-col>
                     <v-col>
