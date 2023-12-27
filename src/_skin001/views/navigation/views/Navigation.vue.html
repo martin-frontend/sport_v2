@@ -25,7 +25,7 @@
                     </v-sheet>
                 </v-list-item>
 
-                <SportTag v-for="key in myProxy.pageData.sportIdArr" :key="key" :sport-id="key" :item="new_menu_subnav[key]"></SportTag>
+                <SportTag class="mb-1" v-for="key in myProxy.pageData.sportIdArr" :key="key" :sport-id="key" :item="new_menu_subnav[key]"></SportTag>
 
                 <!-- <v-list-item class="mb-1" link @click="onTagClick('love')">
                     <v-sheet

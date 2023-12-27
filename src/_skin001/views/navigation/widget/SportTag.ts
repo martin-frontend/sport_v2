@@ -21,7 +21,6 @@ export default class MarketTypeTag extends AbstractView {
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     isExpend = false;
     isShowAllComp = false;
-    countryModel = [];
 
     isRaceEvent = SportUtil.isRaceEvent;
 
@@ -58,7 +57,6 @@ export default class MarketTypeTag extends AbstractView {
     }
 
     onTagClick(key: string) {
-        this.isShowAllComp = false;
         page_home.showByTag(key);
     }
 
@@ -70,10 +68,19 @@ export default class MarketTypeTag extends AbstractView {
         page_home.showByCompetition(comp_id);
     }
 
-    @Watch("curSportId")
+    @Watch("curSportId", {immediate: true})
     onWatchCurSportId(val: any) {
         if (val != this.sportId) {
             this.isExpend = false;
+        } else {
+            this.isExpend = true;
+        }
+    }
+
+    @Watch("isExpend")
+    onWatchIsExpend(val: any) {
+        if (!val) {
+            this.isShowAllComp = false;
         }
     }
 

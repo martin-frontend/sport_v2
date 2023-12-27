@@ -11,18 +11,18 @@
             <v-spacer />
             <!-- <div class="mr15">{{item.num}}</div> -->
             <div v-if="item.num && !isRaceEvent(sportId)" class="icon-box ml-4 text-12 mr15" :class="isExpend? 'arrow-show' : 'arrow'">
-                <svg-icon icon="zoom_out"></svg-icon>
+                <svg-icon icon="zoom_out1"></svg-icon>
             </div>
         </v-sheet>
     </v-list-item>
     <template v-if="!isRaceEvent(sportId)">
         <v-expand-transition>
-            <div v-if="isExpend && curSportNav" class="px-1">
+            <div v-if="isExpend && curSportNav" class="px-1 pb-1">
                 <!-- 自订义标签 -->
                 <v-list-item class="mb-1" link v-for="(item, index) in curSportNav.tags" :key="item.tag" @click="onTagClick(item.tag)">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg listitem2"
-                        :class="{'active': homeProxy.listQueryComp.tag == item.tag}"
+                        :class="{'active2': homeProxy.listQueryComp.tag == item.tag}"
                         height="38"
                         width="100%"
                     >
@@ -41,7 +41,7 @@
                     <v-list-item v-if="item[key]" :disabled="!item[key].num" @click="onTagClick(key)" link class="mb-1" :key="key">
                         <v-sheet
                             class="d-flex align-center text-14 rounded-lg listitem2"
-                            :class="{'active': key == curTag}"
+                            :class="{'active2': key == curTag}"
                             height="38"
                             width="100%"
                         >
@@ -57,7 +57,7 @@
                 <v-list-item class="mb-1" link @click="onTagClick('love')" :disabled="!loveCount">
                     <v-sheet
                         class="d-flex align-center text-14 rounded-lg textGray--text listitem2"
-                        :class="{'active': homeProxy.listQueryComp.tag == 'love'}"
+                        :class="{'active2': homeProxy.listQueryComp.tag == 'love'}"
                         height="38"
                         width="100%"
                     >
@@ -71,9 +71,10 @@
                 <!-- 全部赛事 -->
                 <v-sheet
                     v-if="!isShowAllComp"
-                    class="text-14 d-flex align-center justify-center hand more mb-1 pb-1"
+                    class="text-14 d-flex align-center justify-center hand more"
                     height="35"
                     width="100%"
+                    color="transparent"
                     @click="showAllComp"
                 >
                     <div class="d-flex">
@@ -81,21 +82,16 @@
                         <div class="ml15">{{curSportNav.all_competition_amount}}</div>
                     </div>
                 </v-sheet>
-{{countryModel}}
                 <v-expand-transition>
                     <div v-show="isShowAllComp">
                         <v-list-group
                             class="mb-1 country-group rounded-lg"
+                            active-class="country-group-active"
                             v-for="(item, index) in curSportNav.all_competition"
                             :key="item.country_code"
-                            v-model="countryModel"
                         >
                             <template v-slot:activator>
-                                <v-sheet
-                                    class="d-flex align-center text-14 rounded-lg listitem2"
-                                    height="38"
-                                    width="100%"
-                                >
+                                <v-sheet class="d-flex align-center text-14 rounded-lg listitem2" height="38" width="100%">
                                     <v-img
                                         :src="item.icon"
                                         width="20px"
@@ -107,7 +103,10 @@
                                     ></v-img>
                                     <div class="text-truncate mr-3">{{LangUtil(item.country_name)}}</div>
                                     <v-spacer />
-                                    <div class="mr15">{{item.num}}</div>
+                                    <div>{{item.num}}</div>
+                                    <div v-if="item.num" class="icon-box ml-3 text-12 mr15 country-arrow">
+                                        <svg-icon icon="zoom_out1"></svg-icon>
+                                    </div>
                                 </v-sheet>
                             </template>
                             <div>
@@ -119,12 +118,16 @@
                                     @click="onShowCompetition(item1.id)"
                                 >
                                     <v-sheet
-                                        class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
-                                        :class="{'active': homeProxy.listQueryComp.competition_id == item1.id}"
+                                        color="transparent"
+                                        class="d-flex align-center text-14 comp-item"
+                                        :class="{'comp-item-active': homeProxy.listQueryComp.competition_id == item1.id}"
                                         height="38"
                                         width="100%"
                                     >
-                                        <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
+                                        <v-sheet color="transparent" class="d-flex align-center justify-center ml15 mr15" width="20">
+                                            <v-icon class="pt-1" x-small style="transform: scale(0.6)">mdi-circle</v-icon>
+                                        </v-sheet>
+                                        <!-- <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet> -->
                                         <div class="text-truncate mr-3">{{item1.name}}</div>
                                     </v-sheet>
                                 </v-list-item>
