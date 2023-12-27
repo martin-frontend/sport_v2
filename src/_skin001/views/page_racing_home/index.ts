@@ -2,6 +2,7 @@ import Vue from "vue";
 import PageRacingHomeProxy from "./proxy/PageRacingHomeProxy";
 import PageHomeProxy from "../page_home/proxy/PageHomeProxy";
 import getProxy from "@/core/global/getProxy";
+import NavigationProxy from "../navigation/proxy/NavigationProxy";
 
 function show() {
     if (Vue.router.currentRoute.path != "/page_racing_home") {
@@ -25,6 +26,9 @@ function showByTag(tag?: string) {
         myProxy.listQueryComp.tag = tag;
     }
     myProxy.api_event_list();
+
+    const navProxy: NavigationProxy = getProxy(NavigationProxy);
+    navProxy.api_menu_leftnav();
 }
 /**按sport查询 */
 function showBySport(sport_id: any, tag?: string) {

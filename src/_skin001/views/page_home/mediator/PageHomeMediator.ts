@@ -14,6 +14,7 @@ export default class PageHomeMediator extends AbstractMediator {
         // myProxy.api_menu_subnav();
         // myProxy.api_menu_leftnav();
         if (!myProxy.pageData.loading) {
+            myProxy.api_event_market_type_v2();
             myProxy.api_event_list();
         }
     }

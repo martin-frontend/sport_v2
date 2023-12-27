@@ -18,7 +18,8 @@ function showByTag(tag: string) {
     } else {
         myProxy.api_event_list();
     }
-    // myProxy.api_menu_subnav();
+    const navProxy: NavigationProxy = getProxy(NavigationProxy);
+    navProxy.api_menu_leftnav();
 }
 /**按国家查询 */
 function showByCountry(country: string) {
