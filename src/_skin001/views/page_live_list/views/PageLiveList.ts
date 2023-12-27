@@ -20,7 +20,7 @@ export default class PageLiveList extends AbstractView {
     }
 
     onBack() {
-        this.$router.replace("/page_home");
+        this.$router.back();
     }
 
     destroyed() {

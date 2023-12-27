@@ -10,11 +10,13 @@ import getProxy from "@/core/global/getProxy";
 import page_home from "@/_skin001/views/page_home";
 import page_racing_home from "@/_skin001/views/page_racing_home";
 import SportUtil from "@/core/global/SportUtil";
+import BetProxy from "@/proxy/BetProxy";
 
 @Component
 export default class HeaderNav extends AbstractView {
     LangUtil = LangUtil;
     myProxy: HeaderProxy = this.getProxy(HeaderProxy);
+    betProxy: BetProxy = this.getProxy(BetProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
@@ -40,6 +42,13 @@ export default class HeaderNav extends AbstractView {
     }
 
     onSportClick(sport_id: number) {
+        if (sport_id == this.curSportId) return;
+
+        // 球类 换 race
+        if (SportUtil.isRaceEvent(sport_id) != SportUtil.isRaceEvent(this.curSportId)) {
+            this.betProxy.initBetList();
+        }
+
         if (!SportUtil.isRaceEvent(sport_id)) {
             page_home.showBySport(sport_id);
         } else {

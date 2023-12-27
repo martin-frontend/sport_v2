@@ -72,9 +72,9 @@ export default class MatcheItemMobile extends AbstractView {
         const { sport_id } = this.listQueryComp;
         let marketTypes: string[] = [];
         if (this.states && arr.includes(this.states.match_phase)) {
-            marketTypes = PlatConfig.config.client.h5MarketTypeExtraBySportId[sport_id].split(",");
+            marketTypes = PlatConfig.config.client.h5MarketTypeExtraBySportId[sport_id]?.split(",");
         } else {
-            marketTypes = PlatConfig.config.client.h5MarketTypeBySportId[sport_id].split(",");
+            marketTypes = PlatConfig.config.client.h5MarketTypeBySportId[sport_id]?.split(",") || [];
         }
         return marketTypes.slice(0, 2);
     }
