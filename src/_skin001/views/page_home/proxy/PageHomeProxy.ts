@@ -224,7 +224,9 @@ export default class PageHomeProxy extends puremvc.Proxy {
             this.pageData.loading = true;
             this.pageData.market_list = [];
             this.listQueryComp.sport_id = Number(this.listQueryComp.sport_id);
-            this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
+            const query: any = { ...this.listQueryComp };
+            delete query.country;
+            this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(query));
         } else {
             this.api_user_lovematch();
         }
@@ -245,7 +247,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
                 // if (h5MarketType_extra) this.listQueryMarket.market_type += "," + h5MarketType_extra;
                 if (h5MarketTypeExtraBySportId[sport_id]) this.listQueryMarket.market_type += "," + h5MarketTypeExtraBySportId[sport_id];
             } else {
-                this.listQueryMarket.market_type = pcMarketTypeBySportId[sport_id];                
+                this.listQueryMarket.market_type = pcMarketTypeBySportId[sport_id];
                 if (pcMarketTypeExtraBySportId[sport_id]) this.listQueryMarket.market_type += "," + pcMarketTypeExtraBySportId[sport_id];
             }
         }

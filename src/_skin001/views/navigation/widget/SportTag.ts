@@ -63,6 +63,11 @@ export default class MarketTypeTag extends AbstractView {
         }
     }
 
+    onShowCountry(item: any) {
+        const competitions = item.competitions.map((comp: any) => comp.id).toString();
+        page_home.showByCountry(item.country_code, competitions);
+    }
+
     onTagClick(key: string) {
         page_home.showByTag(key);
     }

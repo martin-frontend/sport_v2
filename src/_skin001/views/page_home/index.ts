@@ -22,9 +22,10 @@ function showByTag(tag: string) {
     navProxy.api_menu_leftnav();
 }
 /**按国家查询 */
-function showByCountry(country: string) {
+function showByCountry(country: string, competitions: string) {
     show();
     const myProxy = getMyProxy();
+    myProxy.listQueryComp.competition_id = competitions;
     myProxy.listQueryComp.country = country;
     myProxy.api_event_list();
     // myProxy.api_menu_subnav();

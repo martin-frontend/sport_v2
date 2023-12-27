@@ -313,13 +313,13 @@ export default class BetSummary extends AbstractView {
         return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", this.decimalSeparator];
     }
 
-    isShowTotalSP = true;
+    totalSP = 0;
     isOnlySP = false;
-    get totalSP() {
+    get isShowTotalSP() {
         let isShow = false;
         let isOnly = true;
         let val = 0;
-        
+
         this.pageData.list.forEach((item) => {
             if (item.odds == "SP") {
                 isShow = true;
@@ -328,9 +328,10 @@ export default class BetSummary extends AbstractView {
                 isOnly = false;
             }
         });
-        this.isShowTotalSP = isShow;
+
+        this.totalSP = val;
         this.isOnlySP = isOnly;
-        return val;
+        return isShow;
     }
 
     get payout() {

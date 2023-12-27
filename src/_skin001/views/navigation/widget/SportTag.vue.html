@@ -79,7 +79,7 @@
                 >
                     <div class="d-flex">
                         <div class="text-truncate">{{LangUtil('更多国家赛事')}}</div>
-                        <div class="ml15">{{curSportNav.all_competition_amount}}</div>
+                        <!-- <div class="ml15">{{curSportNav.all_competition_amount}}</div> -->
                     </div>
                 </v-sheet>
                 <v-expand-transition>
@@ -111,7 +111,6 @@
                             </template>
                             <div>
                                 <v-list-item
-                                    class="mb-1"
                                     link
                                     v-for="(item1, index1) in item.competitions"
                                     :key="item1.id"
@@ -120,7 +119,7 @@
                                     <v-sheet
                                         color="transparent"
                                         class="d-flex align-center text-14 comp-item"
-                                        :class="{'comp-item-active': homeProxy.listQueryComp.competition_id == item1.id}"
+                                        :class="{'comp-item-active': homeProxy.listQueryComp.competition_id == item1.id && !homeProxy.listQueryComp.country}"
                                         height="38"
                                         width="100%"
                                     >
@@ -131,17 +130,20 @@
                                         <div class="text-truncate mr-3">{{item1.name}}</div>
                                     </v-sheet>
                                 </v-list-item>
-                                <!-- <v-list-item link @click="onShowCountry(item.country_code)">
+                                <v-list-item link @click="onShowCountry(item)">
                                     <v-sheet
-                                        class="d-flex align-center text-14 rounded-lg textGray--text comp-item"
-                                        :class="{'active': homeProxy.listQueryComp.country == item.country_code}"
+                                        color="transparent"
+                                        class="d-flex align-center text-14 comp-item"
+                                        :class="{'comp-item-active': homeProxy.listQueryComp.country == item.country_code}"
                                         height="38"
                                         width="100%"
                                     >
-                                        <v-sheet class="ml-5 mr10 vline" width="2" height="16"></v-sheet>
+                                        <v-sheet color="transparent" class="d-flex align-center justify-center ml15 mr15" width="20">
+                                            <v-icon class="pt-1" x-small style="transform: scale(0.6)">mdi-circle</v-icon>
+                                        </v-sheet>
                                         <div class="text-truncate mr-3">{{LangUtil("更多赛事")}}</div>
                                     </v-sheet>
-                                </v-list-item> -->
+                                </v-list-item>
                             </div>
                         </v-list-group>
                     </div>
