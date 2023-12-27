@@ -176,7 +176,11 @@ export default class BetProxy extends puremvc.Proxy {
 
     setBetType() {
         if (this.pageData.list.length > 1 && this.pageData.betType === "normal") {
-            this.pageData.betType = PlatConfig.config.client.isDefaultParlay == 1 ? "parlay" : "single";
+            if (Vue.router.currentRoute.path == "/page_racing_detail") {
+                this.pageData.betType = "single";
+            } else {
+                this.pageData.betType = PlatConfig.config.client.isDefaultParlay == 1 ? "parlay" : "single";
+            }
         } else if (this.pageData.list.length == 1) {
             this.pageData.betType = "normal";
         }

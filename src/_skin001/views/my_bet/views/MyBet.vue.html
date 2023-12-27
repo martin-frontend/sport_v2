@@ -1,5 +1,5 @@
 <div>
-    <v-tabs v-model="tab" background-color="bgBanner" class="rounded-10 mb-2" fixed-tabs v-if="pageData.betType != 'normal'">
+    <v-tabs v-model="tab" background-color="bgBanner" class="rounded-10 mb-2" fixed-tabs v-if="pageData.betType != 'normal' && !isRaceEvent(curSportId)">
         <v-tabs-slider color="yellow1"></v-tabs-slider>
         <v-tab class="btnPlain--text" @click="pageData.betType = 'single'">{{LangUtil("单关")}}</v-tab>
         <v-tab class="btnPlain--text" @click="pageData.betType = 'parlay'">{{LangUtil("串关")}}</v-tab>

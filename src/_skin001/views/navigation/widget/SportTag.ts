@@ -8,6 +8,7 @@ import page_home from "../../page_home";
 import NavigationProxy from "../proxy/NavigationProxy";
 import page_racing_home from "../../page_racing_home";
 import SportUtil from "@/core/global/SportUtil";
+import BetProxy from "@/proxy/BetProxy";
 
 @Component
 export default class MarketTypeTag extends AbstractView {
@@ -17,6 +18,7 @@ export default class MarketTypeTag extends AbstractView {
     sportIcon = Assets.SportIcon;
     tagIcon = Assets.TagIcon;
     myProxy: NavigationProxy = getProxy(NavigationProxy);
+    betProxy: BetProxy = this.getProxy(BetProxy);
     pageData = this.myProxy.pageData;
     homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     isExpend = false;
@@ -48,6 +50,11 @@ export default class MarketTypeTag extends AbstractView {
         this.isExpend = !this.isExpend;
         if (this.sportId == this.curSportId) return;
 
+        // 球类 换 race
+        if (SportUtil.isRaceEvent(this.sportId) != SportUtil.isRaceEvent(this.curSportId)) {
+            this.betProxy.initBetList();
+        }
+
         if (!SportUtil.isRaceEvent(this.sportId)) {
             page_home.showBySport(this.sportId);
         } else {
@@ -68,7 +75,7 @@ export default class MarketTypeTag extends AbstractView {
         page_home.showByCompetition(comp_id);
     }
 
-    @Watch("curSportId", {immediate: true})
+    @Watch("curSportId", { immediate: true })
     onWatchCurSportId(val: any) {
         if (val != this.sportId) {
             this.isExpend = false;
