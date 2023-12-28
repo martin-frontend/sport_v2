@@ -57,31 +57,31 @@ export default class PageHome extends AbstractView {
 
     /**关注整个联赛 */
     setAllLove(competition: any) {
-        console.warn("competition", competition);
+        const type = this.checkAllLove(competition);
 
         const matches = competition.matches;
         const len = matches.length;
+        const events = [];
         for (let i = len - 1; i >= 0; i--) {
-            this.myProxy.api_user_love(competition.competition_id, matches[i].id);
+            if (!this.curSportNav?.favorite.events.includes(`${matches[i].id}`) || type) {
+                events.push(matches[i].id);
+            }
         }
-        // let lovecount: number = 0;
-        // matches.forEach((item: any) => {
-        // this.myProxy.api_user_love(item.id);
-        // if (this.pageData.love_events.indexOf(item.id) == -1) {
-        //     lovecount++;
-        //     this.myProxy.api_user_love(item.id);
-        // }
-        // });
-        // if (lovecount == 0) {
-        //     matches.forEach((item: any) => {
-        //         this.myProxy.api_user_love(item.id);
-        //     });
-        // }
+
+        // 如果在关注页，直接删除该赛事
+        if (this.listQueryComp.tag == "love") {
+            const findIndex = this.pageData.competition_list.findIndex((item) => item.competition_id == competition.competition_id);
+            this.pageData.competition_list.splice(findIndex, 1);
+        }
+
+        if (events.length == 0) return;
+        this.myProxy.api_user_love(competition.competition_id, events);
     }
+
     /**检测是否整个联赛都关注了 */
     checkAllLove(competition: any) {
         for (const item of competition.matches) {
-            if (this.pageData.love_events.indexOf(item.id) == -1) {
+            if (this.curSportNav?.favorite?.events.indexOf(`${item.id}`) == -1) {
                 return false;
             }
         }

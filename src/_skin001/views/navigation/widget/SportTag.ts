@@ -38,14 +38,6 @@ export default class MarketTypeTag extends AbstractView {
         return this.myProxy.pageData.new_menu_subnav[this.curSportId];
     }
 
-    get loveCount() {
-        let count = 0;
-        for (const comp of this.pageData.lovematch) {
-            count += comp.count;
-        }
-        return count;
-    }
-
     onSportClick() {
         this.isExpend = !this.isExpend;
         if (this.sportId == this.curSportId) return;
