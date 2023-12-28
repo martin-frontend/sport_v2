@@ -159,7 +159,7 @@
                                         <div>{{leg.content}}</div>
                                         <v-spacer />
                                         <div class="mr-2 text-16">
-                                            <span v-if="leg.odds != 'SP'"> @{{ TransMarketPrice(leg.odds) }} </span>
+                                            <span v-if="!leg.is_sp"> @{{ TransMarketPrice(leg.odds) }} </span>
                                             <span v-else>SP</span>
                                         </div>
                                     </div>
