@@ -179,15 +179,15 @@
                             <template v-if="states && states.match_phase != 'OPEN'">
                                 <v-sheet
                                     color="timeColor2"
-                                    class="rounded d-flex align-center justify-center px-1 text-12 white--text"
-                                    height="20"
+                                    class="rounded d-flex align-center justify-center px-1 text-14 white--text"
+                                    height="30"
                                     min-width="60"
                                 >
                                     {{getResultStr(states.match_phase)}}
                                 </v-sheet>
                             </template>
                             <template v-else>
-                                <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                                <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
                             </template>
                         </v-sheet>
                         <template v-if="match.live_status == 1 || match.animation_status == 1">

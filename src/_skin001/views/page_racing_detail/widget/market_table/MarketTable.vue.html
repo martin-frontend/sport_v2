@@ -20,7 +20,7 @@
                     <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("价钱1")}}</v-col>
                     <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("价钱2")}}</v-col>
                     <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
-                        {{LangUtil("独赢")}}
+                        <span v-if="markets"> {{markets.RB_WIN.market_name}} </span>
                         <v-tooltip top>
                             <template v-slot:activator="{ on, attrs }">
                                 <div class="hand ml-1" v-bind="attrs" v-on="on">
@@ -28,12 +28,12 @@
                                 </div>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                                <span>{{markets.RB_WIN.hint}}</span>
+                                <span v-if="markets">{{markets.RB_WIN.hint}}</span>
                             </v-sheet>
                         </v-tooltip>
                     </v-col>
                     <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
-                        {{LangUtil("位置")}}
+                        <span v-if="markets"> {{markets.RB_PLACE.market_name}} </span>
                         <v-tooltip top>
                             <template v-slot:activator="{ on, attrs }">
                                 <div class="hand ml-1" v-bind="attrs" v-on="on">
@@ -41,7 +41,7 @@
                                 </div>
                             </template>
                             <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                                <span>{{markets.RB_PLACE.hint}}</span>
+                                <span v-if="markets">{{markets.RB_PLACE.hint}}</span>
                             </v-sheet>
                         </v-tooltip>
                     </v-col>
@@ -110,8 +110,8 @@
                             class="mx-2"
                             v-for="(price, index) of getFluctuatingPriceArr(runner.runner_id)"
                             :key="index"
-                            :price="price"
-                            :old-price="getFluctuatingPriceArr(runner.runner_id)[index-1]"
+                            :price="Number(price)"
+                            :old-price="Number(getFluctuatingPriceArr(runner.runner_id)[index-1])"
                             :animation="false"
                         ></Price>
                     </div>
@@ -163,9 +163,11 @@
                             </v-checkbox>
                         </v-sheet>
                     </v-col>
-                    <v-col cols="2" class="font-weight-bold d-flex align-center justify-center"> {{LangUtil("独赢")}} </v-col>
+                    <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                        <span v-if="markets"> {{markets.RB_WIN.market_name}} </span>
+                    </v-col>
                     <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
-                        {{LangUtil("位置")}}
+                        <span v-if="markets"> {{markets.RB_PLACE.market_name}} </span>
                     </v-col>
                 </v-row>
                 <v-divider></v-divider>
@@ -222,11 +224,11 @@
                             {{LangUtil("开放")}}
                         </v-sheet>
                         <Price
-                            class="mx-2"
                             v-for="(price, index) of getFluctuatingPriceArr(runner.runner_id)"
+                            class="mx-2"
                             :key="index"
-                            :price="price"
-                            :old-price="getFluctuatingPriceArr(runner.runner_id)[index-1]"
+                            :price="Number(price)"
+                            :old-price="Number(getFluctuatingPriceArr(runner.runner_id)[index-1])"
                             :animation="false"
                         ></Price>
                     </div>

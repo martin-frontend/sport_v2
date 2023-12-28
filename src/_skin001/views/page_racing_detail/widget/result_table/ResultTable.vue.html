@@ -13,10 +13,16 @@
                     </v-sheet>
                 </v-col>
                 <template v-if="window == 0">
-                    <v-col cols="2" class="headerTextColor--text text-14 d-flex align-center justify-center">{{LangUtil('独赢')}}</v-col>
-                    <v-col cols="2" class="headerTextColor--text text-14 d-flex align-center justify-center" v-if="match.runners.length >5"
-                        >{{LangUtil('位置')}}</v-col
+                    <v-col v-if="markets" cols="2" class="headerTextColor--text text-14 d-flex align-center justify-center">
+                        {{markets.RB_WIN.market_name}}
+                    </v-col>
+                    <v-col
+                        v-if="markets && match.runners.length >5"
+                        cols="2"
+                        class="headerTextColor--text text-14 d-flex align-center justify-center"
                     >
+                        {{markets.RB_PLACE.market_name}}
+                    </v-col>
                 </template>
             </v-row>
             <v-divider></v-divider>
@@ -30,8 +36,9 @@
                                         <div class="d-flex">
                                             <v-sheet
                                                 color="#0f1213"
-                                                class="rounded white--text text-12 px-1 d-flex align-center"
+                                                class="rounded white--text text-12 px-1 d-flex align-center nowrap"
                                                 :class="{'ranking-border': $vuetify.theme.dark}"
+                                                style="white-space: nowrap"
                                             >
                                                 {{LangUtil(getRankingStr(runner))}}
                                             </v-sheet>
@@ -110,9 +117,11 @@
                     </v-sheet>
                 </v-col>
                 <template v-if="window == 0">
-                    <v-col cols="2" class="text-center headerTextColor--text text-14">{{LangUtil('独赢')}}</v-col>
-                    <v-col cols="2" class="text-center headerTextColor--text text-14" v-if="match.runners.length > 5">
-                        {{LangUtil('位置')}}
+                    <v-col v-if="markets" cols="2" class="text-center headerTextColor--text text-14">
+                        {{markets.RB_WIN.market_name}}
+                    </v-col>
+                    <v-col cols="2" class="text-center headerTextColor--text text-14" v-if="markets && match.runners.length > 5">
+                        {{markets.RB_PLACE.market_name}}
                     </v-col>
                 </template>
             </v-row>
@@ -129,6 +138,8 @@
                                                 color="#0f1213"
                                                 class="rounded white--text text-12 px-1 d-flex align-center"
                                                 :class="{'ranking-border': $vuetify.theme.dark}"
+                                                style="white-space: nowrap"
+                                                max-height="20"
                                             >
                                                 {{LangUtil(getRankingStr(runner))}}
                                             </v-sheet>

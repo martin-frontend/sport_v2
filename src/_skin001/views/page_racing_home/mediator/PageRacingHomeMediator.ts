@@ -7,7 +7,7 @@ export default class PageRacingHomeMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
         return [net.EventType.api_event_list_v3, net.EventType.api_market_typelist, net.EventType.api_event_states];
     }
-
+    resAcount = 0;
     public handleNotification(notification: puremvc.INotification): void {
         const body = notification.getBody();
         const type = notification.getType();
@@ -15,7 +15,10 @@ export default class PageRacingHomeMediator extends AbstractMediator {
         switch (notification.getName()) {
             case net.EventType.api_event_list_v3:
                 if (type == PageRacingHomeProxy.NAME) {
-                    myProxy.set_event_list(body);
+                    this.resAcount++;
+                    if (myProxy.listQueryComp.getAcount == body.requestData.getAcount) {
+                        myProxy.set_event_list(body);
+                    }
                 }
                 break;
             case net.EventType.api_market_typelist:

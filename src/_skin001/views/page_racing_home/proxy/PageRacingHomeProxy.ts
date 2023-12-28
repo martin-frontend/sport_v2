@@ -44,6 +44,8 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         //球类比赛, 请带：1 、RACE 比赛, 请带：2
         event_type: 2,
 
+        //确保拿到回传的值是最后一次打的
+        getAcount: 0,
         unique: PageRacingHomeProxy.NAME,
     };
 
@@ -149,6 +151,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         this.pageData.competition_list = this.pageData.competition_list.filter(
             (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)
         );
+        this.listQueryComp.getAcount++;
         this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
     /**盘口接口-新*/

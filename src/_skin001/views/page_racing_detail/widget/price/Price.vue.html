@@ -6,7 +6,7 @@
         </div>
     </template>
     <template v-else>
-        <template v-if="!oldPrice">
+        <template v-if="!oldPrice || price == oldPrice">
             <div>{{price == 0? '-' : TransMarketPrice(price)}}</div>
         </template>
         <template v-else>
