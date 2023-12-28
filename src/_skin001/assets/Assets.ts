@@ -1,4 +1,4 @@
-const SportIcon = {
+const SportIcon: any = {
     1: "football", //足球
     4: "basketball", //篮球
     5: "soccer", //美式足球

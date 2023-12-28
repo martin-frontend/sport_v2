@@ -71,7 +71,26 @@
             >
                 <template slot="range-separator">-</template>
             </el-date-picker>
-
+            <v-sheet color="transition" width="200" class="ml-3">
+                <v-select
+                    v-model="myProxy.listQuery.sport_id"
+                    hide-details
+                    dense
+                    :items="sportOptions"
+                    solo
+                    item-text="title"
+                    item-value="id"
+                    class="sport-select rounded-lg"
+                    @change="onSportChange"
+                >
+                    <template #item="{item}">
+                        <div class="d-flex align-center">
+                            <svg-icon class="text-20" :icon="item.icon"></svg-icon>
+                            <span class="ml-2">{{item.title}}</span>
+                        </div>
+                    </template>
+                </v-select>
+            </v-sheet>
             <v-btn class="textGray--text ml-1" icon @click="onfresh">
                 <svg-icon class="text-23" icon="refrush"></svg-icon>
             </v-btn>
@@ -130,7 +149,7 @@
                         <template v-if="item.bet_type == 'single'">
                             <svg-icon class="text-30" :icon="sportIcon[item.sport_id]"></svg-icon>
                         </template>
-                        <template v-else> 
+                        <template v-else>
                             <svg-icon v-if="index1 == 0" class="text-24" icon="c64"></svg-icon>
                         </template>
                     </v-col>
@@ -177,7 +196,7 @@
                                 >
                                     {{leg.number_of_session}}
                                 </v-sheet>
-                                {{leg.competition_name}}</span
+                                {{leg.content}}</span
                             >
                         </template>
                         <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
