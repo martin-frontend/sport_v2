@@ -206,8 +206,8 @@
                             <div v-if="leg.c_type == 2">{{leg.content}}@{{TransMarketPrice(leg.odds)}}</div>
                             <div v-else>
                                 {{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}
-                                <span v-if="leg.odds != 'SP'"> @{{ TransMarketPrice(leg.odds) }} </span>
-                                <span v-else>SP</span>
+                                <span v-if="!leg.is_sp"> @{{ TransMarketPrice(leg.odds) }} </span>
+                                <span v-else>SP @{{ TransMarketPrice(leg.odds) }}</span>
                             </div>
                         </div>
 

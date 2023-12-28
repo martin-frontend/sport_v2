@@ -53,7 +53,7 @@ export default class PageRacingHome extends AbstractView {
 
     getDayAfterTomorrow(dayAfterTomorrow: any) {
         if (!dayAfterTomorrow) return "";
-        return dateFormat(new Date(dayAfterTomorrow), "yyyy/MM/dd");
+        return dateFormat(new Date(dayAfterTomorrow), "yyyy/MM/dd", true);
     }
 
     get nextTableData() {

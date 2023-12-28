@@ -101,7 +101,7 @@
                 <svg-icon class="tagTextColor2--text" icon="back2"></svg-icon>
             </v-btn>
 
-            <v-menu open-on-hover bottom offset-y v-if="Object.keys(curCompetition).length > 0">
+            <v-menu open-on-click bottom offset-y v-if="Object.keys(curCompetition).length > 0">
                 <template v-slot:activator="{ on, attrs, value }">
                     <div class="d-flex align-center font-weight-bold text-16 tagTextColor2--text" v-bind="attrs" v-on="on">
                         <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-1 text-25"></svg-icon>
