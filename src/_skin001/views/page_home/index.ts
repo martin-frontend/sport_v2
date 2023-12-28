@@ -13,11 +13,8 @@ function showByTag(tag: string) {
     show();
     const myProxy = getMyProxy();
     myProxy.listQueryComp.tag = tag;
-    if (tag == "love") {
-        myProxy.api_user_lovematch();
-    } else {
-        myProxy.api_event_list();
-    }
+    myProxy.api_event_list();
+    if (tag == "love") return;
     const navProxy: NavigationProxy = getProxy(NavigationProxy);
     navProxy.api_menu_leftnav();
 }

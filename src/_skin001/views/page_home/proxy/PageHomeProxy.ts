@@ -23,7 +23,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
     public onRegister(): void {
         const { user_type } = this.selfProxy.userInfo;
         this.user_type = user_type;
-        this.api_user_lovematch();
+        // this.api_user_lovematch();
         this.init();
     }
 
@@ -220,16 +220,12 @@ export default class PageHomeProxy extends puremvc.Proxy {
     /**赛事接口-新*/
     api_event_list() {
         if (this.listQueryComp.sport_id == -1) return;
-        if (this.listQueryComp.tag != "love") {
-            this.pageData.loading = true;
-            this.pageData.market_list = [];
-            this.listQueryComp.sport_id = Number(this.listQueryComp.sport_id);
-            const query: any = { ...this.listQueryComp };
-            delete query.country;
-            this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(query));
-        } else {
-            this.api_user_lovematch();
-        }
+        this.pageData.loading = true;
+        this.pageData.market_list = [];
+        this.listQueryComp.sport_id = Number(this.listQueryComp.sport_id);
+        const query: any = { ...this.listQueryComp };
+        delete query.country;
+        this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(query));
     }
     /**盘口接口-新*/
     api_market_typelist() {
@@ -264,34 +260,26 @@ export default class PageHomeProxy extends puremvc.Proxy {
         this.pageData.lovematch_order++;
         this.sendNotification(net.HttpType.api_user_lovematch, { unique: this.pageData.lovematch_order });
     }
-    api_user_love(competition_id: number, event_id: number) {
+
+    api_user_love(competition_id: number, event_id: any) {
         if (this.user_type == 2) {
             logEnterTips();
             return;
         }
-        const idx = this.pageData.love_events.indexOf(event_id);
-        if (idx != -1) {
-            this.pageData.love_events.splice(idx, 1);
-        } else {
-            this.pageData.love_events.push(event_id);
-        }
-        //如果在关注页，直接删除该赛事
-        if (this.listQueryComp.tag == "love") {
-            for (const comp of this.pageData.competition_list) {
-                const len = comp.matches.length;
-                for (let i = 0; i < len; i++) {
-                    if (comp.matches[i].id == event_id) {
-                        comp.matches.splice(idx, 1);
-                        break;
-                    }
-                }
-            }
-        }
-        this.sendNotification(net.HttpType.api_user_love, { event_id: event_id.toString(), competition_id: competition_id.toString() });
+        this.sendNotification(net.HttpType.api_user_love, {
+            event_id: event_id.toString(),
+            competition_id: competition_id.toString(),
+            sport_id: this.listQueryComp.sport_id,
+        });
     }
 
     api_menu_subnav() {
         this.sendNotification(net.HttpType.api_menu_subnav);
+    }
+
+    /**导航菜单 */
+    api_menu_leftnav() {
+        this.sendNotification(net.HttpType.api_menu_leftnav);
     }
 
     api_event_market_type_v2() {

@@ -7,7 +7,7 @@ export default class NavigationProxy extends puremvc.Proxy {
 
     public onRegister(): void {
         // this.api_menu_subnav();
-        this.api_user_lovematch();
+        // this.api_user_lovematch();
         this.api_menu_leftnav();
     }
 

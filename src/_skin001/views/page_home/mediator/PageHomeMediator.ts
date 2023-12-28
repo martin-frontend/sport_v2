@@ -60,7 +60,8 @@ export default class PageHomeMediator extends AbstractMediator {
                 }
                 break;
             case net.EventType.api_user_love:
-                myProxy.api_user_lovematch();
+                myProxy.api_menu_leftnav();
+                // myProxy.api_user_lovematch();
                 break;
             // case net.EventType.api_menu_subnav:
             //     {

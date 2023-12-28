@@ -107,8 +107,8 @@
                     </v-sheet>
                 </v-tooltip>
 
-                <v-sheet v-if="isShowDrow" class="mt-1 ml-8 d-flex align-center btnPlain--text" height="30" color="transparent">
-                    <div>{{LangUtil("和")}}</div>
+                <v-sheet class="mt-1 d-flex align-center btnPlain--text" height="30" color="transparent">
+                    <div class="ml-8 mr-4" v-if="isShowDrow">{{LangUtil("和")}}</div>
 
                     <v-tooltip top>
                         <template v-slot:activator="{ on, attrs }">
@@ -117,10 +117,10 @@
                                     <svg-icon
                                         v-bind="attrs"
                                         v-on="on"
-                                        class="text-18 textGray--text hand ml-4"
-                                        :class="{'active': pageData.love_events.includes(matche.id)}"
-                                        :icon="hover ? 'love' : (pageData.love_events.includes(matche.id) ? 'love_' : 'love1')"
-                                        @click.native="onLove"
+                                        class="text-18 textGray--text hand"
+                                        :class="{'active': curSportLove.includes(`${matche.id}`)}"
+                                        :icon="hover ? 'love' : (curSportLove.includes(`${matche.id}`) ? 'love_' : 'love1')"
+                                        @click.native="onLove(matche.id)"
                                     ></svg-icon>
                                 </v-hover>
                             </v-sheet>
