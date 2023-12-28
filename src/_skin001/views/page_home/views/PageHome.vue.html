@@ -95,17 +95,18 @@
                     </v-btn>
 
                     <v-btn
+                        v-if="curSportNav.favorite"
                         class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
                         :class="{'active': listQueryComp.tag == 'love'}"
                         @click="onQueryTagType('love')"
-                        :disabled="getTagNum('love') == 0"
+                        :disabled="!curSportNav.favorite.num"
                         max-height="30"
                         elevation="0"
                         outlined
                     >
                         <span class="text-12 d-flex align-center">
                             {{ LangUtil("关注") }}
-                            <span class="mb-2">{{getTagNum('love')}}</span>
+                            <span class="mb-2">{{curSportNav.favorite.num}}</span>
                         </span>
                     </v-btn>
                 </template>
