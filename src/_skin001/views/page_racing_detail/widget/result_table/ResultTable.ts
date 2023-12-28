@@ -16,14 +16,14 @@ export default class ResultTable extends AbstractView {
     rankingOption: any = { 1: "第一名", 2: "第二名", 3: "第三名", 4: "第四名" };
 
     getRankingStr(runner: any) {
-        const index = this.runnersRanking.findIndex((item: any) => item.ranking == runner.ranking);
-        if (index > 0) {
-            const preRanking = this.runnersRanking[index - 1].ranking;
-            if (preRanking == runner.ranking) {
-                const str = "并列" + this.rankingOption[runner.ranking];
-                return str;
-            }
-        }
+        // const index = this.runnersRanking.findIndex((item: any) => item.ranking == runner.ranking);
+        // if (index > 0) {
+        //     const preRanking = this.runnersRanking[index - 1].ranking;
+        //     if (preRanking == runner.ranking) {
+        //         const str = "并列" + this.rankingOption[runner.ranking];
+        //         return str;
+        //     }
+        // }
         return this.rankingOption[runner.ranking];
     }
 
