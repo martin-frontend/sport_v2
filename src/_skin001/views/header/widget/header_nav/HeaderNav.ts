@@ -42,7 +42,7 @@ export default class HeaderNav extends AbstractView {
     }
 
     onSportClick(sport_id: number) {
-        if (sport_id == this.curSportId) return;
+        // if (sport_id == this.curSportId) return;
 
         // 球类 换 race
         if (SportUtil.isRaceEvent(sport_id) != SportUtil.isRaceEvent(this.curSportId)) {
