@@ -196,13 +196,14 @@
                                 >
                                     {{leg.number_of_session}}
                                 </v-sheet>
-                                {{leg.content}}</span
-                            >
+                                {{leg.competition_name}}
+                            </span>
                         </template>
                         <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                     </v-col>
                     <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">
-                        <div id="content" class="d-flex text-center">
+                        <div id="content" class="d-flex flex-column align-center">
+                            <div v-if="isRaceEvent(item.sport_id)">{{leg.content}}</div>
                             <div v-if="leg.c_type == 2">{{leg.content}}@{{TransMarketPrice(leg.odds)}}</div>
                             <div v-else>
                                 {{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}

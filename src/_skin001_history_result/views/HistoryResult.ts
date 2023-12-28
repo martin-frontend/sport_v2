@@ -102,7 +102,7 @@ export default class PageOrderDetail extends AbstractView {
     onSportChange() {
         this.myProxy.listQuery.page_count = 1;
         this.pageData.list = [];
-        this.myProxy.api_user_orders();
+        this.myProxy.api_user_orders_v3();
     }
 
     formatDate(date: any) {
