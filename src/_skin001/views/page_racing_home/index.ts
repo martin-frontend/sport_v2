@@ -15,6 +15,7 @@ function showByKeyword(keyword: string) {
     show();
     const myProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
     myProxy.listQueryComp.keyword = keyword;
+    myProxy.listQueryComp.sport_id = myProxy.sportCheckBoxArr.toString();
     myProxy.api_event_list();
     // myProxy.api_menu_subnav();
 }
