@@ -26,6 +26,10 @@ export default class PageRacingHome extends AbstractView {
         super(PageRacingHomeMediator);
     }
 
+    mounted() {
+        this.myProxy.sportCheckBoxArr = [`${this.homeProxy.listQueryComp.sport_id}`];
+    }
+
     get curSportId() {
         return this.homeProxy.listQueryComp.sport_id;
     }
@@ -57,7 +61,7 @@ export default class PageRacingHome extends AbstractView {
         const arr = <any>[];
         this.pageData.competition_list.forEach((item: any) => {
             if (!this.$vuetify.breakpoint.mobile) {
-                if (!this.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
+                if (!this.myProxy.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
             } else {
                 if (item.sport_id != this.listQueryComp.sport_id) return;
             }
@@ -75,7 +79,7 @@ export default class PageRacingHome extends AbstractView {
 
     onTagClick(tag: any) {
         this.myProxy.listQueryComp.tag = tag;
-        page_racing_home.showBySport(this.sportCheckBoxArr.toString(), tag);
+        page_racing_home.showBySport(this.myProxy.sportCheckBoxArr.toString(), tag);
     }
 
     get raceSportArr() {
@@ -84,10 +88,8 @@ export default class PageRacingHome extends AbstractView {
 
     @Watch("homeProxy.listQueryComp.sport_id")
     onWatchSportId(newVal: any) {
-        this.sportCheckBoxArr = [`${newVal}`];
+        this.myProxy.sportCheckBoxArr = [`${newVal}`];
     }
-
-    sportCheckBoxArr = [`${this.homeProxy.listQueryComp.sport_id}`];
 
     sportCheckBoxOptions = {
         7: { title: "赛马", sportId: "7" },

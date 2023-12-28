@@ -22,6 +22,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         event_states: <any>[],
         eventStatesByEventId: <any>{},
     };
+    sportCheckBoxArr: any = [];
 
     listQueryComp = {
         // 1 足球、4 篮球、5 美式足球、7 赛马、8 赛狗
