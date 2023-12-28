@@ -69,48 +69,63 @@ span {
 }
 
 ::v-deep .theme--dark {
-
     .el-input__inner {
         background-color: #2f3030 !important;
         border-radius: 8px !important;
         border: none;
-        color: #8E8F91;
+        color: #8e8f91;
     }
 
     .el-input__inner::placeholder {
-        color: #8E8F91;
+        color: #8e8f91;
     }
 
     .el-range-input {
-        color: #8E8F91;
+        color: #8e8f91;
         width: auto;
+    }
+
+    .sport-select.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+        box-shadow: unset;
+        background: #2f3030;
+    }
+    .v-select .v-select__selections,
+    .v-select__slot .v-icon {
+        color: #8e8f91;
     }
 }
 
 ::v-deep .theme--light {
-
     .el-input__inner {
-        background-color: #F4F4F4 !important;
+        background-color: #f4f4f4 !important;
         // background-color: transparent !important;
         border-radius: 8px !important;
         border: none;
-        color: #8E8F91;
+        color: #8e8f91;
     }
 
     .el-input__inner::placeholder {
-        color: #8E8F91;
+        color: #8e8f91;
     }
 
     .el-range-input {
-        color: #8E8F91;
+        color: #8e8f91;
         width: auto;
     }
 
     .el-range__close-icon {
-        color: #8E8F91;
+        color: #8e8f91;
+    }
+
+    .sport-select.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+        box-shadow: unset;
+        background: #f4f4f4;
+    }
+    .v-select .v-select__selections,
+    .v-select__slot .v-icon {
+        color: #8e8f91;
     }
 }
-
 
 .el-range__icon {
     margin-top: 3px;
@@ -127,3 +142,11 @@ span {
 ::v-deep .el-input--suffix .el-input__inner {
     padding-right: 0px;
 }
+
+::v-deep .theme--light {
+}
+
+// ::v-deep .sport-select.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+//     box-shadow: unset;
+//     background: #f4f4f4;
+// }

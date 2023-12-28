@@ -48,7 +48,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
             total_win: "0.000", // 总输赢
             total_expected_win: "0.000", // 总预计输赢
             total_count: 1, // 总注单数
-            currency_type: "", // 币种 
+            currency_type: "", // 币种
         },
         // 列表是否加载完成，手机模式专用
         finished: false,
@@ -59,6 +59,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         is_settle: 1, //1=已结算 0=未结算
         page_count: 1,
         page_size: 10,
+        sport_id: 0,
         pageInfo: { pageCurrent: 0 },
         // "settle_time-{>=}": "",
         // "settle_time-{<=}": "",
@@ -130,7 +131,11 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
     }
     api_user_orders_v3() {
-        this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(this.listQuery));
+        const query = { ...this.listQuery };
+        if (query.sport_id == 0) {
+            delete query.sport_id;
+        }
+        this.sendNotification(net.HttpType.api_user_orders_v3, objectRemoveNull(query));
     }
 
     set_public_plat_config(data: any) {
