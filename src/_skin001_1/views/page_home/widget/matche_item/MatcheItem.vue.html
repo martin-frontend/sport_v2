@@ -11,8 +11,8 @@
                                     v-bind="attrs"
                                     v-on="on"
                                     class="text-18 textGray--text hand ml10 mt-1"
-                                    :class="{'active': pageData.love_events.includes(matche.id)}"
-                                    :icon="hover ? 'love' : (pageData.love_events.includes(matche.id) ? 'love_' : 'love1')"
+                                    :class="{'active': curSportLove.includes(`${matche.id}`)}"
+                                    :icon="hover ? 'love' : (curSportLove.includes(`${matche.id}`) ? 'love_' : 'love1')"
                                     @click.native="onLove"
                                 ></svg-icon>
                             </v-hover>

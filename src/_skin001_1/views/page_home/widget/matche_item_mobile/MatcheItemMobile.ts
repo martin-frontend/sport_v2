@@ -10,6 +10,7 @@ import PlatConfig from "@/core/config/PlatConfig";
 import GlobalVar from "@/core/global/GlobalVar";
 import matche from "@/_skin001/views/matche";
 import page_matche from "@/_skin001/views/page_matche";
+import NavigationProxy from "@/_skin001/views/navigation/proxy/NavigationProxy";
 
 @Component
 export default class MatcheItemMobile extends AbstractView {
@@ -17,6 +18,7 @@ export default class MatcheItemMobile extends AbstractView {
     MarketUtils = MarketUtils;
     getResponseIcon = getResponseIcon;
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
+    navProxy: NavigationProxy = this.getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
     GlobalVar = GlobalVar;
@@ -173,6 +175,26 @@ export default class MatcheItemMobile extends AbstractView {
     }
 
     onLove() {
-        this.myProxy.api_user_love(1, this.matche.id);
+        // 如果在关注页，直接删除该赛事
+        if (this.listQueryComp.tag == "love") {
+            const findIndex = this.pageData.competition_list.findIndex((item) => item.competition_id == this.matche.competition_id);
+            const comp: any = this.pageData.competition_list[findIndex];            
+            const len = comp.matches.length;
+            if (len == 1) {
+                this.pageData.competition_list.splice(findIndex, 1);
+            } else {
+                for (let i = 0; i < len; i++) {
+                    if (this.matche.id == comp.matches[i].id) {
+                        comp.matches.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+        this.myProxy.api_user_love(this.matche.competition_id, this.matche.id);
+    }
+
+    get curSportLove() {
+        return this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id]?.favorite.events || [];
     }
 }
