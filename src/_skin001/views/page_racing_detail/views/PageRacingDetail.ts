@@ -114,7 +114,7 @@ export default class PageRacingDetail extends AbstractView {
     }
 
     onBack() {
-        this.$router.back();
+        this.$router.push("/page_racing_home");
     }
 
     clicklive() {

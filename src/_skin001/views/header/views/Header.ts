@@ -147,6 +147,11 @@ export default class Header extends AbstractView {
         return !SportUtil.isRaceEvent(sport_id) ? LangUtil("搜索联赛或球队名称") : LangUtil("搜索联赛");
     }
 
+    @Watch("homeProxy.listQueryComp.sport_id")
+    onWatchSportId() {
+        this.txtSearch = "";
+    }
+
     onSetting() {
         dialog_setting.show();
     }

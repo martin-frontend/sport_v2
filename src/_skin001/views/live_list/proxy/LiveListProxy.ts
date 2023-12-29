@@ -27,7 +27,7 @@ export default class LiveListProxy extends puremvc.Proxy {
 
     listQueryComp = {
         // 1 足球、4 篮球、5 美式足球、7 赛马、8 赛狗
-        sport_id: 7,
+        sport_id: -1,
         page_size: 1000,
         page_count: 1,
         unique: LiveListProxy.NAME,
