@@ -28,9 +28,7 @@
                                 <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
                                 <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
                             </template>
-                            <div v-else-if="getStates(item.match.id).match_phase == 'DONE'">
-                                {{getRanking(item.match.id)}}
-                            </div>
+                            <div v-else-if="getStates(item.match.id).match_phase == 'DONE'">{{getRanking(item.match.id)}}</div>
                             <v-sheet v-else color="transparent" width="60" class="red--text text-center text-15">
                                 {{getResultStr(getStates(item.match.id).match_phase)}}
                             </v-sheet>
@@ -103,7 +101,9 @@
                                         <div v-else-if="getStates(item.matches[i].id).match_phase == 'DONE'">
                                             {{getRanking(item.matches[i].id)}}
                                         </div>
-                                        <div class="red--text" v-else>{{getResultStr(getStates(item.matches[i].id).match_phase)}}</div>
+                                        <div class="red--text text-15" v-else>
+                                            {{getResultStr(getStates(item.matches[i].id).match_phase)}}
+                                        </div>
                                     </template>
                                     <template v-else>
                                         <CountdownTime :date="item.matches[i].start_time_timestamp"></CountdownTime>
