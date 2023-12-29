@@ -5,7 +5,14 @@
                 <v-btn fab x-small class="btn-back" elevation="0" :ripple="false" color="transparent" @click="onBack">
                     <svg-icon icon="back3" class="text-22"></svg-icon>
                 </v-btn>
-                <v-menu open-on-click bottom offset-y v-if="Object.keys(curCompetition).length > 0">
+                <v-menu
+                    v-if="Object.keys(curCompetition).length > 0"
+                    v-model="isShowMenu"
+                    open-on-click
+                    bottom
+                    offset-y
+                    content-class="country-menu"
+                >
                     <template v-slot:activator="{ on, attrs, value }">
                         <div class="d-flex align-center font-weight-bold text-18 tagTextColor2--text" v-bind="attrs" v-on="on">
                             <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
@@ -101,7 +108,14 @@
                 <svg-icon class="tagTextColor2--text" icon="back2"></svg-icon>
             </v-btn>
 
-            <v-menu open-on-click bottom offset-y v-if="Object.keys(curCompetition).length > 0">
+            <v-menu
+                v-if="Object.keys(curCompetition).length > 0"
+                v-model="isShowMenu"
+                open-on-click
+                bottom
+                offset-y
+                content-class="h5-country-menu"
+            >
                 <template v-slot:activator="{ on, attrs, value }">
                     <div class="d-flex align-center font-weight-bold text-16 tagTextColor2--text" v-bind="attrs" v-on="on">
                         <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-1 text-25"></svg-icon>
