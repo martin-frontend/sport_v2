@@ -94,7 +94,13 @@
                     :markets="markets"
                     :sport-id="curCompetition.sport_id"
                 ></ResultTable>
-                <MarketTable v-if="match && markets" :match="match" :states="states" :markets="markets"></MarketTable>
+                <MarketTable
+                    v-if="match && markets"
+                    :match="match"
+                    :states="states"
+                    :markets="markets"
+                    :sport-id="curCompetition.sport_id"
+                ></MarketTable>
             </template>
             <template v-else>
                 <loader />
@@ -252,7 +258,14 @@
 
             <template v-if="mobileTagOptions.length == 1">
                 <div class="text-14 pl-2 mt-4 font-weight-bold">{{mobileTagOptions[0]}}</div>
-                <MarketTable v-if="match" class="px-2" :match="match" :states="states" :markets="markets"></MarketTable>
+                <MarketTable
+                    v-if="match"
+                    class="px-2"
+                    :match="match"
+                    :states="states"
+                    :markets="markets"
+                    :sport-id="curCompetition.sport_id"
+                ></MarketTable>
             </template>
             <template v-else>
                 <v-sheet color="transparent" width="100%" class="d-flex px-2 mt-4">
@@ -277,7 +290,13 @@
                         <ResultTable :match="match" :states="states" :markets="markets" :sport-id="curCompetition.sport_id"></ResultTable>
                     </v-window-item>
                     <v-window-item>
-                        <MarketTable v-if="match && markets" :match="match" :states="states" :markets="markets"></MarketTable>
+                        <MarketTable
+                            v-if="match && markets"
+                            :match="match"
+                            :states="states"
+                            :markets="markets"
+                            :sport-id="curCompetition.sport_id"
+                        ></MarketTable>
                     </v-window-item>
                 </v-window>
             </template>

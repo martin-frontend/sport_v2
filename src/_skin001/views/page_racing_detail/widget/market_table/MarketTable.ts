@@ -15,6 +15,7 @@ export default class MarketsTable extends AbstractView {
     @Prop() match!: any;
     @Prop() states!: any;
     @Prop() markets!: any;
+    @Prop() sportId!: any;
 
     // 參赛的
     get runners() {

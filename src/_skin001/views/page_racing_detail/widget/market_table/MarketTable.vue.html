@@ -55,12 +55,12 @@
                                     <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                 </span>
                                 <div class="d-flex text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
-                                    <div>
+                                    <div v-if="sportId != 8">
                                         <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                         <span class="mx-2">{{runner.jockey}}</span>
                                     </div>
                                     <div>
-                                        <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
+                                        <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
                                         <span class="mx-2">{{runner.trainer}}</span>
                                     </div>
                                 </div>
@@ -127,12 +127,12 @@
                                     <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                 </span>
                                 <div class="d-flex text-12 mt-1">
-                                    <div>
+                                    <div v-if="sportId != 8">
                                         <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                         <span class="mx-2">{{runner.jockey}}</span>
                                     </div>
                                     <div>
-                                        <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
+                                        <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
                                         <span class="mx-2">{{runner.trainer}}</span>
                                     </div>
                                 </div>
@@ -179,12 +179,12 @@
                                     >{{runner.runner_id}}. {{runner.name}}
                                     <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                 </span>
-                                <div :class="{'textGray--text': $vuetify.theme.dark}">
+                                <div :class="{'textGray--text': $vuetify.theme.dark}" v-if="sportId != 8">
                                     <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                                     <span class="mx-2">{{runner.jockey}}</span>
                                 </div>
                                 <div :class="{'textGray--text': $vuetify.theme.dark}">
-                                    <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
+                                    <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
                                     <span class="mx-2">{{runner.trainer}}</span>
                                 </div>
                             </v-sheet>
@@ -241,12 +241,12 @@
                             {{runner.runner_id}}. {{runner.name}}
                             <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                         </span>
-                        <div>
+                        <div v-if="sportId != 8">
                             <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
                             <span class="mx-2">{{runner.jockey}}</span>
                         </div>
                         <div>
-                            <span class="font-weight-bold">{{LangUtil('练马师')}}:</span>
+                            <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
                             <span class="mx-2">{{runner.trainer}}</span>
                         </div>
                         <div class="mt-1">
