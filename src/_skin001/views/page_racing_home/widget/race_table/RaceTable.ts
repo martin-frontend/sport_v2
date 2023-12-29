@@ -36,8 +36,6 @@ export default class RaceTable extends AbstractView {
         return LangUtil(type[match_phase]);
     }
 
-    dateFormat() {}
-
     getEventDate(date: any) {
         return dateFormat(new Date(date), "MM/dd");
     }
@@ -92,7 +90,7 @@ export default class RaceTable extends AbstractView {
     }
 
     isShowP(event_id: number) {
-        return this.getFixMarket(event_id)?.RB_WIN?.selections[0]?.metadata?.fluctuate?.length > 0;
+        return this.getFixMarket(event_id)?.RB_WIN?.selections.findIndex((item: any) => item.metadata?.fluctuate?.length > 0) > -1;
     }
 
     onShowContent() {

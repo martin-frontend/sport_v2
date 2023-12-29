@@ -129,7 +129,7 @@ export default class RacingPanel extends AbstractView {
     }
 
     isShowP(event_id: number) {
-        return this.getFixMarket(event_id)?.RB_WIN?.selections[0]?.metadata?.fluctuate?.length > 0;
+        return this.getFixMarket(event_id)?.RB_WIN?.selections.findIndex((item: any) => item.metadata?.fluctuate?.length > 0) > -1;
     }
 
     /**盘口 固陪*/
