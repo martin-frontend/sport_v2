@@ -59,6 +59,7 @@ export default class RightPanel extends AbstractView {
             return;
         }
         this.pageData.liveIndex = 1;
+        this.myProxy.isShowLive = true;
     }
     clickAnim() {
         if (this.user_type == 2) {
@@ -66,6 +67,7 @@ export default class RightPanel extends AbstractView {
             return;
         }
         this.pageData.liveIndex = 2;
+        this.myProxy.isShowLive = true;
     }
     getEventDate(date: any) {
         return dateFormat(new Date(date), "MM/dd");

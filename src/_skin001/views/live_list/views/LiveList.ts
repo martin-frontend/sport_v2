@@ -7,6 +7,7 @@ import { EventLiveVO } from "@/vo/EventLiveVO";
 import live from "../../live";
 import matche from "../../matche";
 import SportUtil from "@/core/global/SportUtil";
+import page_racing_detail from "../../page_racing_detail";
 
 @Component
 export default class LiveList extends AbstractView {
@@ -19,12 +20,25 @@ export default class LiveList extends AbstractView {
         super(LiveListMediator);
     }
 
-    onItemClick(item: EventLiveVO) {
+    onItemClick(item: any) {
         live.init(item.id);
         if (!this.isRaceEvent(this.myProxy.listQueryComp.sport_id)) {
             matche.init(item.id);
+            this.$emit("onChange", item);
+        } else {
+            page_racing_detail.show({
+                competitionId: item.competition_id,
+                listQueryComp: { sport_id: item.sport_id, tag: "today" },
+                matchKey: item.number_of_session,
+                event_id: item.id,
+            });
         }
-        this.$emit("onChange", item);
+    }
+
+    mounted() {
+        if (this.myProxy.listQueryComp.sport_id == -1) {
+            this.$router.push("/page_home");
+        }
     }
 
     destroyed() {

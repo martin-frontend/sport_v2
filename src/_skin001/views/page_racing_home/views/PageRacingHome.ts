@@ -89,6 +89,7 @@ export default class PageRacingHome extends AbstractView {
     @Watch("homeProxy.listQueryComp.sport_id")
     onWatchSportId(newVal: any) {
         this.myProxy.sportCheckBoxArr = [`${newVal}`];
+        this.listQueryComp.keyword = "";
     }
 
     sportCheckBoxOptions = {
