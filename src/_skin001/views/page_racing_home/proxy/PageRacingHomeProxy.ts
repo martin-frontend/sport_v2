@@ -125,6 +125,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
             if (item.match_phase == "OPEN") {
                 event_id.push(item.event_id);
             }
+
             const finditem = this.pageData.event_states.find((item1: any) => item.event_id == item1.event_id);
             if (finditem) {
                 Object.assign(finditem, item);

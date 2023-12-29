@@ -38,7 +38,7 @@
                             color="#feba00"
                             class="mr-8"
                             :key="sportId"
-                            :disabled="myProxy.sportCheckBoxArr.length == 1 && myProxy.sportCheckBoxArr.includes(`${sportId}`)"
+                            :disabled="myProxy.sportCheckBoxArr.length == 1 && myProxy.sportCheckBoxArr.includes(`${sportId}`) || (pageData.loading && !myProxy.sportCheckBoxArr.includes(`${sportId}`))"
                             @change="onCheckboxChange"
                         >
                             <template #label>
