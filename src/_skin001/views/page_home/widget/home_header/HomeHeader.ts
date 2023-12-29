@@ -37,12 +37,16 @@ export default class HomeHeader extends AbstractView {
         if (tag == "love") {
             return LangUtil("关注赛事");
         } else {
-            const findItem = this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id]?.[tag];
-            if (findItem) {
-                return findItem.name;
+            const curNav = this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id];
+            if (!curNav) return "";
+
+            if (curNav[tag]) {
+                return curNav?.[tag].name;
+            } else {
+                const findItem = curNav.tags.find((item: any) => item.tag == tag);
+                return findItem?.name;
             }
         }
-        return "";
     }
 
     @Watch("settingProxy.pageData.form.sort")
