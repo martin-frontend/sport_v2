@@ -13,6 +13,7 @@ import page_order from "../../page_order";
 import matche from "../../matche";
 import live from "../../live";
 import right_panel from "../../right_panel";
+import BlurUtil from "@/core/global/BlurUtil";
 
 @Component
 export default class PageRacingDetail extends AbstractView {
@@ -27,6 +28,7 @@ export default class PageRacingDetail extends AbstractView {
     selfProxy: SelfProxy = getProxy(SelfProxy);
     user_type: number = this.selfProxy.userInfo.user_type;
     iframeHeight = 0;
+    isShowMenu = false;
 
     get mobileTagOptions() {
         if (this.states?.match_phase == "DONE") {
@@ -173,6 +175,11 @@ export default class PageRacingDetail extends AbstractView {
 
     mounted() {
         this.onWatchWidth();
+    }
+
+    @Watch("isShowMenu")
+    onWatchShow(val: any) {
+        BlurUtil(val, "page", true);
     }
 
     destroyed() {

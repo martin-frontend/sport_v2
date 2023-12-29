@@ -88,6 +88,12 @@ export default class MarketTypeTag extends AbstractView {
         }
     }
 
+    mounted() {
+        if (this.curSportId == this.pageData.sportIdArr[0]) {
+            this.isShowAllComp = true;
+        }
+    }
+
     destroyed() {
         super.destroyed();
     }
