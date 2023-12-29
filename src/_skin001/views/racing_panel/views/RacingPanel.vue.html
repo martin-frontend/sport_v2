@@ -77,7 +77,7 @@
                                             <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
                                         </template>
                                         <div v-else-if="getStates(item.match.id).match_phase == 'DONE'">{{getRanking(item.match.id)}}</div>
-                                        <v-sheet v-else color="transparent" width="60" class="red--text text-center text-14">
+                                        <v-sheet v-else color="transparent" width="60" class="red--text text-center text-15">
                                             {{getResultStr(getStates(item.match.id).match_phase)}}
                                         </v-sheet>
                                     </template>
