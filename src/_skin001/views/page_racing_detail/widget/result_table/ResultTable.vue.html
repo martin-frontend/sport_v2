@@ -75,7 +75,7 @@
                         <template v-for="runner of scratchedRunners">
                             <v-row no-gutters class="py-2" :key="runner.runner_id">
                                 <v-col cols="6" class="d-flex flex-column tagTextColor1--text">
-                                    <div style="text-decoration: line-through">
+                                    <div class="text-line-through">
                                         {{runner.runner_id}}. {{runner.name}}
                                         <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                     </div>
@@ -177,7 +177,7 @@
                     <v-sheet color="transparent" class="px-2">
                         <template v-for="runner of scratchedRunners">
                             <div class="d-flex flex-column tagTextColor1--text text-14 py-2" :key="runner.runner_id">
-                                <div style="text-decoration: line-through">
+                                <div class="text-line-through">
                                     {{runner.runner_id}}. {{runner.name}}
                                     <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                 </div>

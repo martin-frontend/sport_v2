@@ -101,8 +101,7 @@
                             width="40"
                             height="20"
                             class="text-12 white--text d-flex align-center justify-center rounded"
-                            :class="{'textGray2--text': $vuetify.theme.dark}"
-                            color="timeColor2"
+                            color="#5d7eff"
                         >
                             {{LangUtil("开放")}}
                         </v-sheet>
@@ -122,8 +121,8 @@
                     <v-row no-gutters class="py-2 tagTextColor1--text" :key="runner.runner_id">
                         <v-col>
                             <v-sheet color="transparent" class="d-flex flex-column tagTextColor1--text">
-                                <span style="text-decoration: line-through"
-                                    >{{runner.runner_id}}. {{runner.name}}
+                                <span class="text-line-through">
+                                    {{runner.runner_id}}. {{runner.name}}
                                     <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                                 </span>
                                 <div class="d-flex text-12 mt-1">
@@ -218,8 +217,7 @@
                             width="40"
                             height="20"
                             class="text-12 white--text d-flex align-center justify-center rounded"
-                            :class="{'textGray2--text': $vuetify.theme.dark}"
-                            color="timeColor2"
+                            color="#5d7eff"
                         >
                             {{LangUtil("开放")}}
                         </v-sheet>
@@ -237,7 +235,7 @@
 
                 <template v-for="runner of scratchedRunners">
                     <v-sheet :key="runner.runner_id" color="transparent" class="d-flex flex-column tagTextColor1--text pl-2 text-14 py-2">
-                        <span style="text-decoration: line-through">
+                        <span class="text-line-through">
                             {{runner.runner_id}}. {{runner.name}}
                             <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
                         </span>
