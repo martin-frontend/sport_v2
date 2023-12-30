@@ -80,12 +80,12 @@
                         </v-col>
                         <v-col
                             cols="auto"
-                            :class="{'hand': item.matches[i]}"
+                            :class="{'hand': item.matches[i] && item.matches[i].is_open == 1}"
                             v-for="i of headerList"
                             :key="i"
                             @click="onShowDetail(item, i)"
                         >
-                            <template v-if="item.matches[i]">
+                            <template v-if="item.matches[i] && item.matches[i].is_open == 1">
                                 <v-sheet
                                     class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
                                     width="70"
@@ -111,12 +111,20 @@
                             </template>
                             <template v-else>
                                 <v-sheet
+                                    v-if="item.matches[i]"
                                     width="70"
                                     height="100%"
                                     class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left col-disabled"
                                     style="background-color: transparent"
                                 >
                                     -
+                                </v-sheet>
+                                <v-sheet
+                                    width="70"
+                                    height="100%"
+                                    class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
+                                    style="background-color: transparent"
+                                >
                                 </v-sheet>
                             </template>
                         </v-col>

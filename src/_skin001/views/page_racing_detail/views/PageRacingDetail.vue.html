@@ -40,24 +40,26 @@
                     </v-list>
                 </v-menu>
             </v-sheet>
-            <v-sheet color="transparent" class="mt-4" height="40">
+            <v-sheet color="transparent" class="mt-4" height="40" v-if="curCompetition">
                 <horizontal_scroll :offsetx="16">
                     <template v-slot="{data}">
-                        <v-btn
-                            v-for="(_,key) of curCompetition?.matches"
-                            :key="key"
-                            :disabled="false"
-                            class="rounded mr-2 tag-btn"
-                            :class="{'active': pageData.matchKey == key}"
-                            elevation="0"
-                            outlined
-                            width="60"
-                            height="30"
-                            small
-                            @click="onTagClick(key)"
-                        >
-                            <span class="d-flex align-center font-weight-bold text-16"> {{ key }} </span>
-                        </v-btn>
+                        <template v-for="(item,key) of curCompetition.matches">
+                            <v-btn
+                                v-if="item.is_open == 1"
+                                :key="key"
+                                :disabled="false"
+                                class="rounded mr-2 tag-btn"
+                                :class="{'active': pageData.matchKey == key}"
+                                elevation="0"
+                                outlined
+                                width="60"
+                                height="30"
+                                small
+                                @click="onTagClick(key)"
+                            >
+                                <span class="d-flex align-center font-weight-bold text-16"> {{ key }} </span>
+                            </v-btn>
+                        </template>
                     </template>
                 </horizontal_scroll>
             </v-sheet>
@@ -157,22 +159,24 @@
             </v-btn>
         </v-sheet>
         <div id="page-racing-detail">
-            <v-sheet color="transparent" class="mt-4 px-2">
+            <v-sheet color="transparent" class="mt-4 px-2" v-if="curCompetition">
                 <horizontal_scroll :offsetx="16">
                     <template v-slot="{data}">
-                        <v-btn
-                            v-for="(_,key) of curCompetition?.matches"
-                            :key="key"
-                            :disabled="false"
-                            class="rounded-pill mr-2 tag-btn"
-                            :class="{'active': pageData.matchKey == key}"
-                            elevation="0"
-                            outlined
-                            height="30"
-                            @click="onTagClick(key)"
-                        >
-                            <span class="d-flex align-center font-weight-bold"> {{ key }} </span>
-                        </v-btn>
+                        <template v-for="(item,key) of curCompetition.matches">
+                            <v-btn
+                                v-if="item.is_open == 1"
+                                :key="key"
+                                :disabled="false"
+                                class="rounded-pill mr-2 tag-btn"
+                                :class="{'active': pageData.matchKey == key}"
+                                elevation="0"
+                                outlined
+                                height="30"
+                                @click="onTagClick(key)"
+                            >
+                                <span class="d-flex align-center font-weight-bold"> {{ key }} </span>
+                            </v-btn>
+                        </template>
                     </template>
                 </horizontal_scroll>
             </v-sheet>
@@ -250,12 +254,12 @@
                             ></iframe>
                         </v-window-item>
                     </v-window>
-    
+
                     <v-btn class="btn_close" icon v-if="mobileTopWindow != 0" @click="mobileTopWindow=0">
                         <svg-icon class="text-20" icon="close"></svg-icon>
                     </v-btn>
                 </v-sheet>
-    
+
                 <template v-if="mobileTagOptions.length == 1">
                     <div class="text-14 pl-2 mt-4 font-weight-bold">{{mobileTagOptions[0]}}</div>
                     <MarketTable
@@ -284,10 +288,15 @@
                             <span class="d-flex align-center"> {{ LangUtil(title) }} </span>
                         </v-btn>
                     </v-sheet>
-    
+
                     <v-window v-model="mobileBottomWindow" class="px-2">
                         <v-window-item>
-                            <ResultTable :match="match" :states="states" :markets="markets" :sport-id="curCompetition.sport_id"></ResultTable>
+                            <ResultTable
+                                :match="match"
+                                :states="states"
+                                :markets="markets"
+                                :sport-id="curCompetition.sport_id"
+                            ></ResultTable>
                         </v-window-item>
                         <v-window-item>
                             <MarketTable
