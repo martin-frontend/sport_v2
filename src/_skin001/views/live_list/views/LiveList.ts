@@ -28,7 +28,7 @@ export default class LiveList extends AbstractView {
         } else {
             page_racing_detail.show({
                 competitionId: item.competition_id,
-                listQueryComp: { sport_id: item.sport_id, tag: "today" },
+                listQueryComp: { sport_id: item.sport_id, tag: item.tag },
                 matchKey: item.number_of_session,
                 event_id: item.id,
             });
