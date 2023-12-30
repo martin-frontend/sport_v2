@@ -22,22 +22,21 @@
             </template>
         </horizontal_scroll>
     </v-sheet>
-    
     <v-sheet v-else color="bgBanner" class="rounded-lg">
-        <horizontal_scroll class="py-2" :offsetx="16" v-if="new_menu_subnav">
+        <horizontal_scroll class="py-2">
             <template v-slot="{data}">
                 <v-btn
                     v-for="key of sportIdArr"
                     :key="key"
                     :disabled="!new_menu_subnav[key].num"
                     @click="onSportClick(key)"
-                    class="mr-2 font-weight-bold tag-btn px-2"
+                    class="font-weight-bold tag-btn px-2"
                     :class="{'active': homeProxy.listQueryComp.sport_id == key}"
                     text
                     elevation="0"
                     :ripple="false"
                     max-height="30"
-                    width="70"
+                    width="80"
                 >
                     <span class="d-flex align-center">
                         <div v-if="sportIcon[key]" class="text-24"><svg-icon :icon="sportIcon[key]"></svg-icon></div>
