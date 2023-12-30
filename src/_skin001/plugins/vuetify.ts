@@ -45,6 +45,7 @@ export function getVuetify(): Vuetify {
                         headerTextColor: "#919191",
                         textGray2: "#0F1213",
                         preWinColor: "#0325b4",
+                        racingDetailHeader: "#ffffff",
                     },
                     dark: {
                         competBC: "#1e1e1e",
@@ -81,6 +82,7 @@ export function getVuetify(): Vuetify {
                         headerTextColor: "#919191",
                         textGray2: "#0F1213",
                         preWinColor: "#1B5FFF",
+                        racingDetailHeader: "#1b1c1c",
                     },
                 },
                 dark: false,
