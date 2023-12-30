@@ -71,7 +71,7 @@
             <div v-show="isShowContent">
                 <template v-if="!isLoading">
                     <v-row v-for="item of tableData" :key="item.competition_id" class="border-bottom" no-gutters>
-                        <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowDetail(item, headerList[0])">
+                        <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowHeaderDetail(item)">
                             <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
                             <div class="py-2">
                                 <div class="ml-2 font-weight-bold text-14">{{item.competition_name}} {{getEventDate(item.date)}}</div>
@@ -80,19 +80,18 @@
                         </v-col>
                         <v-col
                             cols="auto"
-                            :class="{'hand': item.matches[i]}"
+                            :class="{'hand': item.matches[i] && item.matches[i].is_open == 1}"
                             v-for="i of headerList"
                             :key="i"
                             @click="onShowDetail(item, i)"
                         >
-                            <v-sheet
-                                class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
-                                width="70"
-                                height="100%"
-                                style="background-color: transparent"
-                            >
-                                <template v-if="item.matches[i]">
-                                    <!-- {{item.matches[i].id}} -->
+                            <template v-if="item.matches[i] && item.matches[i].is_open == 1">
+                                <v-sheet
+                                    class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
+                                    width="70"
+                                    height="100%"
+                                    style="background-color: transparent"
+                                >
                                     <template v-if="getStates(item.matches[i].id)">
                                         <template v-if="getStates(item.matches[i].id).match_phase == 'OPEN'">
                                             <svg-icon v-if="isShowP(item.matches[i].id)" class="text-14 mb-1" icon="p"></svg-icon>
@@ -108,8 +107,26 @@
                                     <template v-else>
                                         <CountdownTime :date="item.matches[i].start_time_timestamp"></CountdownTime>
                                     </template>
-                                </template>
-                            </v-sheet>
+                                </v-sheet>
+                            </template>
+                            <template v-else>
+                                <v-sheet
+                                    v-if="item.matches[i]"
+                                    width="70"
+                                    height="100%"
+                                    class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left col-disabled"
+                                    style="background-color: transparent"
+                                >
+                                    -
+                                </v-sheet>
+                                <v-sheet
+                                    width="70"
+                                    height="100%"
+                                    class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
+                                    style="background-color: transparent"
+                                >
+                                </v-sheet>
+                            </template>
                         </v-col>
                         <v-col v-if="!isHideArrow" cols="auto" class="d-flex align-center pr-2">
                             <v-sheet width="14" color="transparent"></v-sheet>

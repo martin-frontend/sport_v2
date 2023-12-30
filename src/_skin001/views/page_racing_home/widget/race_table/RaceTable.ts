@@ -40,7 +40,17 @@ export default class RaceTable extends AbstractView {
         return dateFormat(new Date(date), "MM/dd");
     }
 
+    onShowHeaderDetail(item: any) {
+        const entries = Object.entries(item.matches);
+        const findIndex = entries.findIndex((item: any) => item[1].is_open == 1);
+        if (findIndex > -1) {
+            const matchKey = entries[findIndex][0];
+            this.onShowDetail(item, matchKey);
+        }
+    }
+
     onShowDetail(item: any, matchKey: any) {
+        if (!item.matches[matchKey] || item.matches[matchKey]?.is_open == 2) return;
         page_racing_detail.show({
             competitionId: item.competition_id,
             listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },

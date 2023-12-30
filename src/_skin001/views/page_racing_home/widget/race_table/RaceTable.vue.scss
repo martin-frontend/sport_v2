@@ -15,6 +15,9 @@
 .border-left {
     border-left: 1px solid #d6dde3;
 }
+.col-disabled {
+    background-color: #f5f5f5 !important;
+}
 .hand:hover {
     background-color: #fff8e5;
 }
@@ -23,6 +26,9 @@
     .border-top,
     .border-left {
         border-color: #3e3f41;
+    }
+    .col-disabled {
+        background-color: #2e2d2d !important;
     }
     .hand:hover {
         background-color: #323232;

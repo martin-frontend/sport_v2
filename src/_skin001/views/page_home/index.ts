@@ -73,7 +73,15 @@ function showBySport(sport_id: any) {
     if (inplay?.num == 0) {
         showByTag("today");
     } else {
-        showByTag("inplay");
+        const today = curNav?.["today"];
+        if (today?.num == 0) {
+            showByTag("today");
+        } else {
+            const future = curNav?.["future"];
+            if (future?.num == 0) {
+                showByTag("future");
+            }
+        }
     }
 }
 export default { show, showByTag, showByCountry, showByCompetition, showByKeyword, showEventList, showBySport };
