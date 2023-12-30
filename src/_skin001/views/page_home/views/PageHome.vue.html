@@ -56,8 +56,6 @@
 
     <!-- 手机header -->
     <template v-if="$vuetify.breakpoint.mobile">
-        <HomeMobileHeader />
-        <HeaderNav class="mx-2 my-2" />
         <v-sheet color="transparent" class="mx-2 px-2 my-2 rounded-lg" v-if="curSportNav">
             <horizontal_scroll class="py-2" :offsetx="16">
                 <template v-slot="{data}">

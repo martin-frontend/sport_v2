@@ -2,6 +2,7 @@ import getProxy from "@/core/global/getProxy";
 import Vue from "vue";
 import PageHomeProxy from "./proxy/PageHomeProxy";
 import NavigationProxy from "../navigation/proxy/NavigationProxy";
+import SportUtil from "@/core/global/SportUtil";
 
 function show() {
     if (Vue.router.currentRoute.path != "/page_home") {
@@ -69,19 +70,7 @@ function showBySport(sport_id: any) {
     }
 
     const curNav = navProxy.pageData.new_menu_subnav[sport_id];
-    const inplay = curNav?.["inplay"];
-    if (inplay?.num == 0) {
-        showByTag("today");
-    } else {
-        const today = curNav?.["today"];
-        if (today?.num == 0) {
-            showByTag("today");
-        } else {
-            const future = curNav?.["future"];
-            if (future?.num == 0) {
-                showByTag("future");
-            }
-        }
-    }
+    const tag = SportUtil.getTag(curNav);
+    showByTag(tag);
 }
 export default { show, showByTag, showByCountry, showByCompetition, showByKeyword, showEventList, showBySport };

@@ -5,12 +5,10 @@
 import Component from "vue-class-component";
 import Setting from "../../setting/views/Setting.vue";
 import Header from "./Header";
-import HeaderNav from "../widget/header_nav/HeaderNav.vue";
 
 @Component({
     components: {
         Setting,
-        HeaderNav,
     },
 })
 export default class extends Header {

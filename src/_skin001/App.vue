@@ -13,6 +13,9 @@
             </v-sheet>
             <v-sheet class="py-0 overflow-hidden" width="100%" color="transparent">
                 <Header v-if="!$vuetify.breakpoint.mobile" />
+                <template v-else>
+                    <HomeMobileHeader v-if="isShowHeaderNav" />
+                </template>
                 <!-- <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
                     <v-sheet
                         class="overflow-y-auto"
@@ -36,6 +39,7 @@
                             color="transparent"
                             :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
                         >
+                            <HeaderNav v-if="isShowHeaderNav" class="mb-2" :class="{ 'mt-2 mx-2': $vuetify.breakpoint.mobile }" />
                             <router-view />
                         </v-sheet>
                     </v-col>
@@ -96,6 +100,8 @@ import NotifyMessage from "./views/widget/notify_message/NotifyMessage.vue";
 import NotifyOrderFinished from "./views/widget/notify_order_finished/NotifyOrderFinished.vue";
 import { removeClass } from "@/core/global/Functions";
 import DialogSetting from "./views/dialog_setting/views/DialogSetting.vue";
+import HeaderNav from "./views/header/widget/header_nav/HeaderNav.vue";
+import HomeMobileHeader from "./views/page_home/widget/home_mobile_header/HomeMobileHeader.vue";
 @Component({
     components: {
         Header,
@@ -107,12 +113,21 @@ import DialogSetting from "./views/dialog_setting/views/DialogSetting.vue";
         MyBet,
         DialogBetResult,
         DialogSetting,
+        HeaderNav,
+        HomeMobileHeader,
     },
 })
 export default class extends APP {
     betProxy: BetProxy = getProxy(BetProxy);
 
     isShowBet = false;
+
+    get isShowHeaderNav() {
+        return (
+            !this.$vuetify.breakpoint.mobile ||
+            (this.$vuetify.breakpoint.mobile && ["/page_home", "/page_racing_home"].includes(this.$route.path))
+        );
+    }
 
     @Watch("betProxy.pageData.activeCount")
     onWatchBet() {

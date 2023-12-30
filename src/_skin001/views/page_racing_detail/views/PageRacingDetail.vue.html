@@ -159,27 +159,25 @@
             </v-btn>
         </v-sheet>
         <div id="page-racing-detail">
-            <v-sheet color="transparent" class="mt-4 px-2" v-if="curCompetition">
-                <horizontal_scroll :offsetx="16">
-                    <template v-slot="{data}">
-                        <template v-for="(item,key) of curCompetition.matches">
-                            <v-btn
-                                v-if="item.is_open == 1"
-                                :key="key"
-                                :disabled="false"
-                                class="rounded-pill mr-2 tag-btn"
-                                :class="{'active': pageData.matchKey == key}"
-                                elevation="0"
-                                outlined
-                                height="30"
-                                @click="onTagClick(key)"
-                            >
-                                <span class="d-flex align-center font-weight-bold"> {{ key }} </span>
-                            </v-btn>
-                        </template>
+            <horizontal_scroll class="mt-4" v-if="curCompetition">
+                <template v-slot="{data}">
+                    <template v-for="(item,key) of curCompetition.matches">
+                        <v-btn
+                            v-if="item.is_open == 1"
+                            :key="key"
+                            :disabled="false"
+                            class="rounded-pill mr-2 tag-btn"
+                            :class="{'active': pageData.matchKey == key}"
+                            elevation="0"
+                            outlined
+                            height="30"
+                            @click="onTagClick(key)"
+                        >
+                            <span class="d-flex align-center font-weight-bold"> {{ key }} </span>
+                        </v-btn>
                     </template>
-                </horizontal_scroll>
-            </v-sheet>
+                </template>
+            </horizontal_scroll>
             <template v-if="!pageData.loading">
                 <v-sheet
                     v-if="match"
