@@ -179,7 +179,11 @@ export default class PageRacingDetail extends AbstractView {
 
     @Watch("isShowMenu")
     onWatchShow(val: any) {
-        BlurUtil(val, "page", true);
+        if(this.$vuetify.breakpoint.mobile) {
+            BlurUtil(val, "page-racing-detail", true);
+        } else {
+            BlurUtil(val, "page", true);
+        }
     }
 
     destroyed() {
