@@ -66,6 +66,10 @@
     width: 100%;
     border-top-right-radius: 0;
     border-top-left-radius: 0;
-    border-top: 0;
-    border-bottom: 0;
+    border-width: 0;
+}
+.theme--light {
+    .h5-country-menu {
+        background-color: #272828;
+    }
 }
