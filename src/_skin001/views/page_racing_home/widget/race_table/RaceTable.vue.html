@@ -70,7 +70,7 @@
         <v-expand-transition>
             <div v-show="isShowContent">
                 <template v-if="!isLoading">
-                    <v-row v-for="item of tableData" :key="item.competition_id" class="border-bottom" no-gutters>
+                    <v-row v-for="(item,index) of tableData" :key="index" class="border-bottom" no-gutters>
                         <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowHeaderDetail(item)">
                             <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
                             <div class="py-2">

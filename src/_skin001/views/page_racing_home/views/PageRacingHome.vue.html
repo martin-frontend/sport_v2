@@ -125,8 +125,8 @@
                 <template v-if="getTableData(curSportId).length > 0">
                     <MobileRaceTable
                         class="px-2 my-2"
-                        v-for="data of getTableData(curSportId)"
-                        :key="data.competition_id"
+                        v-for="(data, index) of getTableData(curSportId)"
+                        :key="index"
                         :data="data"
                     ></MobileRaceTable>
                 </template>
