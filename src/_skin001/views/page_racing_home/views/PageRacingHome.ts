@@ -55,6 +55,10 @@ export default class PageRacingHome extends AbstractView {
         if (!dayAfterTomorrow) return "";
         return dateFormat(new Date(dayAfterTomorrow), "yyyy/MM/dd", true);
     }
+    /**进程 */
+    getStates(event_id: number) {
+        return this.pageData.eventStatesByEventId[event_id];
+    }
 
     get nextTableData() {
         if (this.curTag != this.tagOptions.withinAnHour.tag) return [];
@@ -68,9 +72,11 @@ export default class PageRacingHome extends AbstractView {
 
             Object.keys(item.matches).forEach((key) => {
                 const match = item.matches[key];
+                if (this.getStates(match.id).match_phase != "OPEN") return;
                 arr.push({ ...item, r: key, match });
             });
         });
+
         arr.sort(function (a: any, b: any) {
             return a.match.start_time_timestamp - b.match.start_time_timestamp;
         });
@@ -112,6 +118,8 @@ export default class PageRacingHome extends AbstractView {
     }
 
     getTableData(sportId: number) {
+        const item = this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
+        console.warn("--item----", item);
         return this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
     }
 

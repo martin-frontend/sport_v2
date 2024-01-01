@@ -1,4 +1,4 @@
-<div>
+<div ref="movediv">
     <template v-if="!$vuetify.breakpoint.mobile">
         <div class="mt-2">
             <v-sheet color="transparent" class="d-flex align-center">
@@ -71,15 +71,16 @@
                             <span>{{LangUtil(curCompetition.country)}}</span>
                             <!-- <span class="tagTextColor1--text ml-2">{{curCompetition.competition_name}}</span> -->
                         </div>
-                        <div>{{LangUtil("赛程：{0}m",match.distance)}}</div>
+                        <div class="white--text">{{LangUtil("赛程：{0}m",match.distance)}}</div>
                     </div>
                     <v-spacer></v-spacer>
                     <template v-if="states && states.match_phase != 'OPEN'">
                         <v-sheet
-                            color="timeColor2"
-                            class="rounded d-flex align-center justify-center px-1 text-15 white--text font-weight-bold"
+                            color="transparent"
+                            class="rounded d-flex align-center justify-center px-1 text-15 font-weight-bold"
                             height="30"
                             min-width="60"
+                            :class="states.match_phase == 'DONE' ? 'green_fav--text' : 'white--text'"
                         >
                             {{getResultStr(states.match_phase)}}
                         </v-sheet>

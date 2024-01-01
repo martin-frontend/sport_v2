@@ -1,6 +1,6 @@
-<v-app class="d-flex justify-center overflow-x-hidden">
+<v-app class="d-flex justify-center overflow-x-hidden" ref="movediv">
     <template v-show="myProxy.isloadSecLang">
-        <v-sheet height="100%" v-show="myProxy.isloadSecLang">
+        <v-sheet height="100%" v-show="myProxy.isloadSecLang" >
             <v-sheet class="d-flex align-center justify-center" width="100%" min-height="50">
                 <v-btn style="position: absolute; left: 3%" v-if="$vuetify.breakpoint.mobile" icon @click="onBack">
                     <svg-icon class="bgColor1--text" icon="back2"></svg-icon>

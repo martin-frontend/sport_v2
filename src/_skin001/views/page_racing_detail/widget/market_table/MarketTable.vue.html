@@ -1,13 +1,13 @@
 <div>
     <template v-if="!$vuetify.breakpoint.mobile">
         <v-sheet color="bgBanner" class="pt-4 pb-2 rounded-lg mt-2 text-14">
-            <v-sheet color="transparent" class="mb-4 px-2 tagTextColor2--text font-weight-bold d-flex align-center">
+            <v-sheet color="transparent" class="mb-4 px-2 white--text font-weight-bold d-flex align-center text-16">
                 <span>{{LangUtil("投注盘")}}</span>
                 <v-spacer></v-spacer>
-                <v-sheet color="transparent" height="20">
-                    <v-checkbox v-model="isShowDetail" class="mt-n1 detail" color="yellow1">
+                <v-sheet color="transparent" height="20" class="detail_icon">
+                    <v-checkbox v-model="isShowDetail" :ripple="false" class="mt-n1 detail" color="yellow1" hide-details>
                         <template #label>
-                            <span class="tagTextColor2--text">{{LangUtil('详情')}}</span>
+                            <span class="textGray--text text-14">{{LangUtil('详情')}}</span>
                         </template>
                     </v-checkbox>
                 </v-sheet>
@@ -60,7 +60,7 @@
                                         <span class="mx-2">{{runner.jockey}}</span>
                                     </div>
                                     <div>
-                                        <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                                        <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
                                         <span class="mx-2">{{runner.trainer}}</span>
                                     </div>
                                 </div>
@@ -131,7 +131,7 @@
                                         <span class="mx-2">{{runner.jockey}}</span>
                                     </div>
                                     <div>
-                                        <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                                        <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
                                         <span class="mx-2">{{runner.trainer}}</span>
                                     </div>
                                 </div>
@@ -163,10 +163,10 @@
                         </v-sheet>
                     </v-col>
                     <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
-                        <span v-if="markets"> {{markets.RB_WIN.market_name}} </span>
+                        <span v-if="markets">{{markets.RB_WIN.market_name}} </span>
                     </v-col>
                     <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
-                        <span v-if="markets"> {{markets.RB_PLACE.market_name}} </span>
+                        <span v-if="markets">{{markets.RB_PLACE.market_name}} </span>
                     </v-col>
                 </v-row>
                 <v-divider></v-divider>
@@ -183,30 +183,32 @@
                                     <span class="mx-2">{{runner.jockey}}</span>
                                 </div>
                                 <div :class="{'textGray--text': $vuetify.theme.dark}">
-                                    <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                                    <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
                                     <span class="mx-2">{{runner.trainer}}</span>
                                 </div>
                             </v-sheet>
                         </v-col>
-                        <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1">
-                            <BtnFixedBet
-                                :match-key="pageData.matchKey"
-                                :match="match"
-                                :selection="getWinSelection(runner.runner_id)"
-                                :market="markets.RB_WIN"
-                                :is-fav="favRunnerId == runner.runner_id"
-                                :price="getWin(runner.runner_id)"
-                            ></BtnFixedBet>
-                        </v-col>
-                        <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1" v-if="isShowPlace">
-                            <BtnFixedBet
-                                :match-key="pageData.matchKey"
-                                :match="match"
-                                :selection="getPlaceSelection(runner.runner_id)"
-                                :market="markets.RB_PLACE"
-                                :price="getPlace(runner.runner_id)"
-                            ></BtnFixedBet>
-                        </v-col>
+                        <template v-if="markets">
+                            <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1">
+                                <BtnFixedBet
+                                    :match-key="pageData.matchKey"
+                                    :match="match"
+                                    :selection="getWinSelection(runner.runner_id)"
+                                    :market="markets.RB_WIN"
+                                    :is-fav="favRunnerId == runner.runner_id"
+                                    :price="getWin(runner.runner_id)"
+                                ></BtnFixedBet>
+                            </v-col>
+                            <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1" v-if="isShowPlace">
+                                <BtnFixedBet
+                                    :match-key="pageData.matchKey"
+                                    :match="match"
+                                    :selection="getPlaceSelection(runner.runner_id)"
+                                    :market="markets.RB_PLACE"
+                                    :price="getPlace(runner.runner_id)"
+                                ></BtnFixedBet>
+                            </v-col>
+                        </template>
                     </v-row>
                     <div
                         class="pb-2 d-flex align-center pr-2 px-2 flex-wrap"
@@ -244,7 +246,7 @@
                             <span class="mx-2">{{runner.jockey}}</span>
                         </div>
                         <div>
-                            <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                            <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
                             <span class="mx-2">{{runner.trainer}}</span>
                         </div>
                         <div class="mt-1">

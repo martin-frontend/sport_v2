@@ -53,7 +53,7 @@
                                                 <span class="mx-2">{{runner.jockey}}</span>
                                             </div>
                                             <div>
-                                                <span>{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                                                <span>{{LangUtil('训练师')}}:</span>
                                                 <span class="mx-2">{{runner.trainer}}</span>
                                             </div>
                                         </div>
@@ -153,7 +153,7 @@
                                             <span class="mx-2">{{runner.jockey}}</span>
                                         </div>
                                         <div class="text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
-                                            <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                                            <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
                                             <span class="mx-2">{{runner.trainer}}</span>
                                         </div>
                                     </v-sheet>

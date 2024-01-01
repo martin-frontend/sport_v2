@@ -60,8 +60,35 @@ export default class MobileRaceTable extends AbstractView {
     }
 
     getRanking(event_id: number) {
+        // const placings = this.getStates(event_id)?.results?.placings;
+        // let str = "";
+        return this.getRankingArr(event_id).toString();
+        // if (placings) {
+        //     // 将物件转换为键值对的阵列
+        //     const keyValueArray = Object.entries(placings);
+
+        //     // 根据值的大小升幂排序阵列
+        //     keyValueArray.sort((a: any, b: any) => a[1] - b[1]);
+
+        //     const arr: any = [];
+        //     keyValueArray.forEach((item: any, index) => {
+        //         if (item[1] < 4) {
+        //             // 名次与前一个相同的加-
+        //             if (index != 0 && item[1] == keyValueArray[index - 1][1]) {
+        //                 const pre = arr.pop();
+        //                 arr.push(pre + "-" + item[0]);
+        //             } else {
+        //                 arr.push(item[0]);
+        //             }
+        //         }
+        //     });
+        //     str = arr.toString();
+        // }
+        // return str;
+    }
+    getRankingArr(event_id: number) {
         const placings = this.getStates(event_id)?.results?.placings;
-        let str = "";
+
         if (placings) {
             // 将物件转换为键值对的阵列
             const keyValueArray = Object.entries(placings);
@@ -81,11 +108,35 @@ export default class MobileRaceTable extends AbstractView {
                     }
                 }
             });
-            str = arr.toString();
+            return arr;
         }
-        return str;
-    }
 
+        return [];
+    }
+    rankImgBgMap = [
+        {
+            bg_color: "#fea800",
+            icon: "racing_rank_1",
+        },
+        {
+            bg_color: "#a4c5d1",
+            icon: "racing_rank_2",
+        },
+        {
+            bg_color: "#e2ae86",
+            icon: "racing_rank_3",
+        },
+    ];
+    get isAllFinish(): boolean {
+        const arr = Object.keys(this.data.matches);
+        for (let match = 0; match < arr.length; match++) {
+            const element = this.data.matches[arr[match]];
+            if (this.getStates(element.id).match_phase == "OPEN") {
+                return false;
+            }
+        }
+        return true;
+    }
     isShowP(event_id: number) {
         return this.getFixMarket(event_id)?.RB_WIN?.selections.findIndex((item: any) => item.metadata?.fluctuate?.length > 0) > -1;
     }
