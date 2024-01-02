@@ -79,6 +79,12 @@ module.exports = {
             filename: "skin001_history_result.html",
             title: "history",
         },
+        skin001_orderResult: {
+            entry: "src/_skin001_order_result/main.ts",
+            template: "public/index001_order_result.html",
+            filename: "skin001_order_result.html",
+            title: "order",
+        },
         skin001_help: {
             entry: "src/_skin001_help/main.ts",
             template: "public/index001_help.html",
