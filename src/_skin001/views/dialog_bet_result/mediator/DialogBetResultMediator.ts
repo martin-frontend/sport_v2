@@ -106,7 +106,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
 
                     // 串关
                     // if (betProxy.pageData.betType == "parlay") {
-                    if (item.betType == "parlay") {
+                    if (item.bet_type == "multi") {
                         Object.assign(parlayData, item);
                     } else {
                         const listData = myProxy.pageData.list.find(({ partner_order }: any) => partner_order == item.partner_order);

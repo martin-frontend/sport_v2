@@ -120,7 +120,8 @@ export default class PageRacingHome extends AbstractView {
     getTableData(sportId: number) {
         const item = this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
         console.warn("--item----", item);
-        return this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
+        return item;
+        // return this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
     }
 
     //搜寻
