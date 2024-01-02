@@ -103,8 +103,10 @@ export default class DialogBetResultMediator extends AbstractMediator {
             case net.EventType.api_user_pending:
                 for (const item of body) {
                     let { parlayData } = myProxy.pageData;
+
                     // 串关
-                    if (betProxy.pageData.betType == "parlay") {
+                    // if (betProxy.pageData.betType == "parlay") {
+                    if (item.betType == "parlay") {
                         Object.assign(parlayData, item);
                     } else {
                         const listData = myProxy.pageData.list.find(({ partner_order }: any) => partner_order == item.partner_order);
@@ -216,7 +218,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 data.goals = this.getStats(data.market.market_type, states);
                 if (states.phase_minute > 0) {
                     data.states_str += " " + LangUtil("已开赛");
-                } 
+                }
                 if (states.match_phase) {
                     data.states_str += " " + LangUtil(states.match_phase);
                 }
