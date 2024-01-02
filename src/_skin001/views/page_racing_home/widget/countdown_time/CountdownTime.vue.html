@@ -1,10 +1,10 @@
 <div v-if="date">
-    <div v-if="hr > 0" class="textGray--text text-14 px-1">{{time}}</div>
+    <div v-if="hr > 0" class="px-1" :style="{'font-size': fontSize + 'px'}">{{time}}</div>
     <v-sheet
         v-else
         :color="min>=5?'timeColor2':sec<=0 && min<=0 ?'red':'timeColor1'"
-        class="white--text rounded px-1 d-flex align-center justify-center"
-        :class="{'textGray2--text': min>=5 && $vuetify.theme.dark}"
+        class="rounded px-1 d-flex align-center justify-center"
+        :class="{'textGray2--text': min>=5 && $vuetify.theme.dark , 'bgBanner--text': min>=5 && !$vuetify.theme.dark}"
         :height="height"
         :width="width"
         :style="{'font-size': fontSize + 'px'}"

@@ -100,6 +100,7 @@ export default class PageRacingDetail extends AbstractView {
         // matche.init(this.match.id);
         const match = this.curCompetition.matches?.[key];
         live.init(match.id, this.myProxy.listQueryComp.sport_id);
+        this.myProxy.api_event_race_detail(match.id);
     }
 
     onChangeCompetion(val: any) {
@@ -112,6 +113,7 @@ export default class PageRacingDetail extends AbstractView {
         // matche.init(this.pageData.competition_list[val].matches["R1"].id);
         const match = this.curCompetition.matches?.[this.pageData.matchKey];
         live.init(match.id, this.myProxy.listQueryComp.sport_id);
+        this.myProxy.api_event_race_detail(match.id);
     }
 
     onBack() {

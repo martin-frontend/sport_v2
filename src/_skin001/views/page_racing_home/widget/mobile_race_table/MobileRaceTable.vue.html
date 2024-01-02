@@ -83,7 +83,7 @@
                             <div class="ml-4 text-14">
                                 <template v-if="getStates(match.id)">
                                     <template v-if="getStates(match.id).match_phase == 'OPEN'">
-                                        <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                                        <CountdownTime :fontSize="14" :date="match.start_time_timestamp"></CountdownTime>
                                     </template>
                                     <div
                                         v-else-if="getStates(match.id).match_phase == 'DONE'"
@@ -107,7 +107,7 @@
                                     <div class="red--text text-15" v-else>{{getResultStr(getStates(match.id).match_phase)}}</div>
                                 </template>
                                 <template v-else>
-                                    <CountdownTime :date="match.start_time_timestamp"></CountdownTime>
+                                    <CountdownTime :fontSize="14" :date="match.start_time_timestamp"></CountdownTime>
                                 </template>
                             </div>
                             <v-spacer></v-spacer>

@@ -91,14 +91,14 @@
                 </v-sheet>
                 <ResultTable
                     v-if="states && states.match_phase == 'DONE'"
-                    :match="match"
+                    :match="pageData.match_detail"
                     :states="states"
                     :markets="markets"
                     :sport-id="curCompetition.sport_id"
                 ></ResultTable>
                 <MarketTable
                     v-if="match && markets"
-                    :match="match"
+                    :match="pageData.match_detail"
                     :states="states"
                     :markets="markets"
                     :sport-id="curCompetition.sport_id"

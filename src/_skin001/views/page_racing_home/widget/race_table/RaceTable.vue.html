@@ -87,7 +87,7 @@
                         >
                             <template v-if="item.matches[i] && item.matches[i].is_open == 1">
                                 <v-sheet
-                                    class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
+                                    class="d-flex flex-column align-center justify-center primary--text text-14 px-1 border-left time_text"
                                     width="70"
                                     height="100%"
                                     style="background-color: transparent"
@@ -95,7 +95,7 @@
                                     <template v-if="getStates(item.matches[i].id)">
                                         <template v-if="getStates(item.matches[i].id).match_phase == 'OPEN'">
                                             <svg-icon v-if="isShowP(item.matches[i].id)" class="text-14 mb-1" icon="p"></svg-icon>
-                                            <CountdownTime :date="item.matches[i].start_time_timestamp"></CountdownTime>
+                                            <CountdownTime class="primary--text " :fontSize="15" :date="item.matches[i].start_time_timestamp"></CountdownTime>
                                         </template>
                                         <div v-else-if="getStates(item.matches[i].id).match_phase == 'DONE'">
                                             {{getRanking(item.matches[i].id)}}

@@ -23,6 +23,7 @@ function show(data: any) {
         right_panel.showLiveList(false);
         // matche.init(event_id);
         live.init(event_id, listQueryComp.sport_id);
+        myProxy.api_event_race_detail(event_id);
     }
     myProxy.api_event_list();
 }
