@@ -5,7 +5,7 @@ import matche from "../matche";
 import right_panel from "../right_panel";
 import live from "../live";
 
-function show(data: any) {
+function show(data: any, id: number = 0) {
     if (Vue.router.currentRoute.path != "/page_racing_detail") {
         Vue.router.push("/page_racing_detail");
     }
@@ -23,7 +23,9 @@ function show(data: any) {
         right_panel.showLiveList(false);
         // matche.init(event_id);
         live.init(event_id, listQueryComp.sport_id);
-        myProxy.api_event_race_detail(event_id);
+    }
+    if (id) {
+        myProxy.api_event_race_detail(id);
     }
     myProxy.api_event_list();
 }

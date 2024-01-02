@@ -28,78 +28,6 @@ export default class DialogBetResultMediator extends AbstractMediator {
         const myProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
         const betProxy: BetProxy = getProxy(BetProxy);
         switch (notification.getName()) {
-            // case net.EventType.api_user_betfix:
-            //     myProxy.pageData.bShow = true;
-            //     myProxy.pageData.status = body.status;
-            //     myProxy.pageData.order_no = body.order_no;
-            //     myProxy.pageData.partner_order = body.partner_order;
-            //     Object.assign(myProxy.pageData, body.requestData);
-            //     myProxy.pageData.odds = body.odds;
-            //     myProxy.pageData.create_time = GlobalVar.server_time;
-            //     myProxy.pageData.isInPlay = false;
-            //     myProxy.pageData.goals = "";
-            //     if (this.matche && this.matche.c_type != 2) {
-            //         myProxy.pageData.states_str = "";
-            //         const betProxy: BetProxy = getProxy(BetProxy);
-            //         const states = betProxy.pageData.event_states.find((item) => item.event_id == myProxy.pageData.event_id);
-            //         if (states && states.phase_minute > 0) {
-            //             myProxy.pageData.isInPlay = true;
-            //             // myProxy.pageData.goals = states.goals_ft;
-            //             myProxy.pageData.goals = this.getStats(body.requestData.market_type, states);
-            //             // data.states_str = LangUtil("已开赛");
-            //             if (states.match_phase) {
-            //                 myProxy.pageData.states_str += " " + LangUtil(states.match_phase);
-            //             }
-            //             if (states.phase_minute > 0) {
-            //                 myProxy.pageData.states_str += " " + states.phase_minute + LangUtil("分钟");
-            //             }
-            //         } else {
-            //             if (states) {
-            //                 if (states.match_phase !== "-") {
-            //                     myProxy.pageData.states_str += " " + LangUtil(states.match_phase);
-            //                 } else {
-            //                     myProxy.pageData.states_str += LangUtil("即将开赛");
-            //                 }
-            //             } else {
-            //                 const start_in_sec = this.matche.sb_time - GlobalVar.server_time;
-            //                 const day = Math.floor(start_in_sec / 60 / 60 / 24);
-            //                 const hr = Math.floor(start_in_sec / 60 / 60);
-            //                 const min = Math.floor((start_in_sec / 60) % 60);
-            //                 if (start_in_sec > 0) {
-            //                     myProxy.pageData.states_str = dateFormat(
-            //                         getDateByTimeZone(this.matche.sb_time * 1000, GlobalVar.zone),
-            //                         "MM-dd hh:mm"
-            //                     );
-            //                     if (start_in_sec > 86400) {
-            //                         myProxy.pageData.states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
-            //                     } else if (start_in_sec > 600) {
-            //                         myProxy.pageData.states_str +=
-            //                             " " + LangUtil("距开赛") + " " + hr + LangUtil("小时") + min + LangUtil("分");
-            //                     } else {
-            //                         myProxy.pageData.states_str += LangUtil("即将开赛");
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
-            //     break;
-            // case net.EventType.api_user_pending:
-            //     for (const item of body) {
-            //         // console.warn(">>>>>>", item);
-            //         if (item.partner_order == myProxy.pageData.partner_order) {
-            //             myProxy.pageData.status = item.status;
-            //             myProxy.pageData.statusMsg = item.statusMsg;
-            //             myProxy.pageData.order_no = item.order_no;
-            //             myProxy.pageData.odds = item.odds;
-            //         }
-            //         Vue.notify(<any>{
-            //             group: "order_finished",
-            //             // duration: -1,
-            //             duration: item.status == 0 || item.status == 1 ? 3000 : -1,
-            //             data: item,
-            //         });
-            //     }
-            //     break;
             case net.EventType.api_user_pending:
                 for (const item of body) {
                     let { parlayData } = myProxy.pageData;
@@ -145,6 +73,41 @@ export default class DialogBetResultMediator extends AbstractMediator {
 
                     if (body.requestData.bet_type == "single") {
                         if (!key.includes(betProxy.pageData.listIdName)) {
+                            return;
+                        }
+                        const item = body[key];
+                        if (item && item.code && item.message) {
+                            Vue.notify({ group: "message", title: item.message });
+
+                            // const errobj = JSON.parse(JSON.stringify(item));
+                            // errobj.status = 3;
+                            // errobj.statusMsg = item.message;
+                            // console.warn("---全部列表为----", myProxy.pageData.list);
+                            // let listData = null;
+                            // console.warn("---errobj.event_id", errobj.event_id);
+                            // for (let index = 0; index < myProxy.pageData.list.length; index++) {
+                            //     const element = myProxy.pageData.list[index];
+                            //     console.warn("---", element.event_id);
+                            //     if (element.event_id == errobj.event_id) {
+                            //         listData = element;
+                            //         break;
+                            //     }
+                            // }
+                            // console.warn("--->>>", listData);
+                            // if (listData) {
+                            //     listData.status = errobj.status;
+                            //     listData.statusMsg = errobj.statusMsg;
+                            //     listData.order_no = errobj.order_no;
+                            //     if (errobj.odds) {
+                            //         listData.odds = errobj.odds;
+                            //     }
+                            //     this.finshedOrders.push(item);
+                            //     console.warn("---->> 完成列表为", this.finshedOrders);
+                            //     this.showFinshedOrdersTips();
+                            // }
+
+                            myProxy.pageData.bShow = false;
+                            betProxy.initBetList();
                             return;
                         }
                         const data: any = {};

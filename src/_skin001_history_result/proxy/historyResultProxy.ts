@@ -16,7 +16,7 @@ import lang_vi from "element-ui/lib/locale/lang/vi";
 import lang_zh from "element-ui/lib/locale/lang/zh-CN";
 import lang_zhtw from "element-ui/lib/locale/lang/zh-TW";
 import LangUtil from "@/core/global/LangUtil";
-
+import Assets from "@/_skin001/assets/Assets";
 export default class HistoryResultProxy extends puremvc.Proxy {
     static NAME = "HistoryResultProxy";
     public onRegister(): void {
@@ -54,6 +54,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         finished: false,
         done: <any>null,
         isActive: 0,
+        sportOptions: <any>[],
     };
     listQuery: any = {
         is_settle: 1, //1=已结算 0=未结算
@@ -127,9 +128,6 @@ export default class HistoryResultProxy extends puremvc.Proxy {
         // this.api_user_orders();
         this.api_user_orders_v3();
     }
-    api_user_orders() {
-        this.sendNotification(net.HttpType.api_user_orders, objectRemoveNull(this.listQuery));
-    }
     api_user_orders_v3() {
         const query = { ...this.listQuery };
         if (query.sport_id == 0) {
@@ -157,9 +155,39 @@ export default class HistoryResultProxy extends puremvc.Proxy {
             GlobalVar.token = token;
             this.setDateLang();
             // this.get_order_by_limit(0);
-            this.setDateOption();
-            this.get_order_selectdata(this.selectDate);
+            this.sendNotification(net.HttpType.api_event_sports);
+
+            // this.setDateOption();
+            // this.get_order_selectdata(this.selectDate);
         });
+    }
+    setSportTagData(body: any) {
+        // if (!body || body.length < 1) return;
+
+        this.pageData.sportOptions.length = 0;
+
+        const obj = {
+            id: 0,
+            name: "全部",
+            icon: "",
+            status: 1,
+        };
+        this.pageData.sportOptions.push(obj);
+
+        for (let index = 0; index < body.length; index++) {
+            const element = body[index];
+            if (element.status != 1) continue;
+            const obj = JSON.parse(JSON.stringify(element));
+            obj.icon = Assets.SportIcon[element.id];
+            this.pageData.sportOptions.push(obj);
+        }
+        console.warn("---设置标签----", this.pageData.sportOptions);
+
+        const start = getTodayOffset().formatdate3;
+        const end = getTodayOffset(1, -1).formatdate3;
+        this.selectDate = [start, end];
+        this.setDateOption();
+        this.get_order_selectdata(this.selectDate);
     }
     setDateLang() {
         // 添加element ui 控件 语言

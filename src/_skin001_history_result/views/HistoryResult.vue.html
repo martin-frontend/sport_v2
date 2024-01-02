@@ -71,14 +71,14 @@
             >
                 <template slot="range-separator">-</template>
             </el-date-picker>
-            <v-sheet color="transition" width="200" class="ml-3">
+            <v-sheet v-if="pageData.sportOptions && pageData.sportOptions.length > 0" color="transition" width="200" class="ml-3">
                 <v-select
                     v-model="myProxy.listQuery.sport_id"
                     hide-details
                     dense
-                    :items="sportOptions"
+                    :items="pageData.sportOptions"
                     solo
-                    item-text="title"
+                    item-text="name"
                     item-value="id"
                     class="sport-select rounded-lg"
                     @change="onSportChange"
@@ -86,7 +86,7 @@
                     <template #item="{item}">
                         <div class="d-flex align-center">
                             <svg-icon class="text-20" :icon="item.icon"></svg-icon>
-                            <span class="ml-2">{{item.title}}</span>
+                            <span class="ml-2">{{LangUtil(item.name)}}</span>
                         </div>
                     </template>
                 </v-select>

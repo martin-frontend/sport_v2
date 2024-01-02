@@ -26,15 +26,6 @@ export default class PageOrderDetail extends AbstractView {
     pageData = this.myProxy.pageData;
     listQuery = this.myProxy.listQuery;
 
-    get sportOptions() {
-        const arr: any = [{ id: 0, title: LangUtil("全部") }];
-        const title: any = { 1: "足球", 4: "篮球", 5: "美式足球", 7: "赛马", 8: "赛狗", 9: "马车赛" };
-        Object.keys(Assets.SportIcon).forEach((key) => {
-            arr.push({ id: Number(key), title: LangUtil(title[key]), icon: Assets.SportIcon[key] });
-        });
-        return arr;
-    }
-
     GlobalVar = GlobalVar;
     bShowDateSelect = false;
     form = {

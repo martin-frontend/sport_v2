@@ -97,7 +97,7 @@
                                             <svg-icon v-if="isShowP(item.matches[i].id)" class="text-14 mb-1" icon="p"></svg-icon>
                                             <CountdownTime class="primary--text " :fontSize="15" :date="item.matches[i].start_time_timestamp"></CountdownTime>
                                         </template>
-                                        <div v-else-if="getStates(item.matches[i].id).match_phase == 'DONE'">
+                                        <div v-else-if="getStates(item.matches[i].id).match_phase == 'DONE'" class="tagTextColor1--text">
                                             {{getRanking(item.matches[i].id)}}
                                         </div>
                                         <div class="red--text text-15" v-else>
