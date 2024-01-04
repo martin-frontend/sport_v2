@@ -16,6 +16,7 @@ function showByKeyword(keyword: string) {
     const myProxy: PageRacingHomeProxy = getProxy(PageRacingHomeProxy);
     myProxy.listQueryComp.keyword = keyword;
     myProxy.listQueryComp.sport_id = myProxy.sportCheckBoxArr.toString();
+    myProxy.listQueryComp.tag = "";
     myProxy.api_event_list();
     // myProxy.api_menu_subnav();
 }
@@ -26,6 +27,7 @@ function showByTag(tag?: string) {
     if (tag) {
         myProxy.listQueryComp.tag = tag;
     }
+    myProxy.listQueryComp.keyword = "";
     myProxy.api_event_list();
 
     const navProxy: NavigationProxy = getProxy(NavigationProxy);
