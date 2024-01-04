@@ -86,7 +86,12 @@
                         </v-sheet>
                     </template>
                     <template v-else>
-                        <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
+                        <CountdownTime
+                            backgroundColor="transparent"
+                            :height="30"
+                            font-size="14"
+                            :date="match.start_time_timestamp"
+                        ></CountdownTime>
                     </template>
                 </v-sheet>
                 <ResultTable

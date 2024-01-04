@@ -83,6 +83,9 @@ export default class CountdownTime extends AbstractView {
         if (this.min >= 5 && !this.$vuetify.theme.dark) {
             return "bgBanner--text";
         }
+        if (this.min < 5 || (this.sec <= 0 && this.min <= 0)) {
+            return "white--text";
+        }
 
         return "primary--text";
     }
