@@ -255,7 +255,7 @@ export default class NetObserver extends AbstractMediator {
                 }
                 break;
             case net.EventType.REQUEST_ERROR:
-                if (body.config.url == net.HttpType.api_user_betfix_v3) {
+                if (body && body.config && body.config.url == net.HttpType.api_user_betfix_v3) {
                     const betProxy: BetProxy = getProxy(BetProxy);
                     betProxy.pageData.loading = false;
                 }
