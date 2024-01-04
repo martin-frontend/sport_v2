@@ -155,7 +155,7 @@
                 <v-row no-gutters class="pt-2 pb-4 tagTextColor1--text">
                     <v-col>
                         <v-sheet color="transparent" class="pl-2" height="20">
-                            <v-checkbox v-model="isShowDetail" class="mt-n1" color="yellow1">
+                            <v-checkbox v-model="isShowDetail" :ripple="false" class="mt-n1" color="yellow1"  hide-details>
                                 <template #label>
                                     <span class="tagTextColor2--text text-14">{{LangUtil('详情')}}</span>
                                 </template>

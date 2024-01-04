@@ -82,7 +82,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                         } else if (!item.order_no || item.order_no == "-") {
                             item = JSON.parse(JSON.stringify(item));
                             item.status = 4;
-                            item.statusMsg = "倍率已失效";
+                            item.statusMsg = "赔率已失效";
                         }
                         const data: any = {};
                         Object.assign(data, item);

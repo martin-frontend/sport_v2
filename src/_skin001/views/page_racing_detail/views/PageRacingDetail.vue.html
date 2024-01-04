@@ -201,16 +201,22 @@
                                 <v-spacer></v-spacer>
                                 <template v-if="states && states.match_phase != 'OPEN'">
                                     <v-sheet
-                                        color="timeColor2"
-                                        class="rounded d-flex align-center justify-center px-1 text-15 primary--text"
+                                        color="transparent"
+                                        class="rounded d-flex align-center justify-center px-1 text-15 font-weight-bold"
                                         height="30"
                                         min-width="60"
+                                        :class="states.match_phase == 'DONE' ? 'green_fav--text' : 'primary--text'"
                                     >
                                         {{getResultStr(states.match_phase)}}
                                     </v-sheet>
                                 </template>
                                 <template v-else>
-                                    <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
+                                    <CountdownTime
+                                        backgroundColor="transparent"
+                                        :height="30"
+                                        font-size="14"
+                                        :date="match.start_time_timestamp"
+                                    ></CountdownTime>
                                 </template>
                             </v-sheet>
                             <template v-if="match.live_status == 1 || match.animation_status == 1">

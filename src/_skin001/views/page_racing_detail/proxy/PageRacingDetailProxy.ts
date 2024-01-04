@@ -138,6 +138,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
     }
     set_detail_data(data: any) {
         console.warn("--收到详情数据----", data);
+        this.pageData.loading = false;
         Object.assign(this.pageData.match_detail, data);
     }
 
@@ -159,6 +160,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
             event_id: event_id,
         };
         this.clear_detail_data();
+        this.pageData.loading = true;
         this.sendNotification(net.HttpType.api_event_race_detail, sendObj);
     }
     /**盘口接口-新*/

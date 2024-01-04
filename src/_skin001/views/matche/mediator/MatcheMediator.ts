@@ -12,6 +12,9 @@ import GlobalVar from "@/core/global/GlobalVar";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 
 export default class MatcheMediator extends AbstractMediator {
+    public onRemove(): void {
+        this.facade.removeProxy(MatcheProxy.NAME);
+    }
     public listNotificationInterests(): string[] {
         return [net.EventType.api_event_list_v3, net.EventType.api_market_typelist, net.EventType.api_event_market_type_v2];
     }
