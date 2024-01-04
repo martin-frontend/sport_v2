@@ -13,9 +13,9 @@ axiosRetry(axios, {
     },
     retryCondition: (error) => {
         // 仅在出现网络错误或 5xx 响应时重试
-        console.warn("---重试次数用完了----,", error);
-        alert(error);
-        window.location.reload();
+        // console.warn("---重试次数用完了----,", error);
+        // alert(error);
+        // window.location.reload();
         return axiosRetry.isNetworkError(error) || axiosRetry.isRetryableError(error);
     },
 });
