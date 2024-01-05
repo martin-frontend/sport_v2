@@ -100,8 +100,10 @@
                 </template>
 
                 <v-sheet color="transparent" width="100%" class="d-flex align-center justify-center mt-4 textGray--text" v-if="getStates()">
-                    <svg-icon class="text-18 mr-2" icon="corner"></svg-icon>
-                    <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
+                    <template v-if="matche.sport_id == 1">
+                        <svg-icon class="text-18 mr-2" icon="corner"></svg-icon>
+                        <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
+                    </template>
                     <svg-icon class="text-18 ml-4 mr-2" icon="hafe_time"></svg-icon>
                     <div>{{getStates().goals_ht != '' ? getStates().goals_ht : '0-0' }}</div>
                 </v-sheet>

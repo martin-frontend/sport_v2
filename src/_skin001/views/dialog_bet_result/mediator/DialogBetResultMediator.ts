@@ -13,6 +13,7 @@ import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 
 export default class DialogBetResultMediator extends AbstractMediator {
+    static NAME = "DialogBetResultMediator";
     public listNotificationInterests(): string[] {
         return [net.EventType.api_user_betfix, net.EventType.api_user_pending, net.EventType.api_user_betfix_v3];
     }
