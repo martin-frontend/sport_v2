@@ -14,8 +14,7 @@ axiosRetry(axios, {
     retryCondition: (error) => {
         // 仅在出现网络错误或 5xx 响应时重试
         // console.warn("---重试次数用完了----,", error);
-        // alert(error);
-        // window.location.reload();
+        facade.sendNotification(net.EventType.REQUEST_ERROR, error);
         return axiosRetry.isNetworkError(error) || axiosRetry.isRetryableError(error);
     },
 });
@@ -49,7 +48,7 @@ axios.interceptors.response.use(
         return response.data;
     },
     function (error) {
-        facade.sendNotification(net.EventType.REQUEST_ERROR, error);
+        // facade.sendNotification(net.EventType.REQUEST_ERROR, error);
         return Promise.reject(error);
     }
 );
