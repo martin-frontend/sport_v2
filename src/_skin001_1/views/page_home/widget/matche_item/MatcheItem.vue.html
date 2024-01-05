@@ -30,7 +30,7 @@
                     <div class="ml-1" v-if="states.phase_minute > 0">
                         {{ getFullTime(states ? states.match_phase : "",states.phase_minute) }}{{LangUtil("分钟")}}
                     </div>
-                    <div class="d-flex align-center ml-3">
+                    <div  v-if="matche.sport_id == 1" class="d-flex align-center ml-3">
                         <svg-icon icon="corner"></svg-icon>
                         <div class="text-gray1">{{ states.corners_ft }}</div>
                     </div>
