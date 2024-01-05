@@ -15,7 +15,7 @@
                 <div :class="states.match_phase=='-'? 'text-red':'text-gray'">{{ LangUtil(states ? states.match_phase : "") }}</div>
                 <div class="text-gray" v-if="states.phase_minute > 0">&nbsp;{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
                 <!-- <v-spacer /> -->
-                <div class="d-flex align-center ml-3" @click.stop="goMatche">
+                <div v-if="matche.sport_id == 1" class="d-flex align-center ml-3" @click.stop="goMatche">
                     <svg-icon icon="corner"></svg-icon>
                     <div class="text-gray1">{{ states.corners_ft }}</div>
                 </div>
