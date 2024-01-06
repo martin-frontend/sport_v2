@@ -83,7 +83,7 @@ module.exports = {
             entry: "src/_skin001_order_result/main.ts",
             template: "public/index001_order_result.html",
             filename: "skin001_order_result.html",
-            title: "order",
+            title: "Order Detail",
         },
         skin001_help: {
             entry: "src/_skin001_help/main.ts",
@@ -92,10 +92,16 @@ module.exports = {
             title: "help",
         },
         skin001_order_detail: {
-            entry: "src/_skin001_order_detail/main.ts",
+            entry: "src/_skin001_order_result/main.ts",
             template: "public/index001_order_detail.html",
             filename: "index001_order_detail.html",
             title: "detail",
         },
+        // skin001_order_detail: {
+        //     entry: "src/_skin001_order_detail/main.ts",
+        //     template: "public/index001_order_detail.html",
+        //     filename: "index001_order_detail.html",
+        //     title: "detail",
+        // },
     },
 };
