@@ -210,9 +210,8 @@
                                 <div class="text-14">
                                     <span>{{leg.content}}</span>
                                     <span> {{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}} </span>
-                                    <span v-if="leg.is_sp && item.is_settle ==1" class="mx-1">{{LangUtil("SP/")}}</span>
-                                    <span class="font-weight-bold"> @{{TransMarketPrice(leg.odds)}} </span>
-                                    <span v-if="leg.is_sp && !item.is_settle " class="mx-1">{{LangUtil("/-")}}</span>
+                                    <span v-if="leg.is_sp">{{TransMarketPrice(leg.odds)}}</span>
+                                    <span v-else class="font-weight-bold"> @{{TransMarketPrice(leg.odds)}} </span>
                                 </div>
                             </v-col>
                             <v-col :cols="itemCols" class="d-flex my-2">
