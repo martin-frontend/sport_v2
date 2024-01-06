@@ -168,7 +168,7 @@ export default class HistoryResultProxy extends puremvc.Proxy {
 
         const obj = {
             id: 0,
-            name: "全部",
+            name: LangUtil("全部"),
             icon: "",
             status: 1,
         };
@@ -179,10 +179,9 @@ export default class HistoryResultProxy extends puremvc.Proxy {
             if (element.status != 1) continue;
             const obj = JSON.parse(JSON.stringify(element));
             obj.icon = Assets.SportIcon[element.id];
+            obj.name = LangUtil(element.name);
             this.pageData.sportOptions.push(obj);
         }
-        console.warn("---设置标签----", this.pageData.sportOptions);
-
         const start = getTodayOffset().formatdate3;
         const end = getTodayOffset(1, -1).formatdate3;
         this.selectDate = [start, end];
