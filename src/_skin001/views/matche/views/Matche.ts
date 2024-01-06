@@ -15,9 +15,9 @@ export default class Matche extends AbstractView {
     pageData = this.myProxy.pageData;
     timer = 0;
 
-    constructor() {
-        super(MatcheMediator);
-    }
+    // constructor() {
+    //     super(MatcheMediator);
+    // }
 
     mounted() {
         if (!this.$vuetify.breakpoint.mobile) {

@@ -6,6 +6,7 @@ import RequestStartCMD from "./command/RequestStartCMD";
 import RequestEndCMD from "./command/RequestEndCMD";
 import RequestErrorCMD from "./command/RequestErrorCMD";
 import DialogBetResultMediator from "./views/dialog_bet_result/mediator/DialogBetResultMediator";
+import MatcheMediator from "./views/matche/mediator/MatcheMediator";
 
 export default class AppFacade {
     private static inst: AppFacade;
@@ -31,6 +32,9 @@ export default class AppFacade {
 
     initMediator() {
         this.facade.registerMediator(new NetObserver(NetObserver.NAME));
+
+        this.facade.registerMediator(new MatcheMediator(MatcheMediator.NAME));
+
         if (!Vue.vuetify.framework.breakpoint.mobile) {
             this.facade.registerMediator(new DialogBetResultMediator(DialogBetResultMediator.NAME));
         }

@@ -39,8 +39,10 @@
                     <span>{{getStates().red_cards_ft}}</span>
                 </div>
                 <div class="d-flex align-center white--text" v-if="getStates()">
-                    <svg-icon class="text-18 mr-2 ml-4" icon="corner"></svg-icon>
-                    <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
+                    <template v-if="getCurrMatche() && getCurrMatche().sport_id == 1">
+                        <svg-icon class="text-18 mr-2 ml-4" icon="corner"></svg-icon>
+                        <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
+                    </template>
                     <svg-icon class="text-18 ml-4 mr-2" icon="hafe_time"></svg-icon>
                     <div>{{getStates().goals_ht != '' ? getStates().goals_ht : '0-0' }}</div>
                 </div>

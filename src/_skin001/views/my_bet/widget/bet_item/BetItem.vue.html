@@ -253,6 +253,14 @@
             </div>
         </template>
 
+        <div v-else class="d-flex ml10 mr10 mt-2">
+            <span>{{LangUtil("SP注额")}}</span>
+            <v-spacer />
+            <span class="yellow--text font-weight-bold"
+                ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(item.stake || 0 ,2)}}</span
+            >
+        </div>
+
         <!-- <div class="d-flex ml10 mr10 mb-2" v-if="$vuetify.breakpoint.mobile">
             <span>{{LangUtil("投注限制")}}</span>
             <v-spacer />

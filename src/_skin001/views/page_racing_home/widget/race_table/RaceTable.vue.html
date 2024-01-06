@@ -50,15 +50,17 @@
         </template>
     </template>
 
-    <template v-else>
+    <div v-else style="min-width: 1280px">
         <v-row class="tableHeaderColor px-2 py-2" :class="{'hand': !isHideArrow}" no-gutters @click="onShowContent">
             <v-col class="d-flex align-center tagTextColor2--text">
-                <v-sheet class="rounded" width="2" height="16" color="yellow1"></v-sheet>
-                <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-22 ml-2"></svg-icon>
-                <div class="ml-2 font-weight-bold text-14">{{sportItem.title}}</div>
+                <v-sheet color="transparent" class="d-flex align-center tagTextColor2--text" width="200">
+                    <v-sheet class="rounded" width="2" height="16" color="yellow1"></v-sheet>
+                    <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-22 ml-2"></svg-icon>
+                    <div class="ml-2 font-weight-bold text-14">{{LangUtil(sportItem.title)}}</div>
+                </v-sheet>
             </v-col>
             <v-col cols="auto" v-for="i of 14" :key="i">
-                <v-sheet color="transparent" class="text-center tagTextColor1--text text-14" width="70">R{{ i }}</v-sheet>
+                <v-sheet color="transparent" class="text-center tagTextColor1--text text-14" width="75">R{{ i }}</v-sheet>
             </v-col>
             <v-col cols="auto" class="d-flex align-center" v-if="!isHideArrow">
                 <div class="icon-box iconfont text-14 tagTextColor2--text" :class="isShowContent? 'arrow-show':'arrow'">
@@ -72,11 +74,15 @@
                 <template v-if="!isLoading">
                     <v-row v-for="(item,index) of tableData" :key="index" class="border-bottom" no-gutters>
                         <v-col class="d-flex align-center tagTextColor2--text hand pl-2" @click="onShowHeaderDetail(item)">
-                            <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
-                            <div class="py-2">
-                                <div class="ml-2 font-weight-bold text-14">{{item.competition_name}} {{getEventDate(item.date)}}</div>
-                                <div class="ml-2 font-weight-bold text-14 tagTextColor1--text">{{LangUtil(item.country)}}</div>
-                            </div>
+                            <v-sheet color="transparent" width="200" class="d-flex align-center tagTextColor2--text">
+                                <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
+                                <div class="py-2" style="width: calc(100% - 30px)">
+                                    <div class="ml-2 font-weight-bold text-14 text-truncate">
+                                        {{item.competition_name}} {{getEventDate(item.date)}}
+                                    </div>
+                                    <div class="ml-2 font-weight-bold text-14 tagTextColor1--text">{{LangUtil(item.country)}}</div>
+                                </div>
+                            </v-sheet>
                         </v-col>
                         <v-col
                             cols="auto"
@@ -88,14 +94,14 @@
                             <template v-if="item.matches[i] && item.matches[i].is_open == 1">
                                 <v-sheet
                                     class="d-flex flex-column align-center justify-center primary--text text-14 px-1 border-left time_text"
-                                    width="70"
+                                    width="75"
                                     height="100%"
                                     style="background-color: transparent"
                                 >
                                     <template v-if="getStates(item.matches[i].id)">
                                         <template v-if="getStates(item.matches[i].id).match_phase == 'OPEN'">
                                             <svg-icon v-if="isShowP(item.matches[i].id)" class="text-14 mb-1" icon="p"></svg-icon>
-                                            <CountdownTime class="primary--text " :fontSize="15" :date="item.matches[i].start_time_timestamp"></CountdownTime>
+                                            <CountdownTime :fontSize="15" :date="item.matches[i].start_time_timestamp"></CountdownTime>
                                         </template>
                                         <div v-else-if="getStates(item.matches[i].id).match_phase == 'DONE'" class="tagTextColor1--text">
                                             {{getRanking(item.matches[i].id)}}
@@ -112,7 +118,7 @@
                             <template v-else>
                                 <v-sheet
                                     v-if="item.matches[i]"
-                                    width="70"
+                                    width="75"
                                     height="100%"
                                     class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left col-disabled"
                                     style="background-color: transparent"
@@ -120,7 +126,7 @@
                                     -
                                 </v-sheet>
                                 <v-sheet
-                                    width="70"
+                                    width="75"
                                     height="100%"
                                     class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
                                     style="background-color: transparent"
@@ -143,5 +149,5 @@
                 </template>
             </div>
         </v-expand-transition>
-    </template>
+    </div>
 </div>

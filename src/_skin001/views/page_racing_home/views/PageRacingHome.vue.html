@@ -47,26 +47,33 @@
                         </v-checkbox>
                     </template>
                 </div>
-                <!-- 下一场 -->
-                <template v-if="curTag == tagOptions.withinAnHour.tag">
-                    <RaceTable
-                        v-if="myProxy.sportCheckBoxArr.length > 0"
-                        :is-next="true"
-                        :options="sportCheckBoxOptions"
-                        :table-data="nextTableData"
-                    ></RaceTable>
-                </template>
-                <template v-else>
-                    <template v-for="sportId of raceSportArr">
-                        <RaceTable
-                            v-if="myProxy.sportCheckBoxArr.includes(`${sportId}`)"
-                            :key="sportId"
-                            :sport-item="sportCheckBoxOptions[sportId]"
-                            :table-data="getTableData(sportId)"
-                            :is-hide-arrow="myProxy.sportCheckBoxArr.length == 1 && myProxy.sportCheckBoxArr.includes(`${sportId}`)"
-                        ></RaceTable>
+
+                <horizontal_scroll>
+                    <template v-slot="{data}">
+                        <div class="d-flex flex-column" style="width: 100%;">
+                            <!-- 下一场 -->
+                            <template v-if="curTag == tagOptions.withinAnHour.tag">
+                                <RaceTable
+                                    v-if="myProxy.sportCheckBoxArr.length > 0"
+                                    :is-next="true"
+                                    :options="sportCheckBoxOptions"
+                                    :table-data="nextTableData"
+                                ></RaceTable>
+                            </template>
+                            <template v-else>
+                                <template v-for="sportId of raceSportArr">
+                                    <RaceTable
+                                        v-if="myProxy.sportCheckBoxArr.includes(`${sportId}`)"
+                                        :key="sportId"
+                                        :sport-item="sportCheckBoxOptions[sportId]"
+                                        :table-data="getTableData(sportId)"
+                                        :is-hide-arrow="myProxy.sportCheckBoxArr.length == 1 && myProxy.sportCheckBoxArr.includes(`${sportId}`)"
+                                    ></RaceTable>
+                                </template>
+                            </template>
+                        </div>
                     </template>
-                </template>
+                </horizontal_scroll>
             </v-sheet>
         </v-sheet>
     </template>

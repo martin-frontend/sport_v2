@@ -13,6 +13,7 @@ import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 
 export default class DialogBetResultMediator extends AbstractMediator {
+    static NAME = "DialogBetResultMediator";
     public listNotificationInterests(): string[] {
         return [net.EventType.api_user_betfix, net.EventType.api_user_pending, net.EventType.api_user_betfix_v3];
     }
@@ -55,7 +56,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                     // });
                     this.finshedOrders.push(item);
                 }
-
+                // console.warn("--->>>已经完成订单---", this.finshedOrders);
                 this.showFinshedOrdersTips();
                 break;
             case net.EventType.api_user_betfix_v3:
@@ -75,43 +76,20 @@ export default class DialogBetResultMediator extends AbstractMediator {
                         if (!key.includes(betProxy.pageData.listIdName)) {
                             return;
                         }
-                        const item = body[key];
+                        let item = body[key];
+
                         if (item && item.code && item.message) {
                             Vue.notify({ group: "message", title: item.message });
-
-                            // const errobj = JSON.parse(JSON.stringify(item));
-                            // errobj.status = 3;
-                            // errobj.statusMsg = item.message;
-                            // console.warn("---全部列表为----", myProxy.pageData.list);
-                            // let listData = null;
-                            // console.warn("---errobj.event_id", errobj.event_id);
-                            // for (let index = 0; index < myProxy.pageData.list.length; index++) {
-                            //     const element = myProxy.pageData.list[index];
-                            //     console.warn("---", element.event_id);
-                            //     if (element.event_id == errobj.event_id) {
-                            //         listData = element;
-                            //         break;
-                            //     }
-                            // }
-                            // console.warn("--->>>", listData);
-                            // if (listData) {
-                            //     listData.status = errobj.status;
-                            //     listData.statusMsg = errobj.statusMsg;
-                            //     listData.order_no = errobj.order_no;
-                            //     if (errobj.odds) {
-                            //         listData.odds = errobj.odds;
-                            //     }
-                            //     this.finshedOrders.push(item);
-                            //     console.warn("---->> 完成列表为", this.finshedOrders);
-                            //     this.showFinshedOrdersTips();
-                            // }
-
-                            myProxy.pageData.bShow = false;
-                            betProxy.initBetList();
-                            return;
+                        } else if (!item.order_no || item.order_no == "-") {
+                            item = JSON.parse(JSON.stringify(item));
+                            item.status = 4;
+                            item.statusMsg = "赔率已失效";
                         }
                         const data: any = {};
-                        Object.assign(data, body[key]);
+                        Object.assign(data, item);
+                        if (data.message && !data.statusMsg) {
+                            data.statusMsg = data.message;
+                        }
                         data.leg_id = key;
                         this.initData(data);
                         myProxy.pageData.list.push(data);

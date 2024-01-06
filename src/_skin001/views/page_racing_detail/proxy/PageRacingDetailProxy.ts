@@ -17,6 +17,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
     private timer = 0;
     pageData = {
         loading: false,
+        loading_detail: false,
         /**联赛列表 */
         competition_list: <any>[],
         /**盘口信息 */
@@ -138,6 +139,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
     }
     set_detail_data(data: any) {
         console.warn("--收到详情数据----", data);
+        this.pageData.loading_detail = false;
         Object.assign(this.pageData.match_detail, data);
     }
 
@@ -159,6 +161,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
             event_id: event_id,
         };
         this.clear_detail_data();
+        this.pageData.loading_detail = true;
         this.sendNotification(net.HttpType.api_event_race_detail, sendObj);
     }
     /**盘口接口-新*/

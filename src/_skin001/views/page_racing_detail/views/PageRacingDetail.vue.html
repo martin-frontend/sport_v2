@@ -63,7 +63,7 @@
                     </template>
                 </horizontal_scroll>
             </v-sheet>
-            <template v-if="!pageData.loading">
+            <template v-if="!pageData.loading && !pageData.loading_detail">
                 <v-sheet color="transparent" class="mt-3 d-flex" v-if="match">
                     <v-img :src="curCompetition.country_icon" height="21" max-width="21" contain></v-img>
                     <div class="text-14 tagTextColor2--text ml-2">
@@ -86,7 +86,12 @@
                         </v-sheet>
                     </template>
                     <template v-else>
-                        <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
+                        <CountdownTime
+                            backgroundColor="transparent"
+                            :height="30"
+                            font-size="14"
+                            :date="match.start_time_timestamp"
+                        ></CountdownTime>
                     </template>
                 </v-sheet>
                 <ResultTable
@@ -179,7 +184,7 @@
                     </template>
                 </template>
             </horizontal_scroll>
-            <template v-if="!pageData.loading">
+            <template v-if="!pageData.loading && !pageData.loading_detail">
                 <v-sheet
                     v-if="match"
                     color="bgBanner"
@@ -201,16 +206,22 @@
                                 <v-spacer></v-spacer>
                                 <template v-if="states && states.match_phase != 'OPEN'">
                                     <v-sheet
-                                        color="timeColor2"
-                                        class="rounded d-flex align-center justify-center px-1 text-15 primary--text"
+                                        color="transparent"
+                                        class="rounded d-flex align-center justify-center px-1 text-15 font-weight-bold"
                                         height="30"
                                         min-width="60"
+                                        :class="states.match_phase == 'DONE' ? 'green_fav--text' : 'primary--text'"
                                     >
                                         {{getResultStr(states.match_phase)}}
                                     </v-sheet>
                                 </template>
                                 <template v-else>
-                                    <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
+                                    <CountdownTime
+                                        backgroundColor="transparent"
+                                        :height="30"
+                                        font-size="14"
+                                        :date="match.start_time_timestamp"
+                                    ></CountdownTime>
                                 </template>
                             </v-sheet>
                             <template v-if="match.live_status == 1 || match.animation_status == 1">

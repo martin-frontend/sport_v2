@@ -116,13 +116,15 @@
         <span>{{LangUtil("总投注额")}}</span>
         <v-spacer />
         <span class="yellow--text font-weight-bold"
-            ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake || 0)}}</span
+            ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake || 0,2)}}</span
         >
     </div>
     <div class="d-flex" v-if="isShowTotalSP">
         <span>{{LangUtil("SP注额")}}</span>
         <v-spacer />
-        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalSP || 0)}}</span>
+        <span class="yellow--text font-weight-bold"
+            ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalSP || 0,2)}}</span
+        >
     </div>
     <template v-if="!isOnlySP">
         <div class="d-flex">
