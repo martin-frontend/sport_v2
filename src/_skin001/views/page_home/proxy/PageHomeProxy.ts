@@ -52,6 +52,7 @@ export default class PageHomeProxy extends puremvc.Proxy {
             market_main_type: <any>[],
             market_type: <any>[],
         },
+        isShowFilter: false,
     };
 
     listQueryComp = {

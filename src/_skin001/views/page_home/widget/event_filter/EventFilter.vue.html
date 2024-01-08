@@ -1,0 +1,29 @@
+<v-sheet class="rounded-lg mt-2 pb-2" color="bgBanner">
+    <v-sheet color="transparent" class="px-2 py-4 d-flex align-center">
+        <span class="font-weight-bold text-16">赛事赛选-联赛列表</span>
+        <v-spacer></v-spacer>
+        <v-checkbox v-model="selectAll" hide-details color="yellow1" dense class="mt-0 pt-0">
+            <template #label>
+                <span class="text-14">{{LangUtil('全选')}}</span>
+            </template>
+        </v-checkbox>
+        <v-checkbox v-model="selectReverse" hide-details color="yellow1" dense class="mt-0 pt-0 ml-6">
+            <template #label>
+                <span class="text-14">{{LangUtil('反选')}}</span>
+            </template>
+        </v-checkbox>
+    </v-sheet>
+    <v-expansion-panels v-model="panel" class="mt-2" elevation="0" accordion multiple>
+        <v-expansion-panel v-for="item of 2" :key="item" elevation="0" class="mb-2">
+            <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
+                <template v-slot:default="{ open }"> 热门联赛 </template>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content elevation="0" color="transparent">
+                <div>sadsad</div>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+    <div class="d-flex justify-center">
+        <btn-yellow class="text-16" height="36" width="104" @click.native="onSave">{{LangUtil("确认")}}</btn-yellow>
+    </div>
+</v-sheet>

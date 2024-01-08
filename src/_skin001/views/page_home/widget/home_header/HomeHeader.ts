@@ -84,4 +84,8 @@ export default class HomeHeader extends AbstractView {
             this.myProxy.pageData.openIndexs = [];
         }
     }
+
+    onFilter() {
+        this.myProxy.pageData.isShowFilter = true;
+    }
 }
