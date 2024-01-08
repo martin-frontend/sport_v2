@@ -134,7 +134,7 @@ export default class PageOrderDetail extends AbstractView {
 
     get betTypeName() {
         if (this.item.bet_type == "single") {
-            return LangUtil("单注");
+            return LangUtil("单关");
         }
         if (this.item.bet_type == "multi") {
             return LangUtil("串关");
