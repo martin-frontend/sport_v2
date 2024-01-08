@@ -12,6 +12,7 @@ export default class CountdownTime extends AbstractView {
     @Prop({ default: 20 }) height!: any;
     @Prop() width!: any;
     @Prop({ default: 12 }) fontSize!: any;
+    @Prop() backgroundColor!: string;
     time: any = "";
     timeId = 0;
     hr = 0;
@@ -30,7 +31,7 @@ export default class CountdownTime extends AbstractView {
             }
             this.sec = Math.floor(start_in_sec % 60);
             if (this.min >= 5) {
-                this.time = `${this.min}${LangUtil("分钟")}`;
+                this.time = `${this.min}${LangUtil("race分钟")}`;
             } else if (this.min > 0 || this.min < 0) {
                 this.time = `${this.min}${LangUtil("分")}${Math.abs(this.sec)}${LangUtil("秒")}`;
             } else {
@@ -54,5 +55,38 @@ export default class CountdownTime extends AbstractView {
     destroyed() {
         clearInterval(this.timeId);
         super.destroyed();
+    }
+    get getBackgroundColor() {
+        if (this.backgroundColor) {
+            return this.backgroundColor;
+        }
+
+        if (this.min >= 5) {
+            return "timeColor2";
+        }
+        if (this.sec <= 0 && this.min <= 0) {
+            return "red";
+        }
+        return "timeColor1";
+    }
+    get getTextColor() {
+        if (this.backgroundColor) {
+            console.warn("----min ", this.min);
+            if (this.min < 5 || (this.sec <= 0 && this.min <= 0)) {
+                return "red--text";
+            }
+            return "primary--text";
+        }
+        if (this.min >= 5 && this.$vuetify.theme.dark) {
+            return " textGray2--text";
+        }
+        if (this.min >= 5 && !this.$vuetify.theme.dark) {
+            return "bgBanner--text";
+        }
+        if (this.min < 5 || (this.sec <= 0 && this.min <= 0)) {
+            return "white--text";
+        }
+
+        return "primary--text";
     }
 }

@@ -75,23 +75,24 @@
                             <span class="mb-2">{{item.num}}</span>
                         </span>
                     </v-btn>
-                    <v-btn
-                        v-for="(_, key) of tagIcon"
-                        :key="key"
-                        :disabled="!curSportNav[key].num"
-                        @click="onQueryTagType(key)"
-                        class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
-                        :class="{'active': listQueryComp.tag == key}"
-                        elevation="0"
-                        outlined
-                        max-height="30"
-                    >
-                        <span class="text-12 d-flex align-center">
-                            {{ LangUtil(curSportNav[key].name) }}
-                            <span class="mb-2">{{curSportNav[key].num}}</span>
-                        </span>
-                    </v-btn>
-
+                    <template v-for="(_, key) of tagIcon">
+                        <v-btn
+                            v-if="curSportNav[key]"
+                            :key="key"
+                            :disabled="!curSportNav[key].num"
+                            @click="onQueryTagType(key)"
+                            class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
+                            :class="{'active': listQueryComp.tag == key}"
+                            elevation="0"
+                            outlined
+                            max-height="30"
+                        >
+                            <span class="text-12 d-flex align-center">
+                                {{ LangUtil(curSportNav[key].name) }}
+                                <span class="mb-2">{{curSportNav[key] && curSportNav[key].num}}</span>
+                            </span>
+                        </v-btn>
+                    </template>
                     <v-btn
                         v-if="curSportNav.favorite"
                         class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"

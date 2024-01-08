@@ -1,4 +1,4 @@
-<div>
+<div ref="movediv">
     <template v-if="!$vuetify.breakpoint.mobile">
         <div class="mt-2">
             <v-sheet color="transparent" class="d-flex align-center">
@@ -63,7 +63,7 @@
                     </template>
                 </horizontal_scroll>
             </v-sheet>
-            <template v-if="!pageData.loading">
+            <template v-if="!pageData.loading && !pageData.loading_detail">
                 <v-sheet color="transparent" class="mt-3 d-flex" v-if="match">
                     <v-img :src="curCompetition.country_icon" height="21" max-width="21" contain></v-img>
                     <div class="text-14 tagTextColor2--text ml-2">
@@ -71,33 +71,39 @@
                             <span>{{LangUtil(curCompetition.country)}}</span>
                             <!-- <span class="tagTextColor1--text ml-2">{{curCompetition.competition_name}}</span> -->
                         </div>
-                        <div>{{LangUtil("赛程：{0}m",match.distance)}}</div>
+                        <div class="primary--text">{{LangUtil("赛程：{0}m",match.distance)}}</div>
                     </div>
                     <v-spacer></v-spacer>
                     <template v-if="states && states.match_phase != 'OPEN'">
                         <v-sheet
-                            color="timeColor2"
-                            class="rounded d-flex align-center justify-center px-1 text-15 white--text font-weight-bold"
+                            color="transparent"
+                            class="rounded d-flex align-center justify-center px-1 text-15 font-weight-bold"
                             height="30"
                             min-width="60"
+                            :class="states.match_phase == 'DONE' ? 'green_fav--text' : 'primary--text'"
                         >
                             {{getResultStr(states.match_phase)}}
                         </v-sheet>
                     </template>
                     <template v-else>
-                        <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
+                        <CountdownTime
+                            backgroundColor="transparent"
+                            :height="30"
+                            font-size="14"
+                            :date="match.start_time_timestamp"
+                        ></CountdownTime>
                     </template>
                 </v-sheet>
                 <ResultTable
                     v-if="states && states.match_phase == 'DONE'"
-                    :match="match"
+                    :match="pageData.match_detail"
                     :states="states"
                     :markets="markets"
                     :sport-id="curCompetition.sport_id"
                 ></ResultTable>
                 <MarketTable
                     v-if="match && markets"
-                    :match="match"
+                    :match="pageData.match_detail"
                     :states="states"
                     :markets="markets"
                     :sport-id="curCompetition.sport_id"
@@ -178,7 +184,7 @@
                     </template>
                 </template>
             </horizontal_scroll>
-            <template v-if="!pageData.loading">
+            <template v-if="!pageData.loading && !pageData.loading_detail">
                 <v-sheet
                     v-if="match"
                     color="bgBanner"
@@ -200,16 +206,22 @@
                                 <v-spacer></v-spacer>
                                 <template v-if="states && states.match_phase != 'OPEN'">
                                     <v-sheet
-                                        color="timeColor2"
-                                        class="rounded d-flex align-center justify-center px-1 text-15 white--text"
+                                        color="transparent"
+                                        class="rounded d-flex align-center justify-center px-1 text-15 font-weight-bold"
                                         height="30"
                                         min-width="60"
+                                        :class="states.match_phase == 'DONE' ? 'green_fav--text' : 'primary--text'"
                                     >
                                         {{getResultStr(states.match_phase)}}
                                     </v-sheet>
                                 </template>
                                 <template v-else>
-                                    <CountdownTime :height="30" font-size="14" :date="match.start_time_timestamp"></CountdownTime>
+                                    <CountdownTime
+                                        backgroundColor="transparent"
+                                        :height="30"
+                                        font-size="14"
+                                        :date="match.start_time_timestamp"
+                                    ></CountdownTime>
                                 </template>
                             </v-sheet>
                             <template v-if="match.live_status == 1 || match.animation_status == 1">
@@ -261,7 +273,7 @@
                     <MarketTable
                         v-if="match"
                         class="px-2"
-                        :match="match"
+                        :match="pageData.match_detail"
                         :states="states"
                         :markets="markets"
                         :sport-id="curCompetition.sport_id"
@@ -288,7 +300,7 @@
                     <v-window v-model="mobileBottomWindow" class="px-2">
                         <v-window-item>
                             <ResultTable
-                                :match="match"
+                                :match="pageData.match_detail"
                                 :states="states"
                                 :markets="markets"
                                 :sport-id="curCompetition.sport_id"
@@ -296,8 +308,8 @@
                         </v-window-item>
                         <v-window-item>
                             <MarketTable
-                                v-if="match && markets"
-                                :match="match"
+                                v-if="markets"
+                                :match="pageData.match_detail"
                                 :states="states"
                                 :markets="markets"
                                 :sport-id="curCompetition.sport_id"

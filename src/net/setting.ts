@@ -38,6 +38,7 @@ import cmd_public_order_detail_data_v3 from "./cmd_public_order_detail_data_v3";
 import cmd_api_menu_leftnav from "./cmd_api_menu_leftnav";
 import cmd_api_event_list_v3 from "./cmd_api_event_list_v3";
 import cmd_api_event_live_list_v2 from "./cmd_api_event_live_list_v2";
+import cmd_api_event_race_detail from "./cmd_api_event_race_detail";
 /**
  * document: http://18.167.151.206:8090/pages/viewpage.action?pageId=11076347
  */
@@ -123,6 +124,8 @@ const HttpType = {
     api_event_list_v3: "api/event/list_v3",
     /**热门赛事v2*/
     api_event_live_list_v2: "api/event/live_list_v2",
+    /**赛事详情*/
+    api_event_race_detail: "api/event/race_detail",
 };
 /**事件*/
 const EventType = {
@@ -214,6 +217,8 @@ const EventType = {
     api_event_list_v3: "api_event_list_v3",
     /**热门赛事v2*/
     api_event_live_list_v2: "api_event_live_list_v2",
+    /**赛事详情*/
+    api_event_race_detail: "api_event_race_detail",
 };
 /**注册协议*/
 function initCommand() {
@@ -258,6 +263,7 @@ function initCommand() {
     facade.registerCommand(HttpType.api_menu_leftnav, cmd_api_menu_leftnav);
     facade.registerCommand(HttpType.api_event_list_v3, cmd_api_event_list_v3);
     facade.registerCommand(HttpType.api_event_live_list_v2, cmd_api_event_live_list_v2);
+    facade.registerCommand(HttpType.api_event_race_detail, cmd_api_event_race_detail);
 }
 const net = { HttpType, EventType, initCommand };
 export default net;

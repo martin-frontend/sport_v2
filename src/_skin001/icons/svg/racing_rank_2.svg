@@ -1,0 +1,51 @@
+<svg id="racing第2" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="12" height="16" viewBox="0 0 12 16">
+  <defs>
+    <style>
+      .cls-1 {
+        fill: url(#linear-gradient);
+      }
+
+      .cls-2 {
+        fill: #fff;
+      }
+
+      .cls-3 {
+        fill: url(#linear-gradient-2);
+      }
+
+      .cls-4 {
+        fill: url(#linear-gradient-3);
+      }
+
+      .cls-5 {
+        fill: url(#linear-gradient-4);
+      }
+
+      .cls-6 {
+        fill: #444b55;
+      }
+    </style>
+    <linearGradient id="linear-gradient" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#2ddadd"/>
+      <stop offset="1" stop-color="#0e4357"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-2" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fbfcfc"/>
+      <stop offset="1" stop-color="#6a7781"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-3" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#303e44"/>
+      <stop offset="1" stop-color="#d8e5ee"/>
+    </linearGradient>
+    <linearGradient id="linear-gradient-4" x1="0.5" x2="0.5" y2="1" gradientUnits="objectBoundingBox">
+      <stop offset="0" stop-color="#fafcfb"/>
+      <stop offset="1" stop-color="#636c7c"/>
+    </linearGradient>
+  </defs>
+  <path id="路径_17706" data-name="路径 17706" class="cls-1" d="M-4433,4984.139l3.033,7.513h4.448l3.235-7.513Z" transform="translate(4433.735 -4984.139)"/>
+  <path id="路径_17707" data-name="路径 17707" class="cls-2" d="M-4398.265,4975.25l2.33,6.738.364,1.093,2.868-7.831Z" transform="translate(4401.619 -4975.25)"/>
+  <circle id="椭圆_137" data-name="椭圆 137" class="cls-3" cx="6" cy="6" r="6" transform="translate(0 4)"/>
+  <circle id="椭圆_138" data-name="椭圆 138" class="cls-4" cx="4.911" cy="4.911" r="4.911" transform="translate(1.089 5.089)"/>
+  <circle id="椭圆_139" data-name="椭圆 139" class="cls-5" cx="4.198" cy="4.198" r="4.198" transform="translate(1.802 5.803)"/>
+  <path id="路径_17711" data-name="路径 17711" class="cls-6" d="M-2.1,0H2.044V-1.064H-.4l.912-.7C1.508-2.536,1.988-3,1.988-3.936v-.016A1.727,1.727,0,0,0,.06-5.68,2.338,2.338,0,0,0-2.028-4.52l.864.7c.416-.512.712-.752,1.144-.752a.687.687,0,0,1,.752.728c0,.464-.272.768-.968,1.344L-2.1-.976Z" transform="translate(6.136 12.69)"/>
+</svg>

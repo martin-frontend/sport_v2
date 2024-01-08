@@ -193,8 +193,9 @@ export default class MatcheItem extends AbstractView {
         GlobalVar.loading = true;
         right_panel.show(0);
         matche.init(this.matche.id);
-        live.init(this.matche.id);
+        live.init(this.matche.id, this.matche.sport_id);
         right_panel.showLiveList(false);
+        console.warn("收到点击", this.matche);
     }
 
     playMatcheAnimation() {
@@ -225,7 +226,7 @@ export default class MatcheItem extends AbstractView {
         // 如果在关注页，直接删除该赛事
         if (this.listQueryComp.tag == "love") {
             const findIndex = this.pageData.competition_list.findIndex((item) => item.competition_id == this.matche.competition_id);
-            const comp: any = this.pageData.competition_list[findIndex];            
+            const comp: any = this.pageData.competition_list[findIndex];
             const len = comp.matches.length;
             if (len == 1) {
                 this.pageData.competition_list.splice(findIndex, 1);

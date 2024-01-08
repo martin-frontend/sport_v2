@@ -4,7 +4,7 @@ import PageLiveListMediator from "../mediator/PageLiveListMediator";
 import PageLiveListProxy from "../proxy/PageLiveListProxy";
 import LangUtil from "@/core/global/LangUtil";
 import page_matche from "../../page_matche";
-
+import AnimationEffect from "@/core/AnimationEffect";
 @Component
 export default class PageLiveList extends AbstractView {
     LangUtil = LangUtil;
@@ -20,9 +20,23 @@ export default class PageLiveList extends AbstractView {
     }
 
     onBack() {
-        this.$router.back();
+        // this.$router.back();
+        if (this.$vuetify.breakpoint.mobile) {
+            AnimationEffect.pageCloseAnim(this.$refs.movediv, () => {
+                this.$router.back();
+            });
+        } else this.$router.back();
     }
-
+    mounted() {
+        this.pageAnim();
+    }
+    pageAnim() {
+        this.$nextTick(() => {
+            if (this.$vuetify.breakpoint.mobile) {
+                AnimationEffect.pageOpenAnim(this.$refs.movediv);
+            }
+        });
+    }
     destroyed() {
         super.destroyed();
     }

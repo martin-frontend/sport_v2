@@ -3,6 +3,7 @@ import { Watch, Component } from "vue-property-decorator";
 import HelpMediator from "../mediator/HelpMediator";
 import HelpProxy from "../proxy/HelpProxy";
 import LangUtil from "@/core/global/LangUtil";
+import AnimationEffect from "@/core/AnimationEffect";
 @Component
 export default class Help extends AbstractView {
     LangUtil = LangUtil;
@@ -24,10 +25,23 @@ export default class Help extends AbstractView {
         } else {
             this.myProxy.api_public_plat_config();
         }
+        this.pageAnim();
     }
-
+    pageAnim() {
+        this.$nextTick(() => {
+            if (this.$vuetify.breakpoint.mobile) {
+                //@ts-ignore
+                AnimationEffect.pageOpenAnim(this.$refs.movediv.$el);
+            }
+        });
+    }
     onBack() {
-        this.$router.back();
+        if (this.$vuetify.breakpoint.mobile) {
+            //@ts-ignore
+            AnimationEffect.pageCloseAnim(this.$refs.movediv.$el, () => {
+                this.$router.back();
+            });
+        } else this.$router.back();
     }
 
     @Watch("myProxy.isloadSecLang")

@@ -7,7 +7,7 @@
                         <v-btn small :class="{'active': window == 0}" class="tab px-2" height="26" elevation="0" @click="window = 0">
                             <span class="text-14"> {{LangUtil('结果')}} </span>
                         </v-btn>
-                        <v-btn small :class="{'active': window == 1}" class="tab" height="26" elevation="0" @click="window = 1">
+                        <v-btn small :class="{'active': window == 1}" class="tab mx-2" height="26" elevation="0" @click="window = 1">
                             <span class="text-14"> {{LangUtil('扣除')}} </span>
                         </v-btn>
                     </v-sheet>
@@ -53,7 +53,7 @@
                                                 <span class="mx-2">{{runner.jockey}}</span>
                                             </div>
                                             <div>
-                                                <span>{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                                                <span>{{LangUtil('训练师')}}:</span>
                                                 <span class="mx-2">{{runner.trainer}}</span>
                                             </div>
                                         </div>
@@ -95,8 +95,7 @@
                             {{LangUtil("*从固定赔率的原始估计收益中扣除。")}}
                         </div>
                         <template v-else>
-                            <div class="text-12 pt-2" v-if="sportId == 8">{{LangUtil("没有退赛的狗匹")}}</div>
-                            <div class="text-12 pt-2" v-else>{{LangUtil("没有退赛的马匹")}}</div>
+                            <div class="text-12 pt-2">{{LangUtil("没有退赛的选手")}}</div>
                         </template>
                     </v-sheet>
                 </v-window-item>
@@ -111,7 +110,7 @@
                         <v-btn small :class="{'active': window == 0}" class="tab px-2" height="26" elevation="0" @click="window = 0">
                             <span class="text-14"> {{LangUtil('结果')}} </span>
                         </v-btn>
-                        <v-btn small :class="{'active': window == 1}" class="tab" height="26" elevation="0" @click="window = 1">
+                        <v-btn small :class="{'active': window == 1}" class="tab mx-2" height="26" elevation="0" @click="window = 1">
                             <span class="text-14"> {{LangUtil('扣除')}} </span>
                         </v-btn>
                     </v-sheet>
@@ -153,7 +152,7 @@
                                             <span class="mx-2">{{runner.jockey}}</span>
                                         </div>
                                         <div class="text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
-                                            <span class="font-weight-bold">{{sportId != 8?LangUtil('练马师'):LangUtil('训练师')}}:</span>
+                                            <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
                                             <span class="mx-2">{{runner.trainer}}</span>
                                         </div>
                                     </v-sheet>
@@ -191,8 +190,7 @@
                             {{LangUtil("*从固定赔率的原始估计收益中扣除。")}}
                         </div>
                         <template v-else>
-                            <div class="text-12 pt-2" v-if="sportId == 8">{{LangUtil("没有退赛的狗匹")}}</div>
-                            <div class="text-12 pt-2" v-else>{{LangUtil("没有退赛的马匹")}}</div>
+                            <div class="text-12 pt-2">{{LangUtil("没有退赛的选手")}}</div>
                         </template>
                     </v-sheet>
                 </v-window-item>

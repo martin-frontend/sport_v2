@@ -11,11 +11,12 @@ export function getVuetify(): Vuetify {
             theme: {
                 themes: {
                     light: {
-                        primary: "#8E8F91",
+                        primary: "#0f1213",
                         yellow: "#ea7800",
                         yellow1: "#FFCD43",
                         red: "#FF3C30",
                         green: "#00C22B",
+                        green_fav:"#41a81d",
                         bgPage: "#f6f6f4",
                         bgBanner: "#ffffff",
                         bgGray: "#F2F2F2",
@@ -25,6 +26,7 @@ export function getVuetify(): Vuetify {
                         btnPlain: "#3E3714",
                         borderGray: "#E8E8E2",
                         textGray1: "#3E3714",
+                        textGray3: "#a4a4a4",
                         bgColor: "#F6F6F4",
                         bgColor1: "#0F1213",
                         textYellow: "#3E3714",
@@ -49,11 +51,12 @@ export function getVuetify(): Vuetify {
                     },
                     dark: {
                         competBC: "#1e1e1e",
-                        primary: "#8E8F91",
+                        primary: "#fff",
                         yellow: "#ea7800",
                         yellow1: "#FFCD43",
                         red: "#FF3C30",
                         green: "#00C22B",
+                        green_fav:"#41a81d",
                         bgPage: "#202121",
                         bgBanner: "#272828",
                         bgGray: "#333435",
@@ -63,6 +66,7 @@ export function getVuetify(): Vuetify {
                         btnPlain: "#FFFFFF",
                         borderGray: "#5A5A5A",
                         textGray1: "#8E8F91",
+                        textGray3: "#5A5A5A",
                         bgColor: "#202121",
                         bgColor1: "#ffffff",
                         textYellow: "#3E3714",
@@ -83,6 +87,7 @@ export function getVuetify(): Vuetify {
                         textGray2: "#0F1213",
                         preWinColor: "#1B5FFF",
                         racingDetailHeader: "#1b1c1c",
+                        
                     },
                 },
                 dark: false,

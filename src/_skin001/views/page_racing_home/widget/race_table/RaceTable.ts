@@ -51,12 +51,15 @@ export default class RaceTable extends AbstractView {
 
     onShowDetail(item: any, matchKey: any) {
         if (!item.matches[matchKey] || item.matches[matchKey]?.is_open == 2) return;
-        page_racing_detail.show({
-            competitionId: item.competition_id,
-            listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
-            matchKey: matchKey,
-            event_id: item.matches[matchKey].id,
-        });
+        page_racing_detail.show(
+            {
+                competitionId: item.competition_id,
+                listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
+                matchKey: matchKey,
+                event_id: item.matches[matchKey].id,
+            },
+            item.matches[matchKey].id
+        );
     }
 
     getStartTime(start_time_timestamp: any) {

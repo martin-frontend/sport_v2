@@ -14,6 +14,7 @@ import matche from "../../matche";
 import live from "../../live";
 import right_panel from "../../right_panel";
 import BlurUtil from "@/core/global/BlurUtil";
+import AnimationEffect from "@/core/AnimationEffect";
 
 @Component
 export default class PageRacingDetail extends AbstractView {
@@ -99,6 +100,7 @@ export default class PageRacingDetail extends AbstractView {
         // matche.init(this.match.id);
         const match = this.curCompetition.matches?.[key];
         live.init(match.id, this.myProxy.listQueryComp.sport_id);
+        this.myProxy.api_event_race_detail(match.id);
     }
 
     onChangeCompetion(val: any) {
@@ -111,10 +113,16 @@ export default class PageRacingDetail extends AbstractView {
         // matche.init(this.pageData.competition_list[val].matches["R1"].id);
         const match = this.curCompetition.matches?.[this.pageData.matchKey];
         live.init(match.id, this.myProxy.listQueryComp.sport_id);
+        this.myProxy.api_event_race_detail(match.id);
     }
 
     onBack() {
-        this.$router.push("/page_racing_home");
+        if (this.$vuetify.breakpoint.mobile) {
+            //@ts-ignore
+            AnimationEffect.pageCloseAnim(this.$refs.movediv.$el, () => {
+                this.$router.push("/page_racing_home");
+            });
+        } else this.$router.push("/page_racing_home");
     }
 
     clicklive() {
@@ -175,6 +183,7 @@ export default class PageRacingDetail extends AbstractView {
 
     mounted() {
         this.onWatchWidth();
+        this.pageAnim();
     }
 
     @Watch("isShowMenu")
@@ -188,5 +197,12 @@ export default class PageRacingDetail extends AbstractView {
 
     destroyed() {
         super.destroyed();
+    }
+    pageAnim() {
+        this.$nextTick(() => {
+            if (this.$vuetify.breakpoint.mobile) {
+                AnimationEffect.pageOpenAnim(this.$refs.movediv);
+            }
+        });
     }
 }

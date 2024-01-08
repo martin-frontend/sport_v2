@@ -5,7 +5,12 @@ import net from "@/net/setting";
 
 export default class PageRacingDetailMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_event_list_v3, net.EventType.api_market_typelist, net.EventType.api_event_states];
+        return [
+            net.EventType.api_event_list_v3,
+            net.EventType.api_market_typelist,
+            net.EventType.api_event_states,
+            net.EventType.api_event_race_detail,
+        ];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -25,6 +30,9 @@ export default class PageRacingDetailMediator extends AbstractMediator {
                 //  else if (type == MatcheProxy.NAME) {
                 //     myProxy.updateMarketCount(body);
                 // }
+                break;
+            case net.EventType.api_event_race_detail:
+                myProxy.set_detail_data(body);
                 break;
             case net.EventType.api_event_states:
                 if (type == PageRacingDetailProxy.NAME) {

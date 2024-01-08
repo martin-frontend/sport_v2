@@ -20,6 +20,9 @@
 }
 .hand:hover {
     background-color: #fff8e5;
+    .time_text {
+        font-weight: 700;
+    }
 }
 .theme--dark {
     .border-bottom,
@@ -32,5 +35,8 @@
     }
     .hand:hover {
         background-color: #323232;
+        .time_text {
+            font-weight: 700;
+        }
     }
 }

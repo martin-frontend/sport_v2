@@ -10,6 +10,7 @@ import EnumMarketType from "@/core/global/MarketUtils";
 import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
 import SportUtil from "@/core/global/SportUtil";
 import Assets from "@/_skin001/assets/Assets";
+import AnimationEffect from "@/core/AnimationEffect";
 
 @Component
 export default class PageOrder extends AbstractView {
@@ -148,8 +149,24 @@ export default class PageOrder extends AbstractView {
         // this.myProxy.api_user_orders();
         this.myProxy.api_user_orders_v3();
     }
-
+    mounted() {
+        this.pageAnim();
+    }
+    pageAnim() {
+        this.$nextTick(() => {
+            if (this.$vuetify.breakpoint.mobile) {
+                AnimationEffect.pageOpenAnim(this.$refs.movediv);
+            }
+        });
+    }
     onBack() {
+        if (this.$vuetify.breakpoint.mobile) {
+            AnimationEffect.pageCloseAnim(this.$refs.movediv, () => {
+                this.onBackCallback();
+            });
+        } else this.onBackCallback();
+    }
+    onBackCallback() {
         this.myProxy.listQuery.is_settle = 0;
         this.myProxy.listQuery.cash_out_status = "";
         this.$router.back();

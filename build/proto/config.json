@@ -40,6 +40,7 @@
         ["public/order_detail_data_v3",         "投注详情新接口"],
         ["api/menu/leftnav",                    "左侧菜单栏"],
         ["api/event/list_v3",                   "球類賽事列表"],
-        ["api/event/live_list_v2",              "热门赛事v2"]
+        ["api/event/live_list_v2",              "热门赛事v2"],
+        ["api/event/race_detail",               "赛事详情"]
     ]
 }

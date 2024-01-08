@@ -12,3 +12,8 @@
     text-decoration: line-through;
     // text-decoration-color: red;
 }
+.detail_icon {
+    ::v-deep .theme--dark.v-icon {
+        color: #8e8f91;
+    }
+}

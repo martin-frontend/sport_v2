@@ -27,20 +27,20 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
             if (Vue._isMounted) {
                 dialog_message_box.alert({ message: LangUtil(body.data.msg) });
             } else {
-                alert(LangUtil(body.data.msg));
+                Vue.notify(LangUtil(body.data.msg));
             }
         } else if (status == 10124) {
             //用户被禁用
             if (PlatConfig.config) {
                 dialog_message_box.alert({ message: LangUtil(body.data.msg) });
             } else {
-                alert(LangUtil(body.data.msg));
+                Vue.notify(LangUtil(body.data.msg));
             }
         } else if (status === 10126) {
             // console.log("登陆已失效，请重新登陆");
             GlobalVar.tokenExpired = true;
             if (body.config.url == net.HttpType.api_config) {
-                alert(LangUtil(body.data.msg));
+                Vue.notify(LangUtil(body.data.msg));
             } else {
                 dialog_message_box.alert({
                     message: LangUtil("闲置时间过长，请重新回到平台再次开启。"),

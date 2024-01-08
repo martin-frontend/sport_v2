@@ -17,6 +17,7 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
     private timer = 0;
     pageData = {
         loading: false,
+        loading_detail: false,
         /**联赛列表 */
         competition_list: <any>[],
         /**盘口信息 */
@@ -28,6 +29,16 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
         // 当前选择的赛事
         competitionId: 0,
         matchKey: "R1",
+        match_detail: {
+            id: 0,
+            runners: <any>[],
+            animation_status: 0,
+            distance: 0,
+            event_name: "",
+            start_time_datetime: "",
+            start_time_timestamp: 0,
+            status: 0,
+        },
     };
 
     listQueryComp = {
@@ -114,6 +125,23 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
             }
         });
     }
+    clear_detail_data() {
+        Object.assign(this.pageData.match_detail, {
+            id: 0,
+            runners: <any>[],
+            animation_status: 0,
+            distance: 0,
+            event_name: "",
+            start_time_datetime: "",
+            start_time_timestamp: 0,
+            status: 0,
+        });
+    }
+    set_detail_data(data: any) {
+        console.warn("--收到详情数据----", data);
+        this.pageData.loading_detail = false;
+        Object.assign(this.pageData.match_detail, data);
+    }
 
     /**赛事接口-新*/
     api_event_list() {
@@ -127,6 +155,14 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
         this.listQueryComp.tag = this.listQueryComp.tag == "withinAnHour" ? "today" : this.listQueryComp.tag;
         this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
+    }
+    api_event_race_detail(event_id: any) {
+        const sendObj = {
+            event_id: event_id,
+        };
+        this.clear_detail_data();
+        this.pageData.loading_detail = true;
+        this.sendNotification(net.HttpType.api_event_race_detail, sendObj);
     }
     /**盘口接口-新*/
     api_market_typelist() {
