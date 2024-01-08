@@ -1,9 +1,23 @@
-.v-application {
-    background-color: #f4f4f4 !important;
-    font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
+.theme--dark {
+    .v-application {
+        background-color: #f4f4f4 !important;
+        font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
+    }
+
+    .sheetOutlined {
+        border: solid 1px rgb(62, 63, 65) !important;
+        border-radius: 10px !important;
+    }
 }
 
-.sheetOutlined {
-    border: solid 1px rgb(214, 221, 227) !important;
-    border-radius: 10px !important;
+.theme--light {
+    .v-application {
+        background-color: #202121 !important;
+        font-family: "GOTHAM_BOOK", "PingFang SC", "Microsoft YaHei" !important;
+    }
+
+    .sheetOutlined {
+        border: solid 1px rgb(214, 221, 227) !important;
+        border-radius: 10px !important;
+    }
 }

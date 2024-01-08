@@ -93,7 +93,7 @@ module.exports = {
         },
         skin001_order_detail: {
             entry: "src/_skin001_order_result/main.ts",
-            template: "public/index001_order_detail.html",
+            template: "public/index001_order_result.html",
             filename: "index001_order_detail.html",
             title: "detail",
         },
