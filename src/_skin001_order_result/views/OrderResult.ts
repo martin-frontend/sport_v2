@@ -31,6 +31,9 @@ export default class PageOrderDetail extends AbstractView {
     };
 
     mounted() {
+        this.$vuetify.theme.dark = getQueryVariable("daynight_type") == "2" ?? false;
+        this.onWatchTheme();
+
         const { lang, order_id, plat_id, timezone } = this.form;
         Http.post(net.HttpType.public_plat_config, { plat_id, timezone, order_id, lang }).then((response: any) => {
             PlatConfig.config = response.data;
@@ -59,6 +62,12 @@ export default class PageOrderDetail extends AbstractView {
             });
         });
     }
+    @Watch("$vuetify.theme.dark")
+    onWatchTheme() {
+        const html: HTMLElement = <any>document.getElementsByTagName("html")[0];
+        html.style.backgroundColor = this.$vuetify.theme.dark ? "#202121" : "#f4f4f4";
+    }
+
     init() {}
 
     // 注单状态
