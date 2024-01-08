@@ -27,6 +27,10 @@ export default class PageRacingHome extends AbstractView {
     }
 
     mounted() {
+        if (!this.isRaceEvent(this.homeProxy.listQueryComp.sport_id)) {
+            this.$router.push("/page_home");
+            return;
+        }
         this.myProxy.sportCheckBoxArr = [`${this.homeProxy.listQueryComp.sport_id}`];
     }
 
