@@ -47,7 +47,7 @@ export default class PageOrderDetail extends AbstractView {
     onSelectDate() {
         const menu: any = this.$refs.menu;
         menu.save(this.myProxy.selectDate);
-        this.myProxy.api_event_result();
+        this.myProxy.api_event_result_v2();
     }
     split_goals(goals: string) {
         const goalarr = goals.split("-");
@@ -76,6 +76,6 @@ export default class PageOrderDetail extends AbstractView {
         }
         this.myProxy.listQuery.page_count = 1;
         this.pageData.competition_list = [];
-        this.myProxy.api_event_result();
+        this.myProxy.api_event_result_v2();
     }
 }

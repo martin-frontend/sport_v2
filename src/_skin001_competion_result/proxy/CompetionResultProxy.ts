@@ -30,7 +30,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
     init() {
         if (!this.listQuery.sport_id) return;
         this.api_event_market_type_v2();
-        this.api_event_result();
+        this.api_event_result_v2();
     }
 
     pageData = {
@@ -48,7 +48,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         unique: CompetionResultProxy.name,
     };
 
-    api_event_result() {
+    api_event_result_v2() {
         this.pageData.competition_list = [];
         GlobalVar.loading = true;
         const symbal = GlobalVar.zone.substring(0, 1);
@@ -72,9 +72,9 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         this.listQuery.start_time = Date.parse(tempdate + " " + timezone) / 1000;
         this.listQuery.end_time = (Date.parse(tempdate + " " + timezone) + 86400000) / 1000 - 1;
 
-        this.sendNotification(net.HttpType.api_event_result, this.listQuery);
+        this.sendNotification(net.HttpType.api_event_result_v2, this.listQuery);
     }
-    set_envent_result(data: any) {
+    set_envent_result_v2(data: any) {
         this.isloadSecLang = true;
         this.pageData.competition_list = [];
         this.pageData.length = 0;
