@@ -109,6 +109,8 @@ export default class PageOrderDetail extends AbstractView {
                 return LangUtil("输");
             case 5:
                 return LangUtil("输一半");
+            case 6:
+                return LangUtil("提前结算");
             case 7:
                 return LangUtil("失效");
         }
