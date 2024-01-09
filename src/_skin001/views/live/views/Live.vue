@@ -7,12 +7,14 @@ import Live from "./Live";
 import CardRed from "../../widget/card_red/CardRed.vue";
 import CardYellow from "../../widget/card_yellow/CardYellow.vue";
 import LivePlayer from "../../live_player/views/LivePlayer.vue";
+import Nodata from "../../widget/nodata/Nodata.vue";
 
 @Component({
     components: {
         LivePlayer,
         CardRed,
         CardYellow,
+        Nodata
     },
 })
 export default class extends Live {

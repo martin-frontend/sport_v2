@@ -12,6 +12,8 @@ import PageHomeProxy from "@/_skin001/views/page_home/proxy/PageHomeProxy";
 import DialogBetResultProxy from "../../proxy/DialogBetResultProxy";
 import DialogBetResultMediator from "../../mediator/DialogBetResultMediator";
 import CopyUtil from "@/core/global/CopyUtil";
+import Assets from "@/_skin001/assets/Assets";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class BetResult extends AbstractView {
@@ -29,6 +31,8 @@ export default class BetResult extends AbstractView {
     pageData = this.myProxy.pageData;
     parlayData = this.pageData.parlayData;
     isLive = this.betProxy.pageData.isLive;
+    sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
     mounted() {
         // this.pageData.statusMsg = "";
     }

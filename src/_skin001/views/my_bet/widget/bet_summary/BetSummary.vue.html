@@ -111,24 +111,33 @@
             </v-row>
         </v-expand-transition>
     </div>
-<v-divider />
+    <v-divider />
     <div class="d-flex mt-2">
         <span>{{LangUtil("总投注额")}}</span>
         <v-spacer />
         <span class="yellow--text font-weight-bold"
-            ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake || 0)}}</span
+            ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalStake || 0,2)}}</span
         >
     </div>
-    <div class="d-flex">
-        <span>{{LangUtil("预计可赢")}}</span>
+    <div class="d-flex" v-if="isShowTotalSP">
+        <span>{{LangUtil("SP注额")}}</span>
         <v-spacer />
-        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{preWin}}</span>
+        <span class="yellow--text font-weight-bold"
+            ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(totalSP || 0,2)}}</span
+        >
     </div>
-    <div class="d-flex">
-        <span>{{LangUtil("预计派彩")}}</span>
-        <v-spacer />
-        <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{payout}}</span>
-    </div>
+    <template v-if="!isOnlySP">
+        <div class="d-flex">
+            <span>{{LangUtil("预计可赢")}}</span>
+            <v-spacer />
+            <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{preWin}}</span>
+        </div>
+        <div class="d-flex">
+            <span>{{LangUtil("预计派彩")}}</span>
+            <v-spacer />
+            <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{payout}}</span>
+        </div>
+    </template>
     <template v-if="!$vuetify.breakpoint.mobile">
         <!-- v-if="!item.oddsChange || item.isMarketClose" -->
         <div class="d-flex mt-2">

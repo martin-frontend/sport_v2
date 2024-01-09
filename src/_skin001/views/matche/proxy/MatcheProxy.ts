@@ -5,6 +5,7 @@ import LangUtil from "@/core/global/LangUtil";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
 import { MarketVO } from "@/vo/MarketVO";
+import SportUtil from "@/core/global/SportUtil";
 
 export default class MatcheProxy extends puremvc.Proxy {
     static NAME = "MatcheProxy";
@@ -26,7 +27,8 @@ export default class MatcheProxy extends puremvc.Proxy {
         this.listQueryComp.event_id = id.toString();
         this.listQueryMarket.event_id = id.toString();
         this.api_event_list();
-        this.api_event_hot();
+        // this.api_event_hot();
+        if (Vue.vuetify.framework.breakpoint.mobile) this.api_event_market_type_v2();
     }
 
     pageData = {
@@ -38,10 +40,16 @@ export default class MatcheProxy extends puremvc.Proxy {
         competition_list: <CompetitionVO[]>[],
         /**盘口信息 */
         market_list: <MarketVO[]>[],
+        marketTypeOptions: <any>{
+            market_main_type: <any>[],
+            market_type: <any>[],
+        },
     };
 
     listQueryComp = {
         sport_id: 1,
+        tag: "",
+        event_type: 1,
         event_id: "",
         unique: MatcheProxy.NAME,
     };
@@ -52,12 +60,6 @@ export default class MatcheProxy extends puremvc.Proxy {
         market_type: 0,
         unique: MatcheProxy.NAME,
     };
-
-    get marketTypeOptions() {
-        const arr = [{ id: 0, name: LangUtil("所有") }];
-        arr.push(...PlatConfig.market_main_type);
-        return arr;
-    }
 
     set_event_list(data: any) {
         this.pageData.competition_list = data;
@@ -91,34 +93,52 @@ export default class MatcheProxy extends puremvc.Proxy {
         }, 100);
     }
 
+    set_event_market_type_v2(data: any) {
+        Object.assign(this.pageData.marketTypeOptions, { ...data });
+    }
+
     /**赛事接口-新*/
     api_event_list() {
         // GlobalVar.loading = true;
         this.pageData.loading = true;
         this.listQueryMarket.market_type = 0;
-        this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
+        this.listQueryComp.event_type = SportUtil.isRaceEvent(this.listQueryComp.sport_id) ? 2 : 1;
+        this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
 
     /**盘口接口-新*/
     api_market_typelist() {
+        if (SportUtil.isRaceEvent(this.listQueryComp.sport_id)) return;
+
         let market_type = "";
         switch (this.listQueryMarket.market_type) {
             case 0:
-                market_type = PlatConfig.allMarketType.map((item) => item.market_type).toString();
+                market_type = this.pageData.marketTypeOptions.market_type.map((item: any) => item.market_type).toString();
                 break;
             default: {
-                const arr = PlatConfig.allMarketType.filter((item) =>
+                const arr = this.pageData.marketTypeOptions.market_type.filter((item: any) =>
                     item.main_type.split(",").includes(this.listQueryMarket.market_type.toString())
                 );
-                market_type = arr.map((item) => item.market_type).toString();
+                market_type = arr.map((item: any) => item.market_type).toString();
             }
         }
         const formCopy = JSON.parse(JSON.stringify(this.listQueryMarket));
         formCopy.market_type = market_type;
-        this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(formCopy));
+        if (market_type) {
+            this.sendNotification(net.HttpType.api_market_typelist, formCopy);
+        } else {
+            this.set_market_typelist([]);
+        }
     }
     /**热门赛事 */
     api_event_hot() {
         this.sendNotification(net.HttpType.api_event_hot);
+    }
+
+    api_event_market_type_v2() {
+        this.sendNotification(net.HttpType.api_event_market_type_v2, {
+            sport_id: this.listQueryComp.sport_id,
+            unique: MatcheProxy.NAME,
+        });
     }
 }

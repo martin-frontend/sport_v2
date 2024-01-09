@@ -71,7 +71,26 @@
             >
                 <template slot="range-separator">-</template>
             </el-date-picker>
-
+            <v-sheet v-if="pageData.sportOptions && pageData.sportOptions.length > 0" color="transition" width="200" class="ml-3">
+                <v-select
+                    v-model="myProxy.listQuery.sport_id"
+                    hide-details
+                    dense
+                    :items="pageData.sportOptions"
+                    solo
+                    item-text="name"
+                    item-value="id"
+                    class="sport-select rounded-lg"
+                    @change="onSportChange"
+                >
+                    <template #item="{item}">
+                        <div class="d-flex align-center">
+                            <svg-icon class="text-20" :icon="item.icon"></svg-icon>
+                            <span class="ml-2">{{LangUtil(item.name)}}</span>
+                        </div>
+                    </template>
+                </v-select>
+            </v-sheet>
             <v-btn class="textGray--text ml-1" icon @click="onfresh">
                 <svg-icon class="text-23" icon="refrush"></svg-icon>
             </v-btn>
@@ -79,6 +98,9 @@
         <v-row justify="center" class="d-flex justify-center mx-6 mt-2 btnPlain--text text-14">
             <v-col>
                 <span>{{LangUtil("编号")}}</span>
+            </v-col>
+            <v-col>
+                <span>{{LangUtil("体育类型")}}</span>
             </v-col>
             <v-col cols="2">
                 <span>{{LangUtil("订单")}}</span>
@@ -123,6 +145,14 @@
                     <v-col>
                         <span v-if="index1 == 0">{{index + 1}}</span>
                     </v-col>
+                    <v-col>
+                        <template v-if="item.bet_type == 'single'">
+                            <svg-icon class="text-30" :icon="sportIcon[item.sport_id]"></svg-icon>
+                        </template>
+                        <template v-else>
+                            <svg-icon v-if="index1 == 0" class="text-24" icon="c64"></svg-icon>
+                        </template>
+                    </v-col>
                     <!-- 订单 -->
                     <v-col cols="2" class="font-weight-bold">
                         <template v-if="index1 == 0">
@@ -130,7 +160,10 @@
                             <button v-if="item.order_no" @click="onCopyOrder(item.order_no)">
                                 <svg-icon class="text-16" icon="copy"></svg-icon>
                             </button>
-                            <span> {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span>
+                            <span>
+                                {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss',
+                                true)}}</span
+                            >
                         </template>
                     </v-col>
                     <v-col>
@@ -146,18 +179,36 @@
                         <span>{{LangUtil("盘口归类")}}</span>
                     </v-col> -->
                     <v-col cols="2" class="justify-items-center d-grid align-content-center">
-                        <span class="">{{leg.competition_name}}</span>
-                        <span>{{leg.home_name}}</span>
-                        <span>VS</span>
-                        <span>{{leg.away_name}}</span>
-                        <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}</span>
+                        <template v-if="!isRaceEvent(item.sport_id)">
+                            <span class="">{{leg.competition_name}}</span>
+                            <span>{{leg.home_name}}</span>
+                            <span>VS</span>
+                            <span>{{leg.away_name}}</span>
+                        </template>
+                        <template v-else>
+                            <span class="">
+                                <v-sheet
+                                    v-if="leg.number_of_session"
+                                    color="#feba00"
+                                    width="30"
+                                    height="18"
+                                    class="mr-2 rounded d-flex align-center justify-center font-weight-bold text-14 textGray2--text"
+                                >
+                                    {{leg.number_of_session}}
+                                </v-sheet>
+                                {{leg.competition_name}}
+                            </span>
+                        </template>
+                        <span> {{dateFormat(getDateByTimeZone(leg.event_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss')}}</span>
                     </v-col>
                     <v-col cols="2" class="d-grid justify-items-center btnPlain--text top-text">
-                        <div id="content" class="d-flex text-center">
+                        <div id="content" class="d-flex flex-column align-center">
+                            <div v-if="isRaceEvent(item.sport_id)">{{leg.content}}</div>
                             <div v-if="leg.c_type == 2">{{leg.content}}@{{TransMarketPrice(leg.odds)}}</div>
                             <div v-else>
                                 {{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}
-                                @{{TransMarketPrice(leg.odds)}}
+                                <span v-if="!leg.is_sp"> @{{ TransMarketPrice(leg.odds) }} </span>
+                                <span v-else>SP @{{ TransMarketPrice(leg.odds) }}</span>
                             </div>
                         </div>
 

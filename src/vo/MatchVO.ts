@@ -17,4 +17,5 @@ export interface MatchVO {
 
     live_status: number; //直播数据 1:已配置 2:未配置
     live_url: string; //直播地址
+    sport_id: number;
 }

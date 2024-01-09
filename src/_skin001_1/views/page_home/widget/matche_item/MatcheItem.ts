@@ -14,6 +14,7 @@ import right_panel from "@/_skin001/views/right_panel";
 import MatcheProxy from "@/_skin001/views/matche/proxy/MatcheProxy";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
+import NavigationProxy from "@/_skin001/views/navigation/proxy/NavigationProxy";
 
 @Component
 export default class MatcheItem extends AbstractView {
@@ -22,6 +23,7 @@ export default class MatcheItem extends AbstractView {
     MarketUtils = MarketUtils;
     matcheProxy: MatcheProxy = this.getProxy(MatcheProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
+    navProxy: NavigationProxy = getProxy(NavigationProxy);
     selfProxy: SelfProxy = getProxy(SelfProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
@@ -55,15 +57,21 @@ export default class MatcheItem extends AbstractView {
         ASIAN_OVER_UNDER_AFTER_PENALTIES: "大小点球",
     };
     get tableColumn() {
-        let arr = ["1", "x", "2", LangUtil("大"), LangUtil("小")];
-        if (this.$vuetify.breakpoint.width <= 1600) {
-            arr = ["1", "x", "2"];
+        const { sport_id } = this.listQueryComp;
+        if (sport_id == 1) {
+            let arr = ["1", "x", "2", LangUtil("大"), LangUtil("小")];
+            if (this.$vuetify.breakpoint.width <= 1600) {
+                arr = ["1", "x", "2"];
+            }
+            return arr;
+        } else {
+            let arr = [LangUtil("主"), LangUtil("客"), LangUtil("大"), LangUtil("小")];
+            return arr;
         }
-        return arr;
     }
 
     get start_time() {
-        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm" ,true);
+        return dateFormat(getDateByTimeZone(this.matche.sb_time * 1000, <any>GlobalVar.zone), "MM/dd hh:mm", true);
     }
 
     get start() {
@@ -99,15 +107,18 @@ export default class MatcheItem extends AbstractView {
     get marketTypes() {
         const arr = ["1H OT", "2H OT", "OT HT"];
         let marketTypes: string[] = [];
+        const { sport_id } = this.listQueryComp;
         if (this.states && arr.includes(this.states.match_phase)) {
-            marketTypes = PlatConfig.config.client.pcMarketType_extra.split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeExtraBySportId[sport_id]?.split(",");
         } else {
-            marketTypes = PlatConfig.config.client.pcMarketType.split(",");
+            marketTypes = PlatConfig.config.client.pcMarketTypeBySportId[sport_id]?.split(",") || [];
         }
-        if (this.$vuetify.breakpoint.width <= 1600) {
-            return marketTypes.slice(0, 1);
-        } else if (this.$vuetify.breakpoint.width <= 1810) {
-            return marketTypes.slice(0, 2);
+        if(sport_id == 1) {
+            if (this.$vuetify.breakpoint.width <= 1600) {
+                return marketTypes.slice(0, 1);
+            } else if (this.$vuetify.breakpoint.width <= 1810) {
+                return marketTypes.slice(0, 2);
+            }
         }
         return marketTypes;
     }
@@ -170,7 +181,7 @@ export default class MatcheItem extends AbstractView {
         const arr = ["1H", "HT", "2H", "FT"];
         return arr.includes(match_phase);
     }
-    
+
     /**是否显示点球比分 */
     isShowPK(match_phase: string): boolean {
         const arr = ["PK", "PK FT"];
@@ -214,6 +225,26 @@ export default class MatcheItem extends AbstractView {
     }
 
     onLove() {
-        this.myProxy.api_user_love(this.matche.id);
+        // 如果在关注页，直接删除该赛事
+        if (this.listQueryComp.tag == "love") {
+            const findIndex = this.pageData.competition_list.findIndex((item) => item.competition_id == this.matche.competition_id);
+            const comp: any = this.pageData.competition_list[findIndex];            
+            const len = comp.matches.length;
+            if (len == 1) {
+                this.pageData.competition_list.splice(findIndex, 1);
+            } else {
+                for (let i = 0; i < len; i++) {
+                    if (this.matche.id == comp.matches[i].id) {
+                        comp.matches.splice(i, 1);
+                        break;
+                    }
+                }
+            }
+        }
+        this.myProxy.api_user_love(this.matche.competition_id, this.matche.id);
+    }
+
+    get curSportLove() {
+        return this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id]?.favorite.events || [];
     }
 }

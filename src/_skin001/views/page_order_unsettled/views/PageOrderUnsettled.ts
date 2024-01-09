@@ -9,8 +9,8 @@ import { amountFormat, dateFormat, formatEventTime, getDateByTimeZone, parseLoca
 import CopyUtil from "@/core/global/CopyUtil";
 import EnumMarketType from "@/core/global/MarketUtils";
 import dialog_confirm_settlement from "@/_skin001/views/dialog_confirm_settlement";
-
-const marketType = EnumMarketType.EnumMarketType;
+import SportUtil from "@/core/global/SportUtil";
+import Assets from "@/_skin001/assets/Assets";
 @Component
 export default class PageOrderUnsettled extends AbstractView {
     LangUtil = LangUtil;
@@ -23,6 +23,8 @@ export default class PageOrderUnsettled extends AbstractView {
     myProxy: OrderUnsettledProxy = this.getProxy(OrderUnsettledProxy);
     pageData = this.myProxy.pageData;
     listQuery = this.myProxy.listQuery;
+    sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
     // isAbleToCashOut = false;
     // 注单状态
     statusMap = {
@@ -97,7 +99,7 @@ export default class PageOrderUnsettled extends AbstractView {
             const hr = Math.floor(start_in_sec / 60 / 60);
             const min = Math.floor((start_in_sec / 60) % 60);
             if (start_in_sec > 0) {
-                states_str = formatEventTime(dateFormat(getDateByTimeZone(item.event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss", true));
+                states_str = dateFormat(getDateByTimeZone(item.event_time * 1000, GlobalVar.zone), "MM/dd hh:mm", true);
                 if (start_in_sec > 86400) {
                     states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
                 } else if (start_in_sec > 600) {
@@ -209,6 +211,13 @@ export default class PageOrderUnsettled extends AbstractView {
             case 6:
                 return `${LangUtil("暂停兑现")}`;
         }
+    }
+
+    getRaceTime(event_time: any) {
+        if (event_time < GlobalVar.server_time) {
+            return "";
+        }
+        return dateFormat(getDateByTimeZone(event_time * 1000, GlobalVar.zone), "yyyy/MM/dd hh:mm:ss");
     }
 
     getPayout(item: any) {

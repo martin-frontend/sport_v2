@@ -1,0 +1,49 @@
+<div>
+    <v-sheet v-if="!$vuetify.breakpoint.mobile" color="bgBanner" class="rounded-lg">
+        <horizontal_scroll class="py-2" :offsetx="16" v-if="new_menu_subnav">
+            <template v-slot="{data}">
+                <v-btn
+                    v-for="key of sportIdArr"
+                    :key="key"
+                    class="mr-2 font-weight-bold tag-btn"
+                    :class="{'active': key == curSportId}"
+                    text
+                    :ripple="false"
+                    max-height="30"
+                    style="background-color: transparent;"
+                    :disabled="!new_menu_subnav[key].num"
+                    @click="onSportClick(Number(key))"
+                >
+                    <span class="d-flex align-center">
+                        <svg-icon class="text-20 mr-1" :icon="sportIcon[key]"></svg-icon>
+                        <span>{{new_menu_subnav[key].num}}</span>
+                    </span>
+                </v-btn>
+            </template>
+        </horizontal_scroll>
+    </v-sheet>
+    <v-sheet v-else color="bgBanner" class="rounded-lg">
+        <horizontal_scroll class="py-2">
+            <template v-slot="{data}">
+                <v-btn
+                    v-for="key of sportIdArr"
+                    :key="key"
+                    :disabled="!new_menu_subnav[key].num"
+                    @click="onSportClick(key)"
+                    class="font-weight-bold tag-btn px-2"
+                    :class="{'active': homeProxy.listQueryComp.sport_id == key}"
+                    text
+                    elevation="0"
+                    :ripple="false"
+                    max-height="30"
+                    width="80"
+                >
+                    <span class="d-flex align-center">
+                        <div v-if="sportIcon[key]" class="text-24"><svg-icon :icon="sportIcon[key]"></svg-icon></div>
+                        <span class="ml-1">{{new_menu_subnav[key].num}}</span>
+                    </span>
+                </v-btn>
+            </template>
+        </horizontal_scroll>
+    </v-sheet>
+</div>

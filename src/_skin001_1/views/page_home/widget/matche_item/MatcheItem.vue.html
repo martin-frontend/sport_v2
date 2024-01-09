@@ -1,7 +1,7 @@
 <v-sheet class="pt-2 pb10 bgtexture" :class="{'roundedb10': isLast}" color="bgBanner">
     <!-- <v-divider /> -->
     <div class="d-flex" :class="{'mt-n2': !isFirst}">
-        <v-sheet class="text-14" color="transparent" min-width="350">
+        <v-sheet class="text-14" color="transparent" :min-width="listQueryComp.sport_id == 1? 350: 300">
             <v-sheet class="d-flex align-center btnPlain--text text-14" color="transparent" height="30">
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
@@ -11,8 +11,8 @@
                                     v-bind="attrs"
                                     v-on="on"
                                     class="text-18 textGray--text hand ml10 mt-1"
-                                    :class="{'active': pageData.love_events.includes(matche.id)}"
-                                    :icon="hover ? 'love' : (pageData.love_events.includes(matche.id) ? 'love_' : 'love1')"
+                                    :class="{'active': curSportLove.includes(`${matche.id}`)}"
+                                    :icon="hover ? 'love' : (curSportLove.includes(`${matche.id}`) ? 'love_' : 'love1')"
                                     @click.native="onLove"
                                 ></svg-icon>
                             </v-hover>
@@ -30,7 +30,7 @@
                     <div class="ml-1" v-if="states.phase_minute > 0">
                         {{ getFullTime(states ? states.match_phase : "",states.phase_minute) }}{{LangUtil("分钟")}}
                     </div>
-                    <div class="d-flex align-center ml-3">
+                    <div  v-if="matche.sport_id == 1" class="d-flex align-center ml-3">
                         <svg-icon icon="corner"></svg-icon>
                         <div class="text-gray1">{{ states.corners_ft }}</div>
                     </div>
@@ -174,7 +174,10 @@
                             :class="(item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && skey == 2 && isShowDrow) ? 'mt-37' : ''"
                             style="width: 100%; height: 65px"
                         >
-                            <div class="text-14" v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' ">
+                            <div
+                                class="text-14"
+                                v-if="item != 'MATCH_ODDS' && item != 'MATCH_ODDS_HALF_TIME' && item != 'MONEY_LINE'&& item != 'MONEY_LINE_FIRST_QUARTER'&& item != 'MONEY_LINE_HALF_TIME'"
+                            >
                                 {{MarketUtils.getSelectionName(item, sel)}}
                             </div>
                         </BtnFixedBet>

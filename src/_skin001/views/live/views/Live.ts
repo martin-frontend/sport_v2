@@ -8,6 +8,7 @@ import { formatEventTime, dateFormat, getDateByTimeZone, getResponseIcon, logEnt
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
 import SkinVariable from "@/core/SkinVariable";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class Live extends AbstractView {
@@ -23,6 +24,8 @@ export default class Live extends AbstractView {
     iframeHeight = 0;
     user_type: number = this.selfProxy.userInfo.user_type;
     isShowLive = [0];
+    isRaceEvent = SportUtil.isRaceEvent;
+
     @Watch("value")
     onWatchValue() {
         this.window = this.value;
@@ -39,6 +42,10 @@ export default class Live extends AbstractView {
         setTimeout(() => {
             this.onWatchWidth();
         }, 100);
+    }
+
+    get curSportId() {
+        return this.myProxy.listQueryComp.sport_id;
     }
 
     mounted() {

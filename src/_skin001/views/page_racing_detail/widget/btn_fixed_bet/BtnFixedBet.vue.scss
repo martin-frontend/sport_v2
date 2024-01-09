@@ -1,0 +1,80 @@
+.btn {
+    overflow: hidden;
+    &.fav {
+        border-top-left-radius: 5px;
+        border-bottom-left-radius: 5px;
+    }
+    &.disabled {
+        pointer-events: none;
+    }
+}
+.theme--light {
+    .btn {
+        background-color: transparent;
+        border: 1px solid #d6dde3;
+        &.fav {
+            border-color: #41a81d !important;
+        }
+        &:hover {
+            background-color: #fff1a9;
+            // border-color: #ffec8e;
+        }
+        &.active {
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            border-color: #FFCD43 !important;
+            color: #0f1213;
+        }
+    }
+}
+.theme--dark {
+    .btn {
+        background-color: #272828;
+        border: solid 1px #333435;
+        &:hover {
+            filter: brightness(120%);
+        }
+        &.fav {
+            border-color: #41a81d !important;
+        }
+        &.active {
+            background: linear-gradient(to right, #fcb131, #ffe64d);
+            border-color: #FFCD43 !important;
+            color: #0f1213;
+        }
+    }
+}
+
+.btn-disabled {
+    background-color: #f6f6f6;
+    pointer-events: none;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.animation-translate {
+    animation-name: shake;
+    animation-duration: 1s;
+    animation-iteration-count: infinite;
+    animation-timing-function: ease-in;
+}
+
+@keyframes shake {
+    0%,
+    100% {
+        transform: translatey(1px);
+    }
+
+    50% {
+        transform: translatey(-1px);
+    }
+}
+.onlyphoneItem {
+    color: #8e8f91;
+    .theme--dark {
+        color: #b0b0b0;
+    }
+    font-weight: 600;
+    font-family: "PingFang SC" !important; //, "Microsoft YaHei";
+}

@@ -1,0 +1,200 @@
+<div>
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <v-sheet color="bgBanner" class="pt-4 pb-2 rounded-lg mt-2">
+            <v-row no-gutters class="mb-4 px-2">
+                <v-col>
+                    <v-sheet color="transparent">
+                        <v-btn small :class="{'active': window == 0}" class="tab px-2" height="26" elevation="0" @click="window = 0">
+                            <span class="text-14"> {{LangUtil('结果')}} </span>
+                        </v-btn>
+                        <v-btn small :class="{'active': window == 1}" class="tab mx-2" height="26" elevation="0" @click="window = 1">
+                            <span class="text-14"> {{LangUtil('扣除')}} </span>
+                        </v-btn>
+                    </v-sheet>
+                </v-col>
+                <template v-if="window == 0">
+                    <v-col v-if="markets" cols="2" class="headerTextColor--text text-14 d-flex align-center justify-center">
+                        {{markets.RB_WIN.market_name}}
+                    </v-col>
+                    <v-col
+                        v-if="markets && match.runners.length >5"
+                        cols="2"
+                        class="headerTextColor--text text-14 d-flex align-center justify-center"
+                    >
+                        {{markets.RB_PLACE.market_name}}
+                    </v-col>
+                </template>
+            </v-row>
+            <v-divider></v-divider>
+            <v-window v-model="window">
+                <v-window-item>
+                    <v-sheet color="transparent" class="px-2">
+                        <template v-for="runner of runnersRanking">
+                            <v-row no-gutters class="py-2" :key="runner.runner_id">
+                                <v-col>
+                                    <v-sheet color="transparent" class="d-flex flex-column">
+                                        <div class="d-flex">
+                                            <v-sheet
+                                                color="#0f1213"
+                                                class="rounded white--text text-12 px-1 d-flex align-center nowrap"
+                                                :class="{'ranking-border': $vuetify.theme.dark}"
+                                                style="white-space: nowrap"
+                                            >
+                                                {{LangUtil(getRankingStr(runner))}}
+                                            </v-sheet>
+                                            <span class="ml-2 font-weight-bold"
+                                                >{{runner.runner_id}}. {{runner.name}}
+                                                <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                            </span>
+                                        </div>
+                                        <div class="d-flex text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}">
+                                            <div v-if="sportId != 8">
+                                                <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
+                                                <span class="mx-2">{{runner.jockey}}</span>
+                                            </div>
+                                            <div>
+                                                <span>{{LangUtil('训练师')}}:</span>
+                                                <span class="mx-2">{{runner.trainer}}</span>
+                                            </div>
+                                        </div>
+                                    </v-sheet>
+                                </v-col>
+                                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                                    <span v-if="isShowWin(runner.ranking)"> {{getWin(runner.runner_id)}} </span>
+                                </v-col>
+                                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="match.runners.length >5">
+                                    <span v-if="isShowPlace(runner.ranking)"> {{getPlace(runner.runner_id)}} </span>
+                                </v-col>
+                            </v-row>
+                            <v-divider></v-divider>
+                        </template>
+                    </v-sheet>
+                </v-window-item>
+                <v-window-item>
+                    <v-sheet color="transparent" class="px-2">
+                        <template v-for="runner of scratchedRunners">
+                            <v-row no-gutters class="py-2" :key="runner.runner_id">
+                                <v-col cols="6" class="d-flex flex-column tagTextColor1--text">
+                                    <div class="text-line-through">
+                                        {{runner.runner_id}}. {{runner.name}}
+                                        <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                    </div>
+                                    <div class="d-flex text-12 mt-1">{{LangUtil("对于退赛前投注的固定投注")}}</div>
+                                </v-col>
+                                <v-spacer></v-spacer>
+                                <v-sheet color="transparent" class="d-flex flex-column justify-center pr-3 tagTextColor1--text text-14">
+                                    <div class="d-flex justify-center align-center">
+                                        {{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}
+                                    </div>
+                                    <div class="d-flex justify-center align-center">{{LangUtil("扣除")}}: {{runner.deduction}}</div>
+                                </v-sheet>
+                            </v-row>
+                            <v-divider></v-divider>
+                        </template>
+                        <div v-if="scratchedRunners.length > 0" class="text-12 tagTextColor1--text mt-2">
+                            {{LangUtil("*从固定赔率的原始估计收益中扣除。")}}
+                        </div>
+                        <template v-else>
+                            <div class="text-12 pt-2">{{LangUtil("没有退赛的选手")}}</div>
+                        </template>
+                    </v-sheet>
+                </v-window-item>
+            </v-window>
+        </v-sheet>
+    </template>
+    <template v-else>
+        <v-sheet color="bgBanner" class="pt-4 pb-2 rounded-lg mt-2">
+            <v-row no-gutters class="mb-4 pl-2">
+                <v-col>
+                    <v-sheet color="transparent">
+                        <v-btn small :class="{'active': window == 0}" class="tab px-2" height="26" elevation="0" @click="window = 0">
+                            <span class="text-14"> {{LangUtil('结果')}} </span>
+                        </v-btn>
+                        <v-btn small :class="{'active': window == 1}" class="tab mx-2" height="26" elevation="0" @click="window = 1">
+                            <span class="text-14"> {{LangUtil('扣除')}} </span>
+                        </v-btn>
+                    </v-sheet>
+                </v-col>
+                <template v-if="window == 0">
+                    <v-col v-if="markets" cols="2" class="text-center headerTextColor--text text-14">
+                        {{markets.RB_WIN.market_name}}
+                    </v-col>
+                    <v-col cols="2" class="text-center headerTextColor--text text-14" v-if="markets && match.runners.length > 5">
+                        {{markets.RB_PLACE.market_name}}
+                    </v-col>
+                </template>
+            </v-row>
+            <v-divider></v-divider>
+            <v-window v-model="window">
+                <v-window-item>
+                    <v-sheet color="transparent" class="pl-2">
+                        <template v-for="runner of runnersRanking">
+                            <v-row no-gutters class="py-2" :key="runner.runner_id">
+                                <v-col>
+                                    <v-sheet color="transparent" class="d-flex flex-column">
+                                        <div class="d-flex">
+                                            <v-sheet
+                                                color="#0f1213"
+                                                class="rounded white--text text-12 px-1 d-flex align-center"
+                                                :class="{'ranking-border': $vuetify.theme.dark}"
+                                                style="white-space: nowrap"
+                                                max-height="20"
+                                            >
+                                                {{LangUtil(getRankingStr(runner))}}
+                                            </v-sheet>
+                                            <span class="ml-2 font-weight-bold text-14">
+                                                {{runner.runner_id}}. {{runner.name}}
+                                                <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                            </span>
+                                        </div>
+                                        <div class="text-12 mt-2" :class="{'textGray--text': $vuetify.theme.dark}" v-if="sportId != 8">
+                                            <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
+                                            <span class="mx-2">{{runner.jockey}}</span>
+                                        </div>
+                                        <div class="text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
+                                            <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
+                                            <span class="mx-2">{{runner.trainer}}</span>
+                                        </div>
+                                    </v-sheet>
+                                </v-col>
+                                <v-col cols="2" class="font-weight-bold d-flex align-center justify-center text-14">
+                                    <span v-if="isShowWin(runner.ranking)"> {{getWin(runner.runner_id)}} </span>
+                                </v-col>
+                                <v-col
+                                    cols="2"
+                                    class="font-weight-bold d-flex align-center justify-center text-14"
+                                    v-if="match.runners.length >5"
+                                >
+                                    <span v-if="isShowPlace(runner.ranking)"> {{getPlace(runner.runner_id)}} </span>
+                                </v-col>
+                            </v-row>
+                            <v-divider></v-divider>
+                        </template>
+                    </v-sheet>
+                </v-window-item>
+                <v-window-item>
+                    <v-sheet color="transparent" class="px-2">
+                        <template v-for="runner of scratchedRunners">
+                            <div class="d-flex flex-column tagTextColor1--text text-14 py-2" :key="runner.runner_id">
+                                <div class="text-line-through">
+                                    {{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </div>
+                                <div class="d-flex text-12 my-1">{{LangUtil("对于退赛前投注的固定投注")}}</div>
+                                <div>{{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}</div>
+                                <div>{{LangUtil("扣除")}}: {{runner.deduction}}</div>
+                            </div>
+                            <v-divider></v-divider>
+                        </template>
+                        <div v-if="scratchedRunners.length > 0" class="text-12 tagTextColor1--text mt-2">
+                            {{LangUtil("*从固定赔率的原始估计收益中扣除。")}}
+                        </div>
+                        <template v-else>
+                            <div class="text-12 pt-2">{{LangUtil("没有退赛的选手")}}</div>
+                        </template>
+                    </v-sheet>
+                </v-window-item>
+            </v-window>
+        </v-sheet>
+    </template>
+</div>

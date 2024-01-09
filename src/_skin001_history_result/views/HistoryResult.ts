@@ -10,7 +10,8 @@ import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import { getResponseIcon, amountFormat, dateFormat, TransMarketPrice, getDateByTimeZone } from "@/core/global/Functions";
 import CopyUtil from "@/core/global/CopyUtil";
 import EnumMarketType from "@/core/global/MarketUtils";
-const marketType = EnumMarketType.EnumMarketType;
+import SportUtil from "@/core/global/SportUtil";
+import Assets from "@/_skin001/assets/Assets";
 @Component
 export default class PageOrderDetail extends AbstractView {
     LangUtil = LangUtil;
@@ -35,6 +36,8 @@ export default class PageOrderDetail extends AbstractView {
         sign: getQueryVariable("sign"),
         token: getQueryVariable("t") || "",
     };
+    sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
     constructor() {
         super(historyResultMediator);
     }
@@ -86,6 +89,11 @@ export default class PageOrderDetail extends AbstractView {
         this.bShowDateSelect = false;
         this.pageData.isActive = 1000;
         this.myProxy.get_order_selectdata(this.myProxy.selectDate);
+    }
+    onSportChange() {
+        this.myProxy.listQuery.page_count = 1;
+        this.pageData.list = [];
+        this.myProxy.api_user_orders_v3();
     }
 
     formatDate(date: any) {

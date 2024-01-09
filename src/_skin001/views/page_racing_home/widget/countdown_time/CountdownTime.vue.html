@@ -1,0 +1,16 @@
+<div v-if="date">
+    <div v-if="hr > 0" class="px-1" :style="{'font-size': fontSize + 'px'}">{{time}}</div>
+    <v-sheet
+        v-else
+        :color="getBackgroundColor"
+        class="rounded px-1 d-flex align-center justify-center"
+        :class="getTextColor"
+        :height="height"
+        :width="width"
+        :style="{'font-size': fontSize + 'px'}"
+        min-width="60"
+        style="white-space: nowrap"
+    >
+        {{time}}
+    </v-sheet>
+</div>

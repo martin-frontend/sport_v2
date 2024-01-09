@@ -10,20 +10,28 @@
                 class="d-flex align-center btnPlain--text hand mr-2"
                 color="transparent"
                 max-width="70%"
-                @click="pageData.isShowLiveList = !pageData.isShowLiveList"
-                v-if="competition"
+                @click="onLiveList"
+                v-if="competition && matche"
             >
                 <v-img width="20" height="20" :src="competition.country_icon"></v-img>
-                <div class="text-14 mx10 text-truncate">{{matche.home_team}} VS {{matche.away_team}}</div>
-                <svg-icon
-                    class="text-12 textGray--text"
-                    icon="zoom_out"
-                    :class="pageData.isShowLiveList ? 'arrow-up' : 'arrow-down'"
-                ></svg-icon>
+                <div v-if="!isRaceEvent(curSportId)" class="text-14 mx10 text-truncate">{{matche.home_team}} VS {{matche.away_team}}</div>
+                <div v-else class="d-flex align-center">
+                    <v-sheet
+                        color="#feba00"
+                        width="30"
+                        height="20"
+                        class="rounded d-flex align-center justify-center font-weight-bold text-14 textGray2--text ml-2"
+                    >
+                        {{racingDetailProxy.pageData.matchKey}}
+                    </v-sheet>
+                    <span class="ml-2" style="white-space: nowrap">{{competition.competition_name}}</span>
+                    <span class="ml-2">{{getEventDate(competition.date)}}</span>
+                </div>
+                <svg-icon class="text-12 ml-2" icon="zoom_out" :class="pageData.isShowLiveList ? 'arrow-up' : 'arrow-down'"></svg-icon>
             </v-sheet>
 
             <v-spacer />
-            <div>
+            <div v-if="!isRaceEvent(curSportId)">
                 <v-tooltip top>
                     <template v-slot:activator="{ on, attrs }">
                         <v-sheet color="transparent" v-bind="attrs" v-on="on">
@@ -90,7 +98,8 @@
         </v-sheet> -->
     </template>
     <template v-else>
-        <Live v-if="myProxy.isShowLive" v-model="pageData.liveIndex" />
-        <Matche />
+        <Live v-show="myProxy.isShowLive" v-model="pageData.liveIndex" />
+        <Matche v-if="!isRaceEvent(curSportId)" />
+        <RacingPanel v-else class="mt-2"></RacingPanel>
     </template>
 </div>

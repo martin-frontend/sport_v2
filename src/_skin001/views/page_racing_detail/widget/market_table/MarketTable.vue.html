@@ -1,0 +1,263 @@
+<div>
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <v-sheet color="bgBanner" class="pt-4 pb-2 rounded-lg mt-2 text-14">
+            <v-sheet color="transparent" class="mb-4 px-2 primary--text font-weight-bold d-flex align-center text-16">
+                <span>{{LangUtil("投注盘")}}</span>
+                <v-spacer></v-spacer>
+                <v-sheet color="transparent" height="20" class="detail_icon">
+                    <v-checkbox v-model="isShowDetail" :ripple="false" class="mt-n1 detail" color="yellow1" hide-details>
+                        <template #label>
+                            <span class="textGray--text text-14">{{LangUtil('详情')}}</span>
+                        </template>
+                    </v-checkbox>
+                </v-sheet>
+            </v-sheet>
+            <v-divider></v-divider>
+            <v-sheet color="transparent" class="px-2">
+                <v-row no-gutters class="py-2 tagTextColor1--text">
+                    <v-col>{{LangUtil("当位")}}</v-col>
+                    <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("开放")}}</v-col>
+                    <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("价钱1")}}</v-col>
+                    <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">{{LangUtil("价钱2")}}</v-col>
+                    <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                        <span v-if="markets"> {{markets.RB_WIN.market_name}} </span>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on, attrs }">
+                                <div class="hand ml-1" v-bind="attrs" v-on="on">
+                                    <v-icon color="tagTextColor1" dense>mdi-help-circle</v-icon>
+                                </div>
+                            </template>
+                            <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                                <span v-if="markets">{{markets.RB_WIN.hint}}</span>
+                            </v-sheet>
+                        </v-tooltip>
+                    </v-col>
+                    <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
+                        <span v-if="markets"> {{markets.RB_PLACE.market_name}} </span>
+                        <v-tooltip top>
+                            <template v-slot:activator="{ on, attrs }">
+                                <div class="hand ml-1" v-bind="attrs" v-on="on">
+                                    <v-icon color="tagTextColor1" dense>mdi-help-circle</v-icon>
+                                </div>
+                            </template>
+                            <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                                <span v-if="markets">{{markets.RB_PLACE.hint}}</span>
+                            </v-sheet>
+                        </v-tooltip>
+                    </v-col>
+                </v-row>
+                <template v-for="runner of runners">
+                    <v-row no-gutters class="py-2 tagTextColor2--text" :key="runner.runner_id">
+                        <v-col>
+                            <v-sheet color="transparent" class="d-flex flex-column">
+                                <span class="font-weight-bold"
+                                    >{{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </span>
+                                <div class="d-flex text-12 mt-1" :class="{'textGray--text': $vuetify.theme.dark}">
+                                    <div v-if="sportId != 8">
+                                        <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
+                                        <span class="mx-2">{{runner.jockey}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
+                                        <span class="mx-2">{{runner.trainer}}</span>
+                                    </div>
+                                </div>
+                            </v-sheet>
+                        </v-col>
+                        <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">
+                            <Price class="mx-2" :price="getOpenPrice(runner.runner_id)" :animation="false"></Price>
+                        </v-col>
+                        <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">
+                            <Price class="mx-2" :price="getPrice1(runner.runner_id)"></Price>
+                        </v-col>
+                        <v-col cols="1" class="font-weight-bold d-flex align-center justify-center">
+                            <Price class="mx-2" :price="getPrice2(runner.runner_id)"></Price>
+                        </v-col>
+                        <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                            <BtnFixedBet
+                                :match-key="pageData.matchKey"
+                                :match="match"
+                                :selection="getWinSelection(runner.runner_id)"
+                                :market="markets.RB_WIN"
+                                :is-fav="favRunnerId == runner.runner_id"
+                                :price="getWin(runner.runner_id)"
+                            ></BtnFixedBet>
+                        </v-col>
+                        <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
+                            <BtnFixedBet
+                                :match-key="pageData.matchKey"
+                                :match="match"
+                                :selection="getPlaceSelection(runner.runner_id)"
+                                :market="markets.RB_PLACE"
+                                :price="getPlace(runner.runner_id)"
+                            ></BtnFixedBet>
+                        </v-col>
+                    </v-row>
+                    <div class="pb-2 d-flex align-center" v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0">
+                        <v-sheet
+                            min-width="40"
+                            width="40"
+                            height="20"
+                            class="text-12 white--text d-flex align-center justify-center rounded"
+                            color="#5d7eff"
+                        >
+                            {{LangUtil("开放")}}
+                        </v-sheet>
+                        <Price
+                            class="mx-2"
+                            v-for="(price, index) of getFluctuatingPriceArr(runner.runner_id)"
+                            :key="index"
+                            :price="Number(price)"
+                            :old-price="Number(getFluctuatingPriceArr(runner.runner_id)[index-1])"
+                            :animation="false"
+                        ></Price>
+                    </div>
+                    <v-divider></v-divider>
+                </template>
+
+                <template v-for="runner of scratchedRunners">
+                    <v-row no-gutters class="py-2 tagTextColor1--text" :key="runner.runner_id">
+                        <v-col>
+                            <v-sheet color="transparent" class="d-flex flex-column tagTextColor1--text">
+                                <span class="text-line-through">
+                                    {{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </span>
+                                <div class="d-flex text-12 mt-1">
+                                    <div v-if="sportId != 8">
+                                        <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
+                                        <span class="mx-2">{{runner.jockey}}</span>
+                                    </div>
+                                    <div>
+                                        <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
+                                        <span class="mx-2">{{runner.trainer}}</span>
+                                    </div>
+                                </div>
+                            </v-sheet>
+                        </v-col>
+                        <v-sheet color="transparent" class="d-flex flex-column justify-center pr-3 tagTextColor1--text text-14">
+                            <div class="text-center">{{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}</div>
+                            <div class="text-center">{{LangUtil("扣除")}}: {{runner.deduction}}</div>
+                        </v-sheet>
+                    </v-row>
+                    <v-divider></v-divider>
+                </template>
+                <div class="mt-3 mb-1 tagTextColor1--text" v-if="rules">{{rules}}</div>
+            </v-sheet>
+        </v-sheet>
+    </template>
+
+    <template v-else>
+        <v-sheet color="bgBanner" class="py-2 rounded-lg mt-2 text-14">
+            <v-sheet color="transparent">
+                <v-row no-gutters class="pt-2 pb-4 tagTextColor1--text">
+                    <v-col>
+                        <v-sheet color="transparent" class="pl-2" height="20">
+                            <v-checkbox v-model="isShowDetail" :ripple="false" class="mt-n1" color="yellow1"  hide-details>
+                                <template #label>
+                                    <span class="tagTextColor2--text text-14">{{LangUtil('详情')}}</span>
+                                </template>
+                            </v-checkbox>
+                        </v-sheet>
+                    </v-col>
+                    <v-col cols="2" class="font-weight-bold d-flex align-center justify-center">
+                        <span v-if="markets">{{markets.RB_WIN.market_name}} </span>
+                    </v-col>
+                    <v-col cols="2" class="font-weight-bold d-flex align-center justify-center" v-if="isShowPlace">
+                        <span v-if="markets">{{markets.RB_PLACE.market_name}} </span>
+                    </v-col>
+                </v-row>
+                <v-divider></v-divider>
+                <template v-for="runner of runners">
+                    <v-row no-gutters class="tagTextColor2--text py-1" :key="runner.runner_id">
+                        <v-col>
+                            <v-sheet color="transparent" class="d-flex flex-column pl-2 text-14 py-1">
+                                <span class="font-weight-bold"
+                                    >{{runner.runner_id}}. {{runner.name}}
+                                    <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                                </span>
+                                <div :class="{'textGray--text': $vuetify.theme.dark}" v-if="sportId != 8">
+                                    <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
+                                    <span class="mx-2">{{runner.jockey}}</span>
+                                </div>
+                                <div :class="{'textGray--text': $vuetify.theme.dark}">
+                                    <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
+                                    <span class="mx-2">{{runner.trainer}}</span>
+                                </div>
+                            </v-sheet>
+                        </v-col>
+                        <template v-if="markets">
+                            <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1">
+                                <BtnFixedBet
+                                    :match-key="pageData.matchKey"
+                                    :match="match"
+                                    :selection="getWinSelection(runner.runner_id)"
+                                    :market="markets.RB_WIN"
+                                    :is-fav="favRunnerId == runner.runner_id"
+                                    :price="getWin(runner.runner_id)"
+                                ></BtnFixedBet>
+                            </v-col>
+                            <v-col cols="2" class="font-weight-bold d-flex justify-center mt-1" v-if="isShowPlace">
+                                <BtnFixedBet
+                                    :match-key="pageData.matchKey"
+                                    :match="match"
+                                    :selection="getPlaceSelection(runner.runner_id)"
+                                    :market="markets.RB_PLACE"
+                                    :price="getPlace(runner.runner_id)"
+                                ></BtnFixedBet>
+                            </v-col>
+                        </template>
+                    </v-row>
+                    <div
+                        class="pb-2 d-flex align-center pr-2 px-2 flex-wrap"
+                        v-if="isShowDetail && getFluctuatingPriceArr(runner.runner_id).length > 0"
+                    >
+                        <v-sheet
+                            min-width="40"
+                            width="40"
+                            height="20"
+                            class="text-12 white--text d-flex align-center justify-center rounded"
+                            color="#5d7eff"
+                        >
+                            {{LangUtil("开放")}}
+                        </v-sheet>
+                        <Price
+                            v-for="(price, index) of getFluctuatingPriceArr(runner.runner_id)"
+                            class="mx-2"
+                            :key="index"
+                            :price="Number(price)"
+                            :old-price="Number(getFluctuatingPriceArr(runner.runner_id)[index-1])"
+                            :animation="false"
+                        ></Price>
+                    </div>
+                    <v-divider class="mx-2"></v-divider>
+                </template>
+
+                <template v-for="runner of scratchedRunners">
+                    <v-sheet :key="runner.runner_id" color="transparent" class="d-flex flex-column tagTextColor1--text pl-2 text-14 py-2">
+                        <span class="text-line-through">
+                            {{runner.runner_id}}. {{runner.name}}
+                            <span v-if="runner.barrier"> （{{runner.barrier}}） </span>
+                        </span>
+                        <div v-if="sportId != 8">
+                            <span class="font-weight-bold">{{LangUtil('骑师')}}:</span>
+                            <span class="mx-2">{{runner.jockey}}</span>
+                        </div>
+                        <div>
+                            <span class="font-weight-bold">{{LangUtil('训练师')}}:</span>
+                            <span class="mx-2">{{runner.trainer}}</span>
+                        </div>
+                        <div class="mt-1">
+                            <div>{{LangUtil("退赛")}} @ {{getScratchedTime(runner.scratched_time)}}</div>
+                            <div>{{LangUtil("扣除")}}: {{runner.deduction}}</div>
+                        </div>
+                    </v-sheet>
+                    <v-divider class="mx-2"></v-divider>
+                </template>
+                <div class="mt-3 mb-1 tagTextColor1--text text-14 pl-2 font-weight-bold" v-if="rules">{{rules}}</div>
+            </v-sheet>
+        </v-sheet>
+    </template>
+</div>

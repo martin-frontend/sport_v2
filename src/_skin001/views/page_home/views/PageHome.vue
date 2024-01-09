@@ -5,7 +5,6 @@
 import Component from "vue-class-component";
 import Nodata from "../../widget/nodata/Nodata.vue";
 import HomeHeader from "../widget/home_header/HomeHeader.vue";
-import HomeMobileHeader from "../widget/home_mobile_header/HomeMobileHeader.vue";
 import ChampionItem from "../widget/champion_item/ChampionItem.vue";
 import PageHome from "./PageHome";
 
@@ -13,7 +12,6 @@ import PageHome from "./PageHome";
     components: {
         Nodata,
         ChampionItem,
-        HomeMobileHeader,
         HomeHeader,
     },
 })

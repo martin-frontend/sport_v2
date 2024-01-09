@@ -1,54 +1,53 @@
-<v-sheet class="text-center rounded hand overflow-hidden divitem" width="100%" height="178">
-    <v-sheet class="text-14 textYellow--text d-flex align-center justify-center" height="33" color="#FFCD43">
-        {{data.competition_name}}
-    </v-sheet>
+<v-sheet class="text-center rounded hand overflow-hidden divitem" width="100%" :height="!isRaceEvent(data.sport_id)?178:'auto'">
+    <template v-if="!isRaceEvent(data.sport_id)">
+        <v-sheet class="text-14 textYellow--text d-flex align-center justify-center" height="33" color="#FFCD43">
+            {{data.competition_name}}
+        </v-sheet>
 
-    <v-row class="mt10 mx-2">
-        <v-col align="right">
-            <v-img max-width="60" height="60" max-height="60" contain :src="getResponseIcon(data.home_team_icon)"> </v-img>
-            <div class="text-14 mt-4">{{ data.home_team }}</div>
-        </v-col>
-        <v-col class="d-flex justify-center align-center">
-            <div class="text-center">
-                <div v-if="data.group_match">{{data.group_match}}</div>
-                <div>{{start_time}}</div>
-                <div v-if="data.start_time_timestamp-GlobalVar.server_time < 600 && data.start_time_timestamp-GlobalVar.server_time > 0">
-                    {{LangUtil("即将开赛")}}
+        <v-row class="mt10 mx-2">
+            <v-col align="right">
+                <v-img max-width="60" height="60" max-height="60" contain :src="getResponseIcon(data.home_team_icon)"> </v-img>
+                <div class="text-14 mt-4">{{ data.home_team }}</div>
+            </v-col>
+            <v-col class="d-flex justify-center align-center">
+                <div class="text-center">
+                    <div v-if="data.group_match">{{data.group_match}}</div>
+                    <div>{{start_time}}</div>
+                    <div
+                        v-if="data.start_time_timestamp-GlobalVar.server_time < 600 && data.start_time_timestamp-GlobalVar.server_time > 0"
+                    >
+                        {{LangUtil("即将开赛")}}
+                    </div>
+                    <template v-else>
+                        <div v-if="states">{{LangUtil(states.match_phase)}}</div>
+                        <div v-if="states && states.phase_minute > 0" class="ml-2">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
+                        <div v-else>{{LangUtil("未开赛")}}</div>
+                    </template>
                 </div>
-                <template v-else>
-                    <div v-if="states">{{LangUtil(states.match_phase)}}</div>
-                    <div v-if="states && states.phase_minute > 0" class="ml-2">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
-                    <div v-else>{{LangUtil("未开赛")}}</div>
-                </template>
-            </div>
-        </v-col>
-        <v-col align="left">
-            <v-img max-width="60" height="60" max-height="60" contain :src="getResponseIcon(data.away_team_icon)"> </v-img>
-            <div class="text-14 mt-4">{{ data.away_team }}</div>
-        </v-col>
-    </v-row>
-    <!-- 
-    <v-row dense class="text-16 btnPlain--text font-weight-bold mt10 mb-2">
-        <v-col class="d-flex justify-end">
-            <v-img max-width="36" height="36" max-height="36" contain :src="getResponseIcon(data.home_team_icon)"> </v-img>
-        </v-col>
-        <v-col class="d-flex align-center justify-center">{{start_time}}</v-col>
-        <v-col>
-            <v-img width="36" height="36" max-height="36" contain :src="getResponseIcon(data.away_team_icon)"> </v-img>
-        </v-col>
-    </v-row>
-    <v-row dense class="text-13 btnPlain--text">
-        <v-col class="text-right text-truncate">{{ data.home_team }}</v-col>
-        <v-col class="text-center red--text">
-            <div v-if="data.start_time_timestamp-GlobalVar.server_time < 600 && data.start_time_timestamp-GlobalVar.server_time > 0">
-                {{LangUtil("即将开赛")}}
-            </div>
-            <template v-else>
-                <div v-if="states">{{LangUtil(states.match_phase)}}</div>
-                <div v-if="states && states.phase_minute > 0" class="ml-2">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
-                <div v-else>{{LangUtil("未开赛")}}</div>
-            </template>
-        </v-col>
-        <v-col class="text-truncate">{{ data.away_team }}</v-col>
-    </v-row> -->
+            </v-col>
+            <v-col align="left">
+                <v-img max-width="60" height="60" max-height="60" contain :src="getResponseIcon(data.away_team_icon)"> </v-img>
+                <div class="text-14 mt-4">{{ data.away_team }}</div>
+            </v-col>
+        </v-row>
+    </template>
+    <template v-else>
+        <v-sheet class="text-14 textYellow--text d-flex align-center justify-center relative" height="33" color="#FFCD43">
+            <svg-icon class="title-icon text-24" :icon="sportIcon[data.sport_id]"></svg-icon>
+            <div>{{data.competition_name}}</div>
+        </v-sheet>
+
+        <v-sheet height="50" color="transparent" class="d-flex align-center justify-center">
+            <v-sheet
+                color="#feba00"
+                width="30"
+                height="20"
+                class="rounded d-flex align-center justify-center font-weight-bold text-14 textGray2--text ml-2"
+            >
+                {{data.number_of_session}}
+            </v-sheet>
+            <div class="ml-3 text-14">{{race_start_time}}</div>
+            <CountdownTime class="ml-2" :date="data.start_time_timestamp"></CountdownTime>
+        </v-sheet>
+    </template>
 </v-sheet>

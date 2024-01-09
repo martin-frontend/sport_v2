@@ -3,13 +3,13 @@
         <horizontal_scroll class="align-center">
             <template v-slot="{data}">
                 <v-btn
+                    v-for="(item, index) in myProxy.market_main_type"
+                    :key="index"
                     class="rounded-10 btntype mr6"
                     :class="{'active': myProxy.listQueryMarket.market_type == item.id}"
                     height="30"
                     outlined
                     color="#00000060"
-                    v-for="(item, index) in myProxy.marketTypeOptions"
-                    :key="index"
                     @click="!data.isMoving && onMarketType(item.id)"
                 >
                     <span class="textGray--text text-13 txt">{{item.name}}</span>

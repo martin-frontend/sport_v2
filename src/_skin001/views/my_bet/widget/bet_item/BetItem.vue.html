@@ -1,7 +1,8 @@
 <div class="textContent" :class="{'div-disabled': pageData.loading}">
     <div class="d-flex align-center ml10 mr-1 mb-2">
         <v-sheet class="mr10" color="yellow" width="2" height="16" rounded></v-sheet>
-        <div class="textTitle text-truncate text-14 font-weight-bold">{{item.comp.competition_name}}</div>
+        <svg-icon class="text-24 textTitle" :icon="sportIcon[item.comp.sport_id]"></svg-icon>
+        <div class="textTitle text-truncate text-14 font-weight-bold ml-2">{{item.comp.competition_name}}</div>
         <v-spacer />
         <v-btn plain fab x-small @click="onDelete(item)" v-if="!$vuetify.breakpoint.mobile || betType != 'normal'">
             <svg-icon class="text-16 textTitle" icon="close"></svg-icon>
@@ -13,71 +14,99 @@
         <div class="line"></div>
     </template>
 
-    <div class="d-flex align-center mt-2 mb-0 ml10 mr10">
-        <div class="text-truncate" v-if="item.matche.c_type == 2">{{item.selection.name}}</div>
-        <!-- <div class="font-weight-bold text-truncate" v-else>
-            {{OrderTitleUtils.getTeamName(item)}} {{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche,
-            false)}}
-        </div> -->
+    <template v-if="!isRaceEvent(item.comp.sport_id)">
+        <div class="d-flex align-center mt-2 mb-0 ml10 mr10">
+            <div class="text-truncate" v-if="item.matche.c_type == 2">{{item.selection.name}}</div>
+            <!-- <div class="font-weight-bold text-truncate" v-else>
+                {{OrderTitleUtils.getTeamName(item)}} {{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche,
+                false)}}
+            </div> -->
 
-        <template v-else>
-            <v-tooltip top v-if="OrderTitleUtils.getTeamName(item)">
-                <template v-slot:activator="{ on, attrs }">
-                    <div class="font-weight-bold text-truncate mr-1" v-bind="attrs" v-on="on">{{OrderTitleUtils.getTeamName(item)}}</div>
-                </template>
-                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                    <span>{{OrderTitleUtils.getTeamName(item)}}</span>
-                </v-sheet>
-            </v-tooltip>
+            <template v-else>
+                <v-tooltip top v-if="OrderTitleUtils.getTeamName(item)">
+                    <template v-slot:activator="{ on, attrs }">
+                        <div class="font-weight-bold text-truncate mr-1" v-bind="attrs" v-on="on">
+                            {{OrderTitleUtils.getTeamName(item)}}
+                        </div>
+                    </template>
+                    <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                        <span>{{OrderTitleUtils.getTeamName(item)}}</span>
+                    </v-sheet>
+                </v-tooltip>
 
-            <div class="font-weight-bold mr-1">
-                {{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche, false)}}
+                <div class="font-weight-bold mr-1">
+                    {{MarketUtils.getSelectionName(item.market.market_type, item.selection, item.matche, false)}}
+                </div>
+            </template>
+
+            <v-spacer />
+            <div ref="divPrice" id="divPrice" class="pr-1 font-weight-bold" :class="betType === 'parlay'?'text-14':'text-18'">
+                @{{ TransMarketPrice(item.odds) }}
             </div>
-        </template>
-
-        <v-spacer />
-        <div ref="divPrice" id="divPrice" class="pr-1 font-weight-bold" :class="betType === 'parlay'?'text-14':'text-18'">
-            @{{ TransMarketPrice(item.odds) }}
+            <div ref="imgOdds" class="text-8 mr-n1 opacity-0">
+                <svg-icon :icon="iconOdds"></svg-icon>
+            </div>
         </div>
-        <div ref="imgOdds" class="text-8 mr-n1 opacity-0">
-            <svg-icon :icon="iconOdds"></svg-icon>
-        </div>
-    </div>
 
-    <div class="mb-1 ml10 mr10">
-        <div v-if="checkInplay()" class="d-flex">
-            <div class="mr-1">{{LangUtil("滚球")}}</div>
-            <!-- <span class="font-weight-bold mr-1">{{getStats()}} </span> -->
-            <div class="font-weight-bold" v-html="getStats()"></div>
+        <div class="mb-1 ml10 mr10">
+            <div v-if="checkInplay()" class="d-flex">
+                <div class="mr-1">{{LangUtil("滚球")}}</div>
+                <!-- <span class="font-weight-bold mr-1">{{getStats()}} </span> -->
+                <div class="font-weight-bold" v-html="getStats()"></div>
+            </div>
+            <span>{{transTitle(item.market.title)}}</span>
         </div>
-        <span>{{transTitle(item.market.title)}}</span>
-    </div>
 
-    <div class="mb-1 ml10 mr10" v-if="item.matche.c_type != 2">
-        <!-- <span class="mr-1">{{LangUtil("比赛进程")}}:</span> -->
-        <span v-if="states">
-            <span class="mr-1" v-if="states.phase_minute > 0">{{LangUtil("已开赛")}}</span>
-            <span class="mr-1" :class="states.match_phase=='-'? 'text-red':'text-gray'">
-                {{ LangUtil(states ? states.match_phase : "") }}
+        <div class="mb-1 ml10 mr10" v-if="item.matche.c_type != 2">
+            <!-- <span class="mr-1">{{LangUtil("比赛进程")}}:</span> -->
+            <span v-if="states">
+                <span class="mr-1" v-if="states.phase_minute > 0">{{LangUtil("已开赛")}}</span>
+                <span class="mr-1" :class="states.match_phase=='-'? 'text-red':'text-gray'">
+                    {{ LangUtil(states ? states.match_phase : "") }}
+                </span>
+                <span v-if="states.phase_minute > 0">{{ states.phase_minute }} {{LangUtil("分钟")}}</span>
             </span>
-            <span v-if="states.phase_minute > 0">{{ states.phase_minute }} {{LangUtil("分钟")}}</span>
-        </span>
-        <span v-else-if="item.matche.sb_time - GlobalVar.server_time > 0">
-            <span>{{ getStartTime(item.matche) }}</span>
-            <span v-if="item.matche.sb_time - GlobalVar.server_time > 86400" class="mr-1">
-                {{LangUtil("距开赛")}}{{ getDay() }}{{LangUtil("天")}}
+            <span v-else-if="item.matche.sb_time - GlobalVar.server_time > 0">
+                <span>{{ getStartTime(item.matche) }}</span>
+                <span v-if="item.matche.sb_time - GlobalVar.server_time > 86400" class="mr-1">
+                    {{LangUtil("距开赛")}}{{ getDay() }}{{LangUtil("天")}}
+                </span>
+                <!-- 一天内 -->
+                <span class="ml-1 mr-1" v-else-if="item.matche.sb_time - GlobalVar.server_time > 600">
+                    <span>{{LangUtil("距开赛")}}</span>
+                    <span>{{ getHour() }}{{LangUtil("小时")}}</span>
+                    <span>{{ getMinute() }}{{LangUtil("分")}} </span>
+                </span>
+                <!-- 十分钟内 -->
+                <span v-else class="red--text">{{LangUtil("即将开赛")}}</span>
             </span>
-            <!-- 一天内 -->
-            <span class="ml-1 mr-1" v-else-if="item.matche.sb_time - GlobalVar.server_time > 600">
-                <span>{{LangUtil("距开赛")}}</span>
-                <span>{{ getHour() }}{{LangUtil("小时")}}</span>
-                <span>{{ getMinute() }}{{LangUtil("分")}} </span>
-            </span>
-            <!-- 十分钟内 -->
-            <span v-else class="red--text">{{LangUtil("即将开赛")}}</span>
-        </span>
-    </div>
-    <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span> VS </span>{{item.matche.away_team}}</div>
+        </div>
+        <div class="mb-2 ml10 mr10">{{item.matche.home_team}}<span> VS </span>{{item.matche.away_team}}</div>
+    </template>
+    <template v-else>
+        <div class="d-flex align-center mt-2 mb-0 ml10 mr10">
+            <div class="text-truncate">{{item.selection.id}}. {{item.selection.name}}</div>
+            <v-spacer />
+            <div ref="divPrice" id="divPrice" class="pr-1 font-weight-bold" :class="betType === 'parlay'?'text-14':'text-18'">
+                <span v-if="item.odds != 'SP'"> @{{ TransMarketPrice(item.odds) }} </span>
+                <span v-else>SP</span>
+            </div>
+            <div ref="imgOdds" class="text-8 mr-n1 opacity-0">
+                <svg-icon :icon="iconOdds"></svg-icon>
+            </div>
+        </div>
+
+        <div class="mb-1 ml10 mr10">
+            <span>{{LangUtil(item.market.title)}}</span>
+        </div>
+
+        <div class="mb-1 ml10 mr10 d-flex">
+            <span>{{getRaceTime(item.matche.start_time_timestamp)}}</span>
+        </div>
+        <div class="mb-1 ml10 mr10 d-flex">
+            <span>{{item.matche.key}}</span>
+        </div>
+    </template>
 
     <!-- 串关错误讯息 -->
     <template v-if="betType == 'parlay'">
@@ -210,16 +239,26 @@
             </v-expand-transition>
         </div>
 
-        <div class="d-flex ml10 mr10 mt-2">
-            <span>{{LangUtil("预计可赢")}}</span>
-            <v-spacer />
-            <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{getPreWin()}}</span>
-        </div>
+        <template v-if="item.odds != 'SP'">
+            <div class="d-flex ml10 mr10 mt-2">
+                <span>{{LangUtil("预计可赢")}}</span>
+                <v-spacer />
+                <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{getPreWin()}}</span>
+            </div>
 
-        <div class="d-flex ml10 mr10 mb-1">
-            <span>{{LangUtil("预计派彩")}}</span>
+            <div class="d-flex ml10 mr10 mb-1">
+                <span>{{LangUtil("预计派彩")}}</span>
+                <v-spacer />
+                <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{payout}}</span>
+            </div>
+        </template>
+
+        <div v-else class="d-flex ml10 mr10 mt-2">
+            <span>{{LangUtil("SP注额")}}</span>
             <v-spacer />
-            <span class="yellow--text font-weight-bold"><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{payout}}</span>
+            <span class="yellow--text font-weight-bold"
+                ><span v-if="!isVisitor">{{GlobalVar.currency}} </span>{{amountFormat(item.stake || 0 ,2)}}</span
+            >
         </div>
 
         <!-- <div class="d-flex ml10 mr10 mb-2" v-if="$vuetify.breakpoint.mobile">

@@ -35,6 +35,10 @@ import cmd_api_user_orders_v3 from "./cmd_api_user_orders_v3";
 import cmd_api_user_precashout from "./cmd_api_user_precashout";
 import cmd_api_user_cashout from "./cmd_api_user_cashout";
 import cmd_public_order_detail_data_v3 from "./cmd_public_order_detail_data_v3";
+import cmd_api_menu_leftnav from "./cmd_api_menu_leftnav";
+import cmd_api_event_list_v3 from "./cmd_api_event_list_v3";
+import cmd_api_event_live_list_v2 from "./cmd_api_event_live_list_v2";
+import cmd_api_event_race_detail from "./cmd_api_event_race_detail";
 /**
  * document: http://18.167.151.206:8090/pages/viewpage.action?pageId=11076347
  */
@@ -114,6 +118,14 @@ const HttpType = {
     api_user_cashout: "api/user/cashout",
     /**投注详情新接口*/
     public_order_detail_data_v3: "public/order_detail_data_v3",
+    /**左侧菜单栏*/
+    api_menu_leftnav: "api/menu/leftnav",
+    /**球類賽事列表*/
+    api_event_list_v3: "api/event/list_v3",
+    /**热门赛事v2*/
+    api_event_live_list_v2: "api/event/live_list_v2",
+    /**赛事详情*/
+    api_event_race_detail: "api/event/race_detail",
 };
 /**事件*/
 const EventType = {
@@ -199,6 +211,14 @@ const EventType = {
     api_user_cashout: "api_user_cashout",
     /**投注详情新接口*/
     public_order_detail_data_v3: "public_order_detail_data_v3",
+    /**左侧菜单栏*/
+    api_menu_leftnav: "api_menu_leftnav",
+    /**球類賽事列表*/
+    api_event_list_v3: "api_event_list_v3",
+    /**热门赛事v2*/
+    api_event_live_list_v2: "api_event_live_list_v2",
+    /**赛事详情*/
+    api_event_race_detail: "api_event_race_detail",
 };
 /**注册协议*/
 function initCommand() {
@@ -240,6 +260,10 @@ function initCommand() {
     facade.registerCommand(HttpType.api_user_precashout, cmd_api_user_precashout);
     facade.registerCommand(HttpType.api_user_cashout, cmd_api_user_cashout);
     facade.registerCommand(HttpType.public_order_detail_data_v3, cmd_public_order_detail_data_v3);
+    facade.registerCommand(HttpType.api_menu_leftnav, cmd_api_menu_leftnav);
+    facade.registerCommand(HttpType.api_event_list_v3, cmd_api_event_list_v3);
+    facade.registerCommand(HttpType.api_event_live_list_v2, cmd_api_event_live_list_v2);
+    facade.registerCommand(HttpType.api_event_race_detail, cmd_api_event_race_detail);
 }
 const net = { HttpType, EventType, initCommand };
 export default net;

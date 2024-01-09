@@ -12,6 +12,8 @@ import dialog_setting from "../../dialog_setting";
 import page_live_list from "../../page_live_list";
 import ScrollUtil from "@/core/global/ScrollUtil";
 import { CompetitionVO } from "@/vo/CompetitionVO";
+import Assets from "@/_skin001/assets/Assets";
+import NavigationProxy from "../../navigation/proxy/NavigationProxy";
 
 @Component
 export default class PageHome extends AbstractView {
@@ -19,8 +21,12 @@ export default class PageHome extends AbstractView {
     GlobalVar = GlobalVar;
     settingProxy: SettingProxy = this.getProxy(SettingProxy);
     myProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
+    navProxy: NavigationProxy = this.getProxy(NavigationProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
+    sportIcon = Assets.SportIcon;
+    tagIcon = Assets.TagIcon;
+
     constructor() {
         super(PageHomeMediator);
     }
@@ -51,29 +57,31 @@ export default class PageHome extends AbstractView {
 
     /**关注整个联赛 */
     setAllLove(competition: any) {
+        const type = this.checkAllLove(competition);
+
         const matches = competition.matches;
         const len = matches.length;
+        const events = [];
         for (let i = len - 1; i >= 0; i--) {
-            this.myProxy.api_user_love(matches[i].id);
+            if (!this.curSportNav?.favorite.events.includes(`${matches[i].id}`) || type) {
+                events.push(matches[i].id);
+            }
         }
-        // let lovecount: number = 0;
-        // matches.forEach((item: any) => {
-        // this.myProxy.api_user_love(item.id);
-        // if (this.pageData.love_events.indexOf(item.id) == -1) {
-        //     lovecount++;
-        //     this.myProxy.api_user_love(item.id);
-        // }
-        // });
-        // if (lovecount == 0) {
-        //     matches.forEach((item: any) => {
-        //         this.myProxy.api_user_love(item.id);
-        //     });
-        // }
+
+        // 如果在关注页，直接删除该赛事
+        if (this.listQueryComp.tag == "love") {
+            const findIndex = this.pageData.competition_list.findIndex((item) => item.competition_id == competition.competition_id);
+            this.pageData.competition_list.splice(findIndex, 1);
+        }
+
+        if (events.length == 0) return;
+        this.myProxy.api_user_love(competition.competition_id, events);
     }
+
     /**检测是否整个联赛都关注了 */
     checkAllLove(competition: any) {
         for (const item of competition.matches) {
-            if (this.pageData.love_events.indexOf(item.id) == -1) {
+            if (this.curSportNav?.favorite?.events.indexOf(`${item.id}`) == -1) {
                 return false;
             }
         }
@@ -107,9 +115,6 @@ export default class PageHome extends AbstractView {
     getTagNum(tag: string) {
         if (tag == "love") {
             return this.pageData.love_count;
-        } else {
-            const findItem = this.pageData.menu_subnav.top.find((item) => item.tag == tag);
-            return findItem?.num;
         }
     }
 
@@ -150,5 +155,13 @@ export default class PageHome extends AbstractView {
 
     destroyed() {
         super.destroyed();
+    }
+
+    get new_menu_subnav() {
+        return this.navProxy.pageData.new_menu_subnav;
+    }
+
+    get curSportNav() {
+        return this.new_menu_subnav[this.listQueryComp.sport_id];
     }
 }

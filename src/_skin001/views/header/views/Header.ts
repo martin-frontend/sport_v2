@@ -12,6 +12,10 @@ import BlurUtil from "@/core/global/BlurUtil";
 import dialog_setting from "../../dialog_setting";
 import SelfProxy from "@/proxy/SelfProxy";
 import getProxy from "@/core/global/getProxy";
+import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
+import SportUtil from "@/core/global/SportUtil";
+import page_racing_home from "../../page_racing_home";
+
 @Component
 export default class Header extends AbstractView {
     LangUtil = LangUtil;
@@ -19,8 +23,8 @@ export default class Header extends AbstractView {
     myProxy: HeaderProxy = this.getProxy(HeaderProxy);
     pageData = this.myProxy.pageData;
     selfProxy: SelfProxy = getProxy(SelfProxy);
+    homeProxy: PageHomeProxy = getProxy(PageHomeProxy);
     txtSearch = "";
-
     isShowSetting = false;
     user_type: any;
 
@@ -130,7 +134,22 @@ export default class Header extends AbstractView {
 
     //搜寻
     onSearch() {
-        page_home.showByKeyword(this.txtSearch);
+        const { sport_id } = this.homeProxy.listQueryComp;
+        if (!SportUtil.isRaceEvent(sport_id)) {
+            page_home.showByKeyword(this.txtSearch);
+        } else {
+            page_racing_home.showByKeyword(this.txtSearch);
+        }
+    }
+
+    get searchPlaceholder() {
+        const { sport_id } = this.homeProxy.listQueryComp;
+        return !SportUtil.isRaceEvent(sport_id) ? LangUtil("搜索联赛或球队名称") : LangUtil("搜索联赛");
+    }
+
+    @Watch("homeProxy.listQueryComp.sport_id")
+    onWatchSportId() {
+        this.txtSearch = "";
     }
 
     onSetting() {

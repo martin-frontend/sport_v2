@@ -1,0 +1,99 @@
+<div>
+    <v-sheet color="transparent" height="40" v-if="false">
+        <horizontal_scroll :offsetx="16">
+            <template v-slot="{data}">
+                <!-- <v-btn
+                    v-for="(item,index) of tagOptions"
+                    :key="index"
+                    :disabled="false"
+                    class="rounded-10 mr-2 race-tag-btn"
+                    :class="{'active': pageData.tag == index}"
+                    elevation="0"
+                    outlined
+                    max-height="40"
+                    @click="onTagClick(index)"
+                >
+                    <span class="d-flex align-center"> {{ LangUtil(item) }} </span>
+                </v-btn> -->
+                <v-btn
+                    v-for="(item,index) of tagOptions"
+                    :key="index"
+                    :disabled="false"
+                    class="rounded-10 race-tag-btn"
+                    :class="{'active': pageData.tag == index}"
+                    elevation="0"
+                    outlined
+                    width="100%"
+                    max-height="40"
+                    @click="onTagClick(index)"
+                >
+                    <span class="d-flex align-center"> {{ LangUtil(item) }} </span>
+                </v-btn>
+            </template>
+        </horizontal_scroll>
+    </v-sheet>
+    <div ref="divlist">
+        <v-sheet color="bgBanner" class="mt-1 rounded-10 pb-2 d-flex flex-column" max-height="100%">
+            <div class="d-flex pl-8 border-bottom">
+                <template>
+                    <v-checkbox
+                        v-for="sportId of raceSportArr"
+                        v-model="sportCheckBoxArr"
+                        :value="`${sportId}`"
+                        :disabled="sportCheckBoxArr.length == 1 && sportCheckBoxArr.includes(`${sportId}`)"
+                        multiple
+                        color="#feba00"
+                        class="mr-8"
+                        :key="sportId"
+                        @change="onCheckboxChange"
+                    >
+                        <template #label>
+                            <svg-icon :icon="sportIcon[sportId]" class="text-22 tagTextColor2--text"></svg-icon>
+                        </template>
+                    </v-checkbox>
+                </template>
+            </div>
+            <v-window class="overflow-y-auto scroll-div" style="flex: 1">
+                <v-window-item>
+                    <template v-if="!pageData.loading">
+                        <template v-for="item of nextTableData">
+                            <div :key="item.id" class="hand pa-2 d-flex align-center border-bottom" @click="onShowDetail(item, item.r)">
+                                <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
+                                <svg-icon :icon="sportIcon[item.sport_id]" class="text-26 ml-2"></svg-icon>
+                                <v-sheet
+                                    color="#feba00"
+                                    width="30"
+                                    height="18"
+                                    class="ml-2 rounded d-flex align-center justify-center font-weight-bold text-14 textGray2--text"
+                                >
+                                    {{item.r}}
+                                </v-sheet>
+                                <span class="font-weight-bold text-14 tagTextColor2--text ml-2">{{item.competition_name}}</span>
+                                <v-spacer></v-spacer>
+                                <div class="d-flex align-center justify-center flex-column">
+                                    <template v-if="getStates(item.match.id)">
+                                        <template v-if="getStates(item.match.id).match_phase == 'OPEN'">
+                                            <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
+                                            <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
+                                        </template>
+                                        <div v-else-if="getStates(item.match.id).match_phase == 'DONE'">{{getRanking(item.match.id)}}</div>
+                                        <v-sheet v-else color="transparent" width="60" class="red--text text-center text-15">
+                                            {{getResultStr(getStates(item.match.id).match_phase)}}
+                                        </v-sheet>
+                                    </template>
+                                    <template v-else>
+                                        <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
+                                    </template>
+                                </div>
+                            </div>
+                        </template>
+                        <Nodata v-if="nextTableData.length == 0" height="300" />
+                    </template>
+                    <template v-else>
+                        <loader />
+                    </template>
+                </v-window-item>
+            </v-window>
+        </v-sheet>
+    </div>
+</div>

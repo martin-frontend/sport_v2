@@ -23,12 +23,12 @@ export default class PageHomeProxy extends puremvc.Proxy {
     public onRegister(): void {
         const { user_type } = this.selfProxy.userInfo;
         this.user_type = user_type;
-        this.api_user_lovematch();
+        // this.api_user_lovematch();
         this.init();
     }
 
     pageData = {
-        loading: true,
+        loading: false,
         /**打开的联赛索引 */
         openIndexs: [0, 1, 2],
         /**联赛列表 */
@@ -48,10 +48,15 @@ export default class PageHomeProxy extends puremvc.Proxy {
         scrollOffset: 0,
         //获取关注计数
         lovematch_order: 0,
+        marketTypeOptions: <any>{
+            market_main_type: <any>[],
+            market_type: <any>[],
+        },
     };
 
     listQueryComp = {
-        sport_id: 1,
+        // 1 足球、4 篮球、5 美式足球、7 赛马、8 赛狗
+        sport_id: -1,
         // all: 全部 fix: 固赔 exchange: 交易所
         type: "fix",
         // inplay: 滚球 today: 今日 future: 早盘  (love: 关注) search: 搜索
@@ -69,6 +74,8 @@ export default class PageHomeProxy extends puremvc.Proxy {
         market_id: "",
         market_type: "",
         page_size: 1000,
+        //球类比赛, 请带：1 、RACE 比赛, 请带：2
+        event_type: 1,
 
         unique: PageHomeProxy.NAME,
     };
@@ -197,30 +204,47 @@ export default class PageHomeProxy extends puremvc.Proxy {
             this.pageData.openIndexs = [0, 1, 2];
         }
     }
-
+    set_event_market_type_v2(data: any) {
+        Object.assign(this.pageData.marketTypeOptions, { ...data });
+    }
+    /**赛事接口-新*/
+    // api_event_list() {
+    //     if (this.listQueryComp.tag != "love") {
+    //         this.pageData.loading = true;
+    //         this.pageData.market_list = [];
+    //         this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
+    //     } else {
+    //         this.api_user_lovematch();
+    //     }
+    // }
     /**赛事接口-新*/
     api_event_list() {
-        if (this.listQueryComp.tag != "love") {
-            this.pageData.loading = true;
-            this.pageData.market_list = [];
-            this.sendNotification(net.HttpType.api_event_list, objectRemoveNull(this.listQueryComp));
-        } else {
-            this.api_user_lovematch();
-        }
+        if (this.listQueryComp.sport_id == -1) return;
+        this.pageData.loading = true;
+        this.pageData.market_list = [];
+        this.listQueryComp.sport_id = Number(this.listQueryComp.sport_id);
+        const query: any = { ...this.listQueryComp };
+        delete query.country;
+        this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(query));
     }
     /**盘口接口-新*/
     api_market_typelist() {
         const vuetify = Vue.vuetify;
+        const { sport_id } = this.listQueryComp;
         if (this.listQueryComp.tag == "champion") {
-            this.listQueryMarket.market_type = PlatConfig.config.client.champion_type;
+            // this.listQueryMarket.market_type = PlatConfig.config.client.champion_type;
+            this.listQueryMarket.market_type = PlatConfig.config.client.championTypeBySportId[sport_id];
         } else {
-            const { h5MarketType, pcMarketType, h5MarketType_extra, pcMarketType_extra } = PlatConfig.config.client;
+            // const { h5MarketType, pcMarketType, h5MarketType_extra, pcMarketType_extra } = PlatConfig.config.client;
+            const { pcMarketTypeBySportId, h5MarketTypeBySportId, pcMarketTypeExtraBySportId, h5MarketTypeExtraBySportId } =
+                PlatConfig.config.client;
             if (vuetify.framework.breakpoint.mobile) {
-                this.listQueryMarket.market_type = h5MarketType;
-                if (h5MarketType_extra) this.listQueryMarket.market_type += "," + h5MarketType_extra;
+                this.listQueryMarket.market_type = h5MarketTypeBySportId[sport_id];
+                // if (h5MarketType_extra) this.listQueryMarket.market_type += "," + h5MarketType_extra;
+                if (h5MarketTypeExtraBySportId[sport_id]) this.listQueryMarket.market_type += "," + h5MarketTypeExtraBySportId[sport_id];
             } else {
-                this.listQueryMarket.market_type = pcMarketType;
-                if (pcMarketType_extra) this.listQueryMarket.market_type += "," + pcMarketType_extra;
+                this.listQueryMarket.market_type = pcMarketTypeBySportId[sport_id];
+                if (pcMarketTypeExtraBySportId[sport_id]) this.listQueryMarket.market_type += "," + pcMarketTypeExtraBySportId[sport_id];
             }
         }
         this.sendNotification(net.HttpType.api_market_typelist, objectRemoveNull(this.listQueryMarket));
@@ -236,33 +260,32 @@ export default class PageHomeProxy extends puremvc.Proxy {
         this.pageData.lovematch_order++;
         this.sendNotification(net.HttpType.api_user_lovematch, { unique: this.pageData.lovematch_order });
     }
-    api_user_love(event_id: number) {
+
+    api_user_love(competition_id: number, event_id: any) {
         if (this.user_type == 2) {
             logEnterTips();
             return;
         }
-        const idx = this.pageData.love_events.indexOf(event_id);
-        if (idx != -1) {
-            this.pageData.love_events.splice(idx, 1);
-        } else {
-            this.pageData.love_events.push(event_id);
-        }
-        //如果在关注页，直接删除该赛事
-        if (this.listQueryComp.tag == "love") {
-            for (const comp of this.pageData.competition_list) {
-                const len = comp.matches.length;
-                for (let i = 0; i < len; i++) {
-                    if (comp.matches[i].id == event_id) {
-                        comp.matches.splice(idx, 1);
-                        break;
-                    }
-                }
-            }
-        }
-        this.sendNotification(net.HttpType.api_user_love, { event_id: event_id.toString() });
+        this.sendNotification(net.HttpType.api_user_love, {
+            event_id: event_id.toString(),
+            competition_id: competition_id.toString(),
+            sport_id: this.listQueryComp.sport_id,
+        });
     }
 
     api_menu_subnav() {
         this.sendNotification(net.HttpType.api_menu_subnav);
+    }
+
+    /**导航菜单 */
+    api_menu_leftnav() {
+        this.sendNotification(net.HttpType.api_menu_leftnav);
+    }
+
+    api_event_market_type_v2() {
+        this.sendNotification(net.HttpType.api_event_market_type_v2, {
+            sport_id: this.listQueryComp.sport_id,
+            unique: PageHomeProxy.NAME,
+        });
     }
 }

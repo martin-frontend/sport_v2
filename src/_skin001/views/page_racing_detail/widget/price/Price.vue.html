@@ -1,0 +1,21 @@
+<div class="d-flex align-center">
+    <template v-if="animation">
+        <div ref="divPrice" id="divPrice" class="font-weight-bold">{{price == 0? '-' : TransMarketPrice(price)}}</div>
+        <div v-show="isChangeAni" ref="imgOdds" class="text-8 mr-n1 ml-1 opacity-0">
+            <svg-icon :icon="iconOdds"></svg-icon>
+        </div>
+    </template>
+    <template v-else>
+        <template v-if="!oldPrice || price == oldPrice">
+            <div>{{price == 0? '-' : TransMarketPrice(price)}}</div>
+        </template>
+        <template v-else>
+            <div :style="{'color':price > oldPrice?GlobalVar.color_up:GlobalVar.color_down}">
+                {{price == 0? '-' : TransMarketPrice(price)}}
+            </div>
+            <div class="text-8 ml-1" :style="{'color':price > oldPrice?GlobalVar.color_up:GlobalVar.color_down}">
+                <svg-icon :icon="price > oldPrice?'arrow_up':'arrow_down'"></svg-icon>
+            </div>
+        </template>
+    </template>
+</div>

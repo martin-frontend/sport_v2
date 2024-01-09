@@ -1,216 +1,202 @@
 <div :class="{'mr-0': !$vuetify.breakpoint.mobile}">
-    <HomeHeader v-if="!$vuetify.breakpoint.mobile" />
-
-    <v-expansion-panels
-        class="mt-2"
-        elevation="0"
-        accordion
-        multiple
-        v-model="pageData.openIndexs"
-        v-if="!$vuetify.breakpoint.mobile && !pageData.loading"
-    >
-        <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of competition_list" :key="key">
-            <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
-                <template v-slot:default="{ open }">
-                    <div class="d-flex align-center">
-                        <v-tooltip top>
-                            <template v-slot:activator="{ on, attrs }">
-                                <v-sheet v-bind="attrs" v-on="on" color="transparent" class="ml10" @click.stop="setAllLove(competition)">
-                                    <svg-icon
-                                        class="text-18 textGray--text"
-                                        :icon="checkAllLove(competition) ? 'love_' : 'love'"
-                                    ></svg-icon>
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <HomeHeader />
+        <v-expansion-panels class="mt-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="!pageData.loading">
+            <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of competition_list" :key="key">
+                <v-expansion-panel-header elevation="0" rounded="lg" color="bgBanner">
+                    <template v-slot:default="{ open }">
+                        <div class="d-flex align-center">
+                            <v-tooltip top>
+                                <template v-slot:activator="{ on, attrs }">
+                                    <v-sheet
+                                        v-bind="attrs"
+                                        v-on="on"
+                                        color="transparent"
+                                        class="ml10"
+                                        @click.stop="setAllLove(competition)"
+                                    >
+                                        <svg-icon
+                                            class="text-18 textGray--text"
+                                            :icon="checkAllLove(competition) ? 'love_' : 'love'"
+                                        ></svg-icon>
+                                    </v-sheet>
+                                </template>
+                                <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
+                                    <span>{{LangUtil("关注")}}</span>
                                 </v-sheet>
-                            </template>
-                            <v-sheet class="rounded px-2 py-1" max-width="300" color="bgBanner">
-                                <span>{{LangUtil("关注")}}</span>
-                            </v-sheet>
-                        </v-tooltip>
+                            </v-tooltip>
 
-                        <v-img :src="competition.country_icon" contain max-width="20" width="20" height="20" class="ml10"></v-img>
-                        <div class="ml10 text-14">{{competition.competition_name}}</div>
-                        <v-spacer />
-                        <!-- <svg-icon class="mr10 textGray--text text-12" icon="zoom_out" :class="open ? 'arrow-up' : 'arrow-down'"></svg-icon> -->
+                            <v-img :src="competition.country_icon" contain max-width="20" width="20" height="20" class="ml10"></v-img>
+                            <div class="ml10 text-14">{{competition.competition_name}}</div>
+                            <v-spacer />
+                            <!-- <svg-icon class="mr10 textGray--text text-12" icon="zoom_out" :class="open ? 'arrow-up' : 'arrow-down'"></svg-icon> -->
+                        </div>
+                        <!-- <v-divider v-if="open" class="titleline line" /> -->
+                        <div v-if="open" class="titleline line"></div>
+                    </template>
+                </v-expansion-panel-header>
+
+                <v-expansion-panel-content elevation="0" color="transparent">
+                    <!-- <MatcheItem v-for="(matche, mkey) of competition.matches" :key="mkey" :matche="matche"></MatcheItem> -->
+                    <div v-for="(matche, mkey) of competition.matches" :key="mkey">
+                        <v-lazy>
+                            <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
+                            <MatcheItem
+                                v-else
+                                :matche="matche"
+                                :isLast="competition.matches.length == mkey+1"
+                                :isFirst="mkey == 0"
+                            ></MatcheItem>
+                        </v-lazy>
                     </div>
-                    <!-- <v-divider v-if="open" class="titleline line" /> -->
-                    <div v-if="open" class="titleline line"></div>
-                </template>
-            </v-expansion-panel-header>
-
-            <v-expansion-panel-content elevation="0" color="transparent">
-                <!-- <MatcheItem v-for="(matche, mkey) of competition.matches" :key="mkey" :matche="matche"></MatcheItem> -->
-                <div v-for="(matche, mkey) of competition.matches" :key="mkey">
-                    <v-lazy>
-                        <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
-                        <MatcheItem
-                            v-else
-                            :matche="matche"
-                            :isLast="competition.matches.length == mkey+1"
-                            :isFirst="mkey == 0"
-                        ></MatcheItem>
-                    </v-lazy>
-                </div>
-            </v-expansion-panel-content>
-        </v-expansion-panel>
-    </v-expansion-panels>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
+    </template>
 
     <!-- 手机header -->
-    <HomeMobileHeader v-if="$vuetify.breakpoint.mobile" />
-    <!-- 手机tag标签 -->
-    <!-- <v-sheet color="bgBanner" class="mx-2 my-2 rounded-lg d-flex align-center" height="46" v-if="$vuetify.breakpoint.mobile">
-        <v-sheet class="d-flex btnGroup px-2 mx-2 my-1 text-14" color="bgBanner">
-            <v-btn
-                v-for="(item, key) of pageData.menu_subnav.top"
-                :key="key"
-                :disabled="getTagNum(item.tag) == 0"
-                @click="onQueryTagType(item.tag)"
-                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text font-weight-bold"
-                :class="{'active': listQueryComp.tag == item.tag}"
-                max-height="30"
-            >
-                {{ LangUtil(item.name) }}
-                <div class="text-12 mb-2">{{getTagNum(item.tag)}}</div>
-            </v-btn>
-    
-            <v-btn
-                class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text font-weight-bold"
-                :class="{'active': listQueryComp.tag == 'love'}"
-                @click="onQueryTagType('love')"
-                :disabled="getTagNum('love') == 0"
-                max-height="30"
-            >
-                {{ LangUtil("关注") }}
-                <div class="text-12 mb-2">{{getTagNum('love')}}</div>
-            </v-btn>
-        </v-sheet>
-    </v-sheet> -->
-    <v-sheet color="bgBanner" class="mx-2 px-2 my-2 rounded-lg" v-if="$vuetify.breakpoint.mobile">
-        <horizontal_scroll class="py-2" :offsetx="16">
-            <template v-slot="{data}">
-                <v-btn
-                    v-for="(item, key) of pageData.menu_subnav.top"
-                    :key="key"
-                    :disabled="getTagNum(item.tag) == 0"
-                    @click="onQueryTagType(item.tag)"
-                    class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text font-weight-bold"
-                    :class="{'active': listQueryComp.tag == item.tag}"
-                    max-height="30"
-                >
-                    <span class="d-flex align-center">
-                        {{ LangUtil(item.name) }}
-                        <span class="text-12 mb-2">{{getTagNum(item.tag)}}</span>
-                    </span>
-                </v-btn>
-
-                <v-btn
-                    class="rounded-pill btnTag elevation-0 mr-2 textTagBtn--text font-weight-bold"
-                    :class="{'active': listQueryComp.tag == 'love'}"
-                    @click="onQueryTagType('love')"
-                    :disabled="getTagNum('love') == 0"
-                    max-height="30"
-                >
-                    <span class="d-flex align-center">
-                        {{ LangUtil("关注") }}
-                        <span class="text-12 mb-2">{{getTagNum('love')}}</span>
-                    </span>
-                </v-btn>
-            </template>
-        </horizontal_scroll>
-    </v-sheet>
-
-    <!-- 搜索 -->
-    <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner" v-if="$vuetify.breakpoint.mobile">
-        <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" width="100%" height="30">
-            <v-form @submit.prevent="onSearch" class="d-flex align-center">
-                <input
-                    class="text-14 text-truncate bgColor1--text"
-                    :placeholder="LangUtil('搜索联赛或球队名称')"
-                    v-model="listQueryComp.keyword"
-                />
-            </v-form>
-            <v-spacer />
-            <svg-icon icon="search" @click.native="onSearch"></svg-icon>
-        </v-sheet>
-        <div class="mx-2">
-            <v-menu nudge-bottom="4" offset-y>
-                <template v-slot:activator="{ on, attrs }">
-                    <v-sheet
-                        v-bind="attrs"
-                        v-on="on"
-                        class="d-flex align-center rounded-10 px10 textGray--text"
-                        color="bgPage"
-                        width="100%"
-                        height="30"
+    <template v-if="$vuetify.breakpoint.mobile">
+        <v-sheet color="transparent" class="mx-2 px-2 my-2 rounded-lg" v-if="curSportNav">
+            <horizontal_scroll class="py-2" :offsetx="16">
+                <template v-slot="{data}">
+                    <v-btn
+                        v-for="item of curSportNav.tags"
+                        :key="item.tag"
+                        :disabled="!item.num"
+                        @click="onQueryTagType(item.tag)"
+                        class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
+                        :class="{'active': listQueryComp.tag == item.tag}"
+                        elevation="0"
+                        outlined
+                        max-height="30"
                     >
-                        <svg-icon class="text-14 yellow1--text" style="transform: rotate(90deg)" icon="change"></svg-icon>
-                        <span style="white-space: nowrap" class="bgColor1--text text-14 mx-2">{{sortname()}}</span>
-                        <svg-icon
-                            class="textGray--text text-12"
-                            icon="zoom_out"
-                            :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
-                        ></svg-icon>
-                    </v-sheet>
+                        <span class="text-12 d-flex align-center">
+                            {{ LangUtil(item.name) }}
+                            <span class="mb-2">{{item.num}}</span>
+                        </span>
+                    </v-btn>
+                    <template v-for="(_, key) of tagIcon">
+                        <v-btn
+                            v-if="curSportNav[key]"
+                            :key="key"
+                            :disabled="!curSportNav[key].num"
+                            @click="onQueryTagType(key)"
+                            class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
+                            :class="{'active': listQueryComp.tag == key}"
+                            elevation="0"
+                            outlined
+                            max-height="30"
+                        >
+                            <span class="text-12 d-flex align-center">
+                                {{ LangUtil(curSportNav[key].name) }}
+                                <span class="mb-2">{{curSportNav[key] && curSportNav[key].num}}</span>
+                            </span>
+                        </v-btn>
+                    </template>
+                    <v-btn
+                        v-if="curSportNav.favorite"
+                        class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
+                        :class="{'active': listQueryComp.tag == 'love'}"
+                        @click="onQueryTagType('love')"
+                        :disabled="!curSportNav.favorite.num"
+                        max-height="30"
+                        elevation="0"
+                        outlined
+                    >
+                        <span class="text-12 d-flex align-center">
+                            {{ LangUtil("关注") }}
+                            <span class="mb-2">{{curSportNav.favorite.num}}</span>
+                        </span>
+                    </v-btn>
                 </template>
-                <v-list class="text-14">
-                    <v-list-item @click="onQuerySort('time')"> {{LangUtil("时间")}} </v-list-item>
-                    <v-list-item @click="onQuerySort('comp')"> {{LangUtil("联赛")}} </v-list-item>
-                </v-list>
-            </v-menu>
-        </div>
-
-        <!-- <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="bgPage" height="30">
-            <v-sheet
-                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14 font-weight-bold"
-                :class=" settingProxy.pageData.form.sort == 'time' ? 'btnPlain--text' : 'textGray--text'"
-                color="transparent"
-                @click="onQuerySort('time')"
-            >
-                {{LangUtil("时间")}}
+            </horizontal_scroll>
+        </v-sheet>
+        <!-- 搜索 -->
+        <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2" color="bgBanner">
+            <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" width="100%" height="30">
+                <v-form @submit.prevent="onSearch" class="d-flex align-center">
+                    <input
+                        class="text-14 text-truncate bgColor1--text"
+                        :placeholder="LangUtil('搜索联赛或球队名称')"
+                        v-model="listQueryComp.keyword"
+                    />
+                </v-form>
+                <v-spacer />
+                <svg-icon icon="search" @click.native="onSearch"></svg-icon>
             </v-sheet>
-            <svg-icon icon="change"></svg-icon>
-            <v-sheet
-                class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14 font-weight-bold"
-                :class=" settingProxy.pageData.form.sort == 'comp' ? 'btnPlain--text' : 'textGray--text'"
-                color="transparent"
-                @click="onQuerySort('comp')"
-            >
-                {{LangUtil("联赛")}}
-            </v-sheet>
-        </v-sheet> -->
-        <svg-icon @click.native="goLiveList" class="text-20" icon="live1_"></svg-icon>
-    </v-sheet>
-
-    <v-expansion-panels
-        class="mt-2 px-2"
-        elevation="0"
-        accordion
-        multiple
-        v-model="pageData.openIndexs"
-        v-if="$vuetify.breakpoint.mobile && !pageData.loading"
-    >
-        <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of competition_list" :key="key">
-            <v-expansion-panel-header elevation="0" rounded="lg" height="54" color="bgBanner">
-                <template v-slot:default="{ open }">
-                    <div class="d-flex align-center">
-                        <v-sheet color="transparent" class="ml10" @click.stop="setAllLove(competition)">
-                            <svg-icon class="text-16 textGray--text" :icon="checkAllLove(competition) ? 'love_' : 'love'"></svg-icon>
+            <div class="mx-2">
+                <v-menu nudge-bottom="4" offset-y>
+                    <template v-slot:activator="{ on, attrs }">
+                        <v-sheet
+                            v-bind="attrs"
+                            v-on="on"
+                            class="d-flex align-center rounded-10 px10 textGray--text"
+                            color="bgPage"
+                            width="100%"
+                            height="30"
+                        >
+                            <svg-icon class="text-14 yellow1--text" style="transform: rotate(90deg)" icon="change"></svg-icon>
+                            <span style="white-space: nowrap" class="bgColor1--text text-14 mx-2">{{sortname()}}</span>
+                            <svg-icon
+                                class="textGray--text text-12"
+                                icon="zoom_out"
+                                :class="attrs['aria-expanded'] == 'true' ? 'arrow-up' : 'arrow-down'"
+                            ></svg-icon>
                         </v-sheet>
-                        <v-img :src="competition.country_icon" contain max-width="20" width="20" height="20" class="mx10"></v-img>
-                        <div class="font-weight-bold text-14">{{competition.competition_name}}</div>
-                        <v-spacer />
-                        <!-- <svg-icon class="mr10 textGray--text text-12" icon="zoom_out" :class="open ? 'arrow-up' : 'arrow-down'"></svg-icon> -->
-                    </div>
-                </template>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content celevation="0" color="bgBanner">
-                <div v-for="(matche, mkey) of competition.matches" :key="mkey">
-                    <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
-                    <MatcheItemMobile v-else :matche="matche"></MatcheItemMobile>
-                </div>
-            </v-expansion-panel-content>
-        </v-expansion-panel>
-    </v-expansion-panels>
+                    </template>
+                    <v-list class="text-14">
+                        <v-list-item @click="onQuerySort('time')"> {{LangUtil("时间")}} </v-list-item>
+                        <v-list-item @click="onQuerySort('comp')"> {{LangUtil("联赛")}} </v-list-item>
+                    </v-list>
+                </v-menu>
+            </div>
 
-    <loader v-if="pageData.loading" />
+            <!-- <v-sheet class="d-flex align-center rounded-10 textGray--text mx10" color="bgPage" height="30">
+                <v-sheet
+                    class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14 font-weight-bold"
+                    :class=" settingProxy.pageData.form.sort == 'time' ? 'btnPlain--text' : 'textGray--text'"
+                    color="transparent"
+                    @click="onQuerySort('time')"
+                >
+                    {{LangUtil("时间")}}
+                </v-sheet>
+                <svg-icon icon="change"></svg-icon>
+                <v-sheet
+                    class="d-flex align-center justify-center mx-2 hand text-no-wrap text-14 font-weight-bold"
+                    :class=" settingProxy.pageData.form.sort == 'comp' ? 'btnPlain--text' : 'textGray--text'"
+                    color="transparent"
+                    @click="onQuerySort('comp')"
+                >
+                    {{LangUtil("联赛")}}
+                </v-sheet>
+            </v-sheet> -->
+            <svg-icon @click.native="goLiveList" class="text-20" icon="live1_"></svg-icon>
+        </v-sheet>
+        <v-expansion-panels class="mt-2 px-2" elevation="0" accordion multiple v-model="pageData.openIndexs" v-if="!pageData.loading">
+            <v-expansion-panel elevation="0" class="mb-2" v-for="(competition, key) of competition_list" :key="key">
+                <v-expansion-panel-header elevation="0" rounded="lg" height="54" color="bgBanner">
+                    <template v-slot:default="{ open }">
+                        <div class="d-flex align-center">
+                            <v-sheet color="transparent" class="ml10" @click.stop="setAllLove(competition)">
+                                <svg-icon class="text-16 textGray--text" :icon="checkAllLove(competition) ? 'love_' : 'love'"></svg-icon>
+                            </v-sheet>
+                            <v-img :src="competition.country_icon" contain max-width="20" width="20" height="20" class="mx10"></v-img>
+                            <div class="font-weight-bold text-14">{{competition.competition_name}}</div>
+                            <v-spacer />
+                            <!-- <svg-icon class="mr10 textGray--text text-12" icon="zoom_out" :class="open ? 'arrow-up' : 'arrow-down'"></svg-icon> -->
+                        </div>
+                    </template>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content celevation="0" color="bgBanner">
+                    <div v-for="(matche, mkey) of competition.matches" :key="mkey">
+                        <ChampionItem v-if="matche.c_type == 2" :matche="matche"></ChampionItem>
+                        <MatcheItemMobile v-else :matche="matche"></MatcheItemMobile>
+                    </div>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </v-expansion-panels>
+    </template>
+
+    <loader class="mt-2" v-if="pageData.loading" />
     <Nodata v-if="competition_list.length == 0 && !pageData.loading" height="60vh" />
 </div>

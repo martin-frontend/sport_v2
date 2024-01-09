@@ -2,17 +2,20 @@
     <v-app>
         <v-sheet id="page" class="d-flex overflow-x-hidden" color="transparent">
             <v-sheet
+                v-if="!$vuetify.breakpoint.mobile"
                 class="overflow-y-auto mt-2 leftbox scroll-div"
                 :class="{ 'pb-16': $vuetify.breakpoint.mobile }"
                 min-width="242"
                 max-width="242"
                 color="transparent"
-                v-if="!$vuetify.breakpoint.mobile"
             >
                 <Navigation />
             </v-sheet>
             <v-sheet class="py-0 overflow-hidden" width="100%" color="transparent">
                 <Header v-if="!$vuetify.breakpoint.mobile" />
+                <template v-else>
+                    <HomeMobileHeader v-if="isShowHeaderNav" />
+                </template>
                 <!-- <v-sheet class="d-flex" width="100%" color="transparent" :class="{ 'mt-2': !$vuetify.breakpoint.mobile }">
                     <v-sheet
                         class="overflow-y-auto"
@@ -26,9 +29,8 @@
                         <RightPanel />
                     </v-sheet>
                 </v-sheet> -->
-
                 <v-row dense :class="{ 'mt-1': !$vuetify.breakpoint.mobile }">
-                    <v-col :cols="$vuetify.breakpoint.mobile ? 12 : 8">
+                    <v-col :cols="$vuetify.breakpoint.mobile || $route.path == '/page_racing_home' ? 12 : 8">
                         <v-sheet
                             id="routerBox"
                             class="overflow-y-auto overflow-x-hidden scroll-div"
@@ -37,11 +39,12 @@
                             color="transparent"
                             :class="$vuetify.breakpoint.mobile ? 'mobilebox' : 'rightbox'"
                         >
+                            <HeaderNav v-if="isShowHeaderNav" class="mb-2" :class="{ 'mt-2 mx-2': $vuetify.breakpoint.mobile }" />
                             <router-view />
                         </v-sheet>
                     </v-col>
-                    <v-col cols="4">
-                        <v-sheet class="rightbox mr-2" color="transparent" v-if="!$vuetify.breakpoint.mobile">
+                    <v-col cols="4" v-if="!$vuetify.breakpoint.mobile && $route.path != '/page_racing_home'">
+                        <v-sheet class="rightbox mr-2" color="transparent">
                             <RightPanel />
                         </v-sheet>
                     </v-col>
@@ -52,7 +55,16 @@
         <!-- dialog的挂载点 -->
         <div id="dialog_container"></div>
         <!-- 侧边导航 -->
-        <v-navigation-drawer v-model="GlobalVar.navDrawer" color="bgPage" app absolute temporary floating style="z-index: 101">
+        <v-navigation-drawer
+            v-model="GlobalVar.navDrawer"
+            color="bgPage"
+            app
+            absolute
+            temporary
+            floating
+            style="z-index: 101"
+            v-if="$vuetify.breakpoint.mobile"
+        >
             <Navigation class="mt-3" @onChange="GlobalVar.navDrawer = false" />
         </v-navigation-drawer>
         <!-- 右侧设置页 -->
@@ -88,6 +100,8 @@ import NotifyMessage from "./views/widget/notify_message/NotifyMessage.vue";
 import NotifyOrderFinished from "./views/widget/notify_order_finished/NotifyOrderFinished.vue";
 import { removeClass } from "@/core/global/Functions";
 import DialogSetting from "./views/dialog_setting/views/DialogSetting.vue";
+import HeaderNav from "./views/header/widget/header_nav/HeaderNav.vue";
+import HomeMobileHeader from "./views/page_home/widget/home_mobile_header/HomeMobileHeader.vue";
 @Component({
     components: {
         Header,
@@ -99,12 +113,21 @@ import DialogSetting from "./views/dialog_setting/views/DialogSetting.vue";
         MyBet,
         DialogBetResult,
         DialogSetting,
+        HeaderNav,
+        HomeMobileHeader,
     },
 })
 export default class extends APP {
     betProxy: BetProxy = getProxy(BetProxy);
 
     isShowBet = false;
+
+    get isShowHeaderNav() {
+        return (
+            !this.$vuetify.breakpoint.mobile ||
+            (this.$vuetify.breakpoint.mobile && ["/page_home", "/page_racing_home"].includes(this.$route.path))
+        );
+    }
 
     @Watch("betProxy.pageData.activeCount")
     onWatchBet() {
@@ -125,7 +148,8 @@ export default class extends APP {
     height: calc(100vh - 16px);
 }
 .rightbox {
-    height: calc(100vh - 50px - 16px - 8px);
+    //height: calc(100vh - 50px - 54px - 16px - 8px);
+    height: calc(100vh - 50px);
 }
 .mobilebox {
     height: 100vh;

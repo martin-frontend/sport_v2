@@ -13,12 +13,11 @@ export default class Matche extends AbstractView {
     rightProxy: RightPanelProxy = this.getProxy(RightPanelProxy);
     myProxy: MatcheProxy = this.getProxy(MatcheProxy);
     pageData = this.myProxy.pageData;
-
     timer = 0;
 
-    constructor() {
-        super(MatcheMediator);
-    }
+    // constructor() {
+    //     super(MatcheMediator);
+    // }
 
     mounted() {
         if (!this.$vuetify.breakpoint.mobile) {
@@ -45,9 +44,12 @@ export default class Matche extends AbstractView {
     }
 
     /**盘口 筛选 */
-    get marketTypeOptions() {
-        return this.myProxy.marketTypeOptions;
+    get market_main_type() {
+        const arr = [{ id: 0, name: LangUtil("所有") }];
+        arr.push(...this.pageData.marketTypeOptions.market_main_type);
+        return arr;
     }
+
     transTitle(title: any) {
         const homestr = LangUtil("主队").trim();
         const awaystr = LangUtil("客队").trim();
@@ -87,6 +89,10 @@ export default class Matche extends AbstractView {
             "3_WAY_HANDICAP_PLUS_2_HALF_TIME",
             "3_WAY_HANDICAP_PLUS_3_HALF_TIME",
             "3_WAY_HANDICAP_PLUS_4_HALF_TIME",
+
+            "MONEY_LINE",
+            "MONEY_LINE_FIRST_QUARTER",
+            "MONEY_LINE_HALF_TIME",
         ],
         2: [
             "TOTAL_GOALS",
@@ -134,6 +140,10 @@ export default class Matche extends AbstractView {
             "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
             "BK_ASIAN_OVER_UNDER",
             "BK_ASIAN_OVER_UNDER_HALF_TIME",
+
+            "TOTAL_POINTS",
+            "TOTAL_POINTS_FIRST_QUARTER",
+            "TOTAL_POINTS_HALF_TIME",
         ],
         3: ["DRAW_NO_BET", "DRAW_NO_BET_HALF_TIME"],
         4: [
@@ -154,6 +164,14 @@ export default class Matche extends AbstractView {
             "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME",
             "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5",
             "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5_HALF_TIME",
+
+            "TEAM_A_TOTAL_POINTS",
+            "TEAM_A_TOTAL_POINTS_FIRST_QUARTER",
+            "TEAM_A_TOTAL_POINTS_HALF_TIME",
+
+            "TEAM_B_TOTAL_POINTS",
+            "TEAM_B_TOTAL_POINTS_FIRST_QUARTER",
+            "TEAM_B_TOTAL_POINTS_HALF_TIME",
         ],
         5: ["CORRECT_SCORE", "CORRECT_SCORE_HALF_TIME"],
         6: [
@@ -167,9 +185,12 @@ export default class Matche extends AbstractView {
             "ASIAN_HANDICAP_AFTER_PENALTIES",
             "BK_ASIAN_HANDICAP",
             "BK_ASIAN_HANDICAP_HALF_TIME",
+
+            "HANDICAP_FIRST_QUARTER",
+            "HANDICAP_HALF_TIME",
         ],
         7: ["DOUBLE_CHANCE", "DOUBLE_CHANCE_HALF_TIME"],
-        8:[
+        8: [
             "3_WAY_OVER_UNDER_1",
             "3_WAY_OVER_UNDER_1_HALF_TIME",
             "3_WAY_OVER_UNDER_2",
@@ -186,7 +207,7 @@ export default class Matche extends AbstractView {
             "3_WAY_OVER_UNDER_7_HALF_TIME",
             "3_WAY_OVER_UNDER_8",
             "3_WAY_OVER_UNDER_8_HALF_TIME",
-        ]
+        ],
     };
 
     onMarketType(market_type: number) {

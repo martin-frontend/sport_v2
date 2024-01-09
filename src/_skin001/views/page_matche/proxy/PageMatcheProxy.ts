@@ -33,6 +33,6 @@ export default class PageMatcheProxy extends puremvc.Proxy {
             competition_id,
             unique: PageMatcheProxy.NAME,
         };
-        this.sendNotification(net.HttpType.api_event_list, data);
+        this.sendNotification(net.HttpType.api_event_list_v3, data);
     }
 }

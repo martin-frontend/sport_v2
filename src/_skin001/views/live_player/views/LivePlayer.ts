@@ -13,6 +13,7 @@ import OrderUnsettledProxy from "@/proxy/OrderUnsettledProxy";
 import DialogBetResultProxy from "../../dialog_bet_result/proxy/DialogBetResultProxy";
 import LiveProxy from "../../live/proxy/LiveProxy";
 import MatcheProxy from "../../matche/proxy/MatcheProxy";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class LivePlayer extends AbstractView {
@@ -35,9 +36,13 @@ export default class LivePlayer extends AbstractView {
         this.isFullscreen = type;
         this.betProxy.initBetList();
         this.betProxy.pageData.isLive = type;
-        if(!type) {
+        if (!type) {
             this.isShowBetBtn = true;
         }
+    }
+
+    get curSportId() {
+        return this.matcheProxy.listQueryComp.sport_id;
     }
 
     @Watch("window")
@@ -70,7 +75,7 @@ export default class LivePlayer extends AbstractView {
     getCompName() {
         return this.pageData.competition_list[0]?.competition_name;
     }
-    
+
     getStates() {
         return this.pageData.event_states[0];
     }

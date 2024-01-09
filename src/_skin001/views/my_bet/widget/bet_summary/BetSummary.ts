@@ -118,6 +118,9 @@ export default class BetSummary extends AbstractView {
         } else {
             let val = 0;
             sum = this.pageData.list.reduce((accumulator, currentValue) => {
+                if (currentValue.odds == "SP") {
+                    return accumulator;
+                }
                 const value = Number(parseLocaleNumber(currentValue.stake)) || 0;
                 const odds = Number(currentValue.odds) || 0;
                 const preWin = Number(odds * Number(value) - Number(value));
@@ -281,6 +284,7 @@ export default class BetSummary extends AbstractView {
     get parlayOdds() {
         let odds = 1;
         this.myProxy.pageData.list.forEach((item: any) => {
+            if (item.odds == "SP") return;
             odds *= item.msg ? 1 : item.odds;
         });
         let parlayOdds = Math.min(odds, this.myProxy.pageData.maxParlayOdds).toFixed(2);
@@ -309,8 +313,29 @@ export default class BetSummary extends AbstractView {
         return ["1", "2", "3", "4", "5", "6", "7", "8", "9", "0", "00", this.decimalSeparator];
     }
 
+    totalSP = 0;
+    isOnlySP = false;
+    get isShowTotalSP() {
+        let isShow = false;
+        let isOnly = true;
+        let val = 0;
+
+        this.pageData.list.forEach((item) => {
+            if (item.odds == "SP") {
+                isShow = true;
+                val += Number(parseLocaleNumber(item.stake)) || 0;
+            } else {
+                isOnly = false;
+            }
+        });
+
+        this.totalSP = val;
+        this.isOnlySP = isOnly;
+        return isShow;
+    }
+
     get payout() {
-        const stake = this.totalStake;
+        const stake = this.totalStake - this.totalSP;
         const preWin = Number(parseLocaleNumber(this.preWin)) || 0;
         return amountFormat(preWin + stake, true);
     }

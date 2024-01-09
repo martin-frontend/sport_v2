@@ -1,0 +1,250 @@
+<v-app v-if="isloadSecLang">
+    <v-card class="" width="100%" color="transparent " flat>
+        <v-sheet
+            color="item_bg"
+            width="100%"
+            class="d-flex align-center justify-center text-20 primary--text font-weight-bold"
+            min-height="84"
+            >{{LangUtil("游戏记录列表")}}</v-sheet
+        >
+        <v-card flat color="transparent" class="d-flex flex-column pa-4">
+            <!-- 游戏 -->
+            <v-card flat color="item_bg" width="100%" class="d-flex flex-column py-4 rounded-lg">
+                <v-sheet color="transparent" width="100%" class="d-flex align-center px-4">
+                    <v-sheet color="yellow" height="22" width="2" class="mr-2"></v-sheet>
+                    <v-sheet color="transparent" class="text-16 font-weight-bold"> {{LangUtil("游戏: Easybet")}} </v-sheet>
+                </v-sheet>
+                <v-divider class="my-4" />
+
+                <v-row class="sheetOutlined pa-4 mx-4" no-gutters>
+                    <v-col :cols="itemColsGameInfo" :class="$vuetify.breakpoint.mobile ? 'my-2' : ''">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("体育类型")}}:</div>
+                            <div v-for="(leg,index) of sportTypeShowList" :key="index" class="d-flex ml-2">
+                                <div class="mr-1">
+                                    <svg-icon class="text-20" :icon="sportSvgIcon(leg.sport_id)"></svg-icon>
+                                </div>
+                                <div class="text-14 font-weight-bold">{{LangUtil(sportTypeName(leg.sport_id))}}</div>
+                            </div>
+                        </v-sheet>
+                    </v-col>
+                    <v-col :cols="itemColsGameInfo" :class="$vuetify.breakpoint.mobile ? 'my-2' : ''">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("订单编号")}}:</div>
+                            <div class="text-14 font-weight-bold mx-2">{{item.partner_order}}</div>
+                        </v-sheet>
+                    </v-col>
+                </v-row>
+            </v-card>
+
+            <!-- 订单明细 -->
+            <v-card flat color="item_bg" width="100%" class="d-flex flex-column py-4 mt-4 rounded-lg">
+                <v-sheet color="transparent" width="100%" class="d-flex align-center px-4">
+                    <v-sheet color="yellow" height="22" width="2" class="mr-2"></v-sheet>
+                    <v-sheet color="transparent" class="text-16 font-weight-bold"> {{LangUtil("订单明细")}} </v-sheet>
+                </v-sheet>
+                <v-divider class="my-4" />
+
+                <v-row class="sheetOutlined pa-4 mx-4 align-center" no-gutters>
+                    <v-col :cols="itemCols" class="my-2">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("投注类型")}}:</div>
+                            <div class="text-14 font-weight-bold mx-2">{{betTypeName}}</div>
+                        </v-sheet>
+                    </v-col>
+                    <v-col :cols="itemCols" class="my-2">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("订单状态")}}:</div>
+                            <div class="text-14 mx-2 font-weight-bold" :style="{ 'color': statusMapColor[item.status]}">
+                                {{LangUtil(statusMap[item.status])}}
+                            </div>
+                            <div
+                                v-if="item.status==3"
+                                class="text-14 mx-2 font-weight-bold"
+                                :style="{ 'color': statusMapColor[item.status]} "
+                            >
+                                {{LangUtil(item.mark)}}
+                            </div>
+                        </v-sheet>
+                    </v-col>
+
+                    <v-col :cols="itemCols" class="my-2">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("投注金额")}}:</div>
+                            <div class="text-14 font-weight-bold mx-2 blue--text">{{item.currency}} {{amountFormat(item.stake,true) }}</div>
+                        </v-sheet>
+                    </v-col>
+                    <v-col v-if="item.is_settle == 0" :cols="itemCols" class="my-2">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("预计可赢")}}:</div>
+
+                            <div class="text-14 font-weight-bold mx-2 yellow--text">
+                                {{item.currency+" "+amountFormat(item.expected_win,true,2)}}
+                            </div>
+                        </v-sheet>
+                    </v-col>
+                    <v-col v-if="item.is_settle == 1" :cols="itemCols" class="my-2">
+                        <v-sheet color="transparent" class="d-flex align-center">
+                            <div class="textGray--text text-14">{{LangUtil("输赢状态")}}:</div>
+                            <v-sheet
+                                :color="getWinTypeColor(item)"
+                                class="rounded-circle d-flex justify-center align-center text-14 white--text font-weight-bold ml-2"
+                                width="35"
+                                height="35"
+                            >
+                                {{getWinTypeStr(item)}}
+                            </v-sheet>
+                        </v-sheet>
+                    </v-col>
+
+                    <v-col v-if="item.is_settle == 1" :cols="itemCols" class="my-2">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("输赢")}}{{item.currency}}</div>
+
+                            <span class="font-weight-bold text-14 mx-2" :class="item.win>=0 ? 'success--text' : 'error--text' ">
+                                {{item.win>=0 ? "+" : ""}}{{amountFormat(item.win,true,2)}}
+                            </span>
+                        </v-sheet>
+                    </v-col>
+                    <!-- <v-col v-if="!$vuetify.breakpoint.mobile" :cols="12" class="my-2">
+                <v-divider />
+            </v-col> -->
+                    <v-col :cols="itemCols" class="my-2">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("投注时间")}}:</div>
+
+                            <div class="text-14 mx-2">
+                                {{dateFormat(getDateByTimeZone(item.create_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}
+                            </div>
+                        </v-sheet>
+                    </v-col>
+
+                    <v-col :cols="itemCols" class="my-2" v-if="item.is_settle == 1">
+                        <v-sheet color="transparent" class="d-flex">
+                            <div class="textGray--text text-14">{{LangUtil("结算时间")}}:</div>
+
+                            <div class="text-14 mx-2">
+                                {{dateFormat(getDateByTimeZone(item.settle_time * 1000 ,GlobalVar.zone) ,'yyyy/MM/dd hh:mm:ss', true)}}
+                            </div>
+                        </v-sheet>
+                    </v-col>
+                </v-row>
+            </v-card>
+
+            <!-- 投注明细 -->
+            <v-card flat color="item_bg" width="100%" class="d-flex flex-column py-4 mt-4 rounded-lg">
+                <v-sheet color="transparent" width="100%" class="d-flex align-center px-4">
+                    <v-sheet color="yellow" height="22" width="2" class="mr-2"></v-sheet>
+                    <v-sheet color="transparent" class="text-16 font-weight-bold"> {{LangUtil("投注明细")}} </v-sheet>
+                </v-sheet>
+                <v-divider class="my-4" />
+
+                <v-sheet
+                    v-if="item.bet_type == 'multi'"
+                    color="transparent"
+                    width="100%"
+                    class="d-flex align-center text-14 font-weight-bold mb-4 ml-4 textGray--text"
+                >
+                    <div
+                        style="margin-left: 8px; margin-top: 5px"
+                        class="text-14 font-weight-bold"
+                        v-if="['vi_VN'].includes(GlobalVar.lang)"
+                    >
+                        {{LangUtil("串{0} {1}*{2}",item.leg_info.length, 1, 1)}}
+                    </div>
+                    <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold" v-else>
+                        {{LangUtil("{0}串{1}*{2}",item.leg_info.length, 1, 1)}}
+                    </div>
+                </v-sheet>
+
+                <v-card flat class="sheetOutlined pa-4 mx-4" color="transparent">
+                    <v-row v-if="!$vuetify.breakpoint.mobile" no-gutters>
+                        <v-col :cols="itemCols">
+                            <div class="textGray--text text-14">{{LangUtil("联赛名称")}}</div>
+                        </v-col>
+                        <v-col :cols="itemCols">
+                            <div class="textGray--text text-14">{{LangUtil("比赛")}}</div>
+                        </v-col>
+                        <v-col :cols="itemCols">
+                            <div class="textGray--text text-14">{{LangUtil("下注内容")}}</div>
+                        </v-col>
+                        <v-col :cols="itemCols">
+                            <div class="textGray--text text-14">{{LangUtil("盘口玩法")}}</div>
+                        </v-col>
+                        <v-col :cols="12">
+                            <v-divider class="my-3" />
+                        </v-col>
+                    </v-row>
+
+                    <v-sheet color="transparent" class="" v-for="(leg,index) of item.leg_info" :key="index">
+                        <v-row no-gutters :align="$vuetify.breakpoint.mobile ? 'start' : 'center'">
+                            <v-col :cols="itemCols" class="d-flex my-2">
+                                <span v-if="$vuetify.breakpoint.mobile" class="textGray--text text-14 text-no-wrap mr-2"
+                                    >{{LangUtil("联赛名称")}}</span
+                                >
+                                <div class="mr-2">
+                                    <svg-icon class="text-20" :icon="sportSvgIcon(leg.sport_id)"></svg-icon>
+                                </div>
+                                <div class="text-14 font-weight-bold">{{leg.competition_name}}</div>
+                            </v-col>
+                            <v-col :cols="itemCols" class="d-flex my-2">
+                                <span v-if="$vuetify.breakpoint.mobile" class="textGray--text text-14 text-no-wrap mr-2"
+                                    >{{LangUtil("比赛")}}</span
+                                >
+                                <span v-if="leg.is_race" class="text-14 font-weight-bold">{{leg.number_of_session}}</span>
+                                <span v-else-if="!leg.is_race" class="text-14 font-weight-bold">
+                                    {{leg.home_name}} <span style="margin-right: 4px; margin-left: 4px" class="font-weight-bold">VS</span>
+                                    {{leg.away_name}}
+                                    <span
+                                        style="color: #ff3e3e; margin-right: 8px"
+                                        class="font-weight-bold"
+                                        v-if="item.status !== 3 && leg.c_type != 2"
+                                        >{{getHadResultStr(leg)}}
+                                    </span>
+                                </span>
+                            </v-col>
+                            <v-col :cols="itemCols" class="d-flex my-2">
+                                <span v-if="$vuetify.breakpoint.mobile" class="textGray--text text-14 text-no-wrap mr-2"
+                                    >{{LangUtil("下注内容")}}</span
+                                >
+                                <div class="text-14">
+                                    <span>{{leg.content}}</span>
+                                    <span> {{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}} </span>
+                                    <span v-if="leg.is_sp">{{TransMarketPrice(leg.odds)}}</span>
+                                    <span v-else class="font-weight-bold"> @{{TransMarketPrice(leg.odds)}} </span>
+                                </div>
+                            </v-col>
+                            <v-col :cols="itemCols" class="d-flex my-2">
+                                <span v-if="$vuetify.breakpoint.mobile" class="textGray--text text-14 text-no-wrap mr-2"
+                                    >{{LangUtil("盘口玩法")}}</span
+                                >
+                                <v-sheet color="transparent" class="d-flex text-14" width="100%">
+                                    <span
+                                        v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'"
+                                        class="mr-2"
+                                    >
+                                        <span>{{LangUtil("滚球")}}</span>
+                                        <span class="font-weight-bold">{{OrderTitleUtils.getScoreStr(leg)}}</span>
+                                    </span>
+                                    <span class="text-14 font-weight-bold">{{leg.market_type_text}}</span>
+
+                                    <v-spacer />
+                                    <v-sheet
+                                        v-if="item.bet_type == 'multi' && leg.selection_win_type"
+                                        :color="getWinTypeColor(leg,true)"
+                                        class="rounded-circle d-flex justify-center align-center text-14 white--text font-weight-bold ml-2"
+                                        width="35"
+                                        height="35"
+                                    >
+                                        {{getWinTypeStr(leg,true)}}
+                                    </v-sheet>
+                                </v-sheet>
+                            </v-col>
+                        </v-row>
+                        <v-divider v-if="index < item.leg_info.length - 1" class="my-4" />
+                    </v-sheet>
+                </v-card>
+            </v-card>
+        </v-card>
+    </v-card>
+</v-app>

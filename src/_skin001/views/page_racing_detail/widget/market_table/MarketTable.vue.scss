@@ -1,0 +1,19 @@
+.tab.active {
+    background-color: #feba00;
+}
+::v-deep .detail .v-input__slot {
+    display: flex;
+    flex-direction: row-reverse;
+    .v-input--selection-controls__input {
+        margin-left: 8px;
+    }
+}
+.text-line-through {
+    text-decoration: line-through;
+    // text-decoration-color: red;
+}
+.detail_icon {
+    ::v-deep .theme--dark.v-icon {
+        color: #8e8f91;
+    }
+}

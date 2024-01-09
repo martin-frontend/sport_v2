@@ -9,7 +9,7 @@ export default class LiveListMediator extends AbstractMediator {
     }
 
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_event_live_list, net.EventType.api_event_states];
+        return [net.EventType.api_event_live_list, net.EventType.api_event_states, net.EventType.api_event_live_list_v2];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -20,6 +20,10 @@ export default class LiveListMediator extends AbstractMediator {
             case net.EventType.api_event_live_list:
                 myProxy.set_event_live_list(body);
                 break;
+            case net.EventType.api_event_live_list_v2:
+                myProxy.set_event_live_list_v2(body);
+                break;
+
             case net.EventType.api_event_states:
                 if (type == LiveListProxy.NAME) {
                     myProxy.set_event_states(body);

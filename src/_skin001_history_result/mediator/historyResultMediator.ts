@@ -9,7 +9,12 @@ export default class HistoryResultMediator extends AbstractMediator {
         this.facade.removeProxy(historyResultProxy.NAME);
     }
     public listNotificationInterests(): string[] {
-        return [net.EventType.api_user_orders, net.EventType.public_plat_config, net.EventType.api_user_orders_v3];
+        return [
+            net.EventType.api_user_orders,
+            net.EventType.public_plat_config,
+            net.EventType.api_user_orders_v3,
+            net.EventType.api_event_sports,
+        ];
     }
 
     public handleNotification(notification: puremvc.INotification): void {
@@ -24,6 +29,9 @@ export default class HistoryResultMediator extends AbstractMediator {
                 break;
             case net.EventType.api_user_orders_v3:
                 myProxy.set_user_orders(body);
+                break;
+            case net.EventType.api_event_sports:
+                myProxy.setSportTagData(body);
                 break;
         }
     }

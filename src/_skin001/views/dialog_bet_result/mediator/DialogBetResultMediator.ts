@@ -13,6 +13,7 @@ import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 
 export default class DialogBetResultMediator extends AbstractMediator {
+    static NAME = "DialogBetResultMediator";
     public listNotificationInterests(): string[] {
         return [net.EventType.api_user_betfix, net.EventType.api_user_pending, net.EventType.api_user_betfix_v3];
     }
@@ -28,83 +29,13 @@ export default class DialogBetResultMediator extends AbstractMediator {
         const myProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
         const betProxy: BetProxy = getProxy(BetProxy);
         switch (notification.getName()) {
-            // case net.EventType.api_user_betfix:
-            //     myProxy.pageData.bShow = true;
-            //     myProxy.pageData.status = body.status;
-            //     myProxy.pageData.order_no = body.order_no;
-            //     myProxy.pageData.partner_order = body.partner_order;
-            //     Object.assign(myProxy.pageData, body.requestData);
-            //     myProxy.pageData.odds = body.odds;
-            //     myProxy.pageData.create_time = GlobalVar.server_time;
-            //     myProxy.pageData.isInPlay = false;
-            //     myProxy.pageData.goals = "";
-            //     if (this.matche && this.matche.c_type != 2) {
-            //         myProxy.pageData.states_str = "";
-            //         const betProxy: BetProxy = getProxy(BetProxy);
-            //         const states = betProxy.pageData.event_states.find((item) => item.event_id == myProxy.pageData.event_id);
-            //         if (states && states.phase_minute > 0) {
-            //             myProxy.pageData.isInPlay = true;
-            //             // myProxy.pageData.goals = states.goals_ft;
-            //             myProxy.pageData.goals = this.getStats(body.requestData.market_type, states);
-            //             // data.states_str = LangUtil("已开赛");
-            //             if (states.match_phase) {
-            //                 myProxy.pageData.states_str += " " + LangUtil(states.match_phase);
-            //             }
-            //             if (states.phase_minute > 0) {
-            //                 myProxy.pageData.states_str += " " + states.phase_minute + LangUtil("分钟");
-            //             }
-            //         } else {
-            //             if (states) {
-            //                 if (states.match_phase !== "-") {
-            //                     myProxy.pageData.states_str += " " + LangUtil(states.match_phase);
-            //                 } else {
-            //                     myProxy.pageData.states_str += LangUtil("即将开赛");
-            //                 }
-            //             } else {
-            //                 const start_in_sec = this.matche.sb_time - GlobalVar.server_time;
-            //                 const day = Math.floor(start_in_sec / 60 / 60 / 24);
-            //                 const hr = Math.floor(start_in_sec / 60 / 60);
-            //                 const min = Math.floor((start_in_sec / 60) % 60);
-            //                 if (start_in_sec > 0) {
-            //                     myProxy.pageData.states_str = dateFormat(
-            //                         getDateByTimeZone(this.matche.sb_time * 1000, GlobalVar.zone),
-            //                         "MM-dd hh:mm"
-            //                     );
-            //                     if (start_in_sec > 86400) {
-            //                         myProxy.pageData.states_str += " " + LangUtil("距开赛") + " " + day + LangUtil("天");
-            //                     } else if (start_in_sec > 600) {
-            //                         myProxy.pageData.states_str +=
-            //                             " " + LangUtil("距开赛") + " " + hr + LangUtil("小时") + min + LangUtil("分");
-            //                     } else {
-            //                         myProxy.pageData.states_str += LangUtil("即将开赛");
-            //                     }
-            //                 }
-            //             }
-            //         }
-            //     }
-            //     break;
-            // case net.EventType.api_user_pending:
-            //     for (const item of body) {
-            //         // console.warn(">>>>>>", item);
-            //         if (item.partner_order == myProxy.pageData.partner_order) {
-            //             myProxy.pageData.status = item.status;
-            //             myProxy.pageData.statusMsg = item.statusMsg;
-            //             myProxy.pageData.order_no = item.order_no;
-            //             myProxy.pageData.odds = item.odds;
-            //         }
-            //         Vue.notify(<any>{
-            //             group: "order_finished",
-            //             // duration: -1,
-            //             duration: item.status == 0 || item.status == 1 ? 3000 : -1,
-            //             data: item,
-            //         });
-            //     }
-            //     break;
             case net.EventType.api_user_pending:
                 for (const item of body) {
                     let { parlayData } = myProxy.pageData;
+
                     // 串关
-                    if (betProxy.pageData.betType == "parlay") {
+                    // if (betProxy.pageData.betType == "parlay") {
+                    if (item.bet_type == "multi") {
                         Object.assign(parlayData, item);
                     } else {
                         const listData = myProxy.pageData.list.find(({ partner_order }: any) => partner_order == item.partner_order);
@@ -125,7 +56,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                     // });
                     this.finshedOrders.push(item);
                 }
-
+                // console.warn("--->>>已经完成订单---", this.finshedOrders);
                 this.showFinshedOrdersTips();
                 break;
             case net.EventType.api_user_betfix_v3:
@@ -145,8 +76,20 @@ export default class DialogBetResultMediator extends AbstractMediator {
                         if (!key.includes(betProxy.pageData.listIdName)) {
                             return;
                         }
+                        let item = body[key];
+
+                        if (item && item.code && item.message) {
+                            Vue.notify({ group: "message", title: item.message });
+                        } else if (!item.order_no || item.order_no == "-") {
+                            item = JSON.parse(JSON.stringify(item));
+                            item.status = 4;
+                            item.statusMsg = "赔率已失效";
+                        }
                         const data: any = {};
-                        Object.assign(data, body[key]);
+                        Object.assign(data, item);
+                        if (data.message && !data.statusMsg) {
+                            data.statusMsg = data.message;
+                        }
                         data.leg_id = key;
                         this.initData(data);
                         myProxy.pageData.list.push(data);
@@ -216,7 +159,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 data.goals = this.getStats(data.market.market_type, states);
                 if (states.phase_minute > 0) {
                     data.states_str += " " + LangUtil("已开赛");
-                } 
+                }
                 if (states.match_phase) {
                     data.states_str += " " + LangUtil(states.match_phase);
                 }

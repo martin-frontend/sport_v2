@@ -9,7 +9,7 @@
     <v-skeleton-loader v-if="pageData.loading" class="mx-auto rounded-0" width="100%" height="208" type="image"></v-skeleton-loader>
     <v-window v-else v-model="window">
         <v-window-item class="pb-4">
-            <v-sheet class="textGray--text text-14" color="transparent" v-if="matche">
+            <v-sheet class="textGray--text text-14" color="transparent" v-if="matche && !isRaceEvent(curSportId)">
                 <div class="text-center mt15 text-14">{{getCompName()}}</div>
 
                 <v-row dense class="mx-2">
@@ -95,13 +95,15 @@
                         <div class="dateitem mr-2">{{LangUtil("天")}}</div>
                         <div class="dateitem mr-2">{{LangUtil("时")}}</div>
                         <div class="dateitem mr-2">{{LangUtil("小分")}}</div>
-                        <div class="dateitem mr-2">{{LangUtil("秒")}}</div>
+                        <div class="dateitem mr-2">{{LangUtil("小秒")}}</div>
                     </div>
                 </template>
 
                 <v-sheet color="transparent" width="100%" class="d-flex align-center justify-center mt-4 textGray--text" v-if="getStates()">
-                    <svg-icon class="text-18 mr-2" icon="corner"></svg-icon>
-                    <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
+                    <template v-if="matche.sport_id == 1">
+                        <svg-icon class="text-18 mr-2" icon="corner"></svg-icon>
+                        <div>{{getStates().corners_ft != '' ? getStates().corners_ft : '0-0'}}</div>
+                    </template>
                     <svg-icon class="text-18 ml-4 mr-2" icon="hafe_time"></svg-icon>
                     <div>{{getStates().goals_ht != '' ? getStates().goals_ht : '0-0' }}</div>
                 </v-sheet>
@@ -119,7 +121,8 @@
             </v-sheet>
         </v-window-item>
         <v-window-item>
-            <LivePlayer v-if="window==1" :videoUrl="pageData.live_url" live autoplay />
+            <LivePlayer v-if="window==1 && pageData.live_url" :videoUrl="pageData.live_url" live autoplay />
+            <Nodata v-else height="200"></Nodata>
         </v-window-item>
         <v-window-item>
             <iframe
