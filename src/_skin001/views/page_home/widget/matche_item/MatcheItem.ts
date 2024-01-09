@@ -43,25 +43,43 @@ export default class MatcheItem extends AbstractView {
 
     /**表头 */
     marketTypeAlias: any = {
-        MATCH_ODDS: "独赢",
-        ASIAN_HANDICAP: "让球",
-        ASIAN_OVER_UNDER: "大小",
-        MATCH_ODDS_HALF_TIME: "半场独赢",
-        ASIAN_HANDICAP_HALF_TIME: "半场让球",
-        ASIAN_OVER_UNDER_HALF_TIME: "半场大小",
-        ASIAN_HANDICAP_EXTRA_TIME: "让球加时",
-        ASIAN_OVER_UNDER_EXTRA_TIME: "大小加时",
-        ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME: "让球半场加时",
-        ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME: "大小半场加时",
-        ASIAN_HANDICAP_AFTER_PENALTIES: "让球点球",
-        ASIAN_OVER_UNDER_AFTER_PENALTIES: "大小点球",
+        1: {
+            MATCH_ODDS: "独赢",
+            ASIAN_HANDICAP: "让球",
+            ASIAN_OVER_UNDER: "大小",
+            MATCH_ODDS_HALF_TIME: "半场独赢",
+            ASIAN_HANDICAP_HALF_TIME: "半场让球",
+            ASIAN_OVER_UNDER_HALF_TIME: "半场大小",
+            ASIAN_HANDICAP_EXTRA_TIME: "让球加时",
+            ASIAN_OVER_UNDER_EXTRA_TIME: "大小加时",
+            ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME: "让球半场加时",
+            ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME: "大小半场加时",
+            ASIAN_HANDICAP_AFTER_PENALTIES: "让球点球",
+            ASIAN_OVER_UNDER_AFTER_PENALTIES: "大小点球",
+        },
+        4: {
+            MONEY_LINE: "独赢篮",
+            HANDICAP: "让分篮",
+            TOTAL_POINTS: "总得分篮",
+            HANDICAP_HALF_TIME: "半场-让分篮",
+            TOTAL_POINTS_HALF_TIME: "半场-总得分篮",
+            MONEY_LINE_HALF_TIME: "半场-独赢篮",
+        },
+        5: {
+            MONEY_LINE: "独赢篮",
+            HANDICAP: "让分篮",
+            TOTAL_POINTS: "总得分篮",
+            HANDICAP_HALF_TIME: "半场-让分篮",
+            TOTAL_POINTS_HALF_TIME: "半场-总得分篮",
+            MONEY_LINE_HALF_TIME: "半场-独赢篮",
+        },
     };
     get tableColumn() {
         const arr: any = [];
         this.marketTypes.forEach((mtype: any, index: number) => {
             const mtypeTrim = mtype.trim();
             const mt = this.myProxy.pageData.marketTypeOptions.market_type.find((item: any) => item.market_type == mtypeTrim);
-            arr[index] = mt ? this.marketTypeAlias[mtypeTrim] || mt.title : "";
+            arr[index] = mt ? this.marketTypeAlias[this.matche.sport_id][mtypeTrim] || mt.title : "";
         });
         if (this.$vuetify.breakpoint.width <= 1430) {
             return arr.slice(0, 3);
