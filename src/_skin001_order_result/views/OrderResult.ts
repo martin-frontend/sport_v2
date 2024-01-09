@@ -10,6 +10,7 @@ import LangConfig from "@/core/config/LangConfig";
 import { TransMarketPrice, amountFormat, dateFormat, formatEventTime, getDateByTimeZone } from "@/core/global/Functions";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
 import Assets from "@/_skin001/assets/Assets";
+import CopyUtil from "@/core/global/CopyUtil";
 
 @Component
 export default class PageOrderDetail extends AbstractView {
@@ -42,14 +43,14 @@ export default class PageOrderDetail extends AbstractView {
             GlobalVar.cdnUrl = PlatConfig.config.client.cdn_url;
             GlobalVar.lang = lang;
             LangConfig.load(this.form.lang).then(() => {
-                console.group("%c http send >>> " + net.HttpType.public_order_detail_data_v3, "color:#cccfff;");
-                console.log(this.form);
-                console.groupEnd();
+                // console.group("%c http send >>> " + net.HttpType.public_order_detail_data_v3, "color:#cccfff;");
+                // console.log(this.form);
+                // console.groupEnd();
 
                 Http.post(net.HttpType.public_order_detail_data_v3, this.form).then((response: any) => {
-                    console.group("%c http response >>> " + net.HttpType.public_order_detail_data_v3, "color:#000bbb;");
-                    console.log(JSON.parse(JSON.stringify(response)));
-                    console.groupEnd();
+                    // console.group("%c http response >>> " + net.HttpType.public_order_detail_data_v3, "color:#000bbb;");
+                    // console.log(JSON.parse(JSON.stringify(response)));
+                    // console.groupEnd();
 
                     if (response.status != 0) {
                         alert(response.msg);
@@ -120,7 +121,7 @@ export default class PageOrderDetail extends AbstractView {
         const type = !isLeg ? item.win_type : item.selection_win_type;
         switch (type) {
             case 1:
-                return "green";
+                return "win";
             case 2:
                 return "purple";
             case 3:
@@ -173,7 +174,7 @@ export default class PageOrderDetail extends AbstractView {
         if (!this.item || !this.item.leg_info) return [];
         const uniqueList = Array.from(new Set(this.item.leg_info.map((item: any) => item.sport_id)));
         const filterList = uniqueList.map((sport_id) => this.item.leg_info.find((item: any) => item.sport_id === sport_id));
-        console.warn("--->>>", filterList);
+        // console.warn("--->>>", filterList);
         return filterList;
     }
     //根据盘口展示已结算的赛果角球还是比分等
@@ -182,5 +183,24 @@ export default class PageOrderDetail extends AbstractView {
         copyitem.state = copyitem.real_time_state;
 
         return OrderTitleUtils.getScoreStr(copyitem);
+    }
+
+    onCopy(str: string) {
+        CopyUtil(str);
+        alert(LangUtil("复制成功"));
+    }
+    order_win_lose(money: any) {
+        if (!money) {
+            return LangUtil("和");
+        }
+        const nub_money = Number(money);
+        return nub_money > 0 ? LangUtil("赢") : LangUtil("输");
+    }
+    order_win_lose_color(money: any) {
+        if (!money) {
+            return "win";
+        }
+        const nub_money = Number(money);
+        return nub_money > 0 ? "win" : "lose";
     }
 }
