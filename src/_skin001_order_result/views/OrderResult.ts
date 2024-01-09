@@ -132,6 +132,7 @@ export default class PageOrderDetail extends AbstractView {
             case 7:
                 return "#a2a2a2";
         }
+        return "yellow";
     }
 
     get betTypeName() {
