@@ -3,8 +3,6 @@ import { Prop, Watch, Component } from "vue-property-decorator";
 import LangUtil from "@/core/global/LangUtil";
 import SettingProxy from "@/proxy/SettingProxy";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
-import page_home from "../..";
-import GlobalVar from "@/core/global/GlobalVar";
 import NavigationProxy from "@/_skin001/views/navigation/proxy/NavigationProxy";
 
 @Component
@@ -24,45 +22,75 @@ export default class EventFilter extends AbstractView {
     allCompetitionLength = 0;
     indeterminates: any = {};
     panel: number[] = [];
-    localStorageKey = "event_filter";
+    totalPanel: number[] = [];
+    items = <any>{};
 
     get curSportId() {
-        return this.myProxy.listQueryComp.sport_id;
+        return this.listQueryComp.sport_id;
+    }
+
+    get curTag() {
+        return this.listQueryComp.tag;
     }
 
     get curSportNav() {
         return this.navProxy.pageData.new_menu_subnav[this.curSportId];
     }
 
+    get curCompetitions() {
+        const { tag } = this.listQueryComp;
+        if (tag) {
+            if (["inplay", "today", "future"].includes(tag)) {
+                return this.curSportNav[tag].competitions;
+            } else {
+                const findItem = this.curSportNav.tags.find((item: any) => item.tag == tag);
+                return findItem.competitions;
+            }
+        }
+        return [];
+    }
+
     created() {
         this.init();
-        this.getLocalStorage();
+        this.setData();
     }
 
     init() {
-        this.curSportNav?.all_competition.forEach((item: any, index: number) => {
-            this.panel.push(index);
-            this.selectCountry.push(item.country_code);
-            this.$set(this.selectCompetion, item.country_code, <any>[]);
-            this.$set(this.allCompetition, item.country_code, <any>[]);
-            this.$set(this.indeterminates, item.country_code, false);
-
-            item.competitions.forEach((comp: any) => {
-                this.selectCompetion[item.country_code].push(comp.id);
-                this.allCompetition[item.country_code].push(comp.id);
-                this.selectCompetionLength++;
-                this.allCompetitionLength++;
+        let index = 0;
+        this.curCompetitions.forEach((item: any) => {
+            let findIndex = -1;
+            const findItem = this.curSportNav?.all_competition.find((comp: any) => {
+                findIndex = comp.competitions.findIndex((c: any) => c.id == item.id);
+                return findIndex > -1;
             });
+
+            this.selectCountry.push(findItem.country_code);
+            if (!this.selectCompetion[findItem.country_code]) {
+                this.$set(this.selectCompetion, findItem.country_code, <any>[]);
+                this.$set(this.allCompetition, findItem.country_code, <any>[]);
+                this.$set(this.indeterminates, findItem.country_code, false);
+                this.$set(this.items, findItem.country_code, <any>{
+                    ...findItem,
+                    competitions: <any>[],
+                });
+                this.panel.push(index);
+                index++;
+            }
+            this.items[findItem.country_code].competitions.push(item);
+            this.selectCompetion[findItem.country_code].push(item.id);
+            this.allCompetition[findItem.country_code].push(item.id);
+            this.selectCompetionLength++;
+            this.allCompetitionLength++;
         });
+        this.totalPanel = [...this.panel];
     }
 
-    getLocalStorage() {
-        const storageData = window.localStorage.getItem(this.localStorageKey);
-        if (storageData) {
-            const selectCompetion = JSON.parse(storageData);
-            this.selectCompetionLength = 0;
+    setData() {
+        if (this.pageData.filterCompetion) {
+            const selectCompetion = JSON.parse(JSON.stringify(this.pageData.filterCompetion));
             Object.keys(selectCompetion).forEach((country_code) => {
                 if (!this.selectCompetion[country_code]) return;
+                this.selectCompetionLength -= this.allCompetition[country_code].length;
                 this.selectCompetion[country_code] = [];
                 selectCompetion[country_code]?.forEach((id: any) => {
                     if (this.allCompetition[country_code].includes(id)) {
@@ -79,11 +107,13 @@ export default class EventFilter extends AbstractView {
                     this.selectCountry = this.selectCountry.filter((countryCode: any) => countryCode != country_code);
                 }
             });
+            this.ckeckAll();
         }
     }
 
     onSave() {
-        window.localStorage.setItem(this.localStorageKey, JSON.stringify(this.selectCompetion));
+        this.pageData.filterCompetion = JSON.parse(JSON.stringify(this.selectCompetion));
+        this.myProxy.api_event_list();
         this.pageData.isShowFilter = false;
     }
 
@@ -170,5 +200,24 @@ export default class EventFilter extends AbstractView {
 
     ckeckAll() {
         this.selectAll = this.selectCompetionLength == this.allCompetitionLength;
+    }
+
+    @Watch("myProxy.pageData.isOpenFilterIndexs")
+    onWatchIsOpenFilterIndexs(val: boolean) {
+        if (val) {
+            this.panel = [...this.totalPanel];
+        } else {
+            this.panel = [];
+        }
+    }
+
+    @Watch("curSportId")
+    onWatchCurSportId() {
+        this.pageData.isShowFilter = false;
+    }
+
+    @Watch("curTag")
+    onWatchCurTag() {
+        this.pageData.isShowFilter = false;
     }
 }
