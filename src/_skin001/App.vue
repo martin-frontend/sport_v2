@@ -149,7 +149,7 @@ export default class extends APP {
 }
 .rightbox {
     //height: calc(100vh - 50px - 54px - 16px - 8px);
-    height: calc(100vh - 50px);
+    height: calc(100vh - 50px - 16px);
 }
 .mobilebox {
     height: 100vh;
