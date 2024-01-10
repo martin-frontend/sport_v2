@@ -13,10 +13,10 @@
             </template>
         </v-checkbox>
     </v-sheet>
-    <!-- indeterminate -->
     <!-- <div>{{panel}}</div>
-    <div>{{selectCountry}}</div>
     <div>{{selectCompetion}}</div> -->
+    <!-- <div>{{selectCountry}}</div>
+    <div>{{selectCompetionLength}}、{{allCompetitionLength}}</div> -->
     <v-expansion-panels v-if="curSportNav" v-model="panel" elevation="0" accordion multiple>
         <v-expansion-panel v-for="item of curSportNav.all_competition" :key="item.country_code" elevation="0" color="transparent" ripple>
             <v-expansion-panel-header color="bgGray1" class="rounded-0">
@@ -33,7 +33,7 @@
                     @click="onCountryClick(item.country_code)"
                 >
                     <template #label>
-                        <span class="text-14 font-weight-bold tagTextColor2--text">{{item.country_name}}</span>{{indeterminates[item.country_code]}}
+                        <span class="text-14 font-weight-bold tagTextColor2--text">{{item.country_name}}</span>
                     </template>
                 </v-checkbox>
             </v-expansion-panel-header>
