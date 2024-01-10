@@ -29,13 +29,13 @@ export default class HomeHeader extends AbstractView {
         if (keyword) {
             return LangUtil("搜索") + ": " + keyword;
         }
-        if(tag) {
+        if (tag) {
             if (tag == "love") {
                 return LangUtil("关注赛事");
             } else {
                 const curNav = this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id];
                 if (!curNav) return "";
-    
+
                 if (curNav[tag]) {
                     return curNav?.[tag].name;
                 } else {

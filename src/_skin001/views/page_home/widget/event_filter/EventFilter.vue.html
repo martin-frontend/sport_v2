@@ -37,13 +37,13 @@
                 <v-row class="d-flex pa-6">
                     <v-col v-for="comp in item.competitions" :key="comp.id" cols="4">
                         <v-checkbox
-                            v-model="selectCompetion[country_code]"
+                            v-model="selectCompetition[country_code]"
                             :value="comp.id"
                             hide-details
                             color="yellow1"
                             dense
                             class="mt-0 pt-0 ml-2"
-                            @click="onCompetionClick(country_code, comp.id)"
+                            @click="onCompetitionClick(country_code, comp.id)"
                         >
                             <template #label>
                                 <span class="text-14 font-weight-bold tagTextColor2--text">{{comp.name}}</span>
@@ -55,7 +55,7 @@
         </v-expansion-panel>
     </v-expansion-panels>
     <div class="d-flex justify-center mt-2">
-        <btn-yellow :disabled="selectCompetionLength==0" class="text-16" height="36" width="104" @click.native="onSave">
+        <btn-yellow :disabled="pageData.selectCompetitionLength==0" class="text-16" height="36" width="104" @click.native="onSave">
             {{LangUtil("确认")}}
         </btn-yellow>
     </div>

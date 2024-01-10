@@ -16,10 +16,8 @@ export default class EventFilter extends AbstractView {
     selectAll = true;
     selectReverse = false;
     selectCountry: any = [];
-    selectCompetion: any = {};
-    selectCompetionLength = 0;
+    selectCompetition: any = {};
     allCompetition: any = {}; // 原数据 对比用
-    allCompetitionLength = 0;
     indeterminates: any = {};
     panel: number[] = [];
     totalPanel: number[] = [];
@@ -56,6 +54,8 @@ export default class EventFilter extends AbstractView {
     }
 
     init() {
+        this.pageData.selectCompetitionLength = 0;
+        this.pageData.allCompetitionLength = 0;
         let index = 0;
         this.curCompetitions.forEach((item: any) => {
             let findIndex = -1;
@@ -65,8 +65,8 @@ export default class EventFilter extends AbstractView {
             });
 
             this.selectCountry.push(findItem.country_code);
-            if (!this.selectCompetion[findItem.country_code]) {
-                this.$set(this.selectCompetion, findItem.country_code, <any>[]);
+            if (!this.selectCompetition[findItem.country_code]) {
+                this.$set(this.selectCompetition, findItem.country_code, <any>[]);
                 this.$set(this.allCompetition, findItem.country_code, <any>[]);
                 this.$set(this.indeterminates, findItem.country_code, false);
                 this.$set(this.items, findItem.country_code, <any>{
@@ -77,28 +77,28 @@ export default class EventFilter extends AbstractView {
                 index++;
             }
             this.items[findItem.country_code].competitions.push(item);
-            this.selectCompetion[findItem.country_code].push(item.id);
+            this.selectCompetition[findItem.country_code].push(item.id);
             this.allCompetition[findItem.country_code].push(item.id);
-            this.selectCompetionLength++;
-            this.allCompetitionLength++;
+            this.pageData.selectCompetitionLength++;
+            this.pageData.allCompetitionLength++;
         });
         this.totalPanel = [...this.panel];
     }
 
     setData() {
-        if (this.pageData.filterCompetion) {
-            const selectCompetion = JSON.parse(JSON.stringify(this.pageData.filterCompetion));
-            Object.keys(selectCompetion).forEach((country_code) => {
-                if (!this.selectCompetion[country_code]) return;
-                this.selectCompetionLength -= this.allCompetition[country_code].length;
-                this.selectCompetion[country_code] = [];
-                selectCompetion[country_code]?.forEach((id: any) => {
+        if (this.pageData.filterCompetition) {
+            const selectCompetition = JSON.parse(JSON.stringify(this.pageData.filterCompetition));
+            Object.keys(selectCompetition).forEach((country_code) => {
+                if (!this.selectCompetition[country_code]) return;
+                this.pageData.selectCompetitionLength -= this.allCompetition[country_code].length;
+                this.selectCompetition[country_code] = [];
+                selectCompetition[country_code]?.forEach((id: any) => {
                     if (this.allCompetition[country_code].includes(id)) {
-                        this.selectCompetion[country_code].push(id);
-                        this.selectCompetionLength++;
+                        this.selectCompetition[country_code].push(id);
+                        this.pageData.selectCompetitionLength++;
                     }
                 });
-                const length = this.selectCompetion[country_code].length;
+                const length = this.selectCompetition[country_code].length;
                 const totalLength = this.allCompetition[country_code].length;
                 if (length > 0 && length < totalLength) {
                     this.indeterminates[country_code] = true;
@@ -112,7 +112,7 @@ export default class EventFilter extends AbstractView {
     }
 
     onSave() {
-        this.pageData.filterCompetion = JSON.parse(JSON.stringify(this.selectCompetion));
+        this.pageData.filterCompetition = JSON.parse(JSON.stringify(this.selectCompetition));
         this.myProxy.api_event_list();
         this.pageData.isShowFilter = false;
     }
@@ -121,7 +121,7 @@ export default class EventFilter extends AbstractView {
         Object.keys(this.allCompetition).forEach((country_code) => {
             const arr: any = [];
             this.allCompetition[country_code].forEach((id: any) => {
-                if (!this.selectCompetion[country_code].includes(id)) {
+                if (!this.selectCompetition[country_code].includes(id)) {
                     arr.push(id);
                 }
             });
@@ -132,35 +132,35 @@ export default class EventFilter extends AbstractView {
                     this.selectCountry.push(country_code);
                 }
             }
-            this.selectCompetion[country_code] = arr;
+            this.selectCompetition[country_code] = arr;
         });
 
-        this.selectCompetionLength = this.allCompetitionLength - this.selectCompetionLength;
+        this.pageData.selectCompetitionLength = this.pageData.allCompetitionLength - this.pageData.selectCompetitionLength;
         this.ckeckAll();
     }
 
     onCountryClick(country_code: any) {
-        const length = this.selectCompetion[country_code].length;
+        const length = this.selectCompetition[country_code].length;
         const totalLength = this.allCompetition[country_code].length;
 
         if (this.selectCountry.includes(country_code)) {
-            this.selectCompetionLength += totalLength - length;
-            this.selectCompetion[country_code] = [...this.allCompetition[country_code]];
+            this.pageData.selectCompetitionLength += totalLength - length;
+            this.selectCompetition[country_code] = [...this.allCompetition[country_code]];
         } else {
-            this.selectCompetionLength -= length;
-            this.selectCompetion[country_code] = [];
+            this.pageData.selectCompetitionLength -= length;
+            this.selectCompetition[country_code] = [];
         }
         this.indeterminates[country_code] = false;
         this.ckeckAll();
     }
 
-    onCompetionClick(country_code: any, id: any) {
-        const length = this.selectCompetion[country_code].length;
+    onCompetitionClick(country_code: any, id: any) {
+        const length = this.selectCompetition[country_code].length;
         const totalLength = this.allCompetition[country_code].length;
 
-        this.selectCompetionLength = this.selectCompetion[country_code].includes(id)
-            ? this.selectCompetionLength + 1
-            : this.selectCompetionLength - 1;
+        this.pageData.selectCompetitionLength = this.selectCompetition[country_code].includes(id)
+            ? this.pageData.selectCompetitionLength + 1
+            : this.pageData.selectCompetitionLength - 1;
 
         if (length == 0) {
             this.indeterminates[country_code] = false;
@@ -183,23 +183,23 @@ export default class EventFilter extends AbstractView {
 
     onAll(val: boolean) {
         this.selectCountry = [];
-        this.selectCompetionLength = val ? this.allCompetitionLength : 0;
+        this.pageData.selectCompetitionLength = val ? this.pageData.allCompetitionLength : 0;
         if (val) {
             Object.keys(this.allCompetition).forEach((country_code) => {
                 this.selectCountry.push(country_code);
-                this.selectCompetion[country_code] = [...this.allCompetition[country_code]];
+                this.selectCompetition[country_code] = [...this.allCompetition[country_code]];
                 this.indeterminates[country_code] = false;
             });
         } else {
             Object.keys(this.allCompetition).forEach((country_code) => {
-                this.selectCompetion[country_code] = [];
+                this.selectCompetition[country_code] = [];
                 this.indeterminates[country_code] = false;
             });
         }
     }
 
     ckeckAll() {
-        this.selectAll = this.selectCompetionLength == this.allCompetitionLength;
+        this.selectAll = this.pageData.selectCompetitionLength == this.pageData.allCompetitionLength;
     }
 
     @Watch("myProxy.pageData.isOpenFilterIndexs")

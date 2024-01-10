@@ -13,7 +13,7 @@ function show() {
 function showByTag(tag: string) {
     show();
     const myProxy = getMyProxy();
-    myProxy.pageData.filterCompetion = null;
+    myProxy.pageData.filterCompetition = null;
     myProxy.listQueryComp.tag = tag;
     myProxy.api_event_list();
     if (tag == "love") return;
@@ -33,7 +33,7 @@ function showByCountry(country: string, competitions: string) {
 function showByCompetition(competition_id: number) {
     show();
     const myProxy = getMyProxy();
-    myProxy.pageData.filterCompetion = null;
+    myProxy.pageData.filterCompetition = null;
     myProxy.listQueryComp.competition_id = competition_id.toString();
     myProxy.api_event_list();
     // myProxy.api_menu_subnav();
