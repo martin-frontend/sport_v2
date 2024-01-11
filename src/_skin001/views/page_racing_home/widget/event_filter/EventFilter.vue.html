@@ -1,0 +1,83 @@
+<v-sheet class="rounded-lg mt-2 pb-2" color="bgBanner">
+    <v-sheet color="transparent" class="px-2 py-4 d-flex align-center">
+        <span class="font-weight-bold text-16 tagTextColor2--text">{{LangUtil('赛事赛选-联赛列表')}}</span>
+        <v-spacer></v-spacer>
+        <v-checkbox v-model="selectAll" @change="onAll" hide-details color="yellow1" dense class="mt-0 pt-0">
+            <template #label>
+                <span class="text-14 tagTextColor2--text">{{LangUtil('全选')}}</span>
+            </template>
+        </v-checkbox>
+        <v-checkbox v-model="selectReverse" @change="onReverse" hide-details color="yellow1" dense class="mt-0 pt-0 ml-6">
+            <template #label>
+                <span class="text-14 tagTextColor2--text">{{LangUtil('反选')}}</span>
+            </template>
+        </v-checkbox>
+    </v-sheet>
+    <v-expansion-panels v-model="sportPanel" elevation="0" accordion multiple>
+        <v-expansion-panel v-for="sportId of raceSportIds" :key="sportId" elevation="0" color="transparent" ripple>
+            <v-expansion-panel-header color="bgGray1" class="rounded-0">
+                <v-checkbox
+                    v-model="selectSport"
+                    :value="sportId"
+                    hide-details
+                    color="yellow1"
+                    dense
+                    class="mt-0 pt-0 ml-2"
+                    @click.stop="onSportClick(sportId)"
+                >
+                    <template #label>
+                        <!-- <span class="text-14 font-weight-bold tagTextColor2--text">{{item.country_name}}</span> -->
+                        <svg-icon :icon="sportIcon[sportId]" class="text-22 tagTextColor2--text"></svg-icon>
+                    </template>
+                </v-checkbox>
+            </v-expansion-panel-header>
+            <v-expansion-panel-content>
+                <v-expansion-panels v-model="panel[sportId]" elevation="0" accordion multiple>
+                    <v-expansion-panel v-for="(item, country_code) of items[sportId]" :key="country_code" elevation="0" color="transparent" ripple class="px-2">
+                        <v-expansion-panel-header class="rounded-0 bodder-bottom" style="height: 50px;">
+                            <v-checkbox
+                                v-model="selectCountry[sportId]"
+                                :value="country_code"
+                                hide-details
+                                color="yellow1"
+                                dense
+                                class="mt-0 pt-0 ml-8"
+                                :indeterminate="countryIndeterminates[sportId][country_code]"
+                                @click.stop="onCountryClick(sportId, country_code)"
+                            >
+                                <template #label>
+                                    <span class="text-14 font-weight-bold tagTextColor2--text">{{item.country_name}}</span>
+                                </template>
+                            </v-checkbox>
+                        </v-expansion-panel-header>
+                        <v-expansion-panel-content class="bodder-bottom">
+                            <v-row class="d-flex py-3 px-15">
+                                <v-col v-for="comp in item.competitions" :key="comp.id" cols="4">
+                                    <v-checkbox
+                                        v-model="selectCompetition[sportId][country_code]"
+                                        :value="comp.id"
+                                        hide-details
+                                        color="yellow1"
+                                        dense
+                                        class="mt-0 pt-0 ml-2"
+                                        @click="onCompetitionClick(sportId, country_code, comp.id)"
+                                    >
+                                        <template #label>
+                                            <span class="text-14 font-weight-bold tagTextColor2--text">{{comp.name}}</span>
+                                        </template>
+                                    </v-checkbox>
+                                </v-col>
+                            </v-row>
+                            <!-- <v-divider></v-divider> -->
+                        </v-expansion-panel-content>
+                    </v-expansion-panel>
+                </v-expansion-panels>
+            </v-expansion-panel-content>
+        </v-expansion-panel>
+    </v-expansion-panels>
+    <div class="d-flex justify-center mt-2">
+        <btn-yellow :disabled="pageData.selectCompetitionLength==0" class="text-16" height="36" width="104" @click.native="onSave">
+            {{LangUtil("确认")}}
+        </btn-yellow>
+    </div>
+</v-sheet>

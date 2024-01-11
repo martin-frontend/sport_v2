@@ -1,4 +1,5 @@
 import { objectRemoveNull } from "@/core/global/Functions";
+import LangUtil from "@/core/global/LangUtil";
 import net from "@/net/setting";
 import Vue from "vue";
 
@@ -21,6 +22,13 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         /**赛事进程 */
         event_states: <any>[],
         eventStatesByEventId: <any>{},
+        /**赛事赛选 */
+        isShowFilter: false,
+        /**打开的赛事赛选索引 */
+        isOpenFilterIndexs: true,
+        filterCompetition: <any>null,
+        selectCompetitionLength: 0,
+        allCompetitionLength: 0,
     };
     sportCheckBoxArr: any = [];
 
@@ -67,6 +75,12 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         // 记录所在位置
         unique: PageRacingHomeProxy.NAME,
     };
+
+    get filterCount() {
+        return this.pageData.selectCompetitionLength == this.pageData.allCompetitionLength
+            ? LangUtil("全部")
+            : this.pageData.selectCompetitionLength;
+    }
 
     init() {
         clearInterval(this.timer);
