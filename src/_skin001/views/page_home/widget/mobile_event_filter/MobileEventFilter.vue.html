@@ -9,8 +9,8 @@
     app
     temporary
 >
-    <v-sheet class="d-flex flex-column" color="bgBanner" height="100%" v-if="curSportNav">
-        <v-sheet class="py-4 px-2 d-flex align-center">
+    <v-sheet class="d-flex flex-column" color="filterHeaderBg" height="100%" v-if="curSportNav">
+        <v-sheet class="py-4 px-2 d-flex align-center" color="transparent">
             <span>{{LangUtil(curSportNav[curTag].name)}}</span>-
             <span class="font-weight-bold text-16 tagTextColor2--text">{{LangUtil('联赛赛选')}}</span>
             <v-spacer></v-spacer>
@@ -19,7 +19,7 @@
             </v-btn>
         </v-sheet>
         <v-divider></v-divider>
-        <v-sheet color="bgGray" class="scroll-div overflow-y-auto" style="flex: 1">
+        <v-sheet color="filterContentBg" class="scroll-div overflow-y-auto" style="flex: 1">
             <v-expansion-panels v-model="panel" accordion multiple>
                 <v-expansion-panel v-for="(item, country_code) of items" :key="country_code" class="mt-1">
                     <v-expansion-panel-header class="rounded-0 pr-4">
@@ -47,9 +47,10 @@
                             height="38"
                             class="d-flex rounded-lg align-center pl-2 mt-1"
                             :class="{'mt-2': index > 0}"
+                            color="filterPanelBg"
                         >
                             <v-img :src="item.icon" height="20" max-width="20" contain></v-img>
-                            <span class="text-13 tagTextColor1-text ml-2">{{comp.name}}</span>
+                            <span class="text-13 tagTextColor1--text ml-2">{{comp.name}}</span>
                             <v-spacer></v-spacer>
                             <v-checkbox
                                 v-model="selectCompetition[country_code]"
@@ -72,7 +73,7 @@
             </div>
         </v-sheet>
         <v-divider></v-divider>
-        <v-sheet color="bgBanner" class="d-flex align-center py-3 px-2">
+        <v-sheet color="filterBottomBg" class="d-flex align-center py-3 px-2">
             <v-btn
                 class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
                 :class="{'active': selectAll}"
