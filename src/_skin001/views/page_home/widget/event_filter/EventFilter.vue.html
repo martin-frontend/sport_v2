@@ -25,8 +25,7 @@
                     dense
                     class="mt-0 pt-0 ml-2"
                     :indeterminate="indeterminates[country_code]"
-                    @click.stop
-                    @click="onCountryClick(country_code)"
+                    @click.stop="onCountryClick(country_code)"
                 >
                     <template #label>
                         <span class="text-14 font-weight-bold tagTextColor2--text">{{item.country_name}}</span>

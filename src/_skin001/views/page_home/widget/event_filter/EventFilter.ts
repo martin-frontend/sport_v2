@@ -48,14 +48,22 @@ export default class EventFilter extends AbstractView {
         return [];
     }
 
-    created() {
-        this.init();
-        this.setData();
+    resetData() {
+        this.pageData.selectCompetitionLength = 0;
+        this.pageData.allCompetitionLength = 0;
+        this.items = {};
+        this.selectAll = true;
+        this.selectReverse = false;
+        this.selectCountry = [];
+        this.selectCompetition = {};
+        this.allCompetition = {};
+        this.indeterminates = {};
+        this.panel = [];
+        this.totalPanel = [];
+        this.items = {};
     }
 
     init() {
-        this.pageData.selectCompetitionLength = 0;
-        this.pageData.allCompetitionLength = 0;
         let index = 0;
         this.curCompetitions.forEach((item: any) => {
             let findIndex = -1;
@@ -219,5 +227,14 @@ export default class EventFilter extends AbstractView {
     @Watch("curTag")
     onWatchCurTag() {
         this.pageData.isShowFilter = false;
+    }
+
+    @Watch("pageData.isShowFilter", { immediate: true })
+    onWatchIsShowFilter(val: boolean) {
+        if (val) {
+            this.resetData();
+            this.init();
+            this.setData();
+        }
     }
 }
