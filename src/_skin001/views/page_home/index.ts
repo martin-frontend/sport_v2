@@ -13,7 +13,6 @@ function show() {
 function showByTag(tag: string) {
     show();
     const myProxy = getMyProxy();
-    myProxy.pageData.filterCompetition = null;
     myProxy.listQueryComp.tag = tag;
     myProxy.api_event_list();
     if (tag == "love") return;
@@ -33,7 +32,6 @@ function showByCountry(country: string, competitions: string) {
 function showByCompetition(competition_id: number) {
     show();
     const myProxy = getMyProxy();
-    myProxy.pageData.filterCompetition = null;
     myProxy.listQueryComp.competition_id = competition_id.toString();
     myProxy.api_event_list();
     // myProxy.api_menu_subnav();
@@ -59,6 +57,9 @@ function getMyProxy(): PageHomeProxy {
     myProxy.listQueryComp.keyword = "";
     myProxy.listQueryComp.competition_id = "";
     myProxy.listQueryComp.tag = "";
+    myProxy.pageData.filterCompetition = null;
+    myProxy.pageData.selectCompetitionLength = 0;
+    myProxy.pageData.allCompetitionLength = 0;
     return myProxy;
 }
 

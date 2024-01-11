@@ -164,4 +164,8 @@ export default class PageHome extends AbstractView {
     get curSportNav() {
         return this.new_menu_subnav[this.listQueryComp.sport_id];
     }
+
+    onFilter() {
+        this.myProxy.pageData.isShowFilter = !this.myProxy.pageData.isShowFilter;
+    }
 }

@@ -129,6 +129,17 @@
                 <v-spacer />
                 <svg-icon icon="search" @click.native="onSearch"></svg-icon>
             </v-sheet>
+            <v-sheet
+                v-if="listQueryComp.tag && listQueryComp.tag != 'love'"
+                class="d-flex align-center justify-center ml-2 rounded-10 textGray--text btnbox px-2 text-14"
+                color="bgPage"
+                v-ripple
+                height="30"
+                max-width="80"
+                @click="onFilter"
+            >
+                <span class="bgColor1--text text-truncate"> {{LangUtil("赛事筛选")}} </span>
+            </v-sheet>
             <div class="mx-2">
                 <v-menu nudge-bottom="4" offset-y>
                     <template v-slot:activator="{ on, attrs }">
