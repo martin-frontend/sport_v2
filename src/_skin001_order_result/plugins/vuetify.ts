@@ -17,6 +17,8 @@ export function getVuetify(): Vuetify {
                         item_bg: "#ffffff",
                         textGray: "#5d5d5d",
                         blue: "#0325b4",
+                        win:"#138723",
+                        lose:"#ff0f0e",
                     },
                     dark: {
                         primary: "#fff",
@@ -25,6 +27,8 @@ export function getVuetify(): Vuetify {
                         item_bg: "#272828",
                         textGray: "#8e8f91",
                         blue: "#5d7eff",
+                        win:"#138723",
+                        lose:"#ff0f0e",
                     },
                 },
                 dark: false,
