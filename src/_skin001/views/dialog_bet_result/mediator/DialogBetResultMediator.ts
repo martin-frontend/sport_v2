@@ -80,10 +80,10 @@ export default class DialogBetResultMediator extends AbstractMediator {
 
                         if (item && item.code && item.message) {
                             Vue.notify({ group: "message", title: item.message });
-                        } else if (!item.order_no || item.order_no == "-") {
-                            item = JSON.parse(JSON.stringify(item));
-                            item.status = 4;
-                            item.statusMsg = "赔率已失效";
+                        // } else if (!item.order_no || item.order_no == "-") {
+                        //     item = JSON.parse(JSON.stringify(item));
+                        //     item.status = 4;
+                        //     item.statusMsg = "赔率已失效";
                         }
                         const data: any = {};
                         Object.assign(data, item);
