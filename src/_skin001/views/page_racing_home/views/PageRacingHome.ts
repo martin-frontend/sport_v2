@@ -89,7 +89,6 @@ export default class PageRacingHome extends AbstractView {
 
     onTagClick(tag: any) {
         this.myProxy.listQueryComp.tag = tag;
-        this.pageData.filterCompetition = {};
         page_racing_home.showBySport(this.myProxy.sportCheckBoxArr.toString(), tag);
     }
 

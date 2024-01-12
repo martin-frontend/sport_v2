@@ -230,18 +230,12 @@ export default class EventFilter extends AbstractView {
         this.sportIds.forEach((sportId: any) => {
             this.selectCountry[sportId] = [];
             this.pageData.selectCompetitionLength = val ? this.pageData.allCompetitionLength : 0;
-            if (val) {
-                Object.keys(this.allCompetition[sportId]).forEach((country_code) => {
-                    this.selectCountry[sportId].push(country_code);
-                    this.selectCompetition[sportId][country_code] = [...this.allCompetition[sportId][country_code]];
-                    this.countryIndeterminates[sportId][country_code] = false;
-                });
-            } else {
-                Object.keys(this.allCompetition).forEach((country_code) => {
-                    this.selectCompetition[sportId][country_code] = [];
-                    this.countryIndeterminates[sportId][country_code] = false;
-                });
-            }
+
+            Object.keys(this.allCompetition[sportId]).forEach((country_code) => {
+                this.selectCompetition[sportId][country_code] = val ? [...this.allCompetition[sportId][country_code]] : [];
+                this.checkCountry(sportId, country_code);
+            });
+            this.checkSport(sportId);
         });
     }
 
@@ -286,22 +280,21 @@ export default class EventFilter extends AbstractView {
     @Watch("curSportId")
     onWatchCurSportId() {
         this.pageData.isShowFilter = false;
+        this.pageData.filterCompetition = {};
     }
 
     @Watch("curTag")
     onWatchCurTag() {
         this.pageData.isShowFilter = false;
+        this.pageData.filterCompetition = {};
         this.init();
     }
 
-    // @Watch("pageData.isShowFilter", { immediate: true })
-    // onWatchIsShowFilter(val: boolean) {
-    //     if (val) {
-    //         this.resetData();
-    //         this.init();
-    //         this.setData();
-    //     }
-    // }
+    @Watch("pageData.isShowFilter", { immediate: true })
+    onWatchIsShowFilter() {
+        this.init();
+        this.setData();
+    }
 
     @Watch("sportIds", { deep: true })
     onWatchSportIds() {
