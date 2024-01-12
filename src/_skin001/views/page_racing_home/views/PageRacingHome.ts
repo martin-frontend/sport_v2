@@ -89,6 +89,7 @@ export default class PageRacingHome extends AbstractView {
 
     onTagClick(tag: any) {
         this.myProxy.listQueryComp.tag = tag;
+        this.pageData.filterCompetition = {};
         page_racing_home.showBySport(this.myProxy.sportCheckBoxArr.toString(), tag);
     }
 
@@ -123,9 +124,8 @@ export default class PageRacingHome extends AbstractView {
 
     getTableData(sportId: number) {
         const item = this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
-        console.warn("--item----", item);
+        // console.warn("--item----", item);
         return item;
-        // return this.pageData.competition_list.filter((item: any) => item.sport_id == sportId);
     }
 
     //搜寻
@@ -136,6 +136,10 @@ export default class PageRacingHome extends AbstractView {
     // 打开热门直播页
     goLiveList() {
         page_live_list.show();
+    }
+
+    onFilter() {
+        this.myProxy.pageData.isShowFilter = !this.myProxy.pageData.isShowFilter;
     }
 
     destroyed() {

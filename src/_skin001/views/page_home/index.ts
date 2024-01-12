@@ -57,6 +57,9 @@ function getMyProxy(): PageHomeProxy {
     myProxy.listQueryComp.keyword = "";
     myProxy.listQueryComp.competition_id = "";
     myProxy.listQueryComp.tag = "";
+    myProxy.pageData.filterCompetition = null;
+    myProxy.pageData.selectCompetitionLength = 0;
+    myProxy.pageData.allCompetitionLength = 0;
     return myProxy;
 }
 

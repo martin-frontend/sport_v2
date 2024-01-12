@@ -1,0 +1,48 @@
+::v-deep .v-expansion-panel-header:not(.v-expansion-panel-header--mousedown):focus:before {
+    opacity: 0;
+}
+::v-deep .v-expansion-panel-header > :not(.v-expansion-panel-header__icon) {
+    flex: none;
+}
+::v-deep .theme--dark.v-expansion-panels .v-expansion-panel,
+::v-deep .theme--light.v-expansion-panels .v-expansion-panel {
+    background-color: transparent;
+}
+::v-deep .v-expansion-panel:before {
+    box-shadow: unset !important;
+}
+::v-deep .v-expansion-panel-content__wrap {
+    padding: 0 8px;
+}
+.v-navigation-drawer--bottom.v-navigation-drawer--is-mobile {
+    max-height: 90%;
+}
+
+.tag-btn1 {
+    border-color: #d6dde3;
+    background-color: #fff;
+    opacity: 0.8;
+    &::before {
+        background-color: transparent !important;
+    }
+    &.active {
+        color: #0f1213 !important;
+        border-color: #febc08;
+        opacity: 1;
+    }
+}
+.theme--dark {
+    .tag-btn1 {
+        border-color: #3e3f41;
+        background-color: #383839;
+        color: #fff;
+        &.active {
+            color: #fff !important;
+            border-color: #febc08;
+        }
+    }
+}
+::v-deep .header-checkbox .v-input__slot {
+    display: flex;
+    flex-direction: row-reverse;
+}

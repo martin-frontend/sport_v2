@@ -77,6 +77,9 @@
         <NotifyMessage />
         <!-- 订单状态返回消息框 -->
         <NotifyOrderFinished />
+        <!-- 赛事筛选 -->
+        <HomeMobileEventFilter v-if="$vuetify.breakpoint.mobile" />
+        <RaceMobileEventFilter v-if="$vuetify.breakpoint.mobile" />
         <!-- loading 遮罩 -->
         <!-- <overlay v-model="GlobalVar.loading" /> -->
         <!-- loading 遮罩 不可见 -->
@@ -102,6 +105,8 @@ import { removeClass } from "@/core/global/Functions";
 import DialogSetting from "./views/dialog_setting/views/DialogSetting.vue";
 import HeaderNav from "./views/header/widget/header_nav/HeaderNav.vue";
 import HomeMobileHeader from "./views/page_home/widget/home_mobile_header/HomeMobileHeader.vue";
+import HomeMobileEventFilter from "./views/page_home/widget/mobile_event_filter/MobileEventFilter.vue";
+import RaceMobileEventFilter from "./views/page_racing_home/widget/mobile_event_filter/MobileEventFilter.vue";
 @Component({
     components: {
         Header,
@@ -115,6 +120,8 @@ import HomeMobileHeader from "./views/page_home/widget/home_mobile_header/HomeMo
         DialogSetting,
         HeaderNav,
         HomeMobileHeader,
+        HomeMobileEventFilter,
+        RaceMobileEventFilter,
     },
 })
 export default class extends APP {
