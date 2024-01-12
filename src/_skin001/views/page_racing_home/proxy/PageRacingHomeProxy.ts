@@ -26,7 +26,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         isShowFilter: false,
         /**打开的赛事赛选索引 */
         isOpenFilterIndexs: true,
-        filterCompetition: <any>null,
+        filterCompetition: <any>{},
         selectCompetitionLength: 0,
         allCompetitionLength: 0,
     };
@@ -163,6 +163,17 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         // this.pageData.marketListByEventId = {};
         // this.pageData.eventStatesByEventId = {};
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
+
+        if (this.pageData.filterCompetition) {
+            const arr: any = [];
+            Object.keys(this.pageData.filterCompetition).forEach((key) => {
+                if (!this.listQueryComp.sport_id.includes(key)) return;
+                const competitions = this.pageData.filterCompetition[key];
+                Object.values(competitions).forEach((id) => arr.push(id));
+            });
+            this.listQueryComp.competition_id = arr.toString();
+        }
+
         // 清除将重新查询的sport
         this.pageData.competition_list = this.pageData.competition_list.filter(
             (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)

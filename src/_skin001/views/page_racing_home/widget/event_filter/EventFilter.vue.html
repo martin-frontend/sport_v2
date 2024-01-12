@@ -14,7 +14,7 @@
         </v-checkbox>
     </v-sheet>
     <v-expansion-panels v-model="sportPanel" elevation="0" accordion multiple>
-        <v-expansion-panel v-for="sportId of raceSportIds" :key="sportId" elevation="0" color="transparent" ripple>
+        <v-expansion-panel v-for="sportId of sportIds" :key="sportId" elevation="0" color="transparent" ripple>
             <v-expansion-panel-header color="bgGray1" class="rounded-0">
                 <v-checkbox
                     v-model="selectSport"
@@ -23,6 +23,7 @@
                     color="yellow1"
                     dense
                     class="mt-0 pt-0 ml-2"
+                    :indeterminate="sportIndeterminates[sportId]"
                     @click.stop="onSportClick(sportId)"
                 >
                     <template #label>
@@ -33,8 +34,15 @@
             </v-expansion-panel-header>
             <v-expansion-panel-content>
                 <v-expansion-panels v-model="panel[sportId]" elevation="0" accordion multiple>
-                    <v-expansion-panel v-for="(item, country_code) of items[sportId]" :key="country_code" elevation="0" color="transparent" ripple class="px-2">
-                        <v-expansion-panel-header class="rounded-0 bodder-bottom" style="height: 50px;">
+                    <v-expansion-panel
+                        v-for="(item, country_code) of items[sportId]"
+                        :key="country_code"
+                        elevation="0"
+                        color="transparent"
+                        ripple
+                        class="px-2"
+                    >
+                        <v-expansion-panel-header class="rounded-0 bodder-bottom" style="height: 50px">
                             <v-checkbox
                                 v-model="selectCountry[sportId]"
                                 :value="country_code"
@@ -75,7 +83,7 @@
             </v-expansion-panel-content>
         </v-expansion-panel>
     </v-expansion-panels>
-    <div class="d-flex justify-center mt-2">
+    <div class="d-flex justify-center mt-4">
         <btn-yellow :disabled="pageData.selectCompetitionLength==0" class="text-16" height="36" width="104" @click.native="onSave">
             {{LangUtil("确认")}}
         </btn-yellow>

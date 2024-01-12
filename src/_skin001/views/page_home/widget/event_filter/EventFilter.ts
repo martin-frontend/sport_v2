@@ -64,6 +64,7 @@ export default class EventFilter extends AbstractView {
     }
 
     init() {
+        this.resetData();
         let index = 0;
         this.curCompetitions.forEach((item: any) => {
             let findIndex = -1;
@@ -106,14 +107,7 @@ export default class EventFilter extends AbstractView {
                         this.pageData.selectCompetitionLength++;
                     }
                 });
-                const length = this.selectCompetition[country_code].length;
-                const totalLength = this.allCompetition[country_code].length;
-                if (length > 0 && length < totalLength) {
-                    this.indeterminates[country_code] = true;
-                }
-                if (length == 0) {
-                    this.selectCountry = this.selectCountry.filter((countryCode: any) => countryCode != country_code);
-                }
+                this.checkCountry(country_code);
             });
             this.ckeckAll();
         }
@@ -133,14 +127,8 @@ export default class EventFilter extends AbstractView {
                     arr.push(id);
                 }
             });
-            if (arr.length == 0) {
-                this.selectCountry = this.selectCountry.filter((item: any) => item != country_code);
-            } else {
-                if (!this.selectCountry.includes(country_code)) {
-                    this.selectCountry.push(country_code);
-                }
-            }
             this.selectCompetition[country_code] = arr;
+            this.checkCountry(country_code);
         });
 
         this.pageData.selectCompetitionLength = this.pageData.allCompetitionLength - this.pageData.selectCompetitionLength;
@@ -148,44 +136,32 @@ export default class EventFilter extends AbstractView {
     }
 
     onCountryClick(country_code: any) {
+        const checkBoxVal = this.selectCountry.includes(country_code);
+
         const length = this.selectCompetition[country_code].length;
         const totalLength = this.allCompetition[country_code].length;
 
-        if (this.selectCountry.includes(country_code)) {
+        if (checkBoxVal) {
             this.pageData.selectCompetitionLength += totalLength - length;
-            this.selectCompetition[country_code] = [...this.allCompetition[country_code]];
         } else {
             this.pageData.selectCompetitionLength -= length;
-            this.selectCompetition[country_code] = [];
         }
+
+        this.selectCompetition[country_code] = checkBoxVal ? [...this.allCompetition[country_code]] : [];
+
         this.indeterminates[country_code] = false;
+
         this.ckeckAll();
     }
 
     onCompetitionClick(country_code: any, id: any) {
-        const length = this.selectCompetition[country_code].length;
-        const totalLength = this.allCompetition[country_code].length;
+        const checkBoxVal = this.selectCompetition[country_code].includes(id);
 
-        this.pageData.selectCompetitionLength = this.selectCompetition[country_code].includes(id)
+        this.pageData.selectCompetitionLength = checkBoxVal
             ? this.pageData.selectCompetitionLength + 1
             : this.pageData.selectCompetitionLength - 1;
 
-        if (length == 0) {
-            this.indeterminates[country_code] = false;
-            this.selectCountry = this.selectCountry.filter((item: any) => item != country_code);
-        } else {
-            if (length == totalLength) {
-                this.indeterminates[country_code] = false;
-                if (!this.selectCountry.includes(country_code)) {
-                    this.selectCountry.push(country_code);
-                }
-            } else {
-                if (!this.selectCountry.includes(country_code)) {
-                    this.selectCountry.push(country_code);
-                }
-                this.indeterminates[country_code] = true;
-            }
-        }
+        this.checkCountry(country_code);
         this.ckeckAll();
     }
 
@@ -203,6 +179,21 @@ export default class EventFilter extends AbstractView {
                 this.selectCompetition[country_code] = [];
                 this.indeterminates[country_code] = false;
             });
+        }
+    }
+
+    checkCountry(country_code: any) {
+        const competitionLength = this.selectCompetition[country_code].length;
+        const totalCompetitionLength = this.allCompetition[country_code].length;
+
+        this.indeterminates[country_code] = competitionLength > 0 && competitionLength < totalCompetitionLength;
+
+        if (competitionLength > 0) {
+            if (!this.selectCountry.includes(country_code)) {
+                this.selectCountry.push(country_code);
+            }
+        } else {
+            this.selectCountry = this.selectCountry.filter((countryCode: any) => countryCode != country_code);
         }
     }
 
@@ -232,9 +223,12 @@ export default class EventFilter extends AbstractView {
     @Watch("pageData.isShowFilter", { immediate: true })
     onWatchIsShowFilter(val: boolean) {
         if (val) {
-            this.resetData();
             this.init();
             this.setData();
         }
+    }
+
+    destroyed() {
+        this.pageData.isShowFilter = false;
     }
 }
