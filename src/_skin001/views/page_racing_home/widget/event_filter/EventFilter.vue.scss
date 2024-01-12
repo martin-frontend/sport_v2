@@ -16,3 +16,8 @@
 .bodder-bottom {
     border-bottom: 1px solid #0000001f;
 }
+.theme--dark {
+    .bodder-bottom {
+        border-color: #3e3f41;
+    }
+}
