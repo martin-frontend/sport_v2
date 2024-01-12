@@ -4,6 +4,7 @@ import LangUtil from "@/core/global/LangUtil";
 import SettingProxy from "@/proxy/SettingProxy";
 import PageHomeProxy from "../../proxy/PageHomeProxy";
 import NavigationProxy from "@/_skin001/views/navigation/proxy/NavigationProxy";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class EventFilter extends AbstractView {
@@ -22,6 +23,7 @@ export default class EventFilter extends AbstractView {
     panel: number[] = [];
     totalPanel: number[] = [];
     items = <any>{};
+    isRaceEvent = SportUtil.isRaceEvent;
 
     get curSportId() {
         return this.listQueryComp.sport_id;

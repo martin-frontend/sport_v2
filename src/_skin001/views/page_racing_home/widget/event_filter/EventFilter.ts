@@ -30,6 +30,7 @@ export default class EventFilter extends AbstractView {
     // totalPanel: any = {};
     items = <any>{};
     sportIcon = Assets.SportIcon;
+    isRaceEvent = SportUtil.isRaceEvent;
 
     get curSportId() {
         return this.homeProxy.listQueryComp.sport_id;
@@ -46,8 +47,10 @@ export default class EventFilter extends AbstractView {
     getSportNav(sportId: any) {
         return this.navProxy.pageData.new_menu_subnav[sportId];
     }
+
     getCompetitions(sportId: any) {
         const { tag } = this.listQueryComp;
+        if (!tag) return [];
         return this.getSportNav(sportId)[tag].competitions;
     }
 

@@ -9,9 +9,10 @@
     app
     temporary
 >
-    <v-sheet class="d-flex flex-column" color="filterHeaderBg" height="100%" v-if="curSportNav">
+    <v-sheet class="d-flex flex-column" color="filterHeaderBg" height="100%" v-if="isRaceEvent(curSportId) && sportIcon[curSportId]">
         <v-sheet class="py-4 px-2 d-flex align-center" color="transparent">
-            <span>{{LangUtil(curSportNav[curTag].name)}}</span>-
+            <svg-icon :icon="sportIcon[curSportId]" class="text-22 tagTextColor2--text"></svg-icon>
+            -
             <span class="font-weight-bold text-16 tagTextColor2--text">{{LangUtil('联赛赛选')}}</span>
             <v-spacer></v-spacer>
             <v-btn plain fab x-small @click="pageData.isShowFilter = false">
@@ -20,20 +21,19 @@
         </v-sheet>
         <v-divider></v-divider>
         <v-sheet color="filterContentBg" class="scroll-div overflow-y-auto" style="flex: 1">
-            <v-expansion-panels v-model="panel" accordion multiple>
-                <v-expansion-panel v-for="(item, country_code) of items" :key="country_code" class="mt-1">
+            <v-expansion-panels v-model="panel[curSportId]" accordion multiple>
+                <v-expansion-panel v-for="(item, country_code) of items[curSportId]" :key="country_code" class="mt-1">
                     <v-expansion-panel-header class="rounded-0 pr-4">
                         <v-sheet class="ml10" width="2" height="16" color="yellow1" rounded></v-sheet>
                         <v-checkbox
-                            v-model="selectCountry"
+                            v-model="selectCountry[curSportId]"
                             :value="country_code"
                             hide-details
                             color="yellow1"
                             dense
                             class="mt-0 pt-0 ml-2 header-checkbox"
-                            :indeterminate="indeterminates[country_code]"
-                            @click.stop
-                            @click="onCountryClick(country_code)"
+                            :indeterminate="countryIndeterminates[curSportId][country_code]"
+                            @click.stop="onCountryClick(curSportId,country_code)"
                         >
                             <template #label>
                                 <span class="text-14 font-weight-bold tagTextColor2--text mr-1">{{item.country_name}}</span>
@@ -53,13 +53,13 @@
                             <span class="text-13 tagTextColor1--text ml-2">{{comp.name}}</span>
                             <v-spacer></v-spacer>
                             <v-checkbox
-                                v-model="selectCompetition[country_code]"
+                                v-model="selectCompetition[curSportId][country_code]"
                                 :value="comp.id"
                                 hide-details
                                 color="yellow1"
                                 dense
                                 class="mt-0 pt-0 ml-2"
-                                @click="onCompetitionClick(country_code, comp.id)"
+                                @click="onCompetitionClick(curSportId, country_code, comp.id)"
                             >
                             </v-checkbox>
                         </v-sheet>
