@@ -15,6 +15,7 @@ export default class PageOrderDetail extends AbstractView {
     getDateByTimeZone = getDateByTimeZone;
     getResponseIcon = getResponseIcon;
     myProxy: CompetionResultProxy = getProxy(CompetionResultProxy);
+    pageData = this.myProxy.pageData;
     GlobalVar = GlobalVar;
     bShowDateSelect = false;
     nowtime = this.myProxy.nowtime;
@@ -31,7 +32,8 @@ export default class PageOrderDetail extends AbstractView {
 
     mounted() {
         if (this.$vuetify.breakpoint.mobile) {
-            this.myProxy.init();
+            // this.myProxy.init();
+            this.myProxy.api_event_sports();
         } else {
             this.myProxy.api_public_plat_config();
         }
@@ -45,7 +47,7 @@ export default class PageOrderDetail extends AbstractView {
     onSelectDate() {
         const menu: any = this.$refs.menu;
         menu.save(this.myProxy.selectDate);
-        this.myProxy.init();
+        this.myProxy.api_event_result_v2();
     }
     split_goals(goals: string) {
         const goalarr = goals.split("-");
@@ -62,5 +64,18 @@ export default class PageOrderDetail extends AbstractView {
         if (isopen) {
             hearder.style.backgroundColor = "#ffff";
         }
+    }
+    onSportChange() {
+        this.myProxy.listQuery.page_count = 1;
+        this.pageData.competition_list = [];
+        this.myProxy.init();
+    }
+    onfresh() {
+        if (!this.myProxy.selectDate || !this.myProxy.selectDate[0] || !this.myProxy.selectDate[1]) {
+            return;
+        }
+        this.myProxy.listQuery.page_count = 1;
+        this.pageData.competition_list = [];
+        this.myProxy.api_event_result_v2();
     }
 }

@@ -16,10 +16,10 @@
     transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
 }
 .def-border {
-    border: 2px solid #e8e8e2;
+    border: 1px solid #e8e8e2;
 }
 .theme--dark .def-border {
-    border: 2px solid #333435;
+    border: 1px solid #333435;
 }
 
 .teamImg {
@@ -76,4 +76,71 @@
 }
 .inheritcolor {
     background-color: inherit !important;
+}
+::v-deep .v-expansion-panel-content__wrap {
+    padding: 0;
+}
+::v-deep .v-text-field.v-text-field--solo.v-input--dense > .v-input__control {
+    min-height: 36px;
+}
+
+::v-deep .theme--dark {
+    .el-input__inner,
+    .datebutton {
+        background-color: #2f3030 !important;
+        border-radius: 8px !important;
+        border: none;
+        color: #8e8f91;
+    }
+
+    .el-input__inner::placeholder {
+        color: #8e8f91;
+    }
+
+    .el-range-input {
+        color: #8e8f91;
+        width: auto;
+    }
+
+    .sport-select.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+        box-shadow: unset;
+        background: #2f3030;
+    }
+    .v-select .v-select__selections,
+    .v-select__slot .v-icon {
+        color: #8e8f91;
+    }
+}
+
+::v-deep .theme--light {
+    .el-input__inner,
+    .datebutton {
+        background-color: #f4f4f4 !important;
+        // background-color: transparent !important;
+        border-radius: 8px !important;
+        border: none;
+        color: #8e8f91;
+    }
+
+    .el-input__inner::placeholder {
+        color: #8e8f91;
+    }
+
+    .el-range-input {
+        color: #8e8f91;
+        width: auto;
+    }
+
+    .el-range__close-icon {
+        color: #8e8f91;
+    }
+
+    .sport-select.v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+        box-shadow: unset;
+        background: #f4f4f4;
+    }
+    .v-select .v-select__selections,
+    .v-select__slot .v-icon {
+        color: #8e8f91;
+    }
 }
