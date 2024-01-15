@@ -13,7 +13,7 @@
         <v-sheet class="py-4 px-2 d-flex align-center" color="transparent">
             <svg-icon :icon="sportIcon[curSportId]" class="text-22 tagTextColor2--text"></svg-icon>
             -
-            <span class="font-weight-bold text-16 tagTextColor2--text">{{LangUtil('联赛赛选')}}</span>
+            <span class="font-weight-bold text-16 tagTextColor2--text">{{LangUtil('联赛列表')}}</span>
             <v-spacer></v-spacer>
             <v-btn plain fab x-small @click="pageData.isShowFilter = false">
                 <svg-icon class="text-16 textTitle" icon="close"></svg-icon>
@@ -94,11 +94,7 @@
             >
                 <span class="text-12 d-flex align-center"> {{ LangUtil("反选") }} </span>
             </v-btn>
-            <span class="text-13 tagTextColor2--text">
-                {{ LangUtil("已选择") }}
-                <span class="red--text">{{myProxy.filterCount}}</span>
-                {{ LangUtil("场赛事") }}
-            </span>
+            <span class="text-13 tagTextColor2--text"> {{pageData.selectCompetitionLength}} {{ LangUtil("联赛") }} </span>
         </v-sheet>
     </v-sheet>
 </v-navigation-drawer>
