@@ -4,11 +4,13 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import CompetionResult from "./CompetionResult";
-
 import PageGameResults from "../widget/page_game_results/views/PageGameResults.vue";
+import PageRaceResults from "../widget/page_race_results/views/PageRaceResults.vue";
+
 @Component({
     components: {
         PageGameResults,
+        PageRaceResults,
     },
 })
 export default class extends CompetionResult {

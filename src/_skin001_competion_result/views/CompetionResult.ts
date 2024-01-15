@@ -7,6 +7,7 @@ import getProxy from "@/core/global/getProxy";
 import GlobalVar from "@/core/global/GlobalVar";
 import { getQueryVariable } from "@/core/global/Functions";
 import { getResponseIcon, amountFormat, dateFormat, formatEventTime, getDateByTimeZone } from "@/core/global/Functions";
+import SportUtil from "@/core/global/SportUtil";
 
 @Component
 export default class PageOrderDetail extends AbstractView {
@@ -26,6 +27,7 @@ export default class PageOrderDetail extends AbstractView {
         sign: getQueryVariable("sign"),
         token: getQueryVariable("t") || GlobalVar.token || "",
     };
+    isRaceEvent = SportUtil.isRaceEvent;
     constructor() {
         super(CompetionResultMediator);
     }

@@ -1,0 +1,19 @@
+<v-sheet ref="divScroll" class="py-4 d-flex" height="80">
+    <template v-if="states && markets">
+        <div v-for="item of ranking" :key="item" class="text-center text-14 tagTextColor1--text" style="flex: 1">
+            <div v-if="placings">{{rankOptions[placings[item]].title}}</div>
+            <div class="d-flex justify-center mt-1">
+                <v-sheet
+                    class="rounded d-flex align-center justify-center"
+                    width="25"
+                    height="20"
+                    :color="rankOptions[placings[item]].color"
+                >
+                    <span class="white--text text-12 font-weight-bold"> {{placings[item]}} </span>
+                </v-sheet>
+                <span class="ml-2"> {{item}}. </span>
+                <span v-if="getSelections(item)" class="ml-1">{{getSelections(item).name}}</span>
+            </div>
+        </div>
+    </template>
+</v-sheet>

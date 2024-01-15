@@ -79,6 +79,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         this.pageData.competition_list = [];
         this.pageData.length = 0;
         GlobalVar.loading = false;
+        delete data.requestData;
         this.pageData.competition_list = data;
         this.pageData.length = data.length;
 
