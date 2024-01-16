@@ -37,7 +37,7 @@ export default class NetObserver extends AbstractMediator {
             net.EventType.api_user_precashout,
             net.EventType.api_user_cashout,
 
-            net.EventType.REQUEST_ERROR,
+            NotificationName.BET_FIX_ERROR,
         ];
     }
 
@@ -255,7 +255,7 @@ export default class NetObserver extends AbstractMediator {
                     // orderUnsettledProxy.init(orderUnsettledProxy.listQuery.cash_out_status);
                 }
                 break;
-            case net.EventType.REQUEST_ERROR:
+            case NotificationName.BET_FIX_ERROR:
                 if (body && body.config && body.config.url == net.HttpType.api_user_betfix_v3) {
                     const betProxy: BetProxy = getProxy(BetProxy);
                     betProxy.pageData.loading = false;
