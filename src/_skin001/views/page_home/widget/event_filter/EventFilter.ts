@@ -33,6 +33,19 @@ export default class EventFilter extends AbstractView {
         return this.listQueryComp.tag;
     }
 
+    get tagName() {
+        const { tag } = this.listQueryComp;
+        if (tag) {
+            if (["inplay", "today", "future"].includes(tag)) {
+                return this.curSportNav[tag].name;
+            } else {
+                const findItem = this.curSportNav.tags.find((item: any) => item.tag == tag);
+                return findItem.name;
+            }
+        }
+        return "";
+    }
+
     get curSportNav() {
         return this.navProxy.pageData.new_menu_subnav[this.curSportId];
     }

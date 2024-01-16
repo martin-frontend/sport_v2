@@ -120,12 +120,14 @@
         </v-sheet>
         <!-- 搜索 -->
         <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2 mt-2" color="bgBanner">
-            <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" max-width="220" width="100%" height="30">
+            <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" height="30" width="100%" max-width="200">
                 <v-form @submit.prevent="onSearch" class="d-flex align-center">
                     <input
+                        v-model="listQueryComp.keyword"
+                        ref="comp-input"
                         class="text-14 text-truncate bgColor1--text"
                         :placeholder="LangUtil('搜索联赛')"
-                        v-model="listQueryComp.keyword"
+                        style="width: 150px"
                     />
                 </v-form>
                 <v-spacer />
@@ -135,12 +137,12 @@
                 v-if="listQueryComp.tag"
                 class="d-flex align-center rounded-10 px10 textGray--text ml-2 text-14"
                 color="bgPage"
-                max-width="100"
                 height="30"
                 @click="onFilter"
             >
                 <span class="text-truncate"> {{LangUtil("赛事筛选")}} </span>
             </v-sheet>
+            <v-spacer />
             <svg-icon @click.native="goLiveList" class="text-20 ml-2" icon="live1_"></svg-icon>
         </v-sheet>
 

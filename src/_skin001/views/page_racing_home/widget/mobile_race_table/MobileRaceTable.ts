@@ -92,6 +92,7 @@ export default class MobileRaceTable extends AbstractView {
         // }
         // return str;
     }
+
     getRankingArr(event_id: number) {
         const placings = this.getStates(event_id)?.results?.placings;
 
@@ -103,16 +104,12 @@ export default class MobileRaceTable extends AbstractView {
             keyValueArray.sort((a: any, b: any) => a[1] - b[1]);
 
             const arr: any = [];
-            keyValueArray.forEach((item: any, index) => {
-                if (item[1] < 4) {
-                    // 名次与前一个相同的加-
-                    if (index != 0 && item[1] == keyValueArray[index - 1][1]) {
-                        const pre = arr.pop();
-                        arr.push(pre + "-" + item[0]);
-                    } else {
-                        arr.push(item[0]);
-                    }
-                }
+            // 只取前三名
+            let rank = [1, 2, 3];
+            rank.forEach((r) => {
+                const filter = keyValueArray.filter((item) => item[1] == r);
+                const ids = filter.map((item) => item[0]);
+                arr.push([...ids]);
             });
             return arr;
         }
