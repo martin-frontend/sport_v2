@@ -5,6 +5,7 @@ import { EnumPostMessage } from "@/enum/EnumPostMessage";
 import dialog_message_box from "../views/dialog_message_box";
 import net from "@/net/setting";
 import PlatConfig from "@/core/config/PlatConfig";
+import NotificationName from "@/core/NotificationName";
 
 export default class RequestEndCMD extends puremvc.SimpleCommand {
     execute(notification: puremvc.INotification) {
@@ -65,7 +66,10 @@ export default class RequestEndCMD extends puremvc.SimpleCommand {
             Vue.notify({ group: "message", title: LangUtil(body.data.msg) });
         }
         if (status != 0) {
-            this.sendNotification(net.EventType.REQUEST_ERROR, body);
+            // this.sendNotification(net.EventType.REQUEST_ERROR, body);
+            if (body && body.config && body.config.url == net.HttpType.api_user_betfix_v3) {
+                this.sendNotification(NotificationName.BET_FIX_ERROR, body);
+            }
         }
     }
 }
