@@ -11,7 +11,7 @@
 >
     <v-sheet class="d-flex flex-column" color="filterHeaderBg" height="100%" v-if="!isRaceEvent(curSportId) && curSportNav && curTag">
         <v-sheet class="py-4 px-2 d-flex align-center" color="transparent">
-            <span>{{LangUtil(curSportNav[curTag].name)}}</span>-
+            <span>{{LangUtil(tagName)}}</span>-
             <span class="font-weight-bold text-16 tagTextColor2--text">{{LangUtil('联赛列表')}}</span>
             <v-spacer></v-spacer>
             <v-btn plain fab x-small @click="pageData.isShowFilter = false">
