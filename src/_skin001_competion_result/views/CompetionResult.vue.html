@@ -181,13 +181,15 @@
                                             <template v-slot:default="{ open }">
                                                 <v-row no-gutters>
                                                     <v-col cols="5" class="d-flex justify-space-between">
-                                                        <span class="btnPlain--text font-weight-bold mx-4">
+                                                        <span class="mx-4">
                                                             {{transTime(matche.start_time_timestamp)}}</span
                                                         >
-                                                        <div class="text-center" style="flex: 1">{{key2}} {{matche.event_name}}</div>
+                                                        <div class="text-center tagTextColor1--text" style="flex: 1">
+                                                            {{key2}} {{matche.event_name}}
+                                                        </div>
                                                     </v-col>
                                                     <v-col cols="2" class="text-center">
-                                                        {{LangUtil("比赛名次")}}：
+                                                        <span class="tagTextColor1--text"> {{LangUtil("比赛名次")}}： </span>
                                                         <span class="font-weight-bold">{{matche.result}}</span>
                                                     </v-col>
                                                     <v-col cols="5">
@@ -245,8 +247,8 @@
                         <v-expansion-panel-content>
                             <v-divider />
                             <v-expansion-panels accordion width="100%" flat class="pa-2 pb-0">
-                                <v-expansion-panel v-for="(matche, key2) of competition.matches" :key="key2" class="rounded-lg mb-2">
-                                    <template v-if="!isRaceEvent(competition.sport_id)">
+                                <template v-if="!isRaceEvent(competition.sport_id)">
+                                    <v-expansion-panel v-for="(matche, key2) of competition.matches" :key="key2" class="rounded-lg mb-2">
                                         <v-expansion-panel-header class="pa-1" style="height: 66px" min-height="66px" height="66px">
                                             <template v-slot:default="{ open }">
                                                 <div class="result-match-detail text-center">
@@ -301,13 +303,19 @@
                                                 :competition_name="competition.competition_name"
                                             ></PageGameResults>
                                         </v-expansion-panel-content>
-                                    </template>
-                                    <template v-else>
-                                        <v-expansion-panel-header class="pa-1" style="height: 46px" min-height="46px" height="46px">
+                                    </v-expansion-panel>
+                                </template>
+                                <template v-else>
+                                    <v-expansion-panel
+                                        v-for="(matche, key2) of competition.matches"
+                                        :key="key2"
+                                        class="rounded-lg mb-2 competionResultBg"
+                                    >
+                                        <v-expansion-panel-header class="px-0" style="height: 46px" min-height="46px" height="46px">
                                             <template v-slot:default="{ open }">
                                                 <v-sheet
-                                                    class="rounded-lg mx-2 d-flex align-center px-2 text-13"
-                                                    color="competionResultBg"
+                                                    color="transparent"
+                                                    class="d-flex align-center pl-2 text-13"
                                                     width="100%"
                                                     height="46"
                                                 >
@@ -315,7 +323,7 @@
                                                         <v-col cols="3" class="d-flex align-center">
                                                             <span class="btnPlain--text"> {{transTime(matche.start_time_timestamp)}} </span>
                                                         </v-col>
-                                                        <v-col cols="7" class="d-flex align-center">
+                                                        <v-col cols="7" class="d-flex align-center tagTextColor1--text">
                                                             <span> {{key2}} {{matche.event_name}} </span>
                                                         </v-col>
                                                         <v-col cols="2" class="d-flex align-center pl-2">
@@ -331,14 +339,15 @@
                                                 </v-sheet>
                                             </template>
                                         </v-expansion-panel-header>
-                                        <v-expansion-panel-content class="bcColor">
-                                            <!-- <PageGameResults
+                                        <v-expansion-panel-content>
+                                            <v-divider />
+                                            <PageRaceResults
                                                 :matche="matche"
                                                 :competition_name="competition.competition_name"
-                                            ></PageGameResults> -->
+                                            ></PageRaceResults>
                                         </v-expansion-panel-content>
-                                    </template>
-                                </v-expansion-panel>
+                                    </v-expansion-panel>
+                                </template>
                             </v-expansion-panels>
                         </v-expansion-panel-content>
                     </v-expansion-panel>

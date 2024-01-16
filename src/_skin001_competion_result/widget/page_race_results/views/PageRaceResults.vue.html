@@ -1,19 +1,54 @@
-<v-sheet ref="divScroll" class="py-4 d-flex" height="80">
-    <template v-if="states && markets">
-        <div v-for="item of ranking" :key="item" class="text-center text-14 tagTextColor1--text" style="flex: 1">
-            <div v-if="placings">{{rankOptions[placings[item]].title}}</div>
-            <div class="d-flex justify-center mt-1">
-                <v-sheet
-                    class="rounded d-flex align-center justify-center"
-                    width="25"
-                    height="20"
-                    :color="rankOptions[placings[item]].color"
-                >
-                    <span class="white--text text-12 font-weight-bold"> {{placings[item]}} </span>
-                </v-sheet>
-                <span class="ml-2"> {{item}}. </span>
-                <span v-if="getSelections(item)" class="ml-1">{{getSelections(item).name}}</span>
-            </div>
-        </div>
+<div>
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <v-sheet color="transparent" class="d-flex align-center" height="80">
+            <template v-if="states && markets && placings">
+                <template v-for="(ids,index) of rankingArr">
+                    <template v-for="id of ids">
+                        <div class="text-center text-14 tagTextColor1--text" style="flex: 1">
+                            <div v-if="placings">{{rankOptions[index].title}}</div>
+                            <div class="d-flex justify-center mt-1">
+                                <v-sheet
+                                    class="rounded d-flex align-center justify-center"
+                                    width="25"
+                                    height="20"
+                                    :color="rankOptions[index].color"
+                                >
+                                    <span class="white--text text-12 font-weight-bold"> {{index + 1}} </span>
+                                </v-sheet>
+                                <span class="ml-2"> {{id}}. </span>
+                                <span v-if="getSelections(id)" class="ml-1">{{getSelections(id).name}}</span>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </v-sheet>
     </template>
-</v-sheet>
+    <template v-else>
+        <v-sheet color="transparent" class="px-2 py-1 d-flex flex-column" min-height="120">
+            <template v-if="states && markets && placings">
+                <template v-for="(ids,index) of rankingArr">
+                    <template v-for="id of ids">
+                        <div v-if="id" class="text-center text-14 tagTextColor1--text d-flex align-center my-2">
+                            <v-sheet
+                                :color="!$vuetify.theme.dark?'#0f1213':'transparent'"
+                                class="text-12 rounded"
+                                height="18"
+                                min-width="46"
+                                :class="[!$vuetify.theme.dark? 'white--text':'',{'border': $vuetify.theme.dark}]"
+                            >
+                                {{rankOptions[index].title}}
+                            </v-sheet>
+                            <div class="d-flex justify-center font-weight-bold" :class="{'tagTextColor2--text':!$vuetify.theme.dark}">
+                                <span class="ml-2"> {{id}}. </span>
+                                <span v-if="getSelections(id)" class="ml-1">
+                                    {{getSelections(id).name}}
+                                </span>
+                            </div>
+                        </div>
+                    </template>
+                </template>
+            </template>
+        </v-sheet>
+    </template>
+</div>
