@@ -77,26 +77,31 @@ export default class RaceTable extends AbstractView {
 
     getRanking(event_id: number) {
         const placings = this.getStates(event_id)?.results?.placings;
+        // {
+        //     "1": 1,
+        //     "6": 2,
+        //     "7": 2,
+        //     "11": 4
+        // }
         let str = "";
         if (placings) {
             // 将物件转换为键值对的阵列
             const keyValueArray = Object.entries(placings);
-
-            // 根据值的大小升幂排序阵列
-            keyValueArray.sort((a: any, b: any) => a[1] - b[1]);
-
+            // [
+            //     ["1", 1],
+            //     ["6", 2],
+            //     ["7", 3],
+            //     ["11", 4],
+            // ]
             const arr: any = [];
-            keyValueArray.forEach((item: any, index) => {
-                if (item[1] < 4) {
-                    // 名次与前一个相同的加-
-                    if (index != 0 && item[1] == keyValueArray[index - 1][1]) {
-                        const pre = arr.pop();
-                        arr.push(pre + "-" + item[0]);
-                    } else {
-                        arr.push(item[0]);
-                    }
-                }
+            // 只取前三名
+            let rank = [1, 2, 3];
+            rank.forEach((r) => {
+                const filter = keyValueArray.filter((item) => item[1] == r);
+                const ids = filter.map((item) => item[0]);
+                arr.push(ids.join("-"));
             });
+
             str = arr.toString();
         }
         return str;

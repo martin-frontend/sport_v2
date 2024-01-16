@@ -89,20 +89,24 @@
                                         v-else-if="getStates(match.id).match_phase == 'DONE'"
                                         class="tagTextColor1--text d-flex align-center"
                                     >
-                                        <v-sheet
-                                            v-for="(item,index) of getRankingArr(match.id)"
-                                            class="d-flex align-center mr-2"
-                                            :key="item"
-                                        >
-                                            <svg-icon :icon="rankImgBgMap[index].icon" class="text-16 mr-n2" style="z-index: 1"></svg-icon>
-                                            <v-sheet
-                                                :color="rankImgBgMap[index].bg_color"
-                                                class="d-flex align-center justify-center textGray2--text font-weight-bold text-12 rounded-5"
-                                                min-width="26"
-                                            >
-                                                {{item}}
-                                            </v-sheet>
-                                        </v-sheet>
+                                        <template v-for="(ids,index) of getRankingArr(match.id)">
+                                            <template v-for="id of ids">
+                                                <v-sheet v-if="id" class="d-flex align-center mr-2" :key="id">
+                                                    <svg-icon
+                                                        :icon="rankImgBgMap[index].icon"
+                                                        class="text-16 mr-n2"
+                                                        style="z-index: 1"
+                                                    ></svg-icon>
+                                                    <v-sheet
+                                                        :color="rankImgBgMap[index].bg_color"
+                                                        class="d-flex align-center justify-center textGray2--text font-weight-bold text-12 rounded-5"
+                                                        min-width="26"
+                                                    >
+                                                        {{id}}
+                                                    </v-sheet>
+                                                </v-sheet>
+                                            </template>
+                                        </template>
                                     </div>
                                     <div class="red--text text-15" v-else>{{getResultStr(getStates(match.id).match_phase)}}</div>
                                 </template>
