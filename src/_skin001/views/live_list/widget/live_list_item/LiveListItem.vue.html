@@ -19,7 +19,7 @@
                         {{LangUtil("即将开赛")}}
                     </div>
                     <template v-else>
-                        <div v-if="states">{{LangUtil(states.match_phase)}}</div>
+                        <div v-if="states">{{LangUtil(states.match_phase == "-"?"即将开赛":states.match_phase)}}</div>
                         <div v-if="states && states.phase_minute > 0" class="ml-2">{{ states.phase_minute }}{{LangUtil("分钟")}}</div>
                         <div v-else>{{LangUtil("未开赛")}}</div>
                     </template>
