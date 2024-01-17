@@ -1,5 +1,5 @@
 <v-app v-if="myProxy.isloadSecLang" class="overflow-x-hidden">
-    <v-sheet height="100%" class="overflow-x-hidden" color="bgGray">
+    <v-sheet height="100%" class="overflow-x-hidden" color="bgColor">
         <v-sheet class="d-flex align-center justify-center" width="100%" min-height="80">
             <v-sheet class="d-flex">
                 <v-btn style="position: absolute; left: 1%" v-if="$vuetify.breakpoint.mobile" icon @click="onBack">
@@ -9,7 +9,7 @@
             </v-sheet>
         </v-sheet>
         <!-- <v-divider width="100%" /> -->
-        <v-sheet color="bgGray" :class="$vuetify.breakpoint.mobile?'pa-2':'pa-4'">
+        <v-sheet color="transparent" :class="$vuetify.breakpoint.mobile?'pa-2':'pa-4'">
             <v-sheet class="d-flex font-weight-400 pa-2 rounded-lg">
                 <v-sheet v-if="pageData.sportOptions && pageData.sportOptions.length > 0" color="transparent" width="200" class="mr-2">
                     <v-select
