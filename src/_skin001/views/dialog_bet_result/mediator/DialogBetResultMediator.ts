@@ -161,7 +161,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                     data.states_str += " " + LangUtil("已开赛");
                 }
                 if (states.match_phase) {
-                    data.states_str += " " + LangUtil(states.match_phase);
+                    data.states_str += " " + LangUtil(states.match_phase == "-"?"即将开赛":states.match_phase);
                 }
                 if (states.phase_minute > 0) {
                     data.states_str += " " + states.phase_minute + LangUtil("分钟");

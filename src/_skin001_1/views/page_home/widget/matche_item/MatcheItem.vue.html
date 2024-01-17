@@ -25,7 +25,7 @@
                 <v-sheet class="ml10" width="2" height="16" color="yellow" rounded></v-sheet>
                 <div v-if="states" class="d-flex align-center ml10">
                     <div :class="states.match_phase=='-'? 'yellow--text':'btnPlain--text'">
-                        {{ LangUtil(states ? states.match_phase : "") }}
+                        {{ LangUtil(states.match_phase == "-"?"即将开赛":states.match_phase) }}
                     </div>
                     <div class="ml-1" v-if="states.phase_minute > 0">
                         {{ getFullTime(states ? states.match_phase : "",states.phase_minute) }}{{LangUtil("分钟")}}
