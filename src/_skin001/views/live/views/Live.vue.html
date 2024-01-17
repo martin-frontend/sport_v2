@@ -48,7 +48,7 @@
                             </div>
 
                             <div class="d-flex justify-center text-14">
-                                <div class="mr-1">{{LangUtil(getStates().match_phase)}}</div>
+                                <div class="mr-1">{{LangUtil(getStates().match_phase == "-"?"即将开赛":getStates().match_phase)}}</div>
                                 <div v-if="getStates().phase_minute > 0">
                                     {{ getFullTime(getStates().match_phase,getStates().phase_minute ) }}{{LangUtil("分钟")}}
                                 </div>
@@ -149,7 +149,7 @@
                 <div v-if="getStates() && Object.keys(getStates()).length > 0" class="d-flex">
                     <!-- <div v-if="states.phase_minute > 0" class="mr-1">{{LangUtil("已开赛")}}</div> -->
                     <div :class="getStates().match_phase=='-'? 'text-red':'white--text'" class="mr-1">
-                        {{ LangUtil(getStates() ? getStates().match_phase : "") }}
+                        {{ LangUtil(getStates().match_phase == "-"?"即将开赛":getStates().match_phase) }}
                     </div>
                     <div v-if="getStates().phase_minute > 0">
                         {{ getFullTime(getStates().match_phase,getStates().phase_minute ) }}{{LangUtil("分钟")}}
