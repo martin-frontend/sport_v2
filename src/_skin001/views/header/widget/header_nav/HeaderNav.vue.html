@@ -15,8 +15,8 @@
                     @click="onSportClick(Number(key))"
                 >
                     <span class="d-flex align-center">
-                        <svg-icon class="text-20 mr-1" :icon="sportIcon[key]"></svg-icon>
-                        <span>{{new_menu_subnav[key].num}}</span>
+                        <svg-icon class="text-25 mr-1" :icon="sportIcon[key]"></svg-icon>
+                        <span class="text-16">{{new_menu_subnav[key].num}}</span>
                     </span>
                 </v-btn>
             </template>
@@ -30,7 +30,7 @@
                     :key="key"
                     :disabled="!new_menu_subnav[key].num"
                     @click="onSportClick(key)"
-                    class="font-weight-bold tag-btn px-2"
+                    class="font-weight-bold tag-btn px-1"
                     :class="{'active': homeProxy.listQueryComp.sport_id == key}"
                     text
                     elevation="0"
