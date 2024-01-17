@@ -53,6 +53,7 @@ export function getVuetify(): Vuetify {
                         filterContentBg: "#f4f4f4",
                         filterPanelBg: "#ffffff",
                         filterBottomBg: "#ffffff",
+                        competionResultBg: "#f4f4f4",
                     },
                     dark: {
                         competBC: "#1e1e1e",
@@ -97,6 +98,7 @@ export function getVuetify(): Vuetify {
                         filterContentBg: "#272828",
                         filterPanelBg: "#2f3030",
                         filterBottomBg: "#1b1c1c",
+                        competionResultBg: "#202121",
                     },
                 },
                 dark: false,
