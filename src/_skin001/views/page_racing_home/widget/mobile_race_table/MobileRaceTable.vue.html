@@ -3,7 +3,12 @@
     <template v-if="isNext">
         <v-sheet color="bgBanner" class="rounded-10 pb-2">
             <div v-for="item of tableData" :key="item.id" class="border-bottom" @click="onShowDetail(item, item.r)">
-                <v-sheet color="transparent" height="50" class="pa-2 d-flex align-center">
+                <v-sheet
+                    v-if="getStates(item.match.id) && getStates(item.match.id).match_phase == 'OPEN'"
+                    color="transparent"
+                    height="50"
+                    class="pa-2 d-flex align-center"
+                >
                     <v-img :src="item.country_icon" height="20" max-width="20" contain></v-img>
                     <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-26 ml-2"></svg-icon>
                     <v-sheet
@@ -17,7 +22,7 @@
                     <span class="font-weight-bold text-14 tagTextColor2--text ml-2">{{item.competition_name}}</span>
                     <v-spacer></v-spacer>
                     <div class="d-flex align-center justify-center flex-column text-14">
-                        <template v-if="getStates(item.match.id)">
+                        <!-- <template v-if="getStates(item.match.id)">
                             <template v-if="getStates(item.match.id).match_phase == 'OPEN'">
                                 <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
                                 <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
@@ -29,7 +34,9 @@
                         </template>
                         <template v-else>
                             <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
-                        </template>
+                        </template> -->
+                        <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
+                        <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
                     </div>
                 </v-sheet>
             </div>

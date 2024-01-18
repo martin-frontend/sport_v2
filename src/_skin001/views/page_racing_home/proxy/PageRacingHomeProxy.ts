@@ -16,10 +16,8 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         /**联赛列表 */
         competition_list: <any>[],
         /**盘口信息 */
-        market_list: <any>[],
         marketListByEventId: <any>{},
         /**赛事进程 */
-        event_states: <any>[],
         eventStatesByEventId: <any>{},
     };
     sportCheckBoxArr: any = [];
@@ -46,7 +44,7 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         event_type: 2,
 
         //确保拿到回传的值是最后一次打的
-        getAcount: 0,
+        getCount: 0,
         unique: PageRacingHomeProxy.NAME,
     };
 
@@ -94,6 +92,10 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
     }
 
     set_event_list(data: any) {
+        // 清除重新查询的sport
+        this.pageData.competition_list = this.pageData.competition_list.filter(
+            (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)
+        );
         this.pageData.competition_list.push(...data);
         this.pageData.competition_list = this.pageData.competition_list.sort((a: any, b: any) => {
             return a.sort - b.sort;
@@ -105,13 +107,6 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
     set_market_typelist(data: any) {
         data.forEach((item: any) => {
             Vue.set(this.pageData.marketListByEventId, item.event_id, item);
-
-            const finditem = this.pageData.market_list.find((item1: any) => item.event_id == item1.event_id);
-            if (finditem) {
-                Object.assign(finditem, item);
-            } else {
-                this.pageData.market_list.push(item);
-            }
         });
     }
 
@@ -125,13 +120,6 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
             if (item.match_phase == "OPEN") {
                 event_id.push(item.event_id);
             }
-
-            const finditem = this.pageData.event_states.find((item1: any) => item.event_id == item1.event_id);
-            if (finditem) {
-                Object.assign(finditem, item);
-            } else {
-                this.pageData.event_states.push(item);
-            }
         });
 
         this.listQueryMarket.event_id = event_id.toString();
@@ -140,20 +128,28 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         }
     }
 
+    private nextTimer = 0;
+    // 下一场赛事 (轮循用)
+    getNextEventList() {
+        this.nextTimer = setInterval(() => {
+            clearInterval(this.timer);
+            this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
+        }, 30000);
+    }
+
     /**赛事接口-新*/
     api_event_list() {
         clearInterval(this.timer);
+        clearInterval(this.nextTimer);
         this.pageData.loading = true;
-        this.pageData.market_list = [];
-        this.pageData.event_states = [];
         // this.pageData.marketListByEventId = {};
         // this.pageData.eventStatesByEventId = {};
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
-        // 清除将重新查询的sport
-        this.pageData.competition_list = this.pageData.competition_list.filter(
-            (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)
-        );
-        this.listQueryComp.getAcount++;
+        if (this.listQueryComp.tag == "withinAnHour") {
+            this.listQueryComp.sport_id = this.sportCheckBoxArr.toString();
+            this.getNextEventList();
+        }
+        this.listQueryComp.getCount++;
         this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
     /**盘口接口-新*/
