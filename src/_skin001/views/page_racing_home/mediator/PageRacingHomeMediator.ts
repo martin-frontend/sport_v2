@@ -16,7 +16,7 @@ export default class PageRacingHomeMediator extends AbstractMediator {
             case net.EventType.api_event_list_v3:
                 if (type == PageRacingHomeProxy.NAME) {
                     this.resAcount++;
-                    if (myProxy.listQueryComp.getAcount == body.requestData.getAcount) {
+                    if (myProxy.listQueryComp.getCount == body.requestData.getCount) {
                         myProxy.set_event_list(body);
                     }
                 }

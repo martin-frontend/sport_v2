@@ -38,9 +38,9 @@
                 <template>
                     <v-checkbox
                         v-for="sportId of raceSportArr"
-                        v-model="sportCheckBoxArr"
+                        v-model="myProxy.sportCheckBoxArr"
                         :value="`${sportId}`"
-                        :disabled="sportCheckBoxArr.length == 1 && sportCheckBoxArr.includes(`${sportId}`)"
+                        :disabled="myProxy.sportCheckBoxArr.length == 1 && myProxy.sportCheckBoxArr.includes(`${sportId}`)"
                         multiple
                         color="#feba00"
                         class="mr-8"
@@ -57,7 +57,12 @@
                 <v-window-item>
                     <template v-if="!pageData.loading">
                         <template v-for="item of nextTableData">
-                            <div :key="item.id" class="hand pa-2 d-flex align-center border-bottom" @click="onShowDetail(item, item.r)">
+                            <div
+                                v-if="getStates(item.match.id) && getStates(item.match.id).match_phase == 'OPEN'"
+                                :key="item.id"
+                                class="hand pa-2 d-flex align-center border-bottom"
+                                @click="onShowDetail(item, item.r)"
+                            >
                                 <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
                                 <svg-icon :icon="sportIcon[item.sport_id]" class="text-26 ml-2"></svg-icon>
                                 <v-sheet
@@ -71,7 +76,7 @@
                                 <span class="font-weight-bold text-14 tagTextColor2--text ml-2">{{item.competition_name}}</span>
                                 <v-spacer></v-spacer>
                                 <div class="d-flex align-center justify-center flex-column">
-                                    <template v-if="getStates(item.match.id)">
+                                    <!-- <template v-if="getStates(item.match.id)">
                                         <template v-if="getStates(item.match.id).match_phase == 'OPEN'">
                                             <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
                                             <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
@@ -83,7 +88,9 @@
                                     </template>
                                     <template v-else>
                                         <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
-                                    </template>
+                                    </template> -->
+                                    <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
+                                    <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
                                 </div>
                             </div>
                         </template>
