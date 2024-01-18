@@ -76,7 +76,7 @@ export default class PageRacingHome extends AbstractView {
 
             Object.keys(item.matches).forEach((key) => {
                 const match = item.matches[key];
-                if (this.getStates(match.id).match_phase != "OPEN") return;
+                if (this.getStates(match.id)?.match_phase != "OPEN") return;
                 arr.push({ ...item, r: key, match });
             });
         });

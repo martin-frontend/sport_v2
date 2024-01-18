@@ -17,13 +17,13 @@ export default class RacingPanel extends AbstractView {
     homeProxy: PageHomeProxy = this.getProxy(PageHomeProxy);
     pageData = this.myProxy.pageData;
     listQueryComp = this.myProxy.listQueryComp;
-    sportCheckBoxArr: any = [this.homeProxy.listQueryComp.sport_id.toString()];
     navProxy: NavigationProxy = this.getProxy(NavigationProxy);
     isRaceEvent = SportUtil.isRaceEvent;
     timer = 0;
     sportIcon = Assets.SportIcon;
 
     created() {
+        this.myProxy.sportCheckBoxArr = [`${this.homeProxy.listQueryComp.sport_id}`];
         racing_panel.init(this.homeProxy.listQueryComp.sport_id);
     }
 
@@ -67,10 +67,11 @@ export default class RacingPanel extends AbstractView {
         if (this.pageData.tag != 0) return [];
         const arr = <any>[];
         this.pageData.competition_list.forEach((item: any) => {
-            if (!this.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
+            if (!this.myProxy.sportCheckBoxArr.includes(`${item.sport_id}`)) return;
 
             Object.keys(item.matches).forEach((key) => {
                 const match = item.matches[key];
+                if (this.getStates(match.id)?.match_phase != "OPEN") return;
                 arr.push({ ...item, r: key, match });
             });
         });
