@@ -181,15 +181,13 @@
                                             <template v-slot:default="{ open }">
                                                 <v-row no-gutters>
                                                     <v-col cols="5" class="d-flex justify-space-between">
-                                                        <span class="mx-4">
-                                                            {{transTime(matche.start_time_timestamp)}}</span
-                                                        >
-                                                        <div class="text-center tagTextColor1--text" style="flex: 1">
-                                                            {{key2}} {{matche.event_name}}
+                                                        <span class="mx-4"> {{transTime(matche.start_time_timestamp)}}</span>
+                                                        <div class="text-center tagTextColor1--text font-weight-bold" style="flex: 1">
+                                                            {{key2}}
                                                         </div>
                                                     </v-col>
                                                     <v-col cols="2" class="text-center">
-                                                        <span class="tagTextColor1--text"> {{LangUtil("比赛名次")}}： </span>
+                                                        <span class="tagTextColor1--text"> {{LangUtil("结果")}}： </span>
                                                         <span class="font-weight-bold">{{matche.result}}</span>
                                                     </v-col>
                                                     <v-col cols="5">
@@ -319,17 +317,29 @@
                                                     width="100%"
                                                     height="46"
                                                 >
-                                                    <v-row no-gutters>
-                                                        <v-col cols="3" class="d-flex align-center">
-                                                            <span class="btnPlain--text"> {{transTime(matche.start_time_timestamp)}} </span>
-                                                        </v-col>
-                                                        <v-col cols="7" class="d-flex align-center tagTextColor1--text">
-                                                            <span> {{key2}} {{matche.event_name}} </span>
-                                                        </v-col>
-                                                        <v-col cols="2" class="d-flex align-center pl-2">
-                                                            <span class="font-weight-bold">{{matche.result}} </span>
-                                                        </v-col>
-                                                    </v-row>
+                                                    <v-sheet color="transparent" class="btnPlain--text" width="70">
+                                                        {{transTime(matche.start_time_timestamp)}}
+                                                    </v-sheet>
+                                                    <v-sheet color="transparent" class="tagTextColor1--text font-weight-bold ml-6" width="30">
+                                                        {{key2}}
+                                                    </v-sheet>
+                                                    <div class="ml-6 d-flex">
+                                                        <template v-for="(item,index) of getRankingArr(matche.result)">
+                                                            <template v-for="id of item">
+                                                                <div v-if="id" :key="id" class="d-flex mr-2">
+                                                                    <svg-icon :icon="rankImgBgMap[index].icon" class="text-16 mr-n2" style="z-index: 1"></svg-icon>
+                                                                    <v-sheet
+                                                                        :color="rankImgBgMap[index].bg_color"
+                                                                        class="d-flex align-center justify-center textGray2--text font-weight-bold text-12 rounded-5"
+                                                                        min-width="26"
+                                                                    >
+                                                                        {{id}}
+                                                                    </v-sheet>
+                                                                </div>
+                                                            </template>
+                                                        </template>
+                                                    </div>
+                                                    <v-spacer></v-spacer>
                                                     <svg-icon
                                                         class="text-10 mr-2"
                                                         color="#909193"

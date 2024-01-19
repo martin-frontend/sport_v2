@@ -29,21 +29,18 @@
             <template v-if="states && markets && placings">
                 <template v-for="(ids,index) of rankingArr">
                     <template v-for="id of ids">
-                        <div v-if="id" class="text-center text-14 tagTextColor1--text d-flex align-center my-2">
+                        <div v-if="id" class="text-center text-14 d-flex align-center my-2" :key="id">
                             <v-sheet
-                                :color="!$vuetify.theme.dark?'#0f1213':'transparent'"
-                                class="text-12 rounded"
+                                :color="rankOptions[index].color"
+                                class="text-12 rounded black--text"
                                 height="18"
                                 min-width="46"
-                                :class="[!$vuetify.theme.dark? 'white--text':'',{'border': $vuetify.theme.dark}]"
                             >
                                 {{rankOptions[index].title}}
                             </v-sheet>
                             <div class="d-flex justify-center font-weight-bold" :class="{'tagTextColor2--text':!$vuetify.theme.dark}">
                                 <span class="ml-2"> {{id}}. </span>
-                                <span v-if="getSelections(id)" class="ml-1">
-                                    {{getSelections(id).name}}
-                                </span>
+                                <span v-if="getSelections(id)" class="ml-1"> {{getSelections(id).name}} </span>
                             </div>
                         </div>
                     </template>

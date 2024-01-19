@@ -41,10 +41,6 @@ export default class PageRaceResults extends AbstractView {
         this.myProxy.api_market_typelist(this.matche.id);
     }
 
-    get ranking() {
-        return this.matche.result.split(/[,,-]/);
-    }
-
     get states(): any {
         return this.pageData.event_states[this.matche.id];
     }
@@ -68,25 +64,10 @@ export default class PageRaceResults extends AbstractView {
     }
 
     get rankingArr() {
-        const placings = this.placings;
-        const arr: any = [];
-        if (placings) {
-            // 将物件转换为键值对的阵列
-            const keyValueArray = Object.entries(placings);
-
-            // 根据值的大小升幂排序阵列
-            keyValueArray.sort((a: any, b: any) => a[1] - b[1]);
-
-            // 只取前三名
-            let rank = [1, 2, 3];
-            rank.forEach((r) => {
-                const filter = keyValueArray.filter((item) => item[1] == r);
-                const ids = filter.map((item) => item[0]);
-                arr.push([...ids]);
-            });
-            return arr;
+        if (this.matche.result) {
+            const resultArr: any = this.matche.result.split(",");
+            return resultArr.map((item: any) => item.split("-"));
         }
-
         return [];
     }
 
