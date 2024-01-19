@@ -215,7 +215,7 @@
                         <div>{{leg.market_type_text}}</div>
                         <div class="d-flex" v-if="leg.state && Object.keys(leg.state).length > 0 && leg.state.match_phase != '-'">
                             <span>{{LangUtil("滚球")}}&nbsp;</span>
-                            <span><div v-html="OrderTitleUtils.getScoreStr(leg)"></div> </span>
+                            <span><div v-if="item.sport_id == 1" v-html="OrderTitleUtils.getScoreStr(leg)"></div> </span>
                         </div>
                     </v-col>
                     <v-col class="d-grid btnPlain--text">
