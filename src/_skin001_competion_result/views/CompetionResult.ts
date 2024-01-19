@@ -27,6 +27,20 @@ export default class PageOrderDetail extends AbstractView {
         sign: getQueryVariable("sign"),
         token: getQueryVariable("t") || GlobalVar.token || "",
     };
+    rankImgBgMap = [
+        {
+            bg_color: "#fea800",
+            icon: "racing_rank_1",
+        },
+        {
+            bg_color: "#a4c5d1",
+            icon: "racing_rank_2",
+        },
+        {
+            bg_color: "#e2ae86",
+            icon: "racing_rank_3",
+        },
+    ];
     isRaceEvent = SportUtil.isRaceEvent;
     constructor() {
         super(CompetionResultMediator);
@@ -79,5 +93,13 @@ export default class PageOrderDetail extends AbstractView {
         this.myProxy.listQuery.page_count = 1;
         this.pageData.competition_list = [];
         this.myProxy.api_event_result_v2();
+    }
+
+    getRankingArr(result: string) {
+        if (result) {
+            const resultArr: any = result.split(",");
+            return resultArr.map((item: any) => item.split("-"));
+        }
+        return [];
     }
 }
