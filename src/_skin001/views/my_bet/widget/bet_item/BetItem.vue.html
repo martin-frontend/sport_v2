@@ -52,7 +52,7 @@
             <div v-if="checkInplay()" class="d-flex">
                 <div class="mr-1">{{LangUtil("滚球")}}</div>
                 <!-- <span class="font-weight-bold mr-1">{{getStats()}} </span> -->
-                <div class="font-weight-bold" v-html="getStats()"></div>
+                <div v-if="item.comp.sport_id == 1" class="font-weight-bold" v-html="getStats()"></div>
             </div>
             <span>{{transTitle(item.market.title)}}</span>
         </div>
