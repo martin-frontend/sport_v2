@@ -5,7 +5,7 @@
     }
     &:hover {
         svg {
-            transform: scale(1.2);
+            transform: scale(1.1);
         }
     }
     &.active {
@@ -26,12 +26,12 @@
         }
     }
 }
-.h5-tag-btn {
-    &.active {
-        color: #ffbc05 !important;
-        opacity: 1;
-    }
-    &::before {
-        background-color: transparent !important;
-    }
-}
+// .h5-tag-btn {
+//     &.active {
+//         color: #ffbc05 !important;
+//         opacity: 1;
+//     }
+//     &::before {
+//         background-color: transparent !important;
+//     }
+// }
