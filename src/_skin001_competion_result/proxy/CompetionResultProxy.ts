@@ -72,7 +72,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
         this.listQuery.start_time = Date.parse(tempdate + " " + timezone) / 1000;
         this.listQuery.end_time = (Date.parse(tempdate + " " + timezone) + 86400000) / 1000 - 1;
 
-        this.sendNotification(net.HttpType.api_event_result_v2, { ...this.listQuery, unique: CompetionResultProxy.name });
+        this.sendNotification(net.HttpType.api_event_result_v2, { ...this.listQuery, unique: "CompetionResultProxy" });
     }
     set_envent_result_v2(data: any) {
         this.isloadSecLang = true;
@@ -99,7 +99,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
     }
     api_event_market_type_v2() {
         if (SportUtil.isRaceEvent(this.listQuery.sport_id)) return;
-        this.sendNotification(net.HttpType.api_event_market_type_v2, { ...this.listQuery, unique: CompetionResultProxy.name });
+        this.sendNotification(net.HttpType.api_event_market_type_v2, { ...this.listQuery, unique: "CompetionResultProxy" });
     }
     set_public_plat_config(data: any) {
         PlatConfig.config = data;
