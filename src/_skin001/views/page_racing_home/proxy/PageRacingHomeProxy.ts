@@ -1,4 +1,5 @@
 import { objectRemoveNull } from "@/core/global/Functions";
+import LangUtil from "@/core/global/LangUtil";
 import net from "@/net/setting";
 import Vue from "vue";
 
@@ -19,6 +20,13 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         marketListByEventId: <any>{},
         /**赛事进程 */
         eventStatesByEventId: <any>{},
+        /**赛事赛选 */
+        isShowFilter: false,
+        /**打开的赛事赛选索引 */
+        isOpenFilterIndexs: true,
+        filterCompetition: <any>{},
+        selectCompetitionLength: 0,
+        allCompetitionLength: 0,
     };
     sportCheckBoxArr: any = [];
 
@@ -65,6 +73,12 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         // 记录所在位置
         unique: PageRacingHomeProxy.NAME,
     };
+
+    get filterCount() {
+        return this.pageData.selectCompetitionLength == this.pageData.allCompetitionLength
+            ? LangUtil("全部")
+            : this.pageData.selectCompetitionLength;
+    }
 
     init() {
         clearInterval(this.timer);
@@ -145,6 +159,17 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
         // this.pageData.marketListByEventId = {};
         // this.pageData.eventStatesByEventId = {};
         this.listQueryComp.sport_id = `${this.listQueryComp.sport_id}`;
+
+        if (this.pageData.filterCompetition) {
+            const arr: any = [];
+            Object.keys(this.pageData.filterCompetition).forEach((key) => {
+                if (!this.listQueryComp.sport_id.includes(key)) return;
+                const competitions = this.pageData.filterCompetition[key];
+                Object.values(competitions).forEach((id) => arr.push(id));
+            });
+            this.listQueryComp.competition_id = arr.toString();
+        }
+
         if (this.listQueryComp.tag == "withinAnHour") {
             this.listQueryComp.sport_id = this.sportCheckBoxArr.toString();
             this.getNextEventList();

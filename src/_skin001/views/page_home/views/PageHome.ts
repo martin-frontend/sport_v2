@@ -26,6 +26,7 @@ export default class PageHome extends AbstractView {
     listQueryComp = this.myProxy.listQueryComp;
     sportIcon = Assets.SportIcon;
     tagIcon = Assets.TagIcon;
+    isFocus = false;
 
     constructor() {
         super(PageHomeMediator);
@@ -134,7 +135,19 @@ export default class PageHome extends AbstractView {
 
     //搜寻
     onSearch() {
-        page_home.showByKeyword(this.listQueryComp.keyword);
+        if (this.isFocus) {
+            page_home.showByKeyword(this.listQueryComp.keyword);
+        }
+    }
+
+    onClickOutside() {
+        this.isFocus = false;
+    }
+
+    showSearch() {
+        this.isFocus = true;
+        // @ts-ignore
+        this.$refs["comp-input"]?.focus();
     }
 
     onQueryTagType(tag: string) {
@@ -163,5 +176,9 @@ export default class PageHome extends AbstractView {
 
     get curSportNav() {
         return this.new_menu_subnav[this.listQueryComp.sport_id];
+    }
+
+    onFilter() {
+        this.myProxy.pageData.isShowFilter = !this.myProxy.pageData.isShowFilter;
     }
 }
