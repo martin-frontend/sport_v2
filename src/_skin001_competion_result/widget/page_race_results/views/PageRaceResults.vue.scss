@@ -1,0 +1,366 @@
+::v-deep .v-expansion-panel-header__icon {
+    width: 24px !important;
+    background-color: transparent !important;
+}
+
+.rounded_8 {
+    border-radius: 8px !important;
+}
+
+.team-name {
+    max-width: 160px;
+    text-align: center;
+}
+
+.team-name-mobile {
+    max-width: 100px;
+    text-align: center;
+}
+
+.min-width-8 {
+    min-width: 8px;
+    text-align: center;
+}
+
+.opacity-0 {
+    opacity: 0;
+}
+
+.header-tips {
+    min-height: 50px;
+    margin-top: -47px !important;
+
+    @media screen and (max-width: 600px) {
+        min-height: 30px;
+        margin-top: -37px !important;
+    }
+}
+
+.box-scroll {
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+.prevent {
+    pointer-events: none;
+}
+
+.video-style {
+    position: absolute;
+    width: 100%;
+    top: 50px;
+    left: 0px;
+    z-index: 3;
+
+    .btn {
+        position: absolute;
+        right: 0;
+        top: 0;
+    }
+}
+
+.video_style-mobile {
+    padding-left: 8px;
+    padding-right: 8px;
+
+    .btn {
+        right: 8px;
+    }
+}
+
+.v-tooltip__content.tip {
+    border-radius: 5px;
+    border: 1px solid #03259c;
+    background: #ffffff;
+    color: #302f2f;
+    max-width: 94%;
+    opacity: 1 !important;
+    top: -55px !important;
+}
+
+::v-deep .v-expansion-panel-content__wrap {
+    padding-top: 0px !important;
+}
+
+.filter_bar {
+    overflow-y: scroll;
+    scrollbar-width: none;
+    /* Firefox */
+    -ms-overflow-style: none;
+    /* IE 10+ */
+}
+
+.filter_bar::-webkit-scrollbar {
+    display: none;
+    /* Chrome Safari */
+}
+
+.primary.btn-background {
+    background: linear-gradient(to right, #03259c, #074ccb) !important;
+}
+
+.text-gray1 {
+    color: #5c5c5c;
+}
+
+.margin-top-n5 {
+    margin-top: -5px;
+}
+
+.text-time {
+    color: #1e28a5;
+    height: 100%;
+}
+
+.mobile-mr {
+    margin-right: 1px;
+}
+
+.relative {
+    position: relative;
+}
+
+.absolute {
+    position: absolute;
+}
+
+.position {
+    top: 33px;
+    right: 12px;
+}
+
+.mobile-position {
+    top: 20px;
+    right: 6px;
+}
+
+.topbtn {
+    box-shadow: 1px 2px 4px gray !important;
+}
+
+.home-team-card-position {
+    top: 50%;
+    right: -63px;
+    transform: translateY(-50%);
+}
+
+.away-team-card-position {
+    top: 50%;
+    left: -63px;
+    transform: translateY(-50%);
+}
+
+.flex-1 {
+    flex: 1;
+}
+
+.max-width-100 {
+    max-width: 100px;
+}
+
+//橘色点点
+::v-deep .v-badge__badge {
+    height: 15px !important;
+    min-width: 15px !important;
+    padding: 2px 4px !important;
+}
+
+.right {
+    right: 66px;
+}
+
+.showAnimation {
+    margin-top: 275px;
+
+    @media screen and (max-width: 600px) {
+        margin-top: 120px;
+    }
+}
+
+.competing-time {
+    position: fixed;
+    top: 60px;
+    z-index: 2;
+    pointer-events: none;
+
+    > div {
+        background: linear-gradient(to right, #03259c, #074ccb) !important;
+    }
+}
+
+.daochu {
+    width: 14px;
+}
+
+.text-red {
+    color: #ff0000;
+}
+
+.live-player {
+    position: relative;
+}
+
+.tag-btn-active {
+    border-radius: 25px;
+    border: 2px solid #ffcd43;
+}
+
+.tag-btn-noactive {
+    border-radius: 25px;
+}
+
+::v-deep .v-tab:before {
+    background-color: transparent !important;
+}
+
+::v-deep .v-tab {
+    min-width: 50px;
+}
+::v-deep .v-btn .v-ripple__container {
+    color: transparent !important;
+}
+::v-deep .v-btn .v-ripple__animation {
+    transition: none;
+}
+
+.active {
+    position: relative;
+
+    ::v-deep .v-btn__content {
+        opacity: 1 !important;
+
+        &::after {
+            content: "";
+            width: 28px;
+            background: linear-gradient(90deg, #fcb131 0%, #ffe64d 100%);
+            background-size: cover;
+            height: 2px;
+            position: absolute;
+            top: 28px;
+            left: 0;
+            right: 0;
+            margin: auto;
+        }
+    }
+}
+
+.pc-tag-btn-active {
+    color: white !important;
+}
+
+::v-deep .v-tab:before {
+    background-color: transparent !important;
+}
+
+.text-gray {
+    color: #8b8b8b;
+}
+
+.font-weight-400 {
+    font-weight: 400;
+}
+
+.MarketTypeBox {
+    width: 168px;
+    height: 100px;
+    opacity: 1;
+    border-radius: 8px;
+}
+.theme--dark .MarketTypeBox {
+    background-color: #333435;
+}
+
+.MarketTypename {
+    font-family: PingFang SC;
+    font-weight: 400;
+    opacity: 1;
+    display: flex;
+    justify-content: center;
+}
+
+.MarketTyresult {
+    font-family: PingFang SC;
+    font-weight: 400;
+    display: flex;
+    justify-content: center;
+    opacity: 1;
+}
+.def-border {
+    border: 2px solid #e8e8e2;
+}
+.theme--dark .def-border {
+    border: 2px solid #333435;
+}
+::v-deep .v-tab {
+    color: #ffffff !important;
+}
+.inheritcolor {
+    background-color: inherit !important;
+}
+
+::v-deep .theme--light .v-tabs-bar.v-item-group > * {
+    background-color: #f5f5f4 !important;
+}
+.theme--light .graybg {
+    ::v-deep .v-sheet {
+        background-color: #f5f5f4 !important;
+    }
+    background-color: #f5f5f4 !important;
+}
+.arrow-down {
+    transform: rotate(0deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.arrow-up {
+    transform: rotate(180deg);
+    transition: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+.menulist {
+    border-radius: 10px;
+}
+.menulist-light {
+    background-color: #ffffff;
+    border: solid 2px #e8e8e2;
+}
+.menulist-dark {
+    background-color: #202121;
+    border: solid 2px #333435;
+}
+.menuitem {
+    width: 100%;
+    cursor: pointer;
+}
+.menuitem:hover {
+    color: #ffcd43;
+}
+.box_red {
+    background: linear-gradient(to right, #ff604a, #e92105);
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    &::before {
+        content: "";
+        background: url("~@/_skin001/assets/card_guang.png") no-repeat left 0px top 0px;
+        background-size: contain;
+        position: absolute;
+        width: 16px;
+        height: 22px;
+    }
+}
+.box_yellow {
+    background: linear-gradient(to right, #fecd42, #ffaf00);
+    border-radius: 3px;
+    color: white;
+    font-size: 16px;
+    &::before {
+        content: "";
+        background: url("~@/_skin001/assets/card_guang.png") no-repeat left 0px top 0px;
+        background-size: contain;
+        position: absolute;
+        width: 16px;
+        height: 22px;
+    }
+}
+.border {
+    border: 1px solid #feba00 !important;
+}

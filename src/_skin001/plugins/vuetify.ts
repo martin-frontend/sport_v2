@@ -92,6 +92,7 @@ export function getVuetify(): Vuetify {
                         textGray2: "#0F1213",
                         preWinColor: "#1B5FFF",
                         racingDetailHeader: "#1b1c1c",
+                        competionResultBg: "#202121",
                         bgGray1: "#323334",
                         filterHeaderBg: "#272828",
                         filterContentBg: "#272828",
