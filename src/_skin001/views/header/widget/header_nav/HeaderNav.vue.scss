@@ -1,13 +1,37 @@
 .tag-btn {
-    opacity: 0.8;
+    svg {
+        transition: all 0.3s ease-in;
+        transform: scale(1);
+    }
     &:hover {
-        opacity: 1;
+        svg {
+            transform: scale(1.1);
+        }
     }
     &.active {
-        color: #ffbc05 !important;
-        opacity: 1;
-    }
-    &::before {
-        background-color: transparent !important;
+        transform: scale(1);
+        color: #0f1213 !important;
+        background-color: #ffe399 !important;
+        &::before {
+            background-color: transparent !important;
+        }
     }
 }
+
+.theme--dark {
+    .tag-btn {
+        &.active {
+            color: #f0eff0 !important;
+            background-color: #524520 !important;
+        }
+    }
+}
+// .h5-tag-btn {
+//     &.active {
+//         color: #ffbc05 !important;
+//         opacity: 1;
+//     }
+//     &::before {
+//         background-color: transparent !important;
+//     }
+// }

@@ -1,47 +1,55 @@
 <div>
     <v-sheet v-if="!$vuetify.breakpoint.mobile" color="bgBanner" class="rounded-lg">
-        <horizontal_scroll class="py-2" :offsetx="16" v-if="new_menu_subnav">
+        <horizontal_scroll class="pa-2" :offsetx="16" v-if="new_menu_subnav">
             <template v-slot="{data}">
                 <v-btn
                     v-for="key of sportIdArr"
                     :key="key"
-                    class="mr-2 font-weight-bold tag-btn"
+                    class="mr-2 tag-btn rounded-lg"
                     :class="{'active': key == curSportId}"
+                    color="tagTextColor1"
                     text
                     :ripple="false"
-                    max-height="30"
-                    style="background-color: transparent;"
+                    height="75"
+                    min-width="75"
                     :disabled="!new_menu_subnav[key].num"
                     @click="onSportClick(Number(key))"
                 >
-                    <span class="d-flex align-center">
-                        <svg-icon class="text-20 mr-1" :icon="sportIcon[key]"></svg-icon>
-                        <span>{{new_menu_subnav[key].num}}</span>
-                    </span>
+                    <div class="d-flex flex-column">
+                        <svg-icon class="text-30 mr-1" :icon="sportIcon[key]"></svg-icon>
+                        <div class="d-flex align-center text-14 mt-1">
+                            <span>{{new_menu_subnav[key].sport}}</span>
+                            <span class="ml-1 font-weight-bold">{{new_menu_subnav[key].num}}</span>
+                        </div>
+                    </div>
                 </v-btn>
             </template>
         </horizontal_scroll>
     </v-sheet>
     <v-sheet v-else color="bgBanner" class="rounded-lg">
-        <horizontal_scroll class="py-2">
+        <horizontal_scroll class="pa-2" :offsetx="8" v-if="new_menu_subnav">
             <template v-slot="{data}">
                 <v-btn
                     v-for="key of sportIdArr"
                     :key="key"
+                    class="font-weight-bold tag-btn rounded-lg"
+                    :class="{'active': homeProxy.listQueryComp.sport_id == key}"
+                    color="tagTextColor1"
+                    small
+                    text
+                    :ripple="false"
+                    height="64"
+                    min-width="70"
                     :disabled="!new_menu_subnav[key].num"
                     @click="onSportClick(key)"
-                    class="font-weight-bold tag-btn px-2"
-                    :class="{'active': homeProxy.listQueryComp.sport_id == key}"
-                    text
-                    elevation="0"
-                    :ripple="false"
-                    max-height="30"
-                    width="80"
                 >
-                    <span class="d-flex align-center">
-                        <div v-if="sportIcon[key]" class="text-24"><svg-icon :icon="sportIcon[key]"></svg-icon></div>
-                        <span class="ml-1">{{new_menu_subnav[key].num}}</span>
-                    </span>
+                    <div class="d-flex flex-column">
+                        <svg-icon class="text-25 mr-1" :icon="sportIcon[key]"></svg-icon>
+                        <div class="d-flex align-center text-14">
+                            <span>{{new_menu_subnav[key].sport}}</span>
+                            <span class="ml-1 font-weight-bold">{{new_menu_subnav[key].num}}</span>
+                        </div>
+                    </div>
                 </v-btn>
             </template>
         </horizontal_scroll>
