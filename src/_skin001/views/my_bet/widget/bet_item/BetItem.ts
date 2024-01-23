@@ -257,7 +257,7 @@ export default class BetItem extends AbstractView {
         if (this.isVisitor) {
             return LangUtil("请输入");
         }
-        return LangUtil("单注限额") + ` ${amountFormat(Math.ceil(item.minStake)) || 0}-${amountFormat(Math.floor(item.maxStake)) || 0}`;
+        return LangUtil("单注限额") + ` ${amountFormat(item.minStake) || 0}-${amountFormat(item.maxStake) || 0}`;
     }
 
     onClickOutside() {
