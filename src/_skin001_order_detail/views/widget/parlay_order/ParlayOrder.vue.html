@@ -1,11 +1,8 @@
 <div>
     <div class="d-flex align-center">
         <img src="@/_skin001_order_detail/assets/icon_blue.png" max-height="30" height="30" max-width="10" width="10" />
-        <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold" v-if="['vi_VN'].includes(GlobalVar.lang)">
-            {{LangUtil("串{0} {1}*{2}",item.leg_info.length, 1, 1)}}
-        </div>
-        <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold" v-else>
-            {{LangUtil("{0}串{1}*{2}",item.leg_info.length, 1, 1)}}
+        <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">
+            {{LangUtil(`${item.leg_info.length}X1*1`)}}
         </div>
     </div>
     <div
