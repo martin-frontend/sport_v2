@@ -123,7 +123,7 @@ export default class CompetionResultProxy extends puremvc.Proxy {
 
         for (let index = 0; index < body.length; index++) {
             const element = body[index];
-            if (element.status != 1) continue;
+            if (element.status != 1 || [4,5].includes(element.id)) continue;
             const obj = JSON.parse(JSON.stringify(element));
             obj.icon = Assets.SportIcon[element.id];
             obj.name = LangUtil(element.name);
