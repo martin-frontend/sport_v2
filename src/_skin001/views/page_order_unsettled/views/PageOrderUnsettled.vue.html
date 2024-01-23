@@ -119,7 +119,7 @@
                     <span> {{GlobalVar.currency}} {{amountFormat(item.stake,true) }}</span>
                 </div>
 
-                <template v-if="item.leg_info[0] && item.leg_info[0].odds != 'SP'">
+                <template v-if="!item.leg_info[0].is_sp">
                     <div class="d-flex px10 mt-1">
                         <div>{{getdisplayResultStr(item)}}</div>
                         <v-spacer />
