@@ -158,15 +158,8 @@
                     width="100%"
                     class="d-flex align-center text-14 font-weight-bold mb-4 ml-4 textGray--text"
                 >
-                    <div
-                        style="margin-left: 8px; margin-top: 5px"
-                        class="text-14 font-weight-bold"
-                        v-if="['vi_VN'].includes(GlobalVar.lang)"
-                    >
-                        {{LangUtil("串{0} {1}*{2}",item.leg_info.length, 1, 1)}}
-                    </div>
-                    <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold" v-else>
-                        {{LangUtil("{0}串{1}*{2}",item.leg_info.length, 1, 1)}}
+                    <div style="margin-left: 8px; margin-top: 5px" class="text-14 font-weight-bold">
+                        {{LangUtil(`${item.leg_info.length}X1*1`)}}
                     </div>
                 </v-sheet>
 
