@@ -170,10 +170,6 @@ export default class PageRacingHomeProxy extends puremvc.Proxy {
             this.listQueryComp.competition_id = arr.toString();
         }
 
-        // 清除将重新查询的sport
-        this.pageData.competition_list = this.pageData.competition_list.filter(
-            (item: any) => !this.listQueryComp.sport_id.includes(item.sport_id)
-        );
         if (this.listQueryComp.tag == "withinAnHour") {
             this.listQueryComp.sport_id = this.sportCheckBoxArr.toString();
             this.getNextEventList();
