@@ -75,7 +75,7 @@ export default class BetSummary extends AbstractView {
             return LangUtil("请输入");
         }
         const p = this.betType == "single" ? LangUtil("单注限额") : LangUtil("串关限额");
-        return p + ` ${amountFormat(this.minStake)}-${amountFormat(this.maxStake)}`;
+        return p + ` ${amountFormat(Math.ceil(this.minStake))}-${amountFormat(Math.floor(this.maxStake))}`;
     }
     get minStake() {
         if (this.betType == "single") {
