@@ -1,7 +1,6 @@
 <div>
     <div class="d-flex btnPlain--text text-truncate text-14 px10 mb-1">
-        <span v-if="['vi_VN'].includes(GlobalVar.lang)"> {{LangUtil("串{0} {1}*{2}",item.leg_info.length, 1, 1)}} </span>
-        <span v-else>{{LangUtil("{0}串{1}*{2}",item.leg_info.length, 1, 1)}}</span>
+        <span>{{LangUtil(`${item.leg_info.length}X1*1`)}}</span>
         <v-spacer />
         <!-- <span class="textGray--text text-13">
             @{{parlayOdds}}
