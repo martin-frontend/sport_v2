@@ -109,6 +109,7 @@
                         outlined
                     >
                         <span class="text-12 d-flex align-center">
+                            <svg-icon class="text-14 textGray--text mr-1" :icon="curSportNav.favorite.num>0 ? 'love_' : 'love'"></svg-icon>
                             {{ LangUtil("关注") }}
                             <span class="mb-2">{{curSportNav.favorite.num}}</span>
                         </span>
