@@ -26,6 +26,7 @@ export default class DialogBetResult extends AbstractView {
     matcheProxy: MatcheProxy = getProxy(MatcheProxy);
     myProxy: DialogBetResultProxy = this.getProxy(DialogBetResultProxy);
     pageData = this.myProxy.pageData;
+    isLive = this.betProxy.pageData.isLive;
 
     constructor() {
         super(DialogBetResultMediator);
@@ -155,6 +156,12 @@ export default class DialogBetResult extends AbstractView {
 
     onClose() {
         this.pageData.bShow = false;
+        this.betProxy.initBetList();
+    }
+
+    onHold() {
+        this.pageData.bShow = false;
+        this.betProxy.initBetList(true);
     }
 
     @Watch("pageData.bShow")
