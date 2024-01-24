@@ -1,5 +1,6 @@
 <v-navigation-drawer
     v-if="$vuetify.breakpoint.mobile"
+    @input="onInput"
     class="divbox"
     color="bgMybet"
     v-model="pageData.bShow"

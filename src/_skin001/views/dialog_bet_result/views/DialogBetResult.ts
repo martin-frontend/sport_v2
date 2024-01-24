@@ -176,6 +176,10 @@ export default class DialogBetResult extends AbstractView {
         this.betProxy.initBetList(true);
     }
 
+    onInput(val: boolean) {
+        if (!val) this.onClose();
+    }
+
     @Watch("pageData.bShow")
     onWatchShow() {
         if (this.pageData.bShow) {
