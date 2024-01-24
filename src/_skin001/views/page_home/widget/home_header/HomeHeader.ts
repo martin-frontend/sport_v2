@@ -57,8 +57,9 @@ export default class HomeHeader extends AbstractView {
         page_home.showEventList();
     }
 
-    onQuerySort(sort: string) {
-        this.settingProxy.pageData.form.sort = sort;
+    onQuerySort() {
+        // time、comp
+        this.settingProxy.pageData.form.sort = this.settingProxy.pageData.form.sort == "time" ? "comp" : "time";
         this.settingProxy.api_user_set_user_setting();
     }
     //搜寻
