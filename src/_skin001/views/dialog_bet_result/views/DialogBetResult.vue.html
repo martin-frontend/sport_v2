@@ -1,9 +1,9 @@
 <v-navigation-drawer
     v-if="$vuetify.breakpoint.mobile"
-    @input="onInput"
-    class="divbox"
-    color="bgMybet"
     v-model="pageData.bShow"
+    ref="divbox"
+    class="divbox rounded-top"
+    color="bgMybet"
     height="auto"
     overlay-opacity="0.7"
     fixed
@@ -14,7 +14,7 @@
 >
     <v-sheet
         v-if="!isLive && pageData.bShow"
-        class="d-flex align-center px-3 head-box"
+        class="d-flex align-center px-3 head-box rounded-top"
         min-height="55"
         height="55"
         width="100%"
@@ -38,7 +38,7 @@
             <svg-icon class="text-16 textTitle" icon="close"></svg-icon>
         </v-btn>
     </v-sheet>
-    <div class="overflow-y-auto mt-2" style="margin-bottom: 60px;">
+    <div class="overflow-y-auto" style="padding: 62px 0 60px 0">
         <BetResult class="px-3 py-1"></BetResult>
     </div>
     <v-sheet v-if="pageData.bShow" width="100%" class="pa-3 bottom-box" color="betSummaryBg">

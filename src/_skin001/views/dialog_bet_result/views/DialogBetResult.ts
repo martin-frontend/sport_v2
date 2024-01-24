@@ -178,22 +178,19 @@ export default class DialogBetResult extends AbstractView {
         this.betProxy.initBetList(true);
     }
 
-    onInput(val: boolean) {
-        if (!val) {
-            if (this.isHold) return;
-            this.onClose();
-        } else {
-            this.isHold = false;
-        }
-    }
-
     @Watch("pageData.bShow")
     onWatchShow() {
         if (this.pageData.bShow) {
+            this.isHold = false;
             setTimeout(() => {
                 BlurUtil(this.pageData.bShow);
             }, 200);
         } else {
+            if (this.isHold) {
+                this.onHold();
+            } else {
+                this.onClose();
+            }
             BlurUtil(this.pageData.bShow);
         }
         //通知BetProxy, 页面是否打开
