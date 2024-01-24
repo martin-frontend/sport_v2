@@ -1,10 +1,10 @@
 <div class="d-flex flex-column" style="max-height: 100%">
     <v-sheet
+        v-if="!isLive && !$vuetify.breakpoint.mobile"
         :color="tipStatusMap[tipStatus].bgColor"
         class="rounded-lg mb-2 d-flex align-center justify-center"
         min-height="36"
         :style="{ 'color': tipStatusMap[tipStatus].color}"
-        v-if="!isLive"
     >
         <div class="text-14 font-weight-bold">{{tipStatusMap[tipStatus].title}}</div>
         <template v-if="tipStatus == 0">
@@ -252,13 +252,15 @@
             </v-card>
         </template>
     </div>
-    <template v-if="!isLive">
-        <btn-yellow class="text-13 mt-3 py-2" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
-        <btn-yellow class="text-13 my-2 py-2" width="100%" height="36" :outlined="true" @click.native="onHold">
-            {{LangUtil("保留投注项")}}
-        </btn-yellow>
-    </template>
-    <template v-else>
-        <btn-yellow class="text-13 py-2 mt-n2 mb-2" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
+    <template v-if="!$vuetify.breakpoint.mobile">
+        <template v-if="!isLive">
+            <btn-yellow class="text-13 py-2" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
+            <btn-yellow class="text-13 my-2 py-2" width="100%" height="36" :outlined="true" @click.native="onHold">
+                {{LangUtil("保留投注项")}}
+            </btn-yellow>
+        </template>
+        <template v-else>
+            <btn-yellow class="text-13 py-2 mt-n2 mb-2" width="100%" height="36" @click.native="onClose">{{LangUtil("关闭")}}</btn-yellow>
+        </template>
     </template>
 </div>

@@ -11,6 +11,7 @@ import MatcheProxy from "../../matche/proxy/MatcheProxy";
 import Matche from "../../matche/views/Matche";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import OrderTitleUtils from "@/core/global/OrderTitleUtils";
+import DialogMyBetProxy from "../../dialog_my_bet/proxy/DialogMyBetProxy";
 
 export default class DialogBetResultMediator extends AbstractMediator {
     static NAME = "DialogBetResultMediator";
@@ -28,6 +29,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
         const body = notification.getBody();
         const myProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
         const betProxy: BetProxy = getProxy(BetProxy);
+        const dialogMyBetProxy: DialogMyBetProxy = getProxy(DialogMyBetProxy);
         switch (notification.getName()) {
             case net.EventType.api_user_pending:
                 for (const item of body) {
@@ -61,6 +63,7 @@ export default class DialogBetResultMediator extends AbstractMediator {
                 break;
             case net.EventType.api_user_betfix_v3:
                 betProxy.pageData.loading = false;
+                dialogMyBetProxy.pageData.bShow = false;
                 if (betProxy.pageData.isContinueBetting) return;
                 myProxy.pageData.bShow = true;
                 myProxy.pageData.list.length = 0;
