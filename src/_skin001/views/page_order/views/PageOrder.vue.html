@@ -183,7 +183,7 @@
                                 <span>{{GlobalVar.currency}} {{amountFormat(item.stake,true) }} </span>
                             </v-sheet>
 
-                            <template v-if="item.leg_info[0] && item.leg_info[0].odds != 'SP'">
+                            <template v-if="!item.leg_info[0].is_sp">
                                 <v-sheet width="100%" v-if="listQuery.is_settle == 0" color="transparent">
                                     <span class="textGray--text mr-1">{{getdisplayResultStr(item)}}</span>
                                     <span :style="{ 'color': getDisplayResult(item).color}">{{getDisplayResult(item).str}} </span>

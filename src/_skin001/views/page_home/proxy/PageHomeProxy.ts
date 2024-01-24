@@ -52,6 +52,13 @@ export default class PageHomeProxy extends puremvc.Proxy {
             market_main_type: <any>[],
             market_type: <any>[],
         },
+        /**赛事赛选 */
+        isShowFilter: false,
+        /**打开的赛事赛选索引 */
+        isOpenFilterIndexs: true,
+        filterCompetition: <any>null,
+        selectCompetitionLength: 0,
+        allCompetitionLength: 0,
     };
 
     listQueryComp = {
@@ -92,6 +99,12 @@ export default class PageHomeProxy extends puremvc.Proxy {
         //暂时不用的
         market_id: "",
     };
+
+    get filterCount() {
+        return this.pageData.selectCompetitionLength == this.pageData.allCompetitionLength
+            ? LangUtil("全部")
+            : this.pageData.selectCompetitionLength;
+    }
 
     init() {
         clearInterval(this.timer);
@@ -223,6 +236,13 @@ export default class PageHomeProxy extends puremvc.Proxy {
         this.pageData.loading = true;
         this.pageData.market_list = [];
         this.listQueryComp.sport_id = Number(this.listQueryComp.sport_id);
+        if (this.pageData.filterCompetition) {
+            const arr: any = [];
+            Object.keys(this.pageData.filterCompetition).forEach((key) => {
+                this.pageData.filterCompetition[key].forEach((id: any) => arr.push(id));
+            });
+            this.listQueryComp.competition_id = arr.toString();
+        }
         const query: any = { ...this.listQueryComp };
         delete query.country;
         this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(query));

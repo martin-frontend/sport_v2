@@ -123,7 +123,7 @@ export default class ParlayOrder extends AbstractView {
                 return result_tb;
             }
             if (state.match_phase) {
-                states_str += " " + LangUtil(state.match_phase);
+                states_str += " " + LangUtil(state.match_phase == "-"?"即将开赛":state.match_phase);
             }
             if (state.phase_minute > 0) {
                 states_str += " " + state.phase_minute + LangUtil("分钟");

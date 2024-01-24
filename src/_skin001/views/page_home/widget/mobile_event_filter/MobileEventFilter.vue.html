@@ -1,0 +1,100 @@
+<v-navigation-drawer
+    v-model="pageData.isShowFilter"
+    style="border-top-right-radius: 10px; border-top-left-radius: 10px"
+    height="90%"
+    overlay-opacity="0.7"
+    fixed
+    floating
+    bottom
+    app
+    temporary
+>
+    <v-sheet class="d-flex flex-column" color="filterHeaderBg" height="100%" v-if="!isRaceEvent(curSportId) && curSportNav && curTag">
+        <v-sheet class="py-4 px-2 d-flex align-center" color="transparent">
+            <span>{{LangUtil(tagName)}}</span>-
+            <span class="font-weight-bold text-16 tagTextColor2--text">{{LangUtil('联赛列表')}}</span>
+            <v-spacer></v-spacer>
+            <v-btn plain fab x-small @click="pageData.isShowFilter = false">
+                <svg-icon class="text-16 textTitle" icon="close"></svg-icon>
+            </v-btn>
+        </v-sheet>
+        <v-divider></v-divider>
+        <v-sheet color="filterContentBg" class="scroll-div overflow-y-auto" style="flex: 1">
+            <v-expansion-panels v-model="panel" accordion multiple>
+                <v-expansion-panel v-for="(item, country_code) of items" :key="country_code" class="mt-1">
+                    <v-expansion-panel-header class="rounded-0 pr-4">
+                        <v-sheet class="ml10" width="2" height="16" color="yellow1" rounded></v-sheet>
+                        <v-checkbox
+                            v-model="selectCountry"
+                            :value="country_code"
+                            hide-details
+                            color="yellow1"
+                            dense
+                            class="mt-0 pt-0 ml-2 header-checkbox"
+                            :indeterminate="indeterminates[country_code]"
+                            @click.stop
+                            @click="onCountryClick(country_code)"
+                        >
+                            <template #label>
+                                <span class="text-14 font-weight-bold tagTextColor2--text mr-1">{{item.country_name}}</span>
+                            </template>
+                        </v-checkbox>
+                    </v-expansion-panel-header>
+                    <v-expansion-panel-content class="pa-0">
+                        <v-sheet
+                            v-for="(comp,index) in item.competitions"
+                            :key="comp.id"
+                            height="38"
+                            class="d-flex rounded-lg align-center pl-2 mt-1"
+                            :class="{'mt-2': index > 0}"
+                            color="filterPanelBg"
+                        >
+                            <v-img :src="item.icon" height="20" max-width="20" contain></v-img>
+                            <span class="text-13 tagTextColor1--text ml-2">{{comp.name}}</span>
+                            <v-spacer></v-spacer>
+                            <v-checkbox
+                                v-model="selectCompetition[country_code]"
+                                :value="comp.id"
+                                hide-details
+                                color="yellow1"
+                                dense
+                                class="mt-0 pt-0 ml-2"
+                                @click="onCompetitionClick(country_code, comp.id)"
+                            >
+                            </v-checkbox>
+                        </v-sheet>
+                    </v-expansion-panel-content>
+                </v-expansion-panel>
+            </v-expansion-panels>
+            <div class="d-flex justify-center my-4">
+                <btn-yellow :disabled="pageData.selectCompetitionLength==0" class="text-16" height="36" width="104" @click.native="onSave">
+                    {{LangUtil("确定")}}
+                </btn-yellow>
+            </div>
+        </v-sheet>
+        <v-divider></v-divider>
+        <v-sheet color="filterBottomBg" class="d-flex align-center py-3 px-2">
+            <v-btn
+                class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
+                :class="{'active': selectAll}"
+                elevation="0"
+                outlined
+                max-height="30"
+                @click="selectAll = !selectAll;onAll(selectAll)"
+            >
+                <span class="text-12 d-flex align-center"> {{ LangUtil("全选") }} </span>
+            </v-btn>
+            <v-btn
+                class="rounded-pill mr-2 font-weight-bold tag-btn1 px-4"
+                :class="{'active': selectReverse}"
+                elevation="0"
+                outlined
+                max-height="30"
+                @click="selectReverse = !selectReverse;onReverse(selectReverse)"
+            >
+                <span class="text-12 d-flex align-center"> {{ LangUtil("反选") }} </span>
+            </v-btn>
+            <span class="text-13 tagTextColor2--text"> {{pageData.selectCompetitionLength}} {{ LangUtil("联赛") }} </span>
+        </v-sheet>
+    </v-sheet>
+</v-navigation-drawer>

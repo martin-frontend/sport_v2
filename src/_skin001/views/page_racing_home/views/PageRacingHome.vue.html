@@ -5,7 +5,7 @@
                 <svg-icon icon="back3" class="text-22"></svg-icon>
             </v-btn> -->
 
-            <v-sheet color="transparent" class="rounded-lg" height="40">
+            <v-sheet color="transparent" class="d-flex align-center" height="40">
                 <horizontal_scroll :offsetx="16">
                     <template v-slot="{data}">
                         <template v-for="(item,key) of tagOptions">
@@ -25,9 +25,25 @@
                         </template>
                     </template>
                 </horizontal_scroll>
+                <v-spacer></v-spacer>
+                <v-sheet
+                    v-if="listQueryComp.tag"
+                    class="d-flex align-center justify-center ml-2 rounded-10 hand textGray--text btnbox px-2 text-14"
+                    color="bgBanner"
+                    v-ripple
+                    height="32"
+                    @click="onFilter"
+                >
+                    <span class="text-truncate"> {{LangUtil("赛事筛选")}} </span>
+                    <span class="ml-1 yellow--text">[{{myProxy.filterCount}}]</span>
+                </v-sheet>
             </v-sheet>
-
-            <v-sheet class="rounded-lg overflow-y-auto overflow-x-hidden scroll-div mt-1" style="flex: 1" color="bgBanner">
+            <v-sheet
+                v-show="!pageData.isShowFilter"
+                class="rounded-lg overflow-y-auto overflow-x-hidden scroll-div mt-1"
+                style="flex: 1"
+                color="bgBanner"
+            >
                 <div class="d-flex pl-8 border-bottom">
                     <template>
                         <v-checkbox
@@ -50,7 +66,7 @@
 
                 <horizontal_scroll>
                     <template v-slot="{data}">
-                        <div class="d-flex flex-column" style="width: 100%;">
+                        <div class="d-flex flex-column" style="width: 100%">
                             <!-- 下一场 -->
                             <template v-if="curTag == tagOptions.withinAnHour.tag">
                                 <RaceTable
@@ -75,6 +91,8 @@
                     </template>
                 </horizontal_scroll>
             </v-sheet>
+
+            <EventFilter v-show="pageData.isShowFilter" />
         </v-sheet>
     </template>
 
@@ -102,17 +120,29 @@
         </v-sheet>
         <!-- 搜索 -->
         <v-sheet class="d-flex align-center rounded-lg mx-2 px10 py-2 mt-2" color="bgBanner">
-            <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" max-width="220" width="100%" height="30">
+            <v-sheet class="d-flex align-center rounded-10 px10 textGray--text" color="bgPage" height="30" width="100%" max-width="200">
                 <v-form @submit.prevent="onSearch" class="d-flex align-center">
                     <input
+                        v-model="listQueryComp.keyword"
+                        ref="comp-input"
                         class="text-14 text-truncate bgColor1--text"
                         :placeholder="LangUtil('搜索联赛')"
-                        v-model="listQueryComp.keyword"
+                        style="width: 150px"
                     />
                 </v-form>
                 <v-spacer />
                 <svg-icon icon="search" @click.native="onSearch"></svg-icon>
             </v-sheet>
+            <v-sheet
+                v-if="listQueryComp.tag"
+                class="d-flex align-center rounded-10 px10 textGray--text ml-2 text-14"
+                color="bgPage"
+                height="30"
+                @click="onFilter"
+            >
+                <span class="text-truncate"> {{LangUtil("赛事筛选")}} </span>
+            </v-sheet>
+            <v-spacer />
             <svg-icon @click.native="goLiveList" class="text-20 ml-2" icon="live1_"></svg-icon>
         </v-sheet>
 

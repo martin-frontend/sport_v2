@@ -4,6 +4,7 @@
         <template v-if="!pageData.loading">
             <template v-for="item of tableData">
                 <v-sheet
+                    v-if="getStates(item.match.id) && getStates(item.match.id).match_phase == 'OPEN'"
                     :key="item.id"
                     height="45"
                     width="100%"
@@ -23,7 +24,7 @@
                     <span class="font-weight-bold text-14 tagTextColor2--text ml-2">{{item.competition_name}}</span>
                     <v-spacer></v-spacer>
                     <div class="d-flex align-center justify-center flex-column">
-                        <template v-if="getStates(item.match.id)">
+                        <!-- <template v-if="getStates(item.match.id)">
                             <template v-if="getStates(item.match.id).match_phase == 'OPEN'">
                                 <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
                                 <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
@@ -35,7 +36,9 @@
                         </template>
                         <template v-else>
                             <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
-                        </template>
+                        </template> -->
+                        <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
+                        <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
                     </div>
                 </v-sheet>
             </template>

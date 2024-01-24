@@ -26,25 +26,27 @@ export default class HomeHeader extends AbstractView {
                 return findItem.country_name;
             }
         }
-        if (competition_id) {
-            if (this.pageData.competition_list.length > 0) {
-                return this.pageData.competition_list[0].competition_name;
-            }
-        }
         if (keyword) {
             return LangUtil("搜索") + ": " + keyword;
         }
-        if (tag == "love") {
-            return LangUtil("关注赛事");
-        } else {
-            const curNav = this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id];
-            if (!curNav) return "";
-
-            if (curNav[tag]) {
-                return curNav?.[tag].name;
+        if (tag) {
+            if (tag == "love") {
+                return LangUtil("关注赛事");
             } else {
-                const findItem = curNav.tags.find((item: any) => item.tag == tag);
-                return findItem?.name;
+                const curNav = this.navProxy.pageData.new_menu_subnav[this.listQueryComp.sport_id];
+                if (!curNav) return "";
+
+                if (curNav[tag]) {
+                    return curNav?.[tag].name;
+                } else {
+                    const findItem = curNav.tags.find((item: any) => item.tag == tag);
+                    return findItem?.name;
+                }
+            }
+        }
+        if (competition_id) {
+            if (this.pageData.competition_list.length > 0) {
+                return this.pageData.competition_list[0].competition_name;
             }
         }
     }
@@ -78,10 +80,19 @@ export default class HomeHeader extends AbstractView {
     }
 
     onTaggleOpen() {
+        if (this.myProxy.pageData.isShowFilter) {
+            this.myProxy.pageData.isOpenFilterIndexs = !this.myProxy.pageData.isOpenFilterIndexs;
+            return;
+        }
+
         if (this.checkExpansionPanels()) {
             this.myProxy.pageData.openIndexs = [0, 1, 2];
         } else {
             this.myProxy.pageData.openIndexs = [];
         }
+    }
+
+    onFilter() {
+        this.myProxy.pageData.isShowFilter = !this.myProxy.pageData.isShowFilter;
     }
 }

@@ -1,0 +1,9 @@
+::v-deep .v-expansion-panel-header:not(.v-expansion-panel-header--mousedown):focus:before {
+    opacity: 0;
+}
+::v-deep .v-expansion-panel-header > :not(.v-expansion-panel-header__icon) {
+    flex: none;
+}
+::v-deep .theme--dark.v-expansion-panels .v-expansion-panel {
+    background-color: transparent;
+}

@@ -62,7 +62,7 @@
             <span v-if="states">
                 <span class="mr-1" v-if="states.phase_minute > 0">{{LangUtil("已开赛")}}</span>
                 <span class="mr-1" :class="states.match_phase=='-'? 'text-red':'text-gray'">
-                    {{ LangUtil(states ? states.match_phase : "") }}
+                    {{ LangUtil(states.match_phase == "-"?"即将开赛":states.match_phase) }}
                 </span>
                 <span v-if="states.phase_minute > 0">{{ states.phase_minute }} {{LangUtil("分钟")}}</span>
             </span>

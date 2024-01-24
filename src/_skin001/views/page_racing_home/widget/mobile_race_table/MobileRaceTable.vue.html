@@ -3,7 +3,12 @@
     <template v-if="isNext">
         <v-sheet color="bgBanner" class="rounded-10 pb-2">
             <div v-for="item of tableData" :key="item.id" class="border-bottom" @click="onShowDetail(item, item.r)">
-                <v-sheet color="transparent" height="50" class="pa-2 d-flex align-center">
+                <v-sheet
+                    v-if="getStates(item.match.id) && getStates(item.match.id).match_phase == 'OPEN'"
+                    color="transparent"
+                    height="50"
+                    class="pa-2 d-flex align-center"
+                >
                     <v-img :src="item.country_icon" height="20" max-width="20" contain></v-img>
                     <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-26 ml-2"></svg-icon>
                     <v-sheet
@@ -17,7 +22,7 @@
                     <span class="font-weight-bold text-14 tagTextColor2--text ml-2">{{item.competition_name}}</span>
                     <v-spacer></v-spacer>
                     <div class="d-flex align-center justify-center flex-column text-14">
-                        <template v-if="getStates(item.match.id)">
+                        <!-- <template v-if="getStates(item.match.id)">
                             <template v-if="getStates(item.match.id).match_phase == 'OPEN'">
                                 <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
                                 <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
@@ -29,7 +34,9 @@
                         </template>
                         <template v-else>
                             <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
-                        </template>
+                        </template> -->
+                        <svg-icon v-if="isShowP(item.match.id)" class="text-14 mb-1" icon="p"></svg-icon>
+                        <CountdownTime :date="item.match.start_time_timestamp"></CountdownTime>
                     </div>
                 </v-sheet>
             </div>
@@ -89,20 +96,24 @@
                                         v-else-if="getStates(match.id).match_phase == 'DONE'"
                                         class="tagTextColor1--text d-flex align-center"
                                     >
-                                        <v-sheet
-                                            v-for="(item,index) of getRankingArr(match.id)"
-                                            class="d-flex align-center mr-2"
-                                            :key="item"
-                                        >
-                                            <svg-icon :icon="rankImgBgMap[index].icon" class="text-16 mr-n2" style="z-index: 1"></svg-icon>
-                                            <v-sheet
-                                                :color="rankImgBgMap[index].bg_color"
-                                                class="d-flex align-center justify-center textGray2--text font-weight-bold text-12 rounded-5"
-                                                min-width="26"
-                                            >
-                                                {{item}}
-                                            </v-sheet>
-                                        </v-sheet>
+                                        <template v-for="(ids,index) of getRankingArr(match.id)">
+                                            <template v-for="id of ids">
+                                                <v-sheet v-if="id" class="d-flex align-center mr-2" :key="id">
+                                                    <svg-icon
+                                                        :icon="rankImgBgMap[index].icon"
+                                                        class="text-16 mr-n2"
+                                                        style="z-index: 1"
+                                                    ></svg-icon>
+                                                    <v-sheet
+                                                        :color="rankImgBgMap[index].bg_color"
+                                                        class="d-flex align-center justify-center textGray2--text font-weight-bold text-12 rounded-5"
+                                                        min-width="26"
+                                                    >
+                                                        {{id}}
+                                                    </v-sheet>
+                                                </v-sheet>
+                                            </template>
+                                        </template>
                                     </div>
                                     <div class="red--text text-15" v-else>{{getResultStr(getStates(match.id).match_phase)}}</div>
                                 </template>
@@ -117,7 +128,7 @@
                             <v-sheet v-if="match.live_status == 1" color="transparent" class="d-flex align-center mx-1">
                                 <svg-icon class="text-24 textGray--text" icon="live1_"></svg-icon>
                             </v-sheet>
-                            <v-sheet v-if="isShowP(match.id)" width="42" color="transparent" class="text-14">
+                            <v-sheet v-if="isShowP(match.id)" width="32" color="transparent" class="text-14">
                                 <svg-icon icon="p"></svg-icon>
                             </v-sheet>
                             <v-sheet color="transparent" class="d-flex align-center">

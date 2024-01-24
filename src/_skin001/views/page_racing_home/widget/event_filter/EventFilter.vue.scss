@@ -1,0 +1,23 @@
+::v-deep .v-expansion-panel-header:not(.v-expansion-panel-header--mousedown):focus:before {
+    opacity: 0;
+}
+::v-deep .v-expansion-panel-header > :not(.v-expansion-panel-header__icon) {
+    flex: none;
+}
+::v-deep .theme--dark.v-expansion-panels .v-expansion-panel {
+    background-color: transparent;
+}
+::v-deep .v-expansion-panel:before {
+    box-shadow: none;
+}
+::v-deep .v-expansion-panel-content__wrap {
+    padding: 0;
+}
+.bodder-bottom {
+    border-bottom: 1px solid #0000001f;
+}
+.theme--dark {
+    .bodder-bottom {
+        border-color: #3e3f41;
+    }
+}
