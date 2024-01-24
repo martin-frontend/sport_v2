@@ -249,8 +249,8 @@ export default class BetProxy extends puremvc.Proxy {
                         if (!findItem) return;
                         findItem.msg = "";
                         if (code === 0 && data) {
-                            findItem.minStake = data.minStake;
-                            findItem.maxStake = data.maxStake;
+                            findItem.minStake = `${Math.ceil(data.minStake)}`;
+                            findItem.maxStake = `${Math.floor(data.maxStake)}`;
                             if (data.change == 1) {
                                 if (data.newOdds) {
                                     findItem.isMarketClose = false;
@@ -272,8 +272,8 @@ export default class BetProxy extends puremvc.Proxy {
                     // if (response.data.change == 1 || !this.pageData.parlayData.odds) {
                     const { maxStake, minStake, newOdds, odds } = response.data;
                     Object.assign(this.pageData.parlayData, {
-                        maxStake,
-                        minStake,
+                        maxStake: Math.floor(maxStake),
+                        minStake: Math.ceil(minStake),
                         oldOdds: odds,
                         // odds: newOdds,
                         odds: form.multi_odds,
@@ -289,8 +289,8 @@ export default class BetProxy extends puremvc.Proxy {
                         if (!findItem) return;
                         findItem.msg = "";
                         if (code === 0 && data) {
-                            findItem.minStake = data.minStake;
-                            findItem.maxStake = data.maxStake;
+                            findItem.minStake = `${Math.ceil(data.minStake)}`;
+                            findItem.maxStake = `${Math.floor(data.maxStake)}`;
                             if (data.change == 1) {
                                 if (data.newOdds) {
                                     findItem.isMarketClose = false;
