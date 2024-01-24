@@ -22,7 +22,6 @@ export default class EventFilter extends AbstractView {
     indeterminates: any = {};
     panel: number[] = [];
     totalPanel: number[] = [];
-    items = <any>{};
     isRaceEvent = SportUtil.isRaceEvent;
 
     get curSportId() {
@@ -66,16 +65,14 @@ export default class EventFilter extends AbstractView {
     resetData() {
         this.pageData.selectCompetitionLength = 0;
         this.pageData.allCompetitionLength = 0;
-        this.items = {};
         this.selectAll = true;
         this.selectReverse = false;
         this.selectCountry = [];
         this.selectCompetition = {};
-        this.allCompetition = {};
+        this.allCompetition = {}; // 该标签下的所有联赛
         this.indeterminates = {};
         this.panel = [];
         this.totalPanel = [];
-        this.items = {};
     }
 
     init() {
@@ -93,14 +90,9 @@ export default class EventFilter extends AbstractView {
                 this.$set(this.selectCompetition, findItem.country_code, <any>[]);
                 this.$set(this.allCompetition, findItem.country_code, <any>[]);
                 this.$set(this.indeterminates, findItem.country_code, false);
-                this.$set(this.items, findItem.country_code, <any>{
-                    ...findItem,
-                    competitions: <any>[],
-                });
                 this.panel.push(index);
                 index++;
             }
-            this.items[findItem.country_code].competitions.push(item);
             this.selectCompetition[findItem.country_code].push(item.id);
             this.allCompetition[findItem.country_code].push(item.id);
             this.pageData.selectCompetitionLength++;

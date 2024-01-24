@@ -28,7 +28,6 @@ export default class EventFilter extends AbstractView {
     panel: any = {};
     sportPanel: any = [];
     // totalPanel: any = {};
-    items = <any>{};
     sportIcon = Assets.SportIcon;
     isRaceEvent = SportUtil.isRaceEvent;
 
@@ -69,7 +68,6 @@ export default class EventFilter extends AbstractView {
         this.panel = {};
         this.sportPanel = [];
         // this.totalPanel = {};
-        this.items = {};
     }
 
     init() {
@@ -85,7 +83,6 @@ export default class EventFilter extends AbstractView {
             this.selectCompetition[sportId] = {};
             this.allCompetition[sportId] = {};
             this.countryIndeterminates[sportId] = {};
-            this.items[sportId] = {};
 
             let index = 0;
             const sportNav = this.getSportNav(sportId);
@@ -105,14 +102,9 @@ export default class EventFilter extends AbstractView {
                     this.$set(this.selectCompetition[sportId], findItem.country_code, <any>[]);
                     this.$set(this.allCompetition[sportId], findItem.country_code, <any>[]);
                     this.$set(this.countryIndeterminates[sportId], findItem.country_code, false);
-                    this.$set(this.items[sportId], findItem.country_code, <any>{
-                        ...findItem,
-                        competitions: <any>[],
-                    });
                     this.panel[sportId].push(index);
                     index++;
                 }
-                this.items[sportId][findItem.country_code].competitions.push(item);
                 this.selectCompetition[sportId][findItem.country_code].push(item.id);
                 this.allCompetition[sportId][findItem.country_code].push(item.id);
                 this.pageData.selectCompetitionLength++;

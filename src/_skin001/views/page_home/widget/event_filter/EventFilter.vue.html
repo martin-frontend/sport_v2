@@ -14,44 +14,48 @@
         </v-checkbox>
     </v-sheet>
     <v-expansion-panels v-if="curSportNav" v-model="panel" elevation="0" accordion multiple>
-        <v-expansion-panel v-for="(item, country_code) of items" :key="country_code" elevation="0" color="transparent" ripple>
-            <v-expansion-panel-header color="bgGray1" class="rounded-0">
-                <v-sheet class="ml10" max-width="2" height="16" color="yellow1" rounded></v-sheet>
-                <v-checkbox
-                    v-model="selectCountry"
-                    :value="country_code"
-                    hide-details
-                    color="yellow1"
-                    dense
-                    class="mt-0 pt-0 ml-2"
-                    :indeterminate="indeterminates[country_code]"
-                    @click.stop="onCountryClick(country_code)"
-                >
-                    <template #label>
-                        <span class="text-14 font-weight-bold tagTextColor2--text">{{item.country_name}}</span>
-                    </template>
-                </v-checkbox>
-            </v-expansion-panel-header>
-            <v-expansion-panel-content>
-                <v-row class="d-flex pa-6">
-                    <v-col v-for="comp in item.competitions" :key="comp.id" cols="4">
-                        <v-checkbox
-                            v-model="selectCompetition[country_code]"
-                            :value="comp.id"
-                            hide-details
-                            color="yellow1"
-                            dense
-                            class="mt-0 pt-0 ml-2"
-                            @click="onCompetitionClick(country_code, comp.id)"
-                        >
-                            <template #label>
-                                <span class="text-14 font-weight-bold tagTextColor2--text">{{comp.name}}</span>
-                            </template>
-                        </v-checkbox>
-                    </v-col>
-                </v-row>
-            </v-expansion-panel-content>
-        </v-expansion-panel>
+        <template v-for="item of curSportNav.all_competition">
+            <v-expansion-panel v-if="allCompetition[item.country_code]" :key="item.country_code" elevation="0" color="transparent" ripple>
+                <v-expansion-panel-header color="bgGray1" class="rounded-0">
+                    <v-sheet class="ml10" max-width="2" height="16" color="yellow1" rounded></v-sheet>
+                    <v-checkbox
+                        v-model="selectCountry"
+                        :value="item.country_code"
+                        hide-details
+                        color="yellow1"
+                        dense
+                        class="mt-0 pt-0 ml-2"
+                        :indeterminate="indeterminates[item.country_code]"
+                        @click.stop="onCountryClick(item.country_code)"
+                    >
+                        <template #label>
+                            <span class="text-14 font-weight-bold tagTextColor2--text">{{item.country_name}}</span>
+                        </template>
+                    </v-checkbox>
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                    <v-row class="d-flex pa-6">
+                        <template v-for="comp in item.competitions">
+                            <v-col v-if="allCompetition[item.country_code].includes(comp.id)" :key="comp.id" cols="4">
+                                <v-checkbox
+                                    v-model="selectCompetition[item.country_code]"
+                                    :value="comp.id"
+                                    hide-details
+                                    color="yellow1"
+                                    dense
+                                    class="mt-0 pt-0 ml-2"
+                                    @click="onCompetitionClick(item.country_code, comp.id)"
+                                >
+                                    <template #label>
+                                        <span class="text-14 font-weight-bold tagTextColor2--text">{{comp.name}}</span>
+                                    </template>
+                                </v-checkbox>
+                            </v-col>
+                        </template>
+                    </v-row>
+                </v-expansion-panel-content>
+            </v-expansion-panel>
+        </template>
     </v-expansion-panels>
     <div class="d-flex justify-center mt-2">
         <btn-yellow :disabled="pageData.selectCompetitionLength==0" class="text-16" height="36" width="104" @click.native="onSave">
