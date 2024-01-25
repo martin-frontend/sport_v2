@@ -26,6 +26,8 @@ export default class DialogBetResult extends AbstractView {
     matcheProxy: MatcheProxy = getProxy(MatcheProxy);
     myProxy: DialogBetResultProxy = this.getProxy(DialogBetResultProxy);
     pageData = this.myProxy.pageData;
+    isLive = this.betProxy.pageData.isLive;
+    isHold = false;
 
     constructor() {
         super(DialogBetResultMediator);
@@ -45,9 +47,9 @@ export default class DialogBetResult extends AbstractView {
         8: LangUtil("准异常"), //无效
     };
     statusMapColor = {
-        0: "#FF7128", //确认中
-        1: "#007E29", //确认成功
-        3: "#7E0000", //拒绝
+        0: "#feba00", //确认中
+        1: "#41a81d", //确认成功
+        3: "#FF3C30", //拒绝
         4: "#FF2828", //取消
     };
     tipStatusMap = {
@@ -61,14 +63,26 @@ export default class DialogBetResult extends AbstractView {
             color: this.statusMapColor[1],
             title: LangUtil("注单确认成功"),
         },
+        3: {
+            bgColor: "#afdfaf",
+            color: this.statusMapColor[1],
+            title: LangUtil("注单确认成功"),
+        },
     };
 
     get tipStatus(): any {
-        const index = this.pageData.list.findIndex((item: any) => item.status == 0);
-        return index > -1 ? 0 : 1;
+        if (this.betProxy.pageData.betType == "parlay") {
+            return this.pageData.parlayData.status;
+        } else {
+            const index = this.pageData.list.findIndex((item: any) => item.status == 0 && !item.code);
+            return index > -1 ? 0 : 1;
+        }
     }
 
     get successfulCount() {
+        if (this.betProxy.pageData.betType == "parlay") {
+            return this.pageData.parlayData.status == 1 ? 1 : 0;
+        }
         let num = 0;
         //@ts-ignore
         this.pageData.list.forEach((item) => {
@@ -155,15 +169,28 @@ export default class DialogBetResult extends AbstractView {
 
     onClose() {
         this.pageData.bShow = false;
+        this.betProxy.initBetList();
+    }
+
+    onHold() {
+        this.isHold = true;
+        this.pageData.bShow = false;
+        this.betProxy.initBetList(true);
     }
 
     @Watch("pageData.bShow")
     onWatchShow() {
         if (this.pageData.bShow) {
+            this.isHold = false;
             setTimeout(() => {
                 BlurUtil(this.pageData.bShow);
             }, 200);
         } else {
+            if (this.isHold) {
+                this.onHold();
+            } else {
+                this.onClose();
+            }
             BlurUtil(this.pageData.bShow);
         }
         //通知BetProxy, 页面是否打开
