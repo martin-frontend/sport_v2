@@ -54,3 +54,13 @@
         border-color: #3e3f41;
     }
 }
+.theme--light {
+    .btnbox:hover {
+        filter: brightness(90%);
+    }
+}
+.theme--dark {
+    .btnbox:hover {
+        filter: brightness(120%);
+    }
+}
