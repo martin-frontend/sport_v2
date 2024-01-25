@@ -34,7 +34,7 @@ export default class EventFilter extends AbstractView {
 
     get tagName() {
         const { tag } = this.listQueryComp;
-        if (tag) {
+        if (tag && tag != "love") {
             if (["inplay", "today", "future"].includes(tag)) {
                 return this.curSportNav[tag].name;
             } else {

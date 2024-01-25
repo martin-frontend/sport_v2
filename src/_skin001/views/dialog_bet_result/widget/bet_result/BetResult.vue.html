@@ -58,7 +58,7 @@
                         <div>
                             <template v-if="item.isInPlay && item.states && item.states.match_phase != '-'">
                                 <span class="mr-1">{{LangUtil("滚球")}} </span>
-                                <span class="font-weight-bold mr-2">{{item.goals}}</span>
+                                <span v-if="item.comp.sport_id == 1" class="font-weight-bold mr-2">{{item.goals}}</span>
                             </template>
 
                             <div>{{transTitle(item.market.title, item.matche)}}</div>
@@ -232,7 +232,7 @@
                         <div>
                             <template v-if="item.isInPlay && item.states && item.states.match_phase != '-'">
                                 <span class="mr-1">{{LangUtil("滚球")}} </span>
-                                <span class="font-weight-bold mr-2">{{item.goals}}</span>
+                                <span v-if="item.comp.sport_id == 1" class="font-weight-bold mr-2">{{item.goals}}</span>
                             </template>
 
                             <div>{{transTitle(item.market.title, item.matche)}}</div>
