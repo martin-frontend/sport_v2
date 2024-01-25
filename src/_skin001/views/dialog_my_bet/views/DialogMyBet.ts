@@ -35,11 +35,15 @@ export default class DialogMyBet extends AbstractView {
 
     @Watch("betProxy.pageData.activeCount")
     onWatchBet() {
-        this.isShowBet = this.betProxy.pageData.list.length > 0;
-        this.$nextTick(() => {
+        // this.$nextTick(() => {
+        if (this.$vuetify.breakpoint.mobile) {
+            this.pageData.bShow = this.betProxy.pageData.list.length == 1 && !this.isShowBet;
+        } else {
             this.pageData.bShow = this.betProxy.pageData.list.length > 0;
-            console.warn("this.pageData.bShow: ", this.pageData.bShow);
-        });
+        }
+        console.warn("this.pageData.bShow: ", this.pageData.bShow);
+        // });
+        this.isShowBet = this.betProxy.pageData.list.length > 0;
     }
 
     onTopup() {
