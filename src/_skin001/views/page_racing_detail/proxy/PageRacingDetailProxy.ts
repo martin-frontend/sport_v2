@@ -80,9 +80,6 @@ export default class PageRacingDetailProxy extends puremvc.Proxy {
 
     getMarketAndStates() {
         if (Vue.router.currentRoute.path == "/page_racing_detail") {
-            const findItem = this.pageData.competition_list.find((item: any) => item.competition_id == this.pageData.competitionId);
-            const event_id = findItem?.matches[this.pageData.matchKey]?.id;
-            this.listQueryStates.event_id = event_id?.toString();
             if (this.listQueryStates.event_id) {
                 this.api_event_states();
                 this.api_market_typelist();

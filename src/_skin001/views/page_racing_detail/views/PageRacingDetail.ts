@@ -62,7 +62,13 @@ export default class PageRacingDetail extends AbstractView {
     }
 
     get curCompetition() {
-        this.selectedItem = this.pageData.competition_list.findIndex((item: any) => item.competition_id == this.pageData.competitionId);
+        this.selectedItem = this.pageData.competition_list.findIndex((item: any) => {
+            if (item.competition_id == this.pageData.competitionId) {
+                const matches = Object.values(item.matches);
+                return matches.findIndex((match: any) => match.id == this.myProxy.listQueryStates.event_id) > -1;
+            }
+            return false;
+        });
         if (this.selectedItem > -1) {
             return this.pageData.competition_list[this.selectedItem];
         }
@@ -94,24 +100,27 @@ export default class PageRacingDetail extends AbstractView {
     onTagClick(key: any) {
         this.pageData.loading = true;
         this.pageData.matchKey = key;
+        const match = this.curCompetition.matches?.[key];
+        this.myProxy.listQueryStates.event_id = match.id.toString();
         this.myProxy.getMarketAndStates();
         right_panel.show(1);
         right_panel.showLiveList(false);
         // matche.init(this.match.id);
-        const match = this.curCompetition.matches?.[key];
         live.init(match.id, this.myProxy.listQueryComp.sport_id);
         this.myProxy.api_event_race_detail(match.id);
     }
 
-    onChangeCompetion(val: any) {
+    onChangeCompetion(index: any) {
         this.pageData.loading = true;
-        this.pageData.competitionId = this.pageData.competition_list[val].competition_id;
+        const competition = this.pageData.competition_list[index];
+        this.pageData.competitionId = competition.competition_id;
         this.pageData.matchKey = "R1";
+        const match = competition.matches?.[this.pageData.matchKey];
+        this.myProxy.listQueryStates.event_id = match.id.toString();
         this.myProxy.getMarketAndStates();
         right_panel.show(1);
         right_panel.showLiveList(false);
         // matche.init(this.pageData.competition_list[val].matches["R1"].id);
-        const match = this.curCompetition.matches?.[this.pageData.matchKey];
         live.init(match.id, this.myProxy.listQueryComp.sport_id);
         this.myProxy.api_event_race_detail(match.id);
     }
