@@ -32,6 +32,11 @@ module.exports = {
         const imagesRule = config.module.rule("images");
         imagesRule.exclude.add(resolve("src/_skin001/icons"));
         config.module.rule("images").test(/\.(png|jpe?g|gif|svg)(\?.*)?$/);
+        config.module
+            .rule("svga")
+            .test(/\.svga$/)
+            .use("svga-loader")
+            .loader("svga-loader");
     },
 
     devServer: {

@@ -11,6 +11,7 @@ import page_home from "@/_skin001/views/page_home";
 import page_racing_home from "@/_skin001/views/page_racing_home";
 import SportUtil from "@/core/global/SportUtil";
 import BetProxy from "@/proxy/BetProxy";
+import SvgaUtil from "@/core/global/SvgaUtil";
 
 @Component
 export default class HeaderNav extends AbstractView {
@@ -24,6 +25,8 @@ export default class HeaderNav extends AbstractView {
     isShowSetting = false;
     sportIcon = Assets.SportIcon;
     tagIcon = Assets.TagIcon;
+    sportSvag = Assets.SportSvga;
+    resolveSvgaSrc = SvgaUtil.resolveSvgaSrc;
 
     destroyed() {
         super.destroyed();
@@ -60,6 +63,16 @@ export default class HeaderNav extends AbstractView {
     getTagNum(tag: string) {
         if (tag == "love") {
             return this.homeProxy.pageData.love_count;
+        }
+    }
+
+    getSportSvga(sportId: any, active: boolean) {
+        // @ts-ignore
+        const { darkActive, darkInactive, lightActive, lightInactive } = this.sportSvag[sportId];
+        if (active) {
+            return this.$vuetify.theme.dark ? darkActive : lightActive;
+        } else {
+            return this.$vuetify.theme.dark ? darkInactive : lightInactive;
         }
     }
 }

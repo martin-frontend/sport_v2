@@ -1,3 +1,9 @@
+.svga-player {
+    display: none;
+    width: 30px;
+    height: 30px;
+}
+
 .tag-btn {
     svg {
         transition: all 0.3s ease-in;
@@ -5,7 +11,10 @@
     }
     &:hover {
         svg {
-            transform: scale(1.1);
+            display: none;
+        }
+        .svga-player {
+            display: block;
         }
     }
     &.active {
@@ -14,6 +23,12 @@
         background-color: #ffe399 !important;
         &::before {
             background-color: transparent !important;
+        }
+        svg {
+            display: none;
+        }
+        .svga-player {
+            display: block;
         }
     }
 }
