@@ -31,6 +31,7 @@ export default class LivePlayer extends AbstractView {
     orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);
     betResultProxy: DialogBetResultProxy = getProxy(DialogBetResultProxy);
     window = 0;
+    isRaceEvent = SportUtil.isRaceEvent;
 
     fullscreen(type: boolean) {
         this.isFullscreen = type;
