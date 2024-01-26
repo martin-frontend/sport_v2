@@ -100,7 +100,7 @@ export default class RacingPanel extends AbstractView {
             listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
             matchKey: matchKey,
             event_id: item.matches[matchKey].id,
-        },item.matches[matchKey].id);
+        });
     }
 
     getRanking(event_id: number) {

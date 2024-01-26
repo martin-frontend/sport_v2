@@ -47,8 +47,8 @@ export default class MobileRaceTable extends AbstractView {
                 competitionId: item.competition_id,
                 listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
                 matchKey: matchKey,
-            },
-            item.matches[matchKey].id
+                event_id: item.matches[matchKey].id, 
+            }
         );
     }
 

@@ -27,14 +27,16 @@
                     <v-list dense class="py-0">
                         <v-list-item-group @change="onChangeCompetion" v-model="selectedItem" active-class="list-active" mandatory>
                             <template v-for="(item, index) in pageData.competition_list">
-                                <v-list-item :key="item.competition_id">
-                                    <v-list-item-title class="d-flex align-center">
-                                        <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
-                                        <span class="ml-2">{{item.competition_name}}</span>
-                                        <span class="ml-2">{{getEventDate(item.date)}}</span>
-                                    </v-list-item-title>
-                                </v-list-item>
-                                <v-divider v-if="index + 1 < pageData.competition_list.length" :key="index"></v-divider>
+                                <div :key="index">
+                                    <v-list-item>
+                                        <v-list-item-title class="d-flex align-center">
+                                            <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
+                                            <span class="ml-2">{{item.competition_name}}</span>
+                                            <span class="ml-2">{{getEventDate(item.date)}}</span>
+                                        </v-list-item-title>
+                                    </v-list-item>
+                                    <v-divider v-if="index + 1 < pageData.competition_list.length"></v-divider>
+                                </div>
                             </template>
                         </v-list-item-group>
                     </v-list>
@@ -143,14 +145,16 @@
                 <v-list dense class="py-0">
                     <v-list-item-group @change="onChangeCompetion" v-model="selectedItem" active-class="list-active" mandatory>
                         <template v-for="(item, index) in pageData.competition_list">
-                            <v-list-item :key="item.competition_id">
-                                <v-list-item-title class="d-flex align-center">
-                                    <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
-                                    <span class="ml-2">{{item.competition_name}}</span>
-                                    <span class="ml-2">{{getEventDate(item.date)}}</span>
-                                </v-list-item-title>
-                            </v-list-item>
-                            <v-divider v-if="index + 1 < pageData.competition_list.length" :key="index"></v-divider>
+                            <div :key="index">
+                                <v-list-item>
+                                    <v-list-item-title class="d-flex align-center">
+                                        <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
+                                        <span class="ml-2">{{item.competition_name}}</span>
+                                        <span class="ml-2">{{getEventDate(item.date)}}</span>
+                                    </v-list-item-title>
+                                </v-list-item>
+                                <v-divider v-if="index + 1 < pageData.competition_list.length"></v-divider>
+                            </div>
                         </template>
                     </v-list-item-group>
                 </v-list>
