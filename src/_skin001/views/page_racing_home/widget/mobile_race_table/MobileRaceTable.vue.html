@@ -49,7 +49,9 @@
                 <v-img :src="data.country_icon" height="30" max-width="30" contain></v-img>
                 <div class="d-flex flex-column text-14">
                     <div class="ml-2 font-weight-bold" :class="isAllFinish ? 'textGray3--text' : 'primary--text'">
-                        {{data.competition_name}} {{getEventDate(data.date)}}
+                        <span> {{data.competition_name}} </span>
+                        <span v-if="data.start_date == data.end_date"> {{getEventDate(data.end_date)}} </span>
+                        <span v-else> {{getEventDate(data.start_date)}} - {{getEventDate(data.end_date)}} </span>
                     </div>
                     <div class="ml-2" :class="isAllFinish ? 'textGray3--text' : 'tagTextColor1--text'">{{LangUtil(data.country)}}</div>
                 </div>

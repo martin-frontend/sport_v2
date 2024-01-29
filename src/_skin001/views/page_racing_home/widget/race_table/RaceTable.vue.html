@@ -81,7 +81,9 @@
                                 <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
                                 <div class="py-2" style="width: calc(100% - 30px)">
                                     <div class="ml-2 font-weight-bold text-14 text-truncate">
-                                        {{item.competition_name}} {{getEventDate(item.date)}}
+                                        <span> {{item.competition_name}} </span>
+                                        <span v-if="item.start_date == item.end_date"> {{getEventDate(item.end_date)}} </span>
+                                        <span v-else> {{getEventDate(item.start_date)}} - {{getEventDate(item.end_date)}} </span>
                                     </div>
                                     <div class="ml-2 font-weight-bold text-14 tagTextColor1--text">{{LangUtil(item.country)}}</div>
                                 </div>
