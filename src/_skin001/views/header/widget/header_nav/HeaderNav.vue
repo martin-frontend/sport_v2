@@ -4,8 +4,13 @@
 <script lang="ts">
 import Component from "vue-class-component";
 import HeaderNav from "./HeaderNav";
+import SvgaPlayer from "@/_skin001/views/widget/svga_player/SvgaPlayer.vue";
 
-Component
+@Component({
+    components: {
+        SvgaPlayer
+    }
+})
 export default class extends HeaderNav {
     mounted() {
         window.scrollTo(0, 0);

@@ -2,27 +2,37 @@
     <v-sheet v-if="!$vuetify.breakpoint.mobile" color="bgBanner" class="rounded-lg">
         <horizontal_scroll class="pa-2" :offsetx="16" v-if="new_menu_subnav">
             <template v-slot="{data}">
-                <v-btn
-                    v-for="key of sportIdArr"
-                    :key="key"
-                    class="mr-2 tag-btn rounded-lg"
-                    :class="{'active': key == curSportId}"
-                    color="tagTextColor1"
-                    text
-                    :ripple="false"
-                    height="75"
-                    min-width="75"
-                    :disabled="!new_menu_subnav[key].num"
-                    @click="onSportClick(Number(key))"
-                >
-                    <div class="d-flex flex-column">
-                        <svg-icon class="text-30 mr-1" :icon="sportIcon[key]"></svg-icon>
-                        <div class="d-flex align-center text-14 mt-1">
-                            <span>{{new_menu_subnav[key].sport}}</span>
-                            <span class="ml-1 font-weight-bold">{{new_menu_subnav[key].num}}</span>
+                <v-hover v-for="key of sportIdArr" v-slot="{ hover }" :key="key">
+                    <v-btn
+                        class="mr-2 tag-btn rounded-lg"
+                        :class="{'active': key == curSportId}"
+                        color="tagTextColor1"
+                        text
+                        :ripple="false"
+                        height="75"
+                        min-width="75"
+                        :disabled="!new_menu_subnav[key].num"
+                        @click="onSportClick(Number(key))"
+                    >
+                        <div class="d-flex flex-column">
+                            <svg-icon class="text-30 mr-1" :icon="sportIcon[key]"></svg-icon>
+                            <SvgaPlayer
+                                class="svga-player active mr-3"
+                                :id="getSportSvga(key, true)"
+                                :src="resolveSvgaSrc(getSportSvga(key, true))"
+                            ></SvgaPlayer>
+                            <SvgaPlayer
+                                class="svga-player inactive mr-3"
+                                :id="getSportSvga(key, false)"
+                                :src="resolveSvgaSrc(getSportSvga(key, false))"
+                            ></SvgaPlayer>
+                            <div class="d-flex align-center text-14 mt-1">
+                                <span>{{new_menu_subnav[key].sport}}</span>
+                                <span class="ml-1 font-weight-bold">{{new_menu_subnav[key].num}}</span>
+                            </div>
                         </div>
-                    </div>
-                </v-btn>
+                    </v-btn>
+                </v-hover>
             </template>
         </horizontal_scroll>
     </v-sheet>
@@ -44,7 +54,17 @@
                     @click="onSportClick(key)"
                 >
                     <div class="d-flex flex-column">
-                        <svg-icon class="text-25 mr-1" :icon="sportIcon[key]"></svg-icon>
+                        <svg-icon class="text-25 mr-1 mb-2" :icon="sportIcon[key]"></svg-icon>
+                        <SvgaPlayer
+                            class="svga-player active mr-3 mobile"
+                            :id="getSportSvga(key, true)"
+                            :src="resolveSvgaSrc(getSportSvga(key, true))"
+                        ></SvgaPlayer>
+                        <SvgaPlayer
+                            class="svga-player inactive mr-3 mobile"
+                            :id="getSportSvga(key, false)"
+                            :src="resolveSvgaSrc(getSportSvga(key, false))"
+                        ></SvgaPlayer>
                         <div class="d-flex align-center text-14">
                             <span>{{new_menu_subnav[key].sport}}</span>
                             <span class="ml-1 font-weight-bold">{{new_menu_subnav[key].num}}</span>
