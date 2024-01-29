@@ -2,6 +2,10 @@
     display: none;
     width: 30px;
     height: 30px;
+    &.mobile {
+        width: 25px;
+        height: 25px;
+    }
 }
 
 .tag-btn {
@@ -43,6 +47,10 @@
             background-color: #524520 !important;
         }
     }
+}
+
+::v-deep .divbox {
+    overflow-y: hidden;
 }
 // .h5-tag-btn {
 //     &.active {
