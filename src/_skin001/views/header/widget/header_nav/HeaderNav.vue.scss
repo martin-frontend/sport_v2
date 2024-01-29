@@ -2,6 +2,10 @@
     display: none;
     width: 30px;
     height: 30px;
+    &.mobile {
+        width: 25px;
+        height: 25px;
+    }
 }
 
 .tag-btn {
