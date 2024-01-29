@@ -44,6 +44,10 @@
         }
     }
 }
+
+::v-deep .divbox  {
+    overflow-y: hidden;
+}
 // .h5-tag-btn {
 //     &.active {
 //         color: #ffbc05 !important;
