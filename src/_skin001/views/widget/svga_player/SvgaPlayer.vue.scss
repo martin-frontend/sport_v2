@@ -11,22 +11,34 @@
 #svga-player-soccer_03,
 #svga-player-soccer_04 {
     transform: scale(1.5);
+    &.mobile {
+        transform: scale(1.3);
+    }
 }
 #svga-player-race_01,
 #svga-player-race_02,
 #svga-player-race_03,
 #svga-player-race_04 {
     transform: scale(1.7) translateY(-4px);
+    &.mobile {
+        transform: scale(1.4) translateY(-7px);
+    }
 }
 #svga-player-greyhound_racing_01,
 #svga-player-greyhound_racing_02,
 #svga-player-greyhound_racing_03,
 #svga-player-greyhound_racing_04 {
     transform: scale(2) translateY(-7px);
+    &.mobile {
+        transform: scale(1.5) translateY(-10px);
+    }
 }
 #svga-player-harness_racing_01,
 #svga-player-harness_racing_02,
 #svga-player-harness_racing_03,
 #svga-player-harness_racing_04 {
     transform: scale(1.5) translateY(-5px);
+    &.mobile {
+        transform: scale(1.4) translateY(-8px);
+    }
 }

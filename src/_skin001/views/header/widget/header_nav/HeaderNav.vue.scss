@@ -13,7 +13,7 @@
         svg {
             display: none;
         }
-        .svga-player {
+        .svga-player.inactive {
             display: block;
         }
     }
@@ -27,8 +27,11 @@
         svg {
             display: none;
         }
-        .svga-player {
+        .svga-player.active {
             display: block;
+        }
+        .svga-player.inactive {
+            display: none;
         }
     }
 }
