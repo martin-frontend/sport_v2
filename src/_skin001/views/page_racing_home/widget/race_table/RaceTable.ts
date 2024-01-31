@@ -37,7 +37,7 @@ export default class RaceTable extends AbstractView {
     }
 
     getEventDate(date: any) {
-        return dateFormat(new Date(date), "MM/dd");
+        return dateFormat(new Date(date), "MM/dd", true);
     }
 
     onShowHeaderDetail(item: any) {

@@ -70,7 +70,7 @@ export default class RightPanel extends AbstractView {
         this.myProxy.isShowLive = true;
     }
     getEventDate(date: any) {
-        return dateFormat(new Date(date), "MM/dd");
+        return dateFormat(new Date(date), "MM/dd", true);
     }
 
     @Watch("homeProxy.listQueryComp.sport_id")
