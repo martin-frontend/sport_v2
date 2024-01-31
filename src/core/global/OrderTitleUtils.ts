@@ -85,7 +85,7 @@ function getOrderTitle({ market_type, s_type, home_name, away_name, content, sid
             return `${s_type == "Overs" ? LangUtil("大") : LangUtil("小")} ${formatAsian(handicap, s_type).substring(1)}`;
         case marketType.BK_ASIAN_OVER_UNDER:
         case marketType.BK_ASIAN_OVER_UNDER_HALF_TIME:
-            return `${s_type == "Over" ? LangUtil("大") : LangUtil("小")} ${formatAsian(handicap, s_type).substring(1)}`;
+            return `${s_type == "Overs" ? LangUtil("大") : LangUtil("小")} ${formatAsian(handicap, s_type).substring(1)}`;
         case marketType.ASIAN_HANDICAP: //亚洲让球盘
         case marketType.ASIAN_HANDICAP_HALF_TIME: //半场 - 亚洲让球盘
         case marketType.DRAW_NO_BET: //平局退款

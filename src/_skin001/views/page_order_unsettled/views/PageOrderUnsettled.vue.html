@@ -55,7 +55,7 @@
                     <template v-if="!isRaceEvent(item.sport_id)">
                         <div class="d-flex px10">
                             <div v-if="leg.c_type == 2">{{leg.content}}</div>
-                            <div v-else>{{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,true)}}</div>
+                            <div v-else>{{ OrderTitleUtils.getTeamName(leg, false)}}{{ OrderTitleUtils.getOrderTitle(leg,leg.s_type)}}</div>
                             <v-spacer />
                             <div>@{{TransMarketPrice(leg.odds)}}</div>
                         </div>
