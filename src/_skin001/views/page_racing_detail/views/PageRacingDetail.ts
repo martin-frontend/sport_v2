@@ -94,7 +94,7 @@ export default class PageRacingDetail extends AbstractView {
     }
 
     getEventDate(date: any) {
-        return dateFormat(new Date(date), "MM/dd");
+        return dateFormat(new Date(date), "MM/dd", true);
     }
 
     onTagClick(key: any) {

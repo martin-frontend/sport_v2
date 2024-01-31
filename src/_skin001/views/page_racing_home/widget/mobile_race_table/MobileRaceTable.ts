@@ -34,7 +34,7 @@ export default class MobileRaceTable extends AbstractView {
     dateFormat() {}
 
     getEventDate(date: any) {
-        return dateFormat(new Date(date), "MM/dd");
+        return dateFormat(new Date(date), "MM/dd", true);
     }
 
     onShowDetail(item: any, matchKey: any) {
