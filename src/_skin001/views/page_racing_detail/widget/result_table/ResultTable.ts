@@ -53,7 +53,7 @@ export default class ResultTable extends AbstractView {
     }
 
     isShowPlace(ranking: any) {
-        const length = this.match.runners.length;
+        const length = this.runners.length;
         if (length >= 8) {
             return [1, 2, 3].includes(Number(ranking));
         } else if (length >= 5 && length < 8) {
@@ -77,6 +77,11 @@ export default class ResultTable extends AbstractView {
 
     getWinSelection(runnerId: any) {
         return this.markets?.RB_WIN?.selections?.find((item: any) => item.id == runnerId);
+    }
+
+    // 參赛的
+    get runners() {
+        return this.match.runners.filter((item: any) => !item.scratched);
     }
 
     // 退赛的

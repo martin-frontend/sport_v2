@@ -105,7 +105,7 @@ export default class MarketsTable extends AbstractView {
     }
 
     get isShowPlace() {
-        return this.match.runners.length > 5 && this.markets?.RB_PLACE?.selections?.findIndex((item: any) => item.price.back > 0) > -1;
+        return this.runners.length > 5 && this.markets?.RB_PLACE?.selections?.findIndex((item: any) => item.price.back > 0) > -1;
     }
 
     destroyed() {
