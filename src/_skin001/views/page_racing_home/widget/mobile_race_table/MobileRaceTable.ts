@@ -44,10 +44,11 @@ export default class MobileRaceTable extends AbstractView {
         console.warn("--->>点击详情-matchKey--123", item.matches[matchKey].id);
         page_racing_detail.show(
             {
-                competitionId: item.competition_id,
+                // competitionId: item.competition_id,
                 listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
                 matchKey: matchKey,
-                event_id: item.matches[matchKey].id, 
+                // event_id: item.matches[matchKey].id, 
+                competition: item,
             }
         );
     }
