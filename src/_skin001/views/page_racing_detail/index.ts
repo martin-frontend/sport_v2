@@ -10,21 +10,22 @@ function show(data: any) {
         Vue.router.push("/page_racing_detail");
     }
     const myProxy: PageRacingDetailProxy = getProxy(PageRacingDetailProxy);
-    const { listQueryComp, competitionId, matchKey, event_id } = data;
-    myProxy.pageData.competitionId = competitionId;
+    const { listQueryComp, matchKey, competition } = data;
+    myProxy.pageData.competitionId = competition.competition_id;
     myProxy.pageData.matchKey = matchKey;
     Object.assign(myProxy.listQueryComp, {
         ...listQueryComp,
         unique: PageRacingDetailProxy.NAME,
     });
-
+    const event_id = competition.matches[matchKey].id;
     if (event_id) {
         myProxy.listQueryStates.event_id = event_id.toString();
         myProxy.api_event_race_detail(event_id);
         right_panel.show(1);
         right_panel.showLiveList(false);
         // matche.init(event_id);
-        live.init(event_id, listQueryComp.sport_id);
+        const tag = competition.start_date == competition.end_date ? null: "not_limited";
+        live.init(event_id, listQueryComp.sport_id, tag);
     }
     myProxy.api_event_list();
 }
