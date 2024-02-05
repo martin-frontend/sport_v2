@@ -17,7 +17,13 @@
                         <div class="d-flex align-center font-weight-bold text-18 tagTextColor2--text" v-bind="attrs" v-on="on">
                             <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
                             <span class="ml-2">{{curCompetition.competition_name}}</span>
-                            <span class="ml-2">{{getEventDate(curCompetition.date)}}</span>
+                            <!-- <span class="ml-2">{{getEventDate(curCompetition.date)}}</span> -->
+                            <span class="ml-2" v-if="curCompetition.start_date == curCompetition.end_date">
+                                {{getEventDate(curCompetition.end_date)}}
+                            </span>
+                            <span class="ml-2" v-else>
+                                {{getEventDate(curCompetition.start_date)}} - {{getEventDate(curCompetition.end_date)}}
+                            </span>
                             <div class="icon-box iconfont text-12 ml-3" :class="value? 'arrow-show':'arrow'">
                                 <svg-icon icon="zoom_out"></svg-icon>
                             </div>
@@ -32,7 +38,13 @@
                                         <v-list-item-title class="d-flex align-center">
                                             <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
                                             <span class="ml-2">{{item.competition_name}}</span>
-                                            <span class="ml-2">{{getEventDate(item.date)}}</span>
+                                            <!-- <span class="ml-2">{{getEventDate(item.date)}}</span> -->
+                                            <span class="ml-2" v-if="item.start_date == item.end_date">
+                                                {{getEventDate(item.end_date)}}
+                                            </span>
+                                            <span class="ml-2" v-else>
+                                                {{getEventDate(item.start_date)}} - {{getEventDate(item.end_date)}}
+                                            </span>
                                         </v-list-item-title>
                                     </v-list-item>
                                     <v-divider v-if="index + 1 < pageData.competition_list.length"></v-divider>
@@ -135,7 +147,13 @@
                     <div class="d-flex align-center font-weight-bold text-16 tagTextColor2--text" v-bind="attrs" v-on="on">
                         <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-1 text-25"></svg-icon>
                         <span class="ml-2">{{curCompetition.competition_name}}</span>
-                        <span class="ml-2">{{getEventDate(curCompetition.date)}}</span>
+                        <!-- <span class="ml-2">{{getEventDate(curCompetition.date)}}</span> -->
+                        <span class="ml-2" v-if="curCompetition.start_date == curCompetition.end_date">
+                            {{getEventDate(curCompetition.end_date)}}
+                        </span>
+                        <span class="ml-2" v-else>
+                            {{getEventDate(curCompetition.start_date)}} - {{getEventDate(curCompetition.end_date)}}
+                        </span>
                         <div class="icon-box iconfont text-12 ml-3" :class="value? 'arrow-show':'arrow'">
                             <svg-icon icon="zoom_out"></svg-icon>
                         </div>
@@ -150,7 +168,13 @@
                                     <v-list-item-title class="d-flex align-center">
                                         <svg-icon :icon="sportIcon[curCompetition.sport_id]" class="ml-2 text-25"></svg-icon>
                                         <span class="ml-2">{{item.competition_name}}</span>
-                                        <span class="ml-2">{{getEventDate(item.date)}}</span>
+                                        <!-- <span class="ml-2">{{getEventDate(item.date)}}</span> -->
+                                        <span class="ml-2" v-if="item.start_date == item.end_date">
+                                            {{getEventDate(item.end_date)}}
+                                        </span>
+                                        <span class="ml-2" v-else>
+                                            {{getEventDate(item.start_date)}} - {{getEventDate(item.end_date)}}
+                                        </span>
                                     </v-list-item-title>
                                 </v-list-item>
                                 <v-divider v-if="index + 1 < pageData.competition_list.length"></v-divider>
