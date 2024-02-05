@@ -25,7 +25,13 @@
                         {{racingDetailProxy.pageData.matchKey}}
                     </v-sheet>
                     <span class="ml-2" style="white-space: nowrap">{{competition.competition_name}}</span>
-                    <span class="ml-2">{{getEventDate(competition.date)}}</span>
+                    <!-- <span class="ml-2">{{getEventDate(competition.date)}}</span> -->
+                    <span class="ml-2" v-if="competition.start_date == competition.end_date">
+                        {{getEventDate(competition.end_date)}}
+                    </span>
+                    <span class="ml-2" v-else>
+                        {{getEventDate(competition.start_date)}} - {{getEventDate(competition.end_date)}}
+                    </span>
                 </div>
                 <svg-icon class="text-12 ml-2" icon="zoom_out" :class="pageData.isShowLiveList ? 'arrow-up' : 'arrow-down'"></svg-icon>
             </v-sheet>
