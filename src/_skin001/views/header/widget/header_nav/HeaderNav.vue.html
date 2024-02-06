@@ -16,30 +16,26 @@
                     >
                         <div class="d-flex flex-column">
                             <svg-icon class="text-30 mr-1" :icon="sportIcon[key]"></svg-icon>
-                            <template v-if="$vuetify.theme.dark">
-                                <SvgaPlayer
-                                    class="svga-player active mr-3"
-                                    :id="getSportSvga(key, true, true)"
-                                    :src="resolveSvgaSrc(getSportSvga(key, true, true))"
-                                ></SvgaPlayer>
-                                <SvgaPlayer
-                                    class="svga-player inactive mr-3"
-                                    :id="getSportSvga(key, false, true)"
-                                    :src="resolveSvgaSrc(getSportSvga(key, false, true))"
-                                ></SvgaPlayer>
-                            </template>
-                            <template v-else>
-                                <SvgaPlayer
-                                    class="svga-player active mr-3"
-                                    :id="getSportSvga(key, true, false)"
-                                    :src="resolveSvgaSrc(getSportSvga(key, true, false))"
-                                ></SvgaPlayer>
-                                <SvgaPlayer
-                                    class="svga-player inactive mr-3"
-                                    :id="getSportSvga(key, false, false)"
-                                    :src="resolveSvgaSrc(getSportSvga(key, false, false))"
-                                ></SvgaPlayer>
-                            </template>
+                            <SvgaPlayer
+                                class="svga-player active mr-3 dark"
+                                :id="getSportSvga(key, true, true)"
+                                :src="resolveSvgaSrc(getSportSvga(key, true, true))"
+                            ></SvgaPlayer>
+                            <SvgaPlayer
+                                class="svga-player inactive mr-3 dark"
+                                :id="getSportSvga(key, false, true)"
+                                :src="resolveSvgaSrc(getSportSvga(key, false, true))"
+                            ></SvgaPlayer>
+                            <SvgaPlayer
+                                class="svga-player active mr-3 light"
+                                :id="getSportSvga(key, true, false)"
+                                :src="resolveSvgaSrc(getSportSvga(key, true, false))"
+                            ></SvgaPlayer>
+                            <SvgaPlayer
+                                class="svga-player inactive mr-3 light"
+                                :id="getSportSvga(key, false, false)"
+                                :src="resolveSvgaSrc(getSportSvga(key, false, false))"
+                            ></SvgaPlayer>
                             <div class="d-flex align-center text-14 mt-1">
                                 <span>{{new_menu_subnav[key].sport}}</span>
                                 <span class="ml-1 font-weight-bold">{{new_menu_subnav[key].num}}</span>
@@ -69,31 +65,26 @@
                 >
                     <div class="d-flex flex-column">
                         <svg-icon class="text-25 mr-1" :icon="sportIcon[key]"></svg-icon>
-                        <template v-if="$vuetify.theme.dark">
-                            <SvgaPlayer
-                                class="svga-player active mr-3 mobile"
-                                :id="getSportSvga(key, true, true)"
-                                :src="resolveSvgaSrc(getSportSvga(key, true, true))"
-                            ></SvgaPlayer>
-                            <SvgaPlayer
-                                class="svga-player inactive mr-3 mobile"
-                                :id="getSportSvga(key, false, true)"
-                                :src="resolveSvgaSrc(getSportSvga(key, false, true))"
-                            ></SvgaPlayer>
-                        </template>
-                        <template v-else>
-                            <SvgaPlayer
-                                class="svga-player active mr-3 mobile"
-                                :id="getSportSvga(key, true, false)"
-                                :src="resolveSvgaSrc(getSportSvga(key, true, false))"
-                            ></SvgaPlayer>
-                            <SvgaPlayer
-                                class="svga-player inactive mr-3 mobile"
-                                :id="getSportSvga(key, false, false)"
-                                :src="resolveSvgaSrc(getSportSvga(key, false, false))"
-                            ></SvgaPlayer>
-
-                        </template>
+                        <SvgaPlayer
+                            class="svga-player active mr-3 mobile dark"
+                            :id="getSportSvga(key, true, true)"
+                            :src="resolveSvgaSrc(getSportSvga(key, true, true))"
+                        ></SvgaPlayer>
+                        <SvgaPlayer
+                            class="svga-player inactive mr-3 mobile dark"
+                            :id="getSportSvga(key, false, true)"
+                            :src="resolveSvgaSrc(getSportSvga(key, false, true))"
+                        ></SvgaPlayer>
+                        <SvgaPlayer
+                            class="svga-player active mr-3 mobile light"
+                            :id="getSportSvga(key, true, false)"
+                            :src="resolveSvgaSrc(getSportSvga(key, true, false))"
+                        ></SvgaPlayer>
+                        <SvgaPlayer
+                            class="svga-player inactive mr-3 mobile light"
+                            :id="getSportSvga(key, false, false)"
+                            :src="resolveSvgaSrc(getSportSvga(key, false, false))"
+                        ></SvgaPlayer>
                         <div class="d-flex align-center text-14 mt-2">
                             <span>{{new_menu_subnav[key].sport}}</span>
                             <span class="ml-1 font-weight-bold">{{new_menu_subnav[key].num}}</span>
