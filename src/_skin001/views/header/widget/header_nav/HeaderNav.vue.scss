@@ -1,3 +1,13 @@
+.svga-player {
+    display: none;
+    width: 30px;
+    height: 30px;
+    &.mobile {
+        width: 25px;
+        height: 25px;
+    }
+}
+
 .tag-btn {
     svg {
         transition: all 0.3s ease-in;
@@ -5,7 +15,10 @@
     }
     &:hover {
         svg {
-            transform: scale(1.1);
+            display: none;
+        }
+        .svga-player.inactive {
+            display: block;
         }
     }
     &.active {
@@ -14,6 +27,15 @@
         background-color: #ffe399 !important;
         &::before {
             background-color: transparent !important;
+        }
+        svg {
+            display: none;
+        }
+        .svga-player.active {
+            display: block;
+        }
+        .svga-player.inactive {
+            display: none;
         }
     }
 }
@@ -25,6 +47,10 @@
             background-color: #524520 !important;
         }
     }
+}
+
+::v-deep .divbox {
+    overflow-y: hidden;
 }
 // .h5-tag-btn {
 //     &.active {
