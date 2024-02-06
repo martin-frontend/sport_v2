@@ -66,13 +66,13 @@ export default class HeaderNav extends AbstractView {
         }
     }
 
-    getSportSvga(sportId: any, active: boolean) {
+    getSportSvga(sportId: any, active: boolean, dark: boolean) {
         // @ts-ignore
         const { darkActive, darkInactive, lightActive, lightInactive } = this.sportSvag[sportId];
         if (active) {
-            return this.$vuetify.theme.dark ? darkActive : lightActive;
+            return dark ? darkActive : lightActive;
         } else {
-            return this.$vuetify.theme.dark ? darkInactive : lightInactive;
+            return dark ? darkInactive : lightInactive;
         }
     }
 }
