@@ -94,7 +94,7 @@ export default class PageRacingDetail extends AbstractView {
     }
 
     getEventDate(date: any) {
-        return dateFormat(new Date(date), "MM/dd");
+        return dateFormat(new Date(date), "MM/dd", true);
     }
 
     onTagClick(key: any) {
@@ -106,7 +106,8 @@ export default class PageRacingDetail extends AbstractView {
         right_panel.show(1);
         right_panel.showLiveList(false);
         // matche.init(this.match.id);
-        live.init(match.id, this.myProxy.listQueryComp.sport_id);
+        const tag = this.curCompetition.start_date == this.curCompetition.end_date ? null: "not_limited";
+        live.init(match.id, this.myProxy.listQueryComp.sport_id, tag);
         this.myProxy.api_event_race_detail(match.id);
     }
 
@@ -121,7 +122,8 @@ export default class PageRacingDetail extends AbstractView {
         right_panel.show(1);
         right_panel.showLiveList(false);
         // matche.init(this.pageData.competition_list[val].matches["R1"].id);
-        live.init(match.id, this.myProxy.listQueryComp.sport_id);
+        const tag = competition.start_date == competition.end_date ? null: "not_limited";
+        live.init(match.id, this.myProxy.listQueryComp.sport_id, tag);
         this.myProxy.api_event_race_detail(match.id);
     }
 

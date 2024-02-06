@@ -37,7 +37,7 @@ export default class RaceTable extends AbstractView {
     }
 
     getEventDate(date: any) {
-        return dateFormat(new Date(date), "MM/dd");
+        return dateFormat(new Date(date), "MM/dd", true);
     }
 
     onShowHeaderDetail(item: any) {
@@ -53,10 +53,11 @@ export default class RaceTable extends AbstractView {
         if (!item.matches[matchKey] || item.matches[matchKey]?.is_open == 2) return;
         page_racing_detail.show(
             {
-                competitionId: item.competition_id,
+                // competitionId: item.competition_id,
                 listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
                 matchKey: matchKey,
-                event_id: item.matches[matchKey].id,
+                // event_id: item.matches[matchKey].id,
+                competition: item,
             }
         );
     }
