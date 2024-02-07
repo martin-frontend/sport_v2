@@ -60,6 +60,7 @@ function getMyProxy(): PageHomeProxy {
     myProxy.pageData.filterCompetition = null;
     myProxy.pageData.selectCompetitionLength = 0;
     myProxy.pageData.allCompetitionLength = 0;
+    myProxy.listQueryComp.event_id = "";
     return myProxy;
 }
 
