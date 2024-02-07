@@ -19,6 +19,7 @@ export default class RaceTable extends AbstractView {
     @Prop() isHideArrow!: boolean;
     sportIcon = Assets.SportIcon;
     headerList = ["R1", "R2", "R3", "R4", "R5", "R6", "R7", "R8", "R9", "R10", "R11", "R12", "R13", "R14"];
+    fixedWidth = 0;
 
     get isLoading() {
         return this.pageData.loading && this.myProxy.listQueryComp.sport_id.includes(`${this.sportItem.sportId}`);
@@ -51,15 +52,13 @@ export default class RaceTable extends AbstractView {
 
     onShowDetail(item: any, matchKey: any) {
         if (!item.matches[matchKey] || item.matches[matchKey]?.is_open == 2) return;
-        page_racing_detail.show(
-            {
-                // competitionId: item.competition_id,
-                listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
-                matchKey: matchKey,
-                // event_id: item.matches[matchKey].id,
-                competition: item,
-            }
-        );
+        page_racing_detail.show({
+            // competitionId: item.competition_id,
+            listQueryComp: { ...this.myProxy.listQueryComp, sport_id: item.sport_id },
+            matchKey: matchKey,
+            // event_id: item.matches[matchKey].id,
+            competition: item,
+        });
     }
 
     getStartTime(start_time_timestamp: any) {
@@ -121,9 +120,30 @@ export default class RaceTable extends AbstractView {
         if (val) {
             this.isShowContent = true;
         }
+        this.handelResize();
+    }
+
+    @Watch("isLoading")
+    onWatchIsLoading(val: boolean) {
+        if (!val) {
+            this.handelResize();
+        }
+    }
+
+    mounted() {
+        window.addEventListener("resize", this.handelResize);
+    }
+
+    handelResize() {
+        this.$nextTick(() => {
+            // @ts-ignore
+            const width = this.$refs.tableCellFirst?.offsetWidth;
+            this.fixedWidth = width + 2;
+        });
     }
 
     destroyed() {
         super.destroyed();
+        window.removeEventListener("resize", this.handelResize);
     }
 }
