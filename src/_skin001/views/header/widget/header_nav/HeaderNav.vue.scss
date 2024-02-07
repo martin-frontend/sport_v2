@@ -13,12 +13,12 @@
         transition: all 0.3s ease-in;
         transform: scale(1);
     }
+    .svga-player {
+        display: none;
+    }
     &:hover {
         svg {
             display: none;
-        }
-        .svga-player.inactive {
-            display: block;
         }
     }
     &.active {
@@ -31,20 +31,42 @@
         svg {
             display: none;
         }
-        .svga-player.active {
-            display: block;
+    }
+}
+.theme--light {
+    .tag-btn {
+        &:hover {
+            .svga-player.inactive.light {
+                display: block;
+            }
         }
-        .svga-player.inactive {
-            display: none;
+        &.active {
+            .svga-player.active.light {
+                display: block;
+            }
+            .svga-player.inactive.light {
+                display: none;
+            }
         }
     }
 }
-
 .theme--dark {
     .tag-btn {
+        &:hover {
+            .svga-player.inactive.dark {
+                display: block;
+            }
+        }
         &.active {
             color: #f0eff0 !important;
             background-color: #524520 !important;
+
+            .svga-player.active.dark {
+                display: block;
+            }
+            .svga-player.inactive.dark {
+                display: none;
+            }
         }
     }
 }
