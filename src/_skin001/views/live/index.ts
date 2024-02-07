@@ -10,7 +10,7 @@ function init(event_id: number, sport_id?: any, tag?: any) {
     const racingDetailProxy: PageRacingDetailProxy = getProxy(PageRacingDetailProxy);
     myProxy.listQueryComp.sport_id = sport_id ?? homeProxy.listQueryComp.sport_id;
     myProxy.listQueryComp.tag = !SportUtil.isRaceEvent(myProxy.listQueryComp.sport_id)
-        ? homeProxy.listQueryComp.tag
+        ? tag ?? homeProxy.listQueryComp.tag
         : tag ?? racingDetailProxy.listQueryComp.tag;
 
     if (event_id) {

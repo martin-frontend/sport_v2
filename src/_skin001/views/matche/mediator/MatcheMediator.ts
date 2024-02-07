@@ -25,8 +25,9 @@ export default class MatcheMediator extends AbstractMediator {
             case net.EventType.api_event_list_v3:
                 if (body.length > 0 && !myProxy.listQueryComp.event_id) {
                     if (GlobalVar.pre_event_id) {
-                        matche.init(GlobalVar.pre_event_id);
-                        live.init(GlobalVar.pre_event_id);
+                        // matche.init(GlobalVar.pre_event_id);
+                        const { sport_id, tag } = myProxy.listQueryComp;
+                        live.init(GlobalVar.pre_event_id, sport_id, tag);
                     }
                 }
                 if (type == PageHomeProxy.NAME) {
