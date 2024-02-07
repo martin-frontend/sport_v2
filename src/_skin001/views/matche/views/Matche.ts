@@ -40,6 +40,7 @@ export default class Matche extends AbstractView {
     }
 
     get matche() {
+        if (this.$vuetify.breakpoint.mobile) this.$forceUpdate();
         return this.pageData.competition_list[0]?.matches[0];
     }
 
