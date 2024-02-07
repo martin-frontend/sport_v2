@@ -197,7 +197,7 @@
                                     <div class="cell">
                                         <div class="d-flex align-center tagTextColor2--text">
                                             <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
-                                            <div style="width: calc(100% - 30px)">
+                                            <div>
                                                 <div class="ml-2 font-weight-bold text-14 text-truncate">
                                                     <span> {{item.competition_name}} </span>
                                                     <span v-if="item.start_date == item.end_date"> {{getEventDate(item.end_date)}} </span>
@@ -325,7 +325,7 @@
                                 <div class="cell">
                                     <div class="d-flex align-center tagTextColor2--text">
                                         <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
-                                        <div style="width: calc(100% - 30px)">
+                                        <div>
                                             <div class="ml-2 font-weight-bold text-14 text-truncate">
                                                 <span> {{item.competition_name}} </span>
                                                 <span v-if="item.start_date == item.end_date"> {{getEventDate(item.end_date)}} </span>
