@@ -53,10 +53,10 @@
         </template>
     </template>
 
-    <div v-else style="min-width: 1370px">
-        <v-row class="tableHeaderColor py-2" :class="{'hand': !isHideArrow}" no-gutters @click="onShowContent">
+    <div style="position: relative" v-else>
+        <!-- <v-row class="tableHeaderColor py-2" :class="{'hand': !isHideArrow}" no-gutters @click="onShowContent">
             <v-col class="d-flex align-center tagTextColor2--text" style="flex: 1">
-                <v-sheet color="transparent" class="d-flex align-center tagTextColor2--text px-2" width="300">
+                <v-sheet color="transparent" class="d-flex align-center tagTextColor2--text px-2">
                     <v-sheet class="rounded" width="2" height="16" color="yellow1"></v-sheet>
                     <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-22 ml-2"></svg-icon>
                     <div class="ml-2 font-weight-bold text-14">{{LangUtil(sportItem.title)}}</div>
@@ -82,7 +82,7 @@
                 <template v-if="!isLoading">
                     <v-row v-for="(item,index) of tableData" :key="index" class="border-bottom" no-gutters>
                         <v-col class="d-flex align-center tagTextColor2--text hand" @click="onShowHeaderDetail(item)">
-                            <v-sheet color="transparent" class="d-flex align-center tagTextColor2--text px-2" width="300">
+                            <v-sheet color="transparent" class="d-flex align-center tagTextColor2--text px-2" min-width="300">
                                 <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
                                 <div class="py-2" style="width: calc(100% - 30px)">
                                     <div class="ml-2 font-weight-bold text-14 text-truncate">
@@ -158,6 +158,194 @@
                     </div>
                 </template>
             </div>
-        </v-expand-transition>
+        </v-expand-transition> -->
+
+        <horizontal_scroll>
+            <template v-slot="{data}">
+                <table class="custom-table" width="100%" style="min-width: 1380px; overflow-x: auto">
+                    <thead class="tableHeaderColor" :class="{'hand': !isHideArrow}" @click="onShowContent">
+                        <tr>
+                            <th ref="tableCellFirst" class="table__cell text-left first" colspan="1" rowspan="1">
+                                <div class="cell">
+                                    <div class="d-flex align-center tagTextColor2--text">
+                                        <v-sheet class="rounded" width="2" height="16" color="yellow1"></v-sheet>
+                                        <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-22 ml-2"></svg-icon>
+                                        <div class="ml-2 font-weight-bold text-14">{{LangUtil(sportItem.title)}}</div>
+                                    </div>
+                                </div>
+                            </th>
+                            <th v-for="i of headerList" class="table__cell border-left" :key="i" colspan="1" rowspan="1" width="75">
+                                <div class="cell tagTextColor1--text text-14" style="width: 75px">{{i}}</div>
+                            </th>
+                            <th v-if="!isHideArrow" class="table__cell" colspan="1" rowspan="1" width="25">
+                                <div class="cell" style="width: 25px">
+                                    <div
+                                        class="d-flex justify-center icon-box iconfont text-14 tagTextColor2--text"
+                                        :class="isShowContent? 'arrow-show':'arrow'"
+                                    >
+                                        <svg-icon icon="zoom_out"></svg-icon>
+                                    </div>
+                                </div>
+                            </th>
+                        </tr>
+                    </thead>
+
+                    <tbody v-if="isShowContent">
+                        <template v-if="!isLoading">
+                            <tr v-for="(item,index) of tableData" :key="index" class="text-center border-bottom">
+                                <td class="table__cell text-left hand first" colspan="1" rowspan="1" @click="onShowHeaderDetail(item)">
+                                    <div class="cell">
+                                        <div class="d-flex align-center tagTextColor2--text">
+                                            <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
+                                            <div style="width: calc(100% - 30px)">
+                                                <div class="ml-2 font-weight-bold text-14 text-truncate">
+                                                    <span> {{item.competition_name}} </span>
+                                                    <span v-if="item.start_date == item.end_date"> {{getEventDate(item.end_date)}} </span>
+                                                    <span v-else>
+                                                        {{getEventDate(item.start_date)}} - {{getEventDate(item.end_date)}}
+                                                    </span>
+                                                </div>
+                                                <div class="ml-2 font-weight-bold text-14 tagTextColor1--text">
+                                                    {{LangUtil(item.country)}}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </td>
+                                <td
+                                    v-for="i of headerList"
+                                    :key="i"
+                                    class="table__cell border-left"
+                                    :class="{'hand': item.matches[i] && item.matches[i].is_open == 1}"
+                                    colspan="1"
+                                    rowspan="1"
+                                    width="75"
+                                    @click="onShowDetail(item, i)"
+                                >
+                                    <div class="cell" style="width: 75px">
+                                        <template v-if="item.matches[i] && item.matches[i].is_open == 1">
+                                            <v-sheet
+                                                class="d-flex flex-column align-center justify-center primary--text text-14 time_text"
+                                                style="background-color: transparent"
+                                            >
+                                                <template v-if="getStates(item.matches[i].id)">
+                                                    <template v-if="getStates(item.matches[i].id).match_phase == 'OPEN'">
+                                                        <svg-icon
+                                                            v-if="isShowP(item.matches[i].id)"
+                                                            class="text-14 mb-1"
+                                                            icon="p"
+                                                        ></svg-icon>
+                                                        <CountdownTime
+                                                            :fontSize="15"
+                                                            :date="item.matches[i].start_time_timestamp"
+                                                        ></CountdownTime>
+                                                    </template>
+                                                    <div
+                                                        v-else-if="getStates(item.matches[i].id).match_phase == 'DONE'"
+                                                        class="tagTextColor1--text"
+                                                    >
+                                                        {{getRanking(item.matches[i].id)}}
+                                                    </div>
+                                                    <div class="red--text text-15" v-else>
+                                                        {{getResultStr(getStates(item.matches[i].id).match_phase)}}
+                                                    </div>
+                                                </template>
+                                                <template v-else>
+                                                    <CountdownTime :date="item.matches[i].start_time_timestamp"></CountdownTime>
+                                                </template>
+                                            </v-sheet>
+                                        </template>
+                                        <template v-else>
+                                            <v-sheet
+                                                v-if="item.matches[i]"
+                                                width="65"
+                                                height="100%"
+                                                class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left col-disabled"
+                                                style="background-color: transparent"
+                                            >
+                                                -
+                                            </v-sheet>
+                                            <v-sheet
+                                                width="65"
+                                                height="100%"
+                                                class="d-flex flex-column align-center justify-center tagTextColor1--text text-14 px-1 border-left"
+                                                style="background-color: transparent"
+                                            >
+                                            </v-sheet>
+                                        </template>
+                                    </div>
+                                </td>
+                                <td v-if="!isHideArrow" class="table__cell" colspan="1" rowspan="1">
+                                    <div style="width: 25px"></div>
+                                </td>
+                            </tr>
+                            <tr v-if="tableData?.length <= 0" class="border-bottom">
+                                <td class="table__cell" colspan="16">
+                                    <Nodata height="300" />
+                                </td>
+                            </tr>
+                        </template>
+                        <template v-else>
+                            <tr class="border-bottom">
+                                <td class="table__cell" colspan="16">
+                                    <loader />
+                                </td>
+                            </tr>
+                        </template>
+                    </tbody>
+                </table>
+            </template>
+        </horizontal_scroll>
+        <div class="table-fixed" :style="{'width': fixedWidth + 'px'}">
+            <table class="custom-table" width="100%" style="min-width: 1380px">
+                <thead class="tableHeaderColor" :class="{'hand': !isHideArrow}" @click="onShowContent">
+                    <tr>
+                        <th class="table__cell text-left first" colspan="1" rowspan="1">
+                            <div class="cell">
+                                <div class="d-flex align-center tagTextColor2--text">
+                                    <v-sheet class="rounded" width="2" height="16" color="yellow1"></v-sheet>
+                                    <svg-icon :icon="sportIcon[sportItem.sportId]" class="text-22 ml-2"></svg-icon>
+                                    <div class="ml-2 font-weight-bold text-14">{{LangUtil(sportItem.title)}}</div>
+                                </div>
+                            </div>
+                        </th>
+                        <th v-for="i of headerList" class="table__cell border-left" :key="i" colspan="1" rowspan="1" width="75">
+                            <div class="cell tagTextColor1--text text-14" style="width: 75px"></div>
+                        </th>
+                        <th v-if="!isHideArrow" class="table__cell" colspan="1" rowspan="1" width="25">
+                            <div class="cell" style="width: 25px"></div>
+                        </th>
+                    </tr>
+                </thead>
+
+                <tbody class="bgBanner" v-if="isShowContent">
+                    <template v-if="!isLoading">
+                        <tr v-for="(item,index) of tableData" :key="index" class="text-center border-bottom">
+                            <td class="table__cell text-left hand first" colspan="1" rowspan="1" @click="onShowHeaderDetail(item)">
+                                <div class="cell">
+                                    <div class="d-flex align-center tagTextColor2--text">
+                                        <v-img :src="item.country_icon" height="30" max-width="30" contain></v-img>
+                                        <div style="width: calc(100% - 30px)">
+                                            <div class="ml-2 font-weight-bold text-14 text-truncate">
+                                                <span> {{item.competition_name}} </span>
+                                                <span v-if="item.start_date == item.end_date"> {{getEventDate(item.end_date)}} </span>
+                                                <span v-else> {{getEventDate(item.start_date)}} - {{getEventDate(item.end_date)}} </span>
+                                            </div>
+                                            <div class="ml-2 font-weight-bold text-14 tagTextColor1--text">{{LangUtil(item.country)}}</div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </td>
+                            <td v-for="i of headerList" :key="i" class="table__cell border-left" colspan="1" rowspan="1" width="75">
+                                <div class="cell" style="width: 75px"></div>
+                            </td>
+                            <td v-if="!isHideArrow" class="table__cell" colspan="1" rowspan="1">
+                                <div style="width: 25px"></div>
+                            </td>
+                        </tr>
+                    </template>
+                </tbody>
+            </table>
+        </div>
     </div>
 </div>
