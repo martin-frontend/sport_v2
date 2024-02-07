@@ -13,8 +13,8 @@ export default class MatcheProxy extends puremvc.Proxy {
     private timer = 0;
 
     onRegister() {
-        const { id } = Vue.router.currentRoute.query;
-        if (id) this.init(id);
+        // const { id } = Vue.router.currentRoute.query;
+        // if (id) this.init(id);
     }
 
     onRemove() {

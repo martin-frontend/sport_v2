@@ -8,6 +8,7 @@ import Vue from "vue";
 import PageRacingHomeProxy from "../../page_racing_home/proxy/PageRacingHomeProxy";
 import SportUtil from "@/core/global/SportUtil";
 import page_racing_home from "../../page_racing_home";
+import GlobalVar from "@/core/global/GlobalVar";
 
 export default class NavigationMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
@@ -74,7 +75,16 @@ export default class NavigationMediator extends AbstractMediator {
                             homeProxy.listQueryComp.sort = "comp";
                         }
                     }
+
                     if (Vue.router.currentRoute.path == "/page_home") {
+                        if (GlobalVar.pre_event_id) {
+                            // 目前cf进来只会有足球
+                            Object.assign(homeProxy.listQueryComp, {
+                                sport_id: 1,
+                                event_id: GlobalVar.pre_event_id.toString(),
+                                tag: "",
+                            });
+                        }
                         homeProxy.api_event_market_type_v2();
                         homeProxy.api_event_list();
                     }

@@ -23,13 +23,12 @@ export default class MatcheMediator extends AbstractMediator {
         const myProxy: MatcheProxy = getProxy(MatcheProxy);
         switch (notification.getName()) {
             case net.EventType.api_event_list_v3:
-                if (body.length > 0 && !myProxy.listQueryComp.event_id) {
-                    if (GlobalVar.pre_event_id) {
-                        // matche.init(GlobalVar.pre_event_id);
-                        const { sport_id, tag } = myProxy.listQueryComp;
-                        live.init(GlobalVar.pre_event_id, sport_id, tag);
-                    }
-                }
+                // if (body.length > 0 && !myProxy.listQueryComp.event_id) {
+                //     if (GlobalVar.pre_event_id) {
+                //         matche.init(GlobalVar.pre_event_id);
+                //         live.init(GlobalVar.pre_event_id);
+                //     }
+                // }
                 if (type == PageHomeProxy.NAME) {
                     const event_id = body[0]?.matches[0]?.id;
                     matche.init(event_id);

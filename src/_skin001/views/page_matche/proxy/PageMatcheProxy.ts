@@ -8,8 +8,9 @@ export default class PageMatcheProxy extends puremvc.Proxy {
 
     public onRegister(): void {
         const { id } = Vue.router.currentRoute.query;
-        live.init(id);
-        matche.init(id);
+        const sport_id = 1;
+        live.init(id, sport_id, "");
+        matche.init(id, sport_id, "");
     }
 
     pageData = {
