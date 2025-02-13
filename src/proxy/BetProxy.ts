@@ -22,7 +22,7 @@ export default class BetProxy extends puremvc.Proxy {
             }
             if (this.timeCount % 2 == 0) {
                 if (!this.pageData.isShowResultPanel) {
-                    this.api_user_pending();
+                    // this.api_user_pending();
                 }
                 // for (const item of this.pageData.list) {
                 //     this.api_user_prebet(item.market.market_id, item.selection.id);
@@ -32,7 +32,7 @@ export default class BetProxy extends puremvc.Proxy {
                 }
             }
             if (this.pageData.isShowResultPanel) {
-                this.api_user_pending();
+                // this.api_user_pending();
             }
             this.timeCount++;
         }, 1000);

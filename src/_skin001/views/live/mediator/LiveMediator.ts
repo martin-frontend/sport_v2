@@ -4,7 +4,6 @@ import getProxy from "@/core/global/getProxy";
 import net from "@/net/setting";
 import PageHomeProxy from "../../page_home/proxy/PageHomeProxy";
 import live from "..";
-
 export default class LiveMediator extends AbstractMediator {
     public listNotificationInterests(): string[] {
         return [net.EventType.api_event_list_v3, net.EventType.api_event_states];

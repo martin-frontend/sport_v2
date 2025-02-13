@@ -1,0 +1,56 @@
+[data-v-38fe4bdf] .v-expansion-panel:before {
+  box-shadow: unset !important;
+}
+.relative[data-v-38fe4bdf] {
+  position: relative;
+}
+.absolute[data-v-38fe4bdf] {
+  position: absolute;
+}
+[data-v-38fe4bdf] .v-text-field.v-text-field--solo:not(.v-text-field--solo-flat) > .v-input__control > .v-input__slot {
+  box-shadow: none;
+}
+[data-v-38fe4bdf] .v-input__slot {
+  background-color: #ffff;
+}
+[data-v-38fe4bdf] .v-icon.v-icon {
+  font-size: 16px;
+}
+.active[data-v-38fe4bdf] {
+  border-bottom: 3px solid #1b79f2;
+  color: #1b79f2;
+}
+.tag-btn-active[data-v-38fe4bdf] {
+  border-radius: 25px;
+  border: 2px solid #ffcd43;
+}
+.def-border[data-v-38fe4bdf] {
+  border: 2px solid #e8e8e2;
+}
+.theme--dark .def-border[data-v-38fe4bdf] {
+  border: 2px solid #333435;
+}
+.tag-btn-noactive[data-v-38fe4bdf] {
+  border-radius: 25px;
+}
+.box-scroll[data-v-38fe4bdf] {
+  max-height: calc(100vh - 180px);
+  overflow-y: scroll;
+}
+.d-grid[data-v-38fe4bdf] {
+  display: grid;
+}
+.theme--light .bold_divider[data-v-38fe4bdf] {
+  border: 1px solid #c8cad0;
+}
+.theme--dark .bold_divider[data-v-38fe4bdf] {
+  border: 1px solid #5a5a5a;
+}
+.btnclass[data-v-38fe4bdf]::-webkit-scrollbar {
+  display: none;
+  /* Chrome Safari */
+}
+.custom-loader[data-v-38fe4bdf] .v-skeleton-loader__bone {
+  height: 50px;
+  border-radius: 12px;
+}

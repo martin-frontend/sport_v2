@@ -292,12 +292,10 @@
                             ></iframe>
                         </v-window-item>
                     </v-window>
-
                     <v-btn class="btn_close" icon v-if="mobileTopWindow != 0" @click="mobileTopWindow=0">
                         <svg-icon class="text-20" icon="close"></svg-icon>
                     </v-btn>
                 </v-sheet>
-
                 <template v-if="mobileTagOptions.length == 1">
                     <div class="text-14 pl-2 mt-4 font-weight-bold">{{mobileTagOptions[0]}}</div>
                     <MarketTable

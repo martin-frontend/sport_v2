@@ -1,3 +1,4 @@
+import { objectRemoveNull } from "@/core/global/Functions";
 import SportUtil from "@/core/global/SportUtil";
 import net from "@/net/setting";
 import { CompetitionVO } from "@/vo/CompetitionVO";
@@ -8,7 +9,7 @@ export default class LiveProxy extends puremvc.Proxy {
     static NAME = "LiveProxy";
 
     public onRegister(): void {
-        setInterval(this.api_event_states.bind(this), 5000);
+        // setInterval(this.api_event_states.bind(this), 5000);
     }
 
     pageData = {
@@ -74,8 +75,6 @@ export default class LiveProxy extends puremvc.Proxy {
         this.pageData.event_states = [];
         this.listQueryComp.tag = this.listQueryComp.tag == "withinAnHour" ? "today" : this.listQueryComp.tag;
         this.listQueryComp.event_type = SportUtil.isRaceEvent(this.listQueryComp.sport_id) ? 2 : 1;
-        this.sendNotification(net.HttpType.api_event_list_v3, {
-            ...this.listQueryComp,
-        });
+        this.sendNotification(net.HttpType.api_event_list_v3, objectRemoveNull(this.listQueryComp));
     }
 }

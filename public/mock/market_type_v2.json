@@ -1,0 +1,1075 @@
+{
+    "status": 0,
+    "msg": "success",
+    "extend": {
+        "date": "2024-04-23 23:18:45",
+        "microtime": 1713885525.194249,
+        "unique": "6627d1552b7a5996216029",
+        "version": 0,
+        "runtime": "16.08 ms"
+    },
+    "data": {
+        "market_main_type": [
+            { "id": 20, "name": "\u8ba9\u7403", "plat_sort": 1, "plat_display_location": "1" },
+            { "id": 32, "name": "\u72ec\u8d62", "plat_sort": 2, "plat_display_location": "1" },
+            { "id": 21, "name": "\u5927/\u5c0f", "plat_sort": 3, "plat_display_location": "1" },
+            { "id": 17, "name": "\u70ed\u95e8", "plat_sort": 4, "plat_display_location": "1" },
+            { "id": 22, "name": "\u6ce2\u80c6", "plat_sort": 6, "plat_display_location": "1" },
+            { "id": 25, "name": "\u89d2\u7403", "plat_sort": 7, "plat_display_location": "1" },
+            { "id": 58, "name": "\u5165\u7403", "plat_sort": 8, "plat_display_location": "1" },
+            { "id": 57, "name": "\u7f5a\u724c", "plat_sort": 9, "plat_display_location": "1" },
+            { "id": 23, "name": "\u5168\u573a", "plat_sort": 10, "plat_display_location": "1" },
+            { "id": 24, "name": "\u534a\u573a", "plat_sort": 11, "plat_display_location": "1" },
+            { "id": 29, "name": "\u5176\u4ed6", "plat_sort": 28, "plat_display_location": "1" },
+            { "id": 81, "name": "\u7403\u5458", "plat_sort": 33, "plat_display_location": "1" },
+            { "id": 83, "name": "\u8ba9\u7403", "plat_sort": 35, "plat_display_location": "2" },
+            { "id": 84, "name": "\u5927/\u5c0f", "plat_sort": 36, "plat_display_location": "2" },
+            { "id": 86, "name": "\u5355\u53cc", "plat_sort": 37, "plat_display_location": "2" },
+            { "id": 85, "name": "\u6ce2\u80c6", "plat_sort": 38, "plat_display_location": "2" },
+            { "id": 87, "name": "\u89d2\u7403", "plat_sort": 39, "plat_display_location": "2" },
+            { "id": 88, "name": "\u7f5a\u724c", "plat_sort": 40, "plat_display_location": "2" }
+        ],
+        "market_type": [
+            {
+                "id": 1,
+                "market_type": "MATCH_ODDS",
+                "title": "\u4e3b\u5ba2\u548c",
+                "tips": "\u9884\u6d4b\u8fd9\u573a\u6bd4\u8d5b\u7684\u7ed3\u679c\u3002",
+                "main_type": "23,32,17,58",
+                "plat_sort": 1
+            },
+            {
+                "id": 3,
+                "market_type": "ASIAN_HANDICAP",
+                "title": "\u4e9a\u6d32\u8ba9\u7403\u76d8",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u3002\u5982\u679c\u4ee5\u5e73\u5c40\u7ed3\u675f\uff0c\u5c06\u9000\u8fd8\u60a8\u7684\u672c\u91d1\u3002",
+                "main_type": "17,23,20,83",
+                "plat_sort": 2
+            },
+            {
+                "id": 258,
+                "market_type": "ASIAN_OVER_UNDER",
+                "title": "\u4e9a\u6d32\u5927\u5c0f\u76d8",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u4e2d\u7684\u5168\u5834\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u7684\u6570\u91cf\u3002",
+                "main_type": "17,21,23,84",
+                "plat_sort": 3
+            },
+            {
+                "id": 13,
+                "market_type": "DRAW_NO_BET",
+                "title": "\u5e73\u5c40\u9000\u6b3e",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u7ed3\u679c\u3002\u5982\u679c\u6bd4\u8d5b\u4ee5\u5e73\u5c40\u7ed3\u675f\uff0c\u5219\u672c\u91d1\u5c06\u9000\u8fd8\u3002",
+                "main_type": "23,32",
+                "plat_sort": 4
+            },
+            {
+                "id": 230,
+                "market_type": "TOTAL_GOALS",
+                "title": "\u603b\u5165\u7403",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21,58",
+                "plat_sort": 5
+            },
+            {
+                "id": 273,
+                "market_type": "CR_ASIAN_HANDICAP",
+                "title": "\u4e9a\u6d32\u8ba9\u7403\u76d8 - \u89d2\u7403",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u7684\u89d2\u7403\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u3002",
+                "main_type": "23,20,25,87",
+                "plat_sort": 6
+            },
+            {
+                "id": 344,
+                "market_type": "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5",
+                "title": "\u4e24\u961f\u90fd\u5f97\u5206 & 2.5\u7403\u5927/\u5c0f",
+                "tips": "\u9884\u6d4b\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u8fdb\u7403 & \u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e2.5\u7403\u3002",
+                "main_type": "23,29",
+                "plat_sort": 7
+            },
+            {
+                "id": 274,
+                "market_type": "CR_ASIAN_OVER_UNDER",
+                "title": "\u4e9a\u6d32\u5927\u5c0f\u76d8 - \u89d2\u7403",
+                "tips": "\u9884\u6d4b\u603b\u89d2\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21,25,87",
+                "plat_sort": 8
+            },
+            {
+                "id": 22,
+                "market_type": "HALF_TIME_FULL_TIME",
+                "title": "\u534a\u573a/\u5168\u573a",
+                "tips": "\u9884\u6d4b\u8d5b\u4e8b\u7684\u534a\u573a\u548c\u5168\u573a\u7684\u7ed3\u679c\u3002",
+                "main_type": "23,32",
+                "plat_sort": 9
+            },
+            {
+                "id": 21,
+                "market_type": "CORRECT_SCORE",
+                "title": "\u6ce2\u80c6",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u7684\u6700\u7ec8\u6bd4\u5206\u3002",
+                "main_type": "23,22,85",
+                "plat_sort": 10
+            },
+            {
+                "id": 14,
+                "market_type": "DOUBLE_CHANCE",
+                "title": "\u53cc\u91cd\u673a\u4f1a/\u53cc\u80dc\u5f69",
+                "tips": "\u9009\u62e9\u5176\u4e2d\u4e24\u4e2a\u4e3b\u5ba2\u548c\u7684\u9009\u9879\u6765\u9884\u6d4b\u6bd4\u8d5b\u7684\u7ed3\u679c",
+                "main_type": "23,32",
+                "plat_sort": 11
+            },
+            {
+                "id": 341,
+                "market_type": "MATCH_ODDS_AND_OVER_UNDER_2.5",
+                "title": "\u4e3b\u5ba2\u548c & 2.5\u7403\u5927/\u5c0f",
+                "tips": "\u9884\u6d4b\u8fd9\u573a\u6bd4\u8d5b\u7684\u7ed3\u679c & \u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e2.5\u7403\u3002",
+                "main_type": "23,29",
+                "plat_sort": 12
+            },
+            {
+                "id": 343,
+                "market_type": "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE",
+                "title": "\u4e3b\u5ba2\u548c & \u4e24\u961f\u90fd\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u8fd9\u573a\u6bd4\u8d5b\u7684\u7ed3\u679c & \u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u8fdb\u7403\u3002",
+                "main_type": "23,29",
+                "plat_sort": 13
+            },
+            {
+                "id": 354,
+                "market_type": "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE",
+                "title": "\u4e24\u961f\u90fd\u5f97\u5206 & \u4efb\u610f\u4e00\u961f\u5f97\u4e24\u5206\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u5728\u6574\u5834\u6bd4\u8d5b\u4e2d\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u8fdb\u7403 & \u4efb\u4f55\u4e00\u652f\u7403\u961f\u662f\u5426\u4f1a\u5728\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "23,29",
+                "plat_sort": 14
+            },
+            {
+                "id": 342,
+                "market_type": "ODD_OR_EVEN_AND_OVER_UNDER_2.5",
+                "title": "\u5165\u7403\u5355\u53cc & 2.5\u7403\u5927/\u5c0f",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u4e2d\u7684\u603b\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570 & \u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e2.5\u7403\u3002",
+                "main_type": "23,29",
+                "plat_sort": 15
+            },
+            {
+                "id": 314,
+                "market_type": "3_WAY_HANDICAP_MINUS_4",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [-4]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "23,20",
+                "plat_sort": 16
+            },
+            {
+                "id": 315,
+                "market_type": "3_WAY_HANDICAP_MINUS_3",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [-3]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "20,23",
+                "plat_sort": 17
+            },
+            {
+                "id": 316,
+                "market_type": "3_WAY_HANDICAP_MINUS_2",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [-2]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "23,20",
+                "plat_sort": 18
+            },
+            {
+                "id": 317,
+                "market_type": "3_WAY_HANDICAP_MINUS_1",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [-1]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "23,20",
+                "plat_sort": 19
+            },
+            {
+                "id": 319,
+                "market_type": "3_WAY_HANDICAP_PLUS_2",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [+2]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "23,20",
+                "plat_sort": 20
+            },
+            {
+                "id": 320,
+                "market_type": "3_WAY_HANDICAP_PLUS_3",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [+3]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "23,20",
+                "plat_sort": 21
+            },
+            {
+                "id": 321,
+                "market_type": "3_WAY_HANDICAP_PLUS_4",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [+4]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "23,20",
+                "plat_sort": 22
+            },
+            {
+                "id": 28,
+                "market_type": "TEAM_A_WIN_TO_NIL",
+                "title": "\u4e3b\u961f\u96f6\u5931\u7403\u83b7\u80dc",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4f1a\u8d62\u5f97\u6bd4\u8d5b\u800c\u4e0d\u5931\u7403\u3002",
+                "main_type": "23,29",
+                "plat_sort": 23
+            },
+            {
+                "id": 26,
+                "market_type": "TEAM_B_WIN_TO_NIL",
+                "title": "\u5ba2\u961f\u96f6\u5931\u7403\u83b7\u80dc",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4f1a\u8d62\u5f97\u6bd4\u8d5b\u800c\u4e0d\u5931\u7403\u3002",
+                "main_type": "23,29",
+                "plat_sort": 24
+            },
+            {
+                "id": 300,
+                "market_type": "TEAM_A_TO_SCORE",
+                "title": "\u4e3b\u961f\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u662f\u5426\u4f1a\u5f97\u5206\u3002",
+                "main_type": "23,58",
+                "plat_sort": 25
+            },
+            {
+                "id": 302,
+                "market_type": "TEAM_B_TO_SCORE",
+                "title": "\u5ba2\u961f\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u662f\u5426\u4f1a\u5f97\u5206\u3002",
+                "main_type": "23,58",
+                "plat_sort": 26
+            },
+            {
+                "id": 308,
+                "market_type": "TEAM_A_TO_SCORE_TWICE_OR_MORE",
+                "title": "\u4e3b\u961f\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u662f\u5426\u4f1a\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002\r\n",
+                "main_type": "23,58",
+                "plat_sort": 27
+            },
+            {
+                "id": 310,
+                "market_type": "TEAM_B_TO_SCORE_TWICE_OR_MORE",
+                "title": "\u5ba2\u961f\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u662f\u5426\u4f1a\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "23,58",
+                "plat_sort": 28
+            },
+            {
+                "id": 335,
+                "market_type": "TEAM_A_EXACT_GOALS",
+                "title": "\u4e3b\u961f\u603b\u5165\u7403",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u603b\u5165\u7403\u6570\u3002",
+                "main_type": "23,58",
+                "plat_sort": 29
+            },
+            {
+                "id": 336,
+                "market_type": "TEAM_B_EXACT_GOALS",
+                "title": "\u5ba2\u961f\u603b\u5165\u7403",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u603b\u5165\u7403\u6570\u3002",
+                "main_type": "23,58",
+                "plat_sort": 30
+            },
+            {
+                "id": 331,
+                "market_type": "WINNING_MARGIN",
+                "title": "\u8f93\u8d62\u6bd4\u6570",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u548c\u5ba2\u961f\u7684\u6bd4\u5206\u5dee\u8ddd\u3002",
+                "main_type": "23,58",
+                "plat_sort": 31
+            },
+            {
+                "id": 333,
+                "market_type": "TOTAL_GOALS_RANGE",
+                "title": "\u603b\u5165\u7403\u8303\u56f4",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u7684\u8303\u56f4\u3002",
+                "main_type": "23,58",
+                "plat_sort": 32
+            },
+            {
+                "id": 4,
+                "market_type": "BOTH_TEAMS_TO_SCORE",
+                "title": "\u4e24\u961f\u90fd\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u5728\u6574\u5834\u6bd4\u8d5b\u4e2d\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u8fdb\u7403\u3002",
+                "main_type": "23,58",
+                "plat_sort": 33
+            },
+            {
+                "id": 296,
+                "market_type": "EITHER_TEAM_TO_SCORE",
+                "title": "\u4efb\u610f\u4e00\u961f\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u4efb\u4f55\u4e00\u961f\u662f\u5426\u4f1a\u5f97\u5206\u3002",
+                "main_type": "23,58",
+                "plat_sort": 34
+            },
+            {
+                "id": 312,
+                "market_type": "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE",
+                "title": "\u4e24\u961f\u90fd\u5f97\u5206\u5169\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u5728\u6bd4\u8d5b\u4e2d\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "main_type": "23,58",
+                "plat_sort": 35
+            },
+            {
+                "id": 298,
+                "market_type": "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE",
+                "title": "\u4efb\u610f\u4e00\u961f\u5f97\u4e24\u5206\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u4efb\u4f55\u4e00\u652f\u7403\u961f\u662f\u5426\u4f1a\u5728\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "23,58",
+                "plat_sort": 36
+            },
+            {
+                "id": 339,
+                "market_type": "EITHER_TEAM_TO_SCORE_THREE_OR_MORE",
+                "title": "\u4efb\u610f\u4e00\u961f\u5f97\u4e09\u5206\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u4efb\u4f55\u4e00\u652f\u7403\u961f\u662f\u5426\u4f1a\u5728\u5f97\u5206\u4e09\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "23,58",
+                "plat_sort": 37
+            },
+            {
+                "id": 27,
+                "market_type": "ODD_OR_EVEN",
+                "title": "\u5165\u7403\u5355/\u53cc",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u4e2d\u7684\u603b\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570\u3002 0-0 \u7b97\u5076\u6570\u3002",
+                "main_type": "23,58,86",
+                "plat_sort": 38
+            },
+            {
+                "id": 304,
+                "market_type": "TEAM_A_GOALS_ODD_OR_EVEN",
+                "title": "\u4e3b\u961f\u5f97\u5206\u5355/\u53cc",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u7684\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570\u3002 0 \u7b97\u5076\u6570",
+                "main_type": "23,58",
+                "plat_sort": 39
+            },
+            {
+                "id": 306,
+                "market_type": "TEAM_B_GOALS_ODD_OR_EVEN",
+                "title": "\u5ba2\u961f\u5f97\u5206\u5355/\u53cc",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u7684\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570\u3002 0 \u7b97\u5076\u6570",
+                "main_type": "23,58",
+                "plat_sort": 40
+            },
+            {
+                "id": 251,
+                "market_type": "MATCH_ODDS_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u5ba2\u548c",
+                "tips": "\u9884\u6d4b\u8fd9\u573a\u6bd4\u8d5b\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u7684\u7ed3\u679c\u3002",
+                "main_type": "19,24,32,17",
+                "plat_sort": 41
+            },
+            {
+                "id": 246,
+                "market_type": "ASIAN_HANDICAP_HALF_TIME",
+                "title": "\u534a\u573a - \u4e9a\u6d32\u8ba9\u7403\u76d8",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u3002\u5982\u679c\u4ee5\u5e73\u5c40\u7ed3\u675f\uff0c\u5c06\u9000\u8fd8\u60a8\u7684\u672c\u91d1\u3002",
+                "main_type": "24,20,17,83",
+                "plat_sort": 42
+            },
+            {
+                "id": 248,
+                "market_type": "ASIAN_OVER_UNDER_HALF_TIME",
+                "title": "\u534a\u573a - \u4e9a\u6d32\u5927\u5c0f\u76d8",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u4e2d\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u7684\u6570\u91cf\u3002",
+                "main_type": "24,21,17,84",
+                "plat_sort": 43
+            },
+            {
+                "id": 257,
+                "market_type": "DRAW_NO_BET_HALF_TIME",
+                "title": "\u534a\u573a - \u5e73\u5c40\u9000\u6b3e",
+                "tips": "\u9884\u6d4b\u534a\u573a\u6642\u7684\u6bd4\u8d5b\u7ed3\u679c\u3002",
+                "main_type": "24,32",
+                "plat_sort": 44
+            },
+            {
+                "id": 259,
+                "market_type": "TOTAL_GOALS_HALF_TIME",
+                "title": "\u534a\u573a - \u603b\u5165\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u6570\u76ee\u3002",
+                "main_type": "24,21,58",
+                "plat_sort": 45
+            },
+            {
+                "id": 254,
+                "market_type": "CORRECT_SCORE_HALF_TIME",
+                "title": "\u534a\u573a - \u6ce2\u80c6",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u5b8c\u7ed3\u65f6\u7684\u6b63\u786e\u6bd4\u5206\u3002",
+                "main_type": "24,22,85",
+                "plat_sort": 46
+            },
+            {
+                "id": 256,
+                "market_type": "DOUBLE_CHANCE_HALF_TIME",
+                "title": "\u534a\u573a - \u53cc\u91cd\u673a\u4f1a/\u53cc\u80dc\u5f69",
+                "tips": "\u9009\u62e9\u5176\u4e2d\u4e24\u4e2a\u4e3b\u5ba2\u548c\u7684\u9009\u9879\u6765\u9884\u6d4b\u534a\u5834\u5b8c\u7d50\u6642\u7684\u6bd4\u8d5b\u7ed3\u679c\u3002",
+                "main_type": "24,32",
+                "plat_sort": 47
+            },
+            {
+                "id": 346,
+                "market_type": "MATCH_ODDS_AND_OVER_UNDER_2.5_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u5ba2\u548c & 2.5\u7403\u5927/\u5c0f",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u7684\u7ed3\u679c & \u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e2.5\u7403\u3002",
+                "main_type": "24,29",
+                "plat_sort": 48
+            },
+            {
+                "id": 348,
+                "market_type": "MATCH_ODDS_AND_BOTH_TEAMS_TO_SCORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u5ba2\u548c & \u4e24\u961f\u90fd\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u7684\u7ed3\u679c & \u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u8fdb\u7403",
+                "main_type": "24,29",
+                "plat_sort": 49
+            },
+            {
+                "id": 349,
+                "market_type": "BOTH_TEAMS_TO_SCORE_AND_OVER_UNDER_2.5_HALF_TIME",
+                "title": "\u534a\u573a - \u4e24\u961f\u90fd\u5f97\u5206 & 2.5\u7403\u5927/\u5c0f",
+                "tips": "\u9884\u6d4b\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u5728\u4e0a\u534a\u573a\u8fdb\u7403 & \u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e2.5\u7403\u3002",
+                "main_type": "24,29",
+                "plat_sort": 50
+            },
+            {
+                "id": 355,
+                "market_type": "BOTH_TEAMS_TO_SCORE_AND_ONE_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4e24\u961f\u90fd\u5f97\u5206 & \u4efb\u610f\u4e00\u961f\u5f97\u4e24\u5206\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u4e2d\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u8fdb\u7403 & \u4efb\u4f55\u4e00\u652f\u7403\u961f\u662f\u5426\u4f1a\u5728\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "24,29",
+                "plat_sort": 51
+            },
+            {
+                "id": 347,
+                "market_type": "ODD_OR_EVEN_AND_OVER_UNDER_2.5_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u5355\u53cc & 2.5\u7403\u5927/\u5c0f",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u4e2d\u7684\u603b\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570 & \u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e2.5\u7403\u3002",
+                "main_type": "24,29",
+                "plat_sort": 52
+            },
+            {
+                "id": 322,
+                "market_type": "3_WAY_HANDICAP_MINUS_4_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [-4]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "24,20",
+                "plat_sort": 53
+            },
+            {
+                "id": 323,
+                "market_type": "3_WAY_HANDICAP_MINUS_3_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [-3]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "24,20",
+                "plat_sort": 54
+            },
+            {
+                "id": 324,
+                "market_type": "3_WAY_HANDICAP_MINUS_2_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [-2]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "24,20",
+                "plat_sort": 55
+            },
+            {
+                "id": 325,
+                "market_type": "3_WAY_HANDICAP_MINUS_1_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [-1]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "24,20",
+                "plat_sort": 56
+            },
+            {
+                "id": 326,
+                "market_type": "3_WAY_HANDICAP_PLUS_1_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [+1]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "24,20",
+                "plat_sort": 57
+            },
+            {
+                "id": 327,
+                "market_type": "3_WAY_HANDICAP_PLUS_2_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [+2]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "24,20",
+                "plat_sort": 58
+            },
+            {
+                "id": 329,
+                "market_type": "3_WAY_HANDICAP_PLUS_4_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [+4]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "20,24",
+                "plat_sort": 59
+            },
+            {
+                "id": 328,
+                "market_type": "3_WAY_HANDICAP_PLUS_3_HALF_TIME",
+                "title": "\u534a\u573a - \u8ba9\u7403\u4e3b\u5ba2\u548c [+3]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u5728\u4e0a\u534a\u5834\u5b8c\u7d50\u6642\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "20,24",
+                "plat_sort": 60
+            },
+            {
+                "id": 252,
+                "market_type": "TEAM_A_WIN_TO_NIL_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u961f\u96f6\u5931\u7403\u83b7\u80dc",
+                "tips": "\u9884\u6d4b\u534a\u5834\u5b8c\u7d50\u6642\u4e3b\u961f\u662f\u5426\u4f1a\u9818\u5148\u800c\u4e0d\u5931\u7403\u3002",
+                "main_type": "24,29",
+                "plat_sort": 61
+            },
+            {
+                "id": 255,
+                "market_type": "TEAM_B_WIN_TO_NIL_HALF_TIME",
+                "title": "\u534a\u573a - \u5ba2\u961f\u96f6\u5931\u7403\u83b7\u80dc",
+                "tips": "\u9884\u6d4b\u534a\u5834\u5b8c\u7d50\u6642\u5ba2\u961f\u662f\u5426\u4f1a\u9818\u5148\u800c\u4e0d\u5931\u7403\u3002",
+                "main_type": "26,27",
+                "plat_sort": 62
+            },
+            {
+                "id": 301,
+                "market_type": "TEAM_A_TO_SCORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u961f\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u662f\u5426\u4f1a\u5728\u4e0a\u534a\u573a\u5f97\u5206\u3002",
+                "main_type": "24,58",
+                "plat_sort": 63
+            },
+            {
+                "id": 303,
+                "market_type": "TEAM_B_TO_SCORE_HALF_TIME",
+                "title": "\u534a\u573a - \u5ba2\u961f\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u662f\u5426\u4f1a\u5728\u4e0a\u534a\u573a\u5f97\u5206\u3002",
+                "main_type": "24,58",
+                "plat_sort": 64
+            },
+            {
+                "id": 309,
+                "market_type": "TEAM_A_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u961f\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u662f\u5426\u4f1a\u5728\u4e0a\u534a\u573a\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "24,58",
+                "plat_sort": 65
+            },
+            {
+                "id": 311,
+                "market_type": "TEAM_B_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+                "title": "\u534a\u573a - \u5ba2\u961f\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u662f\u5426\u4f1a\u5728\u4e0a\u534a\u573a\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "24,58",
+                "plat_sort": 66
+            },
+            {
+                "id": 337,
+                "market_type": "TEAM_A_EXACT_GOALS_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u961f\u603b\u5165\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u4e2d\u4e3b\u961f\u603b\u5165\u7403\u6570\u3002",
+                "main_type": "24,58",
+                "plat_sort": 67
+            },
+            {
+                "id": 338,
+                "market_type": "TEAM_B_EXACT_GOALS_HALF_TIME",
+                "title": "\u534a\u573a - \u5ba2\u961f\u603b\u5165\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u4e2d\u5ba2\u961f\u603b\u5165\u7403\u6570\u3002",
+                "main_type": "24,58",
+                "plat_sort": 68
+            },
+            {
+                "id": 332,
+                "market_type": "WINNING_MARGIN_HALF_TIME",
+                "title": "\u534a\u573a - \u8f93\u8d62\u6bd4\u6570",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u4e2d\u4e3b\u961f\u548c\u5ba2\u961f\u7684\u6bd4\u5206\u5dee\u8ddd\u3002",
+                "main_type": "24,58",
+                "plat_sort": 69
+            },
+            {
+                "id": 334,
+                "market_type": "TOTAL_GOALS_RANGE_HALF_TIME",
+                "title": "\u534a\u573a - \u603b\u5165\u7403\u8303\u56f4",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u6bd4\u8d5b\u4e2d\u603b\u8fdb\u7403\u6570\u7684\u8303\u56f4\u3002",
+                "main_type": "24,58",
+                "plat_sort": 70
+            },
+            {
+                "id": 253,
+                "market_type": "BOTH_TEAMS_TO_SCORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4e24\u961f\u90fd\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u5728\u4e0a\u534a\u5834\u6bd4\u8d5b\u4e2d\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u8fdb\u7403\u3002",
+                "main_type": "24,58",
+                "plat_sort": 71
+            },
+            {
+                "id": 297,
+                "market_type": "EITHER_TEAM_TO_SCORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4efb\u610f\u4e00\u961f\u5f97\u5206",
+                "tips": "\u9884\u6d4b\u4efb\u4f55\u4e00\u961f\u662f\u5426\u4f1a\u5728\u4e0a\u534a\u573a\u5f97\u5206\u3002",
+                "main_type": "24,58",
+                "plat_sort": 72
+            },
+            {
+                "id": 313,
+                "market_type": "BOTH_TEAMS_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4e24\u961f\u90fd\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u5728\u4e0a\u534a\u5834\u6bd4\u8d5b\u4e2d\u53cc\u65b9\u662f\u5426\u90fd\u4f1a\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "main_type": "24,58",
+                "plat_sort": 73
+            },
+            {
+                "id": 299,
+                "market_type": "EITHER_TEAM_TO_SCORE_TWICE_OR_MORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4efb\u610f\u4e00\u961f\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u4efb\u4f55\u4e00\u961f\u662f\u5426\u4f1a\u5728\u4e0a\u534a\u573a\u5f97\u5206\u4e24\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "24,58",
+                "plat_sort": 74
+            },
+            {
+                "id": 340,
+                "market_type": "EITHER_TEAM_TO_SCORE_THREE_OR_MORE_HALF_TIME",
+                "title": "\u534a\u573a - \u4efb\u610f\u4e00\u961f\u5f97\u5206\u4e09\u6b21\u6216\u4ee5\u4e0a",
+                "tips": "\u9884\u6d4b\u4efb\u4f55\u4e00\u961f\u662f\u5426\u4f1a\u5728\u4e0a\u534a\u573a\u5f97\u5206\u4e09\u6b21\u6216\u4ee5\u4e0a\u3002",
+                "main_type": "24,58",
+                "plat_sort": 75
+            },
+            {
+                "id": 250,
+                "market_type": "ODD_OR_EVEN_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u5355/\u53cc ",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u4e0a\u534a\u5834\u7684\u603b\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570\u3002 0-0 \u7b97\u5076\u6570",
+                "main_type": "24,58,86",
+                "plat_sort": 76
+            },
+            {
+                "id": 305,
+                "market_type": "TEAM_A_GOALS_ODD_OR_EVEN_HALF_TIME",
+                "title": "\u534a\u573a - \u4e3b\u961f\u5f97\u5206\u5355/\u53cc",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u4e0a\u534a\u5834\u4e3b\u961f\u7684\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570\u3002 0 \u7b97\u5076\u6570",
+                "main_type": "24,58",
+                "plat_sort": 77
+            },
+            {
+                "id": 261,
+                "market_type": "ASIAN_HANDICAP_EXTRA_TIME",
+                "title": "\u4e9a\u6d32\u8ba9\u7403\u76d8 - \u5168\u573a\u52a0\u65f6",
+                "tips": "ASIAN_HANDICAP_EXTRA_TIME_TIPS",
+                "main_type": "20",
+                "plat_sort": 78
+            },
+            {
+                "id": 307,
+                "market_type": "TEAM_B_GOALS_ODD_OR_EVEN_HALF_TIME",
+                "title": "\u534a\u573a - \u5ba2\u961f\u5f97\u5206\u5355/\u53cc",
+                "tips": "\u9884\u6d4b\u6bd4\u8d5b\u4e0a\u534a\u5834\u5ba2\u961f\u7684\u8fdb\u7403\u6570\u662f\u5947\u6570\u8fd8\u662f\u5076\u6570\u3002 0 \u7b97\u5076\u6570",
+                "main_type": "24,58",
+                "plat_sort": 79
+            },
+            {
+                "id": 262,
+                "market_type": "ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME",
+                "title": "\u4e9a\u6d32\u8ba9\u7403\u76d8 - \u534a\u573a\u52a0\u65f6",
+                "tips": "ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME_TIPS",
+                "main_type": "20",
+                "plat_sort": 80
+            },
+            {
+                "id": 263,
+                "market_type": "ASIAN_OVER_UNDER_EXTRA_TIME",
+                "title": "\u4e9a\u6d32\u5927\u5c0f\u76d8 - \u5168\u573a\u52a0\u65f6",
+                "tips": "ASIAN_OVER_UNDER_EXTRA_TIME_TIPS",
+                "main_type": "21",
+                "plat_sort": 81
+            },
+            {
+                "id": 249,
+                "market_type": "ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME",
+                "title": "\u4e9a\u6d32\u5927\u5c0f\u76d8 - \u534a\u573a\u52a0\u65f6",
+                "tips": "ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME_TIPS",
+                "main_type": "21",
+                "plat_sort": 82
+            },
+            {
+                "id": 260,
+                "market_type": "ASIAN_HANDICAP_AFTER_PENALTIES",
+                "title": "\u4e9a\u6d32\u8ba9\u7403\u76d8 - \u52a0\u65f6\u540e\u7f5a\u5341\u4e8c\u7801",
+                "tips": "ASIAN_HANDICAP_AFTER_PENALTIES_TIPS",
+                "main_type": "20",
+                "plat_sort": 83
+            },
+            {
+                "id": 247,
+                "market_type": "ASIAN_OVER_UNDER_AFTER_PENALTIES",
+                "title": "\u4e9a\u6d32\u5927\u5c0f\u76d8 - \u52a0\u65f6\u540e\u7f5a\u5341\u4e8c\u7801",
+                "tips": "ASIAN_OVER_UNDER_AFTER_PENALTIES_TIPS",
+                "main_type": "21",
+                "plat_sort": 84
+            },
+            {
+                "id": 330,
+                "market_type": "TEST_MARKET",
+                "title": "\u76e4\u53e3\u6e2c\u8a66",
+                "tips": "TEST_MARKET_TIPS",
+                "main_type": "17",
+                "plat_sort": 97
+            },
+            {
+                "id": 360,
+                "market_type": "CR_ASIAN_HANDICAP_HALF_TIME",
+                "title": "\u534a\u573a - \u4e9a\u6d32\u8ba9\u7403\u76d8 - \u89d2\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u7684\u89d2\u7403\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u3002",
+                "main_type": "24,20,25,87",
+                "plat_sort": 98
+            },
+            {
+                "id": 361,
+                "market_type": "CR_ASIAN_OVER_UNDER_HALF_TIME",
+                "title": "\u534a\u573a - \u4e9a\u6d32\u5927\u5c0f\u76d8 - \u89d2\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u89d2\u7403\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21,25,87",
+                "plat_sort": 99
+            },
+            {
+                "id": 356,
+                "market_type": "BK_ASIAN_HANDICAP",
+                "title": "\u4e9a\u6d32\u8ba9\u5206\u76d8 - \u7f5a\u724c\u6570",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u7684\u7f5a\u724c\u8ba9\u5206\u4f18\u52bf\u83b7\u80dc\u3002\u9ec4\u724c\u8ba1\u4e3a 1 \u5f20\uff0c\u7ea2\u724c\u8ba1\u4e3a 2 \u5f20\u3002\u51fa\u4e8e\u7ed3\u7b97\u76ee\u7684\uff0c\u7b2c\u4e8c\u5f20\u9ec4\u724c\u5c06\u88ab\u5ffd\u7565\uff08\u4f8b\u5982\uff0c\u6bcf\u4e2a\u7403\u5458\u7684\u6700\u5927\u724c\u6570\u4e3a 3\uff09\u3002",
+                "main_type": "20,23,57,88",
+                "plat_sort": 100
+            },
+            {
+                "id": 357,
+                "market_type": "BK_ASIAN_OVER_UNDER",
+                "title": "\u4e9a\u6d32\u5927\u5c0f\u76d8 - \u7f5a\u724c\u6570",
+                "tips": "\u9884\u6d4b\u603b\u7f5a\u724c\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u6570\u91cf\u3002\u9ec4\u724c\u8ba1\u4e3a 1 \u5f20\uff0c\u7ea2\u724c\u8ba1\u4e3a 2 \u5f20\u3002\u51fa\u4e8e\u7ed3\u7b97\u76ee\u7684\uff0c\u7b2c\u4e8c\u5f20\u9ec4\u724c\u5c06\u88ab\u5ffd\u7565\uff08\u4f8b\u5982\uff0c\u6bcf\u4e2a\u7403\u5458\u7684\u6700\u5927\u724c\u6570\u4e3a 3\uff09\u3002",
+                "main_type": "23,57,88",
+                "plat_sort": 101
+            },
+            {
+                "id": 358,
+                "market_type": "BK_ASIAN_HANDICAP_HALF_TIME",
+                "title": "\u534a\u573a - \u4e9a\u6d32\u8ba9\u5206\u76d8 - \u7f5a\u724c\u6570",
+                "tips": "\u9884\u6d4b\u7403\u961f\u5728\u4e0a\u534a\u573a\u662f\u5426\u4ee5\u6307\u5b9a\u7684\u7f5a\u724c\u8ba9\u5206\u4f18\u52bf\u83b7\u80dc\u3002\u9ec4\u724c\u8ba1\u4e3a 1 \u5f20\uff0c\u7ea2\u724c\u8ba1\u4e3a 2 \u5f20\u3002\u51fa\u4e8e\u7ed3\u7b97\u76ee\u7684\uff0c\u7b2c\u4e8c\u5f20\u9ec4\u724c\u5c06\u88ab\u5ffd\u7565\uff08\u4f8b\u5982\uff0c\u6bcf\u4e2a\u7403\u5458\u7684\u6700\u5927\u724c\u6570\u4e3a 3\uff09\u3002",
+                "main_type": "24,20,57,88",
+                "plat_sort": 102
+            },
+            {
+                "id": 359,
+                "market_type": "BK_ASIAN_OVER_UNDER_HALF_TIME",
+                "title": "\u534a\u573a - \u4e9a\u6d32\u5927\u5c0f\u76d8 - \u7f5a\u724c\u6570",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u7f5a\u724c\u6570\u662f\u591a\u4e8e\u8fd8\u662f\u5c11\u4e8e\u6307\u5b9a\u6570\u91cf\u3002\u9ec4\u724c\u8ba1\u4e3a 1 \u5f20\uff0c\u7ea2\u724c\u8ba1\u4e3a 2 \u5f20\u3002\u51fa\u4e8e\u7ed3\u7b97\u76ee\u7684\uff0c\u7b2c\u4e8c\u5f20\u9ec4\u724c\u5c06\u88ab\u5ffd\u7565\uff08\u4f8b\u5982\uff0c\u6bcf\u4e2a\u7403\u5458\u7684\u6700\u5927\u724c\u6570\u4e3a 3\uff09\u3002",
+                "main_type": "24,20,57,88",
+                "plat_sort": 103
+            },
+            {
+                "id": 362,
+                "market_type": "3_WAY_OVER_UNDER_1",
+                "title": "\u5165\u7403\u8d5b\u679c [1]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "21,23",
+                "plat_sort": 104
+            },
+            {
+                "id": 363,
+                "market_type": "3_WAY_OVER_UNDER_2",
+                "title": "\u5165\u7403\u8d5b\u679c [2]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "21,23",
+                "plat_sort": 105
+            },
+            {
+                "id": 364,
+                "market_type": "3_WAY_OVER_UNDER_3",
+                "title": "\u5165\u7403\u8d5b\u679c [3]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21",
+                "plat_sort": 106
+            },
+            {
+                "id": 365,
+                "market_type": "3_WAY_OVER_UNDER_4",
+                "title": "\u5165\u7403\u8d5b\u679c [4]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21",
+                "plat_sort": 107
+            },
+            {
+                "id": 366,
+                "market_type": "3_WAY_OVER_UNDER_5",
+                "title": "\u5165\u7403\u8d5b\u679c [5]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21",
+                "plat_sort": 108
+            },
+            {
+                "id": 382,
+                "market_type": "3_WAY_OVER_UNDER_6",
+                "title": "\u5165\u7403\u8d5b\u679c [6]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21",
+                "plat_sort": 109
+            },
+            {
+                "id": 367,
+                "market_type": "3_WAY_OVER_UNDER_7",
+                "title": "\u5165\u7403\u8d5b\u679c [7]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21",
+                "plat_sort": 110
+            },
+            {
+                "id": 368,
+                "market_type": "3_WAY_OVER_UNDER_8",
+                "title": "\u5165\u7403\u8d5b\u679c [8]",
+                "tips": "\u9884\u6d4b\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "23,21",
+                "plat_sort": 111
+            },
+            {
+                "id": 369,
+                "market_type": "3_WAY_OVER_UNDER_1_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [1]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21",
+                "plat_sort": 112
+            },
+            {
+                "id": 318,
+                "market_type": "3_WAY_HANDICAP_PLUS_1",
+                "title": "\u8ba9\u7403\u4e3b\u5ba2\u548c [+1]",
+                "tips": "\u9884\u6d4b\u7403\u961f\u662f\u5426\u4ee5\u6307\u5b9a\u8ba9\u7403\u4f18\u52bf\u83b7\u80dc\u6216\u6253\u5e73\u3002\r\n",
+                "main_type": "23,20",
+                "plat_sort": 113
+            },
+            {
+                "id": 370,
+                "market_type": "3_WAY_OVER_UNDER_2_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [2]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21",
+                "plat_sort": 114
+            },
+            {
+                "id": 371,
+                "market_type": "3_WAY_OVER_UNDER_3_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [3]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21",
+                "plat_sort": 115
+            },
+            {
+                "id": 372,
+                "market_type": "3_WAY_OVER_UNDER_4_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [4]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21",
+                "plat_sort": 116
+            },
+            {
+                "id": 373,
+                "market_type": "3_WAY_OVER_UNDER_5_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [5]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "21,24",
+                "plat_sort": 117
+            },
+            {
+                "id": 374,
+                "market_type": "3_WAY_OVER_UNDER_6_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [6]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21",
+                "plat_sort": 118
+            },
+            {
+                "id": 375,
+                "market_type": "3_WAY_OVER_UNDER_7_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [7]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21",
+                "plat_sort": 119
+            },
+            {
+                "id": 376,
+                "market_type": "3_WAY_OVER_UNDER_8_HALF_TIME",
+                "title": "\u534a\u573a - \u5165\u7403\u8d5b\u679c [8]",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u603b\u8fdb\u7403\u6570\u662f\u591a\u4e8e/\u5c11\u4e8e\u8fd8\u662f\u7b49\u4e8e\u6307\u5b9a\u6570\u91cf\u3002",
+                "main_type": "24,21",
+                "plat_sort": 120
+            },
+            {
+                "id": 437,
+                "market_type": "FIRST_GOAL_SCORER",
+                "title": "\u9996\u540d\u5f97\u5206\u7403\u5458",
+                "tips": "\u9884\u6d4b\u6307\u5b9a\u7403\u5458\u662f\u5426\u4f1a\u5728\u6bd4\u8d5b\u4e2d\u6253\u8fdb\u7b2c\u4e00\u4e2a\u8fdb\u7403\u3002\u4e4c\u9f99\u7403\u4e0d\u8a08\u7b97\u5728\u5167\u3002",
+                "main_type": "81",
+                "plat_sort": 122
+            },
+            {
+                "id": 438,
+                "market_type": "ANYTIME_GOAL_SCORER",
+                "title": "\u4efb\u4f55\u65f6\u95f4\u5f97\u5206\u7403\u5458",
+                "tips": "\u968f\u65f6\u9884\u6d4b\u7403\u5458\u5f97\u5206",
+                "main_type": "81",
+                "plat_sort": 123
+            },
+            {
+                "id": 439,
+                "market_type": "LAST_GOAL_SCORER",
+                "title": "\u6700\u540e\u4e00\u540d\u5f97\u5206\u7403\u5458",
+                "tips": "\u9884\u6d4b\u6700\u540e\u8fdb\u7403\u8005",
+                "main_type": "81",
+                "plat_sort": 124
+            },
+            {
+                "id": 440,
+                "market_type": "PLAYER_TO_SCORE_TWO",
+                "title": "\u5f97\u5206\u4e3a2\u6216\u66f4\u591a\u7684\u7403\u5458",
+                "tips": "\u9884\u6d4b\u7403\u5458\u5f97\u5206\u4e24\u4e2a\u6216\u4ee5\u4e0a",
+                "main_type": "81",
+                "plat_sort": 125
+            },
+            {
+                "id": 441,
+                "market_type": "PLAYER_TO_SCORE_THREE",
+                "title": "\u5f97\u5206\u4e3a3\u6216\u66f4\u591a\u7684\u7403\u5458",
+                "tips": "\u9884\u6d4b\u7403\u5458\u5f97\u5206\u4e09\u5206\u6216\u4e09\u5206\u4ee5\u4e0a",
+                "main_type": "81",
+                "plat_sort": 126
+            },
+            {
+                "id": 442,
+                "market_type": "RMM_OUTRIGHTS",
+                "title": "\u51a0\u519b\u76d8",
+                "tips": "\u9884\u6d4b\u54ea\u652f\u7403\u961f\u5c06\u8d62\u5f97\u8054\u8d5b\u51a0\u519b",
+                "main_type": "17,32",
+                "plat_sort": 127
+            },
+            {
+                "id": 285,
+                "market_type": "RMM_TOP_GOALSOCCER",
+                "title": "\u6700\u4f73\u795e\u5c04\u624b",
+                "tips": "\u9884\u6d4b\u9526\u6807\u8d5b\u4e2d\u5f97\u5206\u6700\u9ad8\u7684\u9009\u624b",
+                "main_type": "17,32",
+                "plat_sort": 128
+            },
+            {
+                "id": 288,
+                "market_type": "RMM_QUALIFIERS_2",
+                "title": "\u5165\u56f4\u51b3\u8d5b",
+                "tips": "\u9884\u6d4b\u54ea\u4e9b\u7403\u961f\u5c06\u8fdb\u5165\u51b3\u8d5b",
+                "main_type": "17,20",
+                "plat_sort": 129
+            },
+            {
+                "id": 443,
+                "market_type": "TOTAL_CORNERS",
+                "title": "\u603b\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u603b\u89d2\u7403\u6570\u91cf",
+                "main_type": "25,87",
+                "plat_sort": 130
+            },
+            {
+                "id": 445,
+                "market_type": "CR_DOUBLE_CHANCE",
+                "title": "\u53cc\u91cd\u673a\u4f1a/\u53cc\u80dc\u5f69- \u89d2\u7403",
+                "tips": "\u9009\u62e9\u5176\u4e2d\u4e24\u4e2a\u4e3b\u5ba2\u548c\u7684\u9009\u9879\u6765\u9884\u6d4b\u89d2\u7403\u7684\u7ed3\u679c",
+                "main_type": "25",
+                "plat_sort": 131
+            },
+            {
+                "id": 447,
+                "market_type": "CR_DRAW_NO_BET",
+                "title": "\u5e73\u5c40\u9000\u6b3e- \u89d2\u7403",
+                "tips": "\u9884\u6d4b\u89d2\u7403\u6700\u591a\u7684\u7403\u961f\uff0c\u5982\u679c\u5e73\u5c40\u5219\u9000\u6b3e",
+                "main_type": "25",
+                "plat_sort": 132
+            },
+            {
+                "id": 449,
+                "market_type": "CR_ODD_OR_EVEN",
+                "title": "\u5355/\u53cc- \u89d2\u7403",
+                "tips": "\u9884\u6d4b\u89d2\u7403\u7684\u6570\u91cf\u662f\u5355\u6570\u8fd8\u662f\u53cc\u6570",
+                "main_type": "25",
+                "plat_sort": 133
+            },
+            {
+                "id": 451,
+                "market_type": "TEAM_A_EXACT_CORNERS",
+                "title": "\u4e3b\u961f\u7cbe\u51c6\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u7684\u51c6\u786e\u89d2\u7403\u6570",
+                "main_type": "25",
+                "plat_sort": 134
+            },
+            {
+                "id": 453,
+                "market_type": "TEAM_B_EXACT_CORNERS",
+                "title": "\u5ba2\u961f\u7cbe\u51c6\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u7684\u51c6\u786e\u89d2\u7403\u6570",
+                "main_type": "25",
+                "plat_sort": 135
+            },
+            {
+                "id": 455,
+                "market_type": "TOTAL_CORNERS_RANGE",
+                "title": "\u603b\u89d2\u7403\u8303\u56f4",
+                "tips": "\u6309\u8303\u56f4\u9884\u6d4b\u6bd4\u8d5b\u4e2d\u7684\u89d2\u7403\u6570",
+                "main_type": "25",
+                "plat_sort": 136
+            },
+            {
+                "id": 444,
+                "market_type": "TOTAL_CORNERS_HALF_TIME",
+                "title": "\u534a\u573a-\u603b\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u7684\u603b\u89d2\u7403\u6570\u91cf",
+                "main_type": "25",
+                "plat_sort": 137
+            },
+            {
+                "id": 446,
+                "market_type": "CR_DOUBLE_CHANCE_HALF_TIME",
+                "title": "\u534a\u573a- \u53cc\u91cd\u673a\u4f1a/\u53cc\u80dc\u5f69\u89d2\u7403",
+                "tips": "\u9009\u62e9\u5176\u4e2d\u4e24\u4e2a\u4e3b\u5ba2\u548c\u7684\u9009\u9879\u6765\u9884\u6d4b\u4e0a\u534a\u573a\u89d2\u7403\u7684\u7ed3\u679c",
+                "main_type": "25",
+                "plat_sort": 138
+            },
+            {
+                "id": 448,
+                "market_type": "CR_DRAW_NO_BET_HALF_TIME",
+                "title": "\u534a\u573a-\u5e73\u5c40\u9000\u6b3e\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u89d2\u7403\u6700\u591a\u7684\u7403\u961f\uff0c\u5982\u679c\u5e73\u5c40\u5219\u9000\u6b3e",
+                "main_type": "25",
+                "plat_sort": 139
+            },
+            {
+                "id": 450,
+                "market_type": "CR_ODD_OR_EVEN_HALF_TIME",
+                "title": "\u534a\u573a-\u5355/\u53cc\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u4e0a\u534a\u573a\u89d2\u7403\u7684\u6570\u91cf\u662f\u5355\u6570\u8fd8\u662f\u53cc\u6570",
+                "main_type": "25",
+                "plat_sort": 140
+            },
+            {
+                "id": 452,
+                "market_type": "TEAM_A_EXACT_CORNERS_HALF_TIME",
+                "title": "\u534a\u573a- \u4e3b\u961f\u7cbe\u51c6\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u4e3b\u961f\u7684\u51c6\u786e\u4e0a\u534a\u573a\u89d2\u7403\u6570",
+                "main_type": "25",
+                "plat_sort": 141
+            },
+            {
+                "id": 454,
+                "market_type": "TEAM_B_EXACT_CORNERS_HALF_TIME",
+                "title": "\u534a\u573a- \u5ba2\u961f\u7cbe\u51c6\u89d2\u7403",
+                "tips": "\u9884\u6d4b\u5ba2\u961f\u7684\u51c6\u786e\u4e0a\u534a\u573a\u89d2\u7403\u6570",
+                "main_type": "25",
+                "plat_sort": 142
+            },
+            {
+                "id": 456,
+                "market_type": "TOTAL_CORNERS_RANGE_HALF_TIME",
+                "title": "\u534a\u573a-\u603b\u89d2\u7403\u8303\u56f4",
+                "tips": "\u6309\u8303\u56f4\u9884\u6d4b\u6bd4\u8d5b\u4e2d\u7684\u4e0a\u534a\u573a\u89d2\u7403\u6570",
+                "main_type": "25",
+                "plat_sort": 143
+            }
+        ]
+    }
+}

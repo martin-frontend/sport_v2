@@ -10,7 +10,10 @@ export default class LangConfig {
 
     static load(lang: string, notsendEnd?: boolean) {
         const file_name = MD5.createInstance().hex_md5(`plat-${GlobalVar.plat_id}-${GlobalVar.lang}-1`);
-        const url = `${GlobalVar.cdnUrl}/language_web/${file_name}.json?` + getFileVersion();
+        console.warn('file_name',file_name);
+        
+        // const url = `${GlobalVar.cdnUrl}/language_web/${file_name}.json?` + getFileVersion();
+        const url = `/mock/lang.json?` + getFileVersion();
 
         const myAxios = axios.create();
         // 配置 axios-retry 插件

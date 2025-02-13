@@ -1,0 +1,35 @@
+{
+    "status": 0,
+    "msg": "success",
+    "extend": {
+        "date": "2024-04-23 23:18:45",
+        "microtime": 1713885525.294736,
+        "unique": "6627d155477ec169240232",
+        "version": 0,
+        "runtime": "2.43 ms"
+    },
+    "unique": "OrderUnsettledProxy",
+    "data": {
+        "list": [],
+        "pageInfo": { "pageCurrent": 1, "pageCount": 0, "pageSize": 20, "pageTotal": 0 },
+        "stats": {
+            "total_stake": "0.00",
+            "total_win": "0.000",
+            "total_expected_win": "0.000",
+            "cash_out_count": 0,
+            "confirmed_count": 0,
+            "unconfirmed_count": 0,
+            "total_count": 0,
+            "total_checking_count": 0,
+            "currency_type": "HKD"
+        },
+        "status_enum": {
+            "0": "\u786e\u8ba4\u4e2d",
+            "1": "\u786e\u8ba4\u6210\u529f",
+            "4": "\u5df2\u53d6\u6d88",
+            "3": "\u5df2\u62d2\u7edd",
+            "5": "Voided",
+            "8": "\u5931\u8d25"
+        }
+    }
+}

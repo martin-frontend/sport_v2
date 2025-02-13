@@ -1,0 +1,19 @@
+{
+    "status": 0,
+    "msg": "success",
+    "extend": {
+        "date": "2024-04-23 23:18:45",
+        "microtime": 1713885525.294906,
+        "unique": "6627d15546cda981086923",
+        "version": 0,
+        "runtime": "5.42 ms"
+    },
+    "data": [
+        { "id": 1, "name": "\u8db3\u7403", "status": 1, "can_be_multiplied": 1 },
+        { "id": 4, "name": "\u7bee\u7403", "status": 1, "can_be_multiplied": 1 },
+        { "id": 5, "name": "\u7f8e\u5f0f\u8db3\u7403", "status": 1, "can_be_multiplied": 1 },
+        { "id": 8, "name": "\u8d5b\u72d7", "status": 1, "can_be_multiplied": 0 },
+        { "id": 7, "name": "\u8d5b\u9a6c", "status": 1, "can_be_multiplied": 0 },
+        { "id": 9, "name": "\u9a6c\u8f66\u8d5b", "status": 1, "can_be_multiplied": 0 }
+    ]
+}

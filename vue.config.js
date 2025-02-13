@@ -6,8 +6,8 @@ function resolve(dir) {
 }
 
 module.exports = {
-    publicPath: process.env.NODE_ENV === "production" ? "././" : "./",
-    outputDir: "dist",
+    publicPath: "./",
+    outputDir: "docs",
     productionSourceMap: false,
     lintOnSave: false,
     transpileDependencies: ["vuetify"],

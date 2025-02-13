@@ -1,0 +1,81 @@
+<!DOCTYPE HTML>
+<html>
+    <head>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <title>
+            Widgets Demo
+        </title>
+        <link rel="stylesheet" type="text/css" href="theme.css">
+        <script>
+            function getQueryVariable(value) {
+                let after = window.location.search;
+                //value存在先通过search取值如果取不到就通过hash来取
+                after = after.substring(1) || window.location.hash.split("?")[1];
+                if (after) {
+                    const reg = new RegExp("(^|&)" + value + "=([^&]*)(&|$)");
+                    const r = after.match(reg);
+                    if (r != null) {
+                        return decodeURIComponent(r[2]);
+                    } else {
+                        return null;
+                    }
+                }
+                return null;
+            }
+            window.event_id = getQueryVariable("anim_id");
+            let lang = getQueryVariable("lang");
+            switch (lang) {
+                case 'en_US':
+                    window.lang = 'en';
+                    break;
+                case 'zh_CN':
+                    window.lang = 'zh';
+                    break;
+                case 'zh_TW':
+                    window.lang = 'zht';
+                    break;
+                case 'vi_VN':
+                    window.lang = 'vi';
+                //     break;
+                // case 'ko_Kr':
+                //     window.lang = 'ko';
+                //     break;
+                // case 'th_TH':
+                //     window.lang = 'th';
+                //     break;
+                // case 'es_ES':
+                //     window.lang = 'zh';
+                //     break;
+                // case 'jp_JP':
+                //     window.lang = 'ja';
+            }
+        </script>
+        <script src="./script.js"></script>
+        <style>
+            body {
+                display: flex;
+                justify-content: center;
+            }
+            .widgets {
+                max-width: 620px;
+                width: 100%;
+            }
+            .sr-widget {
+                border: rgba(0,0,0,0.12) solid 1px;
+                margin-bottom: 24px;
+            }
+            .sr-widget-title {
+                font-weight: bold;
+                padding-bottom: 4px;
+            }
+            .sr-poweredby__wrapper {
+                display: none !important;
+            }
+        </style>
+    </head>
+    <body>
+        <div class="widgets">
+            <div><div class="sr-widget sr-widget-1"></div></div>
+        </div>
+    </body>
+</html>

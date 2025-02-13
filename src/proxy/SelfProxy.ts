@@ -9,13 +9,14 @@ export default class SelfProxy extends puremvc.Proxy {
     private timerCount = 0;
 
     onRegister() {
-        setInterval(() => {
-            if (this.timerCount % 5 == 0 && GlobalVar.pageType == "skin001") {
-                this.api_user_info();
-            }
-            GlobalVar.server_time++;
-            this.timerCount++;
-        }, 1000);
+        // setInterval(() => {
+        //     if (this.timerCount % 5 == 0 && GlobalVar.pageType == "skin001") {
+        //         this.api_user_info();
+        //     }
+        //     GlobalVar.server_time++;
+        //     this.timerCount++;
+        // }, 1000);
+        this.api_user_info();
     }
 
     /**用户信息 */

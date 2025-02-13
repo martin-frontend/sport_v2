@@ -16,12 +16,12 @@ export default class RequestErrorCMD extends puremvc.SimpleCommand {
             net.HttpType.api_user_info,
         ];
         if (!ignoreArr.includes(url)) {
-            dialog_message_box.alert({
-                message: LangUtil("请检查网络"),
-                okFun: () => {
-                    location.reload();
-                },
-            });
+            // dialog_message_box.alert({
+            //     message: LangUtil("请检查网络"),
+            //     okFun: () => {
+            //         location.reload();
+            //     },
+            // });
         }
     }
 }
