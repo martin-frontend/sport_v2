@@ -13,7 +13,7 @@ export default class LangConfig {
         console.warn('file_name',file_name);
         
         // const url = `${GlobalVar.cdnUrl}/language_web/${file_name}.json?` + getFileVersion();
-        const url = `./mock/lang.json?` + getFileVersion();
+        const url = `/mock/lang.json?` + getFileVersion();
 
         const myAxios = axios.create();
         // 配置 axios-retry 插件
