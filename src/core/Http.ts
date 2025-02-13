@@ -66,7 +66,7 @@ function get(url: string, data?: any) {
 function post(url: string, data?: any) {
     const parts = url.split("/"); // 拆分路徑
     const config = parts[parts.length - 1]; // 獲取最後一個部分
-    return axios.get(`/mock/${config}.json`, data);
+    return axios.get(`./mock/${config}.json`, data);
 
     // return axios.post(`http://qa8.api.sport.nqsf9emow.com:27799/${url}`, data, { cancelToken: GlobalVar.tokenExpired ? source.token : undefined });
 }
