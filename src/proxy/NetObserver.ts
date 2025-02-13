@@ -158,7 +158,7 @@ export default class NetObserver extends AbstractMediator {
             case net.EventType.api_event_market_type_v2:
                 PlatConfig.allMarketType = body.market_type;
                 PlatConfig.market_main_type = Object.values(body.market_main_type);
-                if (GlobalVar.token && ![MatcheProxy.NAME, CompetionResultProxy.NAME].includes(type)) {
+                if (![MatcheProxy.NAME, CompetionResultProxy.NAME].includes(type)) {
                     this.facade.sendNotification(net.HttpType.api_user_info);
                     this.facade.sendNotification(net.HttpType.api_event_sports);
                     const orderUnsettledProxy: OrderUnsettledProxy = getProxy(OrderUnsettledProxy);

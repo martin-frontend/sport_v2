@@ -26,20 +26,20 @@ const CancelToken = axios.CancelToken;
 const source = CancelToken.source();
 
 // 添加请求拦截器
-axios.interceptors.request.use(
-    function (config) {
-        if (GlobalVar.token) config.data.token = GlobalVar.token;
-        config.data.lang = GlobalVar.lang || "en_US";
-        if (GlobalVar.plat_id) config.data.plat_id = GlobalVar.plat_id;
-        if (GlobalVar.device_type) config.data.device_type = GlobalVar.device_type;
-        config.data.timezone = GlobalVar.zone;
-        facade.sendNotification(net.EventType.REQUEST_START, config);
-        return config;
-    },
-    function (error) {
-        return Promise.reject(error);
-    }
-);
+// axios.interceptors.request.use(
+//     function (config) {
+//         if (GlobalVar.token) config.data.token = GlobalVar.token;
+//         config.data.lang = GlobalVar.lang || "en_US";
+//         if (GlobalVar.plat_id) config.data.plat_id = GlobalVar.plat_id;
+//         if (GlobalVar.device_type) config.data.device_type = GlobalVar.device_type;
+//         config.data.timezone = GlobalVar.zone;
+//         facade.sendNotification(net.EventType.REQUEST_START, config);
+//         return config;
+//     },
+//     function (error) {
+//         return Promise.reject(error);
+//     }
+// );
 
 // 添加响应拦截器
 axios.interceptors.response.use(
@@ -64,7 +64,11 @@ function get(url: string, data?: any) {
 }
 
 function post(url: string, data?: any) {
-    return axios.post(url, data, { cancelToken: GlobalVar.tokenExpired ? source.token : undefined });
+    const parts = url.split("/"); // 拆分路徑
+    const config = parts[parts.length - 1]; // 獲取最後一個部分
+    return axios.get(`/mock/${config}.json`, data);
+
+    // return axios.post(`http://qa8.api.sport.nqsf9emow.com:27799/${url}`, data, { cancelToken: GlobalVar.tokenExpired ? source.token : undefined });
 }
 
 const Http = {

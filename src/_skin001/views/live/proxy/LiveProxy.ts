@@ -9,7 +9,7 @@ export default class LiveProxy extends puremvc.Proxy {
     static NAME = "LiveProxy";
 
     public onRegister(): void {
-        setInterval(this.api_event_states.bind(this), 5000);
+        // setInterval(this.api_event_states.bind(this), 5000);
     }
 
     pageData = {

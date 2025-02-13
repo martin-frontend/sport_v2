@@ -14,7 +14,7 @@ function init(id: number, sport_id?: any, tag?: any) {
     }
     myProxy.listQueryComp.tag = tag ?? homeProxy.listQueryComp.tag;
     if (id) {
-        myProxy.init(id);
+        // myProxy.init(id);
     } else {
         myProxy.pageData.competition_list = [];
     }

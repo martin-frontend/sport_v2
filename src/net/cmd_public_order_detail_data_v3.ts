@@ -17,7 +17,7 @@ export default class cmd_public_order_detail_data_v3 extends puremvc.SimpleComma
     private response(result: vo.ResponseVO) {
         if (result.status === 0) {
             if(result.data && typeof result.data == "object") result.data.requestData = this.requestData;
-            this.sendNotification(net.EventType.public_order_detail_data_v3, result.data, result.unique);
+            this.sendNotification(net.EventType.public_order_detail_data_v3, result.data, this.requestData.unique);
         }
     }
 }

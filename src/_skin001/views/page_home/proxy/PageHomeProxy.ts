@@ -108,7 +108,8 @@ export default class PageHomeProxy extends puremvc.Proxy {
 
     init() {
         clearInterval(this.timer);
-        this.timer = setInterval(this.getMarketAndStates.bind(this), 5000);
+        // this.timer = setInterval(this.getMarketAndStates.bind(this), 5000);
+        this.getMarketAndStates();
     }
 
     get competition_list() {

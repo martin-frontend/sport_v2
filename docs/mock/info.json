@@ -1,0 +1,26 @@
+{
+    "status": 0,
+    "msg": "success",
+    "extend": {
+        "date": "2024-04-23 23:18:45",
+        "microtime": 1713885525.301415,
+        "unique": "6627d15548845966056483",
+        "version": 0,
+        "runtime": "4.96 ms"
+    },
+    "data": {
+        "username": "10080_zh_CN",
+        "user_type": 2,
+        "gold": "0",
+        "user_setting": {
+            "daynight_type": 1,
+            "lang": "zh_CN",
+            "sport_ids": "",
+            "market_type_ids": "",
+            "remark": "{\"currency_type\":\"HKD\",\"fast_choose\":[\"100\",\"500\",\"2000\",\"10000\",\"50000\",\"200000\",\"0\"],\"timezone\":\"-5\",\"sort\":\"comp\",\"MarketType_area\":1,\"todayEarly\":\"1\",\"accept_change\":0}"
+        },
+        "currency_type": "HKD",
+        "fast_choose": "100,500,2000,10000,50000,200000,0",
+        "able_to_choose_betterodds": 1
+    }
+}

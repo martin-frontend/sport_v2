@@ -1,0 +1,797 @@
+{
+    "status": 0,
+    "msg": "success",
+    "extend": {
+        "date": "2024-04-23 23:18:45",
+        "microtime": 1713885525.543179,
+        "unique": "6627d1556c5ba586888763",
+        "version": 0,
+        "runtime": "99.82 ms"
+    },
+    "data": {
+        "1": {
+            "all_competition": [
+                {
+                    "country_code": "International",
+                    "country_name": "\u56fd\u9645",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/b1/b1/b1b1474c4a9852f4b46328862d0257ee.png",
+                    "num": 10,
+                    "sort": 0,
+                    "competitions": [
+                        { "id": 81611, "name": "\u6b27\u6d32\u51a0\u519b\u8054\u8d5b" },
+                        { "id": 81610, "name": "\u4e9a\u8db3\u8054\u51a0\u519b\u8054\u8d5b" },
+                        { "id": 81669, "name": "\u5357\u7f8e\u81ea\u7531\u676f" },
+                        { "id": 81645, "name": "\u5357\u7f8e\u5dde\u7403\u6703\u676f" },
+                        { "id": 81597, "name": "\u7f8e\u6d32\u51a0\u519b\u8054\u8d5b" },
+                        { "id": 30127, "name": "\u51b0\u5c9b\u676f" },
+                        { "id": 31223, "name": "\u6ce2\u5170\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 33227, "name": "\u5361\u5854\u5c14\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 79657, "name": "\u82f1\u683c\u5170\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 81647, "name": "\u6b27\u6d32\u56fd\u5bb6\u51a0\u519b\u676f" }
+                    ]
+                },
+                {
+                    "country_code": "AR",
+                    "country_name": "\u963f\u6839\u5ef7",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/44/81/44818cc582e4d7c42da49426cdefe90f.png",
+                    "num": 1,
+                    "sort": 2,
+                    "competitions": [{ "id": 81628, "name": "\u963f\u6839\u5ef7\u4e59\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "AT",
+                    "country_name": "\u5965\u5730\u5229",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/6a/d5/6ad55f328a646247ba51dad57156e558.png",
+                    "num": 1,
+                    "sort": 3,
+                    "competitions": [{ "id": 31772, "name": "\u5965\u5730\u5229\u7532\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "AU",
+                    "country_name": "\u6fb3\u5927\u5229\u4e9a",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/c4/06/c4061c20051a797670f54b7925751258.png",
+                    "num": 2,
+                    "sort": 4,
+                    "competitions": [
+                        { "id": 80197, "name": "\u6fb3\u5927\u5229\u4e9a\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 81637, "name": "\u6fb3\u5927\u5229\u4e9a\u6606\u58eb\u5170\u5dde\u56fd\u5bb6\u8d85\u7ea7\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "BE",
+                    "country_name": "\u6bd4\u5229\u65f6",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/4e/9f/4e9f1894c2841c92810f4294ecbb5bc0.png",
+                    "num": 1,
+                    "sort": 6,
+                    "competitions": [{ "id": 31773, "name": "\u6bd4\u5229\u65f6\u7532\u7ec4\u8054\u8d5bA" }]
+                },
+                {
+                    "country_code": "BR",
+                    "country_name": "\u5df4\u897f",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/0a/bc/0abcfd098357445792512466572b27e1.png",
+                    "num": 1,
+                    "sort": 9,
+                    "competitions": [{ "id": 30274, "name": "\u5df4\u897f\u4e59\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "CH",
+                    "country_name": "\u745e\u58eb",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/dc/f4/dcf4ae3a30d988afc662b14fe52aeec4.png",
+                    "num": 1,
+                    "sort": 10,
+                    "competitions": [{ "id": 31227, "name": "\u745e\u58eb\u7532\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "CN",
+                    "country_name": "\u4e2d\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/eb/8a/eb8a9b201f9eb18b1bfa3bd8b829e339.png",
+                    "num": 1,
+                    "sort": 12,
+                    "competitions": [{ "id": 222, "name": "\u4e2d\u56fd\u8d85\u7ea7\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "CO",
+                    "country_name": "\u54e5\u4f26\u6bd4\u4e9a",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/c2/a9/c2a9c804c93cfa3296cc3952782a55da.png",
+                    "num": 1,
+                    "sort": 13,
+                    "competitions": [{ "id": 31147, "name": "\u54e5\u4f26\u6bd4\u4e9a\u676f" }]
+                },
+                {
+                    "country_code": "CY",
+                    "country_name": "\u585e\u6d66\u8def\u65af",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/6f/e4/6fe4af517224d81ebe11ee9d824d030d.png",
+                    "num": 1,
+                    "sort": 14,
+                    "competitions": [{ "id": 79953, "name": "\u585e\u6d66\u8def\u65af\u7532\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "DE",
+                    "country_name": "\u5fb7\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/b0/93/b093e32e12418cb632e48bf483fb86da.png",
+                    "num": 3,
+                    "sort": 16,
+                    "competitions": [
+                        { "id": 79705, "name": "\u5fb7\u56fd\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 31230, "name": "\u5fb7\u56fd\u4e59\u7ec4\u8054\u8d5b" },
+                        { "id": 31766, "name": "\u5fb7\u56fd\u4e19\u7ec4\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "DK",
+                    "country_name": "\u4e39\u9ea6",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/04/16/0416a527bda50df50cd423086f8e25cf.png",
+                    "num": 1,
+                    "sort": 17,
+                    "competitions": [{ "id": 16, "name": "\u4e39\u9ea6\u8d85\u7ea7\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "EG",
+                    "country_name": "\u57c3\u53ca",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/f4/1b/f41b80728328b30d20bc2cd4b7e1d337.png",
+                    "num": 1,
+                    "sort": 19,
+                    "competitions": [{ "id": 31107, "name": "\u57c3\u53ca\u8d85\u7ea7\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "FI",
+                    "country_name": "\u82ac\u5170",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/ed/bc/edbc761500cc8de2800b3085d1c7bf04.png",
+                    "num": 3,
+                    "sort": 20,
+                    "competitions": [
+                        { "id": 31220, "name": "\u82ac\u5170\u8d85\u7ea7\u8054\u8d5b" },
+                        { "id": 80002, "name": "\u82ac\u5170\u676f" },
+                        { "id": 81676, "name": "Ykkosliiga" }
+                    ]
+                },
+                {
+                    "country_code": "FR",
+                    "country_name": "\u6cd5\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/6d/ee/6dee39a51234c73c99b3d17a5b4555f6.png",
+                    "num": 2,
+                    "sort": 21,
+                    "competitions": [
+                        { "id": 30178, "name": "\u6cd5\u56fd\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 33191, "name": "\u6cd5\u56fd\u4e59\u7ec4\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "GB",
+                    "country_name": "\u82f1\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/dd/8e/dd8e6ecbf164a975b45f5290225b6178.png",
+                    "num": 3,
+                    "sort": 22,
+                    "competitions": [
+                        { "id": 33209, "name": "\u82f1\u683c\u5170\u51a0\u519b\u8054\u8d5b" },
+                        { "id": 79658, "name": "\u82f1\u683c\u5170\u4e59\u7ec4\u8054\u8d5b" },
+                        { "id": 79706, "name": "\u82f1\u683c\u5170\u8d85\u7ea7\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "GR",
+                    "country_name": "\u5e0c\u814a",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/a7/b9/a7b9e22cac63a3bd3fad892af8e436ff.png",
+                    "num": 1,
+                    "sort": 23,
+                    "competitions": [{ "id": 79943, "name": "\u5e0c\u814a\u8d85\u7ea7\u8054\u8d5b\u7532\u7ec4" }]
+                },
+                {
+                    "country_code": "IN",
+                    "country_name": "\u5370\u5ea6",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/02/1a/021a1927543e7b442e76d5cf94e6d4b5.png",
+                    "num": 1,
+                    "sort": 29,
+                    "competitions": [{ "id": 80161, "name": "\u5370\u5ea6\u8d85\u7ea7\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "IT",
+                    "country_name": "\u610f\u5927\u5229",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/16/38/1638e0bef984a0e8b0d0abe3b1da5f97.png",
+                    "num": 2,
+                    "sort": 32,
+                    "competitions": [
+                        { "id": 79806, "name": "\u610f\u5927\u5229\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 33222, "name": "\u610f\u5927\u5229\u676f" }
+                    ]
+                },
+                {
+                    "country_code": "JP",
+                    "country_name": "\u65e5\u672c",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/e0/4b/e04b8da796187c4610535626f0c89772.png",
+                    "num": 1,
+                    "sort": 33,
+                    "competitions": [{ "id": 79664, "name": "\u65e5\u672c\u804c\u4e1a\u8054\u8d5b\u676f" }]
+                },
+                {
+                    "country_code": "NL",
+                    "country_name": "\u8377\u5170",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/4d/d1/4dd1a6c0ba11d3575d66ee65f5f97c02.png",
+                    "num": 1,
+                    "sort": 37,
+                    "competitions": [{ "id": 79704, "name": "\u8377\u5170\u7532\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "NO",
+                    "country_name": "\u632a\u5a01",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/7a/5e/7a5e37654711c9f5ff4d3dbfc6434325.png",
+                    "num": 2,
+                    "sort": 38,
+                    "competitions": [
+                        { "id": 30141, "name": "\u632a\u5a01\u676f" },
+                        { "id": 79666, "name": "\u632a\u5a01\u5973\u5b50\u8d85\u7d1a\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "PE",
+                    "country_name": "\u79d8\u9c81",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/13/20/132027b5d86fd06ddd625c8146b26107.png",
+                    "num": 1,
+                    "sort": 39,
+                    "competitions": [{ "id": 80703, "name": "\u79d8\u9c81\u7532\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "PT",
+                    "country_name": "\u8461\u8404\u7259",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/79/dc/79dc1ad3c33d99e831806c5712b7b7e5.png",
+                    "num": 2,
+                    "sort": 41,
+                    "competitions": [
+                        { "id": 79707, "name": "\u8461\u8404\u7259\u8d85\u7ea7\u8054\u8d5b" },
+                        { "id": 79722, "name": "\u8461\u8404\u7259\u7532\u7ec4\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "RO",
+                    "country_name": "\u7f57\u9a6c\u5c3c\u4e9a",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/ad/76/ad765a15b5dc1ec10f5a0398f374f0f3.png",
+                    "num": 1,
+                    "sort": 44,
+                    "competitions": [{ "id": 31283, "name": "\u7f57\u9a6c\u5c3c\u4e9a\u7532\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "RU",
+                    "country_name": "\u4fc4\u7f57\u65af",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/ee/42/ee42775027586eac9ebce5b0b71170ee.png",
+                    "num": 1,
+                    "sort": 46,
+                    "competitions": [{ "id": 80934, "name": "Russia Premier League" }]
+                },
+                {
+                    "country_code": "SA",
+                    "country_name": "\u6c99\u7279\u963f\u62c9\u4f2f",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/55/26/5526e509b46563f6fb0f8937977e0a26.png",
+                    "num": 1,
+                    "sort": 47,
+                    "competitions": [{ "id": 79894, "name": "\u6c99\u7279\u963f\u62c9\u4f2f\u8d85\u7ea7\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "SE",
+                    "country_name": "\u745e\u5178",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/cc/78/cc78a6353fb7c45ee6192296dc669821.png",
+                    "num": 2,
+                    "sort": 48,
+                    "competitions": [
+                        { "id": 31182, "name": "\u745e\u5178\u8d85\u7ea7\u8054\u8d5b" },
+                        { "id": 31237, "name": "\u745e\u5178\u8d85\u7ea7\u7532\u7ec4\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "TR",
+                    "country_name": "\u571f\u8033\u5176",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/54/85/5485e4f2b3969f3e8bbd354c7b6941d2.png",
+                    "num": 2,
+                    "sort": 52,
+                    "competitions": [
+                        { "id": 80062, "name": "\u571f\u8033\u5176\u676f" },
+                        { "id": 79702, "name": "\u571f\u8033\u5176\u8d85\u7ea7\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "country_code": "UY",
+                    "country_name": "\u4e4c\u62c9\u572d",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/b4/99/b4995d517c11b219f11529eec436159a.png",
+                    "num": 1,
+                    "sort": 55,
+                    "competitions": [{ "id": 80704, "name": "\u4e4c\u62c9\u572d\u7532\u7ec4\u8054\u8d5b" }]
+                },
+                {
+                    "country_code": "ES",
+                    "country_name": "\u897f\u73ed\u7259",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/9b/ad/9badfa24be62de66413980e7d676956b.png",
+                    "num": 1,
+                    "sort": 58,
+                    "competitions": [{ "id": 31234, "name": "\u897f\u73ed\u7259\u7532\u7ec4\u8054\u8d5b" }]
+                }
+            ],
+            "tags": [
+                {
+                    "name": "av\u70ed\u95e8123",
+                    "num": 5,
+                    "tag": "9",
+                    "icon": "https://api.sport.nqsf9emow.com/images/tag/e9/52/e952c71a0620970aada6f0d9727483ad.jpg",
+                    "sort": -6,
+                    "competitions": [
+                        { "id": 79705, "name": "\u5fb7\u56fd\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 79704, "name": "\u8377\u5170\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 80062, "name": "\u571f\u8033\u5176\u676f" },
+                        { "id": 30178, "name": "\u6cd5\u56fd\u7532\u7ec4\u8054\u8d5b" },
+                        { "id": 79706, "name": "\u82f1\u683c\u5170\u8d85\u7ea7\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "name": "\u6b27\u6d32\u676f2024",
+                    "num": 4,
+                    "tag": "20",
+                    "icon": "https://api.sport.nqsf9emow.com/images/tag/62/83/62835a5cf36962cb6bf7edb43279be1e.png",
+                    "sort": 20,
+                    "competitions": [
+                        { "id": 81611, "name": "\u6b27\u6d32\u51a0\u519b\u8054\u8d5b" },
+                        { "id": 31230, "name": "\u5fb7\u56fd\u4e59\u7ec4\u8054\u8d5b" },
+                        { "id": 81610, "name": "\u4e9a\u8db3\u8054\u51a0\u519b\u8054\u8d5b" },
+                        { "id": 79702, "name": "\u571f\u8033\u5176\u8d85\u7ea7\u8054\u8d5b" }
+                    ]
+                },
+                {
+                    "name": "\u6d41\u884c\u8d5b\u4e8b",
+                    "num": 2,
+                    "tag": "21",
+                    "icon": "https://api.sport.nqsf9emow.com/images/tag/ad/7c/ad7cdef1a486fc8d2ad23e36100253f7.png",
+                    "sort": 21,
+                    "competitions": [
+                        { "id": 81611, "name": "\u6b27\u6d32\u51a0\u519b\u8054\u8d5b" },
+                        { "id": 81610, "name": "\u4e9a\u8db3\u8054\u51a0\u519b\u8054\u8d5b" }
+                    ]
+                }
+            ],
+            "inplay": {
+                "name": "\u6eda\u7403",
+                "num": 4,
+                "tag": "inplay",
+                "icon": "In-Play.png",
+                "competitions": [
+                    { "id": 79953, "name": "\u585e\u6d66\u8def\u65af\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31107, "name": "\u57c3\u53ca\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 80161, "name": "\u5370\u5ea6\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 31283, "name": "\u7f57\u9a6c\u5c3c\u4e9a\u7532\u7ec4\u8054\u8d5b" }
+                ]
+            },
+            "today": {
+                "name": "\u4eca\u65e5",
+                "num": 60,
+                "tag": "today",
+                "icon": "Today.png",
+                "competitions": [
+                    { "id": 81628, "name": "\u963f\u6839\u5ef7\u4e59\u7ec4\u8054\u8d5b" },
+                    { "id": 31772, "name": "\u5965\u5730\u5229\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31773, "name": "\u6bd4\u5229\u65f6\u7532\u7ec4\u8054\u8d5bA" },
+                    { "id": 30274, "name": "\u5df4\u897f\u4e59\u7ec4\u8054\u8d5b" },
+                    { "id": 31147, "name": "\u54e5\u4f26\u6bd4\u4e9a\u676f" },
+                    { "id": 79953, "name": "\u585e\u6d66\u8def\u65af\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31107, "name": "\u57c3\u53ca\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 80002, "name": "\u82ac\u5170\u676f" },
+                    { "id": 33191, "name": "\u6cd5\u56fd\u4e59\u7ec4\u8054\u8d5b" },
+                    { "id": 80161, "name": "\u5370\u5ea6\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 30127, "name": "\u51b0\u5c9b\u676f" },
+                    { "id": 31223, "name": "\u6ce2\u5170\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 79657, "name": "\u82f1\u683c\u5170\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 81597, "name": "\u7f8e\u6d32\u51a0\u519b\u8054\u8d5b" },
+                    { "id": 81610, "name": "\u4e9a\u8db3\u8054\u51a0\u519b\u8054\u8d5b" },
+                    { "id": 81645, "name": "\u5357\u7f8e\u5dde\u7403\u6703\u676f" },
+                    { "id": 81669, "name": "\u5357\u7f8e\u81ea\u7531\u676f" },
+                    { "id": 33222, "name": "\u610f\u5927\u5229\u676f" },
+                    { "id": 30141, "name": "\u632a\u5a01\u676f" },
+                    { "id": 79666, "name": "\u632a\u5a01\u5973\u5b50\u8d85\u7d1a\u8054\u8d5b" },
+                    { "id": 80703, "name": "\u79d8\u9c81\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31283, "name": "\u7f57\u9a6c\u5c3c\u4e9a\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31237, "name": "\u745e\u5178\u8d85\u7ea7\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31227, "name": "\u745e\u58eb\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 80062, "name": "\u571f\u8033\u5176\u676f" },
+                    { "id": 33209, "name": "\u82f1\u683c\u5170\u51a0\u519b\u8054\u8d5b" },
+                    { "id": 79658, "name": "\u82f1\u683c\u5170\u4e59\u7ec4\u8054\u8d5b" },
+                    { "id": 79706, "name": "\u82f1\u683c\u5170\u8d85\u7ea7\u8054\u8d5b" }
+                ]
+            },
+            "future": {
+                "name": "\u65e9\u76d8",
+                "num": 159,
+                "tag": "future",
+                "icon": "Early Market.png",
+                "competitions": [
+                    { "id": 80197, "name": "\u6fb3\u5927\u5229\u4e9a\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 81637, "name": "\u6fb3\u5927\u5229\u4e9a\u6606\u58eb\u5170\u5dde\u56fd\u5bb6\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 31772, "name": "\u5965\u5730\u5229\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31773, "name": "\u6bd4\u5229\u65f6\u7532\u7ec4\u8054\u8d5bA" },
+                    { "id": 222, "name": "\u4e2d\u56fd\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 16, "name": "\u4e39\u9ea6\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 31107, "name": "\u57c3\u53ca\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 31220, "name": "\u82ac\u5170\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 81676, "name": "Ykkosliiga" },
+                    { "id": 30178, "name": "\u6cd5\u56fd\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31230, "name": "\u5fb7\u56fd\u4e59\u7ec4\u8054\u8d5b" },
+                    { "id": 31766, "name": "\u5fb7\u56fd\u4e19\u7ec4\u8054\u8d5b" },
+                    { "id": 79705, "name": "\u5fb7\u56fd\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 79943, "name": "\u5e0c\u814a\u8d85\u7ea7\u8054\u8d5b\u7532\u7ec4" },
+                    { "id": 80161, "name": "\u5370\u5ea6\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 33227, "name": "\u5361\u5854\u5c14\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 81610, "name": "\u4e9a\u8db3\u8054\u51a0\u519b\u8054\u8d5b" },
+                    { "id": 81611, "name": "\u6b27\u6d32\u51a0\u519b\u8054\u8d5b" },
+                    { "id": 81645, "name": "\u5357\u7f8e\u5dde\u7403\u6703\u676f" },
+                    { "id": 81647, "name": "\u6b27\u6d32\u56fd\u5bb6\u51a0\u519b\u676f" },
+                    { "id": 81669, "name": "\u5357\u7f8e\u81ea\u7531\u676f" },
+                    { "id": 33222, "name": "\u610f\u5927\u5229\u676f" },
+                    { "id": 79806, "name": "\u610f\u5927\u5229\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 79664, "name": "\u65e5\u672c\u804c\u4e1a\u8054\u8d5b\u676f" },
+                    { "id": 79704, "name": "\u8377\u5170\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 79707, "name": "\u8461\u8404\u7259\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 79722, "name": "\u8461\u8404\u7259\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31283, "name": "\u7f57\u9a6c\u5c3c\u4e9a\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 80934, "name": "Russia Premier League" },
+                    { "id": 79894, "name": "\u6c99\u7279\u963f\u62c9\u4f2f\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 31234, "name": "\u897f\u73ed\u7259\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 31182, "name": "\u745e\u5178\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 31227, "name": "\u745e\u58eb\u7532\u7ec4\u8054\u8d5b" },
+                    { "id": 79702, "name": "\u571f\u8033\u5176\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 33209, "name": "\u82f1\u683c\u5170\u51a0\u519b\u8054\u8d5b" },
+                    { "id": 79706, "name": "\u82f1\u683c\u5170\u8d85\u7ea7\u8054\u8d5b" },
+                    { "id": 80704, "name": "\u4e4c\u62c9\u572d\u7532\u7ec4\u8054\u8d5b" }
+                ]
+            },
+            "favorite": { "num": 0, "events": [] },
+            "sport": "\u8db3\u7403",
+            "sort": 0,
+            "all_competition_amount": 53,
+            "num": 219
+        },
+        "4": {
+            "all_competition": [
+                {
+                    "country_code": "US",
+                    "country_name": "\u7f8e\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/25/4d/254d15c08ee6c9ee5c35dc28e82a704c.png",
+                    "num": 2,
+                    "sort": 1,
+                    "competitions": [
+                        { "id": 81753, "name": "NBA > Eastern Conference Quarter Finals" },
+                        { "id": 81754, "name": "NBA > Western Conference Quarter Finals" }
+                    ]
+                }
+            ],
+            "inplay": { "name": "\u6eda\u7403", "num": 0, "tag": "inplay", "icon": "In-Play.png", "competitions": [] },
+            "today": {
+                "name": "\u4eca\u65e5",
+                "num": 3,
+                "tag": "today",
+                "icon": "Today.png",
+                "competitions": [
+                    { "id": 81753, "name": "NBA > Eastern Conference Quarter Finals" },
+                    { "id": 81754, "name": "NBA > Western Conference Quarter Finals" }
+                ]
+            },
+            "future": {
+                "name": "\u65e9\u76d8",
+                "num": 5,
+                "tag": "future",
+                "icon": "Early Market.png",
+                "competitions": [
+                    { "id": 81753, "name": "NBA > Eastern Conference Quarter Finals" },
+                    { "id": 81754, "name": "NBA > Western Conference Quarter Finals" }
+                ]
+            },
+            "favorite": { "num": 0, "events": [] },
+            "sport": "\u7bee\u7403",
+            "tags": [],
+            "sort": 1,
+            "all_competition_amount": 2,
+            "num": 8
+        },
+        "7": {
+            "all_competition": [
+                {
+                    "country_code": "AU",
+                    "country_name": "\u6fb3\u5927\u5229\u4e9a",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/c4/06/c4061c20051a797670f54b7925751258.png",
+                    "num": 10,
+                    "sort": 1,
+                    "competitions": [
+                        { "id": 81064, "name": "\u5fb7\u6587\u6e2f" },
+                        { "id": 81068, "name": "\u5f17\u83b1\u660e\u987f" },
+                        { "id": 81069, "name": "\u7518\u6bd4\u4e9a\u5c71" },
+                        { "id": 81103, "name": "\u53f6\u58eb\u57df\u6cbb" },
+                        { "id": 81140, "name": "\u7ebd\u5361\u7d20" },
+                        { "id": 81209, "name": "\u6c64\u65af\u7ef4\u5c14" },
+                        { "id": 81290, "name": "\u5409\u6717" },
+                        { "id": 81347, "name": "\u585e\u5c14" },
+                        { "id": 81358, "name": "\u79d1\u592b\u65af\u6e2f" },
+                        { "id": 81496, "name": "\u5e73\u8d3e\u62c9" }
+                    ]
+                },
+                {
+                    "country_code": "FR",
+                    "country_name": "\u6cd5\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/6d/ee/6dee39a51234c73c99b3d17a5b4555f6.png",
+                    "num": 2,
+                    "sort": 2,
+                    "competitions": [
+                        { "id": 81162, "name": "\u5eb7\u6bd4\u6d85" },
+                        { "id": 81200, "name": "\u52d2\u8292" }
+                    ]
+                },
+                {
+                    "country_code": "GB",
+                    "country_name": "\u82f1\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/dd/8e/dd8e6ecbf164a975b45f5290225b6178.png",
+                    "num": 9,
+                    "sort": 3,
+                    "competitions": [
+                        { "id": 80973, "name": "\u96c5\u8305\u65af" },
+                        { "id": 81058, "name": "\u5361\u7279\u91cc\u514b\u6865" },
+                        { "id": 81061, "name": "\u4f0d\u5c14\u5f17\u6c49\u666e\u987f" },
+                        { "id": 81181, "name": "\u73c0\u65af" },
+                        { "id": 81204, "name": "\u7ecd\u65af\u97e6\u5c14" },
+                        { "id": 81255, "name": "\u53f6\u68ee\u9a6c\u573a" },
+                        { "id": 81332, "name": "\u5c24\u6258\u514b\u897f\u7279" },
+                        { "id": 81350, "name": "\u52d2\u5fb7\u6d1b" },
+                        { "id": 81471, "name": "\u6c64\u987f" }
+                    ]
+                },
+                {
+                    "country_code": "HK",
+                    "country_name": "\u9999\u6e2f",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/0e/49/0e49fd2f40308ba821a690c7d3b39374.png",
+                    "num": 1,
+                    "sort": 4,
+                    "competitions": [{ "id": 81176, "name": "\u8dd1\u9a6c\u5730" }]
+                },
+                {
+                    "country_code": "IE",
+                    "country_name": "\u7231\u5c14\u5170",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/5d/cd/5dcdbbfdee64b291b46e0e070539d87b.png",
+                    "num": 3,
+                    "sort": 5,
+                    "competitions": [
+                        { "id": 81177, "name": "\u8d1d\u7409\u65af\u57ce" },
+                        { "id": 81220, "name": "\u9ad8\u8fd0\u56ed" },
+                        { "id": 81254, "name": "\u8482\u73c0\u96f7\u91cc" }
+                    ]
+                },
+                {
+                    "country_code": "NZ",
+                    "country_name": "\u7ebd\u897f\u5170",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/fe/92/fe926df247cca06d857324c2565c9495.png",
+                    "num": 1,
+                    "sort": 6,
+                    "competitions": [{ "id": 81299, "name": "\u6cd5\u96c5\u7eb3" }]
+                },
+                {
+                    "country_code": "ZA",
+                    "country_name": "\u5357\u975e",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/41/5b/415b8a0017e8093cdd5576d328995012.png",
+                    "num": 2,
+                    "sort": 8,
+                    "competitions": [
+                        { "id": 80974, "name": "\u74e6\u5c14" },
+                        { "id": 81492, "name": "\u51ef\u5c3c\u5c14\u6c83\u601d" }
+                    ]
+                }
+            ],
+            "withinAnHour": {
+                "name": "The Next",
+                "num": 11,
+                "tag": "withinAnHour",
+                "competitions": [
+                    { "id": 81162, "name": "\u5eb7\u6bd4\u6d85" },
+                    { "id": 81220, "name": "\u9ad8\u8fd0\u56ed" },
+                    { "id": 81254, "name": "\u8482\u73c0\u96f7\u91cc" },
+                    { "id": 80973, "name": "\u96c5\u8305\u65af" },
+                    { "id": 81204, "name": "\u7ecd\u65af\u97e6\u5c14" },
+                    { "id": 81255, "name": "\u53f6\u68ee\u9a6c\u573a" }
+                ]
+            },
+            "today": {
+                "name": "\u4eca\u65e5",
+                "num": 109,
+                "tag": "today",
+                "competitions": [
+                    { "id": 81064, "name": "\u5fb7\u6587\u6e2f" },
+                    { "id": 81069, "name": "\u7518\u6bd4\u4e9a\u5c71" },
+                    { "id": 81103, "name": "\u53f6\u58eb\u57df\u6cbb" },
+                    { "id": 81140, "name": "\u7ebd\u5361\u7d20" },
+                    { "id": 81209, "name": "\u6c64\u65af\u7ef4\u5c14" },
+                    { "id": 81290, "name": "\u5409\u6717" },
+                    { "id": 81347, "name": "\u585e\u5c14" },
+                    { "id": 81358, "name": "\u79d1\u592b\u65af\u6e2f" },
+                    { "id": 81162, "name": "\u5eb7\u6bd4\u6d85" },
+                    { "id": 81200, "name": "\u52d2\u8292" },
+                    { "id": 81220, "name": "\u9ad8\u8fd0\u56ed" },
+                    { "id": 81254, "name": "\u8482\u73c0\u96f7\u91cc" },
+                    { "id": 81299, "name": "\u6cd5\u96c5\u7eb3" },
+                    { "id": 80974, "name": "\u74e6\u5c14" },
+                    { "id": 80973, "name": "\u96c5\u8305\u65af" },
+                    { "id": 81061, "name": "\u4f0d\u5c14\u5f17\u6c49\u666e\u987f" },
+                    { "id": 81204, "name": "\u7ecd\u65af\u97e6\u5c14" },
+                    { "id": 81255, "name": "\u53f6\u68ee\u9a6c\u573a" }
+                ]
+            },
+            "tomorrow": {
+                "name": "Tomorrow",
+                "num": 98,
+                "tag": "tomorrow",
+                "competitions": [
+                    { "id": 81064, "name": "\u5fb7\u6587\u6e2f" },
+                    { "id": 81068, "name": "\u5f17\u83b1\u660e\u987f" },
+                    { "id": 81069, "name": "\u7518\u6bd4\u4e9a\u5c71" },
+                    { "id": 81103, "name": "\u53f6\u58eb\u57df\u6cbb" },
+                    { "id": 81140, "name": "\u7ebd\u5361\u7d20" },
+                    { "id": 81290, "name": "\u5409\u6717" },
+                    { "id": 81496, "name": "\u5e73\u8d3e\u62c9" },
+                    { "id": 81176, "name": "\u8dd1\u9a6c\u5730" },
+                    { "id": 81177, "name": "\u8d1d\u7409\u65af\u57ce" },
+                    { "id": 81220, "name": "\u9ad8\u8fd0\u56ed" },
+                    { "id": 81492, "name": "\u51ef\u5c3c\u5c14\u6c83\u601d" },
+                    { "id": 81058, "name": "\u5361\u7279\u91cc\u514b\u6865" },
+                    { "id": 81181, "name": "\u73c0\u65af" },
+                    { "id": 81332, "name": "\u5c24\u6258\u514b\u897f\u7279" },
+                    { "id": 81350, "name": "\u52d2\u5fb7\u6d1b" },
+                    { "id": 81471, "name": "\u6c64\u987f" }
+                ]
+            },
+            "dayAfterTomorrow": {
+                "name": "2024-04-25",
+                "num": 4,
+                "tag": "dayAfterTomorrow",
+                "competitions": [{ "id": 81068, "name": "\u5f17\u83b1\u660e\u987f" }]
+            },
+            "favorite": { "num": 0, "events": [] },
+            "sport": "\u8d5b\u9a6c",
+            "tags": [],
+            "sort": 3,
+            "all_competition_amount": 28,
+            "num": 211
+        },
+        "8": {
+            "all_competition": [
+                {
+                    "country_code": "AU",
+                    "country_name": "\u6fb3\u5927\u5229\u4e9a",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/c4/06/c4061c20051a797670f54b7925751258.png",
+                    "num": 10,
+                    "sort": 1,
+                    "competitions": [
+                        { "id": 80957, "name": "\u53f6\u58eb\u57df\u6cbb" },
+                        { "id": 80964, "name": "\u6c83\u62c9\u683c\u5c14" },
+                        { "id": 81007, "name": "\u5409\u6717" },
+                        { "id": 81020, "name": "\u6c64\u65af\u7ef4\u5c14" },
+                        { "id": 81153, "name": "\u9ed8\u91cc\u5e03\u91cc\u5947" },
+                        { "id": 81154, "name": "\u970d\u820d\u59c6" },
+                        { "id": 81155, "name": "\u5e03\u5229" },
+                        { "id": 81158, "name": "\u5c24\u6602\u514b\u65af" },
+                        { "id": 81159, "name": "\u9ad8\u58eb\u798f" },
+                        { "id": 81459, "name": "\u66fc\u675c\u62c9" }
+                    ]
+                },
+                {
+                    "country_code": "GB",
+                    "country_name": "\u82f1\u56fd",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/dd/8e/dd8e6ecbf164a975b45f5290225b6178.png",
+                    "num": 11,
+                    "sort": 2,
+                    "competitions": [
+                        { "id": 80961, "name": "\u8428\u798f\u514b\u5510\u65af" },
+                        { "id": 80966, "name": "\u514b\u96f7\u798f\u5fb7" },
+                        { "id": 80971, "name": "\u7f57\u59c6\u798f\u5fb7" },
+                        { "id": 80986, "name": "\u8499\u6469\u5c14" },
+                        { "id": 80988, "name": "\u4f2f\u660e\u7f55" },
+                        { "id": 81012, "name": "\u4e2d\u592e\u516c\u56ed" },
+                        { "id": 81042, "name": "\u725b\u6d25" },
+                        { "id": 81107, "name": "\u5510\u5361\u65af\u7279" },
+                        { "id": 81108, "name": "\u8c22\u83f2\u5c14\u5fb7" },
+                        { "id": 81143, "name": "\u6258\u65af\u7279" },
+                        { "id": 81543, "name": "\u7ebd\u5361\u7d20" }
+                    ]
+                }
+            ],
+            "withinAnHour": {
+                "name": "The Next",
+                "num": 12,
+                "tag": "withinAnHour",
+                "competitions": [
+                    { "id": 80961, "name": "\u8428\u798f\u514b\u5510\u65af" },
+                    { "id": 80971, "name": "\u7f57\u59c6\u798f\u5fb7" },
+                    { "id": 80986, "name": "\u8499\u6469\u5c14" },
+                    { "id": 80988, "name": "\u4f2f\u660e\u7f55" }
+                ]
+            },
+            "today": {
+                "name": "\u4eca\u65e5",
+                "num": 230,
+                "tag": "today",
+                "competitions": [
+                    { "id": 80957, "name": "\u53f6\u58eb\u57df\u6cbb" },
+                    { "id": 80964, "name": "\u6c83\u62c9\u683c\u5c14" },
+                    { "id": 81007, "name": "\u5409\u6717" },
+                    { "id": 81020, "name": "\u6c64\u65af\u7ef4\u5c14" },
+                    { "id": 81153, "name": "\u9ed8\u91cc\u5e03\u91cc\u5947" },
+                    { "id": 81154, "name": "\u970d\u820d\u59c6" },
+                    { "id": 81155, "name": "\u5e03\u5229" },
+                    { "id": 81158, "name": "\u5c24\u6602\u514b\u65af" },
+                    { "id": 81159, "name": "\u9ad8\u58eb\u798f" },
+                    { "id": 81459, "name": "\u66fc\u675c\u62c9" },
+                    { "id": 80961, "name": "\u8428\u798f\u514b\u5510\u65af" },
+                    { "id": 80966, "name": "\u514b\u96f7\u798f\u5fb7" },
+                    { "id": 80971, "name": "\u7f57\u59c6\u798f\u5fb7" },
+                    { "id": 80986, "name": "\u8499\u6469\u5c14" },
+                    { "id": 80988, "name": "\u4f2f\u660e\u7f55" },
+                    { "id": 81012, "name": "\u4e2d\u592e\u516c\u56ed" },
+                    { "id": 81042, "name": "\u725b\u6d25" },
+                    { "id": 81107, "name": "\u5510\u5361\u65af\u7279" },
+                    { "id": 81108, "name": "\u8c22\u83f2\u5c14\u5fb7" },
+                    { "id": 81143, "name": "\u6258\u65af\u7279" },
+                    { "id": 81543, "name": "\u7ebd\u5361\u7d20" }
+                ]
+            },
+            "tomorrow": { "name": "Tomorrow", "num": 0, "tag": "tomorrow", "competitions": [] },
+            "dayAfterTomorrow": { "name": "2024-04-25", "num": 0, "tag": "dayAfterTomorrow", "competitions": [] },
+            "favorite": { "num": 0, "events": [] },
+            "sport": "\u8d5b\u72d7",
+            "tags": [],
+            "sort": 4,
+            "all_competition_amount": 21,
+            "num": 230
+        },
+        "9": {
+            "all_competition": [
+                {
+                    "country_code": "AU",
+                    "country_name": "\u6fb3\u5927\u5229\u4e9a",
+                    "icon": "https://api.sport.nqsf9emow.com/images/country/c4/06/c4061c20051a797670f54b7925751258.png",
+                    "num": 6,
+                    "sort": 1,
+                    "competitions": [
+                        { "id": 80960, "name": "\u6c83\u52a0" },
+                        { "id": 81004, "name": "\u8c22\u73c0\u987f" },
+                        { "id": 81009, "name": "\u683c\u6d1b\u65af\u7279\u516c\u56ed" },
+                        { "id": 81034, "name": "\u6885\u5357\u683c\u5c14" },
+                        { "id": 81036, "name": "\u73af\u7403\u5fb7\u6bd4" },
+                        { "id": 81265, "name": "\u9a6c\u5821" }
+                    ]
+                }
+            ],
+            "withinAnHour": { "name": "The Next", "num": 0, "tag": "withinAnHour", "competitions": [] },
+            "today": {
+                "name": "\u4eca\u65e5",
+                "num": 48,
+                "tag": "today",
+                "competitions": [
+                    { "id": 80960, "name": "\u6c83\u52a0" },
+                    { "id": 81004, "name": "\u8c22\u73c0\u987f" },
+                    { "id": 81009, "name": "\u683c\u6d1b\u65af\u7279\u516c\u56ed" },
+                    { "id": 81034, "name": "\u6885\u5357\u683c\u5c14" },
+                    { "id": 81036, "name": "\u73af\u7403\u5fb7\u6bd4" },
+                    { "id": 81265, "name": "\u9a6c\u5821" }
+                ]
+            },
+            "tomorrow": { "name": "Tomorrow", "num": 0, "tag": "tomorrow", "competitions": [] },
+            "dayAfterTomorrow": { "name": "2024-04-25", "num": 0, "tag": "dayAfterTomorrow", "competitions": [] },
+            "favorite": { "num": 0, "events": [] },
+            "sport": "\u9a6c\u8f66\u8d5b",
+            "tags": [],
+            "sort": 5,
+            "all_competition_amount": 6,
+            "num": 48
+        },
+        "5": {
+            "inplay": { "name": "\u6eda\u7403", "num": 0, "tag": "inplay", "icon": "In-Play.png", "competitions": [] },
+            "today": { "name": "\u4eca\u65e5", "num": 0, "tag": "today", "icon": "Today.png", "competitions": [] },
+            "future": { "name": "\u65e9\u76d8", "num": 0, "tag": "future", "icon": "Early Market.png", "competitions": [] },
+            "favorite": { "num": 0, "events": [] },
+            "sport": "\u7f8e\u5f0f\u8db3\u7403",
+            "all_competition": [],
+            "tags": [],
+            "sort": 2,
+            "all_competition_amount": 0,
+            "num": 0
+        },
+        "champion": { "name": "\u51a0\u519b", "all_competition_amount": 0, "competitions": [] }
+    }
+}

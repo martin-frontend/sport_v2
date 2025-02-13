@@ -1,0 +1,74 @@
+{
+    "status": 0,
+    "msg": "success",
+    "extend": {
+        "date": "2024-04-23 23:18:45",
+        "microtime": 1713885525.089018,
+        "unique": "6627d15514ad41742486501",
+        "version": 0,
+        "runtime": "4.9 ms"
+    },
+    "data": {
+        "client": {
+            "plat_id": "10080",
+            "isgold": "1",
+            "cdn_url": "https://api.sport.nqsf9emow.com/",
+            "isRecharge": "1",
+            "champion_type": "RMM_OUTRIGHTS,RMM_QUALIFIERS_2,RMM_QUALIFIERS_1,RMM_Qualifiers",
+            "MarketType_area": "0",
+            "isDefaultParlay": 0,
+            "pcMarketTypeBySportId": {
+                "1": "MATCH_ODDS,MATCH_ODDS_HALF_TIME,ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME,ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME",
+                "4": "MONEY_LINE,HANDICAP,TOTAL_POINTS,MONEY_LINE_HALF_TIME,HANDICAP_HALF_TIME,TOTAL_POINTS_HALF_TIME",
+                "5": "HANDICAP,TOTAL_POINTS,MONEY_LINE,MONEY_LINE_HALF_TIME,HANDICAP_HALF_TIME,TOTAL_POINTS_HALF_TIME"
+            },
+            "h5MarketTypeBySportId": {
+                "1": "ASIAN_HANDICAP,ASIAN_OVER_UNDER",
+                "4": "HANDICAP,TOTAL_POINTS",
+                "5": "HANDICAP,TOTAL_POINTS"
+            },
+            "pcMarketTypeExtraBySportId": {
+                "1": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES",
+                "4": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES",
+                "5": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME,ASIAN_HANDICAP_EXTRA_TIME_HALF_TIME,ASIAN_OVER_UNDER_EXTRA_TIME_HALF_TIME,ASIAN_HANDICAP_AFTER_PENALTIES,ASIAN_OVER_UNDER_AFTER_PENALTIES"
+            },
+            "h5MarketTypeExtraBySportId": {
+                "1": "ASIAN_HANDICAP_EXTRA_TIME,ASIAN_OVER_UNDER_EXTRA_TIME",
+                "4": "HANDICAP,TOTAL_POINTS",
+                "5": "HANDICAP,TOTAL_POINTS"
+            },
+            "championTypeBySportId": {
+                "1": "RMM_OUTRIGHTS",
+                "4": "RMM_OUTRIGHTS",
+                "5": "RMM_OUTRIGHTS"
+            },
+            "pcMarketTypeBySportId_extends": {
+                "1": [
+                    {
+                        "name": "\u8ba9\u7403",
+                        "type": "ASIAN_HANDICAP,ASIAN_HANDICAP_HALF_TIME"
+                    },
+                    {
+                        "name": "\u5927\u5c0f",
+                        "type": "ASIAN_OVER_UNDER,ASIAN_OVER_UNDER_HALF_TIME"
+                    }
+                ],
+                "4": [
+                    { "name": "\u8ba9\u7403", "type": "HANDICAP,HANDICAP_HALF_TIME" },
+                    {
+                        "name": "\u5927\u5c0f",
+                        "type": "TOTAL_POINTS,TOTAL_POINTS_HALF_TIME"
+                    }
+                ],
+                "5": [
+                    { "name": "\u8ba9\u7403", "type": "HANDICAP,HANDICAP_HALF_TIME" },
+                    {
+                        "name": "\u5927\u5c0f",
+                        "type": "TOTAL_POINTS,TOTAL_POINTS_HALF_TIME"
+                    }
+                ]
+            }
+        },
+        "odds_type": 4
+    }
+}

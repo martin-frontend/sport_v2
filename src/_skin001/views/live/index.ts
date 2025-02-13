@@ -12,7 +12,6 @@ function init(event_id: number, sport_id?: any, tag?: any) {
     myProxy.listQueryComp.tag = !SportUtil.isRaceEvent(myProxy.listQueryComp.sport_id)
         ? tag ?? homeProxy.listQueryComp.tag
         : tag ?? racingDetailProxy.listQueryComp.tag;
-
     if (event_id) {
         myProxy.listQueryComp.event_id = event_id.toString();
         myProxy.api_event_list();
